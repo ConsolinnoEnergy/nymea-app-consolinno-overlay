@@ -6,8 +6,13 @@ import "../components"
 
 SettingsPageBase {
     id: root
-    title: qsTr("Network settings")
     busy: networkManager.loading || d.pendingCallCount > 0
+
+    header: CoHeader {
+        text: qsTr("Network settings")
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Active) {
@@ -160,16 +165,18 @@ SettingsPageBase {
 
 
     RowLayout {
-        Layout.topMargin: app.margins * 6
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
+        Layout.topMargin: Style.margins * 6
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
         visible: !networkManager.available && !networkManager.loading
-        spacing: app.margins
+        spacing: Style.margins
+
         ColorIcon {
             Layout.preferredHeight: Style.iconSize
             Layout.preferredWidth: Style.iconSize
             name: "/icons/connections/network-wired-disabled.svg"
         }
+
         Label {
             Layout.fillWidth: true
             wrapMode: Text.WordWrap
@@ -179,9 +186,9 @@ SettingsPageBase {
 
     CoFrostyCard {
         Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        Layout.topMargin: app.margins
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.smallMargins
+        Layout.rightMargin: Style.smallMargins
         visible: networkManager.available
         contentTopMargin: Style.smallMargins
         headerText: qsTr("General")
@@ -191,7 +198,7 @@ SettingsPageBase {
             anchors.right: parent.right
             spacing: 0
 
-            NymeaItemDelegate {
+            CoCard {
                 Layout.fillWidth: true
                 text: {
                     switch (networkManager.state) {
@@ -214,63 +221,22 @@ SettingsPageBase {
                     }
                 }
 
-                prominentSubText: false
-                subText: qsTr("State")
-                progressive: false
-                additionalItem: Led {
-                    anchors.verticalCenter: parent.verticalCenter
-                    state: {
-                        switch (networkManager.state) {
-                        case NetworkManager.NetworkManagerStateUnknown:
-                        case NetworkManager.NetworkManagerStateAsleep:
-                            return "off";
-                        case NetworkManager.NetworkManagerStateDisconnected:
-                        case NetworkManager.NetworkManagerStateDisconnecting:
-                            return "red"
-                        case NetworkManager.NetworkManagerStateConnecting:
-                        case NetworkManager.NetworkManagerStateConnectedLocal:
-                        case NetworkManager.NetworkManagerStateConnectedSite:
-                            return "orange"
-                        case NetworkManager.NetworkManagerStateConnectedGlobal:
-                            return "green";
-                        }
-                    }
-                }
-            }
-
-            NymeaItemDelegate {
-                Layout.fillWidth: true
-                text: qsTr("Networking enabled")
-                subText: qsTr("Enable or disable networking altogether")
-                prominentSubText: false
-                progressive: false
-                visible: false
-                additionalItem: ConsolinnoSwitch {
-                    anchors.verticalCenter: parent.verticalCenter
-                    checked: networkManager.networkingEnabled
-                    onClicked: {
-                        if (!checked) {
-                            var dialog = Qt.createComponent(Qt.resolvedUrl("../components/NymeaDialog.qml"));
-                            var text = qsTr("Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.").arg(Configuration.systemName)
-                                    + "\n\n"
-                                    + qsTr("Do you want to proceed?")
-                            var popup = dialog.createObject(app,
-                                                            {
-                                                                headerIcon: "/icons/dialog-warning-symbolic.svg",
-                                                                title: qsTr("Disable networking?"),
-                                                                text: text,
-                                                                standardButtons: Dialog.Ok | Dialog.Cancel
-                                                            });
-                            popup.open();
-                            popup.accepted.connect(function() {
-                                d.add(networkManager.enableNetworking(false));
-                            })
-                            popup.rejected.connect(function() {
-                                checked = true;
-                            })
-                        } else {
-                            d.add(networkManager.enableNetworking(true));
-                        }
+                labelText: qsTr("State")
+                interactive: false
+                status: {
+                    switch (networkManager.state) {
+                    case NetworkManager.NetworkManagerStateUnknown:
+                    case NetworkManager.NetworkManagerStateAsleep:
+                        return CoCard.StatusType.Neutral;
+                    case NetworkManager.NetworkManagerStateDisconnected:
+                    case NetworkManager.NetworkManagerStateDisconnecting:
+                        return CoCard.StatusType.Danger;
+                    case NetworkManager.NetworkManagerStateConnecting:
+                    case NetworkManager.NetworkManagerStateConnectedLocal:
+                    case NetworkManager.NetworkManagerStateConnectedSite:
+                        return CoCard.StatusType.Warning;
+                    case NetworkManager.NetworkManagerStateConnectedGlobal:
+                        return CoCard.StatusType.Success;
                     }
                 }
             }
@@ -279,9 +245,9 @@ SettingsPageBase {
 
     CoFrostyCard {
         Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        Layout.topMargin: app.margins
+        Layout.leftMargin: Style.smallMargins
+        Layout.rightMargin: Style.smallMargins
+        Layout.topMargin: Style.margins
         visible: networkManager.available && networkManager.networkingEnabled
         contentTopMargin: Style.smallMargins
         headerText: qsTr("Wired network")
@@ -291,39 +257,41 @@ SettingsPageBase {
             anchors.right: parent.right
             spacing: 0
 
-            Label {
+            CoCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                Layout.topMargin: Style.smallMargins
-                Layout.bottomMargin: Style.smallMargins
                 text: qsTr("No wired network interfaces available")
-                wrapMode: Text.WordWrap
                 visible: networkManager.wiredNetworkDevices.count === 0
             }
 
             Repeater {
                 model: networkManager.wiredNetworkDevices
 
-                NymeaItemDelegate {
+                CoCard {
                     Layout.fillWidth: true
-                    iconName: model.pluggedIn ? "/icons/connections/network-wired.svg" : "/icons/connections/network-wired-offline.svg"
+                    iconLeft: model.pluggedIn ?
+                                  "/icons/connections/network-wired.svg" :
+                                  "/icons/connections/network-wired-offline.svg"
                     text: interfaceDisplayName(model.interface)  + " (" + model.macAddress + ")"
-                    subText: {
-                        var ret = model.pluggedIn ? qsTr("Plugged in") : qsTr("Unplugged")
-                        ret += " - "
-                        ret += networkStateToString(model.state)
+                    labelText: {
+                        var ret = model.pluggedIn ? qsTr("Plugged in") : qsTr("Unplugged");
+                        ret += " - ";
+                        ret += networkStateToString(model.state);
                         return ret;
                     }
-                    progressive: engine.jsonRpcClient.ensureServerVersion("6.2")
+                    interactive: engine.jsonRpcClient.ensureServerVersion("6.2")
+                    showChildrenIndicator: interactive
                     onClicked: {
                         if (!engine.jsonRpcClient.ensureServerVersion("6.2")) {
                             return;
                         }
                         var wiredNetworkDevice = networkManager.wiredNetworkDevices.getWiredNetworkDevice(model.interface);
-                        console.debug("Clicked wired network device", wiredNetworkDevice.interface, wiredNetworkDevice.state)
-                        d.navigatedToSubPage = true
-                        pageStack.push(currentEthernetConnectionPageComponent, {wiredNetworkDevice: wiredNetworkDevice, displayName: interfaceDisplayName(model.interface)})
+                        console.debug("Clicked wired network device", wiredNetworkDevice.interface, wiredNetworkDevice.state);
+                        d.navigatedToSubPage = true;
+                        pageStack.push(currentEthernetConnectionPageComponent,
+                                       {
+                                           wiredNetworkDevice: wiredNetworkDevice,
+                                           displayName: interfaceDisplayName(model.interface)
+                                       });
                     }
                 }
             }
@@ -334,7 +302,12 @@ SettingsPageBase {
         id: currentEthernetConnectionPageComponent
         SettingsPageBase {
             id: currentEthernetConnectionPage
-            title: currentEthernetConnectionPage.displayName
+
+            header: CoHeader {
+                text: currentEthernetConnectionPage.displayName
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             property WiredNetworkDevice wiredNetworkDevice: null
             property string displayName: ""
@@ -351,9 +324,9 @@ SettingsPageBase {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                Layout.topMargin: app.margins
+                Layout.leftMargin: Style.smallMargins
+                Layout.rightMargin: Style.smallMargins
+                Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("Details")
 
@@ -362,33 +335,36 @@ SettingsPageBase {
                     anchors.right: parent.right
                     spacing: 0
 
-                    NymeaItemDelegate {
+                    CoCard {
                         Layout.fillWidth: true
                         text: currentEthernetConnectionPage.wiredNetworkDevice.macAddress
-                        subText: qsTr("MAC Address")
-                        progressive: false
+                        labelText: qsTr("MAC Address")
+                        interactive: false
                     }
-                    NymeaItemDelegate {
+                    CoCard {
                         Layout.fillWidth: true
-                        text: currentEthernetConnectionPage.wiredNetworkDevice.ipv4Addresses.join(", ")
-                        subText: qsTr("IPv4 Address")
-                        progressive: false
+                        text: {
+                            let ipAddresses = currentEthernetConnectionPage.wiredNetworkDevice.ipv4Addresses.join(", ");
+                            return ipAddresses === "" ? "-" : ipAddresses;
+                        }
+                        labelText: qsTr("IPv4 Address")
+                        interactive: false
                     }
-                    NymeaItemDelegate {
+                    CoCard {
                         Layout.fillWidth: true
                         text: currentEthernetConnectionPage.wiredNetworkDevice.ipv6Addresses.join(", ")
-                        subText: qsTr("IPv6 Address")
+                        labelText: qsTr("IPv6 Address")
                         visible: text.length > 0
-                        progressive: false
+                        interactive: false
                     }
                 }
             }
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                Layout.topMargin: app.margins
+                Layout.leftMargin: Style.smallMargins
+                Layout.rightMargin: Style.smallMargins
+                Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("IP configuration")
                 visible: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1"
@@ -398,25 +374,33 @@ SettingsPageBase {
                     anchors.right: parent.right
                     spacing: 0
 
-                    ConsolinnoRadioDelegate {
+                    CoRadioButton {
                         id: dhcpServerRadioButton
-                        size: 26
+                        Layout.fillWidth: true
                         text: qsTr("DHCP server")
-                        description: qsTr("Default")
+                        helpText: qsTr("Default")
                     }
-                    ConsolinnoRadioDelegate {
+
+                    CoRadioButton {
                         id: manualClientRadioButton
-                        size: 26
+                        Layout.fillWidth: true
                         text: qsTr("Static")
+                    }
+
+                    ButtonGroup {
+                        buttons: [
+                            dhcpServerRadioButton.radioButton,
+                            manualClientRadioButton.radioButton
+                        ]
                     }
                 }
             }
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                Layout.topMargin: app.margins
+                Layout.leftMargin: Style.smallMargins
+                Layout.rightMargin: Style.smallMargins
+                Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("\"Static\"")
                 visible: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1"
@@ -429,44 +413,27 @@ SettingsPageBase {
 
                     ColumnLayout {
                         Layout.fillWidth: true
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
                         Layout.topMargin: Style.smallMargins
                         Layout.bottomMargin: Style.smallMargins
 
-                        Label {
-                            text: qsTr("IP Address")
-                        }
-
-                        TextField {
+                        CoInputField {
                             id: ipTextField
-                            maximumLength: 15
                             Layout.fillWidth: true
-                            horizontalAlignment: Text.AlignRight
-                            validator: RegularExpressionValidator {
-                                regularExpression: /^((?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])\.){0,3}(?:[0-1]?[0-9]?[0-9]|2[0-4][0-9]|25[0-5])$/
+                            labelText: qsTr("IP Address")
+                            textField.validator: RegularExpressionValidator {
+                                regularExpression: /^(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])$/
                             }
                         }
 
-                        Label {
-                            text: qsTr("Prefix length")
-                        }
-
-                        TextField {
+                        CoInputField {
                             id: prefixTextField
-
-                            property int maxChars: 2
-                            maximumLength: maxChars
-
-                            FontMetrics {
-                                id: fontMetrics
-                                font: prefixTextField.font
-                            }
-
-                            Layout.preferredWidth: fontMetrics.advanceWidth("W".repeat(maxChars)) + leftPadding + rightPadding
+                            Layout.fillWidth: true
+                            labelText: qsTr("Prefix length")
+                            compact: true
                             text: "24"
-                            Layout.fillWidth: false
-                            validator: IntValidator {
+                            textField.validator: IntValidator {
                                 bottom: 8
                                 top: 32
                             }
@@ -477,13 +444,13 @@ SettingsPageBase {
 
             Button {
                 Layout.fillWidth: true
-                Layout.margins: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
+                Layout.margins: Style.margins
+                Layout.leftMargin: Style.smallMargins
+                Layout.rightMargin: Style.smallMargins
                 visible: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1"
                 text: qsTr("Write settings")
                 enabled: {
-                    if (dhcpClientRadioButton.checked || dhcpServerRadioButton.checked) {
+                    if (dhcpServerRadioButton.checked) {
                         return true;
                     }
                     return ipTextField.acceptableInput && prefixTextField.acceptableInput
