@@ -139,8 +139,16 @@ Page {
                     labelText: qsTr("Maximum SoC")
                     valueText: value + " %"
                     stepSize: 1
-                    from: 60
-                    to: 95
+                    from: 0
+                    to: 100
+
+                    onValueChanged: {
+                        if (value < 60) {
+                            value = 60;
+                        } else if (value > 95) {
+                            value = 95;
+                        }
+                    }
 
                     Component.onCompleted: {
                         value = batteryConfiguration.maxSoC;
@@ -154,8 +162,16 @@ Page {
                     labelText: qsTr("Minimum SoC")
                     valueText: value + " %"
                     stepSize: 1
-                    from: 5
-                    to: 40
+                    from: 0
+                    to: 100
+
+                    onValueChanged: {
+                        if (value < 5) {
+                            value = 5;
+                        } else if (value > 40) {
+                            value = 40;
+                        }
+                    }
 
                     Component.onCompleted: {
                         value = batteryConfiguration.minSoC;
