@@ -275,6 +275,7 @@
         <file>components/CoSlider.qml</file>
         <file>components/CoFieldNotification.qml</file>
         <file>components/CoSwitch.qml</file>
+        <file>components/CoRadioButton.qml</file>
         <file>components/CoKPICard.qml</file>
         <file>components/CoEnergyCircle.qml</file>
         <file>components/CoComboBox.qml</file>
