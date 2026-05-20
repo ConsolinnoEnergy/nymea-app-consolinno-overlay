@@ -13,7 +13,7 @@ import "../optimization"
 Page {
     id: root
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Development")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

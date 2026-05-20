@@ -40,7 +40,7 @@ Page {
     property bool settingsWizard: true
     signal done(bool skip, bool abort, bool back)
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
         onBackPressed: {
@@ -299,7 +299,7 @@ Page {
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
             Layout.bottomMargin: Style.margins
-            secondary: true
+            flat: true
             visible: root.settingsWizard
             onClicked: {
                 root.done(false, true, false);
@@ -318,15 +318,16 @@ Page {
 
             busy: d.pendingCommandId !== -1
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Modbus-RTU-Interface")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
 
-                HeaderButton {
-                    imageSource: "/icons/delete.svg"
+                RoundButton {
+                    icon.source: "/icons/delete_forever.svg"
                     text: qsTr("Remove Modbus RTU Interface")
                     enabled: modbusRtuManager.supported
+                    flat: true
                     onClicked: {
                         var dialog = removeModbusMasterDialogComponent.createObject(app,
                                                                                     {

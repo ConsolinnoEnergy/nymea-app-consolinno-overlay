@@ -37,6 +37,11 @@ import "../components"
 SettingsPageBase {
     id: root
     title: qsTr("Connection settings")
+    header: CoHeader {
+        text: root.title
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
 
     SettingsPageSectionHeader {
         text: qsTr("Remote connection")

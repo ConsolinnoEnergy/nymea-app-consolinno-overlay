@@ -5,6 +5,7 @@ import Qt5Compat.GraphicalEffects
 import Nymea 1.0
 
 Frame {
+    id: root
     property alias headerText: header.text
     default property alias content: body.data
     property int contentBottomMargin: 8
@@ -64,6 +65,9 @@ Frame {
             anchors.rightMargin: Style.margins
             color: Style.colors.typography_Headlines_H2
             font: Style.newH2Font
+            opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
+            wrapMode: Text.WordWrap
+            elide: Text.ElideRight
         }
 
         Item {

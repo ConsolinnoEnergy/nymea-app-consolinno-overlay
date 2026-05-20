@@ -181,7 +181,7 @@ GenericConfigPage {
                 CoEnergyCircle {
                     id: energyCircle
                     Layout.fillWidth: true
-                    power: root.currentPowerState ? root.currentPowerState.value : 0
+                    power: root.currentPowerState ? Math.abs(root.currentPowerState.value) : 0
                     icon: root.batteryLevelState ?
                               batteryIconByLevel(root.batteryLevelState.value) :
                               app.interfacesToIcon(root.thing.thingClass.interfaces)
@@ -249,7 +249,8 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging from grid") // #TODO wording
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 &&
+                             dynamicPrice.count >= 1
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -261,6 +262,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Tariff-controlled charging")
                             visible: dynamicPrice.count >= 1
+                            infoUrl: "TariffGuidedChargingInfo.qml"
 
                             Component.onCompleted: {
                                 checked = root.batteryConfiguration.optimizationEnabled;
@@ -280,6 +282,7 @@ GenericConfigPage {
                             enabled: !root.isZeroCompensation
                             // #TODO show helpText when not enabled to explain why?
                             visible: tariffControlledChargingToggle.checked
+                            infoUrl: "ActivateInstantChargingInfo.qml"
 
                             Component.onCompleted: {
                                 checked = root.batteryConfiguration.chargeOnce;
@@ -299,11 +302,11 @@ GenericConfigPage {
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging plan") // #TODO wording
                     visible: tariffControlledChargingToggle.checked
+                    enabled: !chargeOnceToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
                         anchors.right: parent.right
-                        enabled: !chargeOnceToggle.checked
 
                         CoSlider {
                             id: chargingThresholdSlider

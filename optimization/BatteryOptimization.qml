@@ -14,7 +14,7 @@ Page {
     property bool isSetup: false
     signal done()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Battery")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
@@ -64,8 +64,6 @@ Page {
             ColumnLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
                 spacing: 0
 
                 CoInputField {

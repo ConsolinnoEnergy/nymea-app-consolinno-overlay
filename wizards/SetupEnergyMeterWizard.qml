@@ -12,7 +12,7 @@ Page {
 
     signal done(bool skip, bool abort);
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Setup energy meter")
         onBackPressed: pageStack.pop()
     }
@@ -143,7 +143,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Cancel")
-            secondary: true
+            flat: true
             onClicked: root.done(false, true)
         }
     }
@@ -192,6 +192,11 @@ Page {
 
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
+            header: CoHeader {
+                text: discoveryParamsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -248,7 +253,7 @@ Page {
             property ThingClass thingClass
             property Thing thing
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
@@ -340,6 +345,11 @@ Page {
             property ThingClass thingClass
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
@@ -445,7 +455,7 @@ Page {
         Page {
             id: setupEnergyMeterPage
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Setup energy meter")
                 onBackPressed: pageStack.pop()
             }

@@ -33,7 +33,6 @@ Item {
         anchors.fill: parent
         anchors.topMargin: Style.smallMargins
         anchors.bottomMargin: Style.smallMargins
-        anchors.leftMargin: Style.margins
         anchors.rightMargin: Style.margins
         spacing: Style.margins
 

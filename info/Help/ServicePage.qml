@@ -10,12 +10,11 @@ import "../../delegates"
 
 Page {
 
-    header: ConsolinnoHeader {
+    header: CoHeader {
         id: header
         text: qsTr("Service %1").arg(Configuration.appBranding)
         backButtonVisible: true
         onBackPressed: pageStack.pop()
-        show_Image: false
     }
 
     ColumnLayout{

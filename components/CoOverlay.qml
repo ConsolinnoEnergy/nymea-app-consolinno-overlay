@@ -63,7 +63,7 @@ Dialog {
             RoundButton {
                 id: rejectButton
                 icon.source: Qt.resolvedUrl("/icons/close.svg")
-                secondary: true
+                flat: true
                 onClicked: root.reject()
             }
 

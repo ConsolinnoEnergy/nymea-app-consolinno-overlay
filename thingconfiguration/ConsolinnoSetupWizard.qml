@@ -215,6 +215,12 @@ Page {
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(root.thingClass.displayName)
 
+            header: CoHeader {
+                text: qsTr("Discover %1").arg(root.thingClass.displayName)
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
             CoFrostyCard {
                 Layout.fillWidth: true
                 Layout.topMargin: Style.margins
@@ -266,15 +272,16 @@ Page {
         SettingsPageBase {
             id: discoveryView
 
-            header: NymeaHeader {
+            header: CoHeader {
                 text: qsTr("Discover %1").arg(root.thingClass.displayName)
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
 
-                HeaderButton {
-                    imageSource: "qrc:/icons/configure.svg"
+                RoundButton {
+                    icon.source: "qrc:/icons/configure.svg"
                     visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
                     text: qsTr("Add thing manually")
+                    flat: true
                     onClicked: internalPageStack.push(paramsPage)
                 }
             }
@@ -365,6 +372,11 @@ Page {
         SettingsPageBase {
             id: paramsView
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            header: CoHeader {
+                text: paramsView.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
 
             CoFrostyCard {
                 id: nameGroup
@@ -458,8 +470,7 @@ Page {
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.bigMargins
-
-                secondary: true
+                flat: true
                 text: qsTr("Reset values to default")
                 onClicked: {
                     var model = paramRepeater.model
@@ -503,6 +514,11 @@ Page {
         SettingsPageBase {
             id: pairingPage
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
+            header: CoHeader {
+                text: pairingPage.title
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
             property alias text: textLabel.text
             property string setupMethod
 
@@ -564,7 +580,7 @@ Page {
         Page {
             id: oAuthPage
             property string oAuthUrl
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
             }
@@ -651,7 +667,7 @@ Page {
 
         Page {
             id: resultsView
-            header: NymeaHeader {
+            header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
             }

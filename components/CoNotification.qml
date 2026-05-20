@@ -127,7 +127,7 @@ Item {
                 id: actionButton
                 Layout.alignment: Qt.AlignTop
                 visible: root.actionType !== CoNotification.ActionType.None
-                size: 20
+                size: 24
                 color: root.accentColor()
                 name: root.actionType === CoNotification.ActionType.Collapsible
                       ? (root.collapsed

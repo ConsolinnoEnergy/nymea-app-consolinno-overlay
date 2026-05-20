@@ -28,8 +28,13 @@ bool CoKpiStatsProvider::fetchingKpiSeries() const
 
 void CoKpiStatsProvider::fetchKpiSeries(const QVariantList &periods)
 {
-    if (!m_engine || !m_engine->jsonRpcClient() || !m_engine->jsonRpcClient()->authenticated()) {
-        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or not authenticated";
+    if (!m_engine || !m_engine->jsonRpcClient()) {
+        qCWarning(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: no engine or JSON-RPC client";
+        return;
+    }
+
+    if (!m_engine->jsonRpcClient()->connected()) {
+        qCDebug(dcCoKpiStatsProvider()) << "Cannot fetch KPI series: not connected.";
         return;
     }
 

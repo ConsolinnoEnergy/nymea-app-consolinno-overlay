@@ -10,7 +10,7 @@ import "../optimization"
 Page {
     id: root
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{

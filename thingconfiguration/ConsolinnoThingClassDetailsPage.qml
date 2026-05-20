@@ -40,7 +40,7 @@ SettingsPageBase {
     property Thing thing: null
     readonly property ThingClass thingClass: thing ? thing.thingClass : null
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: root.thingClass.displayName
         onBackPressed: pageStack.pop()
     }

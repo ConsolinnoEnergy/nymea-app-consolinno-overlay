@@ -11,7 +11,7 @@ Page {
     id: root
     signal startWizard()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Device Overview")
         onBackPressed: {
             if (hemsManager.availableUseCases === 0){
@@ -37,19 +37,22 @@ Page {
                 return;
             }
 
+            var thing = d.thingToRemove;
+            d.thingToRemove = null;
             switch (thingError) {
             case Thing.ThingErrorNoError:
-                d.thingToRemove = null;
                 return;
-            case Thing.ThingErrorThingInRule:
+            case Thing.ThingErrorThingInRule: {
                 var removeMethodComponent = Qt.createComponent(Qt.resolvedUrl("../components/RemoveThingMethodDialog.qml"))
-                var popup = removeMethodComponent.createObject(root, {thing: d.thingToRemove, rulesList: ruleIds});
+                var popup = removeMethodComponent.createObject(root, {thing: thing, rulesList: ruleIds});
                 popup.open();
                 return;
-            default:
+            }
+            default: {
                 var errorDialog = Qt.createComponent(Qt.resolvedUrl("../components/ErrorDialog.qml"))
                 var popup = errorDialog.createObject(root, {error: thingError})
                 popup.open();
+            }
             }
         }
     }
@@ -542,6 +545,9 @@ Page {
         //buttonText: qsTr("Add a thing")
         buttonVisible: false
         //onButtonClicked: pageStack.push(Qt.resolvedUrl("NewThingPage.qml"))
+    }
 
+    BusyOverlay {
+        shown: d.thingToRemove !== null
     }
 }

@@ -13,7 +13,7 @@ Page {
     property int directionID: 0
     signal done()
 
-    header: NymeaHeader {
+    header: CoHeader {
         text: qsTr("Heating")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -63,8 +63,6 @@ Page {
             ColumnLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
                 spacing: 0
 
                 CoInputField {

@@ -51,16 +51,19 @@ T.Slider {
     padding: 1
 
     handle: Rectangle {
-        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width + 2 * 7) - 7 : (control.availableWidth - width) / 2)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height + 2 * 7) - 7)
+        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width + 2 * 7) - 7 : (control.availableWidth - width) / 2 + 1)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 + 1 : control.visualPosition * (control.availableHeight - height + 2 * 7) - 7)
         implicitWidth: 30
         implicitHeight: 30
         radius: width / 2
-        color: control.pressed ?
-                   Style.colors.components_Forms_Slider_Thumb_pressed_accent :
-                   control.hovered ?
-                       Style.colors.components_Forms_Slider_Thumb_hover_accent :
-                       "transparent"
+        color: {
+            if (!control.enabled) return "transparent";
+            return control.pressed ?
+                        Style.colors.components_Forms_Slider_Thumb_pressed_accent :
+                        control.hovered ?
+                            Style.colors.components_Forms_Slider_Thumb_hover_accent :
+                            "transparent";
+        }
 
         Rectangle {
             property int ringWidth: control.pressed ? 5 : 7
@@ -89,8 +92,8 @@ T.Slider {
 
         Rectangle {
             y: control.horizontal ? 0 : control.visualPosition * parent.height
-            width: control.horizontal ? control.position * parent.width : 6
-            height: control.horizontal ? 6 : control.position * parent.height
+            width: control.horizontal ? Math.max(0, control.handle.x + control.handle.width / 2) : 6
+            height: control.horizontal ? 6 : Math.max(0, control.handle.x + control.handle.width / 2)
 
             radius: 4
             color: control.enabled ?

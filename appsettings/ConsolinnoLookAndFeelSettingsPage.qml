@@ -7,6 +7,11 @@ import "../components"
 SettingsPageBase {
     id: root
     title: qsTr("Look and feel")
+    header: CoHeader {
+        text: root.title
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
 
     SettingsPageSectionHeader {
         text: qsTr("Appearance")

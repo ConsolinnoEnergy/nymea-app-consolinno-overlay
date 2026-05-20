@@ -860,7 +860,7 @@ GenericConfigPage {
                 restoreSchedule();
             }
 
-            header: NymeaHeader {
+            header: CoHeader {
                 id: header
                 text: qsTr("Configure charging mode")
                 backButtonVisible: true
@@ -1162,6 +1162,7 @@ GenericConfigPage {
                                 visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Ending time")
                                 valueText: endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                                valueTextWidth: 100
                                 from: 0
                                 to: 24 * 60
                                 stepSize: 1
@@ -1850,6 +1851,12 @@ GenericConfigPage {
                                 if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
                                     var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
                                     mode = mode + gridConsumptionOption;
+                                }
+                                if(isAnyOfModesSelected([time_controlled])) {
+                                    // When using time controlled charging, charging should be paused outside
+                                    // of the charging time slots. We need to add 200 (which is "Pause charging";
+                                    // 0 would be "Charge with minimum current"). Cf. gridConsumptionloadingmod
+                                    mode = mode + 200;
                                 }
                                 return mode;
                             }

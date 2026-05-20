@@ -13,8 +13,8 @@ Page {
     property int directionID: 0
     signal done()
 
-    header: NymeaHeader {
-        text: switchThing.name
+    header: CoHeader {
+        text: qsTr("Switchable consumers")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
@@ -63,8 +63,6 @@ Page {
             ColumnLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.leftMargin: Style.margins
-                anchors.rightMargin: Style.margins
                 spacing: 0
 
                 CoInputField {
@@ -83,6 +81,7 @@ Page {
                 CoSwitch {
                     id: controllSwitch
                     Layout.fillWidth: true
+                    visible: false // #TODO CLS toggle only starting with version 2.2
                     text: qsTr("Grid-supportive-control")
                     helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
 
@@ -119,11 +118,18 @@ Page {
             onClicked: {
                 let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
                 if (savebutton.inputValid) {
+                    // #TODO CLS toggle only starting with version 2.2
+                    // d.pendingCallId = hemsManager.setSwitchConfiguration(
+                    //     switchConfiguration.switchThingId,
+                    //     {
+                    //         "maxElectricalPower": parsedMaxElectricalPower,
+                    //         "controllableLocalSystem": controllSwitch.checked
+                    //     }
+                    // )
                     d.pendingCallId = hemsManager.setSwitchConfiguration(
                         switchConfiguration.switchThingId,
                         {
-                            "maxElectricalPower": parsedMaxElectricalPower,
-                            "controllableLocalSystem": controllSwitch.checked
+                            "maxElectricalPower": parsedMaxElectricalPower
                         }
                     )
                     if (directionID !== 1) {
