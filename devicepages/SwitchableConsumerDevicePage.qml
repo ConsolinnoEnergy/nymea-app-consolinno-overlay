@@ -228,23 +228,30 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Minimum runtime")
                             helpText: qsTr("Runs at least this long after activation.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: 0
                             to: maxTotalRuntimeStepper.value
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between 0 and %1 h.").arg(NymeaUtils.floatToLocaleString(maxTotalRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = maxTotalRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between 0:00 and %1.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: 0
-                                top: maxTotalRuntimeStepper.value / 4
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^(0?[0-9]|1[0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
 
@@ -253,23 +260,30 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Maximum runtime")
                             helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between %1 and 24 h.").arg(NymeaUtils.floatToLocaleString(minRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = minRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between %1 and 24:00.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: minRuntimeStepper.value / 4
-                                top: 24
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^(0?[0-9]|1[0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
                     }
