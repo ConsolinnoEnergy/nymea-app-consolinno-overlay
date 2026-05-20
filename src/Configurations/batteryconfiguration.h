@@ -23,6 +23,7 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(int maxSoC READ maxSoC WRITE setMaxSoC NOTIFY maxSoCChanged)
     Q_PROPERTY(int minSoC READ minSoC WRITE setMinSoC NOTIFY minSoCChanged)
     Q_PROPERTY(int taperSoC READ taperSoC WRITE setTaperSoC NOTIFY taperSoCChanged)
+    Q_PROPERTY(bool fullyManageableBattery READ fullyManageableBattery WRITE setFullyManageableBattery NOTIFY fullyManageableBatteryChanged)
 
 public:
 
@@ -91,6 +92,9 @@ public:
     int taperSoC() const;
     void setTaperSoC(int taperSoC);
 
+    bool fullyManageableBattery() const;
+    void setFullyManageableBattery(bool fullyManageableBattery);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -106,6 +110,7 @@ signals:
     void maxSoCChanged(int maxSoC);
     void minSoCChanged(int minSoC);
     void taperSoCChanged(int taperSoC);
+    void fullyManageableBatteryChanged(bool fullyManageableBattery);
 
 private:
     QUuid m_batteryThingId;
@@ -123,6 +128,7 @@ private:
     int m_maxSoC = 95;  // %
     int m_minSoC = 5;   // %
     int m_taperSoC = 5; // %
+    bool m_fullyManageableBattery = false;
 };
 
 #endif // BATTERYCONFIGURATION_H
