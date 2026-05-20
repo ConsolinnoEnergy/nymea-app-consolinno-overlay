@@ -213,7 +213,6 @@ ItemDelegate {
                             delegate: CoCard {
                                 width: parent ? parent.width : 0
                                 text: modelData
-                                showChildrenIndicator: true
 
                                 onClicked: {
                                     chooserPopup.selection = text;
