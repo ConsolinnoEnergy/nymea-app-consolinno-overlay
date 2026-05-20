@@ -84,12 +84,6 @@ MainViewBase {
         return batteryConfig.avoidZeroFeedInActive && batteryConfig.avoidZeroFeedInEnabled;
     }
 
-    function adjustAlpha(color, alphaFactor) {
-        let newColor = color;
-        newColor.a *= alphaFactor;
-        return newColor;
-    }
-
     EnergyManager {
         id: energyManager
         engine: _engine
