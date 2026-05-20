@@ -125,10 +125,10 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("HEMS-controlled battery")
                     infoUrl: "HemsControlledBatteryInfo.qml"
-                    visible: true // thing.thingClass.interfaces.includes("fullymanagedbattery") // #TODO and use cases?
+                    visible: true // thing.thingClass.interfaces.includes("fullymanagedbattery") // #TODO
 
                     Component.onCompleted: {
-                        // #TODO set from config
+                        checked = batteryConfiguration.fullymanagableBattery;
                     }
                 }
 
@@ -143,7 +143,7 @@ Page {
                     to: 95
 
                     Component.onCompleted: {
-                        // #TODO set from config
+                        value = batteryConfiguration.maxSoC;
                     }
                 }
 
@@ -158,12 +158,12 @@ Page {
                     to: 40
 
                     Component.onCompleted: {
-                        // #TODO set from config
+                        value = batteryConfiguration.minSoC;
                     }
                 }
 
                 CoSlider {
-                    id: socTaperingRange
+                    id: taperSoC
                     Layout.fillWidth: true
                     visible: hemsControlledBattery.visible && hemsControlledBattery.checked
                     labelText: qsTr("SoC tapering range")
@@ -173,7 +173,7 @@ Page {
                     to: 10
 
                     Component.onCompleted: {
-                        // #TODO set from config
+                        value = batteryConfiguration.taperSoC;
                     }
                 }
             }
@@ -210,7 +210,6 @@ Page {
                     blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
                 }
 
-                // #TODO add values for F071
                 let config = {
                     controllableLocalSystem: gridSupportControl.checked,
                     avoidZeroFeedInEnabled: zeroCompensationControl.checked,
@@ -218,6 +217,14 @@ Page {
                 };
                 if (maxElectricalPower.visible) {
                     config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+                }
+                if (hemsControlledBattery.visible) {
+                    config.fullymanagableBattery = hemsControlledBattery.checked;
+                    if (hemsControlledBattery.checked) {
+                        config.maxSoC = maxSoc.value;
+                        config.minSoC = minSoc.value;
+                        config.taperSoC = taperSoC.value;
+                    }
                 }
 
                 hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
