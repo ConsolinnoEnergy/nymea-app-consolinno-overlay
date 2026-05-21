@@ -13,7 +13,8 @@ StackView {
 
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
-    property Thing eeBusThing: eebusThing.get(0)
+    property Thing eeBusThing: null
+    property ThingClass genericEebusDeviceThingClass: engine.thingManager.thingClasses.getThingClass("d7448dd7-cafc-4ef7-9169-09ea657f755c")
     property double powerLimitLPC: gridSupportThing.stateByName("lpcValue").value
     property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
     property string powerLimitSource: gridSupportThing.settings.get(0).value
@@ -37,6 +38,34 @@ StackView {
         if (eebusState && !eebusSettings.everConnected) {
             eebusSettings.everConnected = true;
         }
+
+        updateEebusThing();
+
+        // #TODO remove when testing finished
+        console.warn("=== genericEebusDeviceThingClass:",
+                     genericEebusDeviceThingClass ? genericEebusDeviceThingClass.displayName : "null");
+        console.warn("=== eeBusThing:", eeBusThing ? eeBusThing.name : "null");
+    }
+
+    function updateEebusThing() {
+        if (eebusGridGuardThings.count === 0) {
+            eeBusThing = null;
+            console.warn("=== No eebusGridGuardThing");  // #TODO remove when testing finished
+            return;
+        }
+        if (eebusGridGuardThings.count > 1) {
+            console.warn("More than one EEBus Grid Guard things are configured!");
+        }
+        const eebusGridGuardThing = eebusGridGuardThings.get(0);
+        console.warn("=== Found eebusGridGuardThing:", eebusGridGuardThing.name); // #TODO remove when testing finished
+        eeBusThing = engine.thingManager.getThing(eebusGridGuardThing.parentId);
+        console.warn("=== Setting eeBusThing:", eeBusThing.name); // #TODO remove when testing finished
+    }
+
+    ThingsProxy {
+        id: eebusGridGuardThings
+        engine: _engine
+        shownThingClassIds: ["f84f7c28-04cc-4da5-8564-402a9361b136"] // "EEBus Grid Guard" thing class ID
     }
 
     QtObject {
@@ -48,7 +77,10 @@ StackView {
     Connections {
         target: engine.thingManager
         onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
-            eeBusThing = engine.thingManager.things.getThing(thingId)
+            updateEebusThing();
+        }
+        onRemoveThingReply: function(commandId, thingError, ruleIds) {
+            updateEebusThing();
         }
     }
 
@@ -57,23 +89,8 @@ StackView {
         engine: _engine
     }
 
-    ThingClassesProxy {
-        id: thingClassesProxy
-        engine: _engine
-        includeProvidedInterfaces: true
-        filterString: "EEBus"
-        groupByInterface: true
-    }
-
     function convertToKw(numberW){
         return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
-    }
-
-    ThingsProxy {
-        id: eebusThing
-        engine: _engine
-        nameFilter: "eebus"
-        shownInterfaces: ["gateway"]
     }
 
     ThingsProxy {
@@ -152,7 +169,7 @@ StackView {
                         CoCard {
                             id: startEebusCard
                             Layout.fillWidth: true
-                            visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
+                            visible: (powerLimitSource === "eebus" && eeBusThing != null)
                             text: qsTr("EEBUS SKI Pairing")
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
@@ -230,9 +247,9 @@ StackView {
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             onClicked: {
-                                discovery.discoverThings(thingClassesProxy.get(0).id);
+                                discovery.discoverThings(genericEebusDeviceThingClass.id);
                                 pageStack.push(eebusViewSelect,
-                                               { thingClass: thingClassesProxy.get(0) });
+                                               { thingClass: genericEebusDeviceThingClass });
                             }
                         }
                     }
@@ -498,7 +515,7 @@ StackView {
                                         onClicked: {
                                             pageStack.push(eebusSetup,
                                                            {
-                                                               thingClass: thingClassesProxy.get(0),
+                                                               thingClass: genericEebusDeviceThingClass,
                                                                discoveryThingParams: eebusDiscovery.get(index)
                                                            });
                                         }
@@ -514,7 +531,7 @@ StackView {
                     text: qsTr("Search again")
 
                     onClicked: {
-                        discovery.discoverThings(thingClassesProxy.get(0).id);
+                        discovery.discoverThings(genericEebusDeviceThingClass.id);
                     }
                 }
 
@@ -621,7 +638,7 @@ StackView {
                     text: qsTr("Complete setup")
 
                     onClicked: {
-                        if (eebusThing.count > 0) {
+                        if (eeBusThing) {
                             engine.thingManager.removeThing(eeBusThing.id);
                         }
 
@@ -737,8 +754,8 @@ StackView {
                                     root.setGridSupportSettings("none");
                                     pageStack.pop();
                                 } else if (index === 1) {
-                                    discovery.discoverThings(thingClassesProxy.get(0).id);
-                                    pageStack.push(eebusViewSelect, { thingClass: thingClassesProxy.get(0) });
+                                    discovery.discoverThings(genericEebusDeviceThingClass.id);
+                                    pageStack.push(eebusViewSelect, { thingClass: genericEebusDeviceThingClass });
                                 }
                                 eebusViewMenu.close();
                             }
@@ -801,7 +818,7 @@ StackView {
                             Layout.fillWidth: true
                             contentTopMargin: Style.margins
                             headerText: qsTr("Status")
-                            visible: eebusThing.count > 0
+                            visible: eeBusThing != null
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -881,7 +898,7 @@ StackView {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
                     headerText: qsTr("Status")
-                    visible: eebusThing.count > 0
+                    visible: eeBusThing != null
 
                     ColumnLayout {
                         anchors.left: parent.left
