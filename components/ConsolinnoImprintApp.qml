@@ -137,26 +137,25 @@ Item {
 
         ThinDivider { }
 
-        RowLayout {
+        Label {
             Layout.fillWidth: true
-            Layout.margins: app.margins
-            spacing: app.margins
-
-            Image {
-                Layout.preferredHeight: Style.iconSize * 2
-                Layout.preferredWidth: height
-                fillMode: Image.PreserveAspectFit
-                source: "qrc:/ui/images/Built_with_Qt_RGB_logo_vertical.svg"
-                sourceSize.width: Style.iconSize * 2
-                sourceSize.height: Style.iconSize * 2
-            }
-
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.")
-                wrapMode: Text.WordWrap
-            }
+            Layout.topMargin: Style.smallMargins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            text: qsTr("This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.")
+            wrapMode: Text.WordWrap
         }
+
+        Label {
+            Layout.fillWidth: true
+            Layout.topMargin: Style.smallMargins
+            Layout.bottomMargin: Style.smallMargins
+            Layout.leftMargin: Style.margins
+            Layout.rightMargin: Style.margins
+            text: qsTr("Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.")
+            wrapMode: Text.WordWrap
+        }
+
         NymeaSwipeDelegate {
             Layout.fillWidth: true
             iconName: "/icons/stock_website.svg"
