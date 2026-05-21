@@ -40,8 +40,15 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->maxElectricalPower();
     case RoleTargetSocPvSurplus:
         return QVariant::fromValue(m_list.at(index.row())->targetSocPvSurplus());
-    }
-    return QVariant();
+    case RoleMaxSoC:
+        return m_list.at(index.row())->maxSoC();
+    case RoleMinSoC:
+        return m_list.at(index.row())->minSoC();
+    case RoleTaperSoC:
+        return m_list.at(index.row())->taperSoC();
+    case RoleFullymanagableBattery:
+        return m_list.at(index.row())->fullymanagableBattery();
+    }    return QVariant();
 }
 
 QHash<int, QByteArray> BatteryConfigurations::roleNames() const
@@ -59,6 +66,10 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
     roles.insert(RoleBlockBatteryOnGridConsumption, "blockBatteryOnGridConsumption");
     roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
     roles.insert(RoleTargetSocPvSurplus, "targetSocPvSurplus");
+    roles.insert(RoleMaxSoC, "maxSoC");
+    roles.insert(RoleMinSoC, "minSoC");
+    roles.insert(RoleTaperSoC, "taperSoC");
+    roles.insert(RoleFullymanagableBattery, "fullymanagableBattery");
     return roles;
 }
 
@@ -142,6 +153,26 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     connect(batteryConfiguration, &BatteryConfiguration::targetSocPvSurplusChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
         emit dataChanged(idx, idx, {RoleTargetSocPvSurplus});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::maxSoCChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleMaxSoC});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::minSoCChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleMinSoC});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::taperSoCChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleTaperSoC});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::fullymanagableBatteryChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleFullymanagableBattery});
     });
 
     endInsertRows();
