@@ -20,6 +20,10 @@ class BatteryConfiguration : public QObject
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
     Q_PROPERTY(float maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(QList<int> targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
+    Q_PROPERTY(int maxSoC READ maxSoC WRITE setMaxSoC NOTIFY maxSoCChanged)
+    Q_PROPERTY(int minSoC READ minSoC WRITE setMinSoC NOTIFY minSoCChanged)
+    Q_PROPERTY(int taperSoC READ taperSoC WRITE setTaperSoC NOTIFY taperSoCChanged)
+    Q_PROPERTY(bool fullymanagableBattery READ fullymanagableBattery WRITE setFullymanagableBattery NOTIFY fullymanagableBatteryChanged)
 
 public:
 
@@ -79,6 +83,18 @@ public:
     QList<int> targetSocPvSurplus() const;
     void setTargetSocPvSurplus(const QList<int> &targetSocPvSurplus);
 
+    int maxSoC() const;
+    void setMaxSoC(int maxSoC);
+
+    int minSoC() const;
+    void setMinSoC(int minSoC);
+
+    int taperSoC() const;
+    void setTaperSoC(int taperSoC);
+
+    bool fullymanagableBattery() const;
+    void setFullymanagableBattery(bool fullymanagableBattery);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void priceThresholdChanged(float priceThreshold);
@@ -91,6 +107,10 @@ signals:
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
     void maxElectricalPowerChanged(float maxElectricalPower);
     void targetSocPvSurplusChanged(const QList<int> &targetSocPvSurplus);
+    void maxSoCChanged(int maxSoC);
+    void minSoCChanged(int minSoC);
+    void taperSoCChanged(int taperSoC);
+    void fullymanagableBatteryChanged(bool fullymanagableBattery);
 
 private:
     QUuid m_batteryThingId;
@@ -105,6 +125,10 @@ private:
     int m_blockBatteryOnGridConsumption = EvCharger;
     float m_maxElectricalPower = 0.0;
     QList<int> m_targetSocPvSurplus = {80};
+    int m_maxSoC = 95;  // %
+    int m_minSoC = 5;   // %
+    int m_taperSoC = 5; // %
+    bool m_fullymanagableBattery = false;
 };
 
 #endif // BATTERYCONFIGURATION_H
