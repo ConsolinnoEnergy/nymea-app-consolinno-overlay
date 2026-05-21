@@ -1,0 +1,4 @@
+module Qt5Compat.GraphicalEffects
+OpacityMask 1.0 OpacityMask.qml
+ColorOverlay 1.0 ColorOverlay.qml
+DropShadow 1.0 DropShadow.qml
