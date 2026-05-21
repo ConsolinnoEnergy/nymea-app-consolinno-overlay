@@ -248,7 +248,6 @@
         <file>images/avoidZeroCompansation.svg</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
-        <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>

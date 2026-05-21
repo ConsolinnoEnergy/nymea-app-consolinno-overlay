@@ -3744,10 +3744,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <source>The relais are configured as follows</source>
-        <translation>Die Relais sind wie folgt konfiguriert</translation>
-    </message>
-    <message>
         <source>The following EEBUS devices were found</source>
         <translation>Folgende EEBUS-Geräte wurden gefunden</translation>
     </message>
@@ -3782,6 +3778,14 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>EEBUS</source>
         <translation>EEBUS</translation>
+    </message>
+    <message>
+        <source>Device connection</source>
+        <translation>Geräte-Anschluß</translation>
+    </message>
+    <message>
+        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
+        <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß der Anleitung angeschlossen sein.</translation>
     </message>
 </context>
 <context>

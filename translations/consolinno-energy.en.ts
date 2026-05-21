@@ -3724,10 +3724,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The relais are configured as follows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The following EEBUS devices were found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3761,6 +3757,14 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
