@@ -13,7 +13,7 @@ StackView {
 
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
-    property Thing eeBusThing: null
+    property Thing eeBusThing: null // #TODO rename
     property ThingClass genericEebusDeviceThingClass: engine.thingManager.thingClasses.getThingClass("d7448dd7-cafc-4ef7-9169-09ea657f755c")
     property double powerLimitLPC: gridSupportThing.stateByName("lpcValue").value
     property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
@@ -169,12 +169,16 @@ StackView {
                         CoCard {
                             id: startEebusCard
                             Layout.fillWidth: true
-                            visible: (powerLimitSource === "eebus" && eeBusThing != null)
-                            text: qsTr("EEBUS SKI Pairing")
+                            visible: powerLimitSource === "eebus"
+                            text: qsTr("EEBUS")
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             onClicked: {
-                                pageStack.push(eebusView);
+                                if (eeBusThing) {
+                                    pageStack.push(eebusView);
+                                } else {
+                                    pageStack.push(eebusComfortPairingView);
+                                }
                             }
                         }
 
@@ -250,6 +254,16 @@ StackView {
                                 discovery.discoverThings(genericEebusDeviceThingClass.id);
                                 pageStack.push(eebusViewSelect,
                                                { thingClass: genericEebusDeviceThingClass });
+                            }
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: qsTr("EEBUS Comfort Pairing")
+                            iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                pageStack.push(eebusComfortPairingSetup);
                             }
                         }
                     }
@@ -447,6 +461,420 @@ StackView {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                }
+            }
+        }
+    }
+
+    Component {
+        id: eebusComfortPairingSetup
+
+        Page {
+            header: CoHeader {
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS Comfort Pairing")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
+
+                CoNotification {
+                    Layout.fillWidth: true
+                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                    type: CoNotification.Type.Danger
+                    title: qsTr("Attention")
+                    message: qsTr("Existing setup will be overwritten.")
+                }
+
+                Flickable {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    contentHeight: eebusParameterContent.implicitHeight
+                    clip: true
+
+                    ColumnLayout {
+                        id: eebusParameterContent
+                        width: parent.width
+                        spacing: Style.margins
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("QR Code & Pairing Data")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
+                                }
+
+                                // #TODO QR Code goes here
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "foo" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Secret Key (SPSEC)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "bar" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("SHIP ID (ID)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "baz" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Certificate Fingerprint (SHA-256)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Button {
+                    id: eebusSetUpComplete
+                    Layout.fillWidth: true
+                    enabled: deviceConnected.checked
+                    text: qsTr("Complete setup")
+
+                    onClicked: {
+                        if (eeBusThing) {
+                            engine.thingManager.removeThing(eeBusThing.id);
+                        }
+
+                        root.setGridSupportSettings("eebus");
+                        pageStack.push(eebusComfortPairingViewStatus);
+                    }
+                }
+
+                Button {
+                    text: qsTr("Cancel")
+                    Layout.fillWidth: true
+                    flat: true
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: eebusComfortPairingViewStatus
+
+        Page {
+            header: CoHeader {
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS Comfort Pairing")
+                backButtonVisible: true
+                onBackPressed: pageStack.pop()
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
+
+                Flickable {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    contentHeight: eebusParameterContent.implicitHeight
+                    clip: true
+
+                    ColumnLayout {
+                        id: eebusParameterContent
+                        width: parent.width
+                        spacing: Style.margins
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("QR Code & Pairing Data")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
+                                }
+
+                                // #TODO QR Code goes here
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "foo" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Secret Key (SPSEC)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "bar" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("SHIP ID (ID)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "baz" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Certificate Fingerprint (SHA-256)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("Status")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: qsTr("Completion by the metering point operator pending")
+                                    interactive: false
+                                    status: CoCard.StatusType.Warning
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+
+                Button {
+                    id: eebusBackToView
+                    Layout.fillWidth: true
+                    text: qsTr("Back to overview")
+
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
+                }
+            }
+        }
+    }
+
+    Component {
+        id: eebusComfortPairingView
+
+        Page {
+            header: CoHeader {
+                text: qsTr("Grid-supportive control")
+                subText: qsTr("EEBUS Comfort Pairing")
+                backButtonVisible: true
+                menuButtonVisible: true
+                onBackPressed: pageStack.pop()
+                onMenuPressed: eebusViewMenu.open()
+            }
+
+            ListModel {
+                id: eebusViewMenuListModel
+
+                ListElement {
+                    icon: "/icons/delete_forever.svg"
+                    text: qsTr("Delete")
+                }
+            }
+
+            Menu {
+                id: eebusViewMenu
+                x: root.width - width - Style.margins
+                modal: true
+
+                Repeater {
+                    id: eebusViewMenuListRepeater
+                    model: eebusViewMenuListModel
+
+                    Item {
+                        width: menuItemLayout.implicitWidth + Style.margins
+                        height: 40
+
+                        RowLayout {
+                            id: menuItemLayout
+                            anchors {
+                                left: parent.left
+                                right: parent.right
+                                leftMargin: 16
+                                rightMargin: 16
+                            }
+
+                            height: parent.height / 2
+                            anchors.verticalCenter: parent.verticalCenter
+                            spacing: Style.margins
+
+                            ColorIcon {
+                                Layout.fillHeight: false
+                                Layout.fillWidth: false
+                                Layout.preferredHeight: 24
+                                Layout.preferredWidth: 24
+                                source: model.icon
+                            }
+
+                            Label {
+                                Layout.fillHeight: true
+                                Layout.fillWidth: true
+                                text: model.text
+                                font.pixelSize: app.mediumFont
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: {
+                                if (index === 0) {
+                                    root.setGridSupportSettings("none");
+                                    pageStack.pop();
+                                }
+                                eebusViewMenu.close();
+                            }
+                        }
+                    }
+                }
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
+
+                Flickable {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    contentHeight: eebusParameterContent.implicitHeight
+                    clip: true
+
+                    ColumnLayout {
+                        id: eebusParameterContent
+                        width: parent.width
+                        spacing: Style.margins
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("QR Code & Pairing Data")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
+                                }
+
+                                // #TODO QR Code goes here
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "foo" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Secret Key (SPSEC)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "bar" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("SHIP ID (ID)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: "baz" // #TODO fill from eebus info plugin
+                                    labelText: qsTr("Certificate Fingerprint (SHA-256)")
+                                    iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            Layout.fillWidth: true
+                            contentTopMargin: Style.margins
+                            headerText: qsTr("Status")
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: qsTr("Completion by the metering point operator pending")
+                                    interactive: false
+                                    status: CoCard.StatusType.Warning
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
