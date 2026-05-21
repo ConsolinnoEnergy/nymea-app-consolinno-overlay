@@ -56,10 +56,10 @@ GenericConfigPage {
             newConfig.pvSurplusThreshold = parseInt(minPVSurplusPower.text);
         }
         if (minRuntimeStepper.visible) {
-            newConfig.durationMinAfterTurnOn = minRuntimeStepper.value * 15;
+            newConfig.durationMinAfterTurnOn = minRuntimeStepper.value * 900;
         }
         if (maxTotalRuntimeStepper.visible) {
-            newConfig.durationMaxTotal = maxTotalRuntimeStepper.value * 15;
+            newConfig.durationMaxTotal = maxTotalRuntimeStepper.value * 900;
         }
         // Null UUID means: no meter selected → pass empty string,
         // so C++ omits the field from the RPC request (backend rejects null UUID).
@@ -319,8 +319,8 @@ GenericConfigPage {
 
                         Component.onCompleted: {
                             if (!root.heatingconfig) return
-                            maxTotalRuntimeStepper.value = Math.round(root.heatingconfig.durationMaxTotal / 15)
-                            minRuntimeStepper.value = Math.round(root.heatingconfig.durationMinAfterTurnOn / 15)
+                            maxTotalRuntimeStepper.value = Math.round(root.heatingconfig.durationMaxTotal / 900)
+                            minRuntimeStepper.value = Math.round(root.heatingconfig.durationMinAfterTurnOn / 900)
                         }
 
                         CoCard {
@@ -461,11 +461,11 @@ GenericConfigPage {
                             return true;
                         }
                         if (minRuntimeStepper.visible &&
-                                minRuntimeStepper.value * 15 !== root.heatingconfig.durationMinAfterTurnOn) {
+                                minRuntimeStepper.value * 900 !== root.heatingconfig.durationMinAfterTurnOn) {
                             return true;
                         }
                         if (maxTotalRuntimeStepper.visible &&
-                                maxTotalRuntimeStepper.value * 15 !== root.heatingconfig.durationMaxTotal) {
+                                maxTotalRuntimeStepper.value * 900 !== root.heatingconfig.durationMaxTotal) {
                             return true;
                         }
                         if (heatpumpPriceWidget.visible &&

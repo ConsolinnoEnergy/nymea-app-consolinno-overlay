@@ -192,8 +192,8 @@ GenericConfigPage {
                         // it from being spuriously clamped to 0.
                         Component.onCompleted: {
                             if (!root.consumerConfig) { return; }
-                            maxTotalRuntimeStepper.value = Math.round(root.consumerConfig.durationMaxTotal / 15);
-                            minRuntimeStepper.value = Math.round(root.consumerConfig.durationMinAfterTurnOn / 15);
+                            maxTotalRuntimeStepper.value = Math.round(root.consumerConfig.durationMaxTotal / 900);
+                            minRuntimeStepper.value = Math.round(root.consumerConfig.durationMinAfterTurnOn / 900);
                         }
 
                         CoCard {
@@ -298,8 +298,8 @@ GenericConfigPage {
                         if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
                         if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
                         if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
-                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 15 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
-                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 15 !== root.consumerConfig.durationMaxTotal) { return true; }
+                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 900 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
+                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 900 !== root.consumerConfig.durationMaxTotal) { return true; }
                         if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
                         return false;
                     }
@@ -309,8 +309,8 @@ GenericConfigPage {
                             root.consumerConfig.switchThingId,
                             {
                                 optimizationMode: optimizationModeCombobox.currentValue,
-                                durationMinAfterTurnOn: minRuntimeStepper.value * 15,
-                                durationMaxTotal: maxTotalRuntimeStepper.value * 15,
+                                durationMinAfterTurnOn: minRuntimeStepper.value * 900,
+                                durationMaxTotal: maxTotalRuntimeStepper.value * 900,
                                 pvSurplusThreshold: parseInt(minPVSurplusPower.text)
                             }
                         );
