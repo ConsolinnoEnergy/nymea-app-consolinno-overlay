@@ -1709,6 +1709,10 @@ Levies: %4 %2</source>
 - Serial number - if known</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
@@ -1766,6 +1770,10 @@ Levies: %4 %2</source>
     </message>
     <message>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2359,10 +2367,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current connection state</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Asleep</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2387,26 +2391,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Networking enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable networking altogether</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you want to proceed?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable networking?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Wired network</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2423,111 +2407,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wireless network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable WiFi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabling WiFi will disconnect all clients connected via WiFi. Be aware that you will not be able to interact remotely with this %1 system any more unless a LAN cable is connected.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable WiFi?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No wireless network interfaces available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>WiFi networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Access Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create Access Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect to wireless network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hidden Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New wired connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatic (DHCP client)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manual</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shared (DHCP server)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Address settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gateway</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authenticate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter the password for %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2543,42 +2423,39 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disconnect</source>
+        <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Signal strength</source>
+        <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>WiFi frequency</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoPVTextField</name>
-    <message>
-        <source>°</source>
+        <source>IP configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter a value between </source>
+        <source>DHCP server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> and </source>
+        <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the value with a dot (.)</source>
+        <source>Static</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the value with a comma (,)</source>
+        <source>&quot;Static&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> </source>
+        <source>Prefix length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3847,10 +3724,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The relais are configured as follows</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The following EEBUS devices were found</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3884,6 +3757,14 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3978,14 +3859,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3994,15 +3867,23 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic pricing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hh:mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4260,11 +4141,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state. PV surplus is allocated to devices according to your selected priority.</source>
+        <source>Please note</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please note</source>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the “increased” operating state. PV surplus is allocated to devices according to your selected priority.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5273,14 +5154,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5289,11 +5162,19 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
+        <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply changes</source>
+        <source>hh:mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

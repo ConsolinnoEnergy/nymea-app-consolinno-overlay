@@ -412,19 +412,17 @@ StackView {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
-                    headerText: qsTr("The relais are configured as follows")
+                    headerText: qsTr("Device connection")
 
                     ColumnLayout {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         spacing: 0
 
-                        Image {
+                        CoCard {
                             Layout.fillWidth: true
-                            Layout.margins: Style.margins
-                            source: "../images/relais_screen.png"
-                            fillMode: Image.PreserveAspectFit
-                            Layout.preferredHeight: width > 0 ? (implicitHeight / implicitWidth) * width : implicitHeight
+                            text: qsTr("The control box or the ripple control receiver must be connected as described in our manual.")
+                            interactive: false
                         }
                     }
                 }

@@ -1722,6 +1722,10 @@ Abgaben: %4 %2</translation>
 - Software-Version
 - Seriennummer - falls bekannt</translation>
     </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
+        <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
@@ -1780,6 +1784,10 @@ Abgaben: %4 %2</translation>
     <message>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
         <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
+    </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
+        <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
 </context>
 <context>
@@ -2376,10 +2384,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <source>Current connection state</source>
-        <translation>Aktueller Verbindungs-Zustand</translation>
-    </message>
-    <message>
         <source>Asleep</source>
         <translation>Schlafend</translation>
     </message>
@@ -2404,26 +2408,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Global verbunden</translation>
     </message>
     <message>
-        <source>Networking enabled</source>
-        <translation>Netzwerk aktiviert</translation>
-    </message>
-    <message>
-        <source>Enable or disable networking altogether</source>
-        <translation>Aktiviere oder deaktiviere die gesamte Netzwerk-Funktionalität</translation>
-    </message>
-    <message>
-        <source>Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.</source>
-        <translation>Das Deaktivieren der Netzwerk-Funktionalität wird alle verbunden Geräte trennen. Bitte beachte, dass es nicht mehr möglich sein wird über das Netzwerk mit diesem %1 System zu interagieren. Es wird nicht empfohlen fortzufahren insofern dies nicht ausdrücklich gewünscht ist.</translation>
-    </message>
-    <message>
-        <source>Do you want to proceed?</source>
-        <translation>Möchtest Du fortfahren?</translation>
-    </message>
-    <message>
-        <source>Disable networking?</source>
-        <translation>Netwerk deativieren?</translation>
-    </message>
-    <message>
         <source>Wired network</source>
         <translation>Kabelgebundenes Netzwerk</translation>
     </message>
@@ -2440,112 +2424,8 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Ausgesteckt</translation>
     </message>
     <message>
-        <source>Wireless network</source>
-        <translation>Funknetzwerk</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation>Aktiv</translation>
-    </message>
-    <message>
-        <source>Enable or disable WiFi</source>
-        <translation>WLAN ein-/ausschalten</translation>
-    </message>
-    <message>
-        <source>Disabling WiFi will disconnect all clients connected via WiFi. Be aware that you will not be able to interact remotely with this %1 system any more unless a LAN cable is connected.</source>
-        <translation>Das Deaktivieren der WLAN-Verbindung wird alle über WLAN verbundenen Geräte trennen. Bitte beachte, dass es nicht mehr möglich sein wird mit diesem %1 System zu interagieren insofern kein Netzwerk-Kabel angeschlossen ist.</translation>
-    </message>
-    <message>
-        <source>Disable WiFi?</source>
-        <translation>WLAN ausschalten?</translation>
-    </message>
-    <message>
-        <source>No wireless network interfaces available</source>
-        <translation>Keine Schnittstellen für Funknetzwerke verfügbar</translation>
-    </message>
-    <message>
-        <source>WiFi networks</source>
-        <translation>WLAN Netzwerke</translation>
-    </message>
-    <message>
-        <source>Access Point</source>
-        <translation>Access Point</translation>
-    </message>
-    <message>
-        <source>SSID</source>
-        <translation>SSID</translation>
-    </message>
-    <message>
-        <source>Create Access Point</source>
-        <translation>Access Point erstellen</translation>
-    </message>
-    <message>
-        <source>Connect to wireless network</source>
-        <translation>Mit Funknetzwerk verbinden</translation>
-    </message>
-    <message>
-        <source>Hidden Network</source>
-        <translation>Verstecktes Netzwerk</translation>
-    </message>
-    <message>
-        <source>New wired connection</source>
-        <translation>Neue kabelgebundene Verbindung</translation>
-    </message>
-    <message>
-        <source>Method</source>
-        <translation>Methode</translation>
-    </message>
-    <message>
-        <source>Automatic (DHCP client)</source>
-        <translation>Automatisch (DHCP Client)</translation>
-    </message>
-    <message>
-        <source>Manual</source>
-        <translation>Bedienungsanleitung</translation>
-    </message>
-    <message>
-        <source>Shared (DHCP server)</source>
-        <translation>Geteilt (DHCP Server)</translation>
-    </message>
-    <message>
-        <source>Address settings</source>
-        <translation>Adresseinstellungen</translation>
-    </message>
-    <message>
         <source>IP Address</source>
         <translation>IP Adresse</translation>
-    </message>
-    <message>
-        <source>Gateway</source>
-        <translation>Gateway</translation>
-    </message>
-    <message>
-        <source>DNS</source>
-        <translation>DNS</translation>
-    </message>
-    <message>
-        <source>Create connection</source>
-        <translation>Verbindung erstellen</translation>
-    </message>
-    <message>
-        <source>Authenticate</source>
-        <translation>Authentifizierung</translation>
-    </message>
-    <message>
-        <source>Enter the password for %1</source>
-        <translation>Gib das Passwort für %1 ein</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>Current connection</source>
-        <translation>Aktuelle Verbindung</translation>
-    </message>
-    <message>
-        <source>Connected to</source>
-        <translation>Verbunden mit</translation>
     </message>
     <message>
         <source>IPv4 Address</source>
@@ -2560,43 +2440,40 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>MAC Adresse</translation>
     </message>
     <message>
-        <source>Disconnect</source>
-        <translation>Trennen</translation>
+        <source>State</source>
+        <translation>Status</translation>
     </message>
     <message>
-        <source>Signal strength</source>
-        <translation>Signalstärke</translation>
+        <source>Details</source>
+        <translation>Details</translation>
     </message>
     <message>
-        <source>WiFi frequency</source>
-        <translation>Funkfrequenz</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoPVTextField</name>
-    <message>
-        <source>°</source>
-        <translation>°</translation>
+        <source>IP configuration</source>
+        <translation>IP-Konfiguration</translation>
     </message>
     <message>
-        <source>Please enter a value between </source>
-        <translation>Bitte geben Sie einen Wert zwischen </translation>
+        <source>DHCP server</source>
+        <translation>DHCP-Server</translation>
     </message>
     <message>
-        <source> and </source>
-        <translation> und </translation>
+        <source>Default</source>
+        <translation>Default</translation>
     </message>
     <message>
-        <source>Please enter the value with a dot (.)</source>
-        <translation>Bitte geben Sie den Wert mit einem Punkt (.) ein</translation>
+        <source>Static</source>
+        <translation>Statisch</translation>
     </message>
     <message>
-        <source>Please enter the value with a comma (,)</source>
-        <translation>Bitte geben Sie den Wert mit einem Komma (,) ein</translation>
+        <source>&quot;Static&quot;</source>
+        <translation>„Statisch“</translation>
     </message>
     <message>
-        <source> </source>
-        <translation> ein</translation>
+        <source>Prefix length</source>
+        <translation>Präfixlänge</translation>
+    </message>
+    <message>
+        <source>Write settings</source>
+        <translation>Einstellungen speichern</translation>
     </message>
 </context>
 <context>
@@ -3867,10 +3744,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <source>The relais are configured as follows</source>
-        <translation>Die Relais sind wie folgt konfiguriert</translation>
-    </message>
-    <message>
         <source>The following EEBUS devices were found</source>
         <translation>Folgende EEBUS-Geräte wurden gefunden</translation>
     </message>
@@ -3905,6 +3778,14 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>EEBUS</source>
         <translation>EEBUS</translation>
+    </message>
+    <message>
+        <source>Device connection</source>
+        <translation>Geräte-Anschluß</translation>
+    </message>
+    <message>
+        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
+        <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß unserer Anleitung angeschlossen sein.</translation>
     </message>
 </context>
 <context>
@@ -3998,14 +3879,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Läuft nach der Aktivierung mindestens so lange.</translation>
     </message>
     <message>
-        <source>h</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation>Der Wert muss zwischen 0 und %1 h liegen.</translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation>Maximale Laufzeit</translation>
     </message>
@@ -4014,16 +3887,24 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
-        <translation>Der Wert muss zwischen %1 und 24 h liegen.</translation>
-    </message>
-    <message>
         <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>hh:mm</source>
+        <translation>hh:mm</translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
+        <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>
 </context>
 <context>
@@ -4280,12 +4161,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Der Wärmepumpe wird der Befehl zum erhöhten Betrieb gegeben, wenn der Preis unterhalb der definierten Preisgrenze liegt. Wird die Preisgrenze verändert, kann es bis zu 15 Minuten dauern, bis die Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state. PV surplus is allocated to devices according to your selected priority.</source>
-        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV-Überschuss optimal ausgenutzt wird. Beträgt der PV-Überschuss für 15 Minuten mehr als 50 % der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht&quot; vorgegeben. PV-Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
-    </message>
-    <message>
         <source>Please note</source>
         <translation>Bitte beachten</translation>
+    </message>
+    <message>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the “increased” operating state. PV surplus is allocated to devices according to your selected priority.</source>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV‑Überschuss optimal ausgenutzt wird. Beträgt der PV‑Überschuss für 15&#x202f;Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben. PV‑Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
     </message>
 </context>
 <context>
@@ -5294,14 +5175,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Läuft nach der Aktivierung mindestens so lange.</translation>
     </message>
     <message>
-        <source>h</source>
-        <translation>h</translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation>Der Wert muss zwischen 0 und %1 h liegen.</translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation>Maximale Laufzeit</translation>
     </message>
@@ -5310,12 +5183,20 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
-        <translation>Der Wert muss zwischen %1 und 24 h liegen.</translation>
-    </message>
-    <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>hh:mm</source>
+        <translation>hh:mm</translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
+        <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>
 </context>
 <context>
