@@ -118,7 +118,7 @@ Item {
                 height: 100
                 modal: true
                 focus: true
-                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
                 contentItem: Label {
                     Layout.fillWidth: true
                     Layout.topMargin: app.margins
