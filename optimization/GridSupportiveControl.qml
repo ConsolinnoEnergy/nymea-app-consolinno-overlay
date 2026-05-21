@@ -83,14 +83,12 @@ StackView {
     }
 
     function setGridSupportSettings(param){
-        var params = []
-        for (var i = 0; i < gridSupportThing.settings.count; i++) {
-            var setting = {}
-            setting["paramTypeId"] = gridSupportThing.thingClass.settingsTypes.get(0).id
-            setting["value"] = gridSupportThing.param.value = param
-            params.push(setting)
-        }
-        engine.thingManager.setThingSettings(gridSupportThing.id, params);
+        var setting = {};
+        setting["paramTypeId"] = gridSupportThing.thingClass.settingsTypes.get(0).id;
+        setting["value"] = param;
+        var settings = [];
+        settings.push(setting);
+        engine.thingManager.setThingSettings(gridSupportThing.id, settings);
     }
 
     Component {
@@ -144,6 +142,7 @@ StackView {
                             Layout.fillWidth: true
                             visible: powerLimitSource === "relais"
                             text: qsTr("Relais")
+                            iconLeft: Qt.resolvedUrl("/ui/images/relais.svg")
                             showChildrenIndicator: true
                             onClicked: {
                                 pageStack.push(relaisSetUpFinish);
@@ -154,7 +153,8 @@ StackView {
                             id: startEebusCard
                             Layout.fillWidth: true
                             visible: (powerLimitSource === "eebus" && eebusThing.count > 0)
-                            text: qsTr("EEBUS control box")
+                            text: qsTr("EEBUS SKI Pairing")
+                            iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             onClicked: {
                                 pageStack.push(eebusView);
@@ -216,6 +216,7 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: qsTr("Relais")
+                            iconLeft: Qt.resolvedUrl("/ui/images/relais.svg")
                             showChildrenIndicator: true
                             onClicked: {
                                 pageStack.push(relaisSetUp)
@@ -224,8 +225,9 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
-                            text: qsTr("EEBUS control box")
+                            text: qsTr("EEBUS SKI Pairing")
                             labelText: qsTr("Must be in same network.")
+                            iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             onClicked: {
                                 discovery.discoverThings(thingClassesProxy.get(0).id);
@@ -249,7 +251,8 @@ StackView {
 
         Page {
             header: CoHeader {
-                text: qsTr("Grid-supportive control setup – Relais")
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("Relais")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -438,7 +441,8 @@ StackView {
 
         Page {
             header: CoHeader {
-                text: qsTr("Grid-supportive control setup – EEBUS")
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -541,7 +545,8 @@ StackView {
             property var discoveryThingParams
 
             header: CoHeader {
-                text: qsTr("Grid-supportive control setup – EEBUS")
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -590,7 +595,7 @@ StackView {
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
                                         helpText: model.displayName
-                                        iconRight: index === 0 ? "/icons/edit-copy.svg" : ""
+                                        iconRight: index === 0 ? "/icons/file_copy.svg" : ""
                                         iconRightColor: Style.colors.brand_Basic_Accent
                                         interactive: index === 0
                                         onClicked: {
@@ -778,7 +783,7 @@ StackView {
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
                                         helpText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
-                                        iconRight: index === 0 ? "/icons/edit-copy.svg" : ""
+                                        iconRight: index === 0 ? "/icons/file_copy.svg" : ""
                                         iconRightColor: Style.colors.brand_Basic_Accent
                                         interactive: index === 0
                                         onClicked: {
@@ -833,7 +838,8 @@ StackView {
             property var discoveryThingParams
 
             header: CoHeader {
-                text: qsTr("Grid-supportive control setup – EEBUS")
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
@@ -860,7 +866,7 @@ StackView {
                             text: paramValue
                             labelText: qsTr("This SKI is required by the network operator.")
                             helpText: qsTr("Local Subject Key Identifier (SKI)")
-                            iconRight: Qt.resolvedUrl("/icons/edit-copy.svg")
+                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                             iconRightColor: Style.colors.brand_Basic_Accent
                             interactive: true
                             onClicked: {
