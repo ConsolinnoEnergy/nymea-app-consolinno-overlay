@@ -335,12 +335,12 @@ StackView {
                 id: menuListModel
 
                 ListElement {
-                    icon: "/icons/delete.svg"
+                    icon: "/icons/delete_forever.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/icons/configure.svg"
+                    icon: "/icons/tune.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -355,10 +355,11 @@ StackView {
                     model: menuListModel
 
                     Item {
-                        width: ListView.view.width
-                        height: 56
+                        width: menuItemLayout.implicitWidth + Style.margins
+                        height: 40
 
                         RowLayout {
+                            id: menuItemLayout
                             anchors {
                                 left: parent.left
                                 right: parent.right
@@ -368,7 +369,7 @@ StackView {
 
                             height: parent.height / 2
                             anchors.verticalCenter: parent.verticalCenter
-                            spacing: 24
+                            spacing: Style.margins
 
                             ColorIcon {
                                 Layout.fillHeight: false
@@ -677,12 +678,12 @@ StackView {
                 id: eebusViewMenuListModel
 
                 ListElement {
-                    icon: "/icons/delete.svg"
+                    icon: "/icons/delete_forever.svg"
                     text: qsTr("Delete")
                 }
 
                 ListElement {
-                    icon: "/icons/configure.svg"
+                    icon: "/icons/tune.svg"
                     text: qsTr("Reconfigure")
                 }
             }
@@ -697,10 +698,11 @@ StackView {
                     model: eebusViewMenuListModel
 
                     Item {
-                        width: ListView.view.width
-                        height: 56
+                        width: menuItemLayout.implicitWidth + Style.margins
+                        height: 40
 
                         RowLayout {
+                            id: menuItemLayout
                             anchors {
                                 left: parent.left
                                 right: parent.right
@@ -710,7 +712,7 @@ StackView {
 
                             height: parent.height / 2
                             anchors.verticalCenter: parent.verticalCenter
-                            spacing: 24
+                            spacing: Style.margins
 
                             ColorIcon {
                                 Layout.fillHeight: false
