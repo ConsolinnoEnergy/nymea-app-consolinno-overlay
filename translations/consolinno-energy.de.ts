@@ -3785,7 +3785,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
-        <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß der Anleitung angeschlossen sein.</translation>
+        <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß unserer Anleitung angeschlossen sein.</translation>
     </message>
 </context>
 <context>
