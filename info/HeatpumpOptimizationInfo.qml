@@ -41,7 +41,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
-                text: qsTr("The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the \"increased\" operating state. PV surplus is allocated to devices according to your selected priority.")
+                text: qsTr("The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the “increased” operating state. PV surplus is allocated to devices according to your selected priority.")
             }
 
             Label {
