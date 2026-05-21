@@ -237,13 +237,13 @@ GenericConfigPage {
                                 var v = maxTotalRuntimeStepper.value;
                                 var h = Math.floor(v / 4);
                                 var m = (v % 4) * 15;
-                                var formatted = h + ":" + (m < 10 ? "0" : "") + m;
-                                return qsTr("Value must be between 0:00 and %1.").arg(formatted);
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between 00:00 and %1.").arg(formatted);
                             }
                             spinbox.textFromValue: function(value, locale) {
                                 var h = Math.floor(value / 4);
                                 var m = (value % 4) * 15;
-                                return h + ":" + (m < 10 ? "0" : "") + m;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
                                 var parts = text.split(":");
@@ -251,7 +251,7 @@ GenericConfigPage {
                                 return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
                             spinbox.validator: RegularExpressionValidator {
-                                regularExpression: /^(0?[0-9]|1[0-9]|2[0-4]):(00|15|30|45)$/
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
 
@@ -269,13 +269,13 @@ GenericConfigPage {
                                 var v = minRuntimeStepper.value;
                                 var h = Math.floor(v / 4);
                                 var m = (v % 4) * 15;
-                                var formatted = h + ":" + (m < 10 ? "0" : "") + m;
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                                 return qsTr("Value must be between %1 and 24:00.").arg(formatted);
                             }
                             spinbox.textFromValue: function(value, locale) {
                                 var h = Math.floor(value / 4);
                                 var m = (value % 4) * 15;
-                                return h + ":" + (m < 10 ? "0" : "") + m;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
                                 var parts = text.split(":");
@@ -283,7 +283,7 @@ GenericConfigPage {
                                 return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
                             spinbox.validator: RegularExpressionValidator {
-                                regularExpression: /^(0?[0-9]|1[0-9]|2[0-4]):(00|15|30|45)$/
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
                     }
