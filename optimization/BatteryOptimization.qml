@@ -125,7 +125,7 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("HEMS-controlled battery")
                     infoUrl: "HemsControlledBatteryInfo.qml"
-                    visible: true // thing.thingClass.interfaces.includes("fullymanagedbattery") // #TODO
+                    visible: thing.thingClass.interfaces.includes("fullymanagedbattery")
 
                     Component.onCompleted: {
                         checked = batteryConfiguration.fullymanagableBattery;
