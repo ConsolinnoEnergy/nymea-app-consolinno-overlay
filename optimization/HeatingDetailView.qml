@@ -18,88 +18,67 @@ GenericConfigPage {
     function hasAnyState(stateNames) {
         if (!thing) return false
         for (var i = 0; i < stateNames.length; i++) {
-            var s = thing.stateByName(stateNames[i])
+            var s = thing.stateByName(stateNames[i].name)
             if (s !== null && s.value > 0 ) return true
         }
         return false
     }
 
-    function formatValue(value, unit) {
+    function formatValue(value, decimals) {
         if (typeof value === "string" && isNaN(Number(value)))
             return value
-
-        var decimals
-        switch (unit) {
-        case Types.UnitDegreeCelsius:
-        case Types.UnitDegreeKelvin:
-        case Types.UnitDegreeFahrenheit:
-            decimals = 1
-            break
-        case Types.UnitWatt:
-        case Types.UnitKiloWatt:
-        case Types.UnitMilliWatt:
-        case Types.UnitKiloWattHour:
-            decimals = 0
-            break
-        case Types.UnitNone:
-            decimals = 0
-            break
-        default:
-            decimals = 2
-            break
-        }
         return Number(value).toLocaleString(Qt.locale(), 'f', decimals)
     }
 
-    // List of state names to display
+    // List of states to display. Each entry: { name: "stateName", decimals: N, unit: "unitOverride"}
     readonly property var generatorStates: [
-        "outdoorTemperature",
-        "flowTemperatureGenerator",
-        "flowTemperatureGeneratorSetpoint",
-        "returnTemperatureGenerator",
-        "returnTemperatureGeneratorSetpoint",
-        "operationHours",
-        "switchingCycles",
-        "volumeFlow",
-        "actualThermalPower",
-        "actualCoefficientOfPerformance",
-        "totalOutputThermalEnergy",
-        "averageCoefficientOfPerformance",
-        "operationState",
-        "errorCode",
-        "errorString"
+        { name: "outdoorTemperature",                 decimals: 1 },
+        { name: "flowTemperatureGenerator",           decimals: 1 },
+        { name: "flowTemperatureGeneratorSetpoint",   decimals: 1 },
+        { name: "returnTemperatureGenerator",         decimals: 1 },
+        { name: "returnTemperatureGeneratorSetpoint", decimals: 1 },
+        { name: "operationHours",                     decimals: 0 },
+        { name: "switchingCycles",                    decimals: 0 },
+        { name: "volumeFlow",                         decimals: 1, unit: "l/h" },
+        { name: "actualThermalPower",                 decimals: 1 },
+        { name: "actualCoefficientOfPerformance",     decimals: 2 },
+        { name: "totalOutputThermalEnergy",           decimals: 0 },
+        { name: "averageCoefficientOfPerformance",    decimals: 2 },
+        { name: "operationState",                     decimals: 0 },
+        { name: "errorCode",                          decimals: 0 },
+        { name: "errorString",                        decimals: 0 }
     ]
 
     readonly property var heatCircuit1States: [
-        "flowTemperatureHC1",
-        "flowTemperatureHC1Setpoint",
-        "returnTemperatureHC1",
-        "returnTemperatureHC1Setpoint"
+        { name: "flowTemperatureHC1",        decimals: 1 },
+        { name: "flowTemperatureHC1Setpoint", decimals: 1 },
+        { name: "returnTemperatureHC1",       decimals: 1 },
+        { name: "returnTemperatureHC1Setpoint", decimals: 1 }
     ]
 
     readonly property var heatCircuit2States: [
-        "flowTemperatureHC2",
-        "flowTemperatureHC2Setpoint",
-        "returnTemperatureHC2",
-        "returnTemperatureHC2Setpoint"
+        { name: "flowTemperatureHC2",        decimals: 1 },
+        { name: "flowTemperatureHC2Setpoint", decimals: 1 },
+        { name: "returnTemperatureHC2",       decimals: 1 },
+        { name: "returnTemperatureHC2Setpoint", decimals: 1 }
     ]
 
     readonly property var heatCircuit3States: [
-        "flowTemperatureHC3",
-        "flowTemperatureHC3Setpoint",
-        "returnTemperatureHC3",
-        "returnTemperatureHC3Setpoint"
+        { name: "flowTemperatureHC3",        decimals: 1 },
+        { name: "flowTemperatureHC3Setpoint", decimals: 1 },
+        { name: "returnTemperatureHC3",       decimals: 1 },
+        { name: "returnTemperatureHC3Setpoint", decimals: 1 }
     ]
 
     readonly property var hotWaterStates: [
-        "temperatureHotwater",
-        "temperatureHotwaterSetpoint",
+        { name: "temperatureHotwater",        decimals: 1 },
+        { name: "temperatureHotwaterSetpoint", decimals: 1 }
     ]
 
     readonly property var bufferStates: [
-        "temperatureBufferTop",
-        "temperatureBufferBottom",
-        "temperatureBufferSetpoint"
+        { name: "temperatureBufferTop",      decimals: 1 },
+        { name: "temperatureBufferBottom",   decimals: 1 },
+        { name: "temperatureBufferSetpoint", decimals: 1 }
     ]
 
     content: [
@@ -132,13 +111,13 @@ GenericConfigPage {
                             model: root.generatorStates
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
@@ -160,13 +139,13 @@ GenericConfigPage {
                             model: root.heatCircuit1States
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
@@ -188,13 +167,13 @@ GenericConfigPage {
                             model: root.heatCircuit2States
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
@@ -216,13 +195,13 @@ GenericConfigPage {
                             model: root.heatCircuit3States
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
@@ -244,13 +223,13 @@ GenericConfigPage {
                             model: root.hotWaterStates
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
@@ -272,13 +251,13 @@ GenericConfigPage {
                             model: root.bufferStates
 
                             CoCard {
-                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData) : null
+                                readonly property State thingState: root.thing ? root.thing.stateByName(modelData.name) : null
                                 readonly property var stateType: thingState ? root.thing.thingClass.stateTypes.getStateType(thingState.stateTypeId) : null
 
                                 Layout.fillWidth: true
                                 visible: thingState !== null && thingState.value > -100
                                 labelText: stateType ? stateType.displayName : "..."
-                                text: thingState ? root.formatValue(thingState.value, stateType.unit) + " " + Types.toUiUnit(stateType.unit) : "..."
+                                text: thingState ? root.formatValue(thingState.value, modelData.decimals) + " " + (modelData.unit ? modelData.unit : Types.toUiUnit(stateType.unit)) : "..."
                             }
                         }
                     }
