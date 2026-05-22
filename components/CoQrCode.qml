@@ -20,7 +20,7 @@ Item {
 
     Image {
         anchors.fill: parent
-        source: qrGenerator.svgString !== "" ? "data:image/svg+xml;utf8," + qrGenerator.svgString : ""
+        source: qrGenerator.svgString !== "" ? "data:image/svg+xml;utf8," + encodeURIComponent(qrGenerator.svgString) : ""
         smooth: false
     }
 

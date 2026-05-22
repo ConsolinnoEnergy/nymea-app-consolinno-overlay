@@ -34,12 +34,12 @@ StackView {
     }
 
     Component.onCompleted: {
+        updateEebusThing();
+
         eebusSettings.connected = eebusConnectedState;
         if (eebusConnectedState && !eebusSettings.everConnected) {
             eebusSettings.everConnected = true;
         }
-
-        updateEebusThing();
     }
 
     function updateEebusThing() {
@@ -99,7 +99,7 @@ StackView {
 
     function setGridSupportSettings(param){
         var setting = {};
-        setting["paramTypeId"] = gridSupportThing.thingClass.settingsTypes.get(0).id;
+        setting["paramTypeId"] = "e3f9a1e4-5f20-4b6b-9c6f-bf0f4ad7b74b";
         setting["value"] = param;
         var settings = [];
         settings.push(setting);
@@ -248,6 +248,7 @@ StackView {
                             labelText: qsTr("Must be in same network.")
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
+                            enabled: genericEebusDeviceThingClass !== null
                             onClicked: {
                                 discovery.discoverThings(genericEebusDeviceThingClass.id);
                                 pageStack.push(eebusViewSelect,
@@ -1224,10 +1225,12 @@ StackView {
                             anchors.fill: parent
                             onClicked: {
                                 if (index === 0) {
-                                    engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                                    if (eebusGridGuardGateway) {
+                                        engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                                    }
                                     root.setGridSupportSettings("none");
                                     pageStack.pop();
-                                } else if (index === 1) {
+                                } else if (index === 1 && genericEebusDeviceThingClass) {
                                     discovery.discoverThings(genericEebusDeviceThingClass.id);
                                     pageStack.push(eebusViewSelect, { thingClass: genericEebusDeviceThingClass });
                                 }
@@ -1265,11 +1268,11 @@ StackView {
                                 spacing: 0
 
                                 Repeater {
-                                    model: eebusGridGuardGateway.thingClass.paramTypes
+                                    model: eebusGridGuardGateway ? eebusGridGuardGateway.thingClass.paramTypes : null
                                     delegate: CoCard {
                                         Layout.fillWidth: true
-                                        property var paramType: eebusGridGuardGateway.thingClass.paramTypes.get(index)
-                                        property var param: eebusGridGuardGateway.params.getParam(paramType.id)
+                                        property var paramType: eebusGridGuardGateway ? eebusGridGuardGateway.thingClass.paramTypes.get(index) : null
+                                        property var param: (eebusGridGuardGateway && paramType) ? eebusGridGuardGateway.params.getParam(paramType.id) : null
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
