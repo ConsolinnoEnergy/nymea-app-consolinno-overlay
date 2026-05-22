@@ -911,10 +911,6 @@
 <context>
     <name>CloudServicesPage</name>
     <message>
-        <source>Consolinno Cloud Services</source>
-        <translation>Consolinno Cloud-Dienste</translation>
-    </message>
-    <message>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
@@ -965,6 +961,10 @@
     <message>
         <source>Shares fully anonymized data for research and product improvement.</source>
         <translation>Teilt vollständig anonymisierte Daten für Forschung und Produktverbesserung.</translation>
+    </message>
+    <message>
+        <source>Consolinno Cloud Services (Beta)</source>
+        <translation>Consolinno-Cloud-Dienste (Beta)</translation>
     </message>
 </context>
 <context>

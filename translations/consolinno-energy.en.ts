@@ -911,10 +911,6 @@
 <context>
     <name>CloudServicesPage</name>
     <message>
-        <source>Consolinno Cloud Services</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -964,6 +960,10 @@
     </message>
     <message>
         <source>Shares fully anonymized data for research and product improvement.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consolinno Cloud Services (Beta)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
