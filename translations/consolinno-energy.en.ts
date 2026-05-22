@@ -3616,10 +3616,6 @@ Would you like to continue anyway?</source>
 <context>
     <name>GridSupportiveControl</name>
     <message>
-        <source>Control type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
     </message>
@@ -3680,14 +3676,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid-supportive control setup – EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS control box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Relais</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3697,10 +3685,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3765,6 +3749,50 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS SKI Pairing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code &amp; Pairing Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret Key (SPSEC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SHIP ID (ID)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Fingerprint (SHA-256)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Completion by the metering point operator pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing data not available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control box connection</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

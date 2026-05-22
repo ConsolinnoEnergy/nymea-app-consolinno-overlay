@@ -145,7 +145,7 @@ StackView {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
-                    headerText: qsTr("Control type")
+                    headerText: qsTr("Control box connection")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -225,7 +225,7 @@ StackView {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
-                    headerText: qsTr("Control type")
+                    headerText: qsTr("Control box connection")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -513,7 +513,7 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     interactive: false
-                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                    text: qsTr("EEBUS Comfort Pairing data not available.")
                                 }
                             }
 
@@ -641,7 +641,7 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     interactive: false
-                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                    text: qsTr("EEBUS Comfort Pairing data not available.")
                                 }
                             }
 
@@ -844,7 +844,7 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     interactive: false
-                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                    text: qsTr("EEBUS Comfort Pairing data not available.")
                                 }
                             }
 
