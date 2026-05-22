@@ -13,16 +13,16 @@ StackView {
 
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
-    property Thing eeBusThing: null // #TODO rename
+    property Thing eebusGridGuardGateway: null
     property ThingClass genericEebusDeviceThingClass: engine.thingManager.thingClasses.getThingClass("d7448dd7-cafc-4ef7-9169-09ea657f755c")
-    property double powerLimitLPC: gridSupportThing.stateByName("lpcValue").value
-    property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
-    property string powerLimitSource: gridSupportThing.settings.get(0).value
-
-    property bool eebusState: eeBusThing ? eeBusThing.stateByName("connected").value : false
+    property string powerLimitSource: gridSupportThing.settings.getParam("e3f9a1e4-5f20-4b6b-9c6f-bf0f4ad7b74b").value
+    property bool eebusConnectedState: eebusGridGuardGateway ? eebusGridGuardGateway.stateByName("connected").value : false
+    property Thing eebusInformationThing: eebusInformationThings.count > 0 ? eebusInformationThings.get(0) : null
 
     property bool currentStateLPC: gridSupportThing.stateByName("isLpcActive").value
     property bool currentStateLPP: gridSupportThing.stateByName("isLppActive").value
+    property double powerLimitLPC: gridSupportThing.stateByName("lpcValue").value
+    property double powerLimitLPP: gridSupportThing.stateByName("lppValue").value
     property string contentPlimLPP: currentStateLPP === true ? qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(powerLimitLPP)) : ""
     property string contentPlim: currentStateLPC === true ? qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(powerLimitLPC)) : ""
 
@@ -34,8 +34,8 @@ StackView {
     }
 
     Component.onCompleted: {
-        eebusSettings.connected = eebusState;
-        if (eebusState && !eebusSettings.everConnected) {
+        eebusSettings.connected = eebusConnectedState;
+        if (eebusConnectedState && !eebusSettings.everConnected) {
             eebusSettings.everConnected = true;
         }
 
@@ -44,12 +44,13 @@ StackView {
         // #TODO remove when testing finished
         console.warn("=== genericEebusDeviceThingClass:",
                      genericEebusDeviceThingClass ? genericEebusDeviceThingClass.displayName : "null");
-        console.warn("=== eeBusThing:", eeBusThing ? eeBusThing.name : "null");
+        console.warn("=== eeBusThing:", eebusGridGuardGateway ? eebusGridGuardGateway.name : "null");
+        console.warn("=== eebusInformationThing:", eebusInformationThing ? eebusInformationThing.name : "null");
     }
 
     function updateEebusThing() {
         if (eebusGridGuardThings.count === 0) {
-            eeBusThing = null;
+            eebusGridGuardGateway = null;
             console.warn("=== No eebusGridGuardThing");  // #TODO remove when testing finished
             return;
         }
@@ -58,8 +59,8 @@ StackView {
         }
         const eebusGridGuardThing = eebusGridGuardThings.get(0);
         console.warn("=== Found eebusGridGuardThing:", eebusGridGuardThing.name); // #TODO remove when testing finished
-        eeBusThing = engine.thingManager.getThing(eebusGridGuardThing.parentId);
-        console.warn("=== Setting eeBusThing:", eeBusThing.name); // #TODO remove when testing finished
+        eebusGridGuardGateway = engine.thingManager.getThing(eebusGridGuardThing.parentId);
+        console.warn("=== Setting eeBusThing:", eebusGridGuardGateway.name); // #TODO remove when testing finished
     }
 
     ThingsProxy {
@@ -97,6 +98,12 @@ StackView {
         id: gridSupport
         engine: _engine
         shownInterfaces: ["gridsupport"]
+    }
+
+    ThingsProxy {
+        id: eebusInformationThings
+        engine: _engine
+        shownThingClassIds: [ "f5f3c387-2482-4154-99ee-7a473f6d81e9" ]
     }
 
     function setGridSupportSettings(param){
@@ -174,7 +181,7 @@ StackView {
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             onClicked: {
-                                if (eeBusThing) {
+                                if (eebusGridGuardGateway) {
                                     pageStack.push(eebusView);
                                 } else {
                                     pageStack.push(eebusComfortPairingView);
@@ -510,6 +517,20 @@ StackView {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 spacing: 0
+                                visible: eebusInformationThing === null
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                }
+                            }
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+                                visible: eebusInformationThing !== null
 
                                 CoCard {
                                     Layout.fillWidth: true
@@ -521,7 +542,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "foo" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -532,7 +553,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "bar" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -543,7 +564,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "baz" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -559,14 +580,12 @@ StackView {
                 Button {
                     id: eebusSetUpComplete
                     Layout.fillWidth: true
-                    enabled: deviceConnected.checked
                     text: qsTr("Complete setup")
 
                     onClicked: {
-                        if (eeBusThing) {
-                            engine.thingManager.removeThing(eeBusThing.id);
+                        if (eebusGridGuardGateway) {
+                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
                         }
-
                         root.setGridSupportSettings("eebus");
                         pageStack.push(eebusComfortPairingViewStatus);
                     }
@@ -577,7 +596,6 @@ StackView {
                     Layout.fillWidth: true
                     flat: true
                     onClicked: {
-                        pageStack.pop();
                         pageStack.pop();
                         pageStack.pop();
                     }
@@ -622,6 +640,20 @@ StackView {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 spacing: 0
+                                visible: eebusInformationThing === null
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                }
+                            }
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+                                visible: eebusInformationThing !== null
 
                                 CoCard {
                                     Layout.fillWidth: true
@@ -633,7 +665,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "foo" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -644,7 +676,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "bar" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -655,7 +687,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "baz" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -687,18 +719,12 @@ StackView {
                     }
                 }
 
-                Item {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                }
-
                 Button {
                     id: eebusBackToView
                     Layout.fillWidth: true
                     text: qsTr("Back to overview")
 
                     onClicked: {
-                        pageStack.pop();
                         pageStack.pop();
                         pageStack.pop();
                         pageStack.pop();
@@ -812,6 +838,20 @@ StackView {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 spacing: 0
+                                visible: eebusInformationThing === null
+
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    interactive: false
+                                    text: qsTr("EEBUS Comfort Pairing information not available.")
+                                }
+                            }
+
+                            ColumnLayout {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+                                spacing: 0
+                                visible: eebusInformationThing !== null
 
                                 CoCard {
                                     Layout.fillWidth: true
@@ -823,7 +863,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "foo" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -834,7 +874,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "bar" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -845,7 +885,7 @@ StackView {
 
                                 CoCard {
                                     Layout.fillWidth: true
-                                    text: "baz" // #TODO fill from eebus info plugin
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                                     onClicked: {
@@ -1066,8 +1106,8 @@ StackView {
                     text: qsTr("Complete setup")
 
                     onClicked: {
-                        if (eeBusThing) {
-                            engine.thingManager.removeThing(eeBusThing.id);
+                        if (eebusGridGuardGateway) {
+                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
                         }
 
                         for (var i = 0; i < thingClass.paramTypes.count; i++) {
@@ -1178,7 +1218,7 @@ StackView {
                             anchors.fill: parent
                             onClicked: {
                                 if (index === 0) {
-                                    engine.thingManager.removeThing(eeBusThing.id);
+                                    engine.thingManager.removeThing(eebusGridGuardGateway.id);
                                     root.setGridSupportSettings("none");
                                     pageStack.pop();
                                 } else if (index === 1) {
@@ -1219,11 +1259,11 @@ StackView {
                                 spacing: 0
 
                                 Repeater {
-                                    model: eeBusThing.thingClass.paramTypes
+                                    model: eebusGridGuardGateway.thingClass.paramTypes
                                     delegate: CoCard {
                                         Layout.fillWidth: true
-                                        property var paramType: eeBusThing.thingClass.paramTypes.get(index)
-                                        property var param: eeBusThing.params.getParam(paramType.id)
+                                        property var paramType: eebusGridGuardGateway.thingClass.paramTypes.get(index)
+                                        property var param: eebusGridGuardGateway.params.getParam(paramType.id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
@@ -1246,7 +1286,7 @@ StackView {
                             Layout.fillWidth: true
                             contentTopMargin: Style.margins
                             headerText: qsTr("Status")
-                            visible: eeBusThing != null
+                            visible: eebusGridGuardGateway != null
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -1257,13 +1297,13 @@ StackView {
                                     Layout.fillWidth: true
                                     text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
                                               qsTr("Confirmation by network operator pending") :
-                                              eebusState == true ?
+                                              eebusConnectedState == true ?
                                                   qsTr("Connected") :
                                                   qsTr("Not connected")
                                     interactive: false
                                     status: (!eebusSettings.connected && !eebusSettings.everConnected) ?
                                                 CoCard.StatusType.Warning :
-                                                eebusState == true ?
+                                                eebusConnectedState == true ?
                                                     CoCard.StatusType.Success :
                                                     CoCard.StatusType.Danger
                                 }
@@ -1326,7 +1366,7 @@ StackView {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
                     headerText: qsTr("Status")
-                    visible: eeBusThing != null
+                    visible: eebusGridGuardGateway != null
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -1337,13 +1377,13 @@ StackView {
                             Layout.fillWidth: true
                             text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
                                       qsTr("Confirmation by network operator pending") :
-                                      eebusState == true ?
+                                      eebusConnectedState == true ?
                                           qsTr("Connected") :
                                           qsTr("Not connected")
                             interactive: false
                             status: (!eebusSettings.connected && !eebusSettings.everConnected) ?
                                         CoCard.StatusType.Warning :
-                                        eebusState == true ?
+                                        eebusConnectedState == true ?
                                             CoCard.StatusType.Success :
                                             CoCard.StatusType.Danger
                         }
