@@ -538,7 +538,12 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                // #TODO QR Code goes here
+                                CoQrCode {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    Layout.topMargin: Style.margins
+                                    Layout.bottomMargin: Style.margins
+                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                }
 
                                 CoCard {
                                     Layout.fillWidth: true
@@ -661,7 +666,12 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                // #TODO QR Code goes here
+                                CoQrCode {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    Layout.topMargin: Style.margins
+                                    Layout.bottomMargin: Style.margins
+                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                }
 
                                 CoCard {
                                     Layout.fillWidth: true
@@ -859,7 +869,12 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                // #TODO QR Code goes here
+                                CoQrCode {
+                                    Layout.alignment: Qt.AlignHCenter
+                                    Layout.topMargin: Style.margins
+                                    Layout.bottomMargin: Style.margins
+                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                }
 
                                 CoCard {
                                     Layout.fillWidth: true
