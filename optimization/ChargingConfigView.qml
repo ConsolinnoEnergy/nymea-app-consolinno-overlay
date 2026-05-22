@@ -217,7 +217,9 @@ GenericConfigPage {
                     }
                     energyChargedCard.visible = true
                     initializing = false
-                    checkPhaseCountTimer.start();
+                    if (!checkPhaseCountTimer.running) {
+                        checkPhaseCountTimer.start();
+                    }
                 }
                 // Pending
                 if (chargingConfiguration.optimizationEnabled && (configuration.state == 6)){
@@ -341,7 +343,7 @@ GenericConfigPage {
     }
 
     Component.onCompleted: {
-        checkPhaseCounts();
+        checkPhaseCountTimer.start();
     }
 
     // Convenience property – always null-safe: check before use with `if (dpThing)`
