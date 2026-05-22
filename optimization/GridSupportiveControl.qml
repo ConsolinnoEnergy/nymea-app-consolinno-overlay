@@ -58,6 +58,7 @@ StackView {
         id: eebusGridGuardThings
         engine: _engine
         shownThingClassIds: ["f84f7c28-04cc-4da5-8564-402a9361b136"] // "EEBus Grid Guard" thing class ID
+        onCountChanged: updateEebusThing()
     }
 
     QtObject {
