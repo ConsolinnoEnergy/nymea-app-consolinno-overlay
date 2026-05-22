@@ -40,27 +40,18 @@ StackView {
         }
 
         updateEebusThing();
-
-        // #TODO remove when testing finished
-        console.warn("=== genericEebusDeviceThingClass:",
-                     genericEebusDeviceThingClass ? genericEebusDeviceThingClass.displayName : "null");
-        console.warn("=== eeBusThing:", eebusGridGuardGateway ? eebusGridGuardGateway.name : "null");
-        console.warn("=== eebusInformationThing:", eebusInformationThing ? eebusInformationThing.name : "null");
     }
 
     function updateEebusThing() {
         if (eebusGridGuardThings.count === 0) {
             eebusGridGuardGateway = null;
-            console.warn("=== No eebusGridGuardThing");  // #TODO remove when testing finished
             return;
         }
         if (eebusGridGuardThings.count > 1) {
             console.warn("More than one EEBus Grid Guard things are configured!");
         }
         const eebusGridGuardThing = eebusGridGuardThings.get(0);
-        console.warn("=== Found eebusGridGuardThing:", eebusGridGuardThing.name); // #TODO remove when testing finished
         eebusGridGuardGateway = engine.thingManager.getThing(eebusGridGuardThing.parentId);
-        console.warn("=== Setting eeBusThing:", eebusGridGuardGateway.name); // #TODO remove when testing finished
     }
 
     ThingsProxy {
