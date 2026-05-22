@@ -54,7 +54,6 @@ Page {
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("evcharger")) {
                 thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                    chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id),
                     thing: thingDevice,
                     directionID: 1
                 });
