@@ -290,5 +290,8 @@
         <file>info/AnonymizedUsageDataInfo.qml</file>
         <file>components/CoOverlay.qml</file>
         <file>components/CoHeader.qml</file>
+        <file>components/CoQrCode.qml</file>
+        <file>dependencies/QR-Code-Generator-QML/QRGenerator.qml</file>
+        <file>dependencies/qrcode-svg/qrcode.min.js</file>
     </qresource>
 </RCC>

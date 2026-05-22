@@ -3636,10 +3636,6 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>GridSupportiveControl</name>
     <message>
-        <source>Control type</source>
-        <translation>Steuerungsart</translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
     </message>
@@ -3700,14 +3696,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Muss im selben Netzwerk sein.</translation>
     </message>
     <message>
-        <source>Grid-supportive control setup – EEBUS</source>
-        <translation>Netzdienlichkeit einrichten – EEBUS</translation>
-    </message>
-    <message>
-        <source>EEBUS control box</source>
-        <translation>EEBUS Steuerbox</translation>
-    </message>
-    <message>
         <source>Relais</source>
         <translation>Relais</translation>
     </message>
@@ -3717,11 +3705,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation>Bitte schließen Sie die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relais</source>
-        <translation>Netzdienlichkeit einrichten – Relais</translation>
+        <translation>Bitte schließe die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
     </message>
     <message>
         <source>Existing setup will be overwritten.</source>
@@ -3786,6 +3770,50 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
         <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß unserer Anleitung angeschlossen sein.</translation>
+    </message>
+    <message>
+        <source>EEBUS SKI Pairing</source>
+        <translation>EEBUS SKI Pairing</translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing</source>
+        <translation>EEBUS Comfort Pairing</translation>
+    </message>
+    <message>
+        <source>QR Code &amp; Pairing Data</source>
+        <translation>QR‑Code &amp; Pairing‑Daten</translation>
+    </message>
+    <message>
+        <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
+        <translation>Der QR‑Code oder die untenstehenden Pairing‑Daten sind für das SHIP Pairing durch den Messstellenbetreiber zu verwenden.</translation>
+    </message>
+    <message>
+        <source>Secret Key (SPSEC)</source>
+        <translation>Secret Key (SPSEC)</translation>
+    </message>
+    <message>
+        <source>%1 copied to clipboard</source>
+        <translation>%1 in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>SHIP ID (ID)</source>
+        <translation>SHIP ID (ID)</translation>
+    </message>
+    <message>
+        <source>Certificate Fingerprint (SHA-256)</source>
+        <translation>Certificate Fingerprint (SHA-256)</translation>
+    </message>
+    <message>
+        <source>Completion by the metering point operator pending</source>
+        <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing data not available.</source>
+        <translation>EEBUS Comfort Pairing Daten nicht verfügbar.</translation>
+    </message>
+    <message>
+        <source>Control box connection</source>
+        <translation>Verbindung zur Steuerbox</translation>
     </message>
 </context>
 <context>
