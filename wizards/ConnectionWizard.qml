@@ -736,6 +736,8 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                     CoNavbarButton {
                         Layout.fillWidth: true
+                    CoNavbarButton {
+                        Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -747,6 +749,7 @@ ConsolinnoWizardPageBase {
                                 pageStack.pop(root);
                             }
                         }
+                    }
                     }
                 }
             }
@@ -810,7 +813,7 @@ ConsolinnoWizardPageBase {
                                                                "2222" :
                                                                connectionTypeComboBox.currentIndex === 1 ?
                                                                    "4444" :
-                                                                   Qt.platform.os === "wasm" ? "443" : "2213"
+                                                                   Qt.platform.os === "wasm" ? "2212" : "2213"
                                 textField.validator: IntValidator{bottom: 1; top: 65535;}
                             }
 
