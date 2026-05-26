@@ -19,6 +19,8 @@
         <file>Qt5Compat/GraphicalEffects/OpacityMask.qml</file>
         <file>Qt5Compat/GraphicalEffects/ColorOverlay.qml</file>
         <file>Qt5Compat/GraphicalEffects/DropShadow.qml</file>
+        <file>Qt5Compat/GraphicalEffects/FastBlur.qml</file>
+        <file>Qt5Compat/GraphicalEffects/RadialGradient.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
