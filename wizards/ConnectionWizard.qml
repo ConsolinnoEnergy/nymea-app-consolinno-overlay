@@ -698,23 +698,31 @@ ConsolinnoWizardPageBase {
                                 port = portTextInput.text;
                             }
 
+                            var hostPart = hostAddress;
+                            var pathPart = "";
+                            var slashIndex = hostAddress.indexOf('/');
+                            if (slashIndex !== -1) {
+                                hostPart = hostAddress.substring(0, slashIndex);
+                                pathPart = hostAddress.substring(slashIndex);
+                            }
+
                             if (connectionTypeComboBox.currentIndex === 0) {
                                 if (secureCheckBox.checked) {
-                                    rpcUrl = 'nymeas://' + hostAddress + ':' + port;
+                                    rpcUrl = 'nymeas://' + hostPart + ':' + port + pathPart;
                                 } else {
-                                    rpcUrl = 'nymea://' + hostAddress + ':' + port;
+                                    rpcUrl = 'nymea://' + hostPart + ':' + port + pathPart;
                                 }
                             } else if (connectionTypeComboBox.currentIndex === 1) {
                                 if (secureCheckBox.checked) {
-                                    rpcUrl = 'wss://' + hostAddress + ':' + port;
+                                    rpcUrl = 'wss://' + hostPart + ':' + port + pathPart;
                                 } else {
-                                    rpcUrl = 'ws://' + hostAddress + ':' + port;
+                                    rpcUrl = 'ws://' + hostPart + ':' + port + pathPart;
                                 }
                             } else if (connectionTypeComboBox.currentIndex === 2) {
                                 if (secureCheckBox.checked) {
-                                    rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text;
+                                    rpcUrl = "tunnels://" + hostPart + ":" + port + pathPart + "?uuid=" + serverUuidTextInput.text;
                                 } else {
-                                    rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text;
+                                    rpcUrl = "tunnel://" + hostPart + ":" + port + pathPart + "?uuid=" + serverUuidTextInput.text;
                                 }
                             }
 
@@ -724,6 +732,8 @@ ConsolinnoWizardPageBase {
                         }
                     }
 
+                    CoNavbarButton {
+                        Layout.fillWidth: true
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
@@ -800,7 +810,7 @@ ConsolinnoWizardPageBase {
                                                                "2222" :
                                                                connectionTypeComboBox.currentIndex === 1 ?
                                                                    "4444" :
-                                                                   "2213"
+                                                                   Qt.platform.os === "wasm" ? "443" : "2213"
                                 textField.validator: IntValidator{bottom: 1; top: 65535;}
                             }
 
@@ -810,7 +820,7 @@ ConsolinnoWizardPageBase {
                                 Layout.leftMargin: Style.margins
                                 Layout.rightMargin: Style.margins
                                 text: qsTr("Establish a connection via SSL.")
-                                checked: true
+                                checked: Qt.platform.os !== "wasm" || connectionTypeComboBox.currentIndex === 2
                             }
                         }
                     }
@@ -828,12 +838,15 @@ ConsolinnoWizardPageBase {
 
     function loadHtmlFile(fileName, textAreaView) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", Qt.resolvedUrl(fileName), false); // Synchronous read
+        var resolvedUrl = Qt.resolvedUrl(fileName);
+        xhr.open("GET", resolvedUrl, false); // Synchronous read
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                textAreaView.text = xhr.responseText;
-            } else if (xhr.status !== 200) {
-                console.error("Failed to load file:", xhr.status, xhr.statusText);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText.length > 0)) {
+                    textAreaView.text = xhr.responseText;
+                } else {
+                    console.error("Failed to load file:", xhr.status, xhr.statusText);
+                }
             }
         };
         xhr.send();
