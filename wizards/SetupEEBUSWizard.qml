@@ -66,7 +66,7 @@ Page {
     ThingsProxy {
         id: heatPumpLimitProxy
         engine: _engine
-        shownInterfaces: ["heatpump"]
+        shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
     }
 
     // When directToDiscovery is set, skip the overview page and go straight to
