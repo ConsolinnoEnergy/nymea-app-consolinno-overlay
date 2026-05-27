@@ -26,6 +26,9 @@ Page {
     // Use this when opening from AddNewThings so the list page is not shown.
     property bool directToDiscovery: false
 
+    // Holds the discovery page instance so we can pop back to it on cancel.
+    property var _discoveryPageInstance: null
+
     header: CoHeader {
         text: qsTr("EEBUS Devices")
         backButtonVisible: true
@@ -75,7 +78,7 @@ Page {
             Qt.callLater(function() {
                 var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
                 discovery.discoverThings(root.eebusGatewayThingClassId);
-                pageStack.push(discoveryPage, {thingClass: thingClass});
+                root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
             });
         }
     }
@@ -173,7 +176,7 @@ Page {
                     onClicked: {
                         var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
                         discovery.discoverThings(root.eebusGatewayThingClassId);
-                        pageStack.push(discoveryPage, {thingClass: thingClass});
+                        root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
                     }
                 }
             }
@@ -440,10 +443,10 @@ Page {
                 _handled = true
                 waitTimer.stop()
                 engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
-                pageStack.pop(root, StackView.Immediate)
-                if (root.directToDiscovery) {
-                    root.done(false, false, true)
-                }
+                // Pop back to the discovery page so the user can try again,
+                // falling back to the wizard root if the reference is missing.
+                var target = root._discoveryPageInstance ? root._discoveryPageInstance : root
+                pageStack.pop(target, StackView.Immediate)
             }
 
             function handleChildThing(childThing) {
