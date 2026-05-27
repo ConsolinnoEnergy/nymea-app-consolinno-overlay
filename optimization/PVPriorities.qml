@@ -116,7 +116,7 @@ Page {
             var thing = engine.thingManager.things.getThing(thingId);
             prioListModel.append({
                 "name": thing ? thing.name : thingId.toString(),
-                "thingId": thing ? "" + thing.id : "",
+                "thingId": thing ? "" + thing.id : "" + thingId,
                 "locked": locked,
                 "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg"),
                 "optimizationEnabled": thing ? root.thingOptimizationEnabled(thing) : false
