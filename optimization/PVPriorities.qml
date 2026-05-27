@@ -204,7 +204,7 @@ Page {
                             model: prioListModel
                             clip: true
 
-                            property bool dragging: draggingIndex >= 0
+                            property bool itemDragging: draggingIndex >= 0
                             property int draggingIndex: -1
 
                             moveDisplaced: Transition { NumberAnimation { properties: "y" } }
@@ -223,7 +223,7 @@ Page {
                                 id: dndArea
                                 anchors.fill: parent
                                 propagateComposedEvents: true
-                                preventStealing: priorityListView.dragging
+                                preventStealing: priorityListView.itemDragging
                                 property int dragOffset: 0
 
                                 onPressed: (mouse) => {
@@ -243,7 +243,7 @@ Page {
                                 }
 
                                 onMouseYChanged: {
-                                    if (!priorityListView.dragging) { return; }
+                                    if (!priorityListView.itemDragging) { return; }
                                     var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
                                     var indexUnderMouse = priorityListView.indexAt(mouseX, mouseYInList - dndArea.dragOffset / 2);
                                     if (indexUnderMouse < 0) { return; }
@@ -262,7 +262,7 @@ Page {
 
                             CoSortableCard {
                                 id: dndItem
-                                visible: priorityListView.dragging
+                                visible: priorityListView.itemDragging
                                 dragging: true
                                 y: dndArea.mouseY - dndArea.dragOffset
                                 width: priorityListView.width
