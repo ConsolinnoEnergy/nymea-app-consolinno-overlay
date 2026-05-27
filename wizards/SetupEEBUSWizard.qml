@@ -68,11 +68,15 @@ Page {
 
     // When directToDiscovery is set, skip the overview page and go straight to
     // the discovery page so the caller doesn't have to navigate through the list.
+    // Defer the push so that the parent StackView has finished pushing this
+    // wizard before we push the discovery page on top of it.
     Component.onCompleted: {
         if (root.directToDiscovery) {
-            var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
-            discovery.discoverThings(root.eebusGatewayThingClassId);
-            pageStack.push(discoveryPage, {thingClass: thingClass});
+            Qt.callLater(function() {
+                var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
+                discovery.discoverThings(root.eebusGatewayThingClassId);
+                pageStack.push(discoveryPage, {thingClass: thingClass});
+            });
         }
     }
 
