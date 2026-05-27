@@ -689,7 +689,9 @@ Page {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An error occurred while setting up the EEBUS device. Please try again.")
+                    text: setupResultPage.message !== ""
+                          ? setupResultPage.message
+                          : qsTr("An error occurred while setting up the EEBUS device. Please try again.")
                     visible: setupResultPage.thingError != Thing.ThingErrorNoError
                 }
 
