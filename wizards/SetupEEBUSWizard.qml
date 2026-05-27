@@ -19,167 +19,15 @@ Page {
         "7c29d23d-d98b-46fd-b941-39a585159fbe",  // EEBus Inverter
         "f84f7c28-04cc-4da5-8564-402a9361b136"   // EEBus GridGuard
     ]
-    readonly property string evChargerLimitExceededText: qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.").arg(Configuration.deviceName)
-    readonly property string heatPumpLimitExceededText: qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.").arg(Configuration.deviceName)
-
-    function currentEebusChildThingIds() {
-        var thingIds = [];
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var thing = eebusChildThingsProxy.get(i);
-            if (thing) {
-                thingIds.push(thing.id.toString());
-            }
-        }
-        return thingIds;
-    }
-
-    function deviceTypeForThing(thing) {
-        if (!thing || !thing.thingClass) {
-            return "";
-        }
-
-        var interfaces = thing.thingClass.interfaces;
-        if (interfaces.indexOf("evcharger") !== -1) {
-            return "evcharger";
-        }
-        if (interfaces.indexOf("heatpump") !== -1 || interfaces.indexOf("smartgridheatpump") !== -1 || interfaces.indexOf("simpleheatpump") !== -1 || interfaces.indexOf("pvsurplusheatpump") !== -1) {
-            return "heatpump";
-        }
-        if (interfaces.indexOf("solarinverter") !== -1) {
-            return "solarinverter";
-        }
-
-        return "";
-    }
-
-    function findNewEebusChildThing() {
-        var fallbackThing = null;
-
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var thing = eebusChildThingsProxy.get(i);
-            if (!thing) {
-                continue;
-            }
-
-            var thingId = thing.id.toString();
-            var matchesPendingGateway = d.pendingGatewayThingId !== "" && thing.parentId.toString() === d.pendingGatewayThingId;
-            if (d.pendingGatewayThingId !== "") {
-                if (!matchesPendingGateway) {
-                    continue;
-                }
-            } else {
-                var isNewThing = d.knownEebusChildThingIds.indexOf(thingId) === -1;
-                if (!isNewThing) {
-                    continue;
-                }
-            }
-
-            if (root.deviceTypeForThing(thing) !== "") {
-                return thing;
-            }
-
-            if (!fallbackThing) {
-                fallbackThing = thing;
-            }
-        }
-
-        return fallbackThing;
-    }
-
-    function isDeviceLimitExceeded(thing) {
-        switch (root.deviceTypeForThing(thing)) {
-        case "evcharger":
-            return evChargerThingsProxy.count > 1;
-        case "heatpump":
-            return heatPumpThingsProxy.count > 1;
-        default:
-            return false;
-        }
-    }
-
-    function limitExceededTextForThing(thing) {
-        switch (root.deviceTypeForThing(thing)) {
-        case "evcharger":
-            return root.evChargerLimitExceededText;
-        case "heatpump":
-            return root.heatPumpLimitExceededText;
-        default:
-            return "";
-        }
-    }
-
-    function successThingFor(thing) {
-        if (root.deviceTypeForThing(thing) !== "") {
-            return thing;
-        }
-
-        if (!thing) {
-            return null;
-        }
-
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var childThing = eebusChildThingsProxy.get(i);
-            if (!childThing || childThing.parentId.toString() !== thing.id.toString()) {
-                continue;
-            }
-
-            // Only consider children added during this setup session
-            if (d.knownEebusChildThingIds.indexOf(childThing.id.toString()) !== -1) {
-                continue;
-            }
-
-            if (root.deviceTypeForThing(childThing) !== "") {
-                return childThing;
-            }
-        }
-
-        return thing;
-    }
-
-    function openOptimizationPage(thing) {
-        var successThing = root.successThingFor(thing);
-        var optimizationPage = null;
-
-        switch (root.deviceTypeForThing(successThing)) {
-        case "evcharger":
-            optimizationPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                thing: successThing,
-                directionID: 1
-            });
-            break;
-        case "heatpump":
-            optimizationPage = pageStack.push("../optimization/HeatingOptimization.qml", {
-                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(successThing.id),
-                heatPumpThing: successThing,
-                directionID: 1
-            });
-            break;
-        case "solarinverter":
-            optimizationPage = pageStack.push("../optimization/PVOptimization.qml", {
-                pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(successThing.id),
-                thing: successThing,
-                directionID: 1
-            });
-            break;
-        default:
-            pageStack.pop(root);
-            return;
-        }
-
-        optimizationPage.done.connect(function() {
-            pageStack.pop(root);
-        });
-    }
-
-    function limitExceededResultText(baseText, removalSucceeded) {
-        if (removalSucceeded) {
-            return qsTr("%1 The newly added EEBUS device has been removed again.").arg(baseText);
-        }
-
-        return qsTr("%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.").arg(baseText);
-    }
 
     signal done(bool skip, bool abort, bool back)
+
+    // When true, skip the overview page and jump straight to discovery.
+    // Use this when opening from AddNewThings so the list page is not shown.
+    property bool directToDiscovery: false
+
+    // Holds the discovery page instance so we can pop back to it on cancel.
+    property var _discoveryPageInstance: null
 
     header: CoHeader {
         text: qsTr("EEBUS Devices")
@@ -194,44 +42,6 @@ Page {
         property string thingName: ""
         property var params: []
         property string name: ""
-        property var knownEebusChildThingIds: []
-        property string pendingGatewayThingId: ""
-        property string pendingAddMessage: ""
-        property string pendingLimitExceededMessage: ""
-        property int pendingRemoveCommandId: -1
-
-        function resetPendingSetup() {
-            pendingThingTimer.stop();
-            pendingThingTimer.retryCount = 0;
-            d.pendingGatewayThingId = "";
-            d.pendingAddMessage = "";
-            d.pendingLimitExceededMessage = "";
-            d.pendingRemoveCommandId = -1;
-        }
-
-        function showSetupResult(thingError, thing, message) {
-            d.resetPendingSetup();
-            pageStack.push(setupResultComponent, {thingError: thingError, thing: thing, message: message});
-        }
-
-        function handleAddedEebusThing(thing) {
-            if (!thing || d.pendingRemoveCommandId !== -1) {
-                return false;
-            }
-
-            pendingThingTimer.stop();
-            pendingThingTimer.retryCount = 0;
-
-            if (!root.isDeviceLimitExceeded(thing)) {
-                d.showSetupResult(Thing.ThingErrorNoError, thing, d.pendingAddMessage);
-                return true;
-            }
-
-            d.pendingLimitExceededMessage = root.limitExceededTextForThing(thing);
-            busyOverlay.shown = true;
-            d.pendingRemoveCommandId = engine.thingManager.removeThing(thing.isChild ? thing.parentId : thing.id);
-            return true;
-        }
     }
 
     ThingDiscovery {
@@ -246,42 +56,30 @@ Page {
         shownThingClassIds: root.eebusChildThingClassIds
     }
 
+    // Proxies used for device-count limit checks when a child thing appears.
     ThingsProxy {
-        id: evChargerThingsProxy
+        id: evChargerLimitProxy
         engine: _engine
         shownInterfaces: ["evcharger"]
     }
 
     ThingsProxy {
-        id: heatPumpThingsProxy
+        id: heatPumpLimitProxy
         engine: _engine
         shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
     }
 
-    StackView {
-        id: internalPageStack
-        anchors.fill: parent
-    }
-
-    Timer {
-        id: pendingThingTimer
-        interval: 200
-        repeat: true
-        running: false
-
-        property int retryCount: 0
-
-        onTriggered: {
-            var newThing = root.findNewEebusChildThing();
-            if (d.handleAddedEebusThing(newThing)) {
-                return;
-            }
-
-            retryCount += 1;
-            if (retryCount >= 20) {
-                var gatewayThing = d.pendingGatewayThingId !== "" ? engine.thingManager.things.getThing(d.pendingGatewayThingId) : null;
-                d.showSetupResult(Thing.ThingErrorNoError, gatewayThing, d.pendingAddMessage);
-            }
+    // When directToDiscovery is set, skip the overview page and go straight to
+    // the discovery page so the caller doesn't have to navigate through the list.
+    // Defer the push so that the parent StackView has finished pushing this
+    // wizard before we push the discovery page on top of it.
+    Component.onCompleted: {
+        if (root.directToDiscovery) {
+            Qt.callLater(function() {
+                var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
+                discovery.discoverThings(root.eebusGatewayThingClassId);
+                root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
+            });
         }
     }
 
@@ -289,51 +87,13 @@ Page {
         target: engine.thingManager
 
         onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
-            busyOverlay.shown = false;
             if (thingError !== Thing.ThingErrorNoError) {
                 var thing = engine.thingManager.things.getThing(thingId);
-                d.showSetupResult(thingError, thing, displayMessage);
+                pageStack.push(setupResultComponent, {thingError: thingError, thing: thing, message: displayMessage});
                 return;
             }
-
-            d.pendingGatewayThingId = thingId.toString();
-            d.pendingAddMessage = displayMessage;
-
-            if (!d.handleAddedEebusThing(root.findNewEebusChildThing())) {
-                pendingThingTimer.retryCount = 0;
-                pendingThingTimer.start();
-            }
-        }
-
-        onThingAdded: function(thing) {
-            if (d.pendingGatewayThingId === "" || !thing) {
-                return;
-            }
-
-            if (thing.parentId.toString() !== d.pendingGatewayThingId || root.eebusChildThingClassIds.indexOf(thing.thingClassId.toString()) === -1) {
-                return;
-            }
-
-            d.handleAddedEebusThing(root.findNewEebusChildThing());
-        }
-
-        onRemoveThingReply: function(commandId, thingError, ruleIds) {
-            if (commandId !== d.pendingRemoveCommandId) {
-                return;
-            }
-
-            busyOverlay.shown = false;
-
-            if (thingError === Thing.ThingErrorNoError) {
-                d.showSetupResult(Thing.ThingErrorSetupFailed, null, root.limitExceededResultText(d.pendingLimitExceededMessage, true));
-                return;
-            }
-
-            d.showSetupResult(
-                Thing.ThingErrorSetupFailed,
-                null,
-                root.limitExceededResultText(d.pendingLimitExceededMessage, false)
-            );
+            // Gateway added successfully – wait for the EEBUS child thing to appear.
+            pageStack.push(eebusChildWaitingComponent, {gatewayThingId: thingId});
         }
     }
 
@@ -341,6 +101,8 @@ Page {
         anchors.fill: parent
         anchors.margins: Style.margins
         spacing: Style.margins
+        // Hidden when opened via directToDiscovery (the list is never shown then).
+        visible: !root.directToDiscovery
 
         CoFrostyCard {
             Layout.fillWidth: true
@@ -413,7 +175,7 @@ Page {
                     onClicked: {
                         var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
                         discovery.discoverThings(root.eebusGatewayThingClassId);
-                        pageStack.push(discoveryPage, {thingClass: thingClass});
+                        root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
                     }
                 }
             }
@@ -450,7 +212,15 @@ Page {
             header: CoHeader {
                 text: qsTr("Discover EEBUS Devices")
                 backButtonVisible: true
-                onBackPressed: pageStack.pop()
+                onBackPressed: {
+                    if (root.directToDiscovery) {
+                        // Pop discovery page and signal the caller to close the wizard.
+                        pageStack.pop(root, StackView.Immediate)
+                        root.done(false, false, true)
+                    } else {
+                        pageStack.pop()
+                    }
+                }
             }
 
             CoFrostyCard {
@@ -539,7 +309,7 @@ Page {
 
             property ThingClass thingClass
 
-            title: qsTr("Set up %1").arg(thingClass ? thingClass.displayName : "")
+            title: qsTr("Set up %1").arg(d.thingName ? d.thingName : (thingClass ? thingClass.displayName : ""))
             header: CoHeader {
                 text: paramsView.title
                 backButtonVisible: true
@@ -624,25 +394,277 @@ Page {
                     }
                     d.params = params;
                     d.name = nameTextField.text;
-                    d.resetPendingSetup();
-                    d.knownEebusChildThingIds = root.currentEebusChildThingIds();
 
                     if (d.thingDescriptor) {
                         engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
                     } else {
                         engine.thingManager.addThing(thingClass.id, d.name, params);
                     }
-                    busyOverlay.shown = true;
+                    paramsView.busy = true;
                 }
             }
         }
     }
 
-    BusyOverlay {
-        id: busyOverlay
+    // Component: Wait for the EEBUS child thing that the gateway creates automatically.
+    // Shows a spinner for up to 30 seconds. On timeout or limit violation the gateway
+    // is removed. On success the appropriate optimisation screen is opened.
+    Component {
+        id: eebusChildWaitingComponent
+
+        Page {
+            id: waitingPage
+
+            property var gatewayThingId: null
+
+            // Prevent double-handling when both the race-condition check and the
+            // thingAdded signal fire.
+            property bool _handled: false
+
+            header: CoHeader {
+                text: qsTr("EEBUS Device")
+                backButtonVisible: d2.state === "waiting"
+                onBackPressed: waitingPage.handleCancel()
+            }
+
+            // ---- helpers ---------------------------------------------------
+
+            function normalizeUuid(uuid) {
+                return uuid.toString().replace(/[{}]/g, "").toLowerCase()
+            }
+
+            function handleCancel() {
+                if (_handled) return
+                _handled = true
+                waitTimer.stop()
+                engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                // Pop back to the discovery page so the user can try again,
+                // falling back to the wizard root if the reference is missing.
+                var target = root._discoveryPageInstance ? root._discoveryPageInstance : root
+                pageStack.pop(target, StackView.Immediate)
+            }
+
+            function handleChildThing(childThing) {
+                if (_handled) return
+                _handled = true
+                waitTimer.stop()
+
+                var classId = normalizeUuid(childThing.thingClassId)
+                var isEvCharger = (classId === "15e6bb51-ef91-4668-9f6f-a43413d4ee4b")
+                var isHeatPump  = (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158")
+
+                if (isEvCharger && evChargerLimitProxy.count > 1) {
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                    d2.errorText = qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.").arg(Configuration.deviceName)
+                    d2.state = "limit_error"
+                    return
+                }
+                if (isHeatPump && heatPumpLimitProxy.count > 1) {
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                    d2.errorText = qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.").arg(Configuration.deviceName)
+                    d2.state = "limit_error"
+                    return
+                }
+
+                d2.childThing = childThing
+                d2.state = "success"
+            }
+
+            function handleTimeout() {
+                if (_handled) return
+                _handled = true
+                engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                d2.state = "timeout_error"
+            }
+
+            // Race-condition guard: check whether the child appeared before this
+            // component finished loading.
+            Component.onCompleted: {
+                var gwId = normalizeUuid(gatewayThingId)
+                for (var i = 0; i < engine.thingManager.things.count; i++) {
+                    var t = engine.thingManager.things.get(i)
+                    if (normalizeUuid(t.parentId) === gwId &&
+                        root.eebusChildThingClassIds.indexOf(normalizeUuid(t.thingClassId)) >= 0) {
+                        handleChildThing(t)
+                        return
+                    }
+                }
+            }
+
+            // ---- state -----------------------------------------------------
+
+            QtObject {
+                id: d2
+                property string state: "waiting"   // "waiting" | "success" | "timeout_error" | "limit_error"
+                property string errorText: ""
+                property Thing childThing: null
+            }
+
+            // ---- timer & signal listener -----------------------------------
+
+            Timer {
+                id: waitTimer
+                interval: 30000
+                running: true
+                repeat: false
+                onTriggered: waitingPage.handleTimeout()
+            }
+
+            Connections {
+                target: engine.thingManager
+                onThingAdded: function(thing) {
+                    if (waitingPage.normalizeUuid(thing.parentId) === waitingPage.normalizeUuid(waitingPage.gatewayThingId) &&
+                        root.eebusChildThingClassIds.indexOf(waitingPage.normalizeUuid(thing.thingClassId)) >= 0) {
+                        waitingPage.handleChildThing(thing)
+                    }
+                }
+            }
+
+            // ---- UI --------------------------------------------------------
+
+            ColumnLayout {
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                width: Math.min(parent.width - Style.margins * 2, 300)
+                spacing: Style.margins
+
+                Item { Layout.fillHeight: true }
+
+                // Waiting
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    visible: d2.state === "waiting"
+                    spacing: Style.margins
+
+                    BusyIndicator {
+                        Layout.alignment: Qt.AlignHCenter
+                        running: true
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Setting up EEBUS device...")
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
+                    }
+                }
+
+                // Success
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    visible: d2.state === "success"
+                    spacing: Style.margins
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        text: qsTr("The EEBUS device has been successfully set up:")
+                        horizontalAlignment: Text.AlignHCenter
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        horizontalAlignment: Text.AlignHCenter
+                        font.bold: true
+                        text: d2.childThing ? d2.childThing.name : ""
+                    }
+
+                    ColorIcon {
+                        Layout.topMargin: Style.bigMargins
+                        Layout.bottomMargin: Style.bigMargins
+                        Layout.alignment: Qt.AlignHCenter
+                        name: "tick"
+                        color: Style.accentColor
+                        size: Style.hugeIconSize * 3
+                    }
+                }
+
+                // Error (timeout or limit exceeded)
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    visible: d2.state === "timeout_error" || d2.state === "limit_error"
+                    spacing: Style.margins
+
+                    ColorIcon {
+                        Layout.topMargin: Style.bigMargins
+                        Layout.bottomMargin: Style.bigMargins
+                        Layout.alignment: Qt.AlignHCenter
+                        name: "close"
+                        color: Style.red
+                        size: Style.hugeIconSize * 3
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        text: d2.state === "timeout_error"
+                              ? qsTr("The EEBUS device could not be set up. Please check the device and try again.")
+                              : d2.errorText
+                    }
+                }
+
+                Item { Layout.fillHeight: true }
+
+                // OK button – success: open optimisation page
+                Button {
+                    Layout.fillWidth: true
+                    visible: d2.state === "success"
+                    text: qsTr("OK")
+                    onClicked: {
+                        var childThing = d2.childThing
+                        var classId = waitingPage.normalizeUuid(childThing.thingClassId)
+                        var optPage = null
+
+                        if (classId === "15e6bb51-ef91-4668-9f6f-a43413d4ee4b") {
+                            // EEBUS Wallbox → EV charger optimisation
+                            optPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
+                                thing: childThing,
+                                directionID: 1
+                            })
+                        } else if (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158") {
+                            // EEBUS Heatpump → heating optimisation
+                            optPage = pageStack.push("../optimization/HeatingOptimization.qml", {
+                                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(childThing.id),
+                                heatPumpThing: childThing,
+                                directionID: 1
+                            })
+                        } else {
+                            // No optimisation screen for inverter / GridGuard
+                            pageStack.pop(root, StackView.Immediate)
+                            if (root.directToDiscovery) {
+                                root.done(true, false, false)
+                            }
+                            return
+                        }
+
+                        if (optPage) {
+                            optPage.done.connect(function() {
+                                pageStack.pop(root, StackView.Immediate)
+                                if (root.directToDiscovery) {
+                                    root.done(true, false, false)
+                                }
+                            })
+                        }
+                    }
+                }
+
+                // OK button – error: go back
+                Button {
+                    Layout.fillWidth: true
+                    visible: d2.state === "timeout_error" || d2.state === "limit_error"
+                    text: qsTr("OK")
+                    onClicked: {
+                        pageStack.pop(root, StackView.Immediate)
+                        if (root.directToDiscovery) {
+                            root.done(true, false, false)
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    // Component: Setup result page
+    // Component: Setup result page (used for the gateway-add error path)
     Component {
         id: setupResultComponent
 
@@ -663,41 +685,13 @@ Page {
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
-                ColumnLayout {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    visible: setupResultPage.thingError == Thing.ThingErrorNoError
-                    spacing: Style.margins
-
-                    Label {
-                        Layout.fillWidth: true
-                        wrapMode: Text.WordWrap
-                        text: qsTr("The EEBUS device has been successfully set up:")
-                        horizontalAlignment: Text.AlignHCenter
-                    }
-
-                    Label {
-                        Layout.fillWidth: true
-                        horizontalAlignment: Text.AlignHCenter
-                        font.bold: true
-                        text: thing ? thing.name : ""
-                    }
-
-                    ColorIcon {
-                        Layout.topMargin: Style.bigMargins
-                        Layout.bottomMargin: Style.bigMargins
-                        Layout.alignment: Qt.AlignHCenter
-                        name: "tick"
-                        color: Style.accentColor
-                        size: Style.hugeIconSize * 3
-                    }
-                }
-
                 Label {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: setupResultPage.message !== "" ? setupResultPage.message : qsTr("An error occurred while setting up the EEBUS device. Please try again.")
+                    text: setupResultPage.message !== ""
+                          ? setupResultPage.message
+                          : qsTr("An error occurred while setting up the EEBUS device. Please try again.")
                     visible: setupResultPage.thingError != Thing.ThingErrorNoError
                 }
 
@@ -710,10 +704,9 @@ Page {
                         Layout.preferredWidth: 200
                         text: qsTr("OK")
                         onClicked: {
-                            if (setupResultPage.thingError == Thing.ThingErrorNoError) {
-                                root.openOptimizationPage(thing);
-                            } else {
-                                pageStack.pop(root);
+                            pageStack.pop(root);
+                            if (root.directToDiscovery) {
+                                root.done(true, false, false)
                             }
                         }
                     }

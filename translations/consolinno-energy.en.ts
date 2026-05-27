@@ -4734,19 +4734,23 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.</source>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device has been removed again.</source>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.</source>
+        <source>EEBUS Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
