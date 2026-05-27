@@ -66,12 +66,23 @@ packaging/osx/AppIcon.svg
 packaging/windows/config/config.xml
 packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs
 packaging/windows/packages/hems.consolinno.energy/meta/package.xml
+packaging/windows/packages/*/
 privacy_agreement_de_DE.html
+terms_of_use_de_DE.html
 styles/dark/Style.qml
 styles/light/Style.qml
 styles/light/logo-wide.svg
-packaging/android/res/drawable/ic_launcher_background.xml  
-packaging/android/res/drawable/ic_launcher_foreground.xml 
+styles/light/logo.svg
+styles/light/fonts/
+styles/dark/fonts/
+packaging/android/res/drawable/ic_launcher_background.xml
+packaging/android/res/drawable/ic_launcher_foreground.xml
 packaging/android/res/values/ic_launcher_background.xml
 images/*
+overlay-config.pri
+overlay-config.cmake
+LICENSE.DMSans
+LICENSE.Poppins
+LICENSE.QRCodeGeneratorQML
+LICENSE.qrcodeSvg
 # End of build system generated files
