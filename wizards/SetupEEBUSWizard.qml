@@ -415,7 +415,7 @@ Page {
         Page {
             id: waitingPage
 
-            property string gatewayThingId: ""
+            property var gatewayThingId: null
 
             // Prevent double-handling when both the race-condition check and the
             // thingAdded signal fire.
