@@ -14,7 +14,7 @@ SetupWizardBase {
 
     headerTitle: qsTr("Setup heat pump")
     filterInterface: "heatpump"
-    shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump"]
+    shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
     deviceIcon: "/icons/heat_pump.svg"
     emptyListText: qsTr("There is no heat pump set up yet.")
     addDeviceLabel: qsTr("Add heat pumps:")
