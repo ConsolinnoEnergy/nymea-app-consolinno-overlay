@@ -87,7 +87,6 @@ Page {
         target: engine.thingManager
 
         onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
-            busyOverlay.shown = false;
             if (thingError !== Thing.ThingErrorNoError) {
                 var thing = engine.thingManager.things.getThing(thingId);
                 pageStack.push(setupResultComponent, {thingError: thingError, thing: thing, message: displayMessage});
@@ -401,14 +400,10 @@ Page {
                     } else {
                         engine.thingManager.addThing(thingClass.id, d.name, params);
                     }
-                    busyOverlay.shown = true;
+                    paramsView.busy = true;
                 }
             }
         }
-    }
-
-    BusyOverlay {
-        id: busyOverlay
     }
 
     // Component: Wait for the EEBUS child thing that the gateway creates automatically.
