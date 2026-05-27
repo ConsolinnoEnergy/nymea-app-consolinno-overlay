@@ -234,7 +234,7 @@ Page {
                                         return;
                                     }
                                     var idx = priorityListView.indexAt(mouseX, mouseYInList);
-                                    if (prioListModel.get(idx).locked) {
+                                    if (idx < 0 || prioListModel.get(idx).locked) {
                                         mouse.accepted = false;
                                         return;
                                     }
