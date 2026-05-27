@@ -20,7 +20,7 @@ Component.prototype.createOperations = function()
     if (systemInfo.productType === "windows") {
         component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/Consolinno energy.lnk",
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
-            "description=consolinno-energy frontend");
+            "description=Consolinno energy - The Leaflet frontend");
 
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/ve", "/d", "URL:hems-con-desktop Protocol", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/v", "URL Protocol", "/f");
