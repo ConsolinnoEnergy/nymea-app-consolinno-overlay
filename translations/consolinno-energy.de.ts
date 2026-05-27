@@ -1146,6 +1146,17 @@
     </message>
 </context>
 <context>
+    <name>CoParamDelegate</name>
+    <message>
+        <source>Choose %1</source>
+        <translation>%1 auswählen</translation>
+    </message>
+    <message>
+        <source>Filter %1</source>
+        <translation>%1 durchsuchen</translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <source>ConEMS State</source>
@@ -4742,6 +4753,26 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device has been removed.</source>
+        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant. Das Gerät wurde entfernt.</translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device has been removed.</source>
+        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wurde entfernt.</translation>
+    </message>
+    <message>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
+        <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>EEBUS Device</source>
+        <translation>EEBUS Gerät</translation>
+    </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
+        <translation>EEBUS Gerät wird eingerichtet...</translation>
     </message>
 </context>
 <context>

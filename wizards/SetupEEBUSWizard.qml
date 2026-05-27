@@ -307,7 +307,7 @@ Page {
 
             property ThingClass thingClass
 
-            title: qsTr("Set up %1").arg(thingClass ? thingClass.displayName : "")
+            title: qsTr("Set up %1").arg(d.thingName ? d.thingName : (thingClass ? thingClass.displayName : ""))
             header: CoHeader {
                 text: paramsView.title
                 backButtonVisible: true
@@ -424,14 +424,26 @@ Page {
             property bool _handled: false
 
             header: CoHeader {
-                text: qsTr("EEBUS Devices")
-                backButtonVisible: false
+                text: qsTr("EEBUS Device")
+                backButtonVisible: d2.state === "waiting"
+                onBackPressed: waitingPage.handleCancel()
             }
 
             // ---- helpers ---------------------------------------------------
 
             function normalizeUuid(uuid) {
                 return uuid.toString().replace(/[{}]/g, "").toLowerCase()
+            }
+
+            function handleCancel() {
+                if (_handled) return
+                _handled = true
+                waitTimer.stop()
+                engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                pageStack.pop(root, StackView.Immediate)
+                if (root.directToDiscovery) {
+                    root.done(false, false, true)
+                }
             }
 
             function handleChildThing(childThing) {
@@ -532,7 +544,7 @@ Page {
 
                     Label {
                         Layout.fillWidth: true
-                        text: qsTr("Searching for EEBUS device...")
+                        text: qsTr("Setting up EEBUS device...")
                         horizontalAlignment: Text.AlignHCenter
                         wrapMode: Text.WordWrap
                     }
@@ -588,7 +600,7 @@ Page {
                         wrapMode: Text.WordWrap
                         horizontalAlignment: Text.AlignHCenter
                         text: d2.state === "timeout_error"
-                              ? qsTr("The EEBUS device could not be set up. No device was found within the expected time. Please check the device and try again.")
+                              ? qsTr("The EEBUS device could not be set up. Please check the device and try again.")
                               : d2.errorText
                     }
                 }

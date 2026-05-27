@@ -1137,6 +1137,17 @@
     </message>
 </context>
 <context>
+    <name>CoParamDelegate</name>
+    <message>
+        <source>Choose %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <source>ConEMS State</source>
@@ -4720,6 +4731,26 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device has been removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device has been removed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
