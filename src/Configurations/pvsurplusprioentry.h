@@ -6,7 +6,6 @@
 #ifndef PVSURPLUSPRIOENTRY_H
 #define PVSURPLUSPRIOENTRY_H
 
-#include <QDebug>
 #include <QList>
 #include <QObject>
 #include <QUuid>
@@ -28,14 +27,11 @@ public:
     void setLocked(bool locked);
 
     bool operator==(const PvSurplusEntry &other) const;
-    bool operator!=(const PvSurplusEntry &other) const;
 
 private:
     QUuid m_thingId;
     bool m_locked = false;
 };
-
-QDebug operator<<(QDebug debug, const PvSurplusEntry &entry);
 
 class PvSurplusEntries : public QList<PvSurplusEntry>
 {
@@ -47,7 +43,6 @@ public:
         : QList<PvSurplusEntry>(other)
     {}
     Q_INVOKABLE QVariant get(int index) const;
-    Q_INVOKABLE void put(const QVariant &variant);
 };
 
 Q_DECLARE_METATYPE(PvSurplusEntry)

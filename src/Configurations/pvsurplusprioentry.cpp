@@ -39,24 +39,7 @@ bool PvSurplusEntry::operator==(const PvSurplusEntry &other) const
     return m_thingId == other.thingId() && m_locked == other.locked();
 }
 
-bool PvSurplusEntry::operator!=(const PvSurplusEntry &other) const
-{
-    return !(*this == other);
-}
-
-QDebug operator<<(QDebug debug, const PvSurplusEntry &entry)
-{
-    debug.nospace() << "PvSurplusEntry(thingId: " << entry.thingId().toString()
-                    << ", locked: " << entry.locked() << ")";
-    return debug.maybeSpace();
-}
-
 QVariant PvSurplusEntries::get(int index) const
 {
     return QVariant::fromValue(at(index));
-}
-
-void PvSurplusEntries::put(const QVariant &variant)
-{
-    append(variant.value<PvSurplusEntry>());
 }
