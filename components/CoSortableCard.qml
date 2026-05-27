@@ -5,6 +5,7 @@ import Nymea 1.0
 import "../components"
 
 Item {
+    id: root
     property alias text: card.text
     property alias helpText: card.helpText
     property alias labelText: card.labelText
@@ -13,6 +14,7 @@ Item {
     property alias iconRight: card.iconRight
     property alias card: card
     property bool dragging: false
+    property bool locked: false
 
     readonly property real dragHandleStartX: width - 2 * Style.margins - dragHandleIcon.width
 
@@ -51,7 +53,9 @@ Item {
 
         ColorIcon {
             id: dragHandleIcon
-            name: Qt.resolvedUrl("qrc:/icons/drag_handle.svg")
+            name: root.locked ?
+                      Qt.resolvedUrl("qrc:/icons/lock.svg") :
+                      Qt.resolvedUrl("qrc:/icons/drag_handle.svg")
             color: Style.colors.brand_Basic_Icon
             Layout.alignment:  Qt.AlignVCenter
             size: 24
