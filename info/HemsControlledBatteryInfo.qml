@@ -30,16 +30,6 @@ Page {
                 Layout.preferredWidth: app.width
                 text: qsTr("When the \"HEMS-controlled battery\" toggle is activated, the HEMS controls the charging and discharging of the battery up to the defined minimum and maximum state of charge (SoC).")
             }
-
-            Label {
-                Layout.fillWidth: true
-                leftPadding: app.margins + 10
-                rightPadding: app.margins + 10
-                Layout.topMargin: 10
-                wrapMode: Text.WordWrap
-                Layout.preferredWidth: app.width
-                text: qsTr("The SoC tapering range describes the range before reaching the maximum or minimum state of charge, from which the charging or discharging power is reduced in order to protect the battery.")
-            }
         }
     }
 }

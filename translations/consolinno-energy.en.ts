@@ -343,10 +343,6 @@
         <source>Minimum SoC</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>SoC tapering range</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -4223,10 +4219,6 @@ Would you like to continue anyway?</source>
     <name>HemsControlledBatteryInfo</name>
     <message>
         <source>HEMS-controlled battery</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The SoC tapering range describes the range before reaching the maximum or minimum state of charge, from which the charging or discharging power is reduced in order to protect the battery.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

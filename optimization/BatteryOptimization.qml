@@ -177,21 +177,6 @@ Page {
                         value = batteryConfiguration.minSoC;
                     }
                 }
-
-                CoSlider {
-                    id: taperSoC
-                    Layout.fillWidth: true
-                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
-                    labelText: qsTr("SoC tapering range")
-                    valueText: value + " %"
-                    stepSize: 1
-                    from: 2
-                    to: 10
-
-                    Component.onCompleted: {
-                        value = batteryConfiguration.taperSoC;
-                    }
-                }
             }
         }
 
@@ -239,7 +224,6 @@ Page {
                     if (hemsControlledBattery.checked) {
                         config.maxSoC = maxSoc.value;
                         config.minSoC = minSoc.value;
-                        config.taperSoC = taperSoC.value;
                     }
                 }
 
