@@ -4734,11 +4734,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device has been removed.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device has been removed.</source>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

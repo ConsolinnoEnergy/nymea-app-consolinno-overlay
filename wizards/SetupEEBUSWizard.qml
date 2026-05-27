@@ -455,13 +455,13 @@ Page {
 
                 if (isEvCharger && evChargerLimitProxy.count > 1) {
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
-                    d2.errorText = qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device has been removed.").arg(Configuration.deviceName)
+                    d2.errorText = qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.").arg(Configuration.deviceName)
                     d2.state = "limit_error"
                     return
                 }
                 if (isHeatPump && heatPumpLimitProxy.count > 1) {
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
-                    d2.errorText = qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device has been removed.").arg(Configuration.deviceName)
+                    d2.errorText = qsTr("At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.").arg(Configuration.deviceName)
                     d2.state = "limit_error"
                     return
                 }

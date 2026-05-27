@@ -4755,12 +4755,12 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device has been removed.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant. Das Gerät wurde entfernt.</translation>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
+        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device has been removed.</source>
-        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wurde entfernt.</translation>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
+        <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
