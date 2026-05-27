@@ -1,8 +1,3 @@
-/* Copyright (C) Consolinno Energy GmbH - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- */
-
 #ifndef PVSURPLUSPRIOENTRY_H
 #define PVSURPLUSPRIOENTRY_H
 
