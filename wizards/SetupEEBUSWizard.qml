@@ -108,69 +108,6 @@ Page {
         }
     }
 
-    function successThingFor(thing) {
-        if (root.deviceTypeForThing(thing) !== "") {
-            return thing;
-        }
-
-        if (!thing) {
-            return null;
-        }
-
-        for (var i = 0; i < eebusChildThingsProxy.count; i++) {
-            var childThing = eebusChildThingsProxy.get(i);
-            if (!childThing || childThing.parentId.toString() !== thing.id.toString()) {
-                continue;
-            }
-
-            // Only consider children added during this setup session
-            if (d.knownEebusChildThingIds.indexOf(childThing.id.toString()) !== -1) {
-                continue;
-            }
-
-            if (root.deviceTypeForThing(childThing) !== "") {
-                return childThing;
-            }
-        }
-
-        return thing;
-    }
-
-    function openOptimizationPage(thing) {
-        var successThing = root.successThingFor(thing);
-        var optimizationPage = null;
-
-        switch (root.deviceTypeForThing(successThing)) {
-        case "evcharger":
-            optimizationPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                thing: successThing,
-                directionID: 1
-            });
-            break;
-        case "heatpump":
-            optimizationPage = pageStack.push("../optimization/HeatingOptimization.qml", {
-                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(successThing.id),
-                heatPumpThing: successThing,
-                directionID: 1
-            });
-            break;
-        case "solarinverter":
-            optimizationPage = pageStack.push("../optimization/PVOptimization.qml", {
-                pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(successThing.id),
-                thing: successThing,
-                directionID: 1
-            });
-            break;
-        default:
-            pageStack.pop(root);
-            return;
-        }
-
-        optimizationPage.done.connect(function() {
-            pageStack.pop(root);
-        });
-    }
-
     function limitExceededResultText(baseText, removalSucceeded) {
         if (removalSucceeded) {
             return qsTr("%1 The newly added EEBUS device has been removed again.").arg(baseText);
@@ -710,11 +647,8 @@ Page {
                         Layout.preferredWidth: 200
                         text: qsTr("OK")
                         onClicked: {
-                            if (setupResultPage.thingError == Thing.ThingErrorNoError) {
-                                root.openOptimizationPage(thing);
-                            } else {
-                                pageStack.pop(root);
-                            }
+                            // Pop back to the main EEBUS setup page
+                            pageStack.pop(root);
                         }
                     }
                 }
