@@ -1,6 +1,6 @@
 pragma Singleton
 
-import QtQuick
+import QtQuick 2.5
 
 ConfigurationBase {
     id: configID
@@ -50,18 +50,19 @@ ConfigurationBase {
     //////////////////////////////////////////////////////////////////////////////////////
 
     //Styles
-    property color secondaryDark: "#767676"
-
     // Button
     readonly property color iconColor: "#87BD26"
-
-    readonly property color highlightForeground: "black"
+    readonly property color highlightForeground: "#000000"
 
     //static things colors
     //producers
     readonly property color rootMeterAcquisitionColor: "#F37B8E"
     readonly property color rootMeterReturnColor: "#45B4E4"
     readonly property color inverterColor: "#FCE487"
+
+    //other things
+    readonly property color epexMainLineColor: "#6CCB56"
+    readonly property color epexAverageColor: "#C65B5A"
 
     //other consumers
     readonly property color heatpumpColor: "#F7B772"
@@ -73,10 +74,11 @@ ConfigurationBase {
     readonly property color batteriesColor: "#BDD786"
     readonly property color batteryChargeColor: batteriesColor
     readonly property color batteryDischargeColor: "#F7B772"
+    readonly property color batteryDischargeHighlightColor: "#FF8400"
     readonly property color batteryIdleColor: "#B5B5B5"
 
     //static array of thing colors
-    property var consumerColors: ["#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F"]
+    property var consumerColors: ["#FF8954", "#D9F6C5", "#437BC4", "#AA5DC2", "#C6C73F", "#9B4F96", "#124D99", "#462559", "#E0E0E0", "#BEBEBE", "#949494"]
     readonly property var totalColors: [consumedColor, inverterColor, rootMeterAcquisitionColor, rootMeterReturnColor, batteryChargeColor, batteryDischargeColor]
 
     //custom Color for Graph
@@ -102,6 +104,10 @@ ConfigurationBase {
         ListElement { component: "Nymea App"; url: "https://github.com/ConsolinnoEnergy/nymea-app" }
         ListElement { component: "Nymea Remoteproxy"; url: "https://github.com/ConsolinnoEnergy/nymea-remoteproxy" }
         ListElement { component: "Consolinno Overlay"; url: "https://github.com/ConsolinnoEnergy/nymea-app-consolinno-overlay" }
+        ListElement { component: "DM Sans font"; url: "https://fonts.google.com/specimen/DM+Sans" }
+        ListElement { component: "Poppins font"; url: "https://fonts.google.com/specimen/Poppins" }
+        ListElement { component: "QR Code Generator QML"; url: "https://github.com/KDABLabs/QR-Code-Generator-QML" }
+        ListElement { component: "qrcode-svg"; url: "https://github.com/papnkukn/qrcode-svg" }
     }
 
     property ListModel licensesApp: ListModel {
@@ -112,6 +118,10 @@ ConfigurationBase {
         ListElement { component: "Creative Commons Attribution-ShareAlike 3.0 Unported"; license: "CC-BY-SA-3.0" }
         ListElement { component: "SIL Open Font License, Version 1.1"; license: "OFL" }
         ListElement { component: "Ubuntu font licence, Version 1.0"; license: "UFL" }
+        ListElement { component: "DM Sans font license"; license: "DMSans" }
+        ListElement { component: "Poppins font license"; license: "Poppins" }
+        ListElement { component: "QR Code Generator QML license"; license: "QRCodeGeneratorQML" }
+        ListElement { component: "qrcode-svg license"; license: "qrcodeSvg" }
     }
 
     //////////////////////////////////////////////////////////////////////////////////////
@@ -127,6 +137,9 @@ ConfigurationBase {
 
     // Shows Reboot button in general settings menu
     property bool hideRebootButton: false
+
+    // Shows Factory Reset butom in general settings menu
+    property bool hideFactoryResetButton: false
 
     // Shows Developer button in general settings menu
     property bool developerSettingsEnabled: false
@@ -155,7 +168,7 @@ ConfigurationBase {
     mainMenuLinks: [ 
         {
             text: qsTr("Help"),
-            iconName: "../images/help.svg",
+            iconName: "qrc:/icons/help.svg",
             page: "info/Help/HelpPage.qml"
         },
     ] 

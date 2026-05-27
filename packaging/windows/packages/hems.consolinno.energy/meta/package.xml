@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package>
-    <DisplayName>Consolinno energy</DisplayName>
-    <Description>Install consolinno energy.</Description>
+    <DisplayName>Consolinno HEMS</DisplayName>
+    <Description>Install Consolinno HEMS</Description>
     <Version>0.1.0-1</Version>
     <ReleaseDate>2020-03-30</ReleaseDate>
     <Licenses>

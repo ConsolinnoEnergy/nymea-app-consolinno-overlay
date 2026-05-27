@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Installer>
-    <Name>Consolinno Energy HEMS</Name>
+    <Name>Consolinno HEMS</Name>
     <Version>1.0.0</Version>
-    <Title>Consolinno Energy HEMS</Title>
-    <Publisher>Conslinno Energy GmbH</Publisher>
-    <StartMenuDir>Consolinno</StartMenuDir>
-    <TargetDir>@ApplicationsDirX64@/Consolinno energy</TargetDir>
+    <Title>Consolinno HEMS</Title>
+    <Publisher>Consolinno HEMS</Publisher>
+    <StartMenuDir>Consolinno HEMS</StartMenuDir>
+    <TargetDir>@ApplicationsDirX64@/Consolinno HEMS</TargetDir>
 </Installer>
