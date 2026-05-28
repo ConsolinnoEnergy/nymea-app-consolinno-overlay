@@ -613,6 +613,9 @@ Page {
                 Component.onCompleted: {
                     var webView = Qt.createQmlObject(webViewString, webViewContainer);
                     print("created webView", webView)
+                    if (webView) {
+                        webView.oAuthUrl = oAuthPage.oAuthUrl
+                    }
                 }
 
                 property string webViewString:
@@ -626,16 +629,18 @@ Page {
                         anchors.fill: parent
                         color: Style.backgroundColor
 
+                        property string oAuthUrl: ""
+
                         BusyIndicator {
                             id: busyIndicator
                             anchors.centerIn: parent
-                            running: oAuthWebView.loading
+                            running: Qt.platform.os !== "wasm" && oAuthWebView.loading
                         }
 
                         WebView {
                             id: oAuthWebView
                             anchors.fill: parent
-                            url: oAuthPage.oAuthUrl
+                            url: parent.oAuthUrl
 
                             function finishProcess(url) {
                                 print("Confirm pairing")

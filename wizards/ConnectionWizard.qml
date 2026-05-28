@@ -492,7 +492,7 @@ ConsolinnoWizardPageBase {
                                          ? "2222"
                                          : connectionTypeComboBox.currentIndex == 1
                                            ? "4444"
-                                           : "2213"
+                                           : Qt.platform.os === "wasm" ? "2212" : "2213"
                         validator: IntValidator{bottom: 1; top: 65535;}
                     }
 
@@ -502,7 +502,7 @@ ConsolinnoWizardPageBase {
                     }
                     ConsolinnoCheckbox {
                         id: secureCheckBox
-                        checked: true
+                        checked: Qt.platform.os !== "wasm" || connectionTypeComboBox.currentIndex === 2
                     }
                 }
 
@@ -561,12 +561,15 @@ ConsolinnoWizardPageBase {
 
     function loadHtmlFile(fileName, textAreaView) {
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", Qt.resolvedUrl(fileName), false); // Synchronous read
+        var resolvedUrl = Qt.resolvedUrl(fileName);
+        xhr.open("GET", resolvedUrl, false); // Synchronous read
         xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                textAreaView.text = xhr.responseText;
-            } else if (xhr.status !== 200) {
-                console.error("Failed to load file:", xhr.status, xhr.statusText);
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200 || (xhr.status === 0 && xhr.responseText.length > 0)) {
+                    textAreaView.text = xhr.responseText;
+                } else {
+                    console.error("Failed to load file:", xhr.status, xhr.statusText);
+                }
             }
         };
         xhr.send();

@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea 1.0
-import Qt5Compat.GraphicalEffects
 
 RowLayout {
     id: root

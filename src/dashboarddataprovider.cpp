@@ -339,7 +339,11 @@ void DashboardDataProvider::fetchEnergyKPIs()
 
     // Calculate midnight today (local time) as Unix timestamp in seconds
     const QDateTime now = QDateTime::currentDateTime();
+#ifdef Q_OS_WASM
+    QDateTime midnightToday(now.date(), QTime(0, 0, 0), Qt::LocalTime);
+#else
     QDateTime midnightToday(now.date(), QTime(0, 0, 0), now.timeZone());
+#endif
     const qint64 fromTimestamp = midnightToday.toSecsSinceEpoch();
 
     QVariantMap params;
