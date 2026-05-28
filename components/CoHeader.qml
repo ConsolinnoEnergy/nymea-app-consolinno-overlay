@@ -43,6 +43,13 @@ Item {
             onClicked: root.backPressed();
         }
 
+        Item {
+            id: spacer
+            visible: !backButton.visible
+            width: backButton.implicitWidth
+            height: backButton.implicitHeight
+        }
+
         ColumnLayout {
             id: labelLayout
             Layout.fillWidth: true
