@@ -1422,7 +1422,14 @@ StackView {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: localState.state === "waiting"
-                onBackPressed: pageStack.pop()
+                onBackPressed: {
+                    _handled = true
+                    waitTimer.stop()
+                    if (gatewayThingId !== "") {
+                        engine.thingManager.removeThing(gatewayThingId)
+                    }
+                    pageStack.pop()
+                }
             }
 
             ColumnLayout {
