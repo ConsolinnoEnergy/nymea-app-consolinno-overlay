@@ -931,25 +931,32 @@ int HemsManager::factoryReset()
     return m_engine->jsonRpcClient()->sendCommand("Hems.FactoryReset", QVariantMap(), this, "factoryResetResponse");
 }
 
-int HemsManager::setPVSurplusPriolist(const QStringList &pvSurplusPriolist)
+int HemsManager::setPVSurplusPriolist(const QVariantList &pvSurplusPriolist)
 {
-    auto toVariantList = [](const QList<QUuid> &uuids) {
+    auto uuidListToVariant = [](const QList<QUuid> &uuids) {
         QVariantList list;
         foreach (const QUuid &uuid, uuids)
             list.append(uuid.toString());
         return list;
     };
 
-    QVariantList uuidList;
-    foreach (const QString &uuid, pvSurplusPriolist)
-        uuidList.append(uuid);
+    auto pvEntriesToVariant = [](const PvSurplusEntries &entries) {
+        QVariantList list;
+        foreach (const PvSurplusEntry &entry, entries) {
+            QVariantMap map;
+            map.insert("thingId", entry.thingId().toString());
+            map.insert("locked", entry.locked());
+            list.append(map);
+        }
+        return list;
+    };
 
     QVariantMap emsConfiguration;
-    emsConfiguration.insert("pvSurplusPriolist", uuidList);
+    emsConfiguration.insert("pvSurplusPriolist", pvSurplusPriolist);
     // Include all other lists unchanged — omitting them would cause the backend to clear them.
-    emsConfiguration.insert("defaultPvSurplusPriolist", toVariantList(m_emsConfiguration->defaultPvSurplusPriolist()));
-    emsConfiguration.insert("limitPriolist", toVariantList(m_emsConfiguration->limitPriolist()));
-    emsConfiguration.insert("defaultLimitPriolist", toVariantList(m_emsConfiguration->defaultLimitPriolist()));
+    emsConfiguration.insert("defaultPvSurplusPriolist", pvEntriesToVariant(m_emsConfiguration->defaultPvSurplusPriolist()));
+    emsConfiguration.insert("limitPriolist", uuidListToVariant(m_emsConfiguration->limitPriolist()));
+    emsConfiguration.insert("defaultLimitPriolist", uuidListToVariant(m_emsConfiguration->defaultLimitPriolist()));
 
     QVariantMap params;
     params.insert("emsConfiguration", emsConfiguration);
@@ -1297,8 +1304,17 @@ void HemsManager::updateEmsConfiguration(const QVariantMap &configurationMap)
         return result;
     };
 
-    m_emsConfiguration->setPvSurplusPriolist(uuidListFromVariant(configurationMap.value("pvSurplusPriolist")));
-    m_emsConfiguration->setDefaultPvSurplusPriolist(uuidListFromVariant(configurationMap.value("defaultPvSurplusPriolist")));
+    auto pvEntriesFromVariant = [](const QVariant &v) {
+        PvSurplusEntries result;
+        foreach (const QVariant &item, v.toList()) {
+            QVariantMap map = item.toMap();
+            result.append(PvSurplusEntry(QUuid(map.value("thingId").toString()), map.value("locked").toBool()));
+        }
+        return result;
+    };
+
+    m_emsConfiguration->setPvSurplusPriolist(pvEntriesFromVariant(configurationMap.value("pvSurplusPriolist")));
+    m_emsConfiguration->setDefaultPvSurplusPriolist(pvEntriesFromVariant(configurationMap.value("defaultPvSurplusPriolist")));
     m_emsConfiguration->setLimitPriolist(uuidListFromVariant(configurationMap.value("limitPriolist")));
     m_emsConfiguration->setDefaultLimitPriolist(uuidListFromVariant(configurationMap.value("defaultLimitPriolist")));
 }
