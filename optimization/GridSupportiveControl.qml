@@ -59,6 +59,10 @@ StackView {
         id: eebusGridGuardThings
         engine: _engine
         shownThingClassIds: ["f84f7c28-04cc-4da5-8564-402a9361b136"] // "EEBus Grid Guard" thing class ID
+        // Connect in onCompleted so countChanged only fires after all properties
+        // (engine + shownThingClassIds) are set. Using onCountChanged directly
+        // would trigger during property initialization before the filter is applied,
+        // causing updateEebusThing() to see all things instead of just GridGuard ones.
         Component.onCompleted: countChanged.connect(updateEebusThing)
     }
 
