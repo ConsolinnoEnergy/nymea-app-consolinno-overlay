@@ -47,18 +47,23 @@ StackView {
             eebusGridGuardGateway = null;
             return;
         }
+
         if (eebusGridGuardThings.count > 1) {
             console.warn("More than one EEBus Grid Guard things are configured!");
         }
         const eebusGridGuardThing = eebusGridGuardThings.get(0);
-        eebusGridGuardGateway = engine.thingManager.getThing(eebusGridGuardThing.parentId);
+        eebusGridGuardGateway = engine.thingManager.things.getThing(eebusGridGuardThing.parentId);
     }
 
     ThingsProxy {
         id: eebusGridGuardThings
         engine: _engine
         shownThingClassIds: ["f84f7c28-04cc-4da5-8564-402a9361b136"] // "EEBus Grid Guard" thing class ID
-        onCountChanged: updateEebusThing()
+        // Connect in onCompleted so countChanged only fires after all properties
+        // (engine + shownThingClassIds) are set. Using onCountChanged directly
+        // would trigger during property initialization before the filter is applied,
+        // causing updateEebusThing() to see all things instead of just GridGuard ones.
+        Component.onCompleted: countChanged.connect(updateEebusThing)
     }
 
     QtObject {
@@ -1115,9 +1120,10 @@ StackView {
 
                     onClicked: {
                         if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
                         }
 
+                        d.params = [];
                         for (var i = 0; i < thingClass.paramTypes.count; i++) {
                             var param = {};
                             var paramTypeId = thingClass.paramTypes.get(i).id;
@@ -1127,12 +1133,14 @@ StackView {
                             d.params.push(param);
                         }
 
-                        engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                        root.setGridSupportSettings("eebus");
-                        pageStack.push(eebusViewStatus,
+                        d.pendingCallId = engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
+                        pageStack.push(eebusGridGuardChildWaiting,
                                        {
                                            thingClass: thingClass,
-                                           discoveryThingParams: discoveryThingParams
+                                           discoveryThingParams: discoveryThingParams,
+                                           // Capture now; the old gateway was already removed above so
+                                           // "eebus" can no longer be restored — fall back to "none".
+                                           previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
                                        });
                     }
                 }
@@ -1324,6 +1332,190 @@ StackView {
             }
         }
     }
+
+    Component {
+        id: eebusGridGuardChildWaiting
+
+        Page {
+            id: gridGuardWaitingPage
+
+            property ThingClass thingClass
+            property var discoveryThingParams
+
+            // The powerLimitSource value before this setup started, already resolved
+            // so that "eebus" (whose gateway was removed) becomes "none".
+            property string previousPowerLimitSource: "none"
+
+            // Gateway thingId, set once onAddThingReply fires for our commandId.
+            property string gatewayThingId: ""
+
+            // Prevent double-handling from race-condition check and signal.
+            property bool _handled: false
+
+            readonly property string gridGuardClassId: "f84f7c28-04cc-4da5-8564-402a9361b136"
+
+            function normalizeUuid(uuid) {
+                return uuid.toString().replace(/[{}]/g, "").toLowerCase()
+            }
+
+            function handleSuccess() {
+                if (_handled) return
+                _handled = true
+                waitTimer.stop()
+                root.setGridSupportSettings("eebus")
+                pageStack.replace(eebusViewStatus,
+                                  {
+                                      thingClass: gridGuardWaitingPage.thingClass,
+                                      discoveryThingParams: gridGuardWaitingPage.discoveryThingParams
+                                  })
+            }
+
+            function handleError() {
+                if (_handled) return
+                _handled = true
+                waitTimer.stop()
+                if (gatewayThingId !== "") {
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                }
+                root.setGridSupportSettings(previousPowerLimitSource)
+                localState.state = "error"
+            }
+
+            // ---- state -----------------------------------------------------
+
+            QtObject {
+                id: localState
+                property string state: "waiting"  // "waiting" | "error"
+            }
+
+            // ---- timer & signal listener -----------------------------------
+
+            Timer {
+                id: waitTimer
+                interval: 30000
+                running: true
+                repeat: false
+                onTriggered: gridGuardWaitingPage.handleError()
+            }
+
+            Connections {
+                target: engine.thingManager
+
+                onAddThingReply: function(commandId, thingError, thingId, displayMessage) {
+                    if (commandId !== d.pendingCallId) return
+                    if (thingError !== Thing.ThingErrorNoError) {
+                        gridGuardWaitingPage.handleError()
+                        return
+                    }
+                    // If the user cancelled or the timer fired before the reply arrived,
+                    // the gateway still got created — remove it now.
+                    if (gridGuardWaitingPage._handled) {
+                        engine.thingManager.removeThing(thingId, ThingManager.RemovePolicyCascade)
+                        return
+                    }
+                    gridGuardWaitingPage.gatewayThingId = thingId
+                    waitTimer.restart()  // reset to full 30s now that the gateway exists
+                    // Race-condition guard: child may have appeared before this signal.
+                    for (var i = 0; i < engine.thingManager.things.count; i++) {
+                        var t = engine.thingManager.things.get(i)
+                        if (gridGuardWaitingPage.normalizeUuid(t.parentId) === gridGuardWaitingPage.normalizeUuid(thingId) &&
+                            gridGuardWaitingPage.normalizeUuid(t.thingClassId) === gridGuardWaitingPage.gridGuardClassId) {
+                            gridGuardWaitingPage.handleSuccess()
+                            return
+                        }
+                    }
+                }
+
+                onThingAdded: function(thing) {
+                    if (gridGuardWaitingPage.gatewayThingId === "") return
+                    if (gridGuardWaitingPage.normalizeUuid(thing.parentId) === gridGuardWaitingPage.normalizeUuid(gridGuardWaitingPage.gatewayThingId) &&
+                        gridGuardWaitingPage.normalizeUuid(thing.thingClassId) === gridGuardWaitingPage.gridGuardClassId) {
+                        gridGuardWaitingPage.handleSuccess()
+                    }
+                }
+            }
+
+            // ---- UI --------------------------------------------------------
+
+            header: CoHeader {
+                text: qsTr("Grid-supportive control setup")
+                subText: qsTr("EEBUS SKI Pairing")
+                // Hide back button while the add is still pending (gatewayThingId not yet known)
+                // to avoid the user navigating away before we can clean up the gateway.
+                backButtonVisible: localState.state === "waiting" && gatewayThingId !== ""
+                onBackPressed: {
+                    _handled = true
+                    waitTimer.stop()
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                    root.setGridSupportSettings(previousPowerLimitSource)
+                    pageStack.pop()
+                }
+            }
+
+            ColumnLayout {
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                spacing: Style.margins
+
+                Item { Layout.fillHeight: true }
+
+                // Waiting
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    visible: localState.state === "waiting"
+                    spacing: Style.margins
+
+                    BusyIndicator {
+                        Layout.alignment: Qt.AlignHCenter
+                        running: true
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        text: qsTr("Setting up EEBUS device...")
+                        horizontalAlignment: Text.AlignHCenter
+                        wrapMode: Text.WordWrap
+                    }
+                }
+
+                // Error
+                ColumnLayout {
+                    Layout.fillWidth: true
+                    visible: localState.state === "error"
+                    spacing: Style.margins
+
+                    ColorIcon {
+                        Layout.topMargin: Style.bigMargins
+                        Layout.bottomMargin: Style.bigMargins
+                        Layout.alignment: Qt.AlignHCenter
+                        name: "close"
+                        color: Style.red
+                        size: Style.hugeIconSize * 3
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        wrapMode: Text.WordWrap
+                        horizontalAlignment: Text.AlignHCenter
+                        text: qsTr("The EEBUS device could not be set up. Please check the device and try again.")
+                    }
+                }
+
+                Item { Layout.fillHeight: true }
+
+                // Error: OK button → back to setup start
+                Button {
+                    Layout.fillWidth: true
+                    visible: localState.state === "error"
+                    text: qsTr("OK")
+                    onClicked: {
+                        pageStack.pop(root)
+                    }
+                }
+            }
+        }
+    }
+
 
     Component {
         id: eebusViewStatus
