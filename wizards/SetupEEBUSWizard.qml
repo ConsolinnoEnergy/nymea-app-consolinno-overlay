@@ -359,9 +359,9 @@ Page {
                         model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?
                                    (thingClass ? thingClass.paramTypes : null) :
                                    null
-                        delegate: ParamDelegate {
+                        delegate: CoParamDelegate {
                             Layout.fillWidth: true
-                            enabled: !model.readOnly
+                            writable: !model.readOnly
                             paramType: thingClass.paramTypes.get(index)
                             value: {
                                 if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {

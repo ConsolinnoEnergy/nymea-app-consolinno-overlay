@@ -140,6 +140,10 @@ ItemDelegate {
                         valueText = NymeaUtils.floatToLocaleString(root.param.value);
                         break;
                 }
+                if (valueText === "" && !root.writable) {
+                    valueText = "-";
+                }
+
                 const unitText = Types.toUiUnit(root.paramType.unit);
                 return unitText === "" ?
                             valueText :
