@@ -1368,7 +1368,7 @@ StackView {
                 _handled = true
                 waitTimer.stop()
                 if (gatewayThingId !== "") {
-                    engine.thingManager.removeThing(gatewayThingId)
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
                 }
                 root.setGridSupportSettings("none")
                 localState.state = "error"
@@ -1400,6 +1400,12 @@ StackView {
                         gridGuardWaitingPage.handleError()
                         return
                     }
+                    // If the user cancelled or the timer fired before the reply arrived,
+                    // the gateway still got created — remove it now.
+                    if (gridGuardWaitingPage._handled) {
+                        engine.thingManager.removeThing(thingId, ThingManager.RemovePolicyCascade)
+                        return
+                    }
                     gridGuardWaitingPage.gatewayThingId = thingId
                     // Race-condition guard: child may have appeared before this signal.
                     for (var i = 0; i < engine.thingManager.things.count; i++) {
@@ -1426,13 +1432,13 @@ StackView {
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
-                backButtonVisible: localState.state === "waiting"
+                // Hide back button while the add is still pending (gatewayThingId not yet known)
+                // to avoid the user navigating away before we can clean up the gateway.
+                backButtonVisible: localState.state === "waiting" && gatewayThingId !== ""
                 onBackPressed: {
                     _handled = true
                     waitTimer.stop()
-                    if (gatewayThingId !== "") {
-                        engine.thingManager.removeThing(gatewayThingId)
-                    }
+                    engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
                     pageStack.pop()
                 }
             }
