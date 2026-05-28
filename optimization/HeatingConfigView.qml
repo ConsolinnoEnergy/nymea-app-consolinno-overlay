@@ -229,7 +229,12 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Optimization") // #TODO wording
                             infoUrl: "HeatpumpOptimizationInfo.qml"
+                            infoProperties: ({
+                                pvSurplusModeAvailable: false,
+                                dynamicPricingModeAvailable: false
+                            })
                             textRole: "text"
+                            valueRole: "value"
 
                             // Base model that holds *all* possible options
                             property var fullModel: [
@@ -276,13 +281,17 @@ GenericConfigPage {
                                 const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv;
                                 const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing;
 
+                                infoProperties.pvSurplusModeAvailable = false;
+                                infoProperties.dynamicPricingModeAvailable = false;
                                 for (let i = 0; i < fullModel.length; ++i) {
                                     const item = fullModel[i];
                                     if (item.enumname === "OptimizationModePVSurplus" && pvEnabled) {
                                         filteredModel.append(item);
+                                        infoProperties.pvSurplusModeAvailable = true;
                                     }
                                     else if (item.enumname === "OptimizationModeDynamicPricing" && dynEnabled) {
                                         filteredModel.append(item);
+                                        infoProperties.dynamicPricingModeAvailable = true;
                                     }
                                     else if (item.enumname === "OptimizationModeOff") {
                                         filteredModel.append(item);

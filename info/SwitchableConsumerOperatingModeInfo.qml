@@ -8,7 +8,10 @@ import "../components"
 import "../delegates"
 
 Page {
+    id: root
     property var stack
+    property bool pvSurplusModeAvailable: false
+
     header: ConsolinnoHeader {
         id: header
         text: qsTr("Operating mode")
@@ -31,6 +34,7 @@ Page {
                 Layout.topMargin: Style.smallMargins + 10
                 font.bold: true
                 text: qsTr("PV surplus")
+                visible: root.pvSurplusModeAvailable
             }
 
             Label {
@@ -41,6 +45,7 @@ Page {
                 Layout.preferredWidth: app.width
                 Layout.topMargin: Style.smallMargins
                 text: qsTr("The consumer is operated using solar power only. PV surplus is allocated to devices according to your selected priority.")
+                visible: root.pvSurplusModeAvailable
             }
 
             Label {

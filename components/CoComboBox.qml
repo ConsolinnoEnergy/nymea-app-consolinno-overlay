@@ -16,6 +16,7 @@ Item {
     property alias valueRole: combo.valueRole
     property alias labelText: label.text
     property alias infoUrl: label.push
+    property alias infoProperties: label.infoProperties
     property alias helpText: helpLabel.text
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible

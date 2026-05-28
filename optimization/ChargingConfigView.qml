@@ -977,6 +977,11 @@ GenericConfigPage {
                                 Layout.fillWidth: true
                                 labelText: qsTr("Charging mode")
                                 infoUrl: "ChargingModeInfo.qml"
+                                infoProperties: ({
+                                    solarOnlyModeAvailable: false,
+                                    nextTripModeAvailable: false,
+                                    dynamicPricingModeAvailable: false
+                                })
 
                                 property var fullModel: [
                                     { key: qsTr("Charge always"), mode: 0 },
@@ -1014,8 +1019,12 @@ GenericConfigPage {
                                 function rebuildModel() {
                                     dynamicModel.clear();
 
-                                    const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv;
-                                    const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing;
+                                    const pvEnabled = !!(hemsManager.availableUseCases & HemsManager.HemsUseCasePv);
+                                    const dynEnabled = !!(hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing);
+
+                                    infoProperties.solarOnlyModeAvailable = pvEnabled;
+                                    infoProperties.nextTripModeAvailable = pvEnabled;
+                                    infoProperties.dynamicPricingModeAvailable = dynEnabled;
 
                                     for (let i = 0; i < fullModel.length; ++i) {
                                         const item = fullModel[i];

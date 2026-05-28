@@ -14,6 +14,7 @@ Item {
     property alias stepSize: slider.stepSize
     property alias labelText: label.text
     property alias infoUrl: label.push
+    property alias infoProperties: label.infoProperties
     property alias valueText: valueLabel.text
     property alias helpText: helpLabel.text
     property alias feedbackText: notification.text

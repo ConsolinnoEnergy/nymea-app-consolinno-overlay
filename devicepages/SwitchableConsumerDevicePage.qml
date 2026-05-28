@@ -21,6 +21,7 @@ GenericConfigPage {
     QtObject {
         id: d
         property int pendingCallId: -1
+        readonly property bool pvSurplusModeAvailable: !!(hemsManager.availableUseCases & HemsManager.HemsUseCasePv)
     }
 
     Connections {
@@ -55,7 +56,7 @@ GenericConfigPage {
         ListElement{ name: qsTr("No control"); value: 3 }   // SwitchConfiguration.OptimizationModeNoControl
 
         Component.onCompleted: {
-            if (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) {
+            if (d.pvSurplusModeAvailable) {
                 insert(0, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
             }
             if (!root.consumerConfig) {
@@ -164,6 +165,10 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Operating mode") // #TODO wording
                             infoUrl: "SwitchableConsumerOperatingModeInfo.qml"
+                            infoProperties: ({
+                                pvSurplusModeAvailable: d.pvSurplusModeAvailable
+                            })
+
                             model: optimizationModesModel
                             textRole: "name"
                             valueRole: "value"
