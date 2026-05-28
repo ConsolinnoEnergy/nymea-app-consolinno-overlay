@@ -1393,7 +1393,7 @@ StackView {
             Timer {
                 id: waitTimer
                 interval: 30000
-                running: true
+                running: false
                 repeat: false
                 onTriggered: gridGuardWaitingPage.handleError()
             }
@@ -1414,6 +1414,7 @@ StackView {
                         return
                     }
                     gridGuardWaitingPage.gatewayThingId = thingId
+                    waitTimer.start()
                     // Race-condition guard: child may have appeared before this signal.
                     for (var i = 0; i < engine.thingManager.things.count; i++) {
                         var t = engine.thingManager.things.get(i)
