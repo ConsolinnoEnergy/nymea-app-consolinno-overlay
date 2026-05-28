@@ -36,5 +36,9 @@ bool PvSurplusEntry::operator==(const PvSurplusEntry &other) const
 
 QVariant PvSurplusEntries::get(int index) const
 {
+    if (index < 0 || index >= size()) {
+        return QVariant();
+    }
+
     return QVariant::fromValue(at(index));
 }
