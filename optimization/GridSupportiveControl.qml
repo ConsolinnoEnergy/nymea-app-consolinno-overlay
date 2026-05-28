@@ -1137,7 +1137,10 @@ StackView {
                         pageStack.push(eebusGridGuardChildWaiting,
                                        {
                                            thingClass: thingClass,
-                                           discoveryThingParams: discoveryThingParams
+                                           discoveryThingParams: discoveryThingParams,
+                                           // Capture now; the old gateway was already removed above so
+                                           // "eebus" can no longer be restored — fall back to "none".
+                                           previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
                                        });
                     }
                 }
@@ -1339,6 +1342,10 @@ StackView {
             property ThingClass thingClass
             property var discoveryThingParams
 
+            // The powerLimitSource value before this setup started, already resolved
+            // so that "eebus" (whose gateway was removed) becomes "none".
+            property string previousPowerLimitSource: "none"
+
             // Gateway thingId, set once onAddThingReply fires for our commandId.
             property string gatewayThingId: ""
 
@@ -1370,7 +1377,7 @@ StackView {
                 if (gatewayThingId !== "") {
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
                 }
-                root.setGridSupportSettings("none")
+                root.setGridSupportSettings(previousPowerLimitSource)
                 localState.state = "error"
             }
 
@@ -1439,6 +1446,7 @@ StackView {
                     _handled = true
                     waitTimer.stop()
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
+                    root.setGridSupportSettings(previousPowerLimitSource)
                     pageStack.pop()
                 }
             }
