@@ -1080,7 +1080,7 @@ GenericConfigPage {
                                 id: pvPrioCard
                                 Layout.fillWidth: true
                                 labelText: qsTr("Priority")
-                                text: (hemsManager.emsConfiguration.pvSurplusPriolist.indexOf(root.thing.id) + 1).toString()
+                                text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                                 showChildrenIndicator: true
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
