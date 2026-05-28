@@ -51,9 +51,8 @@ GenericConfigPage {
 
     ListModel {
         id: optimizationModesModel
-        // #TODO wordings
-        ListElement{ name: qsTr("No control"); value: 0 }
         ListElement{ name: qsTr("PV surplus"); value: 1 }
+        ListElement{ name: qsTr("No control"); value: 0 }
     }
 
     content: [
@@ -163,9 +162,9 @@ GenericConfigPage {
                             valueRole: "value"
                             Component.onCompleted: {
                                 if (!heatingRodConfig) {
-                                    comboBox.currentIndex = 0;
+                                    comboBox.currentIndex = 1;
                                 } else {
-                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 1 : 0;
+                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 0 : 1;
                                 }
                             }
                         }

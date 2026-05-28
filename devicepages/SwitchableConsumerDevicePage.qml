@@ -50,14 +50,13 @@ GenericConfigPage {
 
     ListModel {
         id: optimizationModesModel
-        // #TODO wordings
         ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
         ListElement{ name: qsTr("Off"); value: 2 }          // SwitchConfiguration.OptimizationModeManualOff
         ListElement{ name: qsTr("No control"); value: 3 }   // SwitchConfiguration.OptimizationModeNoControl
 
         Component.onCompleted: {
             if (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) {
-                insert(2, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
+                insert(0, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
             }
             if (!root.consumerConfig) {
                 optimizationModeCombobox.currentIndex = 0;
