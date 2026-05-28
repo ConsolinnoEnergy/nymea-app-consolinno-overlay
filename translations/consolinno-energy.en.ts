@@ -3791,6 +3791,18 @@ Would you like to continue anyway?</source>
         <source>Control box connection</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>

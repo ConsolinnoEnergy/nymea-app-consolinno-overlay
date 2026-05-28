@@ -3811,6 +3811,18 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Control box connection</source>
         <translation>Verbindung zur Steuerbox</translation>
     </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
+        <translation>EEBUS Gerät wird eingerichtet...</translation>
+    </message>
+    <message>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
+        <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
 </context>
 <context>
     <name>HeatingConfigView</name>
@@ -4740,7 +4752,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
+        <translation>Geräteparameter</translation>
     </message>
     <message>
         <source>OK</source>
