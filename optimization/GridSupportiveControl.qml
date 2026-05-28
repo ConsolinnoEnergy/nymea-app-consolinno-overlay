@@ -1120,7 +1120,7 @@ StackView {
 
                     onClicked: {
                         if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
                         }
 
                         d.params = [];
