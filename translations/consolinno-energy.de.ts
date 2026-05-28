@@ -4293,7 +4293,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>Skip</source>
-        <translation>überspringen</translation>
+        <translation>Überspringen</translation>
     </message>
     <message>
         <source>Contact (optional)</source>
