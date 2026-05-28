@@ -14,7 +14,7 @@ Page {
     signal done()
 
     header: CoHeader {
-        text: switchThing.name
+        text: qsTr("Switchable consumers")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }

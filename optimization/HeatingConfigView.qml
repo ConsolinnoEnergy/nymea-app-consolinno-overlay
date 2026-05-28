@@ -56,10 +56,10 @@ GenericConfigPage {
             newConfig.pvSurplusThreshold = parseInt(minPVSurplusPower.text);
         }
         if (minRuntimeStepper.visible) {
-            newConfig.durationMinAfterTurnOn = minRuntimeStepper.value * 15;
+            newConfig.durationMinAfterTurnOn = minRuntimeStepper.value * 900;
         }
         if (maxTotalRuntimeStepper.visible) {
-            newConfig.durationMaxTotal = maxTotalRuntimeStepper.value * 15;
+            newConfig.durationMaxTotal = maxTotalRuntimeStepper.value * 900;
         }
         // Null UUID means: no meter selected → pass empty string,
         // so C++ omits the field from the RPC request (backend rejects null UUID).
@@ -171,8 +171,7 @@ GenericConfigPage {
                         visible: root.totalConsumptionState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalConsumptionState ? NymeaUtils.floatToLocaleString((+root.totalConsumptionState.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
 
                     CoKPICard {
@@ -320,15 +319,15 @@ GenericConfigPage {
 
                         Component.onCompleted: {
                             if (!root.heatingconfig) return
-                            maxTotalRuntimeStepper.value = Math.round(root.heatingconfig.durationMaxTotal / 15)
-                            minRuntimeStepper.value = Math.round(root.heatingconfig.durationMinAfterTurnOn / 15)
+                            maxTotalRuntimeStepper.value = Math.round(root.heatingconfig.durationMaxTotal / 900)
+                            minRuntimeStepper.value = Math.round(root.heatingconfig.durationMinAfterTurnOn / 900)
                         }
 
                         CoCard {
                             id: pvPrioCard
                             Layout.fillWidth: true
                             labelText: qsTr("Priority")
-                            text: (hemsManager.emsConfiguration.pvSurplusPriolist.indexOf(root.thing.id) + 1).toString()
+                            text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                             showChildrenIndicator: true
 
                             onClicked: {
@@ -358,23 +357,30 @@ GenericConfigPage {
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             labelText: qsTr("Minimum runtime")
                             helpText: qsTr("Runs at least this long after activation.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: 0
                             to: maxTotalRuntimeStepper.value
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between 0 and %1 h.").arg(NymeaUtils.floatToLocaleString(maxTotalRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = maxTotalRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between 00:00 and %1.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: 0
-                                top: maxTotalRuntimeStepper.value / 4
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
 
@@ -384,23 +390,30 @@ GenericConfigPage {
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             labelText: qsTr("Maximum runtime")
                             helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between %1 and 24 h.").arg(NymeaUtils.floatToLocaleString(minRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = minRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between %1 and 24:00.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: minRuntimeStepper.value / 4
-                                top: 24
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
                     }
@@ -448,11 +461,11 @@ GenericConfigPage {
                             return true;
                         }
                         if (minRuntimeStepper.visible &&
-                                minRuntimeStepper.value * 15 !== root.heatingconfig.durationMinAfterTurnOn) {
+                                minRuntimeStepper.value * 900 !== root.heatingconfig.durationMinAfterTurnOn) {
                             return true;
                         }
                         if (maxTotalRuntimeStepper.visible &&
-                                maxTotalRuntimeStepper.value * 15 !== root.heatingconfig.durationMaxTotal) {
+                                maxTotalRuntimeStepper.value * 900 !== root.heatingconfig.durationMaxTotal) {
                             return true;
                         }
                         if (heatpumpPriceWidget.visible &&

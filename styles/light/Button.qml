@@ -40,7 +40,6 @@ import "../../ui/components"
 T.Button {
     id: control
 
-    property bool secondary: false
     property alias iconLeft: iconLeft.name
     property alias iconRight: iconRight.name
 
@@ -59,6 +58,7 @@ T.Button {
     leftInset: 4
     rightInset: 4
     opacity: !control.enabled ? Style.numbers.components_Disabled_opacity : 1
+    layer.enabled: !control.enabled
     font: Style.newParagraphFontBold
 
     contentItem: RowLayout {
@@ -77,7 +77,7 @@ T.Button {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
             text: control.text
-            color: control.secondary ?
+            color: control.flat ?
                        Style.colors.typography_Basic_Default :
                        Style.colors.components_Forms_Buttons_Button_primary_text
             font: control.font
@@ -105,7 +105,7 @@ T.Button {
         height: parent.height - control.topInset - control.bottomInset
         radius: height / 2
         color: {
-            if (control.secondary) {
+            if (control.flat) {
                 if (control.pressed) {
                     return Style.colors.typography_States_Pressed;
                 } else if (control.hovered) {
@@ -117,7 +117,7 @@ T.Button {
                 return Style.colors.components_Forms_Buttons_Button_primary;
             }
         }
-        border.width: control.secondary ? 0 : 1
+        border.width: control.flat ? 0 : 1
         border.color: Style.colors.components_Forms_Buttons_Button_primary_border
 
         Rectangle {
@@ -125,7 +125,7 @@ T.Button {
             height: parent.height
             radius: height / 2
             color: Style.colors.typography_States_Pressed
-            visible: control.pressed && !control.secondary
+            visible: control.pressed && !control.flat
         }
 
         Rectangle {

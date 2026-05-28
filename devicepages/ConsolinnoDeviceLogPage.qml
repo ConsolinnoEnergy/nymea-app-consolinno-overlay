@@ -54,7 +54,7 @@ Page {
             icon.color: logsModelNg.filterEnabled ? Style.accentColor : Style.iconColor
             onClicked: logsModelNg.filterEnabled = !logsModelNg.filterEnabled
             visible: root.filterTypeIds.length === 0
-            secondary: true
+            flat: true
         }
     }
 

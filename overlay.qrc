@@ -81,6 +81,7 @@
         <file>icons/dishwasher.svg</file>
         <file>icons/download.svg</file>
         <file>icons/drag_handle.svg</file>
+        <file>icons/lock.svg</file>
         <file>icons/eco.svg</file>
         <file>icons/edit.svg</file>
         <file>icons/electric_bolt.svg</file>
@@ -156,7 +157,6 @@
         <file>wizards/SetupEVChargerWizard.qml</file>
         <file>wizards/WizardComplete.qml</file>
         <file>wizards/SetupEnergyMeterWizard.qml</file>
-        <file>components/ConsolinnoButton.qml</file>
         <file>wizards/SetupSolarInverterWizard.qml</file>
         <file>wizards/SetupHeatPumpWizard.qml</file>
         <file>optimization/BlackoutProtectionView.qml</file>
@@ -179,7 +179,6 @@
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
-        <file>optimization/UserConfig.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
         <file>wizards/AuthorisationView.qml</file>
         <file>optimization/PVOptimization.qml</file>
@@ -206,7 +205,6 @@
         <file>thingconfiguration/ConEMSState.qml</file>
         <file>devicepages/GenericConfigPage.qml</file>
         <file>devicepages/GenericDeviceHistoryPage.qml</file>
-        <file>components/ConsolinnoPVTextField.qml</file>
         <file>wizards/SetupHeatingElementWizard.qml</file>
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>devicepages/SimpleConsumerDevicePage.qml</file>
@@ -238,8 +236,8 @@
         <file>info/BlockEVChargingFromBatteryInfo.qml</file>
         <file>info/HeatpumpOptimizationInfo.qml</file>
         <file>info/HeatingRodOperatingModeInfo.qml</file>
+        <file>info/HemsControlledBatteryInfo.qml</file>
         <file>info/SwitchableConsumerOperatingModeInfo.qml</file>
-        <file>components/ConsolinnoThingDelegate.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
@@ -252,9 +250,6 @@
         <file>images/avoidZeroCompansation.svg</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
-        <file>components/ConsolinnoSetUpButton.qml</file>
-        <file>components/ConsolinnoRadioDelegate.qml</file>
-        <file>images/relais_screen.png</file>
         <file>images/eebus.svg</file>
         <file>images/relais.svg</file>
         <file>components/ConsolinnoCheckbox.qml</file>
@@ -266,6 +261,7 @@
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
+        <file>utils/UiUtils.qml</file>
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
@@ -281,6 +277,7 @@
         <file>components/CoSlider.qml</file>
         <file>components/CoFieldNotification.qml</file>
         <file>components/CoSwitch.qml</file>
+        <file>components/CoRadioButton.qml</file>
         <file>components/CoKPICard.qml</file>
         <file>components/CoEnergyCircle.qml</file>
         <file>components/CoComboBox.qml</file>
@@ -295,5 +292,8 @@
         <file>info/AnonymizedUsageDataInfo.qml</file>
         <file>components/CoOverlay.qml</file>
         <file>components/CoHeader.qml</file>
+        <file>components/CoQrCode.qml</file>
+        <file>dependencies/QR-Code-Generator-QML/QRGenerator.qml</file>
+        <file>dependencies/qrcode-svg/qrcode.min.js</file>
     </qresource>
 </RCC>

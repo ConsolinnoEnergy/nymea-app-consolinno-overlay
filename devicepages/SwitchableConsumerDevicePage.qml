@@ -104,8 +104,7 @@ GenericConfigPage {
                         Layout.fillWidth: true
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
                         labelText: qsTr("Total consumption") // #TODO wording
-                        // #TODO use decimal places when value is small?
-                        valueText: (root.totalConsumptionState ? NymeaUtils.floatToLocaleString((+root.totalConsumptionState.value), 0) : "-") + qsTr(" kWh")
+                        valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
                 }
 
@@ -193,15 +192,15 @@ GenericConfigPage {
                         // it from being spuriously clamped to 0.
                         Component.onCompleted: {
                             if (!root.consumerConfig) { return; }
-                            maxTotalRuntimeStepper.value = Math.round(root.consumerConfig.durationMaxTotal / 15);
-                            minRuntimeStepper.value = Math.round(root.consumerConfig.durationMinAfterTurnOn / 15);
+                            maxTotalRuntimeStepper.value = Math.round(root.consumerConfig.durationMaxTotal / 900);
+                            minRuntimeStepper.value = Math.round(root.consumerConfig.durationMinAfterTurnOn / 900);
                         }
 
                         CoCard {
                             id: pvPrioCard
                             Layout.fillWidth: true
                             labelText: qsTr("Priority")
-                            text: (hemsManager.emsConfiguration.pvSurplusPriolist.indexOf(root.thing.id) + 1).toString()
+                            text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                             showChildrenIndicator: true
 
                             onClicked: {
@@ -229,23 +228,30 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Minimum runtime")
                             helpText: qsTr("Runs at least this long after activation.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: 0
                             to: maxTotalRuntimeStepper.value
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between 0 and %1 h.").arg(NymeaUtils.floatToLocaleString(maxTotalRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = maxTotalRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between 00:00 and %1.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: 0
-                                top: maxTotalRuntimeStepper.value / 4
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
 
@@ -254,23 +260,30 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             labelText: qsTr("Maximum runtime")
                             helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
-                            unit: qsTr("h")
+                            unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
                             stepSize: 1
-                            feedbackText: qsTr("Value must be between %1 and 24 h.").arg(NymeaUtils.floatToLocaleString(minRuntimeStepper.value / 4, 2))
+                            feedbackText: {
+                                var v = minRuntimeStepper.value;
+                                var h = Math.floor(v / 4);
+                                var m = (v % 4) * 15;
+                                var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
+                                return qsTr("Value must be between %1 and 24:00.").arg(formatted);
+                            }
                             spinbox.textFromValue: function(value, locale) {
-                                return NymeaUtils.floatToLocaleString(value / 4, 2);
+                                var h = Math.floor(value / 4);
+                                var m = (value % 4) * 15;
+                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                             }
                             spinbox.valueFromText: function(text, locale) {
-                                return Math.round(Number.fromLocaleString(Qt.locale(), text) * 4);
+                                var parts = text.split(":");
+                                if (parts.length !== 2) return 0;
+                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
                             }
-                            spinbox.validator: DoubleValidator {
-                                bottom: minRuntimeStepper.value / 4
-                                top: 24
-                                decimals: 2
-                                notation: DoubleValidator.StandardNotation
+                            spinbox.validator: RegularExpressionValidator {
+                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
                     }
@@ -285,8 +298,8 @@ GenericConfigPage {
                         if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
                         if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
                         if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
-                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 15 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
-                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 15 !== root.consumerConfig.durationMaxTotal) { return true; }
+                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 900 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
+                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 900 !== root.consumerConfig.durationMaxTotal) { return true; }
                         if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
                         return false;
                     }
@@ -296,8 +309,8 @@ GenericConfigPage {
                             root.consumerConfig.switchThingId,
                             {
                                 optimizationMode: optimizationModeCombobox.currentValue,
-                                durationMinAfterTurnOn: minRuntimeStepper.value * 15,
-                                durationMaxTotal: maxTotalRuntimeStepper.value * 15,
+                                durationMinAfterTurnOn: minRuntimeStepper.value * 900,
+                                durationMaxTotal: maxTotalRuntimeStepper.value * 900,
                                 pvSurplusThreshold: parseInt(minPVSurplusPower.text)
                             }
                         );

@@ -9,6 +9,10 @@ import "../delegates"
 Page {
     id: root
 
+    // EEBUS gateway thingClass ID – detected and handled specially so that the
+    // directToDiscovery flow in SetupEEBUSWizard is used instead of the generic wizard.
+    readonly property string eebusGatewayThingClassId: "d7448dd7-cafc-4ef7-9169-09ea657f755c"
+
     property string filterInterface: ""
     property var thingsListId: []
     property Thing thingDevice
@@ -54,7 +58,6 @@ Page {
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("evcharger")) {
                 thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                    chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thingDevice.id),
                     thing: thingDevice,
                     directionID: 1
                 });
@@ -273,7 +276,16 @@ Page {
                                     visible: thingClass !== null
 
                                     onClicked: {
-                                        root.startWizard(thingClass)
+                                        if (thingClass.id.toString().replace(/[{}]/g, "").toLowerCase() === root.eebusGatewayThingClassId) {
+                                            // EEBUS gateway: open the EEBUS wizard directly in discovery mode
+                                            // so the device-list overview page is skipped.
+                                            var page = pageStack.push("../wizards/SetupEEBUSWizard.qml", {directToDiscovery: true});
+                                            page.done.connect(function(skip, abort, back) {
+                                                pageStack.pop();
+                                            });
+                                        } else {
+                                            root.startWizard(thingClass)
+                                        }
                                     }
                                 }
                             }

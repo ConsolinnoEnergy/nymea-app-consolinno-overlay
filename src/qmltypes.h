@@ -1,4 +1,5 @@
 #include <QQmlEngine>
+#include <QUrl>
 
 #include "hemsmanager.h"
 #include "cokpistatsprovider.h"
@@ -8,6 +9,7 @@
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
+    qmlRegisterSingletonType(QUrl("qrc:///ui/utils/UiUtils.qml"), uri, versionMajor, versionMinor, "UiUtils");
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
     qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
     qmlRegisterType<DashboardDataProvider>(uri, versionMajor, versionMinor, "DashboardDataProvider");

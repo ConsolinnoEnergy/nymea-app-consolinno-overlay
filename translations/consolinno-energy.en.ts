@@ -331,6 +331,18 @@
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Maximum SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Minimum SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -388,6 +400,10 @@
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>System</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -891,10 +907,6 @@
 <context>
     <name>CloudServicesPage</name>
     <message>
-        <source>Consolinno Cloud Services</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Connection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -944,6 +956,10 @@
     </message>
     <message>
         <source>Shares fully anonymized data for research and product improvement.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consolinno Cloud Services (Beta)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1074,13 +1090,6 @@
     </message>
     <message>
         <source>Unallocated consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>CoEnergyCircle</name>
-    <message>
-        <source>W</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1696,6 +1705,10 @@ Levies: %4 %2</source>
 - Serial number - if known</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
@@ -1753,6 +1766,10 @@ Levies: %4 %2</source>
     </message>
     <message>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2346,10 +2363,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Current connection state</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Asleep</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2374,26 +2387,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Networking enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable networking altogether</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabling networking will disconnect all connected clients. Be aware that you will not be able to interact remotely with this %1 system any more. Do not proceed unless you know what your are doing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Do you want to proceed?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable networking?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Wired network</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2410,111 +2403,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Wireless network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enable or disable WiFi</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disabling WiFi will disconnect all clients connected via WiFi. Be aware that you will not be able to interact remotely with this %1 system any more unless a LAN cable is connected.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Disable WiFi?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No wireless network interfaces available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>WiFi networks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Access Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SSID</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create Access Point</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect to wireless network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hidden Network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>New wired connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Method</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Automatic (DHCP client)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manual</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shared (DHCP server)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Address settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>IP Address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Gateway</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>DNS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Create connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Authenticate</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Enter the password for %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Current connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2530,42 +2419,39 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Disconnect</source>
+        <source>State</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Signal strength</source>
+        <source>Details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>WiFi frequency</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoPVTextField</name>
-    <message>
-        <source>°</source>
+        <source>IP configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter a value between </source>
+        <source>DHCP server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> and </source>
+        <source>Default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the value with a dot (.)</source>
+        <source>Static</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please enter the value with a comma (,)</source>
+        <source>&quot;Static&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> </source>
+        <source>Prefix length</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Write settings</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3726,10 +3612,6 @@ Would you like to continue anyway?</source>
 <context>
     <name>GridSupportiveControl</name>
     <message>
-        <source>Control type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source></source>
         <translation></translation>
     </message>
@@ -3790,18 +3672,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Grid-supportive control setup – EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS control box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Relais</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3811,14 +3681,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control – Relais</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup – Relais</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3839,10 +3701,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The relais are configured as follows</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3875,6 +3733,74 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Local Subject Key Identifier (SKI)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Device connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS SKI Pairing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR Code &amp; Pairing Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Secret Key (SPSEC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>SHIP ID (ID)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Certificate Fingerprint (SHA-256)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Completion by the metering point operator pending</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>EEBUS Comfort Pairing data not available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control box connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3937,10 +3863,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source> kW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3973,14 +3895,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3989,15 +3903,23 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Dynamic pricing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>hh:mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4068,10 +3990,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4259,11 +4177,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the &quot;increased&quot; operating state. PV surplus is allocated to devices according to your selected priority.</source>
+        <source>Please note</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please note</source>
+        <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the “increased” operating state. PV surplus is allocated to devices according to your selected priority.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4306,6 +4224,17 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>HemsControlledBatteryInfo</name>
+    <message>
+        <source>HEMS-controlled battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When the &quot;HEMS-controlled battery&quot; toggle is activated, the HEMS controls the charging and discharging of the battery up to the defined minimum and maximum state of charge (SoC).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4391,10 +4320,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total production</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4711,10 +4636,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Total grid feed-in</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4825,19 +4746,23 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
+        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases.</source>
+        <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device has been removed again.</source>
+        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>%1 The newly added EEBUS device could not be removed automatically. Please remove it manually.</source>
+        <source>EEBUS Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setting up EEBUS device...</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5169,10 +5094,6 @@ Would you like to continue anyway?</source>
         <source>Total consumption</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source> kWh</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SwitchableConsumerDevicePage</name>
@@ -5210,10 +5131,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Total consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5273,14 +5190,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>h</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Value must be between 0 and %1 h.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5289,11 +5198,19 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Value must be between %1 and 24 h.</source>
+        <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply changes</source>
+        <source>hh:mm</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between 00:00 and %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5368,6 +5285,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switchable consumers</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

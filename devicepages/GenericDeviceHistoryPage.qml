@@ -358,7 +358,7 @@ GenericConfigPage {
                             Repeater {
                                 id: paramsRepeater
                                 model: paramsDialog.actionType.paramTypes
-                                delegate: ParamDelegate {
+                                delegate: CoParamDelegate {
                                     Layout.fillWidth: true
                                     paramType: paramsDialog.actionType.paramTypes.get(index)
                                 }

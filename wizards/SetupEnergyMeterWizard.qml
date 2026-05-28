@@ -143,7 +143,7 @@ Page {
         Button {
             Layout.fillWidth: true
             text: qsTr("Cancel")
-            secondary: true
+            flat: true
             onClicked: root.done(false, true)
         }
     }
@@ -214,7 +214,7 @@ Page {
                     Repeater {
                         id: paramRepeater
                         model: thingClass ? thingClass.discoveryParamTypes : null
-                        delegate: ParamDelegate {
+                        delegate: CoParamDelegate {
                             Layout.fillWidth: true
                             paramType: thingClass.discoveryParamTypes.get(index)
                         }
@@ -399,9 +399,9 @@ Page {
                         model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ?
                                    thingClass.paramTypes :
                                    null
-                        delegate: ParamDelegate {
+                        delegate: CoParamDelegate {
                             Layout.fillWidth: true
-                            enabled: !model.readOnly
+                            writable: !model.readOnly
                             paramType: thingClass.paramTypes.get(index)
                             value: {
                                 // Discovery, use params from discovered descriptor

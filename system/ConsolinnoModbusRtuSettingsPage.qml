@@ -299,7 +299,7 @@ Page {
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
             Layout.bottomMargin: Style.margins
-            secondary: true
+            flat: true
             visible: root.settingsWizard
             onClicked: {
                 root.done(false, true, false);
@@ -327,7 +327,7 @@ Page {
                     icon.source: "/icons/delete_forever.svg"
                     text: qsTr("Remove Modbus RTU Interface")
                     enabled: modbusRtuManager.supported
-                    secondary: true
+                    flat: true
                     onClicked: {
                         var dialog = removeModbusMasterDialogComponent.createObject(app,
                                                                                     {

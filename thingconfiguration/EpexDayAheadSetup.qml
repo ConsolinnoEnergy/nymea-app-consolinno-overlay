@@ -261,8 +261,7 @@ Page {
                             visible: root.thing ? true : false
                             Layout.fillWidth: true
                             Layout.topMargin: Style.margins
-
-                            secondary: true
+                            flat: true
                             text: qsTr("Reset values to default")
                             onClicked: {
                                 // Need to force reload of model here since otherwise the code below

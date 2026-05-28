@@ -217,6 +217,9 @@ GenericConfigPage {
                     }
                     energyChargedCard.visible = true
                     initializing = false
+                    if (!checkPhaseCountTimer.running) {
+                        checkPhaseCountTimer.start();
+                    }
                 }
                 // Pending
                 if (chargingConfiguration.optimizationEnabled && (configuration.state == 6)){
@@ -320,6 +323,29 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    Timer {
+        id: checkPhaseCountTimer
+        interval: 5000
+        repeat: false
+
+        onTriggered: {
+            checkPhaseCounts();
+        }
+    }
+
+    function checkPhaseCounts() {
+        if (!chargingflickable.visible) { return; }
+        if (!desiredPhaseCountCard.visible) { return; }
+        if (!actualPhaseCountCard.visible) { return; }
+        const desiredPhaseCount = isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0;
+        const actualPhaseCount = thing ? thing.stateByName("phaseCount").value : 0;
+        phaseCountNotification.visible = (desiredPhaseCount !== actualPhaseCount);
+    }
+
+    Component.onCompleted: {
+        checkPhaseCountTimer.start();
+    }
+
     // Convenience property – always null-safe: check before use with `if (dpThing)`
     readonly property var dpThing: dynamicPrice.count > 0 ? dynamicPrice.get(0) : null
 
@@ -345,9 +371,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     Layout.bottomMargin: 15
                     type: CoNotification.Type.Warning
-                    visible: desiredPhaseCountCard.visible &&
-                             actualPhaseCountCard.visible &&
-                             desiredPhaseCount !== actualPhaseCount
+                    visible: false
                     property int desiredPhaseCount: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0
                     property int actualPhaseCount: thing ? thing.stateByName("phaseCount").value : 0
                     title: qsTr("Phase setting could not be applied")
@@ -587,6 +611,12 @@ GenericConfigPage {
                             labelText: qsTr("Phase count")
                             visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
                             interactive: false
+
+                            onVisibleChanged: {
+                                if (!visible) {
+                                    phaseCountNotification.visible = false;
+                                }
+                            }
                         }
                     }
                 }
@@ -742,6 +772,12 @@ GenericConfigPage {
                                      isCarPluggedIn() &&
                                      chargingIsAnyOf([pv_optimized, simple_pv_excess])
                             interactive: false
+
+                            onVisibleChanged: {
+                                if (!visible) {
+                                    phaseCountNotification.visible = false;
+                                }
+                            }
                         }
 
                         Button {
@@ -1044,7 +1080,7 @@ GenericConfigPage {
                                 id: pvPrioCard
                                 Layout.fillWidth: true
                                 labelText: qsTr("Priority")
-                                text: (hemsManager.emsConfiguration.pvSurplusPriolist.indexOf(root.thing.id) + 1).toString()
+                                text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                                 showChildrenIndicator: true
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
 
@@ -1162,6 +1198,7 @@ GenericConfigPage {
                                 visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Ending time")
                                 valueText: endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                                valueTextWidth: 100
                                 from: 0
                                 to: 24 * 60
                                 stepSize: 1

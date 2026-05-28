@@ -6,11 +6,13 @@
 #include <QObject>
 #include <QUuid>
 
+#include "pvsurplusprioentry.h"
+
 class EmsConfiguration : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QList<QUuid> pvSurplusPriolist READ pvSurplusPriolist WRITE setPvSurplusPriolist NOTIFY pvSurplusPriolistChanged)
-    Q_PROPERTY(QList<QUuid> defaultPvSurplusPriolist READ defaultPvSurplusPriolist WRITE setDefaultPvSurplusPriolist NOTIFY defaultPvSurplusPriolistChanged)
+    Q_PROPERTY(PvSurplusEntries pvSurplusPriolist READ pvSurplusPriolist WRITE setPvSurplusPriolist NOTIFY pvSurplusPriolistChanged)
+    Q_PROPERTY(PvSurplusEntries defaultPvSurplusPriolist READ defaultPvSurplusPriolist WRITE setDefaultPvSurplusPriolist NOTIFY defaultPvSurplusPriolistChanged)
     Q_PROPERTY(QList<QUuid> limitPriolist READ limitPriolist WRITE setLimitPriolist NOTIFY limitPriolistChanged)
     Q_PROPERTY(QList<QUuid> defaultLimitPriolist READ defaultLimitPriolist WRITE setDefaultLimitPriolist NOTIFY defaultLimitPriolistChanged)
 
@@ -18,14 +20,16 @@ public:
     explicit EmsConfiguration(QObject *parent = nullptr);
 
     // Priority list for PV surplus distribution
-    QList<QUuid> pvSurplusPriolist() const;
-    void setPvSurplusPriolist(const QList<QUuid> &pvSurplusPriolist);
+    PvSurplusEntries pvSurplusPriolist() const;
+    void setPvSurplusPriolist(const PvSurplusEntries &pvSurplusPriolist);
 
     // Default priority list for PV surplus distribution
-    QList<QUuid> defaultPvSurplusPriolist() const;
-    void setDefaultPvSurplusPriolist(const QList<QUuid> &defaultPvSurplusPriolist);
+    PvSurplusEntries defaultPvSurplusPriolist() const;
+    void setDefaultPvSurplusPriolist(const PvSurplusEntries &defaultPvSurplusPriolist);
 
     // Priority list for load limiting / curtailment
+    Q_INVOKABLE int pvSurplusPriolistIndexOf(const QUuid &thingId) const;
+
     QList<QUuid> limitPriolist() const;
     void setLimitPriolist(const QList<QUuid> &limitPriolist);
 
@@ -40,8 +44,8 @@ signals:
     void defaultLimitPriolistChanged();
 
 private:
-    QList<QUuid> m_pvSurplusPriolist;
-    QList<QUuid> m_defaultPvSurplusPriolist;
+    PvSurplusEntries m_pvSurplusPriolist;
+    PvSurplusEntries m_defaultPvSurplusPriolist;
     QList<QUuid> m_limitPriolist;
     QList<QUuid> m_defaultLimitPriolist;
 };

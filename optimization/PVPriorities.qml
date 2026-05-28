@@ -33,8 +33,8 @@ Page {
         // model order (which ListModel doesn't track reactively) are re-evaluated.
         property int modelRevision: 0
         property var firstBattery: {
-            for (var i = 0; i < hemsManager.emsConfiguration.pvSurplusPriolist.length; i++) {
-                var thing = engine.thingManager.things.getThing(hemsManager.emsConfiguration.pvSurplusPriolist[i]);
+            for (var i = 0; i < hemsManager.emsConfiguration.pvSurplusPriolist.count; i++) {
+                var thing = engine.thingManager.things.getThing(hemsManager.emsConfiguration.pvSurplusPriolist.get(i).thingId);
                 if (thing && thing.thingClass.interfaces.indexOf("battery") >= 0) {
                     return thing;
                 }
@@ -109,16 +109,15 @@ Page {
 
     function populateFromPrioList(prioList) {
         prioListModel.clear();
-        for (var i = 0; i < prioList.length; i++) {
-            var thingId = prioList[i];
+        for (var i = 0; i < prioList.count; i++) {
+            var entry = prioList.get(i);
+            var thingId = entry.thingId;
+            var locked = entry.locked !== undefined ? entry.locked : false;
             var thing = engine.thingManager.things.getThing(thingId);
             prioListModel.append({
                 "name": thing ? thing.name : thingId.toString(),
-                // QML ListModel cannot store C++ QUuid/ThingId objects — they come back
-                // as undefined on retrieval. Coercing with "" + thing.id forces a plain
-                // JS string, which ListModel preserves and Qt auto-converts back to QUuid
-                // when passed to setPVSurplusPriolist(QList<QUuid>).
-                "thingId": thing ? "" + thing.id : "",
+                "thingId": thing ? "" + thing.id : "" + thingId,
+                "locked": locked,
                 "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg"),
                 "optimizationEnabled": thing ? root.thingOptimizationEnabled(thing) : false
             });
@@ -213,6 +212,7 @@ Page {
                                 width: priorityListView.width
                                 text: model.name
                                 iconLeft: model.icon
+                                locked: model.locked
                                 visible: index !== priorityListView.draggingIndex
                                 card.opacity: (model.optimizationEnabled ||
                                                (root.alwaysEnabledThingId !== "" &&
@@ -233,7 +233,12 @@ Page {
                                         mouse.accepted = false;
                                         return;
                                     }
-                                    priorityListView.draggingIndex = priorityListView.indexAt(mouseX, mouseYInList);
+                                    var idx = priorityListView.indexAt(mouseX, mouseYInList);
+                                    if (idx < 0 || prioListModel.get(idx).locked) {
+                                        mouse.accepted = false;
+                                        return;
+                                    }
+                                    priorityListView.draggingIndex = idx;
                                     dndItem.text = prioListModel.get(priorityListView.draggingIndex).name;
                                     dndItem.iconLeft = prioListModel.get(priorityListView.draggingIndex).icon;
                                     dndItem.card.opacity = (prioListModel.get(priorityListView.draggingIndex).optimizationEnabled ||
@@ -274,7 +279,7 @@ Page {
                             Layout.alignment: Qt.AlignHCenter
                             text: qsTr("Restore default order")
                             iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
-                            secondary: true
+                            flat: true
 
                             onClicked: {
                                 populateFromPrioList(hemsManager.emsConfiguration.defaultPvSurplusPriolist);
@@ -298,9 +303,9 @@ Page {
                 d.modelRevision;
                 // Enabled only when the current list order differs from the saved pvSurplusPriolist.
                 var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
-                if (prioListModel.count !== prioList.length) { return true; }
+                if (prioListModel.count !== prioList.count) { return true; }
                 for (var i = 0; i < prioListModel.count; i++) {
-                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList[i]).id) {
+                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList.get(i).thingId).id) {
                         return true;
                     }
                 }
@@ -308,11 +313,11 @@ Page {
             }
 
             onClicked: {
-                var uuidList = [];
+                var entryList = [];
                 for (var i = 0; i < prioListModel.count; i++) {
-                    uuidList.push(prioListModel.get(i).thingId);
+                    entryList.push({"thingId": prioListModel.get(i).thingId, "locked": prioListModel.get(i).locked});
                 }
-                d.pendingCallId = hemsManager.setPVSurplusPriolist(uuidList);
+                d.pendingCallId = hemsManager.setPVSurplusPriolist(entryList);
             }
         }
     }

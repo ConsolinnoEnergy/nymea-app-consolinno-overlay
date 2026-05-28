@@ -119,6 +119,64 @@ Page {
                         checked = (batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger);
                     }
                 }
+
+                CoSwitch {
+                    id: hemsControlledBattery
+                    Layout.fillWidth: true
+                    text: qsTr("HEMS-controlled battery")
+                    infoUrl: "HemsControlledBatteryInfo.qml"
+                    visible: thing.thingClass.interfaces.includes("fullymanagedbattery")
+
+                    Component.onCompleted: {
+                        checked = batteryConfiguration.fullymanagableBattery;
+                    }
+                }
+
+                CoSlider {
+                    id: maxSoc
+                    Layout.fillWidth: true
+                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
+                    labelText: qsTr("Maximum SoC")
+                    valueText: value + " %"
+                    stepSize: 1
+                    from: 0
+                    to: 100
+
+                    onValueChanged: {
+                        if (value < 60) {
+                            value = 60;
+                        } else if (value > 95) {
+                            value = 95;
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        value = batteryConfiguration.maxSoC;
+                    }
+                }
+
+                CoSlider {
+                    id: minSoc
+                    Layout.fillWidth: true
+                    visible: hemsControlledBattery.visible && hemsControlledBattery.checked
+                    labelText: qsTr("Minimum SoC")
+                    valueText: value + " %"
+                    stepSize: 1
+                    from: 0
+                    to: 100
+
+                    onValueChanged: {
+                        if (value < 5) {
+                            value = 5;
+                        } else if (value > 40) {
+                            value = 40;
+                        }
+                    }
+
+                    Component.onCompleted: {
+                        value = batteryConfiguration.minSoC;
+                    }
+                }
             }
         }
 
@@ -160,6 +218,13 @@ Page {
                 };
                 if (maxElectricalPower.visible) {
                     config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+                }
+                if (hemsControlledBattery.visible) {
+                    config.fullymanagableBattery = hemsControlledBattery.checked;
+                    if (hemsControlledBattery.checked) {
+                        config.maxSoC = maxSoc.value;
+                        config.minSoC = minSoc.value;
+                    }
                 }
 
                 hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);

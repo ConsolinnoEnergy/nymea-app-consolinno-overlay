@@ -5,28 +5,37 @@ EmsConfiguration::EmsConfiguration(QObject *parent): QObject(parent)
 
 }
 
-QList<QUuid> EmsConfiguration::pvSurplusPriolist() const
+PvSurplusEntries EmsConfiguration::pvSurplusPriolist() const
 {
     return m_pvSurplusPriolist;
 }
 
-void EmsConfiguration::setPvSurplusPriolist(const QList<QUuid> &pvSurplusPriolist)
+void EmsConfiguration::setPvSurplusPriolist(const PvSurplusEntries &pvSurplusPriolist)
 {
     if (m_pvSurplusPriolist == pvSurplusPriolist) { return; }
     m_pvSurplusPriolist = pvSurplusPriolist;
     emit pvSurplusPriolistChanged();
 }
 
-QList<QUuid> EmsConfiguration::defaultPvSurplusPriolist() const
+PvSurplusEntries EmsConfiguration::defaultPvSurplusPriolist() const
 {
     return m_defaultPvSurplusPriolist;
 }
 
-void EmsConfiguration::setDefaultPvSurplusPriolist(const QList<QUuid> &defaultPvSurplusPriolist)
+void EmsConfiguration::setDefaultPvSurplusPriolist(const PvSurplusEntries &defaultPvSurplusPriolist)
 {
     if (m_defaultPvSurplusPriolist == defaultPvSurplusPriolist) { return; }
     m_defaultPvSurplusPriolist = defaultPvSurplusPriolist;
     emit defaultPvSurplusPriolistChanged();
+}
+
+int EmsConfiguration::pvSurplusPriolistIndexOf(const QUuid &thingId) const
+{
+    for (int i = 0; i < m_pvSurplusPriolist.size(); ++i) {
+        if (m_pvSurplusPriolist.at(i).thingId() == thingId)
+            return i;
+    }
+    return -1;
 }
 
 QList<QUuid> EmsConfiguration::limitPriolist() const

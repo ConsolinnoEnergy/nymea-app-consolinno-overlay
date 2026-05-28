@@ -46,7 +46,6 @@ packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenD@3x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@1x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@2x.png \
 packaging/ios/Assets.xcassets/LaunchImage.imageset/LaunchScreenL@3x.png \
-packaging/ios/Info.plist.in \
 packaging/ios/splash-dark.svg \
 packaging/ios/splash-light.svg \
 packaging/linux-common/icons/hicolor/16x16/apps/consolinno-energy.png \

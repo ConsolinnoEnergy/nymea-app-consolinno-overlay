@@ -44,14 +44,20 @@ Item {
             border.color: Style.colors.components_Dashboard_Detail_Energy_circle_border
 
             RadialGradient {
+                id: outerGradient
                 anchors.fill: parent
                 visible: !root.idle
                 horizontalRadius: parent.width - 2 * parent.padding
                 verticalRadius: parent.height - 2 * parent.padding
+                property real offset: 0.53
+                property real extent: 0.1
                 gradient: Gradient {
                     GradientStop{ position: 0.5; color: "transparent" }
                     GradientStop{ position: 0.5001; color: background.gradientColor }
-                    GradientStop{ position: 0.53 + 0.07 * (Math.min(Math.abs(root.power), 5000) / 5000); color: "transparent" }
+                    GradientStop{
+                        position: outerGradient.offset + outerGradient.extent * (Math.min(Math.abs(root.power), 5000) / 5000)
+                        color: "transparent"
+                    }
                 }
             }
         }
@@ -69,12 +75,18 @@ Item {
             border.color: Style.colors.components_Dashboard_Detail_Energy_circle_border
 
             RadialGradient {
+                id: innerGradient
                 anchors.fill: parent
                 visible: !root.idle
+                property real offset: 0.46
+                property real extent: 0.14
                 gradient: Gradient {
                     GradientStop{ position: 0.5; color: "transparent" }
                     GradientStop{ position: 0.4999; color: background.gradientColor }
-                    GradientStop{ position: 0.47 - 0.17 * (Math.min(Math.abs(root.power), 5000) / 5000); color: Style.colors.typography_Background_Default }
+                    GradientStop{
+                        position: innerGradient.offset - innerGradient.extent * (Math.min(Math.abs(root.power), 5000) / 5000)
+                        color: Style.colors.typography_Background_Default
+                    }
                 }
             }
 
@@ -113,7 +125,7 @@ Item {
                     Text {
                         id: valueText
                         verticalAlignment: Text.AlignVCenter
-                        text: NymeaUtils.floatToLocaleString(root.power, 0)
+                        text: UiUtils.powerDisplayValue(root.power)
                         font: Style.newH2Font
                         color: Style.colors.components_Dashboard_Info_card_value
                     }
@@ -121,7 +133,7 @@ Item {
                     Text {
                         id: unitText
                         verticalAlignment: Text.AlignVCenter
-                        text: qsTr("W") // #TODO show large values as "kW"?
+                        text: UiUtils.powerDisplayUnit(root.power)
                         font: Style.newParagraphFontBold
                         color: Style.colors.components_Dashboard_Info_card_value
                     }

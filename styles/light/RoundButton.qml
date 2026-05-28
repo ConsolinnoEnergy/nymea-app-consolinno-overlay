@@ -11,8 +11,6 @@ import Nymea 1.0
 T.RoundButton {
     id: control
 
-    property bool secondary: false
-
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -48,7 +46,7 @@ T.RoundButton {
         height: parent.height - control.topInset - control.bottomInset
         radius: height / 2
         color: {
-            if (control.secondary) {
+            if (control.flat) {
                 if (control.pressed) {
                     return Style.colors.typography_States_Pressed;
                 } else if (control.hovered) {
@@ -60,7 +58,7 @@ T.RoundButton {
                 return Style.colors.components_Forms_Buttons_Button_primary;
             }
         }
-        border.width: control.secondary ? 0 : 1
+        border.width: control.flat ? 0 : 1
         border.color: Style.colors.components_Forms_Buttons_Button_primary_border
 
         Rectangle {
@@ -68,7 +66,7 @@ T.RoundButton {
             height: parent.height
             radius: height / 2
             color: Style.colors.typography_States_Pressed
-            visible: control.pressed && !control.secondary
+            visible: control.pressed && !control.flat
         }
 
         Rectangle {
