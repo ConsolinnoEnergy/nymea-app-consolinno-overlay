@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import "../components"
 import "../delegates"
 
@@ -72,10 +73,16 @@ Page {
                     labelText: qsTr("Maximal electrical power")
                     compact: true
                     unit: qsTr("kW")
+                    helpText:
+                        qsTr("The value must not be below %1.")
+                    .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                     feedbackText: qsTr("The value is outside the valid range.")
                     textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
-                    textField.validator: DoubleValidator { bottom: 0.5 }
+                    textField.validator: DoubleValidator  {
+                        id: maxElectricalPowerValidator
+                        bottom: 0.5
+                    }
                 }
 
                 CoSwitch {
@@ -110,11 +117,11 @@ Page {
 
         Button {
             id: savebutton
+            Layout.fillWidth: true
+            text: qsTr("Apply changes")
+
             property bool inputValid: maxElectricalPower.maxElectricalPowerValid
 
-            Layout.fillWidth: true
-            enabled: inputValid
-            text: qsTr("Apply changes")
             onClicked: {
                 let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
                 if (savebutton.inputValid) {
