@@ -65,7 +65,7 @@ T.Switch {
             if (control.checked) {
                 return control.enabled ?
                             Style.colors.components_Forms_Toggle_Track_active :
-                            Style.colors.components_Forms_Toggle_Thumb_active_disabled;
+                            Style.colors.components_Forms_Toggle_Toggle_disabled;
             } else {
                 if (!control.enabled) {
                     return "transparent";
@@ -90,11 +90,17 @@ T.Switch {
             width: 12
             height: 12
             radius: width / 2
-            color: control.checked ?
-                       Style.colors.components_Forms_Toggle_Thumb_active :
-                       control.enabled ?
-                           Style.colors.components_Forms_Toggle_Thumb_Track_inactive :
-                           Style.colors.components_Forms_Toggle_Toggle_disabled
+            color: {
+                if (control.checked) {
+                    return control.enabled ?
+                                Style.colors.components_Forms_Toggle_Thumb_active :
+                                Style.colors.components_Forms_Toggle_Thumb_active_disabled;
+                } else {
+                    return control.enabled ?
+                                Style.colors.components_Forms_Toggle_Thumb_Track_inactive :
+                                Style.colors.components_Forms_Toggle_Toggle_disabled;
+                }
+            }
 
             Behavior on x {
                 enabled: !control.down
