@@ -121,13 +121,18 @@ Page {
                     Layout.fillWidth: true
                     visible: currentCombo.comboBox.currentValue === 0
                     labelText: qsTr("User defined current") // #TODO wording
-                    helpText: qsTr("Enter a value between 16 and 100 A.") // #TODO wording
                     unit: "A"
                     compact: true
+                    helpText:
+                        qsTr("The value must be between %1 and %2.")
+                    .arg(currentInputValidator.bottom)
+                    .arg(currentInputValidator.top)
                     feedbackText: qsTr("The value is outside the valid range.")
                     textField.inputMethodHints: Qt.ImhDigitsOnly
-                    textField.validator: RegularExpressionValidator {
-                        regularExpression: /^(1[6-9]|[2-9][0-9]|100)$/
+                    textField.validator: IntValidator {
+                        id: currentInputValidator
+                        bottom: 16
+                        top: 100
                     }
                     textField.onTextChanged: {
                         if (visible && textField.acceptableInput) {
@@ -146,7 +151,8 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
-            enabled: {
+
+            property bool inputValid: {
                 if (currentCombo.comboBox.currentValue === 0 &&
                         !currentInput.textField.acceptableInput) {
                     return false;
@@ -156,6 +162,7 @@ Page {
             text: qsTr("Apply changes")
 
             onClicked: {
+                if (!inputValid) { return; }
                 if (directionID === 0) {
                     d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
                 } else if (directionID === 1) {

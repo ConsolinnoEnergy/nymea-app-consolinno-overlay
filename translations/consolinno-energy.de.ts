@@ -343,6 +343,10 @@
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -391,10 +395,6 @@
         <translation>Benutzerdefinierter Nennstrom</translation>
     </message>
     <message>
-        <source>Enter a value between 16 and 100 A.</source>
-        <translation>Gib einen Wert zwischen 16 und 100 A ein.</translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
@@ -405,6 +405,10 @@
     <message>
         <source>System</source>
         <translation>System</translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
+        <translation>Der Wert muss zwischen %1 und %2 liegen.</translation>
     </message>
 </context>
 <context>
@@ -4091,6 +4095,10 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
+    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
@@ -4141,6 +4149,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>
@@ -4538,16 +4550,16 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>°</translation>
     </message>
     <message>
-        <source>The value must be between 30 and 60.</source>
-        <translation>Der Wert muss zwischen 30 und 60 liegen.</translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
+        <translation>Der Wert muss zwischen %1 und %2 liegen.</translation>
     </message>
 </context>
 <context>
@@ -5311,6 +5323,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>

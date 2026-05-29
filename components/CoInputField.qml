@@ -79,7 +79,7 @@ Item {
             id: notification
             Layout.fillWidth: true
             text: ""
-            visible: root.enabled && text !== "" && !textinput.acceptableInput
+            visible: root.enabled && text !== "" && textinput.hasError
         }
     }
 }

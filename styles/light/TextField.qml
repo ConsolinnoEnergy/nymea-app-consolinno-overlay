@@ -44,6 +44,8 @@ import Nymea
 T.TextField {
     id: control
 
+    property bool hasError: false
+
     implicitWidth: implicitBackgroundWidth + leftInset + rightInset
                    || Math.max(contentWidth, placeholder.implicitWidth) + leftPadding + rightPadding
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -90,16 +92,27 @@ T.TextField {
             anchors.margins: 4
             radius: Style.cornerRadius
             border.width: control.activeFocus ? 2 : 1
-            color: control.acceptableInput ?
-                       Style.colors.typography_Background_Default :
-                       Style.colors.system_Danger_Background
+            color: control.hasError ?
+                       Style.colors.system_Danger_Background :
+                       Style.colors.typography_Background_Default
             border.color: !control.enabled ?
                               Style.colors.components_Forms_Slider_Thumb_Track_disabled :
-                              !control.acceptableInput ?
+                              control.hasError ?
                                   Style.colors.system_Danger_Accent :
                                   control.activeFocus ?
                                       Style.colors.components_Forms_Fields_Field_border_active :
                                       Style.colors.components_Forms_Fields_Field_border
+        }
+    }
+
+    onActiveFocusChanged: {
+        if (!activeFocus) {
+            control.hasError = !acceptableInput;
+        }
+    }
+    onTextChanged: {
+        if (control.hasError) {
+            control.hasError = !acceptableInput;
         }
     }
 }

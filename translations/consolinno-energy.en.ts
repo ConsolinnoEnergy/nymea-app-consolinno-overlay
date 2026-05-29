@@ -343,6 +343,10 @@
         <source>Minimum SoC</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -391,10 +395,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter a value between 16 and 100 A.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -404,6 +404,10 @@
     </message>
     <message>
         <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4071,6 +4075,10 @@ Would you like to continue anyway?</source>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
@@ -4120,6 +4128,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4518,15 +4530,15 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The value must be between 30 and 60.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5289,6 +5301,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Switchable consumers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
