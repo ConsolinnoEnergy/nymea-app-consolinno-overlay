@@ -3927,10 +3927,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
     <message>
-        <source>Dynamic pricing</source>
-        <translation>Dynamischer Tarif</translation>
-    </message>
-    <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -3945,6 +3941,14 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
+    </message>
+    <message>
+        <source>&quot;Dynamic pricing&quot;</source>
+        <translation>„Dynamischer Tarif“</translation>
     </message>
 </context>
 <context>
@@ -4033,10 +4037,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Wert für Leistungsvorgabe</translation>
     </message>
     <message>
-        <source> W</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
@@ -4045,16 +4045,20 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation>PV-Überschuss</translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation>W</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
     </message>
 </context>
 <context>
@@ -5195,10 +5199,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation>PV-Überschuss</translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
@@ -5245,6 +5245,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
     </message>
 </context>
 <context>

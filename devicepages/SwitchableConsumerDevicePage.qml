@@ -103,7 +103,7 @@ GenericConfigPage {
                         id: totalConsumptionCard
                         Layout.fillWidth: true
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
-                        labelText: qsTr("Total consumption") // #TODO wording
+                        labelText: qsTr("Total consumption")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
                 }
@@ -112,7 +112,7 @@ GenericConfigPage {
                     id: statusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Status") // #TODO wording
+                    headerText: qsTr("Status")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -153,7 +153,7 @@ GenericConfigPage {
                     id: controlGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Control") // #TODO wording
+                    headerText: qsTr("Control")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -163,7 +163,7 @@ GenericConfigPage {
                         CoComboBox {
                             id: optimizationModeCombobox
                             Layout.fillWidth: true
-                            labelText: qsTr("Operating mode") // #TODO wording
+                            labelText: qsTr("Operating mode")
                             infoUrl: "SwitchableConsumerOperatingModeInfo.qml"
                             infoProperties: ({
                                 pvSurplusModeAvailable: d.pvSurplusModeAvailable
@@ -180,7 +180,7 @@ GenericConfigPage {
                     id: pvSurplusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    headerText: qsTr("\"PV Surplus\"")
                     visible: optimizationModeCombobox.currentValue === 0 // SwitchConfiguration.OptimizationModePvSurplus
 
                     ColumnLayout {

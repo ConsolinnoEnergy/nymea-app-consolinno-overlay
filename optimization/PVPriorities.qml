@@ -173,7 +173,7 @@ Page {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV device prioritization") // #TODO wording
+                    headerText: qsTr("PV device prioritization")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -188,7 +188,6 @@ Page {
                             wrapMode: Text.WordWrap
                             font: Style.newParagraphFont
                             color: Style.colors.typography_Basic_Default
-                            // #TODO wording
                             text: qsTr("The following devices are configured for surplus PV power. Sort them by priority using drag and drop.") +
                                        (d.hasBattery ?
                                            " " + qsTr("The battery automatically moves to the last position when its SoC reaches %1%.").arg(d.batteryTargetSoc) :

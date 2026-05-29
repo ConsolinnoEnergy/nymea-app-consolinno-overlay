@@ -170,7 +170,7 @@ GenericConfigPage {
                                                     implicitHeight
                         visible: root.totalConsumptionState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
-                        labelText: qsTr("Total consumption") // #TODO wording
+                        labelText: qsTr("Total consumption")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
 
@@ -217,7 +217,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Control") // #TODO wording
+                    headerText: qsTr("Control")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -227,7 +227,7 @@ GenericConfigPage {
                         CoComboBox {
                             id: optimizationModeDropdown
                             Layout.fillWidth: true
-                            labelText: qsTr("Optimization") // #TODO wording
+                            labelText: qsTr("Optimization")
                             infoUrl: "HeatpumpOptimizationInfo.qml"
                             infoProperties: ({
                                 pvSurplusModeAvailable: false,
@@ -314,7 +314,7 @@ GenericConfigPage {
                     id: pvSurplusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    headerText: qsTr("\"PV Surplus\"")
                     visible: thing.thingClass.interfaces.indexOf("pvsurplusheatpump") >= 0 ||
                              (thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0 &&
                               optimizationModeDropdown.currentIndex >= 0 &&
@@ -432,7 +432,7 @@ GenericConfigPage {
                     id: dynamicPricingGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Dynamic pricing") // #TODO wording, quotation marks from design?
+                    headerText: qsTr("\"Dynamic pricing\"")
                     visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0 &&
                              optimizationModeDropdown.currentIndex >= 0 &&
                              optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname === "OptimizationModeDynamicPricing"

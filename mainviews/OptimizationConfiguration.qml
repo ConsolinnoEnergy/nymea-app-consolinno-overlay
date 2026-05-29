@@ -60,7 +60,7 @@ Page {
                                                  settings.showHiddenOptions
                         Layout.fillWidth: true
                         visible: available
-                        text: qsTr("PV device priorization") // #TODO wording
+                        text: qsTr("PV device priorization")
                         iconLeft: Qt.resolvedUrl("/icons/pin.svg")
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"))

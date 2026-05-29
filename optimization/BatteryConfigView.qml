@@ -201,7 +201,7 @@ GenericConfigPage {
                     icon: root.batteryLevelState ?
                               batteryIconByLevel(root.batteryLevelState.value) :
                               app.interfacesToIcon(root.thing.thingClass.interfaces)
-                    labelText: qsTr("State of Charge") // #TODO wording
+                    labelText: qsTr("State of Charge")
                     valueText: (root.batteryLevelState ? Math.round(root.batteryLevelState.value) : "-") + qsTr(" %")
                 }
 
@@ -209,7 +209,7 @@ GenericConfigPage {
                     id: pvPrioGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV device prioritization") // #TODO wording
+                    headerText: qsTr("PV device prioritization")
                     visible: thing.thingClass.interfaces.indexOf("battery") >= 0
 
                     ColumnLayout {
@@ -235,8 +235,8 @@ GenericConfigPage {
                             from: 0
                             to: 100
                             stepSize: 1
-                            labelText: qsTr("Priority applies up to state of charge") // #TODO wording
-                            helpText: qsTr("Above this state of charge, the battery is always considered last.") // #TODO wording
+                            labelText: qsTr("Priority applies up to state of charge")
+                            helpText: qsTr("Above this state of charge, the battery is always considered last.")
                             value: batteryConfiguration.targetSocPvSurplus.length > 0 ? batteryConfiguration.targetSocPvSurplus[0] : 80
                             valueText: Math.round(value) + " %"
                             onValueChanged: enableSave(this)
@@ -248,7 +248,7 @@ GenericConfigPage {
                     id: chargingFromGridGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Charging from grid") // #TODO wording
+                    headerText: qsTr("Charging from grid")
                     visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 &&
                              dynamicPrice.count >= 1
 
@@ -300,7 +300,7 @@ GenericConfigPage {
                     id: dynamicPricingGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Charging plan") // #TODO wording
+                    headerText: qsTr("Charging plan")
                     visible: tariffControlledChargingToggle.checked
                     enabled: !chargeOnceToggle.checked
 

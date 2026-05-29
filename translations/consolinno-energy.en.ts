@@ -3907,10 +3907,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic pricing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3924,6 +3920,14 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Value must be between %1 and 24:00.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Dynamic pricing&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4013,10 +4017,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4025,15 +4025,19 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5174,10 +5178,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5223,6 +5223,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Value must be between %1 and 24:00.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

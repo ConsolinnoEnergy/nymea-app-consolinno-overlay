@@ -99,8 +99,8 @@ Page {
                 CoComboBox {
                     id: currentCombo
                     Layout.fillWidth: true
-                    labelText: qsTr("Blackout protection per phase") // #TODO wording
-                    helpText: qsTr("Select the maximum current that this installation can safely handle.") // #TODO wording
+                    labelText: qsTr("Blackout protection per phase")
+                    helpText: qsTr("Select the maximum current that this installation can safely handle.")
                     model: blackoutProtectionModel
                     textRole: "name"
                     valueRole: "current"
@@ -120,7 +120,7 @@ Page {
                     id: currentInput
                     Layout.fillWidth: true
                     visible: currentCombo.comboBox.currentValue === 0
-                    labelText: qsTr("User defined current") // #TODO wording
+                    labelText: qsTr("User defined current")
                     unit: "A"
                     compact: true
                     helpText:
