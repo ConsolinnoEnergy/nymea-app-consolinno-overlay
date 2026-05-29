@@ -212,7 +212,7 @@ Page {
             property bool inputValid: maxElectricalPower.inputValid
 
             onClicked: {
-                if (inputValid) {
+                if (!inputValid) {
                     return;
                 }
 
