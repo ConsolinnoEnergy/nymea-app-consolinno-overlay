@@ -145,7 +145,7 @@ Item {
             id: notification
             Layout.fillWidth: true
             text: ""
-            visible: root.enabled && text !== "" && !spinbox.acceptableInput
+            visible: root.enabled && text !== "" && spinbox.hasError
         }
     }
 }
