@@ -3,6 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea 1.0
 import "../components"
+import "../devicepages"
 
 GenericConfigPage {
     id: root
