@@ -7,6 +7,8 @@ import Nymea 1.0
 Frame {
     id: root
     property alias headerText: header.text
+    property alias infoUrl: infoButton.push
+    property alias infoProperties: infoButton.infoProperties
     default property alias content: body.data
     property int contentBottomMargin: 8
     property int contentTopMargin: 16
@@ -46,35 +48,49 @@ Frame {
             maskSource: roundedRectMask
         }
 
-        implicitHeight: header.implicitHeight +
-                        header.anchors.topMargin +
-                        header.anchors.bottomMargin +
+        implicitHeight: headerLayout.implicitHeight +
+                        headerLayout.anchors.topMargin +
+                        headerLayout.anchors.bottomMargin +
                         body.implicitHeight +
                         body.anchors.topMargin +
                         body.anchors.bottomMargin
-        implicitWidth: Math.max(header.implicitWidth + header.anchors.leftMargin + header.anchors.rightMargin,
+        implicitWidth: Math.max(headerLayout.implicitWidth + headerLayout.anchors.leftMargin + headerLayout.anchors.rightMargin,
                                 body.implicitWidth + body.anchors.leftMargin + body.anchors.rightMargin)
 
-        Text {
-            id: header
+        RowLayout {
+            id: headerLayout
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.topMargin: Style.smallMargins
             anchors.leftMargin: Style.margins
             anchors.rightMargin: Style.margins
-            color: Style.colors.typography_Headlines_H2
-            font: Style.newH2Font
-            opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
-            wrapMode: Text.WordWrap
-            elide: Text.ElideRight
+            spacing: 10
+
+            Text {
+                id: header
+                Layout.fillWidth: true
+                color: Style.colors.typography_Headlines_H2
+                font: Style.newH2Font
+                opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
+                wrapMode: Text.WordWrap
+                elide: Text.ElideRight
+            }
+
+            InfoButton {
+                id: infoButton
+                Layout.alignment: Qt.AlignVCenter
+                visible: typeof push === "string" && push !== ""
+                push: ""
+            }
         }
+
 
         Item {
             id: body
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.top: header.bottom
+            anchors.top: headerLayout.bottom
             anchors.topMargin: contentTopMargin
             anchors.bottomMargin: contentBottomMargin
 

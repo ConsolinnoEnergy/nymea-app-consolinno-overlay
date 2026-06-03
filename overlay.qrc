@@ -289,6 +289,7 @@
         <file>info/CloudServicesActivateInfo.qml</file>
         <file>info/EnergyMonitoringInfo.qml</file>
         <file>info/AnonymizedUsageDataInfo.qml</file>
+        <file>info/PVPrioritiesInfo.qml</file>
         <file>components/CoOverlay.qml</file>
         <file>components/CoHeader.qml</file>
         <file>components/CoQrCode.qml</file>
