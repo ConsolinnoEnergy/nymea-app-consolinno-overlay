@@ -86,10 +86,12 @@ GenericConfigPage {
                         readonly property var cfg: hemsManager.chargingConfigurations.getChargingConfiguration(model.evChargerThingId)
                         property int localDurationMinAfterTurnOn: cfg ? cfg.durationMinAfterTurnOn : 0
                         property int localSwitchDelayPhase: cfg ? cfg.switchDelayPhase : 0
+                        property int localDesiredPhaseCount: cfg ? cfg.desiredPhaseCount : 3
 
                         readonly property bool dirty: cfg
                                                       && (localDurationMinAfterTurnOn !== cfg.durationMinAfterTurnOn
-                                                          || localSwitchDelayPhase !== cfg.switchDelayPhase)
+                                                          || localSwitchDelayPhase !== cfg.switchDelayPhase
+                                                          || localDesiredPhaseCount !== cfg.desiredPhaseCount)
                         onDirtyChanged: root.refreshDirty()
 
                         Layout.fillWidth: true
@@ -106,6 +108,16 @@ GenericConfigPage {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
                                 spacing: Style.smallMargins
+
+                                CoInputField {
+                                    Layout.fillWidth: true
+                                    labelText: qsTr("Desired phase count")
+                                    unit: "s"
+                                    text: chargingDelegate.localDesiredPhaseCount.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 3 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: chargingDelegate.localDesiredPhaseCount = parseInt(textField.text) || 3
+                                }
 
                                 CoInputField {
                                     Layout.fillWidth: true
@@ -132,6 +144,7 @@ GenericConfigPage {
                                     text: qsTr("Save")
                                     enabled: chargingDelegate.dirty
                                     onClicked: hemsManager.setChargingConfiguration(model.evChargerThingId, {
+                                        "desiredPhaseCount": chargingDelegate.localDesiredPhaseCount, localDesiredPhaseCount,
                                         "durationMinAfterTurnOn": chargingDelegate.localDurationMinAfterTurnOn,
                                         "switchDelayPhase": chargingDelegate.localSwitchDelayPhase
                                     })
@@ -335,13 +348,11 @@ GenericConfigPage {
                         property real localMeanSgr2: cfg ? cfg.meanSgr2 : 500.0
                         property real localMeanSgr3: cfg ? cfg.meanSgr3 : 1500.0
                         property int localDurationMinDwell: cfg ? cfg.durationMinDwell : 600
-                        property int localDurationMinAfterTurnOn: cfg ? cfg.durationMinAfterTurnOn : 15
 
                         readonly property bool dirty: cfg
                                                       && (localMeanSgr2 !== cfg.meanSgr2
                                                           || localMeanSgr3 !== cfg.meanSgr3
-                                                          || localDurationMinDwell !== cfg.durationMinDwell
-                                                          || localDurationMinAfterTurnOn !== cfg.durationMinAfterTurnOn)
+                                                          || localDurationMinDwell !== cfg.durationMinDwell)
                         onDirtyChanged: root.refreshDirty()
 
                         Layout.fillWidth: true
@@ -389,16 +400,6 @@ GenericConfigPage {
                                     textField.onEditingFinished: heatingDelegate.localDurationMinDwell = parseInt(textField.text) || 0
                                 }
 
-                                CoInputField {
-                                    Layout.fillWidth: true
-                                    labelText: qsTr("Min. runtime after turn-on")
-                                    unit: "s"
-                                    text: heatingDelegate.localDurationMinAfterTurnOn.toString()
-                                    textField.validator: IntValidator { bottom: 0; top: 86400 }
-                                    textField.inputMethodHints: Qt.ImhDigitsOnly
-                                    textField.onEditingFinished: heatingDelegate.localDurationMinAfterTurnOn = parseInt(textField.text) || 0
-                                }
-
                                 Button {
                                     Layout.fillWidth: true
                                     text: qsTr("Save")
@@ -406,8 +407,7 @@ GenericConfigPage {
                                     onClicked: hemsManager.setHeatingConfiguration(model.heatPumpThingId, {
                                         "meanSgr2": heatingDelegate.localMeanSgr2,
                                         "meanSgr3": heatingDelegate.localMeanSgr3,
-                                        "durationMinDwell": heatingDelegate.localDurationMinDwell,
-                                        "durationMinAfterTurnOn": heatingDelegate.localDurationMinAfterTurnOn
+                                        "durationMinDwell": heatingDelegate.localDurationMinDwell
                                     })
                                 }
                             }
