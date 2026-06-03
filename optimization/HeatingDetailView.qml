@@ -39,7 +39,7 @@ GenericConfigPage {
         { name: "returnTemperatureGeneratorSetpoint", decimals: 1 },
         { name: "operationHours",                     decimals: 0 },
         { name: "switchingCycles",                    decimals: 0 },
-        { name: "volumeFlow",                         decimals: 1, unit: "l/h" },
+        { name: "volumeFlow",                         decimals: 1, unit: "l/min" },
         { name: "actualThermalPower",                 decimals: 1 },
         { name: "actualCoefficientOfPerformance",     decimals: 2 },
         { name: "totalOutputThermalEnergy",           decimals: 0 },
