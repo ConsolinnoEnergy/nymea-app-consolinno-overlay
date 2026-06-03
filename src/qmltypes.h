@@ -6,6 +6,7 @@
 #include "dashboarddataprovider.h"
 #include "Configurations/userconfigurations.h"
 #include "Configurations/cloudconfiguration.h"
+#include "Configurations/devconfigpvsurplus.h"
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
@@ -34,4 +35,5 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<SwitchConfiguration>(uri, versionMajor, versionMinor, "SwitchConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<SwitchConfigurations>(uri, versionMajor, versionMinor, "SwitchConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<CloudConfiguration>(uri, versionMajor, versionMinor, "CloudConfiguration", "Get it from HemsManager");
+    qmlRegisterUncreatableType<DevConfigPvSurplus>(uri, versionMajor, versionMinor, "DevConfigPvSurplus", "Get it from HemsManager");
 }
