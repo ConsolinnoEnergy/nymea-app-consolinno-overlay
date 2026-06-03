@@ -150,10 +150,8 @@ Page {
                     to: 100
 
                     onValueChanged: {
-                        if (value < 60) {
-                            value = 60;
-                        } else if (value > 95) {
-                            value = 95;
+                        if (minSoc.value > value) {
+                            minSoc.value = value;
                         }
                     }
 
@@ -173,10 +171,8 @@ Page {
                     to: 100
 
                     onValueChanged: {
-                        if (value < 5) {
-                            value = 5;
-                        } else if (value > 40) {
-                            value = 40;
+                        if (maxSoc.value < value) {
+                            maxSoc.value = value;
                         }
                     }
 
