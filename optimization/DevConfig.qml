@@ -51,31 +51,32 @@ GenericConfigPage {
                                 anchors.right: parent.right
                                 spacing: Style.smallMargins
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Min. Laufzeit nach Einschalten (s)")
+                                    labelText: qsTr("Min. runtime after turn-on")
                                     unit: "s"
-                                    from: 0
-                                    to: 3600
-                                    stepSize: 1
-                                    value: chargingDelegate.localDurationMinAfterTurnOn
-                                    onValueModified: function(v) { chargingDelegate.localDurationMinAfterTurnOn = v }
+                                    text: chargingDelegate.localDurationMinAfterTurnOn.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 86400 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: chargingDelegate.localDurationMinAfterTurnOn = parseInt(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Phasenwechsel-Verzögerung (s)")
+                                    labelText: qsTr("Phase switch delay")
                                     unit: "s"
-                                    from: 0
-                                    to: 600
-                                    stepSize: 1
-                                    value: chargingDelegate.localSwitchDelayPhase
-                                    onValueModified: function(v) { chargingDelegate.localSwitchDelayPhase = v }
+                                    text: chargingDelegate.localSwitchDelayPhase.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 86400 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: chargingDelegate.localSwitchDelayPhase = parseInt(textField.text) || 0
                                 }
 
                                 Button {
                                     Layout.fillWidth: true
-                                    text: qsTr("Speichern")
+                                    text: qsTr("Save")
+                                    enabled: chargingDelegate.cfg
+                                             && (chargingDelegate.localDurationMinAfterTurnOn !== chargingDelegate.cfg.durationMinAfterTurnOn
+                                                 || chargingDelegate.localSwitchDelayPhase !== chargingDelegate.cfg.switchDelayPhase)
                                     onClicked: hemsManager.setChargingConfiguration(model.evChargerThingId, {
                                         "durationMinAfterTurnOn": chargingDelegate.localDurationMinAfterTurnOn,
                                         "switchDelayPhase": chargingDelegate.localSwitchDelayPhase
@@ -107,80 +108,73 @@ GenericConfigPage {
                         anchors.right: parent.right
                         spacing: Style.smallMargins
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
-                            labelText: qsTr("Filter-Zeitkonstante (s)")
+                            labelText: qsTr("Filter time constant")
                             unit: "s"
-                            from: 0
-                            to: 3600
-                            stepSize: 1
-                            value: pvSurplusCard.localFilterTimeConstant
-                            onValueModified: function(v) { pvSurplusCard.localFilterTimeConstant = v }
+                            text: pvSurplusCard.localFilterTimeConstant.toString()
+                            textField.validator: IntValidator { bottom: 0; top: 86400 }
+                            textField.inputMethodHints: Qt.ImhDigitsOnly
+                            textField.onEditingFinished: pvSurplusCard.localFilterTimeConstant = parseInt(textField.text) || 0
                         }
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
-                            labelText: qsTr("Post-Switch-Timeout (s)")
+                            labelText: qsTr("Post-switch timeout")
                             unit: "s"
-                            from: 0
-                            to: 600
-                            stepSize: 1
-                            value: pvSurplusCard.localPostSwitchTimeout
-                            onValueModified: function(v) { pvSurplusCard.localPostSwitchTimeout = v }
+                            text: pvSurplusCard.localPostSwitchTimeout.toString()
+                            textField.validator: IntValidator { bottom: 0; top: 86400 }
+                            textField.inputMethodHints: Qt.ImhDigitsOnly
+                            textField.onEditingFinished: pvSurplusCard.localPostSwitchTimeout = parseInt(textField.text) || 0
                         }
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
                             labelText: qsTr("PID Kp")
-                            floatingPoint: true
-                            decimals: 4
-                            from: -10
-                            to: 10
-                            stepSize: 0.001
-                            value: pvSurplusCard.localPidKp
-                            onValueModified: function(v) { pvSurplusCard.localPidKp = v }
+                            text: pvSurplusCard.localPidKp.toString()
+                            textField.validator: DoubleValidator { bottom: -1000; top: 1000; decimals: 6; notation: DoubleValidator.StandardNotation; locale: "C" }
+                            textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            textField.onEditingFinished: pvSurplusCard.localPidKp = parseFloat(textField.text) || 0
                         }
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
                             labelText: qsTr("PID Ki")
-                            floatingPoint: true
-                            decimals: 4
-                            from: -10
-                            to: 10
-                            stepSize: 0.001
-                            value: pvSurplusCard.localPidKi
-                            onValueModified: function(v) { pvSurplusCard.localPidKi = v }
+                            text: pvSurplusCard.localPidKi.toString()
+                            textField.validator: DoubleValidator { bottom: -1000; top: 1000; decimals: 6; notation: DoubleValidator.StandardNotation; locale: "C" }
+                            textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            textField.onEditingFinished: pvSurplusCard.localPidKi = parseFloat(textField.text) || 0
                         }
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
                             labelText: qsTr("PID Kd")
-                            floatingPoint: true
-                            decimals: 4
-                            from: -10
-                            to: 10
-                            stepSize: 0.001
-                            value: pvSurplusCard.localPidKd
-                            onValueModified: function(v) { pvSurplusCard.localPidKd = v }
+                            text: pvSurplusCard.localPidKd.toString()
+                            textField.validator: DoubleValidator { bottom: -1000; top: 1000; decimals: 6; notation: DoubleValidator.StandardNotation; locale: "C" }
+                            textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            textField.onEditingFinished: pvSurplusCard.localPidKd = parseFloat(textField.text) || 0
                         }
 
-                        CoInputStepper {
+                        CoInputField {
                             Layout.fillWidth: true
-                            labelText: qsTr("PID Sollwert (W)")
+                            labelText: qsTr("PID setpoint")
                             unit: "W"
-                            floatingPoint: true
-                            decimals: 1
-                            from: -100000
-                            to: 100000
-                            stepSize: 10
-                            value: pvSurplusCard.localPidSetpoint
-                            onValueModified: function(v) { pvSurplusCard.localPidSetpoint = v }
+                            text: pvSurplusCard.localPidSetpoint.toString()
+                            textField.validator: DoubleValidator { bottom: -1000000; top: 1000000; decimals: 3; notation: DoubleValidator.StandardNotation; locale: "C" }
+                            textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                            textField.onEditingFinished: pvSurplusCard.localPidSetpoint = parseFloat(textField.text) || 0
                         }
 
                         Button {
                             Layout.fillWidth: true
-                            text: qsTr("Speichern")
+                            text: qsTr("Save")
+                            enabled: pvSurplusCard.pvCfg
+                                     && (pvSurplusCard.localFilterTimeConstant !== pvSurplusCard.pvCfg.filterTimeConstant
+                                         || pvSurplusCard.localPostSwitchTimeout !== pvSurplusCard.pvCfg.postSwitchTimeout
+                                         || pvSurplusCard.localPidKp !== pvSurplusCard.pvCfg.pidKp
+                                         || pvSurplusCard.localPidKi !== pvSurplusCard.pvCfg.pidKi
+                                         || pvSurplusCard.localPidKd !== pvSurplusCard.pvCfg.pidKd
+                                         || pvSurplusCard.localPidSetpoint !== pvSurplusCard.pvCfg.pidSetpoint)
                             onClicked: hemsManager.setDevConfigPvSurplus({
                                 "filterTimeConstant": pvSurplusCard.localFilterTimeConstant,
                                 "postSwitchTimeout": pvSurplusCard.localPostSwitchTimeout,
@@ -220,46 +214,43 @@ GenericConfigPage {
                                 anchors.right: parent.right
                                 spacing: Style.smallMargins
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Battery Power Margin (W)")
+                                    labelText: qsTr("Battery power margin")
                                     unit: "W"
-                                    floatingPoint: true
-                                    decimals: 1
-                                    from: 0
-                                    to: 10000
-                                    stepSize: 10
-                                    value: batteryDelegate.localBatteryPowerMargin
-                                    onValueModified: function(v) { batteryDelegate.localBatteryPowerMargin = v }
+                                    text: batteryDelegate.localBatteryPowerMargin.toString()
+                                    textField.validator: DoubleValidator { bottom: 0; top: 100000; decimals: 3; notation: DoubleValidator.StandardNotation; locale: "C" }
+                                    textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                                    textField.onEditingFinished: batteryDelegate.localBatteryPowerMargin = parseFloat(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Battery Power Rate Limit (W)")
+                                    labelText: qsTr("Battery power rate limit")
                                     unit: "W"
-                                    floatingPoint: true
-                                    decimals: 1
-                                    from: 0
-                                    to: 10000
-                                    stepSize: 1
-                                    value: batteryDelegate.localBatteryPowerRateLimit
-                                    onValueModified: function(v) { batteryDelegate.localBatteryPowerRateLimit = v }
+                                    text: batteryDelegate.localBatteryPowerRateLimit.toString()
+                                    textField.validator: DoubleValidator { bottom: 0; top: 100000; decimals: 3; notation: DoubleValidator.StandardNotation; locale: "C" }
+                                    textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                                    textField.onEditingFinished: batteryDelegate.localBatteryPowerRateLimit = parseFloat(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Taper SoC (%)")
+                                    labelText: qsTr("Taper SoC")
                                     unit: "%"
-                                    from: 0
-                                    to: 100
-                                    stepSize: 1
-                                    value: batteryDelegate.localTaperSoC
-                                    onValueModified: function(v) { batteryDelegate.localTaperSoC = v }
+                                    text: batteryDelegate.localTaperSoC.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 100 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: batteryDelegate.localTaperSoC = parseInt(textField.text) || 0
                                 }
 
                                 Button {
                                     Layout.fillWidth: true
-                                    text: qsTr("Speichern")
+                                    text: qsTr("Save")
+                                    enabled: batteryDelegate.cfg
+                                             && (batteryDelegate.localBatteryPowerMargin !== batteryDelegate.cfg.batteryPowerMargin
+                                                 || batteryDelegate.localBatteryPowerRateLimit !== batteryDelegate.cfg.batteryPowerRateLimit
+                                                 || batteryDelegate.localTaperSoC !== batteryDelegate.cfg.taperSoC)
                                     onClicked: hemsManager.setBatteryConfiguration(model.batteryThingId, {
                                         "batteryPowerMargin": batteryDelegate.localBatteryPowerMargin,
                                         "batteryPowerRateLimit": batteryDelegate.localBatteryPowerRateLimit,
@@ -299,57 +290,54 @@ GenericConfigPage {
                                 anchors.right: parent.right
                                 spacing: Style.smallMargins
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Mittlere SGR-2-Leistung (W)")
+                                    labelText: qsTr("Mean SGR-2 power")
                                     unit: "W"
-                                    floatingPoint: true
-                                    decimals: 1
-                                    from: 0
-                                    to: 20000
-                                    stepSize: 10
-                                    value: heatingDelegate.localMeanSgr2
-                                    onValueModified: function(v) { heatingDelegate.localMeanSgr2 = v }
+                                    text: heatingDelegate.localMeanSgr2.toString()
+                                    textField.validator: DoubleValidator { bottom: 0; top: 100000; decimals: 3; notation: DoubleValidator.StandardNotation; locale: "C" }
+                                    textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                                    textField.onEditingFinished: heatingDelegate.localMeanSgr2 = parseFloat(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Mittlere SGR-3-Leistung (W)")
+                                    labelText: qsTr("Mean SGR-3 power")
                                     unit: "W"
-                                    floatingPoint: true
-                                    decimals: 1
-                                    from: 0
-                                    to: 20000
-                                    stepSize: 10
-                                    value: heatingDelegate.localMeanSgr3
-                                    onValueModified: function(v) { heatingDelegate.localMeanSgr3 = v }
+                                    text: heatingDelegate.localMeanSgr3.toString()
+                                    textField.validator: DoubleValidator { bottom: 0; top: 100000; decimals: 3; notation: DoubleValidator.StandardNotation; locale: "C" }
+                                    textField.inputMethodHints: Qt.ImhFormattedNumbersOnly
+                                    textField.onEditingFinished: heatingDelegate.localMeanSgr3 = parseFloat(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Min. Verweildauer (s)")
+                                    labelText: qsTr("Min. dwell duration")
                                     unit: "s"
-                                    from: 0
-                                    to: 3600
-                                    stepSize: 1
-                                    value: heatingDelegate.localDurationMinDwell
-                                    onValueModified: function(v) { heatingDelegate.localDurationMinDwell = v }
+                                    text: heatingDelegate.localDurationMinDwell.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 86400 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: heatingDelegate.localDurationMinDwell = parseInt(textField.text) || 0
                                 }
 
-                                CoInputStepper {
+                                CoInputField {
                                     Layout.fillWidth: true
-                                    labelText: qsTr("Min. Laufzeit nach Einschalten (s)")
+                                    labelText: qsTr("Min. runtime after turn-on")
                                     unit: "s"
-                                    from: 0
-                                    to: 3600
-                                    stepSize: 1
-                                    value: heatingDelegate.localDurationMinAfterTurnOn
-                                    onValueModified: function(v) { heatingDelegate.localDurationMinAfterTurnOn = v }
+                                    text: heatingDelegate.localDurationMinAfterTurnOn.toString()
+                                    textField.validator: IntValidator { bottom: 0; top: 86400 }
+                                    textField.inputMethodHints: Qt.ImhDigitsOnly
+                                    textField.onEditingFinished: heatingDelegate.localDurationMinAfterTurnOn = parseInt(textField.text) || 0
                                 }
 
                                 Button {
                                     Layout.fillWidth: true
-                                    text: qsTr("Speichern")
+                                    text: qsTr("Save")
+                                    enabled: heatingDelegate.cfg
+                                             && (heatingDelegate.localMeanSgr2 !== heatingDelegate.cfg.meanSgr2
+                                                 || heatingDelegate.localMeanSgr3 !== heatingDelegate.cfg.meanSgr3
+                                                 || heatingDelegate.localDurationMinDwell !== heatingDelegate.cfg.durationMinDwell
+                                                 || heatingDelegate.localDurationMinAfterTurnOn !== heatingDelegate.cfg.durationMinAfterTurnOn)
                                     onClicked: hemsManager.setHeatingConfiguration(model.heatPumpThingId, {
                                         "meanSgr2": heatingDelegate.localMeanSgr2,
                                         "meanSgr3": heatingDelegate.localMeanSgr3,
