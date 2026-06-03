@@ -3644,10 +3644,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This SKI is required by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>SKI copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3717,10 +3713,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Searching for devices...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirmation by network operator pending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3805,6 +3797,18 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR code content copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This SKI is required by the metering point operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by metering point operator pending</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4549,14 +4553,6 @@ Would you like to continue anyway?</source>
 <context>
     <name>PVPriorities</name>
     <message>
-        <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The battery automatically moves to the last position when its SoC reaches %1%.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Restore default order</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4570,6 +4566,25 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>PV device prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PVPrioritiesInfo</name>
+    <message>
+        <source>PV device priorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The listed devices can use PV surplus. Arrange them by drag &amp; drop according to their priority.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

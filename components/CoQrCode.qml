@@ -39,6 +39,8 @@ Item {
             source: root.logoSource
             fillMode: Image.PreserveAspectFit
             smooth: true
+            sourceSize.width: width
+            sourceSize.height: height
         }
     }
 }

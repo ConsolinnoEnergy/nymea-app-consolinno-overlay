@@ -3664,10 +3664,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Parameter</translation>
     </message>
     <message>
-        <source>This SKI is required by the network operator.</source>
-        <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
-    </message>
-    <message>
         <source>SKI copied to clipboard</source>
         <translation>SKI in die Zwischenablage kopiert</translation>
     </message>
@@ -3738,10 +3734,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
-    </message>
-    <message>
-        <source>Confirmation by network operator pending</source>
-        <translation>Bestätigung des Netzbetreibers ausstehend</translation>
     </message>
     <message>
         <source>Connected</source>
@@ -3826,6 +3818,18 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>QR code content copied to clipboard</source>
+        <translation>QR Code Inhalt in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>This SKI is required by the metering point operator.</source>
+        <translation>Diese SKI wird vom Messstellenbetreiber benötigt.</translation>
+    </message>
+    <message>
+        <source>Confirmation by metering point operator pending</source>
+        <translation>Bestätigung des Messstellenbetreiber ausstehend</translation>
     </message>
 </context>
 <context>
@@ -4569,14 +4573,6 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>PVPriorities</name>
     <message>
-        <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
-        <translation>Folgende Geräte sind für PV-Überschuss konfiguriert. Sortiere sie per Drag &amp; Drop nach ihrer Priorität.</translation>
-    </message>
-    <message>
-        <source>The battery automatically moves to the last position when its SoC reaches %1%.</source>
-        <translation>Die Batterie fällt ab SoC&#x202f;%1&#x202f;% automatisch auf die letzte Position.</translation>
-    </message>
-    <message>
         <source>Restore default order</source>
         <translation>Default-Reihenfolge</translation>
     </message>
@@ -4591,6 +4587,25 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
+    </message>
+</context>
+<context>
+    <name>PVPrioritiesInfo</name>
+    <message>
+        <source>PV device priorization</source>
+        <translation>PV-Gerätepriorisierung</translation>
+    </message>
+    <message>
+        <source>The listed devices can use PV surplus. Arrange them by drag &amp; drop according to their priority.</source>
+        <translation>Die gelisteten Geräte können PV-Überschuss nutzen. Sortiere sie per Drag &amp; Drop nach ihrer Priorität.</translation>
+    </message>
+    <message>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
+        <translation>Eine SG-Ready Wärmepumpe ohne Zähler hat bei Steuerung durch das Leaflet HEMS immer Vorrang vor allen anderen Geräten und kann nicht verschoben werden.</translation>
+    </message>
+    <message>
+        <source>The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.</source>
+        <translation>Die Batterie wird ab SoC&#x202f;%1% als letztes priorisiert – unabhängig von ihrer Position in der Liste.</translation>
     </message>
 </context>
 <context>
