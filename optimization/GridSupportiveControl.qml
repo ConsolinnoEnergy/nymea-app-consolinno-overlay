@@ -548,6 +548,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -559,6 +560,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -570,6 +572,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -676,6 +679,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -687,6 +691,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -698,6 +703,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -879,6 +885,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -890,6 +897,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -901,6 +909,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
