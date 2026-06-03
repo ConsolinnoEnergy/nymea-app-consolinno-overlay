@@ -10,6 +10,56 @@ GenericConfigPage {
 
     title: qsTr("Dev Config")
     headerOptionsVisible: false
+    overrideBack: true
+
+    // True when any of the four config sections has local unsaved edits.
+    // Updated imperatively from each Save button's enabled binding via the
+    // refreshDirty() helper, so we don't have to duplicate the comparison
+    // expressions here.
+    property bool hasUnsavedChanges: false
+
+    onBackRequested: {
+        if (hasUnsavedChanges) {
+            discardDialog.open();
+        } else {
+            pageStack.pop();
+        }
+    }
+
+    // Walks all sections and updates `hasUnsavedChanges`. Called from each
+    // section's onDirtyChanged.
+    function refreshDirty() {
+        if (pvSurplusCard.dirty) { hasUnsavedChanges = true; return; }
+        for (var i = 0; i < chargingRepeater.count; i++) {
+            var c = chargingRepeater.itemAt(i);
+            if (c && c.dirty) { hasUnsavedChanges = true; return; }
+        }
+        for (var j = 0; j < batteryRepeater.count; j++) {
+            var b = batteryRepeater.itemAt(j);
+            if (b && b.dirty) { hasUnsavedChanges = true; return; }
+        }
+        for (var k = 0; k < heatingRepeater.count; k++) {
+            var h = heatingRepeater.itemAt(k);
+            if (h && h.dirty) { hasUnsavedChanges = true; return; }
+        }
+        hasUnsavedChanges = false;
+    }
+
+    Dialog {
+        id: discardDialog
+        modal: true
+        anchors.centerIn: parent
+        title: qsTr("Unsaved changes")
+        standardButtons: Dialog.Discard | Dialog.Cancel
+
+        Label {
+            text: qsTr("You have unsaved changes. Discard them?")
+            wrapMode: Text.WordWrap
+            width: discardDialog.availableWidth
+        }
+
+        onDiscarded: pageStack.pop()
+    }
 
     content: [
         Flickable {
@@ -27,6 +77,7 @@ GenericConfigPage {
 
                 // ── Charging ─────────────────────────────────────────────────
                 Repeater {
+                    id: chargingRepeater
                     model: hemsManager.chargingConfigurations
 
                     delegate: Item {
@@ -35,6 +86,11 @@ GenericConfigPage {
                         readonly property var cfg: hemsManager.chargingConfigurations.getChargingConfiguration(model.evChargerThingId)
                         property int localDurationMinAfterTurnOn: cfg ? cfg.durationMinAfterTurnOn : 0
                         property int localSwitchDelayPhase: cfg ? cfg.switchDelayPhase : 0
+
+                        readonly property bool dirty: cfg
+                                                      && (localDurationMinAfterTurnOn !== cfg.durationMinAfterTurnOn
+                                                          || localSwitchDelayPhase !== cfg.switchDelayPhase)
+                        onDirtyChanged: root.refreshDirty()
 
                         Layout.fillWidth: true
                         implicitHeight: chargingCard.implicitHeight
@@ -74,9 +130,7 @@ GenericConfigPage {
                                 Button {
                                     Layout.fillWidth: true
                                     text: qsTr("Save")
-                                    enabled: chargingDelegate.cfg
-                                             && (chargingDelegate.localDurationMinAfterTurnOn !== chargingDelegate.cfg.durationMinAfterTurnOn
-                                                 || chargingDelegate.localSwitchDelayPhase !== chargingDelegate.cfg.switchDelayPhase)
+                                    enabled: chargingDelegate.dirty
                                     onClicked: hemsManager.setChargingConfiguration(model.evChargerThingId, {
                                         "durationMinAfterTurnOn": chargingDelegate.localDurationMinAfterTurnOn,
                                         "switchDelayPhase": chargingDelegate.localSwitchDelayPhase
@@ -102,6 +156,15 @@ GenericConfigPage {
                     property real localPidKi: pvCfg ? pvCfg.pidKi : 0.0
                     property real localPidKd: pvCfg ? pvCfg.pidKd : 0.0
                     property real localPidSetpoint: pvCfg ? pvCfg.pidSetpoint : 0.0
+
+                    readonly property bool dirty: pvCfg
+                                                  && (localFilterTimeConstant !== pvCfg.filterTimeConstant
+                                                      || localPostSwitchTimeout !== pvCfg.postSwitchTimeout
+                                                      || localPidKp !== pvCfg.pidKp
+                                                      || localPidKi !== pvCfg.pidKi
+                                                      || localPidKd !== pvCfg.pidKd
+                                                      || localPidSetpoint !== pvCfg.pidSetpoint)
+                    onDirtyChanged: root.refreshDirty()
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -168,13 +231,7 @@ GenericConfigPage {
                         Button {
                             Layout.fillWidth: true
                             text: qsTr("Save")
-                            enabled: pvSurplusCard.pvCfg
-                                     && (pvSurplusCard.localFilterTimeConstant !== pvSurplusCard.pvCfg.filterTimeConstant
-                                         || pvSurplusCard.localPostSwitchTimeout !== pvSurplusCard.pvCfg.postSwitchTimeout
-                                         || pvSurplusCard.localPidKp !== pvSurplusCard.pvCfg.pidKp
-                                         || pvSurplusCard.localPidKi !== pvSurplusCard.pvCfg.pidKi
-                                         || pvSurplusCard.localPidKd !== pvSurplusCard.pvCfg.pidKd
-                                         || pvSurplusCard.localPidSetpoint !== pvSurplusCard.pvCfg.pidSetpoint)
+                            enabled: pvSurplusCard.dirty
                             onClicked: hemsManager.setDevConfigPvSurplus({
                                 "filterTimeConstant": pvSurplusCard.localFilterTimeConstant,
                                 "postSwitchTimeout": pvSurplusCard.localPostSwitchTimeout,
@@ -189,6 +246,7 @@ GenericConfigPage {
 
                 // ── Battery ───────────────────────────────────────────────────
                 Repeater {
+                    id: batteryRepeater
                     model: hemsManager.batteryConfigurations
 
                     delegate: Item {
@@ -198,6 +256,12 @@ GenericConfigPage {
                         property real localBatteryPowerMargin: cfg ? cfg.batteryPowerMargin : 100.0
                         property real localBatteryPowerRateLimit: cfg ? cfg.batteryPowerRateLimit : 50.0
                         property int localTaperSoC: cfg ? cfg.taperSoC : 5
+
+                        readonly property bool dirty: cfg
+                                                      && (localBatteryPowerMargin !== cfg.batteryPowerMargin
+                                                          || localBatteryPowerRateLimit !== cfg.batteryPowerRateLimit
+                                                          || localTaperSoC !== cfg.taperSoC)
+                        onDirtyChanged: root.refreshDirty()
 
                         Layout.fillWidth: true
                         implicitHeight: batteryCard.implicitHeight
@@ -247,10 +311,7 @@ GenericConfigPage {
                                 Button {
                                     Layout.fillWidth: true
                                     text: qsTr("Save")
-                                    enabled: batteryDelegate.cfg
-                                             && (batteryDelegate.localBatteryPowerMargin !== batteryDelegate.cfg.batteryPowerMargin
-                                                 || batteryDelegate.localBatteryPowerRateLimit !== batteryDelegate.cfg.batteryPowerRateLimit
-                                                 || batteryDelegate.localTaperSoC !== batteryDelegate.cfg.taperSoC)
+                                    enabled: batteryDelegate.dirty
                                     onClicked: hemsManager.setBatteryConfiguration(model.batteryThingId, {
                                         "batteryPowerMargin": batteryDelegate.localBatteryPowerMargin,
                                         "batteryPowerRateLimit": batteryDelegate.localBatteryPowerRateLimit,
@@ -264,6 +325,7 @@ GenericConfigPage {
 
                 // ── Heating ───────────────────────────────────────────────────
                 Repeater {
+                    id: heatingRepeater
                     model: hemsManager.heatingConfigurations
 
                     delegate: Item {
@@ -274,6 +336,13 @@ GenericConfigPage {
                         property real localMeanSgr3: cfg ? cfg.meanSgr3 : 1500.0
                         property int localDurationMinDwell: cfg ? cfg.durationMinDwell : 600
                         property int localDurationMinAfterTurnOn: cfg ? cfg.durationMinAfterTurnOn : 15
+
+                        readonly property bool dirty: cfg
+                                                      && (localMeanSgr2 !== cfg.meanSgr2
+                                                          || localMeanSgr3 !== cfg.meanSgr3
+                                                          || localDurationMinDwell !== cfg.durationMinDwell
+                                                          || localDurationMinAfterTurnOn !== cfg.durationMinAfterTurnOn)
+                        onDirtyChanged: root.refreshDirty()
 
                         Layout.fillWidth: true
                         implicitHeight: heatingCard.implicitHeight
@@ -333,11 +402,7 @@ GenericConfigPage {
                                 Button {
                                     Layout.fillWidth: true
                                     text: qsTr("Save")
-                                    enabled: heatingDelegate.cfg
-                                             && (heatingDelegate.localMeanSgr2 !== heatingDelegate.cfg.meanSgr2
-                                                 || heatingDelegate.localMeanSgr3 !== heatingDelegate.cfg.meanSgr3
-                                                 || heatingDelegate.localDurationMinDwell !== heatingDelegate.cfg.durationMinDwell
-                                                 || heatingDelegate.localDurationMinAfterTurnOn !== heatingDelegate.cfg.durationMinAfterTurnOn)
+                                    enabled: heatingDelegate.dirty
                                     onClicked: hemsManager.setHeatingConfiguration(model.heatPumpThingId, {
                                         "meanSgr2": heatingDelegate.localMeanSgr2,
                                         "meanSgr3": heatingDelegate.localMeanSgr3,
