@@ -91,7 +91,7 @@ Item {
             acquisitionUpperSeries.removePoints(index, count)
             storageUpperSeries.removePoints(index, count)
             selfConsumptionUpperSeries.removePoints(index, count)
-            productionUpperSeries.removePoints(index, count)
+            // productionUpperSeries is never populated (productionSeries.insertEntry is disabled)
             zeroSeries.shrink()
         }
     }
