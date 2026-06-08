@@ -991,6 +991,14 @@
         <source>Unallocated consumption</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid import</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CoKpiStats</name>

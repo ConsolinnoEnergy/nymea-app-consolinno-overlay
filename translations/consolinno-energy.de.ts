@@ -1000,6 +1000,14 @@
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
     </message>
+    <message>
+        <source>Feed-in</source>
+        <translation>Einspeisung</translation>
+    </message>
+    <message>
+        <source>Grid import</source>
+        <translation>Netzbezug</translation>
+    </message>
 </context>
 <context>
     <name>CoKpiStats</name>

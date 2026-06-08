@@ -486,11 +486,21 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 2
-                                text: qsTr("Grid")
+
+                                readonly property State currentPowerState: rootMeter ? rootMeter.stateByName("currentPower") : null
+                                readonly property int currentPower: currentPowerState ? Math.round(Number(currentPowerState.value)) : 0
+
+                                text: currentPower < 0 ?
+                                          qsTr("Feed-in") :
+                                          currentPower > 0 ?
+                                              qsTr("Grid import") :
+                                              qsTr("Grid")
                                 thing: rootMeter
                                 compactLayout: true
                                 showWarningIndicator: lpcActive
-                                icon: Qt.resolvedUrl("/icons/input_circle.svg")
+                                icon: currentPower < 0 ?
+                                          Qt.resolvedUrl("/icons/input_circle.svg") :
+                                          Qt.resolvedUrl("/icons/output_circle.svg")
                                 onClicked: {
                                     console.info("Clicked grid card");
                                     pageStack.push(
