@@ -529,6 +529,8 @@ MainViewBase {
                                 text: qsTr("Battery")
                                 value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
+                                secondaryValue: Math.round(dataProvider.totalBatteryLevel)
+                                secondaryUnit: "%"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
                                 icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
