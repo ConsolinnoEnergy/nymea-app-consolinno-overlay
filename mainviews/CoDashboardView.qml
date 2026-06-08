@@ -18,6 +18,12 @@ MainViewBase {
 
     headerButtons: []
 
+    function batteryIconForEnergyFlow(batteryLevel, charging) {
+        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+        let chargingSelector = charging ? "-charging" : "";
+        return Qt.resolvedUrl("qrc:/icons/battery/battery2-" + batteryLevelForIcon + chargingSelector + ".svg");
+    }
+
     function batteryIconByLevel(batteryLevel) {
         let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
         return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
@@ -525,7 +531,8 @@ MainViewBase {
                                 unit: "W"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
-                                icon: batteryIconByLevel(dataProvider.totalBatteryLevel)
+                                icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
+                                                               dataProvider.currentPowerBatteries > 0)
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(batteriesGroup.y);
                                     flickableContentYAnimation.start();
