@@ -108,7 +108,7 @@ Item {
                 Text {
                     Layout.minimumWidth: paintedWidth
                     horizontalAlignment: Text.AlignRight
-                    font: Style.newSmallFont
+                    font: Style.newSmallFontBold
                     color: Style.colors.components_Dashboard_Info_card_value
                     text: root.socValue + " %"
                 }
@@ -139,7 +139,7 @@ Item {
                 Text {
                     Layout.minimumWidth: paintedWidth
                     horizontalAlignment: Text.AlignRight
-                    font: Style.newSmallFont
+                    font: Style.newSmallFontBold
                     color: Style.colors.components_Dashboard_Info_card_value
                     text: Math.round(Math.abs(root.powerValue)) + " W" // #TODO kW for larger values
                 }
