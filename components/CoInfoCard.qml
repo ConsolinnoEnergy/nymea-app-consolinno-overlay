@@ -10,6 +10,8 @@ Item {
     property alias text: titleText.text
     property alias value: valueText.text
     property alias unit: unitText.text
+    property alias secondaryValue: secondaryValueText.text
+    property alias secondaryUnit: secondaryUnitText.text
     property bool compactLayout: false
     property bool showWarningIndicator: false
     property bool showErrorIndicator: false
@@ -52,7 +54,6 @@ Item {
         }
     }
 
-
     GridLayout {
         id: gridLayout
         anchors.fill: parent
@@ -62,6 +63,7 @@ Item {
         anchors.rightMargin: Style.margins
 
         ColumnLayout {
+            id: columnLayout
             Layout.row: 0
             Layout.column: 0
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
@@ -70,12 +72,70 @@ Item {
 
             spacing: Style.smallMargins
 
-            ColorIcon {
-                id: icon
+            RowLayout {
                 Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-                size: 24
-                color: Style.colors.brand_Basic_Icon_accent
+                spacing: Style.extraSmallMargins
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 0
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+
+                    implicitHeight: icon.implicitHeight
+                    implicitWidth: icon.implicitWidth
+
+                    ColorIcon {
+                        id: icon
+                        anchors.centerIn: secondaryValueItem.visible ? undefined : parent
+                        anchors.top: secondaryValueItem.visible ? parent.top : undefined
+                        anchors.bottom: secondaryValueItem.visible ?  parent.bottom : undefined
+                        anchors.right: secondaryValueItem.visible ?  parent.right : undefined
+
+                        size: 24
+                        color: Style.colors.brand_Basic_Icon_accent
+                    }
+                }
+
+                Item {
+                    id: secondaryValueItem
+                    Layout.fillWidth: true
+                    Layout.preferredWidth: 0
+                    Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
+                    visible: secondaryValueText.text !== ""
+
+                    implicitHeight: secondaryValueText.paintedHeight
+                    implicitWidth: secondaryValueText.paintedWidth + secondaryUnitText.paintedWidth
+
+                    Text {
+                        id: secondaryValueText
+                        anchors {
+                            top: parent.top
+                            bottom: parent.bottom
+                        }
+                        x: 0
+
+                        verticalAlignment: Text.AlignVCenter
+                        font: Style.newH4Font
+                        color: Style.colors.components_Dashboard_Info_card_value
+                        text: ""
+                    }
+
+                    Text {
+                        id: secondaryUnitText
+                        anchors {
+                            baseline: secondaryValueText.baseline
+                            left: secondaryValueText.right
+                            leftMargin: 3
+                        }
+
+                        verticalAlignment: Text.AlignVCenter
+                        font: Style.newExtraSmallFontBold
+                        color: Style.colors.components_Dashboard_Info_card_value
+                        text: ""
+                    }
+                }
             }
+
 
             Text {
                 id: titleText

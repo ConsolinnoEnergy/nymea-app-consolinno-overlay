@@ -18,6 +18,12 @@ MainViewBase {
 
     headerButtons: []
 
+    function batteryIconForEnergyFlow(batteryLevel, charging) {
+        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
+        let chargingSelector = charging ? "-charging" : "";
+        return Qt.resolvedUrl("qrc:/icons/battery/battery2-" + batteryLevelForIcon + chargingSelector + ".svg");
+    }
+
     function batteryIconByLevel(batteryLevel) {
         let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
         return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
@@ -486,11 +492,21 @@ MainViewBase {
                                 Layout.fillWidth: true
                                 Layout.row: 0
                                 Layout.column: 2
-                                text: qsTr("Grid")
+
+                                readonly property State currentPowerState: rootMeter ? rootMeter.stateByName("currentPower") : null
+                                readonly property int currentPower: currentPowerState ? Math.round(Number(currentPowerState.value)) : 0
+
+                                text: currentPower < 0 ?
+                                          qsTr("Feed-in") :
+                                          currentPower > 0 ?
+                                              qsTr("Grid import") :
+                                              qsTr("Grid")
                                 thing: rootMeter
                                 compactLayout: true
                                 showWarningIndicator: lpcActive
-                                icon: Qt.resolvedUrl("/icons/input_circle.svg")
+                                icon: currentPower < 0 ?
+                                          Qt.resolvedUrl("/icons/input_circle.svg") :
+                                          Qt.resolvedUrl("/icons/output_circle.svg")
                                 onClicked: {
                                     console.info("Clicked grid card");
                                     pageStack.push(
@@ -513,9 +529,12 @@ MainViewBase {
                                 text: qsTr("Battery")
                                 value: Math.abs(dataProvider.currentPowerBatteries)
                                 unit: "W"
+                                secondaryValue: Math.round(dataProvider.totalBatteryLevel)
+                                secondaryUnit: "%"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
-                                icon: batteryIconByLevel(dataProvider.totalBatteryLevel)
+                                icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
+                                                               dataProvider.currentPowerBatteries > 0)
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(batteriesGroup.y);
                                     flickableContentYAnimation.start();
@@ -657,20 +676,29 @@ MainViewBase {
                             Repeater {
                                 model: batteryThings
 
-                                delegate: CoPowerThingInfoCard {
+                                delegate: CoBatteryInfoCard {
                                     Layout.fillWidth: true
-                                    thing: batteryThings.get(index)
-                                    icon: thingToIcon(thing)
-                                    showWarningIndicator: avoidZeroCompensationActive(thing)
+
+                                    property Thing battery: batteryThings.get(index)
+                                    readonly property State currentPowerState: battery ? battery.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? Number(currentPowerState.value) : 0
+                                    readonly property State socState: battery ? battery.stateByName("batteryLevel") : null
+                                    readonly property double soc: socState ? Number(socState.value) : 0
+
+                                    icon: thingToIcon(battery)
+                                    text: battery.name
+                                    powerValue: Math.round(currentPower)
+                                    socValue: Math.round(soc)
+                                    showWarningIndicator: avoidZeroCompensationActive(battery)
                                     onClicked: {
-                                        console.info("Clicked battery:", thing.name);
-                                        let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
+                                        console.info("Clicked battery:", battery.name);
+                                        let batteryView = battery.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
                                                 "/ui/optimization/BatteryConfigView.qml" :
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
                                         pageStack.push(batteryView,
                                                        {
                                                            "hemsManager": hemsManager,
-                                                           "thing": thing,
+                                                           "thing": battery,
                                                            "isBatteryView": true
                                                        });
                                     }

@@ -864,6 +864,25 @@
     </message>
 </context>
 <context>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation>SoC</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Lädt</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entlädt</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
@@ -999,6 +1018,14 @@
     <message>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
+    </message>
+    <message>
+        <source>Feed-in</source>
+        <translation>Einspeisung</translation>
+    </message>
+    <message>
+        <source>Grid import</source>
+        <translation>Netzbezug</translation>
     </message>
 </context>
 <context>

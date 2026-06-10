@@ -864,6 +864,25 @@
     </message>
 </context>
 <context>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
@@ -989,6 +1008,14 @@
     </message>
     <message>
         <source>Unallocated consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
