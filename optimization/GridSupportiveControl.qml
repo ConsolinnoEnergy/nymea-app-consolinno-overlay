@@ -618,7 +618,13 @@ StackView {
 
                     onClicked: {
                         if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
+                            // Only remove old control box when it was paired via SKI pairing (i.e.
+                            // if it has pairingType "default".
+                            if (pairingType === "default") {
+                                console.info("Removing existing control box:", eebusGridGuardGateway.name);
+                                engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            }
                         }
                         root.setGridSupportSettings("eebus");
                         pageStack.push(eebusComfortPairingViewStatus);
