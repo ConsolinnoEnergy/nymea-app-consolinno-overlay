@@ -20,6 +20,9 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(double pvSurplusThreshold READ pvSurplusThreshold WRITE setPvSurplusThreshold NOTIFY pvSurplusThresholdChanged)
     Q_PROPERTY(int durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
     Q_PROPERTY(double durationMaxTotal READ durationMaxTotal WRITE setDurationMaxTotal NOTIFY durationMaxTotalChanged)
+    Q_PROPERTY(uint durationMinDwell READ durationMinDwell WRITE setDurationMinDwell NOTIFY durationMinDwellChanged)
+    Q_PROPERTY(double meanSgr2 READ meanSgr2 WRITE setMeanSgr2 NOTIFY meanSgr2Changed)
+    Q_PROPERTY(double meanSgr3 READ meanSgr3 WRITE setMeanSgr3 NOTIFY meanSgr3Changed)
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
@@ -75,6 +78,15 @@ public:
     double durationMaxTotal() const;
     void setDurationMaxTotal(double durationMaxTotal);
 
+    uint durationMinDwell() const;
+    void setDurationMinDwell(uint durationMinDwell);
+
+    double meanSgr2() const;
+    void setMeanSgr2(double meanSgr2);
+
+    double meanSgr3() const;
+    void setMeanSgr3(double meanSgr3);
+
 signals:
     void maxThermalEnergyChanged(const double maxThermalEnergy);
     void maxElectricalPowerChanged(const double maxElectricalPower);
@@ -85,6 +97,9 @@ signals:
     void pvSurplusThresholdChanged(double pvSurplusThreshold);
     void durationMinAfterTurnOnChanged(int durationMinAfterTurnOn);
     void durationMaxTotalChanged(double durationMaxTotal);
+    void durationMinDwellChanged(uint durationMinDwell);
+    void meanSgr2Changed(double meanSgr2);
+    void meanSgr3Changed(double meanSgr3);
     void priceThresholdChanged(double priceThreshold);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void optimizationModeChanged(HeatingConfiguration::HPOptimizationMode optimizationMode);
@@ -104,6 +119,9 @@ private:
     double m_pvSurplusThreshold = 500.0;
     int m_durationMinAfterTurnOn = 15;
     double m_durationMaxTotal = 240.0;
+    uint m_durationMinDwell = 600;
+    double m_meanSgr2 = 500.0;
+    double m_meanSgr3 = 1500.0;
 
 };
 

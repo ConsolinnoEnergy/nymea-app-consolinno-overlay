@@ -23,6 +23,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_emsConfiguration = new EmsConfiguration(this);
     m_switchConfigurations = new SwitchConfigurations(this);
     m_cloudConfiguration = new CloudConfiguration(this);
+    m_devConfigPvSurplus = new DevConfigPvSurplus(this);
 }
 
 HemsManager::~HemsManager()
@@ -753,6 +754,15 @@ void HemsManager::notificationReceived(const QVariantMap &data)
         // the Leaflet MQTT connector state as a bool field `mqttConnected` in the
         // `cloudConfiguration` object.
         m_cloudConfiguration->setMqttConnected(configMap.value("mqttConnected").toBool());
+    } else if (notification == "Hems.DevConfigPvSurplusChanged") {
+        qCDebug(dcHems()) << "DevConfigPvSurplus changed";
+        QVariantMap configMap = params.value("devConfigPvSurplus").toMap();
+        m_devConfigPvSurplus->setFilterTimeConstant(configMap.value("filterTimeConstant", 600).toInt());
+        m_devConfigPvSurplus->setPostSwitchTimeout(configMap.value("postSwitchTimeout", 60).toInt());
+        m_devConfigPvSurplus->setPidKp(configMap.value("pidKp", 0.05).toDouble());
+        m_devConfigPvSurplus->setPidKi(configMap.value("pidKi", 0.0).toDouble());
+        m_devConfigPvSurplus->setPidKd(configMap.value("pidKd", 0.0).toDouble());
+        m_devConfigPvSurplus->setPidSetpoint(configMap.value("pidSetpoint", 0.0).toDouble());
     }
 
 
@@ -1042,6 +1052,53 @@ void HemsManager::setCloudConfigurationResponse(int commandId, const QVariantMap
     emit setCloudConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
+DevConfigPvSurplus *HemsManager::devConfigPvSurplus() const
+{
+    return m_devConfigPvSurplus;
+}
+
+int HemsManager::setDevConfigPvSurplus(const QVariantMap &data)
+{
+    QVariantMap config;
+    config.insert("filterTimeConstant", data.contains("filterTimeConstant") ? data.value("filterTimeConstant") : m_devConfigPvSurplus->filterTimeConstant());
+    config.insert("postSwitchTimeout", data.contains("postSwitchTimeout") ? data.value("postSwitchTimeout") : m_devConfigPvSurplus->postSwitchTimeout());
+    config.insert("pidKp", data.contains("pidKp") ? data.value("pidKp") : m_devConfigPvSurplus->pidKp());
+    config.insert("pidKi", data.contains("pidKi") ? data.value("pidKi") : m_devConfigPvSurplus->pidKi());
+    config.insert("pidKd", data.contains("pidKd") ? data.value("pidKd") : m_devConfigPvSurplus->pidKd());
+    config.insert("pidSetpoint", data.contains("pidSetpoint") ? data.value("pidSetpoint") : m_devConfigPvSurplus->pidSetpoint());
+
+    QVariantMap params;
+    params.insert("devConfigPvSurplus", config);
+
+    qCDebug(dcHems()) << "Set devConfigPvSurplus" << params;
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetDevConfigPvSurplus", params, this, "setDevConfigPvSurplusResponse");
+}
+
+void HemsManager::getDevConfigPvSurplusResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "GetDevConfigPvSurplus response" << data;
+
+    if (!data.contains("devConfigPvSurplus")) {
+        qCWarning(dcHems()) << "Hems.GetDevConfigPvSurplus not supported by this daemon.";
+        return;
+    }
+
+    QVariantMap configMap = data.value("devConfigPvSurplus").toMap();
+    m_devConfigPvSurplus->setFilterTimeConstant(configMap.value("filterTimeConstant", 600).toInt());
+    m_devConfigPvSurplus->setPostSwitchTimeout(configMap.value("postSwitchTimeout", 60).toInt());
+    m_devConfigPvSurplus->setPidKp(configMap.value("pidKp", 0.05).toDouble());
+    m_devConfigPvSurplus->setPidKi(configMap.value("pidKi", 0.0).toDouble());
+    m_devConfigPvSurplus->setPidKd(configMap.value("pidKd", 0.0).toDouble());
+    m_devConfigPvSurplus->setPidSetpoint(configMap.value("pidSetpoint", 0.0).toDouble());
+}
+
+void HemsManager::setDevConfigPvSurplusResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set devConfigPvSurplus response" << data.value("hemsError").toString();
+    emit setDevConfigPvSurplusReply(commandId, data.value("hemsError").toString());
+}
+
 void HemsManager::initJsonRpcCommunication()
 {
     qCDebug(dcHems()) << "initJsonRpcCommunication:"
@@ -1119,14 +1176,20 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getSwitchConfigurationsResponse");
-    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
-                                           QVariantMap(),
-                                           this,
-                                           "getHeatingElementConfigurationsResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetCloudConfiguration",
                                            QVariantMap(),
                                            this,
                                            "getCloudConfigurationResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetDevConfigPvSurplus",
+                                           QVariantMap(),
+                                           this,
+                                           "getDevConfigPvSurplusResponse");
+    // ATTENTION: This call should be the last one here since it sets m_fetchingData to false
+    //            in it's response handler.
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getHeatingElementConfigurationsResponse");
 }
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
@@ -1213,6 +1276,9 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
     configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toInt());
     configuration->setDurationMaxTotal(configurationMap.value("durationMaxTotal").toDouble());
+    configuration->setDurationMinDwell(configurationMap.value("durationMinDwell", 600).toUInt());
+    configuration->setMeanSgr2(configurationMap.value("meanSgr2", 500.0).toDouble());
+    configuration->setMeanSgr3(configurationMap.value("meanSgr3", 1500.0).toDouble());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Heating configuration added" << configuration->heatPumpThingId();
@@ -1284,6 +1350,8 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setMinSoC(configurationMap.value("minSoC", 5).toInt());
     configuration->setTaperSoC(configurationMap.value("taperSoC", 5).toInt());
     configuration->setFullymanagableBattery(configurationMap.value("fullymanagableBattery", false).toBool());
+    configuration->setBatteryPowerMargin(configurationMap.value("batteryPowerMargin", 100.0).toDouble());
+    configuration->setBatteryPowerRateLimit(configurationMap.value("batteryPowerRateLimit", 50.0).toDouble());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Battery configuration added" << configuration->batteryThingId();
@@ -1340,6 +1408,8 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
     configuration->setChargingSchedule(configurationMap.value("chargingSchedule").toString());
     configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
+    configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toUInt());
+    configuration->setSwitchDelayPhase(configurationMap.value("switchDelayPhase").toUInt());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Charging configuration added" << configuration->evChargerThingId();

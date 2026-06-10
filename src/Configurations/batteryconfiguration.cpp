@@ -211,3 +211,31 @@ void BatteryConfiguration::setFullymanagableBattery(bool fullymanagableBattery)
     m_fullymanagableBattery = fullymanagableBattery;
     emit fullymanagableBatteryChanged(m_fullymanagableBattery);
 }
+
+double BatteryConfiguration::batteryPowerMargin() const
+{
+    return m_batteryPowerMargin;
+}
+
+void BatteryConfiguration::setBatteryPowerMargin(double batteryPowerMargin)
+{
+    if (m_batteryPowerMargin == batteryPowerMargin)
+        return;
+
+    m_batteryPowerMargin = batteryPowerMargin;
+    emit batteryPowerMarginChanged(m_batteryPowerMargin);
+}
+
+double BatteryConfiguration::batteryPowerRateLimit() const
+{
+    return m_batteryPowerRateLimit;
+}
+
+void BatteryConfiguration::setBatteryPowerRateLimit(double batteryPowerRateLimit)
+{
+    if (m_batteryPowerRateLimit == batteryPowerRateLimit)
+        return;
+
+    m_batteryPowerRateLimit = batteryPowerRateLimit;
+    emit batteryPowerRateLimitChanged(m_batteryPowerRateLimit);
+}

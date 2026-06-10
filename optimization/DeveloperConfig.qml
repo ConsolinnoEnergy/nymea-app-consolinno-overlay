@@ -29,6 +29,10 @@ Page {
                                     "text": "ConEMS State",
                                     "link": "../thingconfiguration/ConEMSState.qml"
                                 })
+        menuEntriesModel.append({
+                                    "text": "Dev Config",
+                                    "link": "../optimization/DevConfig.qml"
+                                })
         //menuEntriesModel.append({ text: "ChargingOptimization ConfigTest", link: "../optimization/ChargingOptimization.qml", attributes: {hemsManager: hemsManager} })
     }
 

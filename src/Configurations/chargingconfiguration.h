@@ -50,6 +50,8 @@ class ChargingConfiguration : public QObject
      */
     Q_PROPERTY(QString chargingSchedule READ chargingSchedule WRITE setChargingSchedule NOTIFY chargingScheduleChanged)
     Q_PROPERTY(uint desiredPhaseCount READ desiredPhaseCount WRITE setDesiredPhaseCount NOTIFY desiredPhaseCountChanged)
+    Q_PROPERTY(uint durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
+    Q_PROPERTY(uint switchDelayPhase READ switchDelayPhase WRITE setSwitchDelayPhase NOTIFY switchDelayPhaseChanged)
 
 public:
 
@@ -107,6 +109,12 @@ public:
     uint desiredPhaseCount() const;
     void setDesiredPhaseCount(uint desiredPhaseCount);
 
+    uint durationMinAfterTurnOn() const;
+    void setDurationMinAfterTurnOn(uint durationMinAfterTurnOn);
+
+    uint switchDelayPhase() const;
+    void setSwitchDelayPhase(uint switchDelayPhase);
+
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
     void carThingIdChanged(const QUuid &carThingId);
@@ -119,6 +127,8 @@ signals:
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargingScheduleChanged(const QString &chargingSchedule);
     void desiredPhaseCountChanged(uint desiredPhaseCount);
+    void durationMinAfterTurnOnChanged(uint durationMinAfterTurnOn);
+    void switchDelayPhaseChanged(uint switchDelayPhase);
 
 private:
     QUuid m_evChargerThingId;
@@ -133,6 +143,8 @@ private:
     bool m_relativePriceEnabled = false;
     QString m_chargingSchedule = "";
     uint m_desiredPhaseCount = ThreePhase;
+    uint m_durationMinAfterTurnOn = 0;
+    uint m_switchDelayPhase = 0;
 };
 
 #endif // CHARGINGCONFIGURATION_H
