@@ -124,7 +124,6 @@ Item {
                         id: secondaryUnitText
                         anchors {
                             baseline: secondaryValueText.baseline
-                            bottom: parent.bottom
                             left: secondaryValueText.right
                             leftMargin: 3
                         }
