@@ -676,20 +676,29 @@ MainViewBase {
                             Repeater {
                                 model: batteryThings
 
-                                delegate: CoPowerThingInfoCard {
+                                delegate: CoBatteryInfoCard {
                                     Layout.fillWidth: true
-                                    thing: batteryThings.get(index)
-                                    icon: thingToIcon(thing)
-                                    showWarningIndicator: avoidZeroCompensationActive(thing)
+
+                                    property Thing battery: batteryThings.get(index)
+                                    readonly property State currentPowerState: battery ? battery.stateByName("currentPower") : null
+                                    readonly property double currentPower: currentPowerState ? Number(currentPowerState.value) : 0
+                                    readonly property State socState: battery ? battery.stateByName("batteryLevel") : null
+                                    readonly property double soc: socState ? Number(socState.value) : 0
+
+                                    icon: thingToIcon(battery)
+                                    text: battery.name
+                                    powerValue: Math.round(currentPower)
+                                    socValue: Math.round(soc)
+                                    showWarningIndicator: avoidZeroCompensationActive(battery)
                                     onClicked: {
-                                        console.info("Clicked battery:", thing.name);
-                                        let batteryView = thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
+                                        console.info("Clicked battery:", battery.name);
+                                        let batteryView = battery.thingClass.interfaces.indexOf("controllablebattery") >= 0 ?
                                                 "/ui/optimization/BatteryConfigView.qml" :
                                                 "/ui/devicepages/GenericSmartDeviceMeterPage.qml";
                                         pageStack.push(batteryView,
                                                        {
                                                            "hemsManager": hemsManager,
-                                                           "thing": thing,
+                                                           "thing": battery,
                                                            "isBatteryView": true
                                                        });
                                     }
