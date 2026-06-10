@@ -174,3 +174,31 @@ void ChargingConfiguration::setDesiredPhaseCount(uint desiredPhaseCount)
     m_desiredPhaseCount = desiredPhaseCount;
     emit desiredPhaseCountChanged(m_desiredPhaseCount);
 }
+
+uint ChargingConfiguration::durationMinAfterTurnOn() const
+{
+    return m_durationMinAfterTurnOn;
+}
+
+void ChargingConfiguration::setDurationMinAfterTurnOn(uint durationMinAfterTurnOn)
+{
+    if (m_durationMinAfterTurnOn == durationMinAfterTurnOn)
+        return;
+
+    m_durationMinAfterTurnOn = durationMinAfterTurnOn;
+    emit durationMinAfterTurnOnChanged(m_durationMinAfterTurnOn);
+}
+
+uint ChargingConfiguration::switchDelayPhase() const
+{
+    return m_switchDelayPhase;
+}
+
+void ChargingConfiguration::setSwitchDelayPhase(uint switchDelayPhase)
+{
+    if (m_switchDelayPhase == switchDelayPhase)
+        return;
+
+    m_switchDelayPhase = switchDelayPhase;
+    emit switchDelayPhaseChanged(m_switchDelayPhase);
+}

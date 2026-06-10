@@ -201,6 +201,7 @@
         <file>thingconfiguration/CarInventory.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
+        <file>optimization/DevConfig.qml</file>
         <file>wizards/AuthorisationView.qml</file>
         <file>optimization/PVOptimization.qml</file>
         <file>optimization/HeatingOptimization.qml</file>
