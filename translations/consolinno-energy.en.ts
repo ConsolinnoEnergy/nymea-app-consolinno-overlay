@@ -964,6 +964,10 @@
     </message>
     <message>
         <source>Consolinno Cloud Services (Beta)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoBatteryInfoCard</name>
     <message>
         <source>SoC</source>

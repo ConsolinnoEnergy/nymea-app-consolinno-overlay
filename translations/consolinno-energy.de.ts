@@ -965,6 +965,9 @@
     <message>
         <source>Consolinno Cloud Services (Beta)</source>
         <translation>Consolinno-Cloud-Dienste (Beta)</translation>
+    </message>
+</context>
+<context>
     <name>CoBatteryInfoCard</name>
     <message>
         <source>SoC</source>
