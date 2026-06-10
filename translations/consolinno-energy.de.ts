@@ -864,6 +864,25 @@
     </message>
 </context>
 <context>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation>SoC</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Lädt</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entlädt</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
