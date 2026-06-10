@@ -1185,7 +1185,7 @@ void HemsManager::initJsonRpcCommunication()
                                            this,
                                            "getDevConfigPvSurplusResponse");
     // ATTENTION: This call should be the last one here since it sets m_fetchingData to false
-    //            it's response handler.
+    //            in it's response handler.
     m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
                                            QVariantMap(),
                                            this,
