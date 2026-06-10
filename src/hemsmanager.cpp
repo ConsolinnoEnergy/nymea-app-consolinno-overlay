@@ -1176,10 +1176,6 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getSwitchConfigurationsResponse");
-    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
-                                           QVariantMap(),
-                                           this,
-                                           "getHeatingElementConfigurationsResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetCloudConfiguration",
                                            QVariantMap(),
                                            this,
@@ -1188,6 +1184,12 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getDevConfigPvSurplusResponse");
+    // ATTENTION: This call should be the last one here since it sets m_fetchingData to false
+    //            it's response handler.
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getHeatingElementConfigurationsResponse");
 }
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
