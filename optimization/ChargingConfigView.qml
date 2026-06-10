@@ -1812,6 +1812,17 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Apply changes")
                             onClicked: {
+                                if (chargingConfiguration.optimizationEnabled ||
+                                        chargingConfiguration.optimizationMode !== 9) {
+                                    // Cancel running charging session.
+                                    console.info("Cancelling running charging session.");
+                                    hemsManager.setChargingConfiguration(thing.id,
+                                                                         {
+                                                                             optimizationEnabled: false,
+                                                                             optimizationMode: 9
+                                                                         });
+                                }
+
                                 // if simple PV excess mode is used set the batteryLevel to 1
                                 if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
                                     batteryLevel.value = 1;
