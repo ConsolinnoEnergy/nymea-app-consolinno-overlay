@@ -29,7 +29,7 @@ T.RoundButton {
 
     icon.width: 24
     icon.height: 24
-    icon.color: Style.colors.brand_Basic_Icon
+    icon.color: flat ? Style.colors.brand_Basic_Icon : Style.colors.components_Forms_Buttons_Button_primary_text
 
     contentItem: IconLabel {
         spacing: control.spacing
