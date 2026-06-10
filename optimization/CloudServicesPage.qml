@@ -11,7 +11,8 @@ Page {
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
     header: CoHeader {
-        text: qsTr("Consolinno Cloud Services (Beta)")
+        text: qsTr("Consolinno Cloud Services")
+        subText: qsTr("(Beta)")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
