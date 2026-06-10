@@ -964,6 +964,21 @@
     </message>
     <message>
         <source>Consolinno Cloud Services (Beta)</source>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1094,6 +1109,14 @@
     </message>
     <message>
         <source>Unallocated consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

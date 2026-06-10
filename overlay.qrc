@@ -56,6 +56,28 @@
         <file>icons/battery/battery-090.svg</file>
         <file>icons/battery/battery-100.svg</file>
         <file>icons/battery/battery-bolt.svg</file>
+        <file>icons/battery/battery2-000-charging.svg</file>
+        <file>icons/battery/battery2-000.svg</file>
+        <file>icons/battery/battery2-010-charging.svg</file>
+        <file>icons/battery/battery2-010.svg</file>
+        <file>icons/battery/battery2-020-charging.svg</file>
+        <file>icons/battery/battery2-020.svg</file>
+        <file>icons/battery/battery2-030-charging.svg</file>
+        <file>icons/battery/battery2-030.svg</file>
+        <file>icons/battery/battery2-040-charging.svg</file>
+        <file>icons/battery/battery2-040.svg</file>
+        <file>icons/battery/battery2-050-charging.svg</file>
+        <file>icons/battery/battery2-050.svg</file>
+        <file>icons/battery/battery2-060-charging.svg</file>
+        <file>icons/battery/battery2-060.svg</file>
+        <file>icons/battery/battery2-070-charging.svg</file>
+        <file>icons/battery/battery2-070.svg</file>
+        <file>icons/battery/battery2-080-charging.svg</file>
+        <file>icons/battery/battery2-080.svg</file>
+        <file>icons/battery/battery2-090-charging.svg</file>
+        <file>icons/battery/battery2-090.svg</file>
+        <file>icons/battery/battery2-100-charging.svg</file>
+        <file>icons/battery/battery2-100.svg</file>
         <file>icons/battery/battery_minus.svg</file>
         <file>icons/battery/battery_plus.svg</file>
         <file>icons/battery_charging.svg</file>
@@ -266,6 +288,7 @@
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
+        <file>components/CoBatteryInfoCard.qml</file>
         <file>components/CoInfoCardContainer.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>components/CoPowerThingInfoCard.qml</file>
