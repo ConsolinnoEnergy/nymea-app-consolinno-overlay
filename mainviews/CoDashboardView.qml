@@ -694,7 +694,7 @@ MainViewBase {
 
                                     icon: thingToIcon(battery)
                                     text: battery.name
-                                    powerValue: Math.round(currentPower)
+                                    powerValue: currentPower
                                     socValue: Math.round(soc)
                                     showWarningIndicator: avoidZeroCompensationActive(battery)
                                     onClicked: {

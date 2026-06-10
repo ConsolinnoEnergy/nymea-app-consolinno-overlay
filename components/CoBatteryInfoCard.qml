@@ -141,7 +141,7 @@ Item {
                     horizontalAlignment: Text.AlignRight
                     font: Style.newSmallFontBold
                     color: Style.colors.components_Dashboard_Info_card_value
-                    text: Math.round(Math.abs(root.powerValue)) + " W" // #TODO kW for larger values
+                    text: UiUtils.powerDisplayValue(Math.abs(root.powerValue)) + " " + UiUtils.powerDisplayUnit(root.powerValue)
                 }
             }
         }
