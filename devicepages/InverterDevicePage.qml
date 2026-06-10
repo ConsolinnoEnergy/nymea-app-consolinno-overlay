@@ -22,7 +22,6 @@ GenericConfigPage {
     }
 
     title: root.thing.name
-    headerOptionsVisible: false
 
     content: [
         Flickable {
