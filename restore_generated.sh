@@ -14,6 +14,7 @@ packaging/android/build.gradle \
 packaging/android/google-services.json \
 packaging/android/notificationicon.svg \
 packaging/android/res/drawable/splash_light.xml \
+packaging/android/res/drawable/splash_dark.xml \
 packaging/android/splash-dark.svg \
 packaging/android/splash-light.svg \
 packaging/android/store-feature-graphic.png \
