@@ -39,9 +39,9 @@ SettingsPageBase {
         }
 
         Component.onCompleted: {
-          stylesModel.append({ value: "light", text: qsTr("light") })
+          stylesModel.append({ value: "light", text: qsTr("Light") })
           if (Configuration.branding === "consolinno") {
-            stylesModel.append({ value: "dark", text: qsTr("dark") })
+            stylesModel.append({ value: "dark", text: qsTr("Dark") })
           }
         }
 
@@ -114,7 +114,7 @@ SettingsPageBase {
             currentIndex: settings.units === "metric" ? 0 : 1
             model: [ qsTr("Metric"), qsTr("Imperial") ]
             onActivated: function(index) {
-                settings.units = index == 0 ? "metric" : "imperial";
+                settings.units = index === 0 ? "metric" : "imperial";
             }
         }
     }

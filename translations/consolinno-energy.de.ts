@@ -963,8 +963,12 @@
         <translation>Teilt vollständig anonymisierte Daten für Forschung und Produktverbesserung.</translation>
     </message>
     <message>
-        <source>Consolinno Cloud Services (Beta)</source>
-        <translation>Consolinno-Cloud-Dienste (Beta)</translation>
+        <source>Consolinno Cloud Services</source>
+        <translation>Consolinno Cloud-Dienste</translation>
+    </message>
+    <message>
+        <source>(Beta)</source>
+        <translation>(Beta)</translation>
     </message>
 </context>
 <context>
@@ -1911,12 +1915,12 @@ Abgaben: %4 %2</translation>
         <translation>Stil</translation>
     </message>
     <message>
-        <source>light</source>
-        <translation>hell</translation>
+        <source>Light</source>
+        <translation>Hell</translation>
     </message>
     <message>
-        <source>dark</source>
-        <translation>dunkel</translation>
+        <source>Dark</source>
+        <translation>Dunkel</translation>
     </message>
 </context>
 <context>
@@ -3393,6 +3397,101 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
 </context>
 <context>
+    <name>DevConfig</name>
+    <message>
+        <source>Dev Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have unsaved changes. Discard them?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Desired phase count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. runtime after turn-on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase switch delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished">Speichern</translation>
+    </message>
+    <message>
+        <source>PV Surplus Dev Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter time constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Post-switch timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Kp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Ki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Kd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID setpoint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished">Batterie</translation>
+    </message>
+    <message>
+        <source>Battery power margin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery power rate limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taper SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating</source>
+        <translation type="unfinished">Heizen</translation>
+    </message>
+    <message>
+        <source>Mean SGR-2 power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mean SGR-3 power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. dwell duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -3665,198 +3764,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <source>Complete setup</source>
-        <translation>Einrichtung abschliessen</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation>Neu konfigurieren</translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <source>Parameter</source>
-        <translation>Parameter</translation>
-    </message>
-    <message>
-        <source>SKI copied to clipboard</source>
-        <translation>SKI in die Zwischenablage kopiert</translation>
-    </message>
-    <message>
-        <source>Establish a connection with this device.</source>
-        <translation>Mit diesem Gerät eine Verbindung aufbauen.</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation>Status</translation>
-    </message>
-    <message>
-        <source>Back to overview</source>
-        <translation>Zurück zur Übersicht</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation>Netzdienlichkeit</translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup</source>
-        <translation>Netzdienlichkeit einrichten</translation>
-    </message>
-    <message>
-        <source>Must be in same network.</source>
-        <translation>Muss im selben Netzwerk sein.</translation>
-    </message>
-    <message>
-        <source>Relais</source>
-        <translation>Relais</translation>
-    </message>
-    <message>
-        <source>Connect device</source>
-        <translation>Gerät anschließen</translation>
-    </message>
-    <message>
-        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation>Bitte schließe die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
-        <translation>Bestehende Einrichtungen werden überschrieben.</translation>
-    </message>
-    <message>
-        <source>Attention</source>
-        <translation>Achtung</translation>
-    </message>
-    <message>
-        <source>Feed-in curtailment</source>
-        <translation>Einspeiseabregelung</translation>
-    </message>
-    <message>
-        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
-    </message>
-    <message>
-        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
-        <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found</source>
-        <translation>Folgende EEBUS-Geräte wurden gefunden</translation>
-    </message>
-    <message>
-        <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
-        <translation>Es wurde kein EEBUS Gerät im Netzwerk gefunden. Bitte stellen Sie sicher, dass das Gerät eingeschaltet und mit demselben Netzwerk verbunden ist.</translation>
-    </message>
-    <message>
-        <source>Searching for devices...</source>
-        <translation>Suche Geräte...</translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation>Verbunden</translation>
-    </message>
-    <message>
-        <source>Not connected</source>
-        <translation>Nicht verbunden</translation>
-    </message>
-    <message>
-        <source>Control box</source>
-        <translation>Steuerbox</translation>
-    </message>
-    <message>
-        <source>Local Subject Key Identifier (SKI)</source>
-        <translation>Local Subject Key Identifier (SKI)</translation>
-    </message>
-    <message>
-        <source>EEBUS</source>
-        <translation>EEBUS</translation>
-    </message>
-    <message>
-        <source>Device connection</source>
-        <translation>Geräte-Anschluß</translation>
-    </message>
-    <message>
-        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
-        <translation>Die Steuerbox bzw. der Rundsteuerempfänger muss gemäß unserer Anleitung angeschlossen sein.</translation>
-    </message>
-    <message>
-        <source>EEBUS SKI Pairing</source>
-        <translation>EEBUS SKI Pairing</translation>
-    </message>
-    <message>
-        <source>EEBUS Comfort Pairing</source>
-        <translation>EEBUS Comfort Pairing</translation>
-    </message>
-    <message>
-        <source>QR Code &amp; Pairing Data</source>
-        <translation>QR‑Code &amp; Pairing‑Daten</translation>
-    </message>
-    <message>
-        <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
-        <translation>Der QR‑Code oder die untenstehenden Pairing‑Daten sind für das SHIP Pairing durch den Messstellenbetreiber zu verwenden.</translation>
-    </message>
-    <message>
-        <source>Secret Key (SPSEC)</source>
-        <translation>Secret Key (SPSEC)</translation>
-    </message>
-    <message>
-        <source>%1 copied to clipboard</source>
-        <translation>%1 in die Zwischenablage kopiert</translation>
-    </message>
-    <message>
-        <source>SHIP ID (ID)</source>
-        <translation>SHIP ID (ID)</translation>
-    </message>
-    <message>
-        <source>Certificate Fingerprint (SHA-256)</source>
-        <translation>Certificate Fingerprint (SHA-256)</translation>
-    </message>
-    <message>
-        <source>Completion by the metering point operator pending</source>
-        <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
-    </message>
-    <message>
-        <source>EEBUS Comfort Pairing data not available.</source>
-        <translation>EEBUS Comfort Pairing Daten nicht verfügbar.</translation>
-    </message>
-    <message>
-        <source>Control box connection</source>
-        <translation>Verbindung zur Steuerbox</translation>
-    </message>
-    <message>
-        <source>Setting up EEBUS device...</source>
-        <translation>EEBUS Gerät wird eingerichtet...</translation>
-    </message>
-    <message>
-        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
-        <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation>OK</translation>
-    </message>
-    <message>
-        <source>QR code content copied to clipboard</source>
-        <translation>QR Code Inhalt in die Zwischenablage kopiert</translation>
-    </message>
-    <message>
-        <source>This SKI is required by the metering point operator.</source>
-        <translation>Diese SKI wird vom Messstellenbetreiber benötigt.</translation>
-    </message>
-    <message>
-        <source>Confirmation by metering point operator pending</source>
-        <translation>Bestätigung des Messstellenbetreiber ausstehend</translation>
     </message>
 </context>
 <context>
