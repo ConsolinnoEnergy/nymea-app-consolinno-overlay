@@ -40,7 +40,7 @@ Page {
                 leftPadding: app.margins + 10
                 rightPadding: app.margins + 10
                 wrapMode: Text.WordWrap
-                text: qsTr("With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.")
+                text: qsTr("With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid import, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.")
             }
 
             Label {

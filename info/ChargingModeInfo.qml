@@ -103,7 +103,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.")
+                text: qsTr("The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, grid import is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid import may occur if less solar power is available than the forecast assumed.")
                 visible: root.nextTripModeAvailable
             }
 

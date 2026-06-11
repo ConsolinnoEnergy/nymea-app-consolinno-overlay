@@ -823,7 +823,7 @@
     </message>
     <message>
         <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachte deshalb, dass es zu Abweichungen von der Prognose kommen kann, d. h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
+        <translation type="vanished">Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachte deshalb, dass es zu Abweichungen von der Prognose kommen kann, d. h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
     </message>
     <message>
         <source>Time controlled</source>
@@ -836,6 +836,10 @@
     <message>
         <source>The charging modes &lt;b&gt;Solar power only&lt;/b&gt;, &lt;b&gt;Always charging&lt;/b&gt;, &lt;b&gt;Dynamic pricing&lt;/b&gt; and &lt;b&gt;Time controlled&lt;/b&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;b&gt;Next trip&lt;/b&gt;, you must select a charging mode again when you plug in.</source>
         <translation>Die Lademodi &lt;b&gt;Nur Solarstrom&lt;/b&gt;, &lt;b&gt;Immer Laden&lt;/b&gt;, &lt;b&gt;Dynamischer Tarif&lt;/b&gt; sowie &lt;b&gt;Zeitgesteuertes Laden&lt;/b&gt; bleiben nach dem Abstecken weiterhin ausgewählt. Das heißt, wenn du wieder ansteckst, ist der letzte gewählte Modus aktiv. Wenn du mit &lt;b&gt;Nächster Fahrt&lt;/b&gt; geladen hast, dann musst du beim Anstecken wieder einen Lademodus wählen.</translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, grid import is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid import may occur if less solar power is available than the forecast assumed.</source>
+        <translation>Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachte deshalb, dass es zu Abweichungen von der Prognose kommen kann, d. h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
     </message>
 </context>
 <context>
@@ -3600,7 +3604,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
-        <translation>Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
+        <translation type="vanished">Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
     </message>
     <message>
         <source>What is the benefit for me?</source>
@@ -3617,6 +3621,10 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
         <translation>Die übertragenen Energiedaten werden Ihrem System zugeordnet. Sie können diese Freigabe jederzeit widerrufen. Weitere Informationen zum Datenschutz finden Sie unter www.consolinno.de/hems-datenschutz.</translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid import, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
+        <translation>Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
     </message>
 </context>
 <context>
@@ -3744,7 +3752,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation>Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
+        <translation type="vanished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
     <message>
         <source>Pausing charging:</source>
@@ -3757,6 +3765,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Low solar avalaibility</source>
         <translation>Bei wenig Solarstrom</translation>
+    </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid import).</source>
+        <translation>Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
 </context>
 <context>
@@ -4619,11 +4631,15 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Total grid consumption</source>
-        <translation>Gesamter Netzbezug</translation>
+        <translation type="vanished">Gesamter Netzbezug</translation>
     </message>
     <message>
         <source>Total grid feed-in</source>
         <translation>Gesamte Netzeinspeisung</translation>
+    </message>
+    <message>
+        <source>Total grid import</source>
+        <translation>Gesamter Netzbezug</translation>
     </message>
 </context>
 <context>

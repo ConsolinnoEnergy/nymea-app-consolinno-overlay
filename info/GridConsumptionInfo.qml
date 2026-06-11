@@ -36,7 +36,7 @@ Page {
                 rightPadding: app.margins +10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).")
+                text: qsTr("If there is not enough PV surplus to charge, charging continues at minimum charging current (grid import).")
             }
 
             Label{

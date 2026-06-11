@@ -77,7 +77,7 @@ GenericConfigPage {
                         Layout.preferredWidth: 1
                         Layout.preferredHeight: Math.max(implicitHeight, totalFeedInCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
-                        labelText: qsTr("Total grid consumption")
+                        labelText: qsTr("Total grid import")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
                     }
 

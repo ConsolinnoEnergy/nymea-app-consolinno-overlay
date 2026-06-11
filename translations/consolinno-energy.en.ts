@@ -822,10 +822,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Time controlled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -835,6 +831,10 @@
     </message>
     <message>
         <source>The charging modes &lt;b&gt;Solar power only&lt;/b&gt;, &lt;b&gt;Always charging&lt;/b&gt;, &lt;b&gt;Dynamic pricing&lt;/b&gt; and &lt;b&gt;Time controlled&lt;/b&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;b&gt;Next trip&lt;/b&gt;, you must select a charging mode again when you plug in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, grid import is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid import may occur if less solar power is available than the forecast assumed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3581,10 +3581,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>What is the benefit for me?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3598,6 +3594,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid import, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3723,10 +3723,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pausing charging:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3736,6 +3732,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Low solar avalaibility</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid import).</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4597,11 +4597,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total grid consumption</source>
+        <source>Total grid feed-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total grid feed-in</source>
+        <source>Total grid import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
