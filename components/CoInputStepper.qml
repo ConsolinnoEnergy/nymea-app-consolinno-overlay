@@ -61,12 +61,13 @@ Item {
             LabelWithInfo {
                 id: label
                 Layout.fillWidth: true
+                font: Style.newSmallFontBold
             }
 
             Text {
                 id: helpLabel
                 Layout.fillWidth: true
-                font: Style.newParagraphFont
+                font: Style.newSmallFont
                 color: Style.colors.typography_Basic_Default
                 wrapMode: Text.WordWrap
                 text: ""
