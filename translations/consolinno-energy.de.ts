@@ -944,7 +944,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.8&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.9&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
@@ -961,6 +961,7 @@
 &lt;h4&gt;Verbesserung&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Factory Reset in der App verfügbar&lt;/li&gt;
+&lt;li&gt;Verbesserung der Darstellung der Energieflüsse bei Batterie und Netz&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -4384,7 +4385,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>EvCharger set-up</source>
-        <translation type="unfinished">EV-Ladestation Einrichtung</translation>
+        <translation>EV-Ladestation Einrichtung</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
@@ -4396,7 +4397,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated wallbox</source>
-        <translation type="unfinished">Eingerichtete Wallboxen</translation>
+        <translation>Eingerichtete Wallboxen</translation>
     </message>
 </context>
 <context>
@@ -4578,7 +4579,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Heatpump set-up</source>
-        <translation type="unfinished"></translation>
+        <translation>Einrichtung Wärmepumpe</translation>
     </message>
     <message>
         <source>The following EEBUS devices were found:</source>
@@ -4816,7 +4817,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <source>Integrated solar inverter</source>
-        <translation type="unfinished">Eingerichtete Wechselrichter</translation>
+        <translation>Eingerichtete Wechselrichter</translation>
     </message>
 </context>
 <context>

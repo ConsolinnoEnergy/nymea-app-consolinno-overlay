@@ -935,7 +935,7 @@
     </message>
     <message>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;p&gt;Version 2.0.8&lt;/p&gt;
+        <translation>&lt;p&gt;Version 2.0.9&lt;/p&gt;
 &lt;h4&gt;Redesign&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
@@ -952,6 +952,7 @@
 &lt;h4&gt;Improvement&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Factory Reset available in the app&lt;/li&gt;
+&lt;li&gt;Improving the representation of battery and grid energy flows&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
