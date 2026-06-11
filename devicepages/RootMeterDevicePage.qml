@@ -77,7 +77,7 @@ GenericConfigPage {
                         Layout.preferredWidth: 1
                         Layout.preferredHeight: Math.max(implicitHeight, totalFeedInCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
-                        labelText: qsTr("Total grid consumption") // #TODO wording
+                        labelText: qsTr("Total grid consumption")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
                     }
 
@@ -87,7 +87,7 @@ GenericConfigPage {
                         Layout.preferredWidth: 1
                         Layout.preferredHeight: Math.max(implicitHeight, totalConsumptionCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/input_circle.svg")
-                        labelText: qsTr("Total grid feed-in") // #TODO wording
+                        labelText: qsTr("Total grid feed-in")
                         valueText: UiUtils.energyDisplayValue(root.totalFeedIn) + " kWh"
                     }
                 }

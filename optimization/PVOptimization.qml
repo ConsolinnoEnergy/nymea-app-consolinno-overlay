@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import "../components"
 import "../delegates"
 
@@ -91,10 +92,14 @@ Page {
                         labelText: qsTr("Latitude")
                         compact: true
                         unit: qsTr("°")
-                        helpText: qsTr("The value must be between 30 and 60.") // #TODO wording
+                        helpText:
+                            qsTr("The value must be between %1 and %2.")
+                        .arg(NymeaUtils.floatToLocaleString(latitudeValidator.bottom))
+                        .arg(NymeaUtils.floatToLocaleString(latitudeValidator.top))
                         feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.latitude.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
+                            id: latitudeValidator
                             bottom: 30
                             top: 60
                             decimals: 4
@@ -108,9 +113,14 @@ Page {
                         labelText: qsTr("Longitude")
                         compact: true
                         unit: qsTr("°")
+                        helpText:
+                            qsTr("The value must be between %1 and %2.")
+                        .arg(NymeaUtils.floatToLocaleString(longitudeValidator.bottom))
+                        .arg(NymeaUtils.floatToLocaleString(longitudeValidator.top))
                         feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.longitude.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
+                            id: longitudeValidator
                             bottom: -10
                             top: 30
                             decimals: 4
@@ -124,10 +134,12 @@ Page {
                         labelText: qsTr("Roof pitch")
                         compact: true
                         unit: qsTr("°")
+                        helpText: qsTr("The value must be between %1 and %2.").arg(roofpitchValidator.bottom).arg(roofpitchValidator.top)
                         feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.roofPitch
                         textField.maximumLength: 2
                         textField.validator: IntValidator {
+                            id: roofpitchValidator
                             bottom: 0
                             top: 90
                         }
@@ -166,9 +178,14 @@ Page {
                         labelText: qsTr("Peak power")
                         compact: true
                         unit: qsTr("kW")
+                        helpText:
+                            qsTr("The value must be between %1 and %2.")
+                        .arg(NymeaUtils.floatToLocaleString(peakPowerValidator.bottom))
+                        .arg(NymeaUtils.floatToLocaleString(peakPowerValidator.top))
                         feedbackText: qsTr("The value is outside the valid range.")
                         textField.text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
+                            id: peakPowerValidator
                             bottom: 1
                             top: 30
                             decimals: 2
@@ -201,14 +218,13 @@ Page {
                 id: savebutton
                 Layout.fillWidth: true
                 text: qsTr("Apply changes")
-                property bool validated: latitudeInput.acceptableInput
+                property bool inputValid: latitudeInput.acceptableInput
                                          && longitudeInput.acceptableInput
                                          && roofpitchInput.acceptableInput
                                          && peakPowerInput.acceptableInput
 
                 onClicked: {
-                    // the input is in the range that is defined in the individual Validator
-                    if (!validated) { return; }
+                    if (!inputValid) { return; }
 
                     if (directionID === 1) {
                         if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||

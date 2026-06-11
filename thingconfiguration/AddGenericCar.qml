@@ -91,7 +91,7 @@ Page {
                     id: vehiclesGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Setup car") // #TODO wording
+                    headerText: qsTr("Setup car")
 
                     ColumnLayout {
                         anchors.left: parent.left

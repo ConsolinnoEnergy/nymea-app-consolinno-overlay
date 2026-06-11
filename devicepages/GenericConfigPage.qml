@@ -14,6 +14,12 @@ Item {
     property alias headerOptionsModel: menuListRepeater.model
     property alias headerOptionsVisible: header.menuButtonVisible
 
+    // Set overrideBack to true to intercept the back button. When true,
+    // backRequested() is emitted instead of automatically calling pageStack.pop().
+    // The handler is then responsible for popping (or not).
+    property bool overrideBack: false
+    signal backRequested()
+
     ListModel {
         id: menuListModel
 
@@ -40,7 +46,13 @@ Item {
             Layout.fillWidth: true
             menuButtonVisible: true
 
-            onBackPressed: pageStack.pop();
+            onBackPressed: {
+                if (root.overrideBack) {
+                    root.backRequested();
+                } else {
+                    pageStack.pop();
+                }
+            }
             onMenuPressed: menu.open();
         }
 

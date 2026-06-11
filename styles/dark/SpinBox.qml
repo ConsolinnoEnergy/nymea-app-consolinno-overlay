@@ -30,6 +30,13 @@ T.SpinBox {
     }
 
     readonly property alias acceptableInput: spinBoxInput.acceptableInput
+    property bool hasError: false
+
+    onActiveFocusChanged: {
+        if (!activeFocus) {
+            control.hasError = !acceptableInput;
+        }
+    }
 
     contentItem: TextInput {
         id: spinBoxInput
@@ -48,6 +55,12 @@ T.SpinBox {
         readOnly: !control.editable
         validator: control.validator
         inputMethodHints: control.inputMethodHints
+
+        onTextChanged: {
+            if (control.hasError) {
+                control.hasError = !acceptableInput;
+            }
+        }
     }
 
     up.indicator: Rectangle {
@@ -114,12 +127,12 @@ T.SpinBox {
             anchors.margins: 4
             radius: Style.cornerRadius
             border.width: control.activeFocus ? 2 : 1
-            color: control.acceptableInput ?
-                       Style.colors.typography_Background_Default :
-                       Style.colors.system_Danger_Background
+            color: control.hasError ?
+                       Style.colors.system_Danger_Background :
+                       Style.colors.typography_Background_Default
             border.color: !control.enabled ?
                               Style.colors.components_Forms_Slider_Thumb_Track_disabled :
-                              !control.acceptableInput ?
+                              control.hasError ?
                                   Style.colors.system_Danger_Accent :
                                   control.activeFocus ?
                                       Style.colors.components_Forms_Fields_Field_border_active :

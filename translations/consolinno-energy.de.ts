@@ -343,6 +343,10 @@
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -391,10 +395,6 @@
         <translation>Benutzerdefinierter Nennstrom</translation>
     </message>
     <message>
-        <source>Enter a value between 16 and 100 A.</source>
-        <translation>Gib einen Wert zwischen 16 und 100 A ein.</translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
@@ -405,6 +405,10 @@
     <message>
         <source>System</source>
         <translation>System</translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
+        <translation>Der Wert muss zwischen %1 und %2 liegen.</translation>
     </message>
 </context>
 <context>
@@ -964,6 +968,25 @@
     </message>
 </context>
 <context>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation>SoC</translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation>Lädt</translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation>Entlädt</translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation>Leerlauf</translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
@@ -1100,6 +1123,14 @@
     <message>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
+    </message>
+    <message>
+        <source>Feed-in</source>
+        <translation>Einspeisung</translation>
+    </message>
+    <message>
+        <source>Grid import</source>
+        <translation>Netzbezug</translation>
     </message>
 </context>
 <context>
@@ -3660,10 +3691,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Parameter</translation>
     </message>
     <message>
-        <source>This SKI is required by the network operator.</source>
-        <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
-    </message>
-    <message>
         <source>SKI copied to clipboard</source>
         <translation>SKI in die Zwischenablage kopiert</translation>
     </message>
@@ -3734,10 +3761,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
-    </message>
-    <message>
-        <source>Confirmation by network operator pending</source>
-        <translation>Bestätigung des Netzbetreibers ausstehend</translation>
     </message>
     <message>
         <source>Connected</source>
@@ -3822,6 +3845,18 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>OK</source>
         <translation>OK</translation>
+    </message>
+    <message>
+        <source>QR code content copied to clipboard</source>
+        <translation>QR Code Inhalt in die Zwischenablage kopiert</translation>
+    </message>
+    <message>
+        <source>This SKI is required by the metering point operator.</source>
+        <translation>Diese SKI wird vom Messstellenbetreiber benötigt.</translation>
+    </message>
+    <message>
+        <source>Confirmation by metering point operator pending</source>
+        <translation>Bestätigung des Messstellenbetreiber ausstehend</translation>
     </message>
 </context>
 <context>
@@ -3923,10 +3958,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
     <message>
-        <source>Dynamic pricing</source>
-        <translation>Dynamischer Tarif</translation>
-    </message>
-    <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -3941,6 +3972,14 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
+    </message>
+    <message>
+        <source>&quot;Dynamic pricing&quot;</source>
+        <translation>„Dynamischer Tarif“</translation>
     </message>
 </context>
 <context>
@@ -4029,10 +4068,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Wert für Leistungsvorgabe</translation>
     </message>
     <message>
-        <source> W</source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
@@ -4041,16 +4076,20 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation>PV-Überschuss</translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation>W</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
     </message>
 </context>
 <context>
@@ -4090,6 +4129,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>
@@ -4141,6 +4184,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>
@@ -4538,10 +4585,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>°</translation>
     </message>
     <message>
-        <source>The value must be between 30 and 60.</source>
-        <translation>Der Wert muss zwischen 30 und 60 liegen.</translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
@@ -4549,17 +4592,13 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
+        <translation>Der Wert muss zwischen %1 und %2 liegen.</translation>
+    </message>
 </context>
 <context>
     <name>PVPriorities</name>
-    <message>
-        <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
-        <translation>Folgende Geräte sind für PV-Überschuss konfiguriert. Sortiere sie per Drag &amp; Drop nach ihrer Priorität.</translation>
-    </message>
-    <message>
-        <source>The battery automatically moves to the last position when its SoC reaches %1%.</source>
-        <translation>Die Batterie fällt ab SoC&#x202f;%1&#x202f;% automatisch auf die letzte Position.</translation>
-    </message>
     <message>
         <source>Restore default order</source>
         <translation>Default-Reihenfolge</translation>
@@ -4575,6 +4614,25 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
+    </message>
+</context>
+<context>
+    <name>PVPrioritiesInfo</name>
+    <message>
+        <source>PV device priorization</source>
+        <translation>PV-Gerätepriorisierung</translation>
+    </message>
+    <message>
+        <source>The listed devices can use PV surplus. Arrange them by drag &amp; drop according to their priority.</source>
+        <translation>Die gelisteten Geräte können PV-Überschuss nutzen. Sortiere sie per Drag &amp; Drop nach ihrer Priorität.</translation>
+    </message>
+    <message>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
+        <translation>Eine SG-Ready Wärmepumpe ohne Zähler hat bei Steuerung durch das Leaflet HEMS immer Vorrang vor allen anderen Geräten und kann nicht verschoben werden.</translation>
+    </message>
+    <message>
+        <source>The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.</source>
+        <translation>Die Batterie wird ab SoC&#x202f;%1% als letztes priorisiert – unabhängig von ihrer Position in der Liste.</translation>
     </message>
 </context>
 <context>
@@ -5183,10 +5241,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation>PV-Überschuss</translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
@@ -5233,6 +5287,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation>„PV-Überschuss“</translation>
     </message>
 </context>
 <context>
@@ -5311,6 +5369,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>

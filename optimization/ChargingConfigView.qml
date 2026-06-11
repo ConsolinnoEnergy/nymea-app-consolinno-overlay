@@ -384,7 +384,7 @@ GenericConfigPage {
                     id: vehicleGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Vehicle") // #TODO wording
+                    headerText: qsTr("Vehicle")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -426,7 +426,7 @@ GenericConfigPage {
                     id: chargingSettingsGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Charging settings") // #TODO wording
+                    headerText: qsTr("Charging settings")
 
                     Connections {
                         target: chargingConfiguration
@@ -448,7 +448,7 @@ GenericConfigPage {
                             id: chargingModeCard
                             Layout.fillWidth: true
                             text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
-                            labelText: qsTr("Charging mode") // #TODO wording
+                            labelText: qsTr("Charging mode")
                             showChildrenIndicator: isCarPluggedIn()
                             interactive: isCarPluggedIn()
 
@@ -517,7 +517,7 @@ GenericConfigPage {
                             text: (typeof getText() === "undefined" ? "" : getText())
                             labelText: chargingIsAnyOf([dyn_pricing]) ?
                                            qsTr("Pausing") :
-                                           qsTr("Low solar availability") // #TODO wording
+                                           qsTr("Low solar availability")
                             visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
                             interactive: false
 
@@ -625,7 +625,7 @@ GenericConfigPage {
                     id: statusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Status") // #TODO wording
+                    headerText: qsTr("Status")
                     visible: isCarPluggedIn()
 
                     ColumnLayout {
@@ -787,7 +787,7 @@ GenericConfigPage {
                             Layout.leftMargin: Style.margins
                             Layout.rightMargin: Style.margins
                             visible: chargingConfiguration.optimizationEnabled
-                            text: qsTr("Cancel charging") // #TODO wording
+                            text: qsTr("Cancel charging")
 
                             onClicked: {
                                 hemsManager.setChargingConfiguration(thing.id,
@@ -922,7 +922,7 @@ GenericConfigPage {
                         id: selectChargingModeGroup
                         Layout.fillWidth: true
                         contentTopMargin: Style.smallMargins
-                        headerText: qsTr("Configure charging mode") // #TODO wording
+                        headerText: qsTr("Configure charging mode")
 
                         ColumnLayout {
                             anchors.left: parent.left
@@ -977,6 +977,11 @@ GenericConfigPage {
                                 Layout.fillWidth: true
                                 labelText: qsTr("Charging mode")
                                 infoUrl: "ChargingModeInfo.qml"
+                                infoProperties: ({
+                                    solarOnlyModeAvailable: false,
+                                    nextTripModeAvailable: false,
+                                    dynamicPricingModeAvailable: false
+                                })
 
                                 property var fullModel: [
                                     { key: qsTr("Charge always"), mode: 0 },
@@ -1014,8 +1019,12 @@ GenericConfigPage {
                                 function rebuildModel() {
                                     dynamicModel.clear();
 
-                                    const pvEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCasePv;
-                                    const dynEnabled = hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing;
+                                    const pvEnabled = !!(hemsManager.availableUseCases & HemsManager.HemsUseCasePv);
+                                    const dynEnabled = !!(hemsManager.availableUseCases & HemsManager.HemsUseCaseDynamicEPricing);
+
+                                    infoProperties.solarOnlyModeAvailable = pvEnabled;
+                                    infoProperties.nextTripModeAvailable = pvEnabled;
+                                    infoProperties.dynamicPricingModeAvailable = dynEnabled;
 
                                     for (let i = 0; i < fullModel.length; ++i) {
                                         const item = fullModel[i];
@@ -1803,6 +1812,17 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Apply changes")
                             onClicked: {
+                                if (chargingConfiguration.optimizationEnabled ||
+                                        chargingConfiguration.optimizationMode !== 9) {
+                                    // Cancel running charging session.
+                                    console.info("Cancelling running charging session.");
+                                    hemsManager.setChargingConfiguration(thing.id,
+                                                                         {
+                                                                             optimizationEnabled: false,
+                                                                             optimizationMode: 9
+                                                                         });
+                                }
+
                                 // if simple PV excess mode is used set the batteryLevel to 1
                                 if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
                                     batteryLevel.value = 1;

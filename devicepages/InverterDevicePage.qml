@@ -22,7 +22,6 @@ GenericConfigPage {
     }
 
     title: root.thing.name
-    headerOptionsVisible: false
 
     content: [
         Flickable {
@@ -67,7 +66,7 @@ GenericConfigPage {
                         id: totalProductionCard
                         Layout.fillWidth: true
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
-                        labelText: qsTr("Total production") // #TODO wording
+                        labelText: qsTr("Total production")
                         valueText: UiUtils.energyDisplayValue(root.totalProduction) + " kWh"
                     }
                 }

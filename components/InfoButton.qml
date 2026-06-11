@@ -12,6 +12,7 @@ import "../delegates"
 Item {
     property var push
     property var stack
+    property var infoProperties: ({})
     implicitWidth: 18
     implicitHeight: 18
     Image{
@@ -25,11 +26,11 @@ Item {
                 {
                     if (stack)
                     {
-                        stack.push("../info/" + push, {stack: stack})
+                        stack.push("../info/" + push, Object.assign({stack: stack}, infoProperties))
 
                     }
                     else{
-                        pageStack.push("../info/" + push, {stack: pageStack})
+                        pageStack.push("../info/" + push, Object.assign({stack: pageStack}, infoProperties))
                     }
                 }
             }

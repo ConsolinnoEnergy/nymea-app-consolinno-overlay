@@ -252,7 +252,7 @@ Page {
                             id: thingClassesProxy
                             engine: _engine
                             shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
-                            filterString: filterField.text
+                            filterString: filterField.displayText
                         }
 
                         ColumnLayout {

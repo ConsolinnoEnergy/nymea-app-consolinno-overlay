@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 import "../components"
 import "../delegates"
 
@@ -68,16 +69,22 @@ Page {
 
                 CoInputField {
                     id: maxElectricalPower
-                    property bool maxElectricalPowerValid: !visible || textField.acceptableInput
+                    property bool inputValid: !visible || textField.acceptableInput
                     Layout.fillWidth: true
                     visible: !thing.thingClass.interfaces.includes("controllablebattery")
                     labelText: qsTr("Maximal electrical power")
                     compact: true
                     unit: qsTr("kW")
+                    helpText:
+                        qsTr("The value must not be below %1.")
+                    .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                     feedbackText: qsTr("The value is outside the valid range.")
                     textField.text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
                     textField.maximumLength: 10
-                    textField.validator: DoubleValidator { bottom: 0.5 }
+                    textField.validator: DoubleValidator  {
+                        id: maxElectricalPowerValidator
+                        bottom: 0.5
+                    }
                 }
 
                 CoSwitch {
@@ -143,10 +150,8 @@ Page {
                     to: 100
 
                     onValueChanged: {
-                        if (value < 60) {
-                            value = 60;
-                        } else if (value > 95) {
-                            value = 95;
+                        if (minSoc.value > value) {
+                            minSoc.value = value;
                         }
                     }
 
@@ -166,10 +171,8 @@ Page {
                     to: 100
 
                     onValueChanged: {
-                        if (value < 5) {
-                            value = 5;
-                        } else if (value > 40) {
-                            value = 40;
+                        if (maxSoc.value < value) {
+                            maxSoc.value = value;
                         }
                     }
 
@@ -199,11 +202,16 @@ Page {
 
         Button {
             id: savebutton
-
             Layout.fillWidth: true
-            enabled: maxElectricalPower.maxElectricalPowerValid
             text: qsTr("Apply changes")
+
+            property bool inputValid: maxElectricalPower.inputValid
+
             onClicked: {
+                if (!inputValid) {
+                    return;
+                }
+
                 var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
                 if (blockEVChargingFromBatteryControl.checked) {
                     blockBatteryOnGridConsumption |= BatteryConfiguration.EvCharger;

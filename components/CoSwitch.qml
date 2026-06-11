@@ -10,6 +10,7 @@ Item {
     property alias checked: toggle.checked
     property alias text: label.text
     property alias infoUrl: label.push
+    property alias infoProperties: label.infoProperties
     property alias helpText: helpLabel.text
 
     signal clicked()

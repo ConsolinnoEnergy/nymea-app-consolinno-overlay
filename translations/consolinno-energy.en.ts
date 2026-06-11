@@ -343,6 +343,10 @@
         <source>Minimum SoC</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The value must not be below %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -391,10 +395,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Enter a value between 16 and 100 A.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -404,6 +404,10 @@
     </message>
     <message>
         <source>System</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -964,6 +968,25 @@
     </message>
 </context>
 <context>
+    <name>CoBatteryInfoCard</name>
+    <message>
+        <source>SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Discharging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Idle</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <source>Pending software update</source>
@@ -1090,6 +1113,14 @@
     </message>
     <message>
         <source>Unallocated consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3640,10 +3671,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This SKI is required by the network operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>SKI copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3713,10 +3740,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Searching for devices...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirmation by network operator pending</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3801,6 +3824,18 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>QR code content copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This SKI is required by the metering point operator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Confirmation by metering point operator pending</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3903,10 +3938,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Dynamic pricing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3920,6 +3951,14 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Value must be between %1 and 24:00.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;Dynamic pricing&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4009,10 +4048,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> W</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4021,15 +4056,19 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4069,6 +4108,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4120,6 +4163,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4518,10 +4565,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The value must be between 30 and 60.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4529,17 +4572,13 @@ Would you like to continue anyway?</source>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>The value must be between %1 and %2.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PVPriorities</name>
-    <message>
-        <source>The following devices are configured for surplus PV power. Sort them by priority using drag and drop.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The battery automatically moves to the last position when its SoC reaches %1%.</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Restore default order</source>
         <translation type="unfinished"></translation>
@@ -4554,6 +4593,25 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>PV device prioritization</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PVPrioritiesInfo</name>
+    <message>
+        <source>PV device priorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The listed devices can use PV surplus. Arrange them by drag &amp; drop according to their priority.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5162,10 +5220,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>PV Surplus</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5211,6 +5265,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Value must be between %1 and 24:00.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5289,6 +5347,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Switchable consumers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

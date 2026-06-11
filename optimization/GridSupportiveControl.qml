@@ -536,18 +536,47 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                CoQrCode {
-                                    Layout.alignment: Qt.AlignHCenter
+                                RowLayout {
+                                    Layout.fillWidth: true
+                                    // Layout.fillWidth does not seem to be enough to stretch this layout to the full width (maybe
+                                    // because no child has Layout.fillWidth set to true). So we have to set maximumWidth explicitely.
+                                    Layout.maximumWidth: Window.width
                                     Layout.topMargin: Style.margins
                                     Layout.bottomMargin: Style.margins
-                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                    Layout.leftMargin: Style.margins
+                                    Layout.rightMargin: Style.margins
+                                    spacing: Style.margins
+
+                                    CoQrCode {
+                                        id: qrCodeImage
+                                        Layout.alignment: Qt.AlignVCenter
+                                        content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                        logoSource: Qt.resolvedUrl("/ui/images/eebus_logo.svg")
+                                    }
+
+                                    ColorIcon {
+                                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                        size: 24
+                                        color: Style.colors.brand_Basic_Icon_accent
+                                        name: Qt.resolvedUrl("/icons/file_copy.svg")
+
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                PlatformHelper.toClipBoard(qrCodeImage.content);
+                                                ToolTip.show(qsTr("QR code content copied to clipboard"), 1000);
+                                            }
+                                        }
+                                    }
                                 }
+
 
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -559,6 +588,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -570,6 +600,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -587,7 +618,13 @@ StackView {
 
                     onClicked: {
                         if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
+                            // Only remove old control box when it was paired via SKI pairing (i.e.
+                            // if it has pairingType "default".
+                            if (pairingType === "default") {
+                                console.info("Removing existing control box:", eebusGridGuardGateway.name);
+                                engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                            }
                         }
                         root.setGridSupportSettings("eebus");
                         pageStack.push(eebusComfortPairingViewStatus);
@@ -664,11 +701,36 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                CoQrCode {
-                                    Layout.alignment: Qt.AlignHCenter
+                                RowLayout {
+                                    Layout.fillWidth: true
+                                    Layout.maximumWidth: Window.width
                                     Layout.topMargin: Style.margins
                                     Layout.bottomMargin: Style.margins
-                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                    Layout.leftMargin: Style.margins
+                                    Layout.rightMargin: Style.margins
+                                    spacing: Style.margins
+
+                                    CoQrCode {
+                                        id: qrCodeImage
+                                        Layout.alignment: Qt.AlignVCenter
+                                        content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                        logoSource: Qt.resolvedUrl("/ui/images/eebus_logo.svg")
+                                    }
+
+                                    ColorIcon {
+                                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                        size: 24
+                                        color: Style.colors.brand_Basic_Icon_accent
+                                        name: Qt.resolvedUrl("/icons/file_copy.svg")
+
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                PlatformHelper.toClipBoard(qrCodeImage.content);
+                                                ToolTip.show(qsTr("QR code content copied to clipboard"), 1000);
+                                            }
+                                        }
+                                    }
                                 }
 
                                 CoCard {
@@ -676,6 +738,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -687,6 +750,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -698,6 +762,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -867,11 +932,36 @@ StackView {
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
                                 }
 
-                                CoQrCode {
-                                    Layout.alignment: Qt.AlignHCenter
+                                RowLayout {
+                                    Layout.fillWidth: true
+                                    Layout.maximumWidth: Window.width
                                     Layout.topMargin: Style.margins
                                     Layout.bottomMargin: Style.margins
-                                    content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                    Layout.leftMargin: Style.margins
+                                    Layout.rightMargin: Style.margins
+                                    spacing: Style.margins
+
+                                    CoQrCode {
+                                        id: qrCodeImage
+                                        Layout.alignment: Qt.AlignVCenter
+                                        content: eebusInformationThing ? eebusInformationThing.paramByName("localQrCode").value : ""
+                                        logoSource: Qt.resolvedUrl("/ui/images/eebus_logo.svg")
+                                    }
+
+                                    ColorIcon {
+                                        Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+                                        size: 24
+                                        color: Style.colors.brand_Basic_Icon_accent
+                                        name: Qt.resolvedUrl("/icons/file_copy.svg")
+
+                                        MouseArea {
+                                            anchors.fill: parent
+                                            onClicked: {
+                                                PlatformHelper.toClipBoard(qrCodeImage.content);
+                                                ToolTip.show(qsTr("QR code content copied to clipboard"), 1000);
+                                            }
+                                        }
+                                    }
                                 }
 
                                 CoCard {
@@ -879,6 +969,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("secret").value : "-"
                                     labelText: qsTr("Secret Key (SPSEC)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -890,6 +981,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localShipId").value : "-"
                                     labelText: qsTr("SHIP ID (ID)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -901,6 +993,7 @@ StackView {
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localFingerprint").value : "-"
                                     labelText: qsTr("Certificate Fingerprint (SHA-256)")
                                     iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                                    iconRightColor: Style.colors.brand_Basic_Accent
                                     onClicked: {
                                         PlatformHelper.toClipBoard(text);
                                         ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
@@ -1090,7 +1183,7 @@ StackView {
                                         property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
-                                        labelText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                        labelText: index === 0 ? qsTr("This SKI is required by the metering point operator.") : ""
                                         helpText: model.displayName
                                         iconRight: index === 0 ? "/icons/file_copy.svg" : ""
                                         iconRightColor: Style.colors.brand_Basic_Accent
@@ -1285,7 +1378,7 @@ StackView {
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
-                                        helpText: index === 0 ? qsTr("This SKI is required by the network operator.") : ""
+                                        helpText: index === 0 ? qsTr("This SKI is required by the metering point operator.") : ""
                                         iconRight: index === 0 ? "/icons/file_copy.svg" : ""
                                         iconRightColor: Style.colors.brand_Basic_Accent
                                         interactive: index === 0
@@ -1314,7 +1407,7 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
-                                              qsTr("Confirmation by network operator pending") :
+                                              qsTr("Confirmation by metering point operator pending") :
                                               eebusConnectedState == true ?
                                                   qsTr("Connected") :
                                                   qsTr("Not connected")
@@ -1551,7 +1644,7 @@ StackView {
                             property var paramType: thingClass.paramTypes.get(0)
                             property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
                             text: paramValue
-                            labelText: qsTr("This SKI is required by the network operator.")
+                            labelText: qsTr("This SKI is required by the metering point operator.")
                             helpText: qsTr("Local Subject Key Identifier (SKI)")
                             iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
                             iconRightColor: Style.colors.brand_Basic_Accent
@@ -1578,7 +1671,7 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: (!eebusSettings.connected && !eebusSettings.everConnected) ?
-                                      qsTr("Confirmation by network operator pending") :
+                                      qsTr("Confirmation by metering point operator pending") :
                                       eebusConnectedState == true ?
                                           qsTr("Connected") :
                                           qsTr("Not connected")

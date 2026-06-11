@@ -167,3 +167,45 @@ void HeatingConfiguration::setDurationMaxTotal(double durationMaxTotal)
     m_durationMaxTotal = durationMaxTotal;
     emit durationMaxTotalChanged(m_durationMaxTotal);
 }
+
+uint HeatingConfiguration::durationMinDwell() const
+{
+    return m_durationMinDwell;
+}
+
+void HeatingConfiguration::setDurationMinDwell(uint durationMinDwell)
+{
+    if (m_durationMinDwell == durationMinDwell)
+        return;
+
+    m_durationMinDwell = durationMinDwell;
+    emit durationMinDwellChanged(m_durationMinDwell);
+}
+
+double HeatingConfiguration::meanSgr2() const
+{
+    return m_meanSgr2;
+}
+
+void HeatingConfiguration::setMeanSgr2(double meanSgr2)
+{
+    if (m_meanSgr2 == meanSgr2)
+        return;
+
+    m_meanSgr2 = meanSgr2;
+    emit meanSgr2Changed(m_meanSgr2);
+}
+
+double HeatingConfiguration::meanSgr3() const
+{
+    return m_meanSgr3;
+}
+
+void HeatingConfiguration::setMeanSgr3(double meanSgr3)
+{
+    if (m_meanSgr3 == meanSgr3)
+        return;
+
+    m_meanSgr3 = meanSgr3;
+    emit meanSgr3Changed(m_meanSgr3);
+}

@@ -12,6 +12,7 @@ Item {
     property alias valueText: value.text
     property alias labelText: label.text
     property alias infoUrl: label.push
+    property alias infoProperties: label.infoProperties
 
     implicitHeight: valueLayout.implicitHeight + label.implicitHeight + 2 * Style.extraSmallMargins
     implicitWidth: 100

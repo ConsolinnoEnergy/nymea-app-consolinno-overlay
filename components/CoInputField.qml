@@ -8,10 +8,12 @@ import "../components"
 Item {
     id: root
     property alias text: textinput.text
+    property alias displayText: textinput.displayText
     property alias acceptableInput: textinput.acceptableInput
     property alias textField: textinput
     property alias labelText: label.text
     property alias infoUrl: label.push
+    property alias infoProperties: label.infoProperties
     property alias helpText: helpLabel.text
     property alias unit: unitLabel.text
     property alias feedbackText: notification.text
@@ -78,7 +80,7 @@ Item {
             id: notification
             Layout.fillWidth: true
             text: ""
-            visible: root.enabled && text !== "" && !textinput.acceptableInput
+            visible: root.enabled && text !== "" && textinput.hasError
         }
     }
 }

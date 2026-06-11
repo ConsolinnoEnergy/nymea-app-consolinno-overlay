@@ -6,6 +6,7 @@ import Nymea 1.0
 Row {
     property alias text: label.text
     property alias push: infoButton.push
+    property alias infoProperties: infoButton.infoProperties
     property alias font: label.font
     property alias fontColor: label.color
     property alias wrapMode: label.wrapMode

@@ -21,6 +21,7 @@ GenericConfigPage {
     QtObject {
         id: d
         property int pendingCallId: -1
+        readonly property bool pvSurplusModeAvailable: !!(hemsManager.availableUseCases & HemsManager.HemsUseCasePv)
     }
 
     Connections {
@@ -50,14 +51,13 @@ GenericConfigPage {
 
     ListModel {
         id: optimizationModesModel
-        // #TODO wordings
         ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
         ListElement{ name: qsTr("Off"); value: 2 }          // SwitchConfiguration.OptimizationModeManualOff
         ListElement{ name: qsTr("No control"); value: 3 }   // SwitchConfiguration.OptimizationModeNoControl
 
         Component.onCompleted: {
-            if (hemsManager.availableUseCases & HemsManager.HemsUseCasePv) {
-                insert(2, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
+            if (d.pvSurplusModeAvailable) {
+                insert(0, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
             }
             if (!root.consumerConfig) {
                 optimizationModeCombobox.currentIndex = 0;
@@ -103,7 +103,7 @@ GenericConfigPage {
                         id: totalConsumptionCard
                         Layout.fillWidth: true
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
-                        labelText: qsTr("Total consumption") // #TODO wording
+                        labelText: qsTr("Total consumption")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
                     }
                 }
@@ -112,7 +112,7 @@ GenericConfigPage {
                     id: statusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Status") // #TODO wording
+                    headerText: qsTr("Status")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -153,7 +153,7 @@ GenericConfigPage {
                     id: controlGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Control") // #TODO wording
+                    headerText: qsTr("Control")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -163,8 +163,12 @@ GenericConfigPage {
                         CoComboBox {
                             id: optimizationModeCombobox
                             Layout.fillWidth: true
-                            labelText: qsTr("Operating mode") // #TODO wording
+                            labelText: qsTr("Operating mode")
                             infoUrl: "SwitchableConsumerOperatingModeInfo.qml"
+                            infoProperties: ({
+                                pvSurplusModeAvailable: d.pvSurplusModeAvailable
+                            })
+
                             model: optimizationModesModel
                             textRole: "name"
                             valueRole: "value"
@@ -176,7 +180,7 @@ GenericConfigPage {
                     id: pvSurplusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    headerText: qsTr("\"PV Surplus\"")
                     visible: optimizationModeCombobox.currentValue === 0 // SwitchConfiguration.OptimizationModePvSurplus
 
                     ColumnLayout {

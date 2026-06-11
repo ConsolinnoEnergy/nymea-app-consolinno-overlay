@@ -51,9 +51,8 @@ GenericConfigPage {
 
     ListModel {
         id: optimizationModesModel
-        // #TODO wordings
-        ListElement{ name: qsTr("No control"); value: 0 }
         ListElement{ name: qsTr("PV surplus"); value: 1 }
+        ListElement{ name: qsTr("No control"); value: 0 }
     }
 
     content: [
@@ -89,7 +88,7 @@ GenericConfigPage {
                         Layout.preferredWidth: 1
                         Layout.preferredHeight: Math.max(implicitHeight, totalConsumptionCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/device_thermostat.svg")
-                        labelText: qsTr("Current temperature") // #TODO wording
+                        labelText: qsTr("Current temperature")
                         valueText: (root.currentTemperature ? NymeaUtils.floatToLocaleString((+root.currentTemperature.value), 1) : "-") + qsTr(" °C")
                     }
 
@@ -99,7 +98,7 @@ GenericConfigPage {
                         Layout.preferredWidth: 1
                         Layout.preferredHeight: Math.max(implicitHeight, temperatureCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
-                        labelText: qsTr("Total consumption") // #TODO wording
+                        labelText: qsTr("Total consumption")
                         valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
                     }
                 }
@@ -108,7 +107,7 @@ GenericConfigPage {
                     id: statusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Status") // #TODO wording
+                    headerText: qsTr("Status")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -133,11 +132,15 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             interactive: false
                             labelText: qsTr("Power Setpoint Value")
-                            // #TODO use kW for power setpoint value?
-                            text: (root.powerSetpointActive.value ?
-                                       (root.powerSetpoint ? NymeaUtils.floatToLocaleString((+root.powerSetpoint.value), 0) : "-") :
-                                       "-") +
-                                  qsTr(" W")
+                            text: {
+                                if (root.powerSetpointActive.value && root.powerSetpoint) {
+                                    return UiUtils.powerDisplayValue(+root.powerSetpoint.value) +
+                                            " " +
+                                            UiUtils.powerDisplayUnit(+root.powerSetpoint.value);
+                                } else {
+                                    return "- " + qsTr("W");
+                                }
+                            }
                         }
                     }
                 }
@@ -146,7 +149,7 @@ GenericConfigPage {
                     id: controlGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Control") // #TODO wording
+                    headerText: qsTr("Control")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -156,16 +159,16 @@ GenericConfigPage {
                         CoComboBox {
                             id: optimizationModeCombobox
                             Layout.fillWidth: true
-                            labelText: qsTr("Operating mode") // #TODO wording
+                            labelText: qsTr("Operating mode")
                             infoUrl: "HeatingRodOperatingModeInfo.qml"
                             model: optimizationModesModel
                             textRole: "name"
                             valueRole: "value"
                             Component.onCompleted: {
                                 if (!heatingRodConfig) {
-                                    comboBox.currentIndex = 0;
+                                    comboBox.currentIndex = 1;
                                 } else {
-                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 1 : 0;
+                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 0 : 1;
                                 }
                             }
                         }
@@ -176,7 +179,7 @@ GenericConfigPage {
                     id: pvSurplusGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
-                    headerText: qsTr("PV Surplus") // #TODO wording, quotation marks from design?
+                    headerText: qsTr("\"PV Surplus\"")
                     visible: optimizationModeCombobox.currentValue === 1 // PV surplus
 
                     ColumnLayout {

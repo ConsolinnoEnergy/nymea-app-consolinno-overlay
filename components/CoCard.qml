@@ -17,6 +17,7 @@ Item {
 
     property alias text: titleText.text
     property alias infoUrl: titleText.push
+    property alias infoProperties: titleText.infoProperties
     property alias helpText: helpText.text
     property alias labelText: labelText.text
     property bool showChildrenIndicator: false
