@@ -193,24 +193,12 @@ SettingsPageBase {
     }
 
     ColumnLayout {
+        id: layout
         Layout.fillWidth: true
-        Layout.fillHeight: true
         Layout.margins: Style.margins
         spacing: Style.margins
 
-        Flickable {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredHeight: contentHeight
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
-            clip: true
-
-            ColumnLayout {
-                id: layout
-                anchors.fill: parent
-                spacing: Style.margins
-
-                CoFrostyCard {
+        CoFrostyCard {
                     id: informationGroup
                     Layout.fillWidth: true
                     headerText: qsTr("Information")
@@ -403,13 +391,7 @@ SettingsPageBase {
                         }
                     }
                 }
-            }
-        }
-
     }
-
-
-
 
 
     Component {
