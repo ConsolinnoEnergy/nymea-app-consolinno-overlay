@@ -21,6 +21,45 @@ GenericConfigPage {
     readonly property State pvSurplusPowerState: thing.stateByName("actualPvSurplus")
     readonly property State sgReadyModeState: thing.stateByName("sgReadyMode")
 
+    readonly property bool applyEnabled: {
+        if (!root.heatingconfig) { return false; }
+        if (minPVSurplusPower.visible && !minPVSurplusPower.acceptableInput) { return false; }
+        if (minRuntimeStepper.visible && !minRuntimeStepper.acceptableInput) { return false; }
+        if (maxTotalRuntimeStepper.visible && !maxTotalRuntimeStepper.acceptableInput) { return false; }
+
+        if (optimizationModeDropdown.currentIndex >= 0 &&
+                filteredModel.get(optimizationModeDropdown.currentIndex).value !== root.heatingconfig.optimizationMode) { return true; }
+        if (minPVSurplusPower.visible &&
+                parseInt(minPVSurplusPower.text) !== root.heatingconfig.pvSurplusThreshold) {
+            return true;
+        }
+        if (minRuntimeStepper.visible &&
+                minRuntimeStepper.value * 900 !== root.heatingconfig.durationMinAfterTurnOn) {
+            return true;
+        }
+        if (maxTotalRuntimeStepper.visible &&
+                maxTotalRuntimeStepper.value * 900 !== root.heatingconfig.durationMaxTotal) {
+            return true;
+        }
+        if (heatpumpPriceWidget.visible &&
+                -heatpumpPriceWidget.currentRelativeValue !== root.heatingconfig.priceThreshold) {
+            return true;
+        }
+        return false;
+    }
+
+    property Component navbarControls: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
+                                       ? heatpumpNavbarControls : null
+
+    Component {
+        id: heatpumpNavbarControls
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.saveSettings()
+        }
+    }
+
     title: root.thing.name
     headerOptionsVisible: true
     headerOptionsModel: heatingMenuModel
@@ -449,42 +488,6 @@ GenericConfigPage {
                             heatingConfiguration: root.heatingconfig
                             dynamicPriceThing: dynamicPrice.get(0)
                         }
-                    }
-                }
-
-                Button {
-                    id: saveButton
-                    Layout.fillWidth: true
-                    visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                    text: qsTr("Apply changes")
-                    enabled: {
-                        if (!root.heatingconfig) { return false; }
-                        if (minPVSurplusPower.visible && !minPVSurplusPower.acceptableInput) { return false; }
-                        if (minRuntimeStepper.visible && !minRuntimeStepper.acceptableInput) { return false; }
-                        if (maxTotalRuntimeStepper.visible && !maxTotalRuntimeStepper.acceptableInput) { return false; }
-
-                        if (optimizationModeDropdown.currentIndex >= 0 &&
-                                filteredModel.get(optimizationModeDropdown.currentIndex).value !== root.heatingconfig.optimizationMode) { return true; }
-                        if (minPVSurplusPower.visible &&
-                                parseInt(minPVSurplusPower.text) !== root.heatingconfig.pvSurplusThreshold) {
-                            return true;
-                        }
-                        if (minRuntimeStepper.visible &&
-                                minRuntimeStepper.value * 900 !== root.heatingconfig.durationMinAfterTurnOn) {
-                            return true;
-                        }
-                        if (maxTotalRuntimeStepper.visible &&
-                                maxTotalRuntimeStepper.value * 900 !== root.heatingconfig.durationMaxTotal) {
-                            return true;
-                        }
-                        if (heatpumpPriceWidget.visible &&
-                                -heatpumpPriceWidget.currentRelativeValue !== root.heatingconfig.priceThreshold) {
-                            return true;
-                        }
-                        return false;
-                    }
-                    onClicked: {
-                        saveSettings();
                     }
                 }
             }
