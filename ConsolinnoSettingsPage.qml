@@ -329,7 +329,7 @@ MainViewBase {
 
             Item {
                 Layout.fillWidth: true
-                height: root.bottomMargin
+                Layout.preferredHeight: root.bottomMargin
             }
         }
     }
