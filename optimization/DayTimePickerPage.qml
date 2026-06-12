@@ -7,6 +7,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property string dayLabel: ""
     property string initialStartTime: ""
@@ -80,7 +82,7 @@ Page {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: mainColumn.implicitHeight + 40
+        contentHeight: mainColumn.implicitHeight + 40 + root.navigationFooterHeight
 
         ColumnLayout {
             id: mainColumn

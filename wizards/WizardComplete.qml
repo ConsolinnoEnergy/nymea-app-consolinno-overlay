@@ -6,6 +6,8 @@ import Nymea 1.0
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     signal done(bool skip, bool abort)
 
@@ -24,11 +26,11 @@ Page {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
 
                 CoFrostyCard {
                     id: installedDevicesCard
@@ -76,6 +78,7 @@ Page {
 
         Button {
             Layout.fillWidth: true
+            Layout.bottomMargin: root.navigationFooterHeight
             text: qsTr("To the Dashboard")
             onClicked: {
                 root.done(true, false);

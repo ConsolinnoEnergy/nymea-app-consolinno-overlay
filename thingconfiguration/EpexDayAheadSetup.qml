@@ -38,6 +38,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property ThingClass thingClass: thing ? thing.thingClass : null
 
@@ -121,6 +123,14 @@ Page {
         id: internalPageStack
         anchors.fill: parent
     }
+
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
     property QtObject pageStack: QtObject {
         function pop(item) {
             if (internalPageStack.depth > 1) {
@@ -165,7 +175,7 @@ Page {
 
                     ColumnLayout {
                         id: layout
-                        anchors.fill: parent
+                        anchors { left: parent.left; right: parent.right; top: parent.top }
                         spacing: Style.margins
 
                         CoFrostyCard {

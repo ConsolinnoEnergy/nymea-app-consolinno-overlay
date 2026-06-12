@@ -37,6 +37,8 @@ import Nymea 1.0
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property bool settingsWizard: true
     signal done(bool skip, bool abort, bool back)
 
@@ -189,7 +191,7 @@ Page {
             Layout.fillHeight: true
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {

@@ -7,6 +7,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
@@ -19,7 +21,7 @@ Page {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: layout.implicitHeight + app.margins
+        contentHeight: layout.implicitHeight + app.margins + root.navigationFooterHeight
         clip: true
 
         ColumnLayout {

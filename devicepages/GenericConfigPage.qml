@@ -63,8 +63,6 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
-
-        Item { Layout.fillWidth: true; Layout.preferredHeight: root.navigationFooterHeight }
     }
 
     Menu {

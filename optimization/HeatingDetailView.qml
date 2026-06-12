@@ -87,11 +87,12 @@ GenericConfigPage {
             contentHeight: columnLayout.implicitHeight
                            + columnLayout.anchors.topMargin
                            + columnLayout.anchors.bottomMargin
+                           + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
                 id: columnLayout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
 

@@ -40,6 +40,8 @@ import "../customviews"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property Thing thing: null
     property alias device: root.thing
@@ -151,6 +153,7 @@ Page {
 
 
     ListView {
+        bottomMargin: root.navigationFooterHeight
         anchors { left: parent.left; top: graphLoader.bottom; right: parent.right; bottom: parent.bottom }
         clip: true
         model: logsModelNg

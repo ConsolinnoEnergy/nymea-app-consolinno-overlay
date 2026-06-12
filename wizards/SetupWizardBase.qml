@@ -10,6 +10,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     // Required properties to be set by derived wizards
     property string headerTitle: ""
@@ -111,6 +113,14 @@ Page {
         anchors.fill: parent
     }
 
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
+
     Connections {
         target: engine.thingManager
 
@@ -155,143 +165,145 @@ Page {
     }
 
     // Main content layout
-    ColumnLayout {
+    Flickable {
         anchors.fill: parent
-        anchors.margins: Style.margins
-        spacing: Style.margins
+        clip: true
+        contentHeight: mainColumn.implicitHeight + mainColumn.anchors.margins * 2 + root.navigationFooterHeight
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.margins
-            headerText: root.integratedDevicesLabel
+        ColumnLayout {
+            id: mainColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: Style.margins
+            spacing: Style.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
-
-                Flickable {
-                    id: deviceFlickable
-                    clip: true
-                    Layout.fillWidth: true
-                    contentHeight: deviceList.implicitHeight
-                    contentWidth: width
-                    visible: deviceProxy.count !== 0
-
-                    Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
-                    flickableDirection: Flickable.VerticalFlick
-
-                    ColumnLayout {
-                        id: deviceList
-                        width: parent.width
-                        spacing: 0
-
-                        Repeater {
-                            id: deviceRepeater
-                            Layout.fillWidth: true
-                            model: ThingsProxy {
-                                id: deviceProxy
-                                engine: _engine
-                                shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
-                            }
-                            delegate: CoCard {
-                                Layout.fillWidth: true
-                                text: deviceProxy.get(index) ? deviceProxy.get(index).name : ""
-                                iconLeft: Qt.resolvedUrl(root.deviceIcon)
-                                interactive: false
-                            }
-                        }
-                    }
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: app.height / 6
-                    visible: deviceProxy.count === 0
-                    text: root.emptyListText
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
-
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: 8
-            headerText: root.addDeviceLabel
-            visible: root.deviceLimit > 0 ? deviceRepeater.model.count < root.deviceLimit : true
-
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
-
-                CoComboBox {
-                    id: thingClassComboBox
-                    Layout.fillWidth: true
-                    labelText: qsTr("Please select your model:")
-                    textRole: "displayName"
-                    valueRole: "id"
-                    model: ThingClassesProxy {
-                        engine: _engine
-                        filterInterface: root.filterInterface
-                        includeProvidedInterfaces: true
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: Style.margins
-                    Layout.rightMargin: Style.margins
-                    text: qsTr("Add")
-                    onClicked: {
-                        if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
-                            deviceLimitPopup.open();
-                            return;
-                        }
-                        internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
-                    }
-                }
-            }
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        Popup {
-            id: deviceLimitPopup
-            parent: Overlay.overlay
-            x: Math.round((parent.width - width) / 2)
-            y: Math.round((parent.height - height) / 2)
-            width: parent.width
-            height: 100
-            modal: true
-            focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            contentItem: Label {
+            CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-                text: root.limitPopupText
+                contentTopMargin: Style.margins
+                headerText: root.integratedDevicesLabel
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Flickable {
+                        id: deviceFlickable
+                        clip: true
+                        Layout.fillWidth: true
+                        contentHeight: deviceList.implicitHeight
+                        contentWidth: width
+                        visible: deviceProxy.count !== 0
+
+                        Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
+                        flickableDirection: Flickable.VerticalFlick
+
+                        ColumnLayout {
+                            id: deviceList
+                            width: parent.width
+                            spacing: 0
+
+                            Repeater {
+                                id: deviceRepeater
+                                Layout.fillWidth: true
+                                model: ThingsProxy {
+                                    id: deviceProxy
+                                    engine: _engine
+                                    shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
+                                }
+                                delegate: CoCard {
+                                    Layout.fillWidth: true
+                                    text: deviceProxy.get(index) ? deviceProxy.get(index).name : ""
+                                    iconLeft: Qt.resolvedUrl(root.deviceIcon)
+                                    interactive: false
+                                }
+                            }
+                        }
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: app.height / 6
+                        visible: deviceProxy.count === 0
+                        text: root.emptyListText
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                    }
+                }
             }
-        }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            onClicked: root.done(true, false, false)
-        }
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: root.addDeviceLabel
+                visible: root.deviceLimit > 0 ? deviceRepeater.model.count < root.deviceLimit : true
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Cancel")
-            flat: true
-            onClicked: root.done(false, true, false)
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoComboBox {
+                        id: thingClassComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Please select your model:")
+                        textRole: "displayName"
+                        valueRole: "id"
+                        model: ThingClassesProxy {
+                            engine: _engine
+                            filterInterface: root.filterInterface
+                            includeProvidedInterfaces: true
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
+                        text: qsTr("Add")
+                        onClicked: {
+                            if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
+                                deviceLimitPopup.open();
+                                return;
+                            }
+                            internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
+                        }
+                    }
+                }
+            }
+
+            Popup {
+                id: deviceLimitPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: root.limitPopupText
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
         }
     }
 
@@ -596,6 +608,8 @@ Page {
 
         Page {
             id: setupResultPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             property int thingError: Thing.ThingErrorNoError
             property Thing thing: null
@@ -607,7 +621,7 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins; bottomMargin: Style.margins + setupResultPage.navigationFooterHeight }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 

@@ -9,6 +9,8 @@ import "../optimization"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     header: CoHeader {
         text: qsTr("Optimization configuration")
@@ -20,12 +22,12 @@ Page {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
         clip: true
 
         ColumnLayout {
             id: layout
-            anchors.fill: parent
+            anchors { left: parent.left; right: parent.right; top: parent.top }
             anchors.margins: Style.margins
             spacing: Style.margins
 

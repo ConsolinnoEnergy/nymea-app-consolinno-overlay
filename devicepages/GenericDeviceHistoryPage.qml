@@ -37,6 +37,7 @@ GenericConfigPage {
                 id: flickable
                 anchors.fill: parent
                 clip: true
+                bottomMargin: root.navigationFooterHeight
 
                 SwipeDelegateGroup {}
 

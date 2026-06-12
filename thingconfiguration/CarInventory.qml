@@ -10,6 +10,8 @@ import "../delegates"
 
 Page{
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
@@ -66,11 +68,11 @@ Page{
         anchors.fill: parent
         contentHeight: layout.implicitHeight +
                        layout.anchors.topMargin +
-                       layout.anchors.bottomMargin
+                       layout.anchors.bottomMargin + root.navigationFooterHeight
 
         ColumnLayout {
             id: layout
-            anchors.fill: parent
+            anchors { left: parent.left; right: parent.right; top: parent.top }
             anchors.margins: Style.margins
             spacing: Style.margins
 
@@ -158,6 +160,7 @@ Page{
         Button {
             Layout.fillWidth: true
             Layout.margins: Style.margins
+            Layout.bottomMargin: Style.margins + root.navigationFooterHeight
             id: saveButton
             text: qsTr("Apply changes")
             enabled: optimizerRepeater.checkedIndex() !== -1

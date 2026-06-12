@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property PvConfiguration pvConfiguration
     property Thing thing
     property int directionID: 0
@@ -69,11 +71,11 @@ Page {
         clip: true
         contentHeight: contentColumn.implicitHeight +
                        contentColumn.anchors.topMargin +
-                       contentColumn.anchors.bottomMargin
+                       contentColumn.anchors.bottomMargin + root.navigationFooterHeight
 
         ColumnLayout {
             id: contentColumn
-            anchors.fill: parent
+            anchors { left: parent.left; right: parent.right; top: parent.top }
             anchors.margins: app.margins
 
             CoFrostyCard {

@@ -9,6 +9,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property var stack
     property bool pvSurplusModeAvailable: false
 
@@ -21,6 +23,7 @@ Page {
     }
 
     InfoTextInterface {
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
         body: ColumnLayout {
             Layout.fillWidth: true

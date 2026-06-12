@@ -10,6 +10,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     readonly property string eebusGatewayThingClassId: "d7448dd7-cafc-4ef7-9169-09ea657f755c"
     // EEBUS child thing class IDs (auto-created as children of the gateway)
@@ -97,106 +99,108 @@ Page {
         }
     }
 
-    ColumnLayout {
+    Flickable {
         anchors.fill: parent
-        anchors.margins: Style.margins
-        spacing: Style.margins
+        clip: true
+        contentHeight: mainColumn.implicitHeight + mainColumn.anchors.margins * 2 + root.navigationFooterHeight
         // Hidden when opened via directToDiscovery (the list is never shown then).
         visible: !root.directToDiscovery
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.margins
-            headerText: qsTr("Configured EEBUS Devices")
+        ColumnLayout {
+            id: mainColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: Style.margins
+            spacing: Style.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.margins
+                headerText: qsTr("Configured EEBUS Devices")
 
-                Flickable {
-                    id: deviceFlickable
-                    clip: true
-                    Layout.fillWidth: true
-                    contentHeight: deviceList.implicitHeight
-                    contentWidth: width
-                    visible: eebusChildThingsProxy.count > 0
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                    Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
-                    flickableDirection: Flickable.VerticalFlick
+                    Flickable {
+                        id: deviceFlickable
+                        clip: true
+                        Layout.fillWidth: true
+                        contentHeight: deviceList.implicitHeight
+                        contentWidth: width
+                        visible: eebusChildThingsProxy.count > 0
 
-                    ColumnLayout {
-                        id: deviceList
-                        width: parent.width
-                        spacing: 0
+                        Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
+                        flickableDirection: Flickable.VerticalFlick
 
-                        Repeater {
-                            id: deviceRepeater
-                            model: eebusChildThingsProxy
-                            delegate: CoCard {
-                                Layout.fillWidth: true
-                                readonly property Thing thing: eebusChildThingsProxy.get(index)
-                                readonly property Thing parentThing: thing ? engine.thingManager.things.getThing(thing.parentId) : null
-                                text: model.name
-                                helpText: parentThing ? parentThing.name : ""
-                                iconLeft: app.interfacesToIcon(model.interfaces)
+                        ColumnLayout {
+                            id: deviceList
+                            width: parent.width
+                            spacing: 0
+
+                            Repeater {
+                                id: deviceRepeater
+                                model: eebusChildThingsProxy
+                                delegate: CoCard {
+                                    Layout.fillWidth: true
+                                    readonly property Thing thing: eebusChildThingsProxy.get(index)
+                                    readonly property Thing parentThing: thing ? engine.thingManager.things.getThing(thing.parentId) : null
+                                    text: model.name
+                                    helpText: parentThing ? parentThing.name : ""
+                                    iconLeft: app.interfacesToIcon(model.interfaces)
+                                }
                             }
                         }
                     }
-                }
 
-                Label {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: app.height / 6
-                    visible: eebusChildThingsProxy.count === 0
-                    text: qsTr("No EEBUS devices configured yet.")
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
-
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.margins
-            headerText: qsTr("Add EEBUS Device")
-
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.rightMargin: Style.margins
-                anchors.leftMargin: Style.margins
-                spacing: 0
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Search in network")
-                    onClicked: {
-                        var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
-                        discovery.discoverThings(root.eebusGatewayThingClassId);
-                        root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: app.height / 6
+                        visible: eebusChildThingsProxy.count === 0
+                        text: qsTr("No EEBUS devices configured yet.")
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
                     }
                 }
             }
-        }
 
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.margins
+                headerText: qsTr("Add EEBUS Device")
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            onClicked: root.done(true, false, false)
-        }
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.rightMargin: Style.margins
+                    anchors.leftMargin: Style.margins
+                    spacing: 0
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Cancel")
-            flat: true
-            onClicked: root.done(false, true, false)
+                    Button {
+                        Layout.fillWidth: true
+                        text: qsTr("Search in network")
+                        onClicked: {
+                            var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
+                            discovery.discoverThings(root.eebusGatewayThingClassId);
+                            root._discoveryPageInstance = pageStack.push(discoveryPage, {thingClass: thingClass});
+                        }
+                    }
+                }
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            Button {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
         }
     }
 
@@ -414,6 +418,8 @@ Page {
 
         Page {
             id: waitingPage
+        bottomPadding: navigationFooterHeight
+            property int navigationFooterHeight: 0
 
             property var gatewayThingId: null
 
@@ -670,6 +676,8 @@ Page {
 
         Page {
             id: setupResultPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             property int thingError: Thing.ThingErrorNoError
             property Thing thing: null
@@ -681,7 +689,7 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins; bottomMargin: Style.margins + setupResultPage.navigationFooterHeight }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 

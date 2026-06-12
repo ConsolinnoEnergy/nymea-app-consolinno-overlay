@@ -16,6 +16,7 @@ Item {
     property var summaryText: false
     property alias body: bodyContainer.children
     property var infofooter: false
+    property int navigationFooterHeight: 0
     signal furtherReading(var link)
     ScrollView{
         clip: true
@@ -23,6 +24,7 @@ Item {
         anchors.top: parent.top
         width: parent.width
         height: parent.height
+        bottomPadding: interfaceItem.navigationFooterHeight
     ColumnLayout{
         id: upperColumn
         anchors.top: parent.top

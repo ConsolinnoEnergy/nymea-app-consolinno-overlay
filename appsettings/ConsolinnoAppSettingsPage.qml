@@ -6,6 +6,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     header: CoHeader {
         text: qsTr("App Settings")
         backButtonVisible: true
@@ -14,7 +16,7 @@ Page {
 
     Flickable {
         anchors.fill: parent
-        contentHeight: layout.implicitHeight
+        contentHeight: layout.implicitHeight + root.navigationFooterHeight
         clip: true
 
         GridLayout {

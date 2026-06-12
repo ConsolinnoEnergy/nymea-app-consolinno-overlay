@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property var stack
     property bool hasBattery: false
     property double batteryTargetSoc: 0
@@ -20,6 +22,7 @@ Page {
         onBackPressed: stack.pop()
     }
     InfoTextInterface {
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
         body: ColumnLayout {
             Layout.fillWidth: true

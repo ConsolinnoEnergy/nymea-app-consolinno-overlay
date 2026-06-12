@@ -8,6 +8,8 @@ import "../delegates"
 
 Page{
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     signal done(bool saved, bool skip, bool back)
     property int directionID: 0
 
@@ -34,12 +36,12 @@ Page{
         Flickable {
             Layout.fillHeight: true
             Layout.fillWidth: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 spacing: Style.margins
 
                 CoFrostyCard {
@@ -111,6 +113,7 @@ Page{
             Layout.fillWidth: true
             text: qsTr("Skip")
             flat: true
+            Layout.bottomMargin: root.navigationFooterHeight
             onClicked:{
                 root.done(false, true, false);
             }

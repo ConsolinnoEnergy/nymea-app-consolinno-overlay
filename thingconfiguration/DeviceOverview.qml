@@ -9,6 +9,8 @@ import Nymea 1.0
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     signal startWizard()
 
     header: CoHeader {
@@ -98,12 +100,12 @@ Page {
         Flickable {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 spacing: Style.margins
 
                 Repeater {
@@ -175,6 +177,7 @@ Page {
         Button{
             id: addDevice
             Layout.fillWidth: true
+            Layout.bottomMargin: root.navigationFooterHeight
             text: qsTr("Set up new device")
             onClicked: {
                 pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 });

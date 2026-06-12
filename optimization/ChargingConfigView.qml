@@ -362,7 +362,7 @@ GenericConfigPage {
 
             ColumnLayout {
                 id: contentColumn
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
@@ -813,6 +813,8 @@ GenericConfigPage {
 
         Page{
             id: optimizationPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             signal done()
 
@@ -909,12 +911,13 @@ GenericConfigPage {
                 anchors.fill: parent
                 contentHeight: optimizationPageLayout.implicitHeight +
                                optimizationPageLayout.anchors.topMargin +
-                               optimizationPageLayout.anchors.bottomMargin
+                               optimizationPageLayout.anchors.bottomMargin +
+                               optimizationPage.navigationFooterHeight
                 clip: true
 
                 ColumnLayout {
                     id: optimizationPageLayout
-                    anchors.fill: parent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
                     anchors.margins: Style.margins
                     spacing: Style.margins
 

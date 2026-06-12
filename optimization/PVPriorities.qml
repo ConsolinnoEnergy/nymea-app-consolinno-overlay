@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property int directionID: 0
     property string alwaysEnabledThingId: ""
 
@@ -163,7 +165,7 @@ Page {
         Flickable {
             Layout.fillWidth: true
             Layout.fillHeight: true
-            contentHeight: flickableContent.implicitHeight
+            contentHeight: flickableContent.implicitHeight + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
@@ -283,6 +285,7 @@ Page {
         Button {
             id: savebutton
             Layout.fillWidth: true
+            Layout.bottomMargin: root.navigationFooterHeight
             text: qsTr("Apply changes")
             enabled: {
                 // ListModel.move() and clear()+append() do not change any property that
