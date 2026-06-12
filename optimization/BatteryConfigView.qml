@@ -463,7 +463,7 @@ GenericConfigPage {
         Pane {
             padding: Style.margins
             background: null
-            contentItem: Button {
+            contentItem: CoNavbarButton {
                 text: qsTr("Apply changes")
                 enabled: root.applyEnabled
                 onClicked: root.applyChanges()
