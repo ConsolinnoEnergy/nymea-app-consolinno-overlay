@@ -39,7 +39,37 @@ SettingsPageBase {
     id: root
     property Thing thing: null
     property var stateTypes: []
+    property Component navbarControls: configureThingControls
     busy: d.pendingCommand != -1
+
+    Component {
+        id: configureThingControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Apply")
+                enabled: settingsRepeater.dirty
+                visible: settingsRepeater.count > 0
+
+                onClicked: {
+                    var params = []
+                    for (var i = 0; i < settingsRepeater.count; i++) {
+                        if (!settingsRepeater.itemAt(i).dirty) {
+                            continue;
+                        }
+                        var setting = {}
+                        setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
+                        setting["value"] = settingsRepeater.itemAt(i).param.value
+                        params.push(setting)
+                    }
+
+                    engine.thingManager.setThingSettings(root.thing.id, params);
+                }
+            }
+        }
+    }
 
     readonly property bool isEpexDayAheadThing: root.thing.thingClassId.toString() === "{678dd2a6-b162-4bfb-98cc-47f225f9008c}"
 
@@ -172,7 +202,7 @@ SettingsPageBase {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: contentHeight
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
@@ -376,27 +406,6 @@ SettingsPageBase {
             }
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Apply")
-            enabled: settingsRepeater.dirty
-            visible: settingsRepeater.count > 0
-
-            onClicked: {
-                var params = []
-                for (var i = 0; i < settingsRepeater.count; i++) {
-                    if (!settingsRepeater.itemAt(i).dirty) {
-                        continue;
-                    }
-                    var setting = {}
-                    setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
-                    setting["value"] = settingsRepeater.itemAt(i).param.value
-                    params.push(setting)
-                }
-
-                engine.thingManager.setThingSettings(root.thing.id, params);
-            }
-        }
     }
 
 

@@ -29,6 +29,29 @@ Page {
 
     // Optional: custom success handler (e.g., SolarInverter pushes PVOptimization)
     property var onSuccessHandler: null
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : setupWizardBaseControls
+
+    Component {
+        id: setupWizardBaseControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
+        }
+    }
 
     // Signals
     signal done(bool skip, bool abort, bool back)
@@ -292,18 +315,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                text: qsTr("Next")
-                onClicked: root.done(true, false, false)
-            }
-
-            Button {
-                Layout.fillWidth: true
-                text: qsTr("Cancel")
-                flat: true
-                onClicked: root.done(false, true, false)
-            }
         }
     }
 
@@ -344,6 +355,31 @@ Page {
             id: discoveryParamsView
 
             property ThingClass thingClass
+            property Component navbarControls: discoveryParamsControls
+
+            Component {
+                id: discoveryParamsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value;
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                            pageStack.push(discoveryPage, {thingClass: thingClass});
+                        }
+                    }
+                }
+            }
 
             title: qsTr("Discover %1").arg(thingClass.displayName)
             header: CoHeader {
@@ -374,23 +410,6 @@ Page {
                         }
                     }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-                        text: qsTr("Next")
-                        onClicked: {
-                            var paramTypes = thingClass.discoveryParamTypes;
-                            d.discoveryParams = [];
-                            for (var i = 0; i < paramTypes.count; i++) {
-                                var param = {};
-                                param["paramTypeId"] = paramTypes.get(i).id;
-                                param["value"] = paramRepeater.itemAt(i).value;
-                                d.discoveryParams.push(param);
-                            }
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                            pageStack.push(discoveryPage, {thingClass: thingClass});
-                        }
-                    }
                 }
             }
         }
@@ -405,6 +424,23 @@ Page {
 
             property ThingClass thingClass
             property Thing thing
+            property Component navbarControls: discoveryControls
+
+            Component {
+                id: discoveryControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                        }
+                        visible: !discovery.busy
+                    }
+                }
+            }
 
             header: CoHeader {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
@@ -457,7 +493,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -476,16 +512,6 @@ Page {
                 }
             }
 
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Search again")
-                onClicked: {
-                    discovery.discoverThings(thingClass.id, d.discoveryParams);
-                }
-                visible: !discovery.busy
-            }
         }
     }
 
@@ -498,6 +524,35 @@ Page {
 
             property Thing thing
             property ThingClass thingClass
+            property Component navbarControls: paramsControls
+
+            Component {
+                id: paramsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            var params = [];
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {};
+                                var paramType = paramRepeater.itemAt(i).paramType;
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id;
+                                    param.value = paramRepeater.itemAt(i).value;
+                                    print("adding param", param.paramTypeId, param.value);
+                                    params.push(param);
+                                }
+                            }
+                            d.params = params;
+                            d.name = nameTextField.text;
+                            d.pairThing(thingClass, thing);
+                        }
+                    }
+                }
+            }
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
             header: CoHeader {
@@ -571,30 +626,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.topMargin: Style.margins
-
-                text: qsTr("OK")
-                onClicked: {
-                    var params = [];
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {};
-                        var paramType = paramRepeater.itemAt(i).paramType;
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id;
-                            param.value = paramRepeater.itemAt(i).value;
-                            print("adding param", param.paramTypeId, param.value);
-                            params.push(param);
-                        }
-                    }
-                    d.params = params;
-                    d.name = nameTextField.text;
-                    d.pairThing(thingClass, thing);
-                }
-            }
         }
     }
 
@@ -610,6 +641,26 @@ Page {
             id: setupResultPage
             bottomPadding: 0
             property int navigationFooterHeight: 0
+            property Component navbarControls: setupResultControls
+
+            Component {
+                id: setupResultControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            if (root.onSuccessHandler && thing) {
+                                root.onSuccessHandler(thing);
+                            } else {
+                                root.done(false, false, false);
+                            }
+                        }
+                    }
+                }
+            }
 
             property int thingError: Thing.ThingErrorNoError
             property Thing thing: null
@@ -663,23 +714,6 @@ Page {
                     visible: setupResultPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ColumnLayout {
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
-
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        text: qsTr("Next")
-                        onClicked: {
-                            if (root.onSuccessHandler && thing) {
-                                root.onSuccessHandler(thing);
-                            } else {
-                                root.done(false, false, false);
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -695,6 +729,23 @@ Page {
             property var transactionId
             property alias text: textLabel.text
             property string setupMethod
+            property Component navbarControls: pairingControls
+
+            Component {
+                id: pairingControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
+                            busyOverlay.shown = true;
+                        }
+                    }
+                }
+            }
 
             title: qsTr("Reconfigure %1").arg(d.thingName)
             header: CoHeader {
@@ -737,15 +788,6 @@ Page {
                         signup: false
                     }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-                        text: qsTr("OK")
-                        onClicked: {
-                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
-                            busyOverlay.shown = true;
-                        }
-                    }
                 }
             }
         }
@@ -761,6 +803,36 @@ Page {
             property string thingId
             property int thingError
             property string message
+            property int navigationFooterHeight: 0
+            property Component navbarControls: resultsControls
+
+            Component {
+                id: resultsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: !resultsView.success
+                        text: qsTr("Retry")
+                        onClicked: {
+                            d.pairThing();
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Ok")
+                        onClicked: {
+                            if (root.onSuccessHandler && resultsView.thing) {
+                                root.onSuccessHandler(resultsView.thing);
+                            } else {
+                                root.done(false, false, false);
+                            }
+                        }
+                    }
+                }
+            }
 
             readonly property bool success: thingError === Thing.ThingErrorNoError
             readonly property Thing thing: engine.thingManager.things.getThing(thingId)
@@ -798,30 +870,6 @@ Page {
                     text: resultsView.message
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    visible: !resultsView.success
-                    text: qsTr("Retry")
-                    onClicked: {
-                        d.pairThing();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("Ok")
-                    onClicked: {
-                        if (root.onSuccessHandler && resultsView.thing) {
-                            root.onSuccessHandler(resultsView.thing);
-                        } else {
-                            root.done(false, false, false);
-                        }
-                    }
-                }
             }
         }
     }

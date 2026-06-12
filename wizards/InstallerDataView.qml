@@ -12,6 +12,38 @@ Page{
     property int navigationFooterHeight: 0
     signal done(bool saved, bool skip, bool back)
     property int directionID: 0
+    property Component navbarControls: installerDataControls
+
+    Component {
+        id: installerDataControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked:{
+                    hemsManager.setUserConfiguration(
+                                {
+                                    installerName: nameField.text,
+                                    installerEmail: emailField.text,
+                                    installerPhoneNr: numberField.text,
+                                    installerWorkplace: companyField.text
+                                });
+                    root.done(true, false, false);
+                }
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Skip")
+                flat: true
+                onClicked:{
+                    root.done(false, true, false);
+                }
+            }
+        }
+    }
 
     header: CoHeader {
         text: qsTr("Contact")
@@ -94,29 +126,5 @@ Page{
             }
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            onClicked:{
-                hemsManager.setUserConfiguration(
-                            {
-                                installerName: nameField.text,
-                                installerEmail: emailField.text,
-                                installerPhoneNr: numberField.text,
-                                installerWorkplace: companyField.text
-                            });
-                root.done(true, false, false);
-            }
-        }
-
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Skip")
-            flat: true
-            Layout.bottomMargin: root.navigationFooterHeight
-            onClicked:{
-                root.done(false, true, false);
-            }
-        }
     }
 }

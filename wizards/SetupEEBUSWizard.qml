@@ -30,6 +30,27 @@ Page {
 
     // Holds the discovery page instance so we can pop back to it on cancel.
     property var _discoveryPageInstance: null
+    property Component navbarControls: eebusWizardControls
+
+    Component {
+        id: eebusWizardControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
+        }
+    }
 
     header: CoHeader {
         text: qsTr("EEBUS Devices")
@@ -189,18 +210,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                text: qsTr("Next")
-                onClicked: root.done(true, false, false)
-            }
-
-            Button {
-                Layout.fillWidth: true
-                text: qsTr("Cancel")
-                flat: true
-                onClicked: root.done(false, true, false)
-            }
         }
     }
 
@@ -212,6 +221,23 @@ Page {
             id: discoveryView
 
             property ThingClass thingClass
+            property Component navbarControls: discoveryControls
+
+            Component {
+                id: discoveryControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(root.eebusGatewayThingClassId);
+                        }
+                        visible: !discovery.busy
+                    }
+                }
+            }
 
             header: CoHeader {
                 text: qsTr("Discover EEBUS Devices")
@@ -272,7 +298,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -291,16 +317,6 @@ Page {
                 }
             }
 
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Search again")
-                onClicked: {
-                    discovery.discoverThings(root.eebusGatewayThingClassId);
-                }
-                visible: !discovery.busy
-            }
         }
     }
 
@@ -312,6 +328,40 @@ Page {
             id: paramsView
 
             property ThingClass thingClass
+            property Component navbarControls: paramsControls
+
+            Component {
+                id: paramsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            var params = [];
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {};
+                                var paramType = paramRepeater.itemAt(i).paramType;
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id;
+                                    param.value = paramRepeater.itemAt(i).value;
+                                    params.push(param);
+                                }
+                            }
+                            d.params = params;
+                            d.name = nameTextField.text;
+
+                            if (d.thingDescriptor) {
+                                engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
+                            } else {
+                                engine.thingManager.addThing(thingClass.id, d.name, params);
+                            }
+                            paramsView.busy = true;
+                        }
+                    }
+                }
+            }
 
             title: qsTr("Set up %1").arg(d.thingName ? d.thingName : (thingClass ? thingClass.displayName : ""))
             header: CoHeader {
@@ -378,35 +428,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.topMargin: Style.margins
-
-                text: qsTr("OK")
-                onClicked: {
-                    var params = [];
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {};
-                        var paramType = paramRepeater.itemAt(i).paramType;
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id;
-                            param.value = paramRepeater.itemAt(i).value;
-                            params.push(param);
-                        }
-                    }
-                    d.params = params;
-                    d.name = nameTextField.text;
-
-                    if (d.thingDescriptor) {
-                        engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
-                    } else {
-                        engine.thingManager.addThing(thingClass.id, d.name, params);
-                    }
-                    paramsView.busy = true;
-                }
-            }
         }
     }
 
@@ -418,8 +439,70 @@ Page {
 
         Page {
             id: waitingPage
-        bottomPadding: navigationFooterHeight
+            bottomPadding: 0
             property int navigationFooterHeight: 0
+            property Component navbarControls: waitingControls
+
+            Component {
+                id: waitingControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: d2.state === "success"
+                        text: qsTr("OK")
+                        onClicked: {
+                            var childThing = d2.childThing
+                            var classId = waitingPage.normalizeUuid(childThing.thingClassId)
+                            var optPage = null
+
+                            if (classId === "15e6bb51-ef91-4668-9f6f-a43413d4ee4b") {
+                                // EEBUS Wallbox → EV charger optimisation
+                                optPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
+                                    thing: childThing,
+                                    directionID: 1
+                                })
+                            } else if (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158") {
+                                // EEBUS Heatpump → heating optimisation
+                                optPage = pageStack.push("../optimization/HeatingOptimization.qml", {
+                                    heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(childThing.id),
+                                    heatPumpThing: childThing,
+                                    directionID: 1
+                                })
+                            } else {
+                                // No optimisation screen for inverter / GridGuard
+                                pageStack.pop(root, StackView.Immediate)
+                                if (root.directToDiscovery) {
+                                    root.done(true, false, false)
+                                }
+                                return
+                            }
+
+                            if (optPage) {
+                                optPage.done.connect(function() {
+                                    pageStack.pop(root, StackView.Immediate)
+                                    if (root.directToDiscovery) {
+                                        root.done(true, false, false)
+                                    }
+                                })
+                            }
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: d2.state === "timeout_error" || d2.state === "limit_error"
+                        text: qsTr("OK")
+                        onClicked: {
+                            pageStack.pop(root, StackView.Immediate)
+                            if (root.directToDiscovery) {
+                                root.done(true, false, false)
+                            }
+                        }
+                    }
+                }
+            }
 
             property var gatewayThingId: null
 
@@ -611,61 +694,6 @@ Page {
 
                 Item { Layout.fillHeight: true }
 
-                // OK button – success: open optimisation page
-                Button {
-                    Layout.fillWidth: true
-                    visible: d2.state === "success"
-                    text: qsTr("OK")
-                    onClicked: {
-                        var childThing = d2.childThing
-                        var classId = waitingPage.normalizeUuid(childThing.thingClassId)
-                        var optPage = null
-
-                        if (classId === "15e6bb51-ef91-4668-9f6f-a43413d4ee4b") {
-                            // EEBUS Wallbox → EV charger optimisation
-                            optPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
-                                thing: childThing,
-                                directionID: 1
-                            })
-                        } else if (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158") {
-                            // EEBUS Heatpump → heating optimisation
-                            optPage = pageStack.push("../optimization/HeatingOptimization.qml", {
-                                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(childThing.id),
-                                heatPumpThing: childThing,
-                                directionID: 1
-                            })
-                        } else {
-                            // No optimisation screen for inverter / GridGuard
-                            pageStack.pop(root, StackView.Immediate)
-                            if (root.directToDiscovery) {
-                                root.done(true, false, false)
-                            }
-                            return
-                        }
-
-                        if (optPage) {
-                            optPage.done.connect(function() {
-                                pageStack.pop(root, StackView.Immediate)
-                                if (root.directToDiscovery) {
-                                    root.done(true, false, false)
-                                }
-                            })
-                        }
-                    }
-                }
-
-                // OK button – error: go back
-                Button {
-                    Layout.fillWidth: true
-                    visible: d2.state === "timeout_error" || d2.state === "limit_error"
-                    text: qsTr("OK")
-                    onClicked: {
-                        pageStack.pop(root, StackView.Immediate)
-                        if (root.directToDiscovery) {
-                            root.done(true, false, false)
-                        }
-                    }
-                }
             }
         }
     }
@@ -678,6 +706,25 @@ Page {
             id: setupResultPage
             bottomPadding: 0
             property int navigationFooterHeight: 0
+            property Component navbarControls: setupResultControls
+
+            Component {
+                id: setupResultControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            pageStack.pop(root);
+                            if (root.directToDiscovery) {
+                                root.done(true, false, false)
+                            }
+                        }
+                    }
+                }
+            }
 
             property int thingError: Thing.ThingErrorNoError
             property Thing thing: null
@@ -703,22 +750,6 @@ Page {
                     visible: setupResultPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ColumnLayout {
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
-
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        text: qsTr("OK")
-                        onClicked: {
-                            pageStack.pop(root);
-                            if (root.directToDiscovery) {
-                                root.done(true, false, false)
-                            }
-                        }
-                    }
-                }
             }
         }
     }

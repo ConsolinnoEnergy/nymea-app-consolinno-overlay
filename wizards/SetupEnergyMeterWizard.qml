@@ -9,6 +9,25 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : energyMeterControls
+
+    Component {
+        id: energyMeterControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true)
+            }
+        }
+    }
 
     signal done(bool skip, bool abort);
 
@@ -82,6 +101,14 @@ Page {
         anchors.fill: parent
     }
 
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
+
 
     Connections {
         target: engine.thingManager
@@ -140,12 +167,6 @@ Page {
             Layout.fillHeight: true
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Cancel")
-            flat: true
-            onClicked: root.done(false, true)
-        }
     }
 
     // This Component Looks at the thingClass and decides based on the createMethod, which "Route" of the
@@ -189,6 +210,31 @@ Page {
         SettingsPageBase {
 
             property ThingClass thingClass
+            property Component navbarControls: discoveryParamsControls
+
+            Component {
+                id: discoveryParamsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value;
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                            pageStack.push(discoveryPage, { thingClass: thingClass });
+                        }
+                    }
+                }
+            }
 
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
@@ -220,23 +266,6 @@ Page {
                         }
                     }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-                        text: qsTr("Next")
-                        onClicked: {
-                            var paramTypes = thingClass.discoveryParamTypes;
-                            d.discoveryParams = [];
-                            for (var i = 0; i < paramTypes.count; i++) {
-                                var param = {};
-                                param["paramTypeId"] = paramTypes.get(i).id;
-                                param["value"] = paramRepeater.itemAt(i).value;
-                                d.discoveryParams.push(param);
-                            }
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                            pageStack.push(discoveryPage, { thingClass: thingClass });
-                        }
-                    }
                 }
             }
 
@@ -252,6 +281,23 @@ Page {
 
             property ThingClass thingClass
             property Thing thing
+            property Component navbarControls: discoveryControls
+
+            Component {
+                id: discoveryControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                        }
+                        visible: !discovery.busy
+                    }
+                }
+            }
 
             header: CoHeader {
                 text: qsTr("Discover %1").arg(thingClass.displayName)
@@ -304,7 +350,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -323,16 +369,6 @@ Page {
                 }
             }
 
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Search again")
-                onClicked: {
-                    discovery.discoverThings(thingClass.id, d.discoveryParams);
-                }
-                visible: !discovery.busy
-            }
         }
     }
 
@@ -343,6 +379,35 @@ Page {
             id: paramsView
             property Thing thing
             property ThingClass thingClass
+            property Component navbarControls: paramsControls
+
+            Component {
+                id: paramsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            var params = [];
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {};
+                                var paramType = paramRepeater.itemAt(i).paramType;
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id;
+                                    param.value = paramRepeater.itemAt(i).value;
+                                    print("adding param", param.paramTypeId, param.value);
+                                    params.push(param);
+                                }
+                            }
+                            d.params = params;
+                            d.name = nameTextField.text;
+                            d.pairThing(thingClass, thing);
+                        }
+                    }
+                }
+            }
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
             header: CoHeader {
@@ -417,30 +482,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.topMargin: Style.margins
-
-                text: "OK"
-                onClicked: {
-                    var params = [];
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {};
-                        var paramType = paramRepeater.itemAt(i).paramType;
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id;
-                            param.value = paramRepeater.itemAt(i).value;
-                            print("adding param", param.paramTypeId, param.value);
-                            params.push(param);
-                        }
-                    }
-                    d.params = params;
-                    d.name = nameTextField.text;
-                    d.pairThing(thingClass, thing);
-                }
-            }
         }
     }
 
@@ -454,6 +495,24 @@ Page {
         id: setupEnergyMeterComponent
         Page {
             id: setupEnergyMeterPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: setupEnergyMeterControls
+
+            Component {
+                id: setupEnergyMeterControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            root.done(false, false);
+                        }
+                    }
+                }
+            }
 
             header: CoHeader {
                 text: qsTr("Setup energy meter")
@@ -536,13 +595,6 @@ Page {
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Next")
-                    onClicked: {
-                        root.done(false, false);
-                    }
-                }
             }
         }
     }

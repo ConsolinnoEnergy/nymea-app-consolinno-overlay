@@ -15,6 +15,12 @@ Page {
     signal aborted();
     signal done();
 
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : null
+
 
     QtObject {
         id: d
@@ -60,6 +66,14 @@ Page {
         anchors.fill: parent
     }
 
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
+
     property QtObject pageStack: QtObject {
         function pop(item) {
             if (internalPageStack.depth > 1) {
@@ -76,6 +90,50 @@ Page {
         SettingsPageBase {
             id: addCarPage
             title: qsTr("Add new car")
+            property Component navbarControls: addCarControls
+
+            Component {
+                id: addCarControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        enabled: {
+                            if (nameInput.text === "") {
+                                return false;
+                            }
+                            let capacity = parseInt(capacityInput.text);
+                            if (isNaN(capacity)) {
+                                return false;
+                            }
+                            return true;
+                        }
+                        onClicked: {
+                            var states = [];
+                            var settings = [];
+                            var capacitySetting = {};
+                            capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
+                            capacitySetting.value = parseInt(capacityInput.text);
+                            settings.push(capacitySetting);
+                            var minChargingCurrentSetting = {};
+                            minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
+                            minChargingCurrentSetting.value = minChargingCurrentInput.value;
+                            settings.push(minChargingCurrentSetting);
+                            var maxChargingLimitState = {};
+                            maxChargingLimitState.name = "batteryLevelLimit";
+                            maxChargingLimitState.value = maxChargingLimitInput.value;
+                            states.push(maxChargingLimitState);
+                            d.name = nameInput.text;
+                            d.settings = settings;
+                            d.states = states;
+                            d.pairThing();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: addCarPage.title
                 backButtonVisible: true
@@ -141,42 +199,6 @@ Page {
                     }
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("OK")
-                    enabled: {
-                        if (nameInput.text === "") {
-                            return false;
-                        }
-                        let capacity = parseInt(capacityInput.text);
-                        if (isNaN(capacity)) {
-                            return false;
-                        }
-                        return true;
-                    }
-                    onClicked: {
-                        var states = [];
-                        var settings = [];
-                        var capacitySetting = {};
-                        capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
-                        capacitySetting.value = parseInt(capacityInput.text);
-                        settings.push(capacitySetting);
-                        var minChargingCurrentSetting = {};
-                        minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
-                        minChargingCurrentSetting.value = minChargingCurrentInput.value;
-                        settings.push(minChargingCurrentSetting);
-                        var maxChargingLimitState = {};
-                        maxChargingLimitState.name = "batteryLevelLimit";
-                        maxChargingLimitState.value = maxChargingLimitInput.value;
-                        states.push(maxChargingLimitState);
-                        d.name = nameInput.text;
-                        d.settings = settings;
-                        d.states = states;
-                        d.pairThing();
-                    }
-                }
             }
         }
     }
@@ -187,6 +209,36 @@ Page {
 
         Page {
             id: resultsView
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: resultsControls
+
+            Component {
+                id: resultsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: !resultsView.success
+                        text: qsTr("Retry")
+                        onClicked: {
+                            internalPageStack.pop({immediate: true});
+                            internalPageStack.pop({immediate: true});
+                            d.pairThing();
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Ok")
+                        onClicked: {
+                            root.done();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Add generic car")
                 onBackPressed: pageStack.pop()
@@ -226,27 +278,6 @@ Page {
                     text: resultsView.message
                 }
 
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    visible: !resultsView.success
-                    text: qsTr("Retry")
-                    onClicked: {
-                        internalPageStack.pop({immediate: true});
-                        internalPageStack.pop({immediate: true});
-                        d.pairThing();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
-                    text: qsTr("Ok")
-                    onClicked: {
-                        root.done();
-                    }
-                }
             }
         }
     }
