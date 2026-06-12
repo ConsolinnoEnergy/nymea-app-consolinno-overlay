@@ -31,6 +31,13 @@ GenericConfigPage {
     property double lowestPrice: 0
     property double highestPrice: 0
 
+    property bool applyEnabled: false
+
+    function applyChanges() {
+        saveSettings()
+        root.applyEnabled = false
+    }
+
     // #TODO copied from CoDashboardView.qml -> extract to some common utils file
     function batteryIconByLevel(batteryLevel) {
         let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
@@ -117,7 +124,7 @@ GenericConfigPage {
 
     function enableSave(obj)
     {
-        saveButton.enabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
+        root.applyEnabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
                 batteryConfiguration.optimizationEnabled !== tariffControlledChargingToggle.checked ||
@@ -445,20 +452,22 @@ GenericConfigPage {
                         }
                     }
                 }
-
-                Button {
-                    id: saveButton
-                    Layout.fillWidth: true
-                    text: qsTr("Apply changes")
-                    enabled: false
-                    visible: thing.thingClass.interfaces.indexOf("battery") >= 0
-
-                    onClicked: {
-                        saveSettings()
-                        saveButton.enabled = false
-                    }
-                }
             }
         }
     ]
+
+    property Component navbarControls: thing.thingClass.interfaces.indexOf("battery") >= 0 ? batteryNavbarControls : null
+
+    Component {
+        id: batteryNavbarControls
+        Pane {
+            padding: Style.margins
+            background: null
+            contentItem: Button {
+                text: qsTr("Apply changes")
+                enabled: root.applyEnabled
+                onClicked: root.applyChanges()
+            }
+        }
+    }
 }
