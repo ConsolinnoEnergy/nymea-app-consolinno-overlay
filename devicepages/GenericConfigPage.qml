@@ -64,7 +64,7 @@ Item {
             Layout.fillWidth: true
         }
 
-        Item { Layout.fillWidth: true; height: root.navigationFooterHeight }
+        Item { Layout.fillWidth: true; Layout.preferredHeight: root.navigationFooterHeight }
     }
 
     Menu {
