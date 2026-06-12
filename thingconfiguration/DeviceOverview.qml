@@ -82,11 +82,13 @@ Page {
     WizardController {
         id: wizardController
         onWizardDone: {
-            // Nach dem Wizard: zurück zum Dashboard.
-            // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
-            // Je zweimal poppen.
-            pageStack.pop()
-            pageStack.pop()
+            // ESUI-879: Settings is itself a main view tab now. Pop back to
+            // MainPage and switch the active tab to the dashboard.
+            var mainPage = pageStack.get(0)
+            pageStack.pop(mainPage)
+            if (mainPage && mainPage.goToView) {
+                mainPage.goToView("consolinnoDashboard", undefined, true)
+            }
         }
     }
 
