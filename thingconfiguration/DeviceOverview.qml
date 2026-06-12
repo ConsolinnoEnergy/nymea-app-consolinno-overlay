@@ -13,6 +13,25 @@ Page {
     property int navigationFooterHeight: 0
     signal startWizard()
 
+    property Component navbarControls: deviceOverviewNavbarControls
+
+    Component {
+        id: deviceOverviewNavbarControls
+        ColumnLayout {
+            spacing: Style.margins
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Start Wizard")
+                onClicked: wizardController.startManualSetup()
+            }
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Set up new device")
+                onClicked: pageStack.push("../wizards/AuthorisationView.qml", { directionID: 1 })
+            }
+        }
+    }
+
     header: CoHeader {
         text: qsTr("Device Overview")
         onBackPressed: {
@@ -161,26 +180,6 @@ Page {
                         }
                     }
                 }
-            }
-        }
-
-        Button{
-            id: startWizardButton
-            Layout.fillWidth: true
-            Layout.topMargin: Style.margins
-            text: qsTr("Start Wizard")
-            onClicked: {
-                wizardController.startManualSetup();
-            }
-        }
-
-        Button{
-            id: addDevice
-            Layout.fillWidth: true
-            Layout.bottomMargin: root.navigationFooterHeight
-            text: qsTr("Set up new device")
-            onClicked: {
-                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 });
             }
         }
     }
