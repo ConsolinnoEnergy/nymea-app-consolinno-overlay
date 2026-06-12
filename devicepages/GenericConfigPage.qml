@@ -20,6 +20,8 @@ Item {
     property bool overrideBack: false
     signal backRequested()
 
+    property int navigationFooterHeight: 0
+
     ListModel {
         id: menuListModel
 
@@ -61,6 +63,8 @@ Item {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
+
+        Item { Layout.fillWidth: true; Layout.preferredHeight: root.navigationFooterHeight }
     }
 
     Menu {
