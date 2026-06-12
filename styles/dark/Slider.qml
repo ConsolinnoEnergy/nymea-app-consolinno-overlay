@@ -51,8 +51,8 @@ T.Slider {
     padding: 1
 
     handle: Rectangle {
-        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width + 2 * 7) - 7 : (control.availableWidth - width) / 2 + 1)
-        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 + 1 : control.visualPosition * (control.availableHeight - height + 2 * 7) - 7)
+        x: control.leftPadding + (control.horizontal ? control.visualPosition * (control.availableWidth - width + 2 * 7) - 7 : (control.availableWidth - width) / 2)
+        y: control.topPadding + (control.horizontal ? (control.availableHeight - height) / 2 : control.visualPosition * (control.availableHeight - height + 2 * 7) - 7)
         implicitWidth: 30
         implicitHeight: 30
         radius: width / 2
@@ -91,7 +91,7 @@ T.Slider {
         scale: control.horizontal && control.mirrored ? -1 : 1
 
         Rectangle {
-            y: control.horizontal ? 0 : control.visualPosition * parent.height
+            y: control.horizontal ? -1.5 : control.visualPosition * parent.height
             width: control.horizontal ? Math.max(0, control.handle.x + control.handle.width / 2) : 6
             height: control.horizontal ? 6 : Math.max(0, control.handle.x + control.handle.width / 2)
 

@@ -33,7 +33,7 @@ Item {
         PaddedRectangle {
             id: outerCircle
             anchors.centerIn: parent
-            padding: 32
+            padding: 36
             height: Math.min(parent.height, parent.width)
             width: height
             radius: height / 2

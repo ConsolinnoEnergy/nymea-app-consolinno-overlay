@@ -19,7 +19,7 @@ Item {
     property alias helpText: helpLabel.text
     property alias feedbackText: notification.text
     property alias showLabel: labelLayout.visible
-    property real valueTextWidth: 50
+    property real valueTextWidth: 55
 
     signal moved()
 

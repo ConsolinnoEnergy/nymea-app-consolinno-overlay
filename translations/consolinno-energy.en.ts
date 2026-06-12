@@ -822,10 +822,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Time controlled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -835,6 +831,10 @@
     </message>
     <message>
         <source>The charging modes &lt;b&gt;Solar power only&lt;/b&gt;, &lt;b&gt;Always charging&lt;/b&gt;, &lt;b&gt;Dynamic pricing&lt;/b&gt; and &lt;b&gt;Time controlled&lt;/b&gt; remain selected after unplugging. This means that when you plug in again, the last selected mode is active. If you have charged with &lt;b&gt;Next trip&lt;/b&gt;, you must select a charging mode again when you plug in.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, grid import is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid import may occur if less solar power is available than the forecast assumed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -963,7 +963,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Consolinno Cloud Services (Beta)</source>
+        <source>Consolinno Cloud Services</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(Beta)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1898,11 +1902,11 @@ Levies: %4 %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>light</source>
+        <source>Light</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>dark</source>
+        <source>Dark</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3376,6 +3380,101 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
+    <name>DevConfig</name>
+    <message>
+        <source>Dev Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unsaved changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have unsaved changes. Discard them?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Desired phase count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. runtime after turn-on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Phase switch delay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PV Surplus Dev Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Filter time constant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Post-switch timeout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Kp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Ki</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID Kd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PID setpoint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery power margin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Battery power rate limit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Taper SoC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Heating</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mean SGR-2 power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mean SGR-3 power</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Min. dwell duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DeveloperConfig</name>
     <message>
         <source>Development</source>
@@ -3482,10 +3581,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>What is the benefit for me?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3499,6 +3594,10 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The transmitted energy data is assigned to your system. You can revoke this release at any time. For more information on data protection, please visit www.consolinno.de/hems-datenschutz.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid import, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3624,10 +3723,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Pausing charging:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3639,204 +3734,16 @@ Would you like to continue anyway?</source>
         <source>Low solar avalaibility</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid import).</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>GridSupportiveControl</name>
     <message>
         <source></source>
         <translation></translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Complete setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reconfigure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Search again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Parameter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SKI copied to clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Establish a connection with this device.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back to overview</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Grid-supportive control setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Must be in same network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Relais</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connect device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Existing setup will be overwritten.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Attention</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Feed-in curtailment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The following EEBUS devices were found</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Searching for devices...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Not connected</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Control box</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Local Subject Key Identifier (SKI)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Device connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS SKI Pairing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS Comfort Pairing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QR Code &amp; Pairing Data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Secret Key (SPSEC)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 copied to clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>SHIP ID (ID)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Certificate Fingerprint (SHA-256)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Completion by the metering point operator pending</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>EEBUS Comfort Pairing data not available.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Control box connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Setting up EEBUS device...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The EEBUS device could not be set up. Please check the device and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>QR code content copied to clipboard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This SKI is required by the metering point operator.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Confirmation by metering point operator pending</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4690,11 +4597,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total grid consumption</source>
+        <source>Total grid feed-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Total grid feed-in</source>
+        <source>Total grid import</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
