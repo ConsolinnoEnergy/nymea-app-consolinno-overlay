@@ -154,6 +154,32 @@ Page {
 
     Component.onCompleted: root.populatePrioModel()
 
+    readonly property bool applyEnabled: {
+        // ListModel.move() and clear()+append() do not change any property that
+        // QML's binding engine tracks, so this expression would never re-evaluate
+        // after a drag or restore without an explicit reactive dependency.
+        // d.modelRevision is incremented on every such modification to serve as
+        // that dependency and trigger re-evaluation.
+        d.modelRevision;
+        // Enabled only when the current list order differs from the saved pvSurplusPriolist.
+        var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
+        if (prioListModel.count !== prioList.count) { return true; }
+        for (var i = 0; i < prioListModel.count; i++) {
+            if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList.get(i).thingId).id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    function applyChanges() {
+        var entryList = [];
+        for (var i = 0; i < prioListModel.count; i++) {
+            entryList.push({"thingId": prioListModel.get(i).thingId, "locked": prioListModel.get(i).locked});
+        }
+        d.pendingCallId = hemsManager.setPVSurplusPriolist(entryList);
+    }
+
     ListModel {
         id: prioListModel
     }
@@ -281,37 +307,16 @@ Page {
                 }
             }
         }
+    }
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
-            Layout.bottomMargin: root.navigationFooterHeight
+    property Component navbarControls: pvPrioritiesNavbarControls
+
+    Component {
+        id: pvPrioritiesNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-            enabled: {
-                // ListModel.move() and clear()+append() do not change any property that
-                // QML's binding engine tracks, so this expression would never re-evaluate
-                // after a drag or restore without an explicit reactive dependency.
-                // d.modelRevision is incremented on every such modification to serve as
-                // that dependency and trigger re-evaluation.
-                d.modelRevision;
-                // Enabled only when the current list order differs from the saved pvSurplusPriolist.
-                var prioList = hemsManager.emsConfiguration.pvSurplusPriolist;
-                if (prioListModel.count !== prioList.count) { return true; }
-                for (var i = 0; i < prioListModel.count; i++) {
-                    if (prioListModel.get(i).thingId !== "" + engine.thingManager.things.getThing(prioList.get(i).thingId).id) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            onClicked: {
-                var entryList = [];
-                for (var i = 0; i < prioListModel.count; i++) {
-                    entryList.push({"thingId": prioListModel.get(i).thingId, "locked": prioListModel.get(i).locked});
-                }
-                d.pendingCallId = hemsManager.setPVSurplusPriolist(entryList);
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

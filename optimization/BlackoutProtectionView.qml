@@ -26,6 +26,23 @@ Page {
     property int phaseLimit: 25
     property int configuredPhaseLimit: 25
 
+    readonly property bool applyEnabled: {
+        if (currentCombo.comboBox.currentValue === 0 &&
+                !currentInput.textField.acceptableInput) {
+            return false;
+        }
+        return phaseLimit > 15;
+    }
+
+    function applyChanges() {
+        if (directionID === 0) {
+            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+        } else if (directionID === 1) {
+            hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+            root.done(false, false, false);
+        }
+    }
+
     QtObject {
         id: d
         property int pendingCallId: -1
@@ -147,29 +164,16 @@ Page {
             Layout.fillHeight: true
             Layout.fillWidth: true
         }
+    }
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    property Component navbarControls: blackoutNavbarControls
 
-            property bool inputValid: {
-                if (currentCombo.comboBox.currentValue === 0 &&
-                        !currentInput.textField.acceptableInput) {
-                    return false;
-                }
-                return phaseLimit > 15;
-            }
+    Component {
+        id: blackoutNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            onClicked: {
-                if (!inputValid) { return; }
-                if (directionID === 0) {
-                    d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                } else if (directionID === 1) {
-                    hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                    root.done(false, false, false);
-                }
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

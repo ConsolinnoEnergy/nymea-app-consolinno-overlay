@@ -15,6 +15,44 @@ Page {
     property int directionID: 0
     signal done()
 
+    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+
+    function applyChanges() {
+        let inputText = maxElectricalPower.text
+        inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
+        // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
+        // returns an int, but setHeatingConfiguration expects a string enum name.
+        // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
+        const optimizationModeMap = {
+          0: "OptimizationModePVSurplus",
+          1: "OptimizationModeDynamicPricing",
+          2: "OptimizationModeOff",
+        };
+
+        const currentValue = heatingConfiguration.optimizationMode;
+
+        const newConfig = {
+            "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
+            "optimizationEnabled":   heatingConfiguration.optimizationEnabled,
+            "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
+            "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
+            "maxElectricalPower":    +inputText,
+            "priceThreshold":        heatingConfiguration.priceThreshold,
+            "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
+            "controllableLocalSystem": gridSupportControl.checked,
+            "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
+            "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
+                                         ? optimizationModeMap[currentValue]
+                                         : "OptimizationModeOff"
+        };
+
+        d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
+        if(directionID !== 1){
+            pageStack.pop()
+        }
+        root.done()
+    }
+
     function buildMeterModel() {
         meterModel.clear();
         meterModel.append({ text: qsTr("No meter"), thingId: "" });
@@ -163,58 +201,16 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
         }
+    }
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    property Component navbarControls: heatingOptimizationNavbarControls
+
+    Component {
+        id: heatingOptimizationNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            property bool inputValid: maxElectricalPower.maxElectricalPowerValid
-
-            onClicked: {
-                let inputText = maxElectricalPower.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-                if (savebutton.inputValid)
-                {
-                    // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
-                    // returns an int, but setHeatingConfiguration expects a string enum name.
-                    // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
-                    const optimizationModeMap = {
-                      0: "OptimizationModePVSurplus",
-                      1: "OptimizationModeDynamicPricing",
-                      2: "OptimizationModeOff",
-                    };
-
-                    const currentValue = heatingConfiguration.optimizationMode;
-
-                    const newConfig = {
-                        "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
-                        "optimizationEnabled":   heatingConfiguration.optimizationEnabled,
-                        "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
-                        "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
-                        "maxElectricalPower":    +inputText,
-                        "priceThreshold":        heatingConfiguration.priceThreshold,
-                        "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
-                        "controllableLocalSystem": gridSupportControl.checked,
-                        "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
-                        "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
-                                                     ? optimizationModeMap[currentValue]
-                                                     : "OptimizationModeOff"
-                    };
-
-                    d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
-                    if(directionID !== 1){
-                        pageStack.pop()
-                    }
-                    root.done()
-                }
-                else
-                {
-                    // for now this is the way how we show the user that some attributes are invalid
-                    // TO DO: Show which ones are invalid
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                }
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

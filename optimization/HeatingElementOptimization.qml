@@ -16,6 +16,22 @@ Page {
     property int directionID: 0
     signal done()
 
+    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+
+    function applyChanges() {
+        let inputText = maxElectricalPower.text
+        inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+        d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
+            "maxElectricalPower": parseFloat(inputText),
+            "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
+            "controllableLocalSystem": controllSwitch.checked
+        })
+        if (directionID !== 1) {
+            pageStack.pop()
+        }
+        root.done()
+    }
+
     header: CoHeader {
         text: qsTr("Heating")
         backButtonVisible: true
@@ -116,32 +132,17 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: app.smallFont
             }
+        }
+    }
 
-            Button {
-                id: savebutton
-                Layout.fillWidth: true
-                text: qsTr("Apply changes")
+    property Component navbarControls: heatingElementNavbarControls
 
-                property bool inputValid: maxElectricalPower.maxElectricalPowerValid
-
-                onClicked: {
-                    let inputText = maxElectricalPower.text
-                    inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
-                    if (savebutton.inputValid) {
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
-                            "maxElectricalPower": parseFloat(inputText),
-                            "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
-                            "controllableLocalSystem": controllSwitch.checked
-                        })
-                        if (directionID !== 1) {
-                            pageStack.pop()
-                        }
-                        root.done()
-                    } else {
-                        footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                    }
-                }
-            }
+    Component {
+        id: heatingElementNavbarControls
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

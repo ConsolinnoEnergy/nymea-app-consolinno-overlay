@@ -13,6 +13,17 @@ Page {
     property int directionID: 0
     signal done()
 
+    function applyChanges() {
+        hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId,
+                                                         {
+                                                             controllableLocalSystem: gridSupportControl.checked
+                                                         });
+        if (directionID !== 1) {
+            pageStack.pop();
+        }
+        root.done();
+    }
+
     header: CoHeader {
         text: qsTr("Charging")
         backButtonVisible: directionID === 1 ? false : true
@@ -94,21 +105,15 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
         }
+    }
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    property Component navbarControls: evChargerNavbarControls
+
+    Component {
+        id: evChargerNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-            onClicked: {
-                    hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId,
-                                                                     {
-                                                                         controllableLocalSystem: gridSupportControl.checked
-                                                                     });
-                    if (directionID !== 1) {
-                        pageStack.pop();
-                    }
-                    root.done();
-            }
+            onClicked: root.applyChanges()
         }
     }
 }

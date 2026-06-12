@@ -16,6 +16,55 @@ Page {
 
     signal done
 
+    readonly property bool applyEnabled: latitudeInput.acceptableInput
+                                         && longitudeInput.acceptableInput
+                                         && roofpitchInput.acceptableInput
+                                         && peakPowerInput.acceptableInput
+
+    function applyChanges() {
+        if (directionID === 1) {
+            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+                header.text = longitudeInput.text;
+                hemsManager.setPvConfiguration(thing.id,
+                                               {
+                                                   "longitude": Number.fromLocaleString(
+                                                                    Qt.locale(),
+                                                                    longitudeInput.text),
+                                                   "latitude": Number.fromLocaleString(
+                                                                   Qt.locale(),
+                                                                   latitudeInput.text),
+                                                   "roofPitch": roofpitchInput.text,
+                                                   "alignment": alignment.comboBox.currentValue,
+                                                   "kwPeak": Number.fromLocaleString(
+                                                                 Qt.locale(),
+                                                                 peakPowerInput.text),
+                                                   "controllableLocalSystem": gridSupportControl.checked
+                                               });
+                root.done();
+            }
+        } else if (directionID === 0) {
+            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+                d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
+                                                                 {
+                                                                     "longitude": Number.fromLocaleString(
+                                                                                      Qt.locale(),
+                                                                                      longitudeInput.text),
+                                                                     "latitude": Number.fromLocaleString(
+                                                                                     Qt.locale(),
+                                                                                     latitudeInput.text),
+                                                                     "roofPitch": roofpitchInput.text,
+                                                                     "alignment": alignment.comboBox.currentValue,
+                                                                     "kwPeak": Number.fromLocaleString(
+                                                                                   Qt.locale(),
+                                                                                   peakPowerInput.text),
+                                                                     "controllableLocalSystem": gridSupportControl.checked
+                                                                 });
+            }
+        }
+    }
+
     //    PositionSource{
     //        id: src
     //        updateInterval: 1000
@@ -215,62 +264,17 @@ Page {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
             }
+        }
+    }
 
-            Button {
-                id: savebutton
-                Layout.fillWidth: true
-                text: qsTr("Apply changes")
-                property bool inputValid: latitudeInput.acceptableInput
-                                         && longitudeInput.acceptableInput
-                                         && roofpitchInput.acceptableInput
-                                         && peakPowerInput.acceptableInput
+    property Component navbarControls: pvOptimizationNavbarControls
 
-                onClicked: {
-                    if (!inputValid) { return; }
-
-                    if (directionID === 1) {
-                        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                            header.text = longitudeInput.text;
-                            hemsManager.setPvConfiguration(thing.id,
-                                                           {
-                                                               "longitude": Number.fromLocaleString(
-                                                                                Qt.locale(),
-                                                                                longitudeInput.text),
-                                                               "latitude": Number.fromLocaleString(
-                                                                               Qt.locale(),
-                                                                               latitudeInput.text),
-                                                               "roofPitch": roofpitchInput.text,
-                                                               "alignment": alignment.comboBox.currentValue,
-                                                               "kwPeak": Number.fromLocaleString(
-                                                                             Qt.locale(),
-                                                                             peakPowerInput.text),
-                                                               "controllableLocalSystem": gridSupportControl.checked
-                                                           });
-                            root.done();
-                        }
-                    } else if (directionID === 0) {
-                        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                            d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
-                                                                             {
-                                                                                 "longitude": Number.fromLocaleString(
-                                                                                                  Qt.locale(),
-                                                                                                  longitudeInput.text),
-                                                                                 "latitude": Number.fromLocaleString(
-                                                                                                 Qt.locale(),
-                                                                                                 latitudeInput.text),
-                                                                                 "roofPitch": roofpitchInput.text,
-                                                                                 "alignment": alignment.comboBox.currentValue,
-                                                                                 "kwPeak": Number.fromLocaleString(
-                                                                                               Qt.locale(),
-                                                                                               peakPowerInput.text),
-                                                                                 "controllableLocalSystem": gridSupportControl.checked
-                                                                             });
-                        }
-                    }
-                }
-            }
+    Component {
+        id: pvOptimizationNavbarControls
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

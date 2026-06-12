@@ -14,6 +14,23 @@ Page {
     property int directionID: 0
     signal done()
 
+    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+
+    function applyChanges() {
+        let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
+        // #TODO CLS toggle only starting with version 2.2
+        d.pendingCallId = hemsManager.setSwitchConfiguration(
+            switchConfiguration.switchThingId,
+            {
+                "maxElectricalPower": parsedMaxElectricalPower
+            }
+        )
+        if (directionID !== 1) {
+            pageStack.pop()
+        }
+        root.done()
+    }
+
     header: CoHeader {
         text: qsTr("Switchable consumers")
         backButtonVisible: true
@@ -114,39 +131,16 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
         }
+    }
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    property Component navbarControls: switchableConsumerNavbarControls
+
+    Component {
+        id: switchableConsumerNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            property bool inputValid: maxElectricalPower.maxElectricalPowerValid
-
-            onClicked: {
-                let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
-                if (savebutton.inputValid) {
-                    // #TODO CLS toggle only starting with version 2.2
-                    // d.pendingCallId = hemsManager.setSwitchConfiguration(
-                    //     switchConfiguration.switchThingId,
-                    //     {
-                    //         "maxElectricalPower": parsedMaxElectricalPower,
-                    //         "controllableLocalSystem": controllSwitch.checked
-                    //     }
-                    // )
-                    d.pendingCallId = hemsManager.setSwitchConfiguration(
-                        switchConfiguration.switchThingId,
-                        {
-                            "maxElectricalPower": parsedMaxElectricalPower
-                        }
-                    )
-                    if (directionID !== 1) {
-                        pageStack.pop()
-                    }
-                    root.done()
-                } else {
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                }
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

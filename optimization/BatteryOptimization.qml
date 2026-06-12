@@ -15,6 +15,39 @@ Page {
     property bool isSetup: false
     signal done()
 
+    readonly property bool applyEnabled: maxElectricalPower.inputValid
+
+    function applyChanges() {
+        var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
+        if (blockEVChargingFromBatteryControl.checked) {
+            blockBatteryOnGridConsumption |= BatteryConfiguration.EvCharger;
+        } else {
+            blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
+        }
+
+        let config = {
+            controllableLocalSystem: gridSupportControl.checked,
+            avoidZeroFeedInEnabled: zeroCompensationControl.checked,
+            blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
+        };
+        if (maxElectricalPower.visible) {
+            config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+        }
+        if (hemsControlledBattery.visible) {
+            config.fullymanagableBattery = hemsControlledBattery.checked;
+            if (hemsControlledBattery.checked) {
+                config.maxSoC = maxSoc.value;
+                config.minSoC = minSoc.value;
+            }
+        }
+
+        hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
+        if (directionID !== 1) {
+            pageStack.pop();
+        }
+        root.done();
+    }
+
     header: CoHeader {
         text: qsTr("Battery")
         backButtonVisible: directionID === 1 ? false : true
@@ -198,49 +231,16 @@ Page {
             wrapMode: Text.WordWrap
             font.pixelSize: app.smallFont
         }
+    }
 
+    property Component navbarControls: batteryOptimizationNavbarControls
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    Component {
+        id: batteryOptimizationNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            property bool inputValid: maxElectricalPower.inputValid
-
-            onClicked: {
-                if (!inputValid) {
-                    return;
-                }
-
-                var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
-                if (blockEVChargingFromBatteryControl.checked) {
-                    blockBatteryOnGridConsumption |= BatteryConfiguration.EvCharger;
-                } else {
-                    blockBatteryOnGridConsumption &= ~BatteryConfiguration.EvCharger;
-                }
-
-                let config = {
-                    controllableLocalSystem: gridSupportControl.checked,
-                    avoidZeroFeedInEnabled: zeroCompensationControl.checked,
-                    blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
-                };
-                if (maxElectricalPower.visible) {
-                    config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
-                }
-                if (hemsControlledBattery.visible) {
-                    config.fullymanagableBattery = hemsControlledBattery.checked;
-                    if (hemsControlledBattery.checked) {
-                        config.maxSoC = maxSoc.value;
-                        config.minSoC = minSoc.value;
-                    }
-                }
-
-                hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
-                if (directionID !== 1) {
-                    pageStack.pop();
-                }
-                root.done();
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }
