@@ -460,14 +460,10 @@ GenericConfigPage {
 
     Component {
         id: batteryNavbarControls
-        Pane {
-            padding: Style.margins
-            background: null
-            contentItem: CoNavbarButton {
-                text: qsTr("Apply changes")
-                enabled: root.applyEnabled
-                onClicked: root.applyChanges()
-            }
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }
