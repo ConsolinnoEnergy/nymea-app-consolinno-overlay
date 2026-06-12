@@ -19,6 +19,31 @@ GenericConfigPage {
     title: root.thing.name
     headerOptionsVisible: false
 
+    readonly property bool applyEnabled: {
+        if (!root.heatingRodConfig) return false;
+        let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
+        let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
+        return optimizationEnabledInConfig != optimizationEnabledInComboBox;
+    }
+
+    function applyChanges() {
+        d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
+                                                                     {
+                                                                         optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
+                                                                     });
+    }
+
+    property Component navbarControls: heatingElementNavbarControls
+
+    Component {
+        id: heatingElementNavbarControls
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
+        }
+    }
+
     QtObject {
         id: d
         property int pendingCallId: -1
@@ -198,24 +223,6 @@ GenericConfigPage {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });
                             }
                         }
-                    }
-                }
-
-                Button {
-                    id: savebutton
-                    Layout.fillWidth: true
-                    text: qsTr("Apply changes")
-                    enabled: {
-                        let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
-                        let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
-                        return optimizationEnabledInConfig != optimizationEnabledInComboBox;
-                    }
-
-                    onClicked: {
-                        d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
-                                                                                     {
-                                                                                         optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
-                                                                                     });
                     }
                 }
             }
