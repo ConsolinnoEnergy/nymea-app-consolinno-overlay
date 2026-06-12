@@ -22,6 +22,11 @@ Item {
 
     property int navigationFooterHeight: 0
 
+    Rectangle {
+        anchors.fill: parent
+        color: Style.backgroundColor
+    }
+
     ListModel {
         id: menuListModel
 
