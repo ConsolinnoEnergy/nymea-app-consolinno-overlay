@@ -5,9 +5,17 @@ properties.load(project.rootProject.file("nymeaapp.properties").newDataInputStre
 def nymeaAppRoot = properties.getProperty('nymeaAppRoot')
 def useFirebase = properties.getProperty('useFirebase')
 
+// Prefer the (potentially overlay-overridden) version forwarded by the
+// CMake build via nymeaapp.properties. Fall back to parsing version.txt
+// for builds that haven't been migrated yet.
+def nymeaAppVersionFromProps = properties.getProperty('nymeaAppVersion')
+def nymeaAppVersionCodeFromProps = properties.getProperty('nymeaAppVersionCode')
+
 def nymeaVersionLines = file("${nymeaAppRoot}/version.txt").readLines().collect { it.trim() }.findAll { it }
-def nymeaAppVersionName = nymeaVersionLines ? nymeaVersionLines[0] : "0.0.0"
-def nymeaAppBaseVersionCode = nymeaVersionLines.size() > 1 ? nymeaVersionLines[1].toInteger() : 1
+def nymeaAppVersionName = nymeaAppVersionFromProps?.trim() ?:
+        (nymeaVersionLines ? nymeaVersionLines[0] : "0.0.0")
+def nymeaAppBaseVersionCode = (nymeaAppVersionCodeFromProps?.trim() ?:
+        (nymeaVersionLines.size() > 1 ? nymeaVersionLines[1] : "1")).toInteger()
 
 // Use ABI-aware version codes per Qt's legacy single-ABI Play Store guidance.
 def abiVersionPrefixes = [
