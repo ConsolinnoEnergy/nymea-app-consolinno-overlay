@@ -1175,6 +1175,20 @@ StackView {
                                 anchors.right: parent.right
                                 spacing: 0
 
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
+                                    labelText: qsTr("This SKI is required by the metering point operator.")
+                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
+                                    iconRightColor: Style.colors.brand_Basic_Accent
+                                    interactive: text !== "-"
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                                    }
+                                }
+
                                 Repeater {
                                     model: thingClass.paramTypes
 
@@ -1183,15 +1197,7 @@ StackView {
                                         property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
-                                        labelText: index === 0 ? qsTr("This SKI is required by the metering point operator.") : ""
                                         helpText: model.displayName
-                                        iconRight: index === 0 ? "/icons/file_copy.svg" : ""
-                                        iconRightColor: Style.colors.brand_Basic_Accent
-                                        interactive: index === 0
-                                        onClicked: {
-                                            PlatformHelper.toClipBoard(paramValue);
-                                            ToolTip.show(qsTr("SKI copied to clipboard"), 500);
-                                        }
                                     }
                                 }
                             }
@@ -1369,6 +1375,20 @@ StackView {
                                 anchors.right: parent.right
                                 spacing: 0
 
+                                CoCard {
+                                    Layout.fillWidth: true
+                                    text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
+                                    labelText: qsTr("This SKI is required by the metering point operator.")
+                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
+                                    iconRightColor: Style.colors.brand_Basic_Accent
+                                    interactive: text !== "-"
+                                    onClicked: {
+                                        PlatformHelper.toClipBoard(text);
+                                        ToolTip.show(qsTr("SKI copied to clipboard"), 500);
+                                    }
+                                }
+
                                 Repeater {
                                     model: eebusGridGuardGateway ? eebusGridGuardGateway.thingClass.paramTypes : null
                                     delegate: CoCard {
@@ -1378,16 +1398,6 @@ StackView {
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: model.displayName
-                                        helpText: index === 0 ? qsTr("This SKI is required by the metering point operator.") : ""
-                                        iconRight: index === 0 ? "/icons/file_copy.svg" : ""
-                                        iconRightColor: Style.colors.brand_Basic_Accent
-                                        interactive: index === 0
-                                        onClicked: {
-                                            if (index === 0) {
-                                                PlatformHelper.toClipBoard(paramValue);
-                                                ToolTip.show(qsTr("SKI copied to clipboard"), 500);
-                                            }
-                                        }
                                     }
                                 }
                             }
@@ -1641,16 +1651,14 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
-                            property var paramType: thingClass.paramTypes.get(0)
-                            property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
-                            text: paramValue
+                            text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
                             labelText: qsTr("This SKI is required by the metering point operator.")
                             helpText: qsTr("Local Subject Key Identifier (SKI)")
-                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                            iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                             iconRightColor: Style.colors.brand_Basic_Accent
-                            interactive: true
+                            interactive: text !== "-"
                             onClicked: {
-                                PlatformHelper.toClipBoard(paramValue);
+                                PlatformHelper.toClipBoard(text);
                                 ToolTip.show(qsTr("SKI copied to clipboard"), 500);
                             }
                         }
