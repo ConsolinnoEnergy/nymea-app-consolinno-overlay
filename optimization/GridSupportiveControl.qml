@@ -11,6 +11,19 @@ StackView {
     id: root
     initialItem: setUpStart
 
+    property int navigationFooterHeight: 0
+    property Component navbarControls: root.currentItem
+        && "navbarControls" in root.currentItem
+        ? root.currentItem.navbarControls : null
+
+    Binding {
+        target: root.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: root.currentItem !== null
+              && "navigationFooterHeight" in root.currentItem
+    }
+
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eebusGridGuardGateway: null
@@ -116,6 +129,23 @@ StackView {
         id: setUpStart
 
         Page {
+            id: setUpStartPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: setUpStartControls
+
+            Component {
+                id: setUpStartControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Grid-supportive control setup")
+                        onClicked: pageStack.push(selectComponent)
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
@@ -199,15 +229,6 @@ StackView {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }
-
-                Button {
-                    id: setUpButton
-                    Layout.fillWidth: true
-                    text: qsTr("Grid-supportive control setup")
-                    onClicked: {
-                        pageStack.push(selectComponent)
-                    }
-                }
             }
         }
     }
@@ -286,6 +307,36 @@ StackView {
         id: relaisSetUp
 
         Page {
+            id: relaisSetUpPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: relaisSetUpControls
+
+            Component {
+                id: relaisSetUpControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            root.setGridSupportSettings("relais");
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("Relais")
@@ -301,7 +352,7 @@ StackView {
                 CoNotification {
                     Layout.fillWidth: true
                     visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
+                    type: CoNotification.Type.Warning
                     title: qsTr("Attention")
                     message: qsTr("Existing setup will be overwritten.")
                 }
@@ -327,28 +378,6 @@ StackView {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        root.setGridSupportSettings("relais");
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    flat: true
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
                 }
             }
         }
@@ -475,6 +504,44 @@ StackView {
         id: eebusComfortPairingSetup
 
         Page {
+            id: eebusComfortPairingSetupPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusComfortPairingSetupControls
+
+            Component {
+                id: eebusComfortPairingSetupControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            if (eebusGridGuardGateway) {
+                                const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
+                                // Only remove old control box when it was paired via SKI pairing (i.e.
+                                // if it has pairingType "default".
+                                if (pairingType === "default") {
+                                    console.info("Removing existing control box:", eebusGridGuardGateway.name);
+                                    engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                                }
+                            }
+                            root.setGridSupportSettings("eebus");
+                            pageStack.push(eebusComfortPairingViewStatus);
+                        }
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
@@ -490,7 +557,7 @@ StackView {
                 CoNotification {
                     Layout.fillWidth: true
                     visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
+                    type: CoNotification.Type.Warning
                     title: qsTr("Attention")
                     message: qsTr("Existing setup will be overwritten.")
                 }
@@ -498,7 +565,7 @@ StackView {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
+                    contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingSetupPage.navigationFooterHeight
                     clip: true
 
                     ColumnLayout {
@@ -610,36 +677,6 @@ StackView {
                         }
                     }
                 }
-
-                Button {
-                    id: eebusSetUpComplete
-                    Layout.fillWidth: true
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        if (eebusGridGuardGateway) {
-                            const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
-                            // Only remove old control box when it was paired via SKI pairing (i.e.
-                            // if it has pairingType "default".
-                            if (pairingType === "default") {
-                                console.info("Removing existing control box:", eebusGridGuardGateway.name);
-                                engine.thingManager.removeThing(eebusGridGuardGateway.id);
-                            }
-                        }
-                        root.setGridSupportSettings("eebus");
-                        pageStack.push(eebusComfortPairingViewStatus);
-                    }
-                }
-
-                Button {
-                    text: qsTr("Cancel")
-                    Layout.fillWidth: true
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
             }
         }
     }
@@ -648,6 +685,27 @@ StackView {
         id: eebusComfortPairingViewStatus
 
         Page {
+            id: eebusComfortPairingViewStatusPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusComfortPairingViewStatusControls
+
+            Component {
+                id: eebusComfortPairingViewStatusControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back to overview")
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
@@ -663,7 +721,7 @@ StackView {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
+                    contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingViewStatusPage.navigationFooterHeight
                     clip: true
 
                     ColumnLayout {
@@ -789,18 +847,6 @@ StackView {
                                 }
                             }
                         }
-                    }
-                }
-
-                Button {
-                    id: eebusBackToView
-                    Layout.fillWidth: true
-                    text: qsTr("Back to overview")
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
                     }
                 }
             }
@@ -1149,7 +1195,7 @@ StackView {
                 CoNotification {
                     Layout.fillWidth: true
                     visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
+                    type: CoNotification.Type.Warning
                     title: qsTr("Attention")
                     message: qsTr("Existing setup will be overwritten.")
                 }
