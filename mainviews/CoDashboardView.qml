@@ -4,6 +4,7 @@ import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import QtQuick.Window
 import QtCharts
 import Nymea 1.0
 import NymeaApp.Utils 1.0
@@ -566,10 +567,13 @@ MainViewBase {
 
                             Item {
                                 id: liveStatusSpacer
+
+                                property int space: Window.width < 390 ? 32 : 64
+
                                 Layout.row: 1
                                 Layout.column: 1
-                                Layout.preferredWidth: (batteryThings.count > 0 || producerThings.count > 0) ? 64 : 0
-                                height: 64
+                                Layout.preferredWidth: (batteryThings.count > 0 || producerThings.count > 0) ? space : 0
+                                Layout.preferredHeight: space
                             }
                         }
                     }
