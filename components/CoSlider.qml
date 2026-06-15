@@ -40,6 +40,7 @@ Item {
 
             ColumnLayout {
                 Layout.fillWidth: true
+                spacing: 0
 
                 LabelWithInfo {
                     id: label

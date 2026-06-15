@@ -54,6 +54,7 @@ Item {
         ColumnLayout {
             Layout.fillWidth: true
             opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
+            spacing: 0
 
             LabelWithInfo {
                 id: label
