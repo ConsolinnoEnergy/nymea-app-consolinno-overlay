@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Window 2.15
 import QtQuick.Controls 2.1
 import QtQuick.Controls.Material 2.1
 import QtQuick.Layouts 1.2
@@ -559,10 +560,13 @@ MainViewBase {
 
                             Item {
                                 id: liveStatusSpacer
+
+                                property int space: Window.width < 390 ? 32 : 64
+
                                 Layout.row: 1
                                 Layout.column: 1
-                                Layout.preferredWidth: (batteryThings.count > 0 || producerThings.count > 0) ? 64 : 0
-                                height: 64
+                                Layout.preferredWidth: (batteryThings.count > 0 || producerThings.count > 0) ? space : 0
+                                Layout.preferredHeight: space
                             }
                         }
                     }
