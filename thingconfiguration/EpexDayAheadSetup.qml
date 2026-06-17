@@ -49,6 +49,7 @@ Page {
     signal aborted();
     signal done();
 
+    property bool busy: busyOverlay.shown
     property Component navbarControls: internalPageStack.currentItem
         && "navbarControls" in internalPageStack.currentItem
         ? internalPageStack.currentItem.navbarControls : null

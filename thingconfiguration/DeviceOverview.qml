@@ -11,6 +11,7 @@ Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
+    property bool busy: d.thingToRemove !== null
     signal startWizard()
 
     property Component navbarControls: deviceOverviewNavbarControls
@@ -200,6 +201,6 @@ Page {
     }
 
     BusyOverlay {
-        shown: d.thingToRemove !== null
+        shown: root.busy
     }
 }

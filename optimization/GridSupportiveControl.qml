@@ -1079,6 +1079,7 @@ StackView {
             id: eebusViewSelectPage
             bottomPadding: 0
             property int navigationFooterHeight: 0
+            property bool busy: discovery.busy
             property Component navbarControls: eebusViewSelectNavbar
 
             header: CoHeader {
@@ -1168,8 +1169,8 @@ StackView {
             }
 
             BusyOverlay {
-                    shown: discovery.busy
-                    text: qsTr("Searching for devices...")
+                shown: eebusViewSelectPage.busy
+                text: qsTr("Searching for devices...")
             }
         }
     }
