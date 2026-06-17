@@ -1076,6 +1076,11 @@ StackView {
         id: eebusViewSelect
 
         Page {
+            id: eebusViewSelectPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusViewSelectNavbar
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
@@ -1085,16 +1090,32 @@ StackView {
 
             property var thingClass
 
-            ColumnLayout {
+            Component {
+                id: eebusViewSelectNavbar
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: discovery.discoverThings(genericEebusDeviceThingClass.id)
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
+            Flickable {
                 anchors.fill: parent
                 anchors.margins: Style.margins
-                spacing: Style.margins
-
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusDiscoveryContent.implicitHeight
-                    clip: true
+                contentHeight: eebusDiscoveryContent.implicitHeight + eebusViewSelectPage.navigationFooterHeight
+                clip: true
 
                     ColumnLayout {
                         id: eebusDiscoveryContent
@@ -1144,31 +1165,11 @@ StackView {
                             }
                         }
                     }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Search again")
-
-                    onClicked: {
-                        discovery.discoverThings(genericEebusDeviceThingClass.id);
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
             }
 
             BusyOverlay {
-                shown: discovery.busy
-                text: qsTr("Searching for devices...")
+                    shown: discovery.busy
+                    text: qsTr("Searching for devices...")
             }
         }
     }
@@ -1177,6 +1178,11 @@ StackView {
         id: eebusSetup
 
         Page {
+            id: eebusSetupPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusSetupNavbar
+
             property ThingClass thingClass
             property var discoveryThingParams
 
@@ -1185,6 +1191,62 @@ StackView {
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+            }
+
+            Component {
+                id: eebusSetupNavbar
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CheckBox {
+                        id: deviceConnected
+                        Layout.fillWidth: true
+                        text: qsTr("Establish a connection with this device.")
+                    }
+
+                    CoNavbarButton {
+                        id: eebusSetUpComplete
+                        Layout.fillWidth: true
+                        enabled: deviceConnected.checked
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            if (eebusGridGuardGateway) {
+                                engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
+                            }
+
+                            d.params = [];
+                            for (var i = 0; i < eebusSetupPage.thingClass.paramTypes.count; i++) {
+                                var param = {};
+                                var paramTypeId = eebusSetupPage.thingClass.paramTypes.get(i).id;
+                                var discoveryParam = eebusSetupPage.discoveryThingParams.params.getParam(paramTypeId);
+                                param["paramTypeId"] = paramTypeId;
+                                param["value"] = discoveryParam ? discoveryParam.value : "";
+                                d.params.push(param);
+                            }
+
+                            d.pendingCallId = engine.thingManager.addThing(eebusSetupPage.thingClass.id, eebusSetupPage.thingClass.name, d.params);
+                            pageStack.push(eebusGridGuardChildWaiting,
+                                           {
+                                               thingClass: eebusSetupPage.thingClass,
+                                               discoveryThingParams: eebusSetupPage.discoveryThingParams,
+                                               // Capture now; the old gateway was already removed above so
+                                               // "eebus" can no longer be restored — fall back to "none".
+                                               previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
+                                           });
+                        }
+                    }
+
+                    CoNavbarButton {
+                        text: qsTr("Cancel")
+                        Layout.fillWidth: true
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
             }
 
             ColumnLayout {
@@ -1203,7 +1265,7 @@ StackView {
                 Flickable {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
+                    contentHeight: eebusParameterContent.implicitHeight + eebusSetupPage.navigationFooterHeight
                     clip: true
 
                     ColumnLayout {
@@ -1222,11 +1284,11 @@ StackView {
                                 spacing: 0
 
                                 Repeater {
-                                    model: thingClass.paramTypes
+                                    model: eebusSetupPage.thingClass.paramTypes
 
                                     delegate: CoCard {
                                         Layout.fillWidth: true
-                                        property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
+                                        property var param: eebusSetupPage.discoveryThingParams.params.getParam(eebusSetupPage.thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         labelText: index === 0 ? qsTr("This SKI is required by the metering point operator.") : ""
@@ -1242,56 +1304,6 @@ StackView {
                                 }
                             }
                         }
-                    }
-                }
-
-                CheckBox {
-                    id: deviceConnected
-                    Layout.fillWidth: true
-                    text: qsTr("Establish a connection with this device.")
-                }
-
-                Button {
-                    id: eebusSetUpComplete
-                    Layout.fillWidth: true
-                    enabled: deviceConnected.checked
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
-                        }
-
-                        d.params = [];
-                        for (var i = 0; i < thingClass.paramTypes.count; i++) {
-                            var param = {};
-                            var paramTypeId = thingClass.paramTypes.get(i).id;
-                            var discoveryParam = discoveryThingParams.params.getParam(paramTypeId);
-                            param["paramTypeId"] = paramTypeId;
-                            param["value"] = discoveryParam ? discoveryParam.value : "";
-                            d.params.push(param);
-                        }
-
-                        d.pendingCallId = engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                        pageStack.push(eebusGridGuardChildWaiting,
-                                       {
-                                           thingClass: thingClass,
-                                           discoveryThingParams: discoveryThingParams,
-                                           // Capture now; the old gateway was already removed above so
-                                           // "eebus" can no longer be restored — fall back to "none".
-                                           previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
-                                       });
-                    }
-                }
-
-                Button {
-                    text: qsTr("Cancel")
-                    Layout.fillWidth: true
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
                     }
                 }
             }
@@ -1660,6 +1672,11 @@ StackView {
         id: eebusViewStatus
 
         Page {
+            id: eebusViewStatusPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusViewStatusNavbar
+
             property ThingClass thingClass
             property var discoveryThingParams
 
@@ -1668,6 +1685,20 @@ StackView {
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+            }
+
+            Component {
+                id: eebusViewStatusNavbar
+                CoNavbarButton {
+                    id: eebusBackToView
+                    text: qsTr("Back to overview")
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
+                }
             }
 
             ColumnLayout {
@@ -1687,8 +1718,8 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
-                            property var paramType: thingClass.paramTypes.get(0)
-                            property string paramValue: discoveryThingParams.params.getParam(paramType.id).value
+                            property var paramType: eebusViewStatusPage.thingClass.paramTypes.get(0)
+                            property string paramValue: eebusViewStatusPage.discoveryThingParams.params.getParam(paramType.id).value
                             text: paramValue
                             labelText: qsTr("This SKI is required by the metering point operator.")
                             helpText: qsTr("Local Subject Key Identifier (SKI)")
@@ -1734,19 +1765,6 @@ StackView {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                }
-
-                Button {
-                    id: eebusBackToView
-                    Layout.fillWidth: true
-                    text: qsTr("Back to overview")
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
                 }
             }
         }
