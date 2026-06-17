@@ -115,6 +115,31 @@ SettingsPageBase {
             property SerialPort serialPort
             busy: d.pendingCommandId != -1
 
+            property Component navbarControls: addNavbar
+
+            Component {
+                id: addNavbar
+                CoNavbarButton {
+                    text: qsTr("Add")
+                    enabled: !root.busy
+                    onClicked: {
+                        var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value;
+                        var parity = serialPortParityModel.get(parityComboBox.currentIndex).value;
+                        var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value;
+                        var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value;
+                        var numberOfRetries = numberOfRetriesText.text;
+                        var timeout = timeoutText.text;
+                        d.addModbusRtuMaster(root.serialPort.systemLocation,
+                                             baudrate,
+                                             parity,
+                                             dataBits,
+                                             stopBits,
+                                             numberOfRetries,
+                                             timeout);
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Configure Modbus RTU master")
                 backButtonVisible: true
@@ -265,29 +290,6 @@ SettingsPageBase {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.topMargin: Style.margins
-                text: qsTr("Add")
-                enabled: !root.busy
-                onClicked: {
-                    var baudrate = serialPortBaudrateModel.get(baudRateComboBox.currentIndex).value;
-                    var parity = serialPortParityModel.get(parityComboBox.currentIndex).value;
-                    var dataBits = serialPortDataBitsModel.get(dataBitsComboBox.currentIndex).value;
-                    var stopBits = serialPortStopBitsModel.get(stopBitsComboBox.currentIndex).value;
-                    var numberOfRetries = numberOfRetriesText.text;
-                    var timeout = timeoutText.text;
-                    d.addModbusRtuMaster(serialPort.systemLocation,
-                                         baudrate,
-                                         parity,
-                                         dataBits,
-                                         stopBits,
-                                         numberOfRetries,
-                                         timeout);
-                }
-            }
         }
     }
 }

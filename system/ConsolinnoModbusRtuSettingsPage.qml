@@ -306,7 +306,30 @@ Page {
             property ModbusRtuManager modbusRtuManager
             property ModbusRtuMaster modbusRtuMaster
 
+            property Component navbarControls: reconfigureNavbar
+
             busy: d.pendingCommandId !== -1
+
+            Component {
+                id: reconfigureNavbar
+                CoNavbarButton {
+                    id: reconfigureButton
+                    text: qsTr("Reconfigure")
+                    enabled: !root.busy
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"),
+                                       {
+                                           modbusRtuManager: root.modbusRtuManager,
+                                           modbusRtuMaster: root.modbusRtuMaster,
+                                           serialPortPath: root.modbusRtuMaster.serialPort,
+                                           serialPortBaudrateModel: serialPortBaudrateModel,
+                                           serialPortParityModel: serialPortParityModel,
+                                           serialPortDataBitsModel: serialPortDataBitsModel,
+                                           serialPortStopBitsModel: serialPortStopBitsModel
+                                       });
+                    }
+                }
+            }
 
             header: CoHeader {
                 text: qsTr("Modbus-RTU-Interface")
@@ -464,25 +487,6 @@ Page {
                 }
             }
 
-            Button {
-                id: reconfigureButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Reconfigure")
-                enabled: !root.busy
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"),
-                                   {
-                                       modbusRtuManager: modbusRtuManager,
-                                       modbusRtuMaster: root.modbusRtuMaster,
-                                       serialPortPath: modbusRtuMaster.serialPort,
-                                       serialPortBaudrateModel: serialPortBaudrateModel,
-                                       serialPortParityModel: serialPortParityModel,
-                                       serialPortDataBitsModel: serialPortDataBitsModel,
-                                       serialPortStopBitsModel: serialPortStopBitsModel
-                                   });
-                }
-            }
         }
     }
 
