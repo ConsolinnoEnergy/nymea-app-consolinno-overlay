@@ -156,18 +156,18 @@ Page{
         }
     }
 
-    footer: ColumnLayout {
-        Button {
-            Layout.fillWidth: true
-            Layout.margins: Style.margins
-            Layout.bottomMargin: Style.margins + root.navigationFooterHeight
+    property Component navbarControls: applyChangesNavbar
+
+    Component {
+        id: applyChangesNavbar
+        CoNavbarButton {
             id: saveButton
             text: qsTr("Apply changes")
             enabled: optimizerRepeater.checkedIndex() !== -1
 
             onClicked: {
                 const checkedIndex = optimizerRepeater.checkedIndex();
-                let carThing = evProxy.getThing(userconfig.lastSelectedCar);
+                let carThing = evProxy.getThing(root.userconfig.lastSelectedCar);
                 if (checkedIndex === -1) {
                     console.error("No car selected!");
                 } else {
@@ -234,10 +234,65 @@ Page{
             id: thingDetailPage
             property var thing
             title: thing ? thing.name : ""
+
+            property Component navbarControls: carDataNavbar
+
             header: CoHeader {
                 text: thingDetailPage.title
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+            }
+
+            Component {
+                id: carDataNavbar
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Apply changes")
+                        enabled: {
+                            if (nameInput.text === "") {
+                                return false;
+                            }
+                            let capacity = parseInt(capacityInput.text);
+                            if (isNaN(capacity)) {
+                                return false;
+                            }
+                            return true;
+                        }
+                        onClicked: {
+                            var states = [];
+                            var settings = [];
+                            var capacitySetting = {};
+                            capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
+                            capacitySetting.value = parseInt(capacityInput.text);
+                            settings.push(capacitySetting);
+                            var minChargingCurrentSetting = {};
+                            minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
+                            minChargingCurrentSetting.value = minChargingCurrentInput.value;
+                            settings.push(minChargingCurrentSetting);
+                            var maxChargingLimitState = {};
+                            maxChargingLimitState.name = "batteryLevelLimit";
+                            maxChargingLimitState.value = maxChargingLimitInput.value;
+                            states.push(maxChargingLimitState);
+                            d.name = nameInput.text;
+                            d.settings = settings;
+                            d.states = states;
+                            d.updateThing(thingDetailPage.thing);
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Delete")
+                        flat: true
+                        onClicked: {
+                            engine.thingManager.removeThing(thingDetailPage.thing.id);
+                            pageStack.pop();
+                        }
+                    }
+                }
             }
 
             ColumnLayout {
@@ -299,51 +354,6 @@ Page{
                     }
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Delete")
-                    flat: true
-
-                    onClicked: {
-                        engine.thingManager.removeThing(thing.id);
-                        pageStack.pop();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Apply changes")
-                    enabled: {
-                        if (nameInput.text === "") {
-                            return false;
-                        }
-                        let capacity = parseInt(capacityInput.text);
-                        if (isNaN(capacity)) {
-                            return false;
-                        }
-                        return true;
-                    }
-                    onClicked: {
-                        var states = [];
-                        var settings = [];
-                        var capacitySetting = {};
-                        capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
-                        capacitySetting.value = parseInt(capacityInput.text);
-                        settings.push(capacitySetting);
-                        var minChargingCurrentSetting = {};
-                        minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
-                        minChargingCurrentSetting.value = minChargingCurrentInput.value;
-                        settings.push(minChargingCurrentSetting);
-                        var maxChargingLimitState = {};
-                        maxChargingLimitState.name = "batteryLevelLimit";
-                        maxChargingLimitState.value = maxChargingLimitInput.value;
-                        states.push(maxChargingLimitState);
-                        d.name = nameInput.text;
-                        d.settings = settings;
-                        d.states = states;
-                        d.updateThing(thing);
-                    }
-                }
             }
         }
     }
