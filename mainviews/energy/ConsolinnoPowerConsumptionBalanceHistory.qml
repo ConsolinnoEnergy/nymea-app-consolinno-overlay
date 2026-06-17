@@ -87,9 +87,15 @@ Item {
         }
 
         onEntriesRemoved: function(index, count) {
-            acquisitionUpperSeries.removePoints(index, count)
-            storageUpperSeries.removePoints(index, count)
-            selfProductionUpperSeries.removePoints(index, count)
+            // Note QtCharts crashes when calling removePoints() for points that don't exist.
+            function safeRemove(series, idx, cnt) {
+                var available = series.count - idx
+                if (available <= 0) return
+                series.removePoints(idx, Math.min(cnt, available))
+            }
+            safeRemove(acquisitionUpperSeries, index, count)
+            safeRemove(storageUpperSeries, index, count)
+            safeRemove(selfProductionUpperSeries, index, count)
             // consumptionUpperSeries is never populated (consumptionSeries.insertEntry is disabled)
             zeroSeries.shrink()
         }
