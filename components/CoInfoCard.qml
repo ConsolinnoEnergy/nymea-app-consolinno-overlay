@@ -61,6 +61,8 @@ Item {
         anchors.bottomMargin: Style.smallMargins
         anchors.leftMargin: Style.margins
         anchors.rightMargin: Style.margins
+        rowSpacing: 0
+        columnSpacing: 0
 
         ColumnLayout {
             id: columnLayout
