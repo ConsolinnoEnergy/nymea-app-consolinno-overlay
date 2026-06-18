@@ -75,7 +75,13 @@ Page {
     //        onPositionChanged: {
     //        }
     //    }
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("PV configuration")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
@@ -115,7 +121,9 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
+        topMargin: header.height
         // anchors.topMargin: root.implicitHeaderHeight
         clip: true
         contentHeight: contentColumn.implicitHeight +
