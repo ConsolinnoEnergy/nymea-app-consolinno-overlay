@@ -82,12 +82,9 @@ SettingsPageBase {
         }
     }
 
-    header: CoHeader {
-        text: root.thing.name
-        menuButtonVisible: true
-        onBackPressed: pageStack.pop()
-        onMenuPressed: deviceMenu.open()
-    }
+    headerText: root.thing.name
+    headerMenuButtonVisible: true
+    onMenuPressed: deviceMenu.open()
 
     CoNotification {
         id: notification

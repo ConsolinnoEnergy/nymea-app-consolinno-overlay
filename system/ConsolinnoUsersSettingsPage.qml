@@ -260,22 +260,18 @@ SettingsPageBase {
         SettingsPageBase {
             id: manageUsersPage
 
-            header: CoHeader {
-                text: qsTr("Users")
-                onBackPressed: pageStack.pop()
-
-                RoundButton {
-                    icon.source: Qt.resolvedUrl("/icons/add.svg")
-                    flat: true
-                    onClicked: {
-                        var page = pageStack.push(addUserComponent)
-                        page.done.connect(function(){
-                            reloadUserList()
-                            pageStack.pop()
+            headerText: qsTr("Users")
+            headerExtras: RoundButton {
+                icon.source: Qt.resolvedUrl("/icons/add.svg")
+                flat: true
+                onClicked: {
+                    var page = pageStack.push(addUserComponent)
+                    page.done.connect(function(){
+                        reloadUserList()
+                        pageStack.pop()
 
 
-                        })
-                    }
+                    })
                 }
             }
 

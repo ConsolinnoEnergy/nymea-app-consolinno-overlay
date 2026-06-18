@@ -45,11 +45,7 @@ SettingsPageBase {
         }
     }
 
-    header: CoHeader {
-        text: qsTr("Reconfigure Modbus RTU master")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
-    }
+    headerText: qsTr("Reconfigure Modbus RTU master")
 
     QtObject {
         id: d

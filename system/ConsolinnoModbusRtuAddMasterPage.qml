@@ -43,11 +43,7 @@ SettingsPageBase {
     property ListModel serialPortDataBitsModel
     property ListModel serialPortStopBitsModel
 
-    header: CoHeader {
-        text: qsTr("Add a new Modbus RTU master")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
-    }
+    headerText: qsTr("Add a new Modbus RTU master")
 
     CoFrostyCard {
         id: serialPortsGroup
@@ -140,11 +136,7 @@ SettingsPageBase {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Configure Modbus RTU master")
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: qsTr("Configure Modbus RTU master")
 
             QtObject {
                 id: d

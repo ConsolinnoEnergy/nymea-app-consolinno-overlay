@@ -331,23 +331,18 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Modbus-RTU-Interface")
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-
-                RoundButton {
-                    icon.source: "/icons/delete_forever.svg"
-                    text: qsTr("Remove Modbus RTU Interface")
-                    enabled: modbusRtuManager.supported
-                    flat: true
-                    onClicked: {
-                        var dialog = removeModbusMasterDialogComponent.createObject(app,
-                                                                                    {
-                                                                                        modbusRtuMaster: root.modbusRtuMaster
-                                                                                    });
-                        dialog.open();
-                    }
+            headerText: qsTr("Modbus-RTU-Interface")
+            headerExtras: RoundButton {
+                icon.source: "/icons/delete_forever.svg"
+                text: qsTr("Remove Modbus RTU Interface")
+                enabled: modbusRtuManager.supported
+                flat: true
+                onClicked: {
+                    var dialog = removeModbusMasterDialogComponent.createObject(app,
+                                                                                {
+                                                                                    modbusRtuMaster: root.modbusRtuMaster
+                                                                                });
+                    dialog.open();
                 }
             }
 

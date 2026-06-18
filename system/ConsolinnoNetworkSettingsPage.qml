@@ -8,11 +8,7 @@ SettingsPageBase {
     id: root
     busy: networkManager.loading || d.pendingCallCount > 0
 
-    header: CoHeader {
-        text: qsTr("Network settings")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
-    }
+    headerText: qsTr("Network settings")
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Active) {
@@ -305,11 +301,7 @@ SettingsPageBase {
 
             property Component navbarControls: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1" ? writeSettingsNavbar : null
 
-            header: CoHeader {
-                text: currentEthernetConnectionPage.displayName
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: currentEthernetConnectionPage.displayName
 
             property WiredNetworkDevice wiredNetworkDevice: null
             property string displayName: ""
