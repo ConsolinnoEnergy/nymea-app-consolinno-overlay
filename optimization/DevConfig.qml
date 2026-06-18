@@ -113,7 +113,7 @@ GenericConfigPage {
                                 CoInputField {
                                     Layout.fillWidth: true
                                     labelText: qsTr("Desired phase count")
-                                    unit: "s"
+                                    unit: ""
                                     text: chargingDelegate.localDesiredPhaseCount.toString()
                                     textField.validator: IntValidator { bottom: 0; top: 3 }
                                     textField.inputMethodHints: Qt.ImhDigitsOnly

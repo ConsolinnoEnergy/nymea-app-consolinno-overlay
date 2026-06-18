@@ -40,16 +40,18 @@ Item {
 
             ColumnLayout {
                 Layout.fillWidth: true
+                spacing: 0
 
                 LabelWithInfo {
                     id: label
                     Layout.fillWidth: true
+                    font: Style.newSmallFontBold
                 }
 
                 Text {
                     id: helpLabel
                     Layout.fillWidth: true
-                    font: Style.newParagraphFont
+                    font: Style.newSmallFont
                     color: Style.colors.typography_Basic_Default
                     wrapMode: Text.WordWrap
                     text: ""
@@ -62,7 +64,7 @@ Item {
                 Layout.preferredWidth: root.valueTextWidth
                 Layout.alignment: Qt.AlignRight | Qt.AlignBottom
                 horizontalAlignment: Text.AlignRight
-                font: Style.newParagraphFont
+                font: Style.newSmallFont
                 color: Style.colors.typography_Basic_Default
             }
         }

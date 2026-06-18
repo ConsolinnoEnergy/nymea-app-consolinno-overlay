@@ -24,7 +24,7 @@ Item {
         Text {
             id: label
             Layout.fillWidth: true
-            font: Style.newParagraphFont
+            font: Style.newSmallFont
             color: Style.colors.system_Danger_Accent
             wrapMode: Text.WordWrap
         }

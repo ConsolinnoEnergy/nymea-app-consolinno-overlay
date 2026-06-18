@@ -97,7 +97,7 @@ Item {
         height: root.height - valueLayout.height
 
         Layout.fillWidth: false // overwrite LabelWithInfo default
-        font: Style.newParagraphFont
+        font: Style.newSmallFont
         fontColor: Style.colors.typography_Basic_Default
         textLabel.horizontalAlignment: Text.AlignHCenter
         textLabel.verticalAlignment: Text.AlignVCenter

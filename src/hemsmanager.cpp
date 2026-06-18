@@ -263,46 +263,48 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     qCDebug(dcHems()) << "Setting Heating Configuration with data: " << data;
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name()))
-            {
-                // Write Enum name instead of int for optimizationMode
-                if (strcmp(metaObj->property(i).name(), "optimizationMode") == 0) {
-                    qCDebug(dcHems()) << "Found optimizationMode property";
-                    qCDebug(dcHems()) << "Value:" << data.value(metaObj->property(i).name());
-                    // If type is int write the enum name
-                    if (data.value(metaObj->property(i).name()).type() == QVariant::Int)
-                    {
-                        qCDebug(dcHems()) << "Datatype " << data.value(metaObj->property(i).name()).type();
-                        qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                        qCDebug(dcHems()) << "Enum name: " << QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt());
-                        config.insert(metaObj->property(i).name(), QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>().valueToKey(data.value(metaObj->property(i).name()).toInt()) );
-                    }
-                    else
-                    {
-                        config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-                    }
-                }
-                // Convert heatMeterThingId to QUuid; skip (omit from request) when null/empty.
-                // QUuid::fromString / QVariant::toUuid handle both "{uuid}" and "uuid" formats,
-                // so this is robust regardless of how Qt serialised the property.
-                else if (strcmp(metaObj->property(i).name(), "heatMeterThingId") == 0) {
-                    QUuid uuid = data.value(metaObj->property(i).name()).toUuid();
-                    if (uuid.isNull()) {
-                        qCDebug(dcHems()) << "Skipping heatMeterThingId (no heat meter selected / null UUID)";
-                        // Intentionally not inserted – backend rejects a null UUID
-                    } else {
-                        qCDebug(dcHems()) << "Converting heatMeterThingId to QUuid:" << uuid;
-                        config.insert(metaObj->property(i).name(), uuid);
-                    }
-                }
-                else {
-                    qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                    config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-                }
-            }else{
-                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+        const QMetaProperty prop = metaObj->property(i);
+        const char *name = prop.name();
+
+        // Pick the source value: explicit data wins, otherwise fall back to the
+        // current configuration so the RPC request is complete.
+        QVariant value;
+        if (data.contains(name)) {
+            value = data.value(name);
+        } else {
+            value = prop.read(configuration);
+            qCDebug(dcHems()) << "Using existing value for" << name
+                              << "type:" << prop.type() << "value:" << value;
+        }
+
+        // Serialise the optimizationMode enum as its string name. This must run
+        // for both branches above: callers may pass an int, and QMetaProperty
+        // ::read() returns enum-typed properties as their underlying int as well.
+        if (strcmp(name, "optimizationMode") == 0
+                && value.type() != QVariant::String) {
+            const int intValue = value.toInt();
+            const char *key = QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>()
+                                  .valueToKey(intValue);
+            qCDebug(dcHems()) << "Converting optimizationMode" << intValue
+                              << "to enum name:" << key;
+            value = QString::fromLatin1(key);
+        }
+
+        // Central UUID sanitisation: nymea rejects the null UUID
+        // ("00000000-0000-0000-0000-000000000000", with or without braces),
+        // so any QUuid-typed property whose value resolves to a null UUID must
+        // be omitted from the request entirely. QVariant::toUuid handles all
+        // common encodings (QUuid, "{uuid}", "uuid", empty, invalid).
+        if (prop.type() == QVariant::Uuid) {
+            QUuid uuid = value.toUuid();
+            if (uuid.isNull()) {
+                qCDebug(dcHems()) << "Skipping null UUID property:" << name;
+                continue;
             }
+            value = uuid;
+        }
+
+        config.insert(name, value);
     }
 
     qCDebug(dcHems()) << "heatMeterThingId in config:" << config.value("heatMeterThingId") << "Type:" << config.value("heatMeterThingId").typeName();

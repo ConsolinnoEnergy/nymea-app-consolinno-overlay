@@ -1729,7 +1729,13 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
+<<<<<<< HEAD
+                            property var paramType: eebusViewStatusPage.thingClass.paramTypes.get(0)
+                            property string paramValue: eebusViewStatusPage.discoveryThingParams.params.getParam(paramType.id).value
+                            text: paramValue
+=======
                             text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
+>>>>>>> main
                             labelText: qsTr("This SKI is required by the metering point operator.")
                             helpText: qsTr("Local Subject Key Identifier (SKI)")
                             iconRight: text !== "-" ? "/icons/file_copy.svg" : ""

@@ -53,7 +53,7 @@ Item {
 
         ColumnLayout {
             Layout.fillWidth: true
-            spacing: Style.extraExtraSmallMargins
+            spacing: 0
 
             Text {
                 id: label

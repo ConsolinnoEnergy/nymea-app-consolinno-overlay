@@ -38,7 +38,11 @@ Item {
         }
 
         onEntriesRemoved: function(index, count) {
-            consumptionUpperSeries.removePoints(index, count)
+            // Note QtCharts crashes when calling removePoints() for points that don't exist.
+            var available = consumptionUpperSeries.count - index
+            if (available > 0) {
+                consumptionUpperSeries.removePoints(index, Math.min(count, available))
+            }
             zeroSeries.shrink()
         }
     }
@@ -416,8 +420,12 @@ Item {
 //                            print("adding entries for", thing.name)
                             if (!consumerDelegate.series) return
                             // Remove the leading 0-value entry
-                            series.lowerSeries.removePoints(0, 1);
-                            series.upperSeries.removePoints(0, 1);
+                            if (series.lowerSeries.count > 0) {
+                                series.lowerSeries.removePoints(0, 1);
+                            }
+                            if (series.upperSeries.count > 0) {
+                                series.upperSeries.removePoints(0, 1);
+                            }
 
                             for (var i = 0; i < entries.length; i++) {
                                 var entry = entries[i]
@@ -451,16 +459,26 @@ Item {
 
                             onEntriesRemoved: function(index, count){
                                 if (!consumerDelegate.series) return
+                                // Note QtCharts crashes when calling removePoints() for points that don't exist.
+                                var lower = consumerDelegate.series.lowerSeries
+                                var upper = consumerDelegate.series.upperSeries
                                 // Remove the leading 0-value entry
-                                consumerDelegate.series.lowerSeries.removePoints(0, 1);
-                                consumerDelegate.series.upperSeries.removePoints(0, 1);
+                                if (lower.count > 0) lower.removePoints(0, 1);
+                                if (upper.count > 0) upper.removePoints(0, 1);
 
-                                consumerDelegate.series.lowerSeries.removePoints(index, count)
-                                consumerDelegate.series.upperSeries.removePoints(index, count)
+                                var lowerAvail = lower.count - index
+                                if (lowerAvail > 0) lower.removePoints(index, Math.min(count, lowerAvail))
+                                var upperAvail = upper.count - index
+                                if (upperAvail > 0) upper.removePoints(index, Math.min(count, upperAvail))
+
+                                if (upper.count === 0) {
+                                    zeroSeries.shrink()
+                                    return
+                                }
 
                                 // Add the leading 0-value entry back
-                                consumerDelegate.series.lowerSeries.insert(0, consumerDelegate.series.upperSeries.at(0).x, 0)
-                                consumerDelegate.series.upperSeries.insert(0, consumerDelegate.series.upperSeries.at(0).x, 0)
+                                lower.insert(0, upper.at(0).x, 0)
+                                upper.insert(0, upper.at(0).x, 0)
 
                                 zeroSeries.shrink()
                             }

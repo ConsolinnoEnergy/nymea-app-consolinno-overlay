@@ -822,10 +822,6 @@
         <translation>Nächste Fahrt</translation>
     </message>
     <message>
-        <source>The charging mode is used to ensure a certain charge level until a departure time, while scheduling the charging to use as much of your own electricity as possible. If the own solar power is not sufficient to reach the charging target, the grid supply for grid supply is scheduled accordingly. The charging plan depends on a forecast of the solar production, which, like every forecast, is always affected by inaccuracies. Therefore, please note that deviations from the forecast may occur; i.e. it may happen that less is charged then solar power was predicted, or conversely, grid draw may occur if less solar power is available than the forecast assumed.</source>
-        <translation type="vanished">Der Lademodus dient dazu, einen bestimmten Ladestand bis zu einem Abfahrtszeitpunkt sicherzustellen und das Laden dabei so zu planen, dass möglichst viel eigener Strom verbraucht wird. Falls der eigene Solarstrom nicht ausreichen sollte, um das Ladeziel zu erreichen, wird entsprechend Netzbezug (bzw. Netzbezugszeiten) eingeplant. Der Ladeplan basiert auf einer Prognose der Solarproduktion, die wie jede Vorhersage stets mit Ungenauigkeit behaftet ist. Beachte deshalb, dass es zu Abweichungen von der Prognose kommen kann, d. h. es kann vorkommen, dass weniger geladen wird, als aktuell Solarstrom zur Verfügung steht, da weniger Solarstrom vorhergesagt war. Umgekehrt kann es zu Netzbezug kommen, wenn weniger Solarstrom zur Verfügung steht, als die Prognose angenommen hat.</translation>
-    </message>
-    <message>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
     </message>
@@ -2857,10 +2853,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Über %1</translation>
     </message>
     <message>
-        <source>Settings</source>
-        <translation>Einstellungen</translation>
-    </message>
-    <message>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
@@ -3603,10 +3595,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Welche Daten werden beim Energie-Monitoring geteilt?</translation>
     </message>
     <message>
-        <source>With this release, consumption and production data from your energy system is transmitted to the Consolinno Cloud. This includes, for example, measured values for solar production, grid consumption, feed-in, and the consumption of connected devices. This data forms the basis for precise energy analysis and enables continuous optimization of the system.</source>
-        <translation type="vanished">Mit dieser Freigabe werden Verbrauchs- und Produktionsdaten Ihres Energiesystems an die Consolinno Cloud übertragen. Dazu gehören beispielsweise Messwerte für Solarproduktion, Netzbezug, Einspeisung sowie den Verbrauch angeschlossener Geräte. Diese Daten bilden die Grundlage für präzise Energieanalysen und ermöglichen eine kontinuierliche Optimierung des Systems.</translation>
-    </message>
-    <message>
         <source>What is the benefit for me?</source>
         <translation>Welchen Nutzen habe ich davon?</translation>
     </message>
@@ -3749,10 +3737,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Charging with minimum current:</source>
         <translation>Laden mit minimaler Leistung:</translation>
-    </message>
-    <message>
-        <source>If there is not enough PV surplus to charge, charging continues at minimum charging current (grid supply).</source>
-        <translation type="vanished">Wenn nicht ausreichend PV-Überschuss zum Laden vorhanden ist, wird mit minimalen Ladestrom (Netzbezug) weitergeladen.</translation>
     </message>
     <message>
         <source>Pausing charging:</source>
@@ -4628,10 +4612,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Idle</source>
         <translation>Leerlauf</translation>
-    </message>
-    <message>
-        <source>Total grid consumption</source>
-        <translation type="vanished">Gesamter Netzbezug</translation>
     </message>
     <message>
         <source>Total grid feed-in</source>
