@@ -135,11 +135,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: addCarPage.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: addCarPage.title
 
             ColumnLayout {
                 Layout.fillWidth: true

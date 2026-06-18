@@ -255,11 +255,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(root.thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: qsTr("Discover %1").arg(root.thingClass.displayName)
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -310,18 +306,13 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(root.thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-
-                RoundButton {
-                    icon.source: "qrc:/icons/configure.svg"
-                    visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
-                    text: qsTr("Add thing manually")
-                    flat: true
-                    onClicked: internalPageStack.push(paramsPage)
-                }
+            headerText: qsTr("Discover %1").arg(root.thingClass.displayName)
+            headerExtras: RoundButton {
+                icon.source: "qrc:/icons/configure.svg"
+                visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
+                text: qsTr("Add thing manually")
+                flat: true
+                onClicked: internalPageStack.push(paramsPage)
             }
 
             property ThingClass thingClass: null
@@ -369,7 +360,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: Style.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - Style.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - Style.margins * 3
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -432,11 +423,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: paramsView.title
 
             CoFrostyCard {
                 id: nameGroup
@@ -569,11 +556,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: pairingPage.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: pairingPage.title
             property alias text: textLabel.text
             property string setupMethod
 

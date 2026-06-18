@@ -225,11 +225,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: paramsView.title
 
             QtObject {
                 id: paramd

@@ -239,11 +239,7 @@ Page {
 
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(thingClass.displayName)
-            header: CoHeader {
-                text: discoveryParamsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: discoveryParamsView.title
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -300,11 +296,7 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: qsTr("Discover %1").arg(thingClass.displayName)
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -351,7 +343,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -411,11 +403,7 @@ Page {
             }
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: paramsView.title
 
             CoFrostyCard {
                 id: nameGroup

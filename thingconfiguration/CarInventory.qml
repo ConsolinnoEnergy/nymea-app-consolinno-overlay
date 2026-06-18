@@ -237,11 +237,7 @@ Page{
 
             property Component navbarControls: carDataNavbar
 
-            header: CoHeader {
-                text: thingDetailPage.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: thingDetailPage.title
 
             Component {
                 id: carDataNavbar

@@ -239,17 +239,14 @@ Page {
                 }
             }
 
-            header: CoHeader {
-                text: qsTr("Discover EEBUS Devices")
-                backButtonVisible: true
-                onBackPressed: {
-                    if (root.directToDiscovery) {
-                        // Pop discovery page and signal the caller to close the wizard.
-                        pageStack.pop(root, StackView.Immediate)
-                        root.done(false, false, true)
-                    } else {
-                        pageStack.pop()
-                    }
+            headerText: qsTr("Discover EEBUS Devices")
+            onBackPressed: {
+                if (root.directToDiscovery) {
+                    // Pop discovery page and signal the caller to close the wizard.
+                    pageStack.pop(root, StackView.Immediate)
+                    root.done(false, false, true)
+                } else {
+                    pageStack.pop()
                 }
             }
 
@@ -298,7 +295,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -364,11 +361,7 @@ Page {
             }
 
             title: qsTr("Set up %1").arg(d.thingName ? d.thingName : (thingClass ? thingClass.displayName : ""))
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: paramsView.title
 
             CoFrostyCard {
                 id: nameGroup
