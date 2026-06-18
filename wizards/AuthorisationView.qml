@@ -67,6 +67,7 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.bottomMargin: Style.margins + root.navigationFooterHeight
         spacing: Style.margins
 
         Item {
