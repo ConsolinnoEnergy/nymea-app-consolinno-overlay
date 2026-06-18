@@ -130,6 +130,8 @@ Page {
                        contentColumn.anchors.topMargin +
                        contentColumn.anchors.bottomMargin + root.navigationFooterHeight
 
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
         ColumnLayout {
             id: contentColumn
             anchors { left: parent.left; right: parent.right; top: parent.top }
