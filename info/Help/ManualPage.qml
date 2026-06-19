@@ -9,15 +9,20 @@ import "../../delegates"
 
 
 Page {
+    id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
         id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
         text: qsTr("Manual")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
     }
-
-
 
     RowLayout{
         anchors {
@@ -26,6 +31,7 @@ Page {
             right:  parent.right
             rightMargin: 16
             top: parent.top
+            topMargin: header.height
             bottom: parent.bottom
             bottomMargin: 16
         }
