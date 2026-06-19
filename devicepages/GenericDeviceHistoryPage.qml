@@ -25,7 +25,7 @@ GenericConfigPage {
         ListElement {
             icon: "/icons/logs.svg"
             text: "Logs"
-            page: "../devicepages/DeviceLogPage.qml"
+            page: "../devicepages/ConsolinnoDeviceLogPage.qml"
         }
     }
 
@@ -121,7 +121,7 @@ GenericConfigPage {
                             }
                             onClicked: {
                                 swipe.close();
-                                pageStack.push(Qt.resolvedUrl("DeviceLogPage.qml"), {thing: root.thing, filterTypeIds: [model.id]})
+                                pageStack.push(Qt.resolvedUrl("ConsolinnoDeviceLogPage.qml"), {thing: root.thing, filterTypeIds: [model.id]})
                             }
                         }
                     }

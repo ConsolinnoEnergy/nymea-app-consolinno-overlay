@@ -76,7 +76,7 @@ GenericConfigPage {
         ListElement {
             icon: "/icons/logs.svg"
             text: "Logs"
-            page: "../devicepages/DeviceLogPage.qml"
+            page: "../devicepages/ConsolinnoDeviceLogPage.qml"
         }
     }
 
