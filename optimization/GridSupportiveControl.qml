@@ -542,41 +542,48 @@ StackView {
                 }
             }
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingSetupHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingSetupFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingSetupFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingSetupHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingSetupPage.navigationFooterHeight
+                clip: true
 
-                CoNotification {
-                    Layout.fillWidth: true
-                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Warning
-                    title: qsTr("Attention")
-                    message: qsTr("Existing setup will be overwritten.")
-                }
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingSetupPage.navigationFooterHeight
-                    clip: true
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                    CoNotification {
+                        Layout.fillWidth: true
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
+                    }
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("QR Code & Pairing Data")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -677,7 +684,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
@@ -706,28 +712,35 @@ StackView {
                 }
             }
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingViewStatusHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingViewStatusFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingViewStatusFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingViewStatusHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingViewStatusPage.navigationFooterHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingViewStatusPage.navigationFooterHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
                         CoFrostyCard {
                             Layout.fillWidth: true
@@ -849,7 +862,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
@@ -857,7 +869,14 @@ StackView {
         id: eebusComfortPairingView
 
         Page {
-            header: CoHeader {
+            id: eebusComfortPairingViewPage
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingViewHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingViewFlickable
                 text: qsTr("Grid-supportive control")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
@@ -932,26 +951,27 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingViewFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingViewHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("QR Code & Pairing Data")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -1068,7 +1088,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
@@ -1082,7 +1101,13 @@ StackView {
             property bool busy: discovery.busy
             property Component navbarControls: eebusViewSelectNavbar
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: eebusViewSelectHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusViewSelectFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
@@ -1113,14 +1138,20 @@ StackView {
             }
 
             Flickable {
+                id: eebusViewSelectFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
+                topMargin: eebusViewSelectHeader.height
+                bottomMargin: Style.margins
                 contentHeight: eebusDiscoveryContent.implicitHeight + eebusViewSelectPage.navigationFooterHeight
                 clip: true
 
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
                     ColumnLayout {
                         id: eebusDiscoveryContent
-                        width: parent.width
+                        anchors { left: parent.left; right: parent.right; top: parent.top }
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
                         spacing: Style.margins
 
                         CoFrostyCard {
@@ -1187,7 +1218,13 @@ StackView {
             property ThingClass thingClass
             property var discoveryThingParams
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: eebusSetupHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusSetupFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
@@ -1250,29 +1287,30 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusSetupFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusSetupHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusSetupPage.navigationFooterHeight
+                clip: true
 
-                CoNotification {
-                    Layout.fillWidth: true
-                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Warning
-                    title: qsTr("Attention")
-                    message: qsTr("Existing setup will be overwritten.")
-                }
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight + eebusSetupPage.navigationFooterHeight
-                    clip: true
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                    CoNotification {
+                        Layout.fillWidth: true
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
+                    }
 
                         CoFrostyCard {
                             Layout.fillWidth: true
@@ -1312,7 +1350,6 @@ StackView {
                             }
                         }
                     }
-                }
             }
         }
     }
@@ -1322,7 +1359,14 @@ StackView {
         id: eebusView
 
         Page {
-            header: CoHeader {
+            id: eebusViewPage
+            header: null
+
+            CoHeader {
+                id: eebusViewHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusViewFlickable
                 text: qsTr("Grid-supportive control")
                 subText: qsTr("EEBUS")
                 backButtonVisible: true
@@ -1408,26 +1452,27 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusViewFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusViewHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusViewContent.implicitHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusViewContent.implicitHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusViewContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusViewContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("Parameter")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("Parameter")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -1491,7 +1536,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
