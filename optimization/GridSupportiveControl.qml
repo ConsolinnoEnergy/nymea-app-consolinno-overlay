@@ -559,8 +559,7 @@ StackView {
                 id: eebusComfortPairingSetupFlickable
                 anchors.fill: parent
                 topMargin: eebusComfortPairingSetupHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingSetupPage.navigationFooterHeight
+                                contentHeight: eebusParameterContent.implicitHeight + eebusParameterContent.anchors.topMargin + eebusParameterContent.anchors.bottomMargin + eebusComfortPairingSetupPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -568,8 +567,7 @@ StackView {
                 ColumnLayout {
                     id: eebusParameterContent
                     anchors { left: parent.left; right: parent.right; top: parent.top }
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
+                    anchors.margins: Style.margins
                     spacing: Style.margins
 
                     CoNotification {
@@ -729,8 +727,7 @@ StackView {
                 id: eebusComfortPairingViewStatusFlickable
                 anchors.fill: parent
                 topMargin: eebusComfortPairingViewStatusHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingViewStatusPage.navigationFooterHeight
+                                contentHeight: eebusParameterContent.implicitHeight + eebusParameterContent.anchors.topMargin + eebusParameterContent.anchors.bottomMargin + eebusComfortPairingViewStatusPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -738,8 +735,7 @@ StackView {
                 ColumnLayout {
                     id: eebusParameterContent
                     anchors { left: parent.left; right: parent.right; top: parent.top }
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
+                    anchors.margins: Style.margins
                     spacing: Style.margins
 
                         CoFrostyCard {
@@ -871,6 +867,8 @@ StackView {
         Page {
             id: eebusComfortPairingViewPage
             header: null
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             CoHeader {
                 id: eebusComfortPairingViewHeader
@@ -955,8 +953,7 @@ StackView {
                 id: eebusComfortPairingViewFlickable
                 anchors.fill: parent
                 topMargin: eebusComfortPairingViewHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusParameterContent.implicitHeight
+                contentHeight: eebusParameterContent.implicitHeight + eebusParameterContent.anchors.topMargin + eebusParameterContent.anchors.bottomMargin + eebusComfortPairingViewPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -964,8 +961,7 @@ StackView {
                 ColumnLayout {
                     id: eebusParameterContent
                     anchors { left: parent.left; right: parent.right; top: parent.top }
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
+                    anchors.margins: Style.margins
                     spacing: Style.margins
 
                     CoFrostyCard {
@@ -1141,8 +1137,7 @@ StackView {
                 id: eebusViewSelectFlickable
                 anchors.fill: parent
                 topMargin: eebusViewSelectHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusDiscoveryContent.implicitHeight + eebusViewSelectPage.navigationFooterHeight
+                                contentHeight: eebusDiscoveryContent.implicitHeight + eebusDiscoveryContent.anchors.topMargin + eebusDiscoveryContent.anchors.bottomMargin + eebusViewSelectPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -1150,8 +1145,7 @@ StackView {
                     ColumnLayout {
                         id: eebusDiscoveryContent
                         anchors { left: parent.left; right: parent.right; top: parent.top }
-                        anchors.leftMargin: Style.margins
-                        anchors.rightMargin: Style.margins
+                        anchors.margins: Style.margins
                         spacing: Style.margins
 
                         CoFrostyCard {
@@ -1291,8 +1285,7 @@ StackView {
                 id: eebusSetupFlickable
                 anchors.fill: parent
                 topMargin: eebusSetupHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusParameterContent.implicitHeight + eebusSetupPage.navigationFooterHeight
+                                contentHeight: eebusParameterContent.implicitHeight + eebusParameterContent.anchors.topMargin + eebusParameterContent.anchors.bottomMargin + eebusSetupPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -1300,8 +1293,7 @@ StackView {
                 ColumnLayout {
                     id: eebusParameterContent
                     anchors { left: parent.left; right: parent.right; top: parent.top }
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
+                    anchors.margins: Style.margins
                     spacing: Style.margins
 
                     CoNotification {
@@ -1361,6 +1353,8 @@ StackView {
         Page {
             id: eebusViewPage
             header: null
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             CoHeader {
                 id: eebusViewHeader
@@ -1456,8 +1450,7 @@ StackView {
                 id: eebusViewFlickable
                 anchors.fill: parent
                 topMargin: eebusViewHeader.height
-                bottomMargin: Style.margins
-                contentHeight: eebusViewContent.implicitHeight
+                                contentHeight: eebusViewContent.implicitHeight + eebusViewContent.anchors.topMargin + eebusViewContent.anchors.bottomMargin + eebusViewPage.navigationFooterHeight
                 clip: true
 
                 Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
@@ -1465,8 +1458,7 @@ StackView {
                 ColumnLayout {
                     id: eebusViewContent
                     anchors { left: parent.left; right: parent.right; top: parent.top }
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
+                    anchors.margins: Style.margins
                     spacing: Style.margins
 
                     CoFrostyCard {
