@@ -24,7 +24,7 @@ GenericConfigPage {
     }
 
     title: qsTr("Grid")
-    headerOptionsVisible: false
+    headerOptionsVisible: true
 
     content: [
         Flickable {
