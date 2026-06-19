@@ -9,9 +9,37 @@ import Nymea 1.0
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+    property bool busy: d.thingToRemove !== null
     signal startWizard()
 
-    header: CoHeader {
+    property Component navbarControls: deviceOverviewNavbarControls
+
+    Component {
+        id: deviceOverviewNavbarControls
+        ColumnLayout {
+            spacing: Style.margins
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Start Wizard")
+                onClicked: wizardController.startManualSetup()
+            }
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Set up new device")
+                onClicked: pageStack.push("../wizards/AuthorisationView.qml", { directionID: 1 })
+            }
+        }
+    }
+
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Device Overview")
         onBackPressed: {
             if (hemsManager.availableUseCases === 0){
@@ -61,11 +89,13 @@ Page {
     WizardController {
         id: wizardController
         onWizardDone: {
-            // Nach dem Wizard: zurück zum Dashboard.
-            // Stack: empty Page(0) → MainPage(1) → SettingsPage(2) → DeviceOverview(3)
-            // Je zweimal poppen.
-            pageStack.pop()
-            pageStack.pop()
+            // ESUI-879: Settings is itself a main view tab now. Pop back to
+            // MainPage and switch the active tab to the dashboard.
+            var mainPage = pageStack.get(0)
+            pageStack.pop(mainPage)
+            if (mainPage && mainPage.goToView) {
+                mainPage.goToView("consolinnoDashboard", undefined, true)
+            }
         }
     }
 
@@ -92,18 +122,24 @@ Page {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: Style.margins
+        anchors.leftMargin: Style.margins
+        anchors.rightMargin: Style.margins
+        anchors.bottomMargin: Style.margins
         spacing: Style.margins
 
         Flickable {
+            id: bodyFlickable
             Layout.fillWidth: true
             Layout.fillHeight: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            topMargin: header.height
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
+
+            Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 spacing: Style.margins
 
                 Repeater {
@@ -161,25 +197,6 @@ Page {
                 }
             }
         }
-
-        Button{
-            id: startWizardButton
-            Layout.fillWidth: true
-            Layout.topMargin: Style.margins
-            text: qsTr("Start Wizard")
-            onClicked: {
-                wizardController.startManualSetup();
-            }
-        }
-
-        Button{
-            id: addDevice
-            Layout.fillWidth: true
-            text: qsTr("Set up new device")
-            onClicked: {
-                pageStack.push( "../wizards/AuthorisationView.qml", { directionID: 1 });
-            }
-        }
     }
 
 
@@ -196,6 +213,6 @@ Page {
     }
 
     BusyOverlay {
-        shown: d.thingToRemove !== null
+        shown: root.busy
     }
 }

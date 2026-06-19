@@ -9,8 +9,16 @@ import "../optimization"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{
@@ -19,13 +27,17 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+        topMargin: header.height
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
         clip: true
+
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout
-            anchors.fill: parent
+            anchors { left: parent.left; right: parent.right; top: parent.top }
             anchors.margins: Style.margins
             spacing: Style.margins
 

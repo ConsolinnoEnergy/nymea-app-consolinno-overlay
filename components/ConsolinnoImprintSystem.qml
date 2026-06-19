@@ -233,25 +233,48 @@ Item {
         id: licensesPageComponent
         Page {
             id: licensesPage
-            header: CoHeader {
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+
+            header: null
+
+            CoHeader {
+                id: header
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: bodyFlickable
                 text: qsTr("Additional software licenses")
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
-                anchors { left: parent.left; top: parent.top; right: parent.right }
+            Flickable {
+                id: bodyFlickable
+                anchors.fill: parent
+                topMargin: header.height
+                clip: true
+                contentHeight: contentColumn.implicitHeight +
+                               contentColumn.anchors.topMargin +
+                               contentColumn.anchors.bottomMargin + licensesPage.navigationFooterHeight
 
-                Repeater {
-                    model: root.additionalLicenses
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    delegate: NymeaSwipeDelegate {
-                        Layout.fillWidth: true
-                        text: model.component
-                        subText: model.infoText
-                        prominentSubText: false
-                        visible: model.platforms === "*" ||  model.platforms.indexOf(Qt.platform.os) >= 0
-                        onClicked: {
-                            pageStack.push(licenseTextComponent, {license: model.license})
+                ColumnLayout {
+                    id: contentColumn
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.margins: app.margins
+
+                    Repeater {
+                        model: root.additionalLicenses
+
+                        delegate: NymeaSwipeDelegate {
+                            Layout.fillWidth: true
+                            text: model.component
+                            subText: model.infoText
+                            prominentSubText: false
+                            visible: model.platforms === "*" ||  model.platforms.indexOf(Qt.platform.os) >= 0
+                            onClicked: {
+                                pageStack.push(licenseTextComponent, {license: model.license})
+                            }
                         }
                     }
                 }
@@ -263,18 +286,32 @@ Item {
         id: licenseTextComponent
         Page {
             id: licenseTextPage
-            header: CoHeader {
-                text: parent.license
-                onBackPressed: pageStack.pop()
-            }
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             property string license
 
+            header: null
+
+            CoHeader {
+                id: header
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: bodyFlickable
+                text: licenseTextPage.license
+                onBackPressed: pageStack.pop()
+            }
+
             Flickable {
+                id: bodyFlickable
                 anchors.fill: parent
-                contentHeight: licenseText.implicitHeight
+                topMargin: header.height
+                contentHeight: licenseText.implicitHeight + licenseTextPage.navigationFooterHeight
                 clip: true
                 ScrollBar.vertical: ScrollBar {}
+
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
                 TextArea {
                     id: licenseText
                     wrapMode: Text.WordWrap

@@ -8,10 +8,50 @@ import "../delegates"
 
 Page{
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     signal done(bool saved, bool skip, bool back)
     property int directionID: 0
+    property Component navbarControls: installerDataControls
 
-    header: CoHeader {
+    Component {
+        id: installerDataControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked:{
+                    hemsManager.setUserConfiguration(
+                                {
+                                    installerName: nameField.text,
+                                    installerEmail: emailField.text,
+                                    installerPhoneNr: numberField.text,
+                                    installerWorkplace: companyField.text
+                                });
+                    root.done(true, false, false);
+                }
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Skip")
+                flat: true
+                onClicked:{
+                    root.done(false, true, false);
+                }
+            }
+        }
+    }
+
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Contact")
         //text: userconfig.installerEmail
         backButtonVisible: true
@@ -29,17 +69,19 @@ Page{
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.topMargin: header.height
         spacing: Style.margins
 
         Flickable {
+            id: bodyFlickable
             Layout.fillHeight: true
             Layout.fillWidth: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 spacing: Style.margins
 
                 CoFrostyCard {
@@ -92,28 +134,5 @@ Page{
             }
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            onClicked:{
-                hemsManager.setUserConfiguration(
-                            {
-                                installerName: nameField.text,
-                                installerEmail: emailField.text,
-                                installerPhoneNr: numberField.text,
-                                installerWorkplace: companyField.text
-                            });
-                root.done(true, false, false);
-            }
-        }
-
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Skip")
-            flat: true
-            onClicked:{
-                root.done(false, true, false);
-            }
-        }
     }
 }

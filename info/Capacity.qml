@@ -10,6 +10,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property var stack
 
     header: ConsolinnoHeader {
@@ -22,6 +24,7 @@ Page {
     }
 
     InfoTextInterface{
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
         summaryText: qsTr("Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.")
         body: ColumnLayout {

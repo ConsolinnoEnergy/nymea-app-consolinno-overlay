@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea
 
 Item {
@@ -14,8 +15,60 @@ Item {
     property alias elide: headline.elide
     property alias wrapMode: headline.wrapMode
 
+    // Optional. When set, a blurred snapshot of the top strip of this item is
+    // drawn behind the header so scrolled content shows through. Typically the
+    // Flickable whose content passes under the header.
+    property Item blurSource: null
+
     signal backPressed();
     signal menuPressed();
+
+    // If blurSource is a Flickable, sample its contentItem (regular Item) at
+    // the scrolled position. Otherwise sample blurSource directly.
+    readonly property bool _sourceIsFlickable: root.blurSource !== null
+                                                && root.blurSource.hasOwnProperty("contentItem")
+                                                && root.blurSource.hasOwnProperty("contentY")
+    readonly property Item _effectiveSourceItem: root.blurSource === null
+                                                 ? null
+                                                 : (_sourceIsFlickable
+                                                    ? root.blurSource.contentItem
+                                                    : root.blurSource)
+    readonly property real _effectiveSourceY: _sourceIsFlickable
+                                              ? root.blurSource.contentY
+                                              : 0
+
+    ShaderEffectSource {
+        id: headerBlurSource
+        width: root.width
+        height: root.height - bottomBorder.height
+        sourceItem: root._effectiveSourceItem
+        sourceRect: root.blurSource
+                    ? Qt.rect(0, root._effectiveSourceY, width, height)
+                    : Qt.rect(0, 0, 0, 0)
+        recursive: true
+        live: true
+        visible: false
+        enabled: root.blurSource !== null
+    }
+
+    Rectangle {
+        id: blurBackdrop
+        anchors.fill: parent
+        anchors.bottomMargin: bottomBorder.height
+        color: Style.backgroundColor
+        visible: root.blurSource !== null
+    }
+
+    FastBlur {
+        x: 0
+        y: 0
+        width: root.width
+        height: root.height - bottomBorder.height
+        source: headerBlurSource
+        radius: 40
+        transparentBorder: false
+        visible: root.blurSource !== null
+    }
 
     Rectangle {
         id: background

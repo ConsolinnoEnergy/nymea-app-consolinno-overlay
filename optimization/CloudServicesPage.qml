@@ -7,10 +7,18 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property CloudConfiguration cloudConfiguration: hemsManager.cloudConfiguration
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Consolinno Cloud Services")
         subText: qsTr("(Beta)")
         backButtonVisible: true
@@ -18,9 +26,12 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        contentHeight: layout.implicitHeight + app.margins
+        topMargin: header.height
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
         clip: true
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout

@@ -8,6 +8,10 @@ import "../components"
 import "../delegates"
 
 Page {
+    id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+
     property var stack
     header: ConsolinnoHeader {
         id: header
@@ -18,6 +22,7 @@ Page {
     }
 
     InfoTextInterface{
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
         //summaryText: qsTr("The charge limit is set in the vehicle or in the vehicle app and specifies the maximum amount that can be charged.")
         body: ColumnLayout{

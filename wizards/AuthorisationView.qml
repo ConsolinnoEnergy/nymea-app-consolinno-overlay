@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "qrc:/ui/components"
+import "../components"
 import Nymea 1.0
 
 
@@ -11,7 +12,45 @@ Page {
     // Signal params: abort (user cancelled), accepted (user authorized)
     signal done(bool abort, bool accepted)
 
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property real directionID: 0
+    property Component navbarControls: authorisationControls
+
+    Component {
+        id: authorisationControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                enabled: authorisationCheckbox.checked
+                onClicked: {
+                    if (authorisationCheckbox.checked) {
+                        if (directionID == 0) {
+                            root.done(false, true);  // abort=false, accepted=true
+                        } else if (directionID == 1) {
+                            pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
+                        }
+                    }
+                }
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: {
+                    if (directionID == 0) {
+                        root.done(true, false);  // abort=true, accepted=false
+                    } else {
+                        pageStack.pop();
+                    }
+                }
+            }
+        }
+    }
 
     header: CoHeader {
         text: qsTr("Authorisation page")
@@ -28,6 +67,7 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.bottomMargin: Style.margins + root.navigationFooterHeight
         spacing: Style.margins
 
         Item {
@@ -55,32 +95,5 @@ Page {
             Layout.fillHeight: true
         }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            enabled: authorisationCheckbox.checked
-            onClicked: {
-                if (authorisationCheckbox.checked) {
-                    if (directionID == 0) {
-                        root.done(false, true);  // abort=false, accepted=true
-                    } else if (directionID == 1) {
-                        pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
-                    }
-                }
-            }
-        }
-
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Cancel")
-            flat: true
-            onClicked: {
-                if (directionID == 0) {
-                    root.done(true, false);  // abort=true, accepted=false
-                } else {
-                    pageStack.pop();
-                }
-            }
-        }
     }
 }

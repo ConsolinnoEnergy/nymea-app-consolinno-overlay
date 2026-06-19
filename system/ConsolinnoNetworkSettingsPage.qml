@@ -8,11 +8,7 @@ SettingsPageBase {
     id: root
     busy: networkManager.loading || d.pendingCallCount > 0
 
-    header: CoHeader {
-        text: qsTr("Network settings")
-        backButtonVisible: true
-        onBackPressed: pageStack.pop()
-    }
+    headerText: qsTr("Network settings")
 
     StackView.onStatusChanged: {
         if (StackView.status === StackView.Active) {
@@ -303,14 +299,34 @@ SettingsPageBase {
         SettingsPageBase {
             id: currentEthernetConnectionPage
 
-            header: CoHeader {
-                text: currentEthernetConnectionPage.displayName
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            property Component navbarControls: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1" ? writeSettingsNavbar : null
+
+            headerText: currentEthernetConnectionPage.displayName
 
             property WiredNetworkDevice wiredNetworkDevice: null
             property string displayName: ""
+
+            Component {
+                id: writeSettingsNavbar
+                CoNavbarButton {
+                    text: qsTr("Write settings")
+                    enabled: {
+                        if (dhcpServerRadioButton.checked) {
+                            return true;
+                        }
+                        return ipTextField.acceptableInput && prefixTextField.acceptableInput
+                    }
+                    onClicked: {
+                        if (manualClientRadioButton.checked) {
+                            d.add(networkManager.enableEth1StaticIp(ipTextField.text, prefixTextField.text));
+                        } else if (dhcpServerRadioButton.checked) {
+                            d.add(networkManager.disableEth1StaticIp());
+                        }
+
+                        pageStack.pop(root);
+                    }
+                }
+            }
 
             Component.onCompleted: {
                 if (wiredNetworkDevice.interface === "eth1") {
@@ -431,31 +447,6 @@ SettingsPageBase {
                             top: 32
                         }
                     }
-                }
-            }
-
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
-                visible: currentEthernetConnectionPage.wiredNetworkDevice.interface === "eth1"
-                text: qsTr("Write settings")
-                enabled: {
-                    if (dhcpServerRadioButton.checked) {
-                        return true;
-                    }
-                    return ipTextField.acceptableInput && prefixTextField.acceptableInput
-                }
-
-                onClicked: {
-                    if (manualClientRadioButton.checked) {
-                        d.add(networkManager.enableEth1StaticIp(ipTextField.text, prefixTextField.text));
-                    } else if (dhcpServerRadioButton.checked) {
-                        d.add(networkManager.disableEth1StaticIp());
-                    }
-
-                    pageStack.pop(root);
                 }
             }
         }

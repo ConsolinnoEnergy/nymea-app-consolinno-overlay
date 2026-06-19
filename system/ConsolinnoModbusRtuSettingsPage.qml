@@ -37,10 +37,40 @@ import Nymea 1.0
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property bool settingsWizard: true
     signal done(bool skip, bool abort, bool back)
 
-    header: CoHeader {
+    property Component navbarControls: root.settingsWizard ? modbusRtuNavbarControls : null
+
+    Component {
+        id: modbusRtuNavbarControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
+        }
+    }
+
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: flickable
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
         onBackPressed: {
@@ -169,140 +199,109 @@ Page {
         }
     }
 
-    ColumnLayout {
+    Flickable {
+        id: flickable
         anchors.fill: parent
-        anchors.topMargin: Style.margins
-        spacing: Style.margins
+        topMargin: header.height
+        contentHeight: layout.implicitHeight + 2 * Style.margins + root.navigationFooterHeight
+        clip: true
 
-        CoNotification {
-            id: modbusRtuNote
-            Layout.fillWidth: true
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            type: CoNotification.Type.Neutral
-            title: qsTr("Note")
-            message: qsTr("If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
-        }
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        Flickable {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
-            clip: true
+        ColumnLayout {
+            id: layout
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
+            anchors.topMargin: Style.margins
+            spacing: Style.margins
 
-            ColumnLayout {
-                id: layout
-                anchors.fill: parent
-                anchors.topMargin: Style.margins
-                anchors.bottomMargin: Style.margins
-                spacing: Style.margins
+            CoNotification {
+                id: modbusRtuNote
+                Layout.fillWidth: true
+                type: CoNotification.Type.Neutral
+                title: qsTr("Note")
+                message: qsTr("If you intend to connect a device via <b>Modbus-RTU</b>, please verify the Modbus interface settings to ensure they are compatible with the connected device. If you wish to use a different interface, please add another one.")
+            }
 
-                CoFrostyCard {
-                    id: modbusInterfacesGroup
-                    Layout.fillWidth: true
-                    contentTopMargin: Style.smallMargins
-                    headerText: qsTr("Available interfaces")
+            CoFrostyCard {
+                id: modbusInterfacesGroup
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Available interfaces")
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                        Repeater {
-                            id: modbusRtuMastersRepeater
-                            enabled: modbusRtuManager.supported
-                            model: modbusRtuManager.modbusRtuMasters
+                    Repeater {
+                        id: modbusRtuMastersRepeater
+                        enabled: modbusRtuManager.supported
+                        model: modbusRtuManager.modbusRtuMasters
 
-                            function getName(name) {
-                                if (name.includes("/dev/ttymxc3")) {
-                                    return qsTr("RJ45 connector");
-                                } else if (name.includes("/dev/ttymxc5")) {
-                                    return qsTr("14-pin connector");
-                                } else {
-                                    return name;
-                                }
-                            }
-
-                            delegate: CoCard {
-                                Layout.fillWidth: true
-                                text: modbusRtuMastersRepeater.getName(model.serialPort) + " " + model.baudrate
-                                iconLeft: "/icons/modbus.svg"
-                                helpText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
-                                showChildrenIndicator: true
-                                onClicked: {
-                                    pageStack.push(modbusDetailsComponent,
-                                                   {
-                                                       modbusRtuManager: modbusRtuManager,
-                                                       modbusRtuMaster: modbusRtuManager.modbusRtuMasters.get(index)
-                                                   });
-                                }
+                        function getName(name) {
+                            if (name.includes("/dev/ttymxc3")) {
+                                return qsTr("RJ45 connector");
+                            } else if (name.includes("/dev/ttymxc5")) {
+                                return qsTr("14-pin connector");
+                            } else {
+                                return name;
                             }
                         }
 
-                        CoCard {
-                            id: modbusNotSupportedCard
+                        delegate: CoCard {
                             Layout.fillWidth: true
-                            text: qsTr("Modbus-RTU is not supported on this platform.")
-                            visible: !modbusRtuManager.supported
-                            interactive: false
-                        }
-
-                        CoCard {
-                            id: noModbusDevicesCard
-                            Layout.fillWidth: true
-                            text: qsTr("No devices discovered") //Keine Geräte entdeckt
-                            visible: modbusRtuManager.modbusRtuMasters.count === 0
-                            interactive: false
+                            text: modbusRtuMastersRepeater.getName(model.serialPort) + " " + model.baudrate
+                            iconLeft: "/icons/modbus.svg"
+                            helpText: model.connected ? qsTr("Connected") : qsTr("Disconnected")
+                            showChildrenIndicator: true
+                            onClicked: {
+                                pageStack.push(modbusDetailsComponent,
+                                               {
+                                                   modbusRtuManager: modbusRtuManager,
+                                                   modbusRtuMaster: modbusRtuManager.modbusRtuMasters.get(index)
+                                               });
+                            }
                         }
                     }
-                }
 
-                RoundButton {
-                    id: addModbusRtuMasterButton
-                    Layout.alignment: Qt.AlignCenter
-                    icon.source: Qt.resolvedUrl("/icons/add.svg")
-                    enabled: modbusRtuManager.supported
+                    CoCard {
+                        id: modbusNotSupportedCard
+                        Layout.fillWidth: true
+                        text: qsTr("Modbus-RTU is not supported on this platform.")
+                        visible: !modbusRtuManager.supported
+                        interactive: false
+                    }
 
-                    onClicked: {
-                        pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"),
-                                       {
-                                           modbusRtuManager: modbusRtuManager,
-                                           serialPortBaudrateModel: serialPortBaudrateModel,
-                                           serialPortParityModel: serialPortParityModel,
-                                           serialPortDataBitsModel: serialPortDataBitsModel,
-                                           serialPortStopBitsModel: serialPortStopBitsModel
-                                       });
+                    CoCard {
+                        id: noModbusDevicesCard
+                        Layout.fillWidth: true
+                        text: qsTr("No devices discovered") //Keine Geräte entdeckt
+                        visible: modbusRtuManager.modbusRtuMasters.count === 0
+                        interactive: false
                     }
                 }
-
             }
-        }
 
-        Button {
-            id: nextButton
-            Layout.fillWidth: true
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            text: qsTr("Next")
-            visible: root.settingsWizard
-            onClicked: {
-                root.done(true, false, false);
-            }
-        }
+            RoundButton {
+                id: addModbusRtuMasterButton
+                Layout.alignment: Qt.AlignCenter
+                icon.source: Qt.resolvedUrl("/icons/add.svg")
+                enabled: modbusRtuManager.supported
 
-        Button {
-            id: cancelButton
-            text: qsTr("Cancel")
-            Layout.fillWidth: true
-            Layout.leftMargin: Style.margins
-            Layout.rightMargin: Style.margins
-            Layout.bottomMargin: Style.margins
-            flat: true
-            visible: root.settingsWizard
-            onClicked: {
-                root.done(false, true, false);
+                onClicked: {
+                    pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"),
+                                   {
+                                       modbusRtuManager: modbusRtuManager,
+                                       serialPortBaudrateModel: serialPortBaudrateModel,
+                                       serialPortParityModel: serialPortParityModel,
+                                       serialPortDataBitsModel: serialPortDataBitsModel,
+                                       serialPortStopBitsModel: serialPortStopBitsModel
+                                   });
+                }
             }
         }
     }
@@ -316,25 +315,43 @@ Page {
             property ModbusRtuManager modbusRtuManager
             property ModbusRtuMaster modbusRtuMaster
 
+            property Component navbarControls: reconfigureNavbar
+
             busy: d.pendingCommandId !== -1
 
-            header: CoHeader {
-                text: qsTr("Modbus-RTU-Interface")
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-
-                RoundButton {
-                    icon.source: "/icons/delete_forever.svg"
-                    text: qsTr("Remove Modbus RTU Interface")
-                    enabled: modbusRtuManager.supported
-                    flat: true
+            Component {
+                id: reconfigureNavbar
+                CoNavbarButton {
+                    id: reconfigureButton
+                    text: qsTr("Reconfigure")
+                    enabled: !root.busy
                     onClicked: {
-                        var dialog = removeModbusMasterDialogComponent.createObject(app,
-                                                                                    {
-                                                                                        modbusRtuMaster: root.modbusRtuMaster
-                                                                                    });
-                        dialog.open();
+                        pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"),
+                                       {
+                                           modbusRtuManager: root.modbusRtuManager,
+                                           modbusRtuMaster: root.modbusRtuMaster,
+                                           serialPortPath: root.modbusRtuMaster.serialPort,
+                                           serialPortBaudrateModel: serialPortBaudrateModel,
+                                           serialPortParityModel: serialPortParityModel,
+                                           serialPortDataBitsModel: serialPortDataBitsModel,
+                                           serialPortStopBitsModel: serialPortStopBitsModel
+                                       });
                     }
+                }
+            }
+
+            headerText: qsTr("Modbus-RTU-Interface")
+            headerExtras: RoundButton {
+                icon.source: "/icons/delete_forever.svg"
+                text: qsTr("Remove Modbus RTU Interface")
+                enabled: modbusRtuManager.supported
+                flat: true
+                onClicked: {
+                    var dialog = removeModbusMasterDialogComponent.createObject(app,
+                                                                                {
+                                                                                    modbusRtuMaster: root.modbusRtuMaster
+                                                                                });
+                    dialog.open();
                 }
             }
 
@@ -474,25 +491,6 @@ Page {
                 }
             }
 
-            Button {
-                id: reconfigureButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Reconfigure")
-                enabled: !root.busy
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuReconfigureMasterPage.qml"),
-                                   {
-                                       modbusRtuManager: modbusRtuManager,
-                                       modbusRtuMaster: root.modbusRtuMaster,
-                                       serialPortPath: modbusRtuMaster.serialPort,
-                                       serialPortBaudrateModel: serialPortBaudrateModel,
-                                       serialPortParityModel: serialPortParityModel,
-                                       serialPortDataBitsModel: serialPortDataBitsModel,
-                                       serialPortStopBitsModel: serialPortStopBitsModel
-                                   });
-                }
-            }
         }
     }
 

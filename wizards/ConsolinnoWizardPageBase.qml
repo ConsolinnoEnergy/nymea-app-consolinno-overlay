@@ -26,7 +26,12 @@ Page {
     signal extraButtonPressed();
     signal done(bool skip, bool abort);
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
         text: root.headerLabel
         visible: root.headerVisible
         backButtonVisible: root.headerBackButtonVisible
@@ -38,6 +43,7 @@ Page {
 
     ColumnLayout {
         anchors.fill: parent
+        anchors.topMargin: header.height
         spacing: Style.margins
 
         Item {

@@ -18,6 +18,40 @@ GenericConfigPage {
     title: root.thing.name
     headerOptionsVisible: false
 
+    readonly property bool applyEnabled: {
+        if (!root.consumerConfig) { return false; }
+        if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
+        if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
+        if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
+        if (pvSurplusGroup.visible && minRuntimeStepper.value * 900 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
+        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 900 !== root.consumerConfig.durationMaxTotal) { return true; }
+        if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
+        return false;
+    }
+
+    function applyChanges() {
+        d.pendingCallId = hemsManager.setSwitchConfiguration(
+            root.consumerConfig.switchThingId,
+            {
+                optimizationMode: optimizationModeCombobox.currentValue,
+                durationMinAfterTurnOn: minRuntimeStepper.value * 900,
+                durationMaxTotal: maxTotalRuntimeStepper.value * 900,
+                pvSurplusThreshold: parseInt(minPVSurplusPower.text)
+            }
+        );
+    }
+
+    property Component navbarControls: switchableConsumerNavbarControls
+
+    Component {
+        id: switchableConsumerNavbarControls
+        CoNavbarButton {
+            text: qsTr("Apply changes")
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
+        }
+    }
+
     QtObject {
         id: d
         property int pendingCallId: -1
@@ -77,12 +111,12 @@ GenericConfigPage {
             anchors.fill: parent
             contentHeight: columnLayout.implicitHeight +
                            columnLayout.anchors.topMargin +
-                           columnLayout.anchors.bottomMargin
+                           columnLayout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
             ColumnLayout {
                 id: columnLayout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
@@ -290,34 +324,6 @@ GenericConfigPage {
                                 regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
                         }
-                    }
-                }
-
-                Button {
-                    id: savebutton
-                    Layout.fillWidth: true
-                    text: qsTr("Apply changes")
-                    enabled: {
-                        if (!root.consumerConfig) { return false; }
-                        if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
-                        if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
-                        if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
-                        if (pvSurplusGroup.visible && minRuntimeStepper.value * 900 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
-                        if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 900 !== root.consumerConfig.durationMaxTotal) { return true; }
-                        if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
-                        return false;
-                    }
-
-                    onClicked: {
-                        d.pendingCallId = hemsManager.setSwitchConfiguration(
-                            root.consumerConfig.switchThingId,
-                            {
-                                optimizationMode: optimizationModeCombobox.currentValue,
-                                durationMinAfterTurnOn: minRuntimeStepper.value * 900,
-                                durationMaxTotal: maxTotalRuntimeStepper.value * 900,
-                                pvSurplusThreshold: parseInt(minPVSurplusPower.text)
-                            }
-                        );
                     }
                 }
             }

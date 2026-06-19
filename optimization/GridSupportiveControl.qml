@@ -11,6 +11,19 @@ StackView {
     id: root
     initialItem: setUpStart
 
+    property int navigationFooterHeight: 0
+    property Component navbarControls: root.currentItem
+        && "navbarControls" in root.currentItem
+        ? root.currentItem.navbarControls : null
+
+    Binding {
+        target: root.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: root.currentItem !== null
+              && "navigationFooterHeight" in root.currentItem
+    }
+
     property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eebusGridGuardGateway: null
@@ -116,6 +129,23 @@ StackView {
         id: setUpStart
 
         Page {
+            id: setUpStartPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: setUpStartControls
+
+            Component {
+                id: setUpStartControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Grid-supportive control setup")
+                        onClicked: pageStack.push(selectComponent)
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
@@ -199,15 +229,6 @@ StackView {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                 }
-
-                Button {
-                    id: setUpButton
-                    Layout.fillWidth: true
-                    text: qsTr("Grid-supportive control setup")
-                    onClicked: {
-                        pageStack.push(selectComponent)
-                    }
-                }
             }
         }
     }
@@ -286,6 +307,36 @@ StackView {
         id: relaisSetUp
 
         Page {
+            id: relaisSetUpPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: relaisSetUpControls
+
+            Component {
+                id: relaisSetUpControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            root.setGridSupportSettings("relais");
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("Relais")
@@ -301,7 +352,7 @@ StackView {
                 CoNotification {
                     Layout.fillWidth: true
                     visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
+                    type: CoNotification.Type.Warning
                     title: qsTr("Attention")
                     message: qsTr("Existing setup will be overwritten.")
                 }
@@ -327,28 +378,6 @@ StackView {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        root.setGridSupportSettings("relais");
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    flat: true
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
                 }
             }
         }
@@ -475,41 +504,86 @@ StackView {
         id: eebusComfortPairingSetup
 
         Page {
-            header: CoHeader {
+            id: eebusComfortPairingSetupPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusComfortPairingSetupControls
+
+            Component {
+                id: eebusComfortPairingSetupControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            if (eebusGridGuardGateway) {
+                                const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
+                                // Only remove old control box when it was paired via SKI pairing (i.e.
+                                // if it has pairingType "default".
+                                if (pairingType === "default") {
+                                    console.info("Removing existing control box:", eebusGridGuardGateway.name);
+                                    engine.thingManager.removeThing(eebusGridGuardGateway.id);
+                                }
+                            }
+                            root.setGridSupportSettings("eebus");
+                            pageStack.push(eebusComfortPairingViewStatus);
+                        }
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingSetupHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingSetupFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingSetupFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingSetupHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingSetupPage.navigationFooterHeight
+                clip: true
 
-                CoNotification {
-                    Layout.fillWidth: true
-                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
-                    title: qsTr("Attention")
-                    message: qsTr("Existing setup will be overwritten.")
-                }
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
-                    clip: true
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                    CoNotification {
+                        Layout.fillWidth: true
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
+                    }
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("QR Code & Pairing Data")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -610,37 +684,6 @@ StackView {
                         }
                     }
                 }
-
-                Button {
-                    id: eebusSetUpComplete
-                    Layout.fillWidth: true
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        if (eebusGridGuardGateway) {
-                            const pairingType = eebusGridGuardGateway.stateByName("pairingType")?.value;
-                            // Only remove old control box when it was paired via SKI pairing (i.e.
-                            // if it has pairingType "default".
-                            if (pairingType === "default") {
-                                console.info("Removing existing control box:", eebusGridGuardGateway.name);
-                                engine.thingManager.removeThing(eebusGridGuardGateway.id);
-                            }
-                        }
-                        root.setGridSupportSettings("eebus");
-                        pageStack.push(eebusComfortPairingViewStatus);
-                    }
-                }
-
-                Button {
-                    text: qsTr("Cancel")
-                    Layout.fillWidth: true
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
-            }
         }
     }
 
@@ -648,28 +691,56 @@ StackView {
         id: eebusComfortPairingViewStatus
 
         Page {
-            header: CoHeader {
+            id: eebusComfortPairingViewStatusPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusComfortPairingViewStatusControls
+
+            Component {
+                id: eebusComfortPairingViewStatusControls
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back to overview")
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
+
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingViewStatusHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingViewStatusFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingViewStatusFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingViewStatusHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusComfortPairingViewStatusPage.navigationFooterHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
                         CoFrostyCard {
                             Layout.fillWidth: true
@@ -791,19 +862,6 @@ StackView {
                         }
                     }
                 }
-
-                Button {
-                    id: eebusBackToView
-                    Layout.fillWidth: true
-                    text: qsTr("Back to overview")
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
-            }
         }
     }
 
@@ -811,7 +869,14 @@ StackView {
         id: eebusComfortPairingView
 
         Page {
-            header: CoHeader {
+            id: eebusComfortPairingViewPage
+            header: null
+
+            CoHeader {
+                id: eebusComfortPairingViewHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusComfortPairingViewFlickable
                 text: qsTr("Grid-supportive control")
                 subText: qsTr("EEBUS Comfort Pairing")
                 backButtonVisible: true
@@ -886,26 +951,27 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusComfortPairingViewFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusComfortPairingViewHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("QR Code & Pairing Data")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -1022,7 +1088,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
@@ -1030,7 +1095,19 @@ StackView {
         id: eebusViewSelect
 
         Page {
-            header: CoHeader {
+            id: eebusViewSelectPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property bool busy: discovery.busy
+            property Component navbarControls: eebusViewSelectNavbar
+
+            header: null
+
+            CoHeader {
+                id: eebusViewSelectHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusViewSelectFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
@@ -1039,20 +1116,42 @@ StackView {
 
             property var thingClass
 
-            ColumnLayout {
-                anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+            Component {
+                id: eebusViewSelectNavbar
+                ColumnLayout {
+                    spacing: Style.margins
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: discovery.discoverThings(genericEebusDeviceThingClass.id)
+                    }
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Cancel")
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
+                }
+            }
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusDiscoveryContent.implicitHeight
-                    clip: true
+            Flickable {
+                id: eebusViewSelectFlickable
+                anchors.fill: parent
+                topMargin: eebusViewSelectHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusDiscoveryContent.implicitHeight + eebusViewSelectPage.navigationFooterHeight
+                clip: true
+
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
                     ColumnLayout {
                         id: eebusDiscoveryContent
-                        width: parent.width
+                        anchors { left: parent.left; right: parent.right; top: parent.top }
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
                         spacing: Style.margins
 
                         CoFrostyCard {
@@ -1098,30 +1197,10 @@ StackView {
                             }
                         }
                     }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Search again")
-
-                    onClicked: {
-                        discovery.discoverThings(genericEebusDeviceThingClass.id);
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Cancel")
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
             }
 
             BusyOverlay {
-                shown: discovery.busy
+                shown: eebusViewSelectPage.busy
                 text: qsTr("Searching for devices...")
             }
         }
@@ -1131,39 +1210,107 @@ StackView {
         id: eebusSetup
 
         Page {
+            id: eebusSetupPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusSetupNavbar
+
             property ThingClass thingClass
             property var discoveryThingParams
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: eebusSetupHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusSetupFlickable
                 text: qsTr("Grid-supportive control setup")
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
             }
 
-            ColumnLayout {
-                anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+            Component {
+                id: eebusSetupNavbar
+                ColumnLayout {
+                    spacing: Style.margins
 
-                CoNotification {
-                    Layout.fillWidth: true
-                    visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
-                    type: CoNotification.Type.Danger
-                    title: qsTr("Attention")
-                    message: qsTr("Existing setup will be overwritten.")
+                    CheckBox {
+                        id: deviceConnected
+                        Layout.fillWidth: true
+                        text: qsTr("Establish a connection with this device.")
+                    }
+
+                    CoNavbarButton {
+                        id: eebusSetUpComplete
+                        Layout.fillWidth: true
+                        enabled: deviceConnected.checked
+                        text: qsTr("Complete setup")
+                        onClicked: {
+                            if (eebusGridGuardGateway) {
+                                engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
+                            }
+
+                            d.params = [];
+                            for (var i = 0; i < eebusSetupPage.thingClass.paramTypes.count; i++) {
+                                var param = {};
+                                var paramTypeId = eebusSetupPage.thingClass.paramTypes.get(i).id;
+                                var discoveryParam = eebusSetupPage.discoveryThingParams.params.getParam(paramTypeId);
+                                param["paramTypeId"] = paramTypeId;
+                                param["value"] = discoveryParam ? discoveryParam.value : "";
+                                d.params.push(param);
+                            }
+
+                            d.pendingCallId = engine.thingManager.addThing(eebusSetupPage.thingClass.id, eebusSetupPage.thingClass.name, d.params);
+                            pageStack.push(eebusGridGuardChildWaiting,
+                                           {
+                                               thingClass: eebusSetupPage.thingClass,
+                                               discoveryThingParams: eebusSetupPage.discoveryThingParams,
+                                               // Capture now; the old gateway was already removed above so
+                                               // "eebus" can no longer be restored — fall back to "none".
+                                               previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
+                                           });
+                        }
+                    }
+
+                    CoNavbarButton {
+                        text: qsTr("Cancel")
+                        Layout.fillWidth: true
+                        flat: true
+                        onClicked: {
+                            pageStack.pop();
+                            pageStack.pop();
+                            pageStack.pop();
+                        }
+                    }
                 }
+            }
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusParameterContent.implicitHeight
-                    clip: true
+            Flickable {
+                id: eebusSetupFlickable
+                anchors.fill: parent
+                topMargin: eebusSetupHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusParameterContent.implicitHeight + eebusSetupPage.navigationFooterHeight
+                clip: true
 
-                    ColumnLayout {
-                        id: eebusParameterContent
-                        width: parent.width
-                        spacing: Style.margins
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
+                ColumnLayout {
+                    id: eebusParameterContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
+
+                    CoNotification {
+                        Layout.fillWidth: true
+                        visible: powerLimitSource === "relais" || powerLimitSource === "eebus"
+                        type: CoNotification.Type.Warning
+                        title: qsTr("Attention")
+                        message: qsTr("Existing setup will be overwritten.")
+                    }
 
                         CoFrostyCard {
                             Layout.fillWidth: true
@@ -1190,11 +1337,11 @@ StackView {
                                 }
 
                                 Repeater {
-                                    model: thingClass.paramTypes
+                                    model: eebusSetupPage.thingClass.paramTypes
 
                                     delegate: CoCard {
                                         Layout.fillWidth: true
-                                        property var param: discoveryThingParams.params.getParam(thingClass.paramTypes.get(index).id)
+                                        property var param: eebusSetupPage.discoveryThingParams.params.getParam(eebusSetupPage.thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
                                         helpText: model.displayName
@@ -1203,57 +1350,6 @@ StackView {
                             }
                         }
                     }
-                }
-
-                CheckBox {
-                    id: deviceConnected
-                    Layout.fillWidth: true
-                    text: qsTr("Establish a connection with this device.")
-                }
-
-                Button {
-                    id: eebusSetUpComplete
-                    Layout.fillWidth: true
-                    enabled: deviceConnected.checked
-                    text: qsTr("Complete setup")
-
-                    onClicked: {
-                        if (eebusGridGuardGateway) {
-                            engine.thingManager.removeThing(eebusGridGuardGateway.id, ThingManager.RemovePolicyCascade);
-                        }
-
-                        d.params = [];
-                        for (var i = 0; i < thingClass.paramTypes.count; i++) {
-                            var param = {};
-                            var paramTypeId = thingClass.paramTypes.get(i).id;
-                            var discoveryParam = discoveryThingParams.params.getParam(paramTypeId);
-                            param["paramTypeId"] = paramTypeId;
-                            param["value"] = discoveryParam ? discoveryParam.value : "";
-                            d.params.push(param);
-                        }
-
-                        d.pendingCallId = engine.thingManager.addThing(thingClass.id, thingClass.name, d.params);
-                        pageStack.push(eebusGridGuardChildWaiting,
-                                       {
-                                           thingClass: thingClass,
-                                           discoveryThingParams: discoveryThingParams,
-                                           // Capture now; the old gateway was already removed above so
-                                           // "eebus" can no longer be restored — fall back to "none".
-                                           previousPowerLimitSource: powerLimitSource === "eebus" ? "none" : powerLimitSource
-                                       });
-                    }
-                }
-
-                Button {
-                    text: qsTr("Cancel")
-                    Layout.fillWidth: true
-                    flat: true
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
-                }
             }
         }
     }
@@ -1263,7 +1359,14 @@ StackView {
         id: eebusView
 
         Page {
-            header: CoHeader {
+            id: eebusViewPage
+            header: null
+
+            CoHeader {
+                id: eebusViewHeader
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: eebusViewFlickable
                 text: qsTr("Grid-supportive control")
                 subText: qsTr("EEBUS")
                 backButtonVisible: true
@@ -1349,26 +1452,27 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: eebusViewFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: eebusViewHeader.height
+                bottomMargin: Style.margins
+                contentHeight: eebusViewContent.implicitHeight
+                clip: true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    contentHeight: eebusViewContent.implicitHeight
-                    clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                    ColumnLayout {
-                        id: eebusViewContent
-                        width: parent.width
-                        spacing: Style.margins
+                ColumnLayout {
+                    id: eebusViewContent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    spacing: Style.margins
 
-                        CoFrostyCard {
-                            Layout.fillWidth: true
-                            contentTopMargin: Style.margins
-                            headerText: qsTr("Parameter")
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("Parameter")
 
                             ColumnLayout {
                                 anchors.left: parent.left
@@ -1432,7 +1536,6 @@ StackView {
                         }
                     }
                 }
-            }
         }
     }
 
@@ -1624,6 +1727,11 @@ StackView {
         id: eebusViewStatus
 
         Page {
+            id: eebusViewStatusPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: eebusViewStatusNavbar
+
             property ThingClass thingClass
             property var discoveryThingParams
 
@@ -1632,6 +1740,20 @@ StackView {
                 subText: qsTr("EEBUS SKI Pairing")
                 backButtonVisible: true
                 onBackPressed: pageStack.pop()
+            }
+
+            Component {
+                id: eebusViewStatusNavbar
+                CoNavbarButton {
+                    id: eebusBackToView
+                    text: qsTr("Back to overview")
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
+                    }
+                }
             }
 
             ColumnLayout {
@@ -1696,19 +1818,6 @@ StackView {
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                }
-
-                Button {
-                    id: eebusBackToView
-                    Layout.fillWidth: true
-                    text: qsTr("Back to overview")
-
-                    onClicked: {
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                        pageStack.pop();
-                    }
                 }
             }
         }

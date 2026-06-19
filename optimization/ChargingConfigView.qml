@@ -362,7 +362,7 @@ GenericConfigPage {
 
             ColumnLayout {
                 id: contentColumn
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
@@ -813,11 +813,129 @@ GenericConfigPage {
 
         Page{
             id: optimizationPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
             signal done()
 
             property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
             property Thing thing
+
+            property Component navbarControls: chargingNavbarControls
+
+            Component {
+                id: chargingNavbarControls
+                CoNavbarButton {
+                    text: qsTr("Apply changes")
+                    onClicked: optimizationPage.applyChanges()
+                }
+            }
+
+            function applyChanges() {
+                if (chargingConfiguration.optimizationEnabled ||
+                        chargingConfiguration.optimizationMode !== 9) {
+                    // Cancel running charging session.
+                    console.info("Cancelling running charging session.");
+                    hemsManager.setChargingConfiguration(thing.id,
+                                                         {
+                                                             optimizationEnabled: false,
+                                                             optimizationMode: 9
+                                                         });
+                }
+
+                // if simple PV excess mode is used set the batteryLevel to 1
+                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
+                    batteryLevel.value = 1;
+                    targetPercentageSlider.value = 100;
+                }
+
+                // Set the endTime to maximum value for all modes except pv_optimized
+                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
+                    endTimeSlider.value = 24 * 60;
+                }
+
+                // Collect time controlled schedule data from scheduleModel
+                var chargingSchedule = [];
+                if(isAnyOfModesSelected([time_controlled])) {
+                    for (var i = 0; i < scheduleModel.count; i++) {
+                        var entry = scheduleModel.get(i);
+                        chargingSchedule.push({
+                                                  day: entry.dayKey,
+                                                  startTime: entry.hasEntry ? entry.startTime : "00:00",
+                                                  endTime: entry.hasEntry ? entry.endTime : "00:00"
+                                              });
+                    }
+                }
+
+                if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) &&
+                        (endTimeSlider.value >= 30) &&
+                        carSelector.holdingItem !== false &&
+                        batteryLevel.value !== 0) {
+                    if (carSelector.holdingItem.stateByName("batteryLevel").value) {
+                        carSelector.holdingItem.executeAction("batteryLevel",
+                                                              [{
+                                                                   paramName: "batteryLevel",
+                                                                   value: batteryLevel.value
+                                                               }]);
+                    }
+                    pageSelectedCar = carSelector.holdingItem.name;
+                    var optimizationMode = compute_OptimizationMode();
+                    var desiredPhaseCount = 3;
+                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
+                            thing.thingClass.interfaces.includes("phaseswitching")) {
+                        desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
+                    }
+
+                    hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex});
+
+                    var configData = {
+                        optimizationEnabled: true,
+                        carThingId: carSelector.holdingItem.id,
+                        endTime: endTimeSlider.endTime.getHours() + ":" +  endTimeSlider.endTime.getMinutes() + ":00",
+                        targetPercentage: targetPercentageSlider.value,
+                        optimizationMode: optimizationMode,
+                        priceThreshold: currentValue,
+                        desiredPhaseCount: desiredPhaseCount
+                    };
+
+                    // Add charging schedule if time controlled mode
+                    if(isAnyOfModesSelected([time_controlled])) {
+                        configData.chargingSchedule = JSON.stringify(chargingSchedule);
+                    }
+
+                    internal.pendingCallId = hemsManager.setChargingConfiguration(thing.id, configData);
+                    optimizationPage.done();
+                    pageStack.pop();
+                } else {
+                    // footer message to notifiy the user, what is wrong
+                    if(batteryLevel.value === 0) {
+                        footer.text = qsTr("Please select a battery level greater than 0%.");
+                    } else if (carSelector.holdingItem === false) {
+                        footer.text = qsTr("Please select a car");
+                    } else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
+                              (endTimeSlider.value < 30)) {
+                        footer.text = qsTr("Please select a valid target time");
+                    } else {
+                        footer.text = qsTr("Unknown error");
+                    }
+                    footer.visible = true;
+                }
+            }
+
+            function compute_OptimizationMode(){
+                var mode = comboboxloadingmod.currentValue;
+                if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
+                    var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
+                    mode = mode + gridConsumptionOption;
+                }
+                if(isAnyOfModesSelected([time_controlled])) {
+                    // When using time controlled charging, charging should be paused outside
+                    // of the charging time slots. We need to add 200 (which is "Pause charging";
+                    // 0 would be "Charge with minimum current"). Cf. gridConsumptionloadingmod
+                    mode = mode + 200;
+                }
+                return mode;
+            }
 
             function getSelectedMode() {
                 return getChargingMode(comboboxloadingmod.currentValue);
@@ -896,8 +1014,13 @@ GenericConfigPage {
                 restoreSchedule();
             }
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
                 id: header
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: optimizationFlickable
                 text: qsTr("Configure charging mode")
                 backButtonVisible: true
                 onBackPressed: {
@@ -906,15 +1029,19 @@ GenericConfigPage {
             }
 
             Flickable {
+                id: optimizationFlickable
                 anchors.fill: parent
+                topMargin: header.height
                 contentHeight: optimizationPageLayout.implicitHeight +
                                optimizationPageLayout.anchors.topMargin +
-                               optimizationPageLayout.anchors.bottomMargin
+                               optimizationPageLayout.anchors.bottomMargin +
+                               optimizationPage.navigationFooterHeight
                 clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
                 ColumnLayout {
                     id: optimizationPageLayout
-                    anchors.fill: parent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
                     anchors.margins: Style.margins
                     spacing: Style.margins
 
@@ -1805,117 +1932,6 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Please select a car")
                             visible: false
-                        }
-
-                        Button {
-                            id: savebutton
-                            Layout.fillWidth: true
-                            text: qsTr("Apply changes")
-                            onClicked: {
-                                if (chargingConfiguration.optimizationEnabled ||
-                                        chargingConfiguration.optimizationMode !== 9) {
-                                    // Cancel running charging session.
-                                    console.info("Cancelling running charging session.");
-                                    hemsManager.setChargingConfiguration(thing.id,
-                                                                         {
-                                                                             optimizationEnabled: false,
-                                                                             optimizationMode: 9
-                                                                         });
-                                }
-
-                                // if simple PV excess mode is used set the batteryLevel to 1
-                                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
-                                    batteryLevel.value = 1;
-                                    targetPercentageSlider.value = 100;
-                                }
-
-                                // Set the endTime to maximum value for all modes except pv_optimized
-                                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
-                                    endTimeSlider.value = 24 * 60;
-                                }
-
-                                // Collect time controlled schedule data from scheduleModel
-                                var chargingSchedule = [];
-                                if(isAnyOfModesSelected([time_controlled])) {
-                                    for (var i = 0; i < scheduleModel.count; i++) {
-                                        var entry = scheduleModel.get(i);
-                                        chargingSchedule.push({
-                                                                  day: entry.dayKey,
-                                                                  startTime: entry.hasEntry ? entry.startTime : "00:00",
-                                                                  endTime: entry.hasEntry ? entry.endTime : "00:00"
-                                                              });
-                                    }
-                                }
-
-                                if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) &&
-                                        (endTimeSlider.value >= 30) &&
-                                        carSelector.holdingItem !== false &&
-                                        batteryLevel.value !== 0) {
-                                    if (carSelector.holdingItem.stateByName("batteryLevel").value) {
-                                        carSelector.holdingItem.executeAction("batteryLevel",
-                                                                              [{
-                                                                                   paramName: "batteryLevel",
-                                                                                   value: batteryLevel.value
-                                                                               }]);
-                                    }
-                                    pageSelectedCar = carSelector.holdingItem.name;
-                                    var optimizationMode = compute_OptimizationMode();
-                                    var desiredPhaseCount = 3;
-                                    if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
-                                            thing.thingClass.interfaces.includes("phaseswitching")) {
-                                        desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
-                                    }
-
-                                    hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex});
-
-                                    var configData = {
-                                        optimizationEnabled: true,
-                                        carThingId: carSelector.holdingItem.id,
-                                        endTime: endTimeSlider.endTime.getHours() + ":" +  endTimeSlider.endTime.getMinutes() + ":00",
-                                        targetPercentage: targetPercentageSlider.value,
-                                        optimizationMode: optimizationMode,
-                                        priceThreshold: currentValue,
-                                        desiredPhaseCount: desiredPhaseCount
-                                    };
-
-                                    // Add charging schedule if time controlled mode
-                                    if(isAnyOfModesSelected([time_controlled])) {
-                                        configData.chargingSchedule = JSON.stringify(chargingSchedule);
-                                    }
-
-                                    internal.pendingCallId = hemsManager.setChargingConfiguration(thing.id, configData);
-                                    optimizationPage.done();
-                                    pageStack.pop();
-                                } else {
-                                    // footer message to notifiy the user, what is wrong
-                                    if(batteryLevel.value === 0) {
-                                        footer.text = qsTr("Please select a battery level greater than 0%.");
-                                    } else if (carSelector.holdingItem === false) {
-                                        footer.text = qsTr("Please select a car");
-                                    } else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
-                                              (endTimeSlider.value < 30)) {
-                                        footer.text = qsTr("Please select a valid target time");
-                                    } else {
-                                        footer.text = qsTr("Unknown error");
-                                    }
-                                    footer.visible = true;
-                                }
-                            }
-
-                            function compute_OptimizationMode(){
-                                var mode = comboboxloadingmod.currentValue;
-                                if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
-                                    var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
-                                    mode = mode + gridConsumptionOption;
-                                }
-                                if(isAnyOfModesSelected([time_controlled])) {
-                                    // When using time controlled charging, charging should be paused outside
-                                    // of the charging time slots. We need to add 200 (which is "Pause charging";
-                                    // 0 would be "Charge with minimum current"). Cf. gridConsumptionloadingmod
-                                    mode = mode + 200;
-                                }
-                                return mode;
-                            }
                         }
                     }
                 }

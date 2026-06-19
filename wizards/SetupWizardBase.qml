@@ -10,6 +10,8 @@ import "../components"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     // Required properties to be set by derived wizards
     property string headerTitle: ""
@@ -27,17 +29,47 @@ Page {
 
     // Optional: custom success handler (e.g., SolarInverter pushes PVOptimization)
     property var onSuccessHandler: null
+    property bool busy: busyOverlay.shown
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : setupWizardBaseControls
+
+    Component {
+        id: setupWizardBaseControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Next")
+                onClicked: root.done(true, false, false)
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: root.done(false, true, false)
+            }
+        }
+    }
 
     // Signals
     signal done(bool skip, bool abort, bool back)
     signal countChanged()
 
-    header: CoHeader {
+    header: null
+    background: Item {}
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: root.headerTitle
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
-    background: Item {}
 
     // Internal state object
     QtObject {
@@ -109,6 +141,15 @@ Page {
     StackView {
         id: internalPageStack
         anchors.fill: parent
+        anchors.topMargin: header.height
+    }
+
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
     }
 
     Connections {
@@ -155,143 +196,136 @@ Page {
     }
 
     // Main content layout
-    ColumnLayout {
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: Style.margins
-        spacing: Style.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: mainColumn.implicitHeight + mainColumn.anchors.margins * 2 + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.margins
-            headerText: root.integratedDevicesLabel
+        ColumnLayout {
+            id: mainColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: Style.margins
+            spacing: Style.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
-
-                Flickable {
-                    id: deviceFlickable
-                    clip: true
-                    Layout.fillWidth: true
-                    contentHeight: deviceList.implicitHeight
-                    contentWidth: width
-                    visible: deviceProxy.count !== 0
-
-                    Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
-                    flickableDirection: Flickable.VerticalFlick
-
-                    ColumnLayout {
-                        id: deviceList
-                        width: parent.width
-                        spacing: 0
-
-                        Repeater {
-                            id: deviceRepeater
-                            Layout.fillWidth: true
-                            model: ThingsProxy {
-                                id: deviceProxy
-                                engine: _engine
-                                shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
-                            }
-                            delegate: CoCard {
-                                Layout.fillWidth: true
-                                text: deviceProxy.get(index) ? deviceProxy.get(index).name : ""
-                                iconLeft: Qt.resolvedUrl(root.deviceIcon)
-                                interactive: false
-                            }
-                        }
-                    }
-                }
-
-                Label {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: app.height / 6
-                    visible: deviceProxy.count === 0
-                    text: root.emptyListText
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    wrapMode: Text.WordWrap
-                }
-            }
-        }
-
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: 8
-            headerText: root.addDeviceLabel
-            visible: root.deviceLimit > 0 ? deviceRepeater.model.count < root.deviceLimit : true
-
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
-
-                CoComboBox {
-                    id: thingClassComboBox
-                    Layout.fillWidth: true
-                    labelText: qsTr("Please select your model:")
-                    textRole: "displayName"
-                    valueRole: "id"
-                    model: ThingClassesProxy {
-                        engine: _engine
-                        filterInterface: root.filterInterface
-                        includeProvidedInterfaces: true
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: Style.margins
-                    Layout.rightMargin: Style.margins
-                    text: qsTr("Add")
-                    onClicked: {
-                        if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
-                            deviceLimitPopup.open();
-                            return;
-                        }
-                        internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
-                    }
-                }
-            }
-        }
-
-        Item {
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-        }
-
-        Popup {
-            id: deviceLimitPopup
-            parent: Overlay.overlay
-            x: Math.round((parent.width - width) / 2)
-            y: Math.round((parent.height - height) / 2)
-            width: parent.width
-            height: 100
-            modal: true
-            focus: true
-            closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
-            contentItem: Label {
+            CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.topMargin: app.margins
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                wrapMode: Text.WordWrap
-                text: root.limitPopupText
+                contentTopMargin: Style.margins
+                headerText: root.integratedDevicesLabel
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    Flickable {
+                        id: deviceFlickable
+                        clip: true
+                        Layout.fillWidth: true
+                        contentHeight: deviceList.implicitHeight
+                        contentWidth: width
+                        visible: deviceProxy.count !== 0
+
+                        Layout.preferredHeight: Math.min(deviceList.implicitHeight, app.height / 3)
+                        flickableDirection: Flickable.VerticalFlick
+
+                        ColumnLayout {
+                            id: deviceList
+                            width: parent.width
+                            spacing: 0
+
+                            Repeater {
+                                id: deviceRepeater
+                                Layout.fillWidth: true
+                                model: ThingsProxy {
+                                    id: deviceProxy
+                                    engine: _engine
+                                    shownInterfaces: root.shownInterfaces.length > 0 ? root.shownInterfaces : [root.filterInterface]
+                                }
+                                delegate: CoCard {
+                                    Layout.fillWidth: true
+                                    text: deviceProxy.get(index) ? deviceProxy.get(index).name : ""
+                                    iconLeft: Qt.resolvedUrl(root.deviceIcon)
+                                    interactive: false
+                                }
+                            }
+                        }
+                    }
+
+                    Label {
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: app.height / 6
+                        visible: deviceProxy.count === 0
+                        text: root.emptyListText
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                    }
+                }
             }
-        }
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Next")
-            onClicked: root.done(true, false, false)
-        }
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: root.addDeviceLabel
+                visible: root.deviceLimit > 0 ? deviceRepeater.model.count < root.deviceLimit : true
 
-        Button {
-            Layout.fillWidth: true
-            text: qsTr("Cancel")
-            flat: true
-            onClicked: root.done(false, true, false)
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoComboBox {
+                        id: thingClassComboBox
+                        Layout.fillWidth: true
+                        labelText: qsTr("Please select your model:")
+                        textRole: "displayName"
+                        valueRole: "id"
+                        model: ThingClassesProxy {
+                            engine: _engine
+                            filterInterface: root.filterInterface
+                            includeProvidedInterfaces: true
+                        }
+                    }
+
+                    Button {
+                        Layout.fillWidth: true
+                        Layout.leftMargin: Style.margins
+                        Layout.rightMargin: Style.margins
+                        text: qsTr("Add")
+                        onClicked: {
+                            if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
+                                deviceLimitPopup.open();
+                                return;
+                            }
+                            internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
+                        }
+                    }
+                }
+            }
+
+            Popup {
+                id: deviceLimitPopup
+                parent: Overlay.overlay
+                x: Math.round((parent.width - width) / 2)
+                y: Math.round((parent.height - height) / 2)
+                width: parent.width
+                height: 100
+                modal: true
+                focus: true
+                closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
+                contentItem: Label {
+                    Layout.fillWidth: true
+                    Layout.topMargin: app.margins
+                    Layout.leftMargin: app.margins
+                    Layout.rightMargin: app.margins
+                    wrapMode: Text.WordWrap
+                    text: root.limitPopupText
+                }
+            }
+
         }
     }
 
@@ -332,13 +366,34 @@ Page {
             id: discoveryParamsView
 
             property ThingClass thingClass
+            property Component navbarControls: discoveryParamsControls
+
+            Component {
+                id: discoveryParamsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value;
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                            pageStack.push(discoveryPage, {thingClass: thingClass});
+                        }
+                    }
+                }
+            }
 
             title: qsTr("Discover %1").arg(thingClass.displayName)
-            header: CoHeader {
-                text: discoveryParamsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: discoveryParamsView.title
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -362,23 +417,6 @@ Page {
                         }
                     }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-                        text: qsTr("Next")
-                        onClicked: {
-                            var paramTypes = thingClass.discoveryParamTypes;
-                            d.discoveryParams = [];
-                            for (var i = 0; i < paramTypes.count; i++) {
-                                var param = {};
-                                param["paramTypeId"] = paramTypes.get(i).id;
-                                param["value"] = paramRepeater.itemAt(i).value;
-                                d.discoveryParams.push(param);
-                            }
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                            pageStack.push(discoveryPage, {thingClass: thingClass});
-                        }
-                    }
                 }
             }
         }
@@ -393,12 +431,25 @@ Page {
 
             property ThingClass thingClass
             property Thing thing
+            property Component navbarControls: discoveryControls
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+            Component {
+                id: discoveryControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: {
+                            discovery.discoverThings(thingClass.id, d.discoveryParams);
+                        }
+                        visible: !discovery.busy
+                    }
+                }
             }
+
+            headerText: qsTr("Discover %1").arg(thingClass.displayName)
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -445,7 +496,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: app.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - app.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - app.margins * 3
 
                 Label {
                     text: qsTr("Too bad...")
@@ -464,16 +515,6 @@ Page {
                 }
             }
 
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Search again")
-                onClicked: {
-                    discovery.discoverThings(thingClass.id, d.discoveryParams);
-                }
-                visible: !discovery.busy
-            }
         }
     }
 
@@ -486,13 +527,38 @@ Page {
 
             property Thing thing
             property ThingClass thingClass
+            property Component navbarControls: paramsControls
+
+            Component {
+                id: paramsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            var params = [];
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {};
+                                var paramType = paramRepeater.itemAt(i).paramType;
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id;
+                                    param.value = paramRepeater.itemAt(i).value;
+                                    print("adding param", param.paramTypeId, param.value);
+                                    params.push(param);
+                                }
+                            }
+                            d.params = params;
+                            d.name = nameTextField.text;
+                            d.pairThing(thingClass, thing);
+                        }
+                    }
+                }
+            }
 
             title: thing ? qsTr("Reconfigure %1").arg(thing.name) : qsTr("Set up %1").arg(thingClass.displayName)
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: paramsView.title
 
             CoFrostyCard {
                 id: nameGroup
@@ -559,30 +625,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                Layout.topMargin: Style.margins
-
-                text: qsTr("OK")
-                onClicked: {
-                    var params = [];
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {};
-                        var paramType = paramRepeater.itemAt(i).paramType;
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id;
-                            param.value = paramRepeater.itemAt(i).value;
-                            print("adding param", param.paramTypeId, param.value);
-                            params.push(param);
-                        }
-                    }
-                    d.params = params;
-                    d.name = nameTextField.text;
-                    d.pairThing(thingClass, thing);
-                }
-            }
         }
     }
 
@@ -596,6 +638,28 @@ Page {
 
         Page {
             id: setupResultPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: setupResultControls
+
+            Component {
+                id: setupResultControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            if (root.onSuccessHandler && thing) {
+                                root.onSuccessHandler(thing);
+                            } else {
+                                root.done(false, false, false);
+                            }
+                        }
+                    }
+                }
+            }
 
             property int thingError: Thing.ThingErrorNoError
             property Thing thing: null
@@ -607,7 +671,7 @@ Page {
             }
 
             ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins }
+                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; margins: Style.margins; bottomMargin: Style.margins + setupResultPage.navigationFooterHeight }
                 width: Math.min(parent.width - Style.margins * 2, 300)
                 spacing: Style.margins
 
@@ -649,23 +713,6 @@ Page {
                     visible: setupResultPage.thingError != Thing.ThingErrorNoError
                 }
 
-                ColumnLayout {
-                    spacing: 0
-                    Layout.alignment: Qt.AlignHCenter
-
-                    Button {
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 200
-                        text: qsTr("Next")
-                        onClicked: {
-                            if (root.onSuccessHandler && thing) {
-                                root.onSuccessHandler(thing);
-                            } else {
-                                root.done(false, false, false);
-                            }
-                        }
-                    }
-                }
             }
         }
     }
@@ -681,13 +728,26 @@ Page {
             property var transactionId
             property alias text: textLabel.text
             property string setupMethod
+            property Component navbarControls: pairingControls
+
+            Component {
+                id: pairingControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
+                            busyOverlay.shown = true;
+                        }
+                    }
+                }
+            }
 
             title: qsTr("Reconfigure %1").arg(d.thingName)
-            header: CoHeader {
-                text: pairingPage.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
-            }
+            headerText: pairingPage.title
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -723,15 +783,6 @@ Page {
                         signup: false
                     }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.topMargin: Style.margins
-                        text: qsTr("OK")
-                        onClicked: {
-                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
-                            busyOverlay.shown = true;
-                        }
-                    }
                 }
             }
         }
@@ -747,6 +798,36 @@ Page {
             property string thingId
             property int thingError
             property string message
+            property int navigationFooterHeight: 0
+            property Component navbarControls: resultsControls
+
+            Component {
+                id: resultsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: !resultsView.success
+                        text: qsTr("Retry")
+                        onClicked: {
+                            d.pairThing();
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Ok")
+                        onClicked: {
+                            if (root.onSuccessHandler && resultsView.thing) {
+                                root.onSuccessHandler(resultsView.thing);
+                            } else {
+                                root.done(false, false, false);
+                            }
+                        }
+                    }
+                }
+            }
 
             readonly property bool success: thingError === Thing.ThingErrorNoError
             readonly property Thing thing: engine.thingManager.things.getThing(thingId)
@@ -784,30 +865,6 @@ Page {
                     text: resultsView.message
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    visible: !resultsView.success
-                    text: qsTr("Retry")
-                    onClicked: {
-                        d.pairThing();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("Ok")
-                    onClicked: {
-                        if (root.onSuccessHandler && resultsView.thing) {
-                            root.onSuccessHandler(resultsView.thing);
-                        } else {
-                            root.done(false, false, false);
-                        }
-                    }
-                }
             }
         }
     }

@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property var stack
     property bool solarOnlyModeAvailable: false
     property bool nextTripModeAvailable: false
@@ -21,6 +23,7 @@ Page {
         onBackPressed: stack.pop()
     }
     InfoTextInterface{
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
 //        summaryText: qsTr("In the charging mode you set how the energy manager should charge the vehicle.")
         body: ColumnLayout{

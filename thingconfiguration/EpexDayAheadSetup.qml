@@ -38,6 +38,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property ThingClass thingClass: thing ? thing.thingClass : null
 
@@ -46,6 +48,11 @@ Page {
 
     signal aborted();
     signal done();
+
+    property bool busy: busyOverlay.shown
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : null
 
     QtObject {
         id: d
@@ -121,6 +128,14 @@ Page {
         id: internalPageStack
         anchors.fill: parent
     }
+
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
     property QtObject pageStack: QtObject {
         function pop(item) {
             if (internalPageStack.depth > 1) {
@@ -139,183 +154,172 @@ Page {
             title: root.thing ?
                        qsTr("Reconfigure %1").arg(root.thing.name) :
                        qsTr("Set up %1").arg(root.thingClass.displayName)
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+
+            property Component navbarControls: paramsPageControls
+
+            Component {
+                id: paramsPageControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: root.thing ? true : false
+                        flat: true
+                        text: qsTr("Reset values to default")
+                        onClicked: {
+                            // Need to force reload of model here since otherwise the code below
+                            // (to set the parameters to their default values) does not work once
+                            // the user made changes to the parameters.
+                            var model = paramRepeater.model;
+                            paramRepeater.model = [];
+                            paramRepeater.model = model;
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                paramRepeater.itemAt(i).value = paramRepeater.itemAt(i).paramType.defaultValue;
+                            }
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Apply changes")
+                        onClicked: {
+                            var params = [];
+                            var leviesIsZero = false;
+                            var variableGridFees = false;
+                            var gridFeesIsZero = false;
+                            let leviesParamId = "{6f7b072a-bf09-46e2-87ee-3b887d6cc843}";
+                            let gridFeesParamId = "{9d80154a-4205-47cb-a69f-d151a836639b}";
+                            let variableGridFeesParamId = "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}";
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {};
+                                var paramType = paramRepeater.itemAt(i).paramType;
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id;
+                                    param.value = paramRepeater.itemAt(i).value;
+                                    console.debug("adding param", param.paramTypeId, param.value);
+                                    params.push(param);
+                                    if (param.paramTypeId.toString() === leviesParamId) {
+                                        leviesIsZero = param.value === 0;
+                                    }
+                                    if (param.paramTypeId.toString() === gridFeesParamId) {
+                                        gridFeesIsZero = param.value === 0;
+                                    }
+                                    if (param.paramTypeId.toString() === variableGridFeesParamId) {
+                                        variableGridFees = param.value;
+                                    }
+                                }
+                            }
+
+                            d.params = params;
+                            d.name = nameTextField.text;
+                            // When variable grid fees are activated, the grid fees parameter is not used.
+                            if (leviesIsZero || (gridFeesIsZero && !variableGridFees)) {
+                                var popup = continueWithNullParameterComponent.createObject(paramsView);
+                                popup.open();
+                            } else {
+                                d.pairThing();
+                            }
+                        }
+                    }
+                }
             }
+
+            headerText: paramsView.title
 
             QtObject {
                 id: paramd
                 property bool variableGridFees: false
             }
 
-            ColumnLayout {
+            CoFrostyCard {
+                id: nameGroup
                 Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.margins: Style.margins
-                spacing: Style.margins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.margins
+                headerText: qsTr("Name")
+                contentTopMargin: Style.smallMargins
+                visible: root.thing ? false : true
 
-                Flickable {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.preferredHeight: contentHeight
-                    contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
-                    clip: true
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                    ColumnLayout {
-                        id: layout
-                        anchors.fill: parent
-                        spacing: Style.margins
+                    CoInputField {
+                        id: nameTextField
+                        text: root.thingClass.displayName
+                        labelText: qsTr("Please change name if necessary")
+                        Layout.fillWidth: true
+                    }
+                }
+            }
 
-                        CoFrostyCard {
-                            id: nameGroup
-                            Layout.fillWidth: true
-                            headerText: qsTr("Name")
-                            contentTopMargin: Style.smallMargins
-                            visible: root.thing ? false : true
+            CoFrostyCard {
+                id: parametersGroup
+                Layout.fillWidth: true
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                Layout.topMargin: nameGroup.visible ? 0 : Style.margins
+                headerText: qsTr("Parameters")
+                contentTopMargin: Style.smallMargins
+                visible: paramRepeater.count > 0
 
-                            ColumnLayout {
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                spacing: 0
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                                CoInputField {
-                                    id: nameTextField
-                                    text: root.thingClass.displayName
-                                    labelText: qsTr("Please change name if necessary")
-                                    Layout.fillWidth: true
+                    Repeater {
+                        id: paramRepeater
+
+                        Component.onCompleted: {
+                            if (root.thing) {
+                                var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                                if (param) {
+                                    paramd.variableGridFees = param.value;
+                                }
+                            } else {
+                                var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
+                                if (paramType) {
+                                    paramd.variableGridFees = paramType.defaultValue;
                                 }
                             }
                         }
 
-                        CoFrostyCard {
-                            id: parametersGroup
+                        model: root.thingClass.paramTypes
+                        delegate: CoParamDelegate {
                             Layout.fillWidth: true
-                            headerText: qsTr("Parameters")
-                            contentTopMargin: Style.smallMargins
-                            visible: paramRepeater.count > 0
-
-                            ColumnLayout {
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-                                spacing: 0
-
-                                Repeater {
-                                    id: paramRepeater
-
-                                    Component.onCompleted: {
-                                        if (root.thing) {
-                                            var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                                            if (param) {
-                                                paramd.variableGridFees = param.value;
-                                            }
-                                        } else {
-                                            var paramType = root.thingClass.paramTypes.getParamType("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
-                                            if (paramType) {
-                                                paramd.variableGridFees = paramType.defaultValue;
-                                            }
-                                        }
-                                    }
-
-                                    model: root.thingClass.paramTypes
-                                    delegate: CoParamDelegate {
-                                        Layout.fillWidth: true
-                                        enabled: !model.readOnly
-                                        paramType: root.thingClass.paramTypes.get(index)
-                                        visible: {
-                                            if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
-                                                // "Grid operator" parameter
-                                                return paramd.variableGridFees;
-                                            } else if (paramType.id.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
-                                                // "Added grid fee" parameter
-                                                return !paramd.variableGridFees;
-                                            } else {
-                                                return true;
-                                            }
-                                        }
-
-                                        onValueChanged: {
-                                            if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
-                                                // "Variable grid fees" parameter
-                                                paramd.variableGridFees = value;
-                                            }
-                                        }
-
-                                        value: {
-                                            // Show current param value when reconfiguring a thing and default value
-                                            // when setting up a new thing.
-                                            if (root.thing) {
-                                                var param = root.thing.params.getParam(paramType.id);
-                                                return param.value;
-                                            } else {
-                                                return root.thingClass.paramTypes.get(index).defaultValue;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-
-                        Button {
-                            visible: root.thing ? true : false
-                            Layout.fillWidth: true
-                            Layout.topMargin: Style.margins
-                            flat: true
-                            text: qsTr("Reset values to default")
-                            onClicked: {
-                                // Need to force reload of model here since otherwise the code below
-                                // (to set the parameters to their default values) does not work once
-                                // the user made changes to the parameters.
-                                var model = paramRepeater.model;
-                                paramRepeater.model = [];
-                                paramRepeater.model = model;
-                                for (var i = 0; i < paramRepeater.count; i++) {
-                                    paramRepeater.itemAt(i).value = paramRepeater.itemAt(i).paramType.defaultValue;
-                                }
-                            }
-                        }
-
-                        Button {
-                            Layout.fillWidth: true
-
-                            text: "OK"
-                            onClicked: {
-                                var params = [];
-                                var leviesIsZero = false;
-                                var variableGridFees = false;
-                                var gridFeesIsZero = false;
-                                let leviesParamId = "{6f7b072a-bf09-46e2-87ee-3b887d6cc843}";
-                                let gridFeesParamId = "{9d80154a-4205-47cb-a69f-d151a836639b}";
-                                let variableGridFeesParamId = "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}";
-                                for (var i = 0; i < paramRepeater.count; i++) {
-                                    var param = {};
-                                    var paramType = paramRepeater.itemAt(i).paramType;
-                                    if (!paramType.readOnly) {
-                                        param.paramTypeId = paramType.id;
-                                        param.value = paramRepeater.itemAt(i).value;
-                                        console.debug("adding param", param.paramTypeId, param.value);
-                                        params.push(param);
-                                        if (param.paramTypeId.toString() === leviesParamId) {
-                                            leviesIsZero = param.value === 0;
-                                        }
-                                        if (param.paramTypeId.toString() === gridFeesParamId) {
-                                            gridFeesIsZero = param.value === 0;
-                                        }
-                                        if (param.paramTypeId.toString() === variableGridFeesParamId) {
-                                            variableGridFees = param.value;
-                                        }
-                                    }
-                                }
-
-                                d.params = params;
-                                d.name = nameTextField.text;
-                                // When variable grid fees are activated, the grid fees parameter is not used.
-                                if (leviesIsZero || (gridFeesIsZero && !variableGridFees)) {
-                                    var popup = continueWithNullParameterComponent.createObject(paramsView);
-                                    popup.open();
+                            enabled: !model.readOnly
+                            paramType: root.thingClass.paramTypes.get(index)
+                            visible: {
+                                if (paramType.id.toString() === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                    // "Grid operator" parameter
+                                    return paramd.variableGridFees;
+                                } else if (paramType.id.toString() === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                    // "Added grid fee" parameter
+                                    return !paramd.variableGridFees;
                                 } else {
-                                    d.pairThing();
+                                    return true;
+                                }
+                            }
+
+                            onValueChanged: {
+                                if (paramType.id.toString() === "{c39d158c-d9a4-40f2-8d6d-746eca80f9ec}") {
+                                    // "Variable grid fees" parameter
+                                    paramd.variableGridFees = value;
+                                }
+                            }
+
+                            value: {
+                                // Show current param value when reconfiguring a thing and default value
+                                // when setting up a new thing.
+                                if (root.thing) {
+                                    var param = root.thing.params.getParam(paramType.id);
+                                    return param.value;
+                                } else {
+                                    return root.thingClass.paramTypes.get(index).defaultValue;
                                 }
                             }
                         }

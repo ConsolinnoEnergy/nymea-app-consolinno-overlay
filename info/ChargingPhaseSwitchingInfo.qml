@@ -10,6 +10,8 @@ import "../delegates"
 
 Page {
     id: energyroot
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property var stack
     header: ConsolinnoHeader {
         id: header
@@ -21,6 +23,7 @@ Page {
 
 
     InfoTextInterface{
+        navigationFooterHeight: energyroot.navigationFooterHeight
 
         anchors.fill: parent
         body: ColumnLayout {

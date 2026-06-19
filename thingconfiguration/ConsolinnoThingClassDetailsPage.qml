@@ -40,10 +40,7 @@ SettingsPageBase {
     property Thing thing: null
     readonly property ThingClass thingClass: thing ? thing.thingClass : null
 
-    header: CoHeader {
-        text: root.thingClass.displayName
-        onBackPressed: pageStack.pop()
-    }
+    headerText: root.thingClass.displayName
 
     ColumnLayout {
         Layout.fillWidth: true

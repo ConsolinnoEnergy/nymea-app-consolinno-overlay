@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     // EEBUS gateway thingClass ID – detected and handled specially so that the
     // directToDiscovery flow in SetupEEBUSWizard is used instead of the generic wizard.
@@ -30,7 +32,13 @@ Page {
         refreshAllDelegates();
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Set up new device")
         onBackPressed: {
             pageStack.pop();
@@ -191,16 +199,20 @@ Page {
         spacing: 0
 
         Flickable {
+            id: bodyFlickable
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
+            topMargin: header.height
+            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
+
+            Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
             ColumnLayout {
                 id: layout
-                anchors.fill: parent
+                anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.topMargin: Style.margins
                 anchors.bottomMargin: Style.margins
                 spacing: Style.margins
@@ -298,6 +310,7 @@ Page {
         CoInputField {
             id: filterField
             Layout.fillWidth: true
+            Layout.bottomMargin: root.navigationFooterHeight
             labelText: qsTr("Search")
         }
     }

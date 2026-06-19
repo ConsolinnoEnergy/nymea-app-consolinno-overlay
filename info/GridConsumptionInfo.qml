@@ -7,6 +7,10 @@ import "../components"
 import "../delegates"
 
 Page {
+    id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+
     property var stack
     header: ConsolinnoHeader {
         id: header
@@ -16,6 +20,7 @@ Page {
         onBackPressed: stack.pop()
     }
     InfoTextInterface{
+        navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
         body: ColumnLayout{
             Layout.fillWidth: true

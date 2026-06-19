@@ -7,11 +7,19 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property int directionID: 0
 
     signal done(bool skip, bool abort, bool back)
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("System")
         backButtonVisible: true
         onBackPressed:{
@@ -25,6 +33,23 @@ Page {
 
     property int phaseLimit: 25
     property int configuredPhaseLimit: 25
+
+    readonly property bool applyEnabled: {
+        if (currentCombo.comboBox.currentValue === 0 &&
+                !currentInput.textField.acceptableInput) {
+            return false;
+        }
+        return phaseLimit > 15;
+    }
+
+    function applyChanges() {
+        if (directionID === 0) {
+            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+        } else if (directionID === 1) {
+            hemsManager.setHousholdPhaseLimit(root.phaseLimit);
+            root.done(false, false, false);
+        }
+    }
 
     QtObject {
         id: d
@@ -82,94 +107,88 @@ Page {
         ListElement { name: qsTr("User defined"); current: 0 }
     }
 
-    ColumnLayout {
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: Style.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin +
+                       contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: qsTr("Blackout protection")
+        ColumnLayout {
+            id: contentColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: Style.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Blackout protection")
 
-                CoComboBox {
-                    id: currentCombo
-                    Layout.fillWidth: true
-                    labelText: qsTr("Blackout protection per phase")
-                    helpText: qsTr("Select the maximum current that this installation can safely handle.")
-                    model: blackoutProtectionModel
-                    textRole: "name"
-                    valueRole: "current"
-                    onCurrentValueChanged: {
-                        if (comboBox.currentValue > 0) {
-                            root.phaseLimit = comboBox.currentValue;
-                        } else {
-                            if (currentInput.textField.acceptableInput) {
-                                root.phaseLimit = parseInt(currentInput.textField.text);
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoComboBox {
+                        id: currentCombo
+                        Layout.fillWidth: true
+                        labelText: qsTr("Blackout protection per phase")
+                        helpText: qsTr("Select the maximum current that this installation can safely handle.")
+                        model: blackoutProtectionModel
+                        textRole: "name"
+                        valueRole: "current"
+                        onCurrentValueChanged: {
+                            if (comboBox.currentValue > 0) {
+                                root.phaseLimit = comboBox.currentValue;
+                            } else {
+                                if (currentInput.textField.acceptableInput) {
+                                    root.phaseLimit = parseInt(currentInput.textField.text);
+                                }
+                            }
+                        }
+                    }
+
+
+                    CoInputField {
+                        id: currentInput
+                        Layout.fillWidth: true
+                        visible: currentCombo.comboBox.currentValue === 0
+                        labelText: qsTr("User defined current")
+                        unit: "A"
+                        compact: true
+                        helpText:
+                            qsTr("The value must be between %1 and %2.")
+                        .arg(currentInputValidator.bottom)
+                        .arg(currentInputValidator.top)
+                        feedbackText: qsTr("The value is outside the valid range.")
+                        textField.inputMethodHints: Qt.ImhDigitsOnly
+                        textField.validator: IntValidator {
+                            id: currentInputValidator
+                            bottom: 16
+                            top: 100
+                        }
+                        textField.onTextChanged: {
+                            if (visible && textField.acceptableInput) {
+                                root.phaseLimit = parseInt(textField.text)
                             }
                         }
                     }
                 }
-
-
-                CoInputField {
-                    id: currentInput
-                    Layout.fillWidth: true
-                    visible: currentCombo.comboBox.currentValue === 0
-                    labelText: qsTr("User defined current")
-                    unit: "A"
-                    compact: true
-                    helpText:
-                        qsTr("The value must be between %1 and %2.")
-                    .arg(currentInputValidator.bottom)
-                    .arg(currentInputValidator.top)
-                    feedbackText: qsTr("The value is outside the valid range.")
-                    textField.inputMethodHints: Qt.ImhDigitsOnly
-                    textField.validator: IntValidator {
-                        id: currentInputValidator
-                        bottom: 16
-                        top: 100
-                    }
-                    textField.onTextChanged: {
-                        if (visible && textField.acceptableInput) {
-                            root.phaseLimit = parseInt(textField.text)
-                        }
-                    }
-                }
             }
         }
+    }
 
-        Item {
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
+    property Component navbarControls: blackoutNavbarControls
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
-
-            property bool inputValid: {
-                if (currentCombo.comboBox.currentValue === 0 &&
-                        !currentInput.textField.acceptableInput) {
-                    return false;
-                }
-                return phaseLimit > 15;
-            }
+    Component {
+        id: blackoutNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            onClicked: {
-                if (!inputValid) { return; }
-                if (directionID === 0) {
-                    d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                } else if (directionID === 1) {
-                    hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-                    root.done(false, false, false);
-                }
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

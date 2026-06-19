@@ -8,13 +8,37 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property HeatingElementConfiguration heatingElementConfiguration
     property Thing heatRodThing
     property int directionID: 0
     signal done()
 
-    header: CoHeader {
+    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+
+    function applyChanges() {
+        let inputText = maxElectricalPower.text
+        inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+        d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
+            "maxElectricalPower": parseFloat(inputText),
+            "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
+            "controllableLocalSystem": controllSwitch.checked
+        })
+        if (directionID !== 1) {
+            pageStack.pop()
+        }
+        root.done()
+    }
+
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Heating")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -51,95 +75,83 @@ Page {
         }
     }
 
-    ColumnLayout {
-        id: contentColumn
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: app.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight + contentColumn.anchors.topMargin + contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: heatRodThing.name
+        ColumnLayout {
+            id: contentColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: app.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: heatRodThing.name
 
-                CoInputField {
-                    id: maxElectricalPower
-                    property bool maxElectricalPowerValid: textField.acceptableInput
-                    Layout.fillWidth: true
-                    labelText: qsTr("Maximal electrical power")
-                    compact: true
-                    unit: qsTr("kW")
-                    helpText:
-                        qsTr("The value must not be below %1.")
-                    .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
-                    feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
-                    textField.maximumLength: 10
-                    textField.validator: DoubleValidator  {
-                        id: maxElectricalPowerValidator
-                        bottom: 0.5
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoInputField {
+                        id: maxElectricalPower
+                        property bool maxElectricalPowerValid: textField.acceptableInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Maximal electrical power")
+                        compact: true
+                        unit: qsTr("kW")
+                        helpText:
+                            qsTr("The value must not be below %1.")
+                        .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
+                        feedbackText: qsTr("The value is outside the valid range.")
+                        textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                        textField.maximumLength: 10
+                        textField.validator: DoubleValidator  {
+                            id: maxElectricalPowerValidator
+                            bottom: 0.5
+                        }
                     }
-                }
 
-                CoSwitch {
-                    id: controllSwitch
-                    Layout.fillWidth: true
-                    text: qsTr("Grid-supportive-control")
-                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-                    visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") ||
-                             heatRodThing.thingClass.interfaces.includes("heatingrod")
+                    CoSwitch {
+                        id: controllSwitch
+                        Layout.fillWidth: true
+                        text: qsTr("Grid-supportive-control")
+                        helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                        visible: heatRodThing.thingClass.interfaces.includes("controllableconsumer") ||
+                                 heatRodThing.thingClass.interfaces.includes("heatingrod")
 
-                    Component.onCompleted: {
-                        checked = heatingElementConfiguration.controllableLocalSystem
+                        Component.onCompleted: {
+                            checked = heatingElementConfiguration.controllableLocalSystem
+                        }
                     }
                 }
             }
-        }
 
-        Item {
-            id: spacer
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+            Label {
+                id: footer
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                color: Style.dangerAccent
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+            }
         }
+    }
 
-        Label {
-            id: footer
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            color: Style.dangerAccent
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
-        }
+    property Component navbarControls: heatingElementNavbarControls
 
-        Button {
-            id: savebutton
-            Layout.fillWidth: true
+    Component {
+        id: heatingElementNavbarControls
+        CoNavbarButton {
             text: qsTr("Apply changes")
-
-            property bool inputValid: maxElectricalPower.maxElectricalPowerValid
-
-            onClicked: {
-                let inputText = maxElectricalPower.text
-                inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
-                if (savebutton.inputValid) {
-                    d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
-                        "maxElectricalPower": parseFloat(inputText),
-                        "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
-                        "controllableLocalSystem": controllSwitch.checked
-                    })
-                    if (directionID !== 1) {
-                        pageStack.pop()
-                    }
-                    root.done()
-                } else {
-                    footer.text = qsTr("Some attributes are outside of the allowed range: Configurations were not saved.")
-                }
-            }
+            enabled: root.applyEnabled
+            onClicked: root.applyChanges()
         }
     }
 }

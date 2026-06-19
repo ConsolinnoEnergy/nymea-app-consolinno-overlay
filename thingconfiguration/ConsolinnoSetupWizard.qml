@@ -41,6 +41,13 @@ Page {
     signal aborted();
     signal done();
 
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
+    property bool busy: busyOverlay.shown
+    property Component navbarControls: internalPageStack.currentItem
+        && "navbarControls" in internalPageStack.currentItem
+        ? internalPageStack.currentItem.navbarControls : null
+
     // ParamType UUIDs whose delegate should be hidden in the setup wizard
     readonly property var hiddenParamTypeIds: [
         "418b9024-bf2c-467d-b1fe-82382bd39dc1"  // Zähler bei SGReady & Zähler (https://consolinno.atlassian.net/browse/ESUI-820)
@@ -198,6 +205,14 @@ Page {
         anchors.fill: parent
     }
 
+    Binding {
+        target: internalPageStack.currentItem
+        property: "navigationFooterHeight"
+        value: root.navigationFooterHeight
+        when: internalPageStack.currentItem !== null
+              && "navigationFooterHeight" in internalPageStack.currentItem
+    }
+
     property QtObject pageStack: QtObject {
         function pop(item) {
             if (internalPageStack.depth > 1) {
@@ -214,12 +229,33 @@ Page {
         SettingsPageBase {
             id: discoveryParamsView
             title: qsTr("Discover %1").arg(root.thingClass.displayName)
+            property Component navbarControls: discoveryParamsControls
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(root.thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+            Component {
+                id: discoveryParamsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: {
+                            var paramTypes = root.thingClass.discoveryParamTypes;
+                            d.discoveryParams = [];
+                            for (var i = 0; i < paramTypes.count; i++) {
+                                var param = {};
+                                param["paramTypeId"] = paramTypes.get(i).id;
+                                param["value"] = paramRepeater.itemAt(i).value
+                                d.discoveryParams.push(param);
+                            }
+                            discovery.discoverThings(root.thingClass.id, d.discoveryParams)
+                            internalPageStack.push(discoveryPage, {thingClass: root.thingClass})
+                        }
+                    }
+                }
             }
+
+            headerText: qsTr("Discover %1").arg(root.thingClass.displayName)
 
             CoFrostyCard {
                 Layout.fillWidth: true
@@ -245,23 +281,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Next")
-                onClicked: {
-                    var paramTypes = root.thingClass.discoveryParamTypes;
-                    d.discoveryParams = [];
-                    for (var i = 0; i < paramTypes.count; i++) {
-                        var param = {};
-                        param["paramTypeId"] = paramTypes.get(i).id;
-                        param["value"] = paramRepeater.itemAt(i).value
-                        d.discoveryParams.push(param);
-                    }
-                    discovery.discoverThings(root.thingClass.id, d.discoveryParams)
-                    internalPageStack.push(discoveryPage, {thingClass: root.thingClass})
-                }
-            }
         }
     }
 
@@ -271,19 +290,29 @@ Page {
 
         SettingsPageBase {
             id: discoveryView
+            property Component navbarControls: discoveryControls
 
-            header: CoHeader {
-                text: qsTr("Discover %1").arg(root.thingClass.displayName)
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+            Component {
+                id: discoveryControls
+                ColumnLayout {
+                    spacing: Style.margins
 
-                RoundButton {
-                    icon.source: "qrc:/icons/configure.svg"
-                    visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
-                    text: qsTr("Add thing manually")
-                    flat: true
-                    onClicked: internalPageStack.push(paramsPage)
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Search again")
+                        onClicked: discovery.discoverThings(root.thingClass.id, d.discoveryParams)
+                        visible: !discovery.busy
+                    }
                 }
+            }
+
+            headerText: qsTr("Discover %1").arg(root.thingClass.displayName)
+            headerExtras: RoundButton {
+                icon.source: "qrc:/icons/configure.svg"
+                visible: root.thingClass.createMethods.indexOf("CreateMethodUser") >= 0
+                text: qsTr("Add thing manually")
+                flat: true
+                onClicked: internalPageStack.push(paramsPage)
             }
 
             property ThingClass thingClass: null
@@ -331,7 +360,7 @@ Page {
             ColumnLayout {
                 visible: !discovery.busy && discoveryProxy.count === 0
                 spacing: Style.margins
-                Layout.preferredHeight: discoveryView.height - discoveryView.header.height - retryButton.height - Style.margins * 3
+                Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - Style.margins * 3
                 Label {
                     text: qsTr("Too bad...")
                     font.pixelSize: app.largeFont
@@ -354,14 +383,6 @@ Page {
                 }
             }
 
-            Button {
-                id: retryButton
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("Search again")
-                onClicked: discovery.discoverThings(root.thingClass.id, d.discoveryParams)
-                visible: !discovery.busy
-            }
         }
     }
 
@@ -372,11 +393,37 @@ Page {
         SettingsPageBase {
             id: paramsView
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
-            header: CoHeader {
-                text: paramsView.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+            property Component navbarControls: paramsControls
+
+            Component {
+                id: paramsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            var params = []
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                var param = {}
+                                var paramType = paramRepeater.itemAt(i).paramType
+                                if (!paramType.readOnly) {
+                                    param.paramTypeId = paramType.id
+                                    param.value = paramRepeater.itemAt(i).value
+                                    print("adding param", param.paramTypeId, param.value)
+                                    params.push(param)
+                                }
+                            }
+                            d.params = params
+                            d.name = nameTextField.text
+                            d.pairThing();
+                        }
+                    }
+                }
             }
+
+            headerText: paramsView.title
 
             CoFrostyCard {
                 id: nameGroup
@@ -482,29 +529,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-
-                text: qsTr("OK")
-                onClicked: {
-                    var params = []
-                    for (var i = 0; i < paramRepeater.count; i++) {
-                        var param = {}
-                        var paramType = paramRepeater.itemAt(i).paramType
-                        if (!paramType.readOnly) {
-                            param.paramTypeId = paramType.id
-                            param.value = paramRepeater.itemAt(i).value
-                            print("adding param", param.paramTypeId, param.value)
-                            params.push(param)
-                        }
-                    }
-                    d.params = params
-                    d.name = nameTextField.text
-                    d.pairThing();
-                }
-            }
         }
     }
 
@@ -514,11 +538,25 @@ Page {
         SettingsPageBase {
             id: pairingPage
             title: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
-            header: CoHeader {
-                text: pairingPage.title
-                backButtonVisible: true
-                onBackPressed: pageStack.pop()
+            property Component navbarControls: pairingControls
+
+            Component {
+                id: pairingControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("OK")
+                        onClicked: {
+                            engine.thingManager.confirmPairing(d.pairingTransactionId, pinTextField.password, usernameTextField.displayText);
+                            busyOverlay.shown = true;
+                        }
+                    }
+                }
             }
+
+            headerText: pairingPage.title
             property alias text: textLabel.text
             property string setupMethod
 
@@ -562,15 +600,6 @@ Page {
                 }
             }
 
-            Button {
-                Layout.fillWidth: true
-                Layout.margins: Style.margins
-                text: qsTr("OK")
-                onClicked: {
-                    engine.thingManager.confirmPairing(d.pairingTransactionId, pinTextField.password, usernameTextField.displayText);
-                    busyOverlay.shown = true;
-                }
-            }
         }
     }
 
@@ -667,6 +696,34 @@ Page {
 
         Page {
             id: resultsView
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
+            property Component navbarControls: resultsControls
+
+            Component {
+                id: resultsControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        visible: !resultsView.success
+                        text: qsTr("Retry")
+                        onClicked: {
+                            internalPageStack.pop({immediate: true});
+                            internalPageStack.pop({immediate: true});
+                            d.pairThing();
+                        }
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Ok")
+                        onClicked: root.done()
+                    }
+                }
+            }
+
             header: CoHeader {
                 text: root.thing ? qsTr("Reconfigure %1").arg(root.thing.name) : qsTr("Set up %1").arg(root.thingClass.displayName)
                 onBackPressed: pageStack.pop()
@@ -705,22 +762,6 @@ Page {
                     text: resultsView.message
                 }
 
-                Button {
-                    Layout.fillWidth: true
-                    visible: !resultsView.success
-                    text: qsTr("Retry")
-                    onClicked: {
-                        internalPageStack.pop({immediate: true});
-                        internalPageStack.pop({immediate: true});
-                        d.pairThing();
-                    }
-                }
-
-                Button {
-                    Layout.fillWidth: true
-                    text: qsTr("Ok")
-                    onClicked: root.done()
-                }
             }
         }
     }

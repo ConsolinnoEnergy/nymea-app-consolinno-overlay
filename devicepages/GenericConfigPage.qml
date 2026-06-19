@@ -22,6 +22,11 @@ Item {
 
     property int navigationFooterHeight: 0
 
+    Rectangle {
+        anchors.fill: parent
+        color: Style.backgroundColor
+    }
+
     ListModel {
         id: menuListModel
 
@@ -38,33 +43,45 @@ Item {
         }
     }
 
-    ColumnLayout {
+    Item {
+        id: content
         anchors.fill: parent
-        Layout.alignment: Qt.AlignHCenter
-        spacing: 0
+    }
 
-        CoHeader {
-            id: header
-            Layout.fillWidth: true
-            menuButtonVisible: true
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        menuButtonVisible: true
+        z: 1
 
-            onBackPressed: {
-                if (root.overrideBack) {
-                    root.backRequested();
-                } else {
-                    pageStack.pop();
-                }
+        onBackPressed: {
+            if (root.overrideBack) {
+                root.backRequested();
+            } else {
+                pageStack.pop();
             }
-            onMenuPressed: menu.open();
         }
+        onMenuPressed: menu.open();
+    }
 
-        Item {
-            id: content
-            Layout.fillHeight: true
-            Layout.fillWidth: true
+    Component.onCompleted: {
+        function findFlickable(item) {
+            if (!item) return null;
+            if (item.hasOwnProperty("contentY") && item.hasOwnProperty("contentItem"))
+                return item;
+            var kids = item.children || [];
+            for (var i = 0; i < kids.length; i++) {
+                var f = findFlickable(kids[i]);
+                if (f) return f;
+            }
+            return null;
         }
-
-        Item { Layout.fillWidth: true; Layout.preferredHeight: root.navigationFooterHeight }
+        var c = findFlickable(content);
+        if (c) {
+            header.blurSource = c;
+            c.topMargin = Qt.binding(function() { return header.height; });
+            Qt.callLater(function() { c.contentY = -c.topMargin; });
+        }
     }
 
     Menu {
