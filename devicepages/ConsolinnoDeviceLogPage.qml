@@ -46,10 +46,17 @@ Page {
     property Thing thing: null
     property alias device: root.thing
     property var filterTypeIds: []
+    property int filterIndex: 0
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
         text: qsTr("History for %1").arg(root.thing.name)
         onBackPressed: pageStack.pop()
+        blurSource: logListView
 
         RoundButton {
             icon.source: "/icons/filters.svg"
@@ -67,7 +74,7 @@ Page {
         typeIds: root.filterTypeIds.length > 0
                  ? root.filterTypeIds
                  : filterEnabled
-                   ? [filterDeviceModel.getData(filterComboBox.currentIndex, ThingModel.RoleId)]
+                   ? [filterDeviceModel.getData(root.filterIndex, ThingModel.RoleId)]
                    : []
         live: true
 
@@ -79,89 +86,95 @@ Page {
         thing: root.thing
     }
 
-    Pane {
-        id: filterPane
-        anchors { left: parent.left; top: parent.top; right: parent.right }
-        Behavior on height { NumberAnimation { duration: 120; easing.type: Easing.InOutQuad } }
-
-        height: logsModelNg.filterEnabled ? implicitHeight + app.margins * 2 : 0
-        Material.elevation: 1
-
-        leftPadding: 0; rightPadding: 0; topPadding: 0; bottomPadding: 0
-        contentItem: Item {
-            clip: true
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: app.margins
-                spacing: app.margins
-                Label {
-                    text: qsTr("Filter by")
-                }
-
-                ComboBox {
-                    id: filterComboBox
-                    Layout.fillWidth: true
-                    textRole: "displayName"
-                    model: filterDeviceModel
-                }
-            }
-        }
-    }
-
-    Loader {
-        id: graphLoader
-        anchors {
-            left: parent.left
-            top: filterPane.bottom
-            right: parent.right
-        }
-
-        readonly property StateType stateType: root.thing.thingClass.stateTypes.getStateType(root.filterTypeIds[0])
-
-        readonly property bool canShowGraph: {
-            if (stateType === null) {
-                return false
-            }
-
-            if (stateType.unit === Types.UnitUnixTime) {
-                return false;
-            }
-
-            switch (stateType.type.toLowerCase()) {
-            case "uint":
-            case "int":
-            case "double":
-            case "bool":
-                return true;
-            }
-            print("not showing graph for", stateType.type)
-            return false;
-        }
-
-        Component.onCompleted: {
-            if (root.filterTypeIds.length === 0) {
-                return;
-            }
-            if (!canShowGraph) {
-                return;
-            }
-
-            var source = Qt.resolvedUrl("../customviews/GenericTypeGraph.qml");
-            setSource(source, {thing: root.thing, stateType: stateType})
-        }
-    }
-
-
     ListView {
+        id: logListView
+        anchors.fill: parent
+        topMargin: header.height
         bottomMargin: root.navigationFooterHeight
-        anchors { left: parent.left; top: graphLoader.bottom; right: parent.right; bottom: parent.bottom }
         clip: true
         model: logsModelNg
         ScrollBar.vertical: ScrollBar {}
 
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
         BusyIndicator {
             anchors.centerIn: parent
             visible: logsModelNg.busy
+        }
+
+        header: Column {
+            width: logListView.width
+
+            Pane {
+                id: filterPane
+                width: parent.width
+                Behavior on height { NumberAnimation { duration: 120; easing.type: Easing.InOutQuad } }
+
+                height: logsModelNg.filterEnabled ? implicitHeight + app.margins * 2 : 0
+                Material.elevation: 1
+
+                leftPadding: 0; rightPadding: 0; topPadding: 0; bottomPadding: 0
+                contentItem: Item {
+                    clip: true
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: app.margins
+                        spacing: app.margins
+                        Label {
+                            text: qsTr("Filter by")
+                        }
+
+                        ComboBox {
+                            id: filterComboBox
+                            Layout.fillWidth: true
+                            textRole: "displayName"
+                            model: filterDeviceModel
+                            onCurrentIndexChanged: root.filterIndex = currentIndex
+                        }
+                    }
+                }
+            }
+
+            Loader {
+                id: graphLoader
+                width: parent.width
+
+                readonly property StateType stateType: root.filterTypeIds.length > 0
+                                                      ? root.thing.thingClass.stateTypes.getStateType(root.filterTypeIds[0])
+                                                      : null
+
+                readonly property bool canShowGraph: {
+                    if (stateType === null) {
+                        return false
+                    }
+
+                    if (stateType.unit === Types.UnitUnixTime) {
+                        return false;
+                    }
+
+                    switch (stateType.type.toLowerCase()) {
+                    case "uint":
+                    case "int":
+                    case "double":
+                    case "bool":
+                        return true;
+                    }
+                    print("not showing graph for", stateType.type)
+                    return false;
+                }
+
+                Component.onCompleted: {
+                    if (root.filterTypeIds.length === 0) {
+                        return;
+                    }
+                    if (!canShowGraph) {
+                        return;
+                    }
+
+                    var source = Qt.resolvedUrl("../customviews/GenericTypeGraph.qml");
+                    setSource(source, {thing: root.thing, stateType: stateType})
+                }
+            }
         }
 
         delegate: ItemDelegate {
