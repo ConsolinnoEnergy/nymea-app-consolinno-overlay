@@ -12,7 +12,13 @@ Page {
     bottomPadding: 0
     property int navigationFooterHeight: 0
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Optimization configuration")
         backButtonVisible: true
         onBackPressed:{
@@ -21,9 +27,13 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
+        topMargin: header.height
         contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
         clip: true
+
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout

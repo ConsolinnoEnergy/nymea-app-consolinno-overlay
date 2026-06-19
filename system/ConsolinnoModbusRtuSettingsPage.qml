@@ -64,7 +64,13 @@ Page {
         }
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: flickable
         text: qsTr("Modbus-RTU-Interfaces")
         backButtonVisible: true
         onBackPressed: {
@@ -196,8 +202,11 @@ Page {
     Flickable {
         id: flickable
         anchors.fill: parent
+        topMargin: header.height
         contentHeight: layout.implicitHeight + 2 * Style.margins + root.navigationFooterHeight
         clip: true
+
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout
