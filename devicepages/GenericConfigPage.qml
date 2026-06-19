@@ -79,7 +79,7 @@ Item {
         var c = findFlickable(content);
         if (c) {
             header.blurSource = c;
-            c.topMargin = header.height;
+            c.topMargin = Qt.binding(function() { return header.height; });
             Qt.callLater(function() { c.contentY = -c.topMargin; });
         }
     }
