@@ -30,8 +30,17 @@ StackView {
     Component {
         id: setUpComponent
         Page {
+            id: setupPage
+            bottomPadding: 0
+            property int navigationFooterHeight: 0
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
+                id: header
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: bodyFlickable
                 text: qsTr("Dynamic electricity tariff")
                 backButtonVisible: true
                 onBackPressed: {
@@ -41,119 +50,126 @@ StackView {
                 }
             }
 
-            ColumnLayout {
+            Flickable {
+                id: bodyFlickable
                 anchors.fill: parent
-                anchors.margins: Style.margins
-                spacing: Style.margins
+                topMargin: header.height
+                clip: true
+                contentHeight: contentColumn.implicitHeight +
+                               contentColumn.anchors.topMargin +
+                               contentColumn.anchors.bottomMargin + navigationFooterHeight
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-                CoFrostyCard {
-                    Layout.fillWidth: true
-                    contentTopMargin: Style.margins
-                    headerText: qsTr("Submitted rate")
+                ColumnLayout {
+                    id: contentColumn
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
+                    anchors.margins: Style.margins
+                    spacing: Style.margins
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentTopMargin: Style.margins
+                        headerText: qsTr("Submitted rate")
 
-                        Repeater {
-                            model: dynElectricThings
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            spacing: 0
 
-                            delegate: CoCard {
-                                Layout.fillWidth: true
-                                iconLeft: Qt.resolvedUrl("/icons/euro.svg")
-                                text: model.name
-                                property Thing thing: dynElectricThings.get(index)
-                                showChildrenIndicator: true
-                                deletable: true
-                                interactive: true
-                                property int pageStackPopsAfterConfigure: 1
+                            Repeater {
+                                model: dynElectricThings
 
-                                Component.onCompleted: {
-                                    if (root.startView === "configure" && index === 0) {
-                                        pageStackPopsAfterConfigure = 2;
-                                        Qt.callLater(onClicked);
+                                delegate: CoCard {
+                                    Layout.fillWidth: true
+                                    iconLeft: Qt.resolvedUrl("/icons/euro.svg")
+                                    text: model.name
+                                    property Thing thing: dynElectricThings.get(index)
+                                    showChildrenIndicator: true
+                                    deletable: true
+                                    interactive: true
+                                    property int pageStackPopsAfterConfigure: 1
+
+                                    Component.onCompleted: {
+                                        if (root.startView === "configure" && index === 0) {
+                                            pageStackPopsAfterConfigure = 2;
+                                            Qt.callLater(onClicked);
+                                        }
+                                    }
+
+                                    onClicked: {
+                                        var isEpexDayAheadThing =
+                                                thing.thingClassId.toString() === root.epexDayAheadThingClassId;
+                                        var pageUrl = isEpexDayAheadThing ?
+                                                    "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
+                                                    "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
+                                        var page = pageStack.push(Qt.resolvedUrl(pageUrl),
+                                                                  { thing: thing });
+                                        page.done.connect(function() {
+                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                                pageStack.pop();
+                                            }
+                                        });
+                                        page.aborted.connect(function() {
+                                            for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
+                                                pageStack.pop();
+                                            }
+                                        });
+                                    }
+                                    onDeleteClicked: {
+                                        var popup = removeDialogComponent.createObject(root, { thing: thing });
+                                        popup.open();
                                     }
                                 }
+                            }
+
+                            CoCard {
+                                Layout.fillWidth: true
+                                visible: dynElectricThings.count === 0
+                                text: qsTr("There is no rate set up yet.")
+                            }
+
+                            CoComboBox {
+                                id: energyRateComboBox
+                                Layout.fillWidth: true
+                                labelText: qsTr("Add Rate")
+                                visible: dynElectricThings.count === 0
+                                textRole: "displayName"
+                                valueRole: "id"
+                                model: ThingClassesProxy {
+                                    id: currentThing
+                                    engine: _engine
+                                    filterInterface: "dynamicelectricitypricing"
+                                    includeProvidedInterfaces: true
+                                }
+                            }
+
+                            Button {
+                                id: addButton
+                                Layout.fillWidth: true
+                                visible: dynElectricThings.count === 0
+                                enabled: thingClass !== null
+                                text: qsTr("Add")
+                                property ThingClass thingClass: energyRateComboBox.currentIndex >= 0 ?
+                                                                    currentThing.get(energyRateComboBox.currentIndex) :
+                                                                    null
 
                                 onClicked: {
                                     var isEpexDayAheadThing =
-                                            thing.thingClassId.toString() === root.epexDayAheadThingClassId;
+                                            thingClass.id.toString() === root.epexDayAheadThingClassId;
                                     var pageUrl = isEpexDayAheadThing ?
                                                 "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
                                                 "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
-                                    var page = pageStack.push(Qt.resolvedUrl(pageUrl),
-                                                              { thing: thing });
+                                    var page = pageStack.push(Qt.resolvedUrl(pageUrl), { thingClass: thingClass });
                                     page.done.connect(function() {
-                                        for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
-                                            pageStack.pop();
-                                        }
+                                        pageStack.pop();
                                     });
                                     page.aborted.connect(function() {
-                                        for (var i = 0; i < pageStackPopsAfterConfigure; i++) {
-                                            pageStack.pop();
-                                        }
+                                        pageStack.pop();
                                     });
                                 }
-                                onDeleteClicked: {
-                                    var popup = removeDialogComponent.createObject(root, { thing: thing });
-                                    popup.open();
-                                }
-                            }
-                        }
-
-                        CoCard {
-                            Layout.fillWidth: true
-                            visible: dynElectricThings.count === 0
-                            text: qsTr("There is no rate set up yet.")
-                        }
-
-                        CoComboBox {
-                            id: energyRateComboBox
-                            Layout.fillWidth: true
-                            labelText: qsTr("Add Rate")
-                            visible: dynElectricThings.count === 0
-                            textRole: "displayName"
-                            valueRole: "id"
-                            model: ThingClassesProxy {
-                                id: currentThing
-                                engine: _engine
-                                filterInterface: "dynamicelectricitypricing"
-                                includeProvidedInterfaces: true
-                            }
-                        }
-
-                        Button {
-                            id: addButton
-                            Layout.fillWidth: true
-                            visible: dynElectricThings.count === 0
-                            enabled: thingClass !== null
-                            text: qsTr("Add")
-                            property ThingClass thingClass: energyRateComboBox.currentIndex >= 0 ?
-                                                                currentThing.get(energyRateComboBox.currentIndex) :
-                                                                null
-
-                            onClicked: {
-                                var isEpexDayAheadThing =
-                                        thingClass.id.toString() === root.epexDayAheadThingClassId;
-                                var pageUrl = isEpexDayAheadThing ?
-                                            "qrc:///ui/thingconfiguration/EpexDayAheadSetup.qml" :
-                                            "qrc:///ui/thingconfiguration/ConsolinnoSetupWizard.qml";
-                                var page = pageStack.push(Qt.resolvedUrl(pageUrl), { thingClass: thingClass });
-                                page.done.connect(function() {
-                                    pageStack.pop();
-                                });
-                                page.aborted.connect(function() {
-                                    pageStack.pop();
-                                });
                             }
                         }
                     }
-                }
-
-                Item {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
                 }
             }
         }

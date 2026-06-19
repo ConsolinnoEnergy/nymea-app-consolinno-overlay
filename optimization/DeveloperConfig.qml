@@ -12,8 +12,16 @@ import "../optimization"
 // In order to add something to the development page do the following step:
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Development")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -40,24 +48,34 @@ Page {
         id: menuEntriesModel
     }
 
-    ColumnLayout {
-        id: contentColumn
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.top: parent.top
-        anchors.topMargin: app.margins
+    Flickable {
+        id: bodyFlickable
+        anchors.fill: parent
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        Repeater {
-            model: menuEntriesModel
-            delegate: NymeaItemDelegate {
-                Layout.fillWidth: true
-                iconName: {
-                    return "/icons/edit.svg"
-                }
-                text: model.text
-                progressive: true
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl(model.link), model.attributes)
+        ColumnLayout {
+            id: contentColumn
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.topMargin: app.margins
+
+            Repeater {
+                model: menuEntriesModel
+                delegate: NymeaItemDelegate {
+                    Layout.fillWidth: true
+                    iconName: {
+                        return "/icons/edit.svg"
+                    }
+                    text: model.text
+                    progressive: true
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl(model.link), model.attributes)
+                    }
                 }
             }
         }

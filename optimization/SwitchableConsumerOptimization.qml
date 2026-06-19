@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
 
     property SwitchConfiguration switchConfiguration
     property Thing switchThing
@@ -31,7 +33,13 @@ Page {
         root.done()
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Switchable consumers")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -68,68 +76,73 @@ Page {
         }
     }
 
-    ColumnLayout {
-        id: contentColumn
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: app.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin +
+                       contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: switchThing.name
+        ColumnLayout {
+            id: contentColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: app.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: switchThing.name
 
-                CoInputField {
-                    id: maxElectricalPower
-                    property bool maxElectricalPowerValid: textField.acceptableInput
-                    Layout.fillWidth: true
-                    labelText: qsTr("Maximal electrical power")
-                    compact: true
-                    unit: qsTr("kW")
-                    helpText:
-                        qsTr("The value must not be below %1.")
-                    .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
-                    feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
-                    textField.maximumLength: 10
-                    textField.validator: DoubleValidator  {
-                        id: maxElectricalPowerValidator
-                        bottom: 0.5
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
+
+                    CoInputField {
+                        id: maxElectricalPower
+                        property bool maxElectricalPowerValid: textField.acceptableInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Maximal electrical power")
+                        compact: true
+                        unit: qsTr("kW")
+                        helpText:
+                            qsTr("The value must not be below %1.")
+                        .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
+                        feedbackText: qsTr("The value is outside the valid range.")
+                        textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
+                        textField.maximumLength: 10
+                        textField.validator: DoubleValidator  {
+                            id: maxElectricalPowerValidator
+                            bottom: 0.5
+                        }
                     }
-                }
 
-                CoSwitch {
-                    id: controllSwitch
-                    Layout.fillWidth: true
-                    visible: false // #TODO CLS toggle only starting with version 2.2
-                    text: qsTr("Grid-supportive-control")
-                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                    CoSwitch {
+                        id: controllSwitch
+                        Layout.fillWidth: true
+                        visible: false // #TODO CLS toggle only starting with version 2.2
+                        text: qsTr("Grid-supportive-control")
+                        helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
 
-                    Component.onCompleted: {
-                        checked = switchConfiguration.controllableLocalSystem;
+                        Component.onCompleted: {
+                            checked = switchConfiguration.controllableLocalSystem;
+                        }
                     }
                 }
             }
-        }
 
-        Item {
-            id: spacer
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        Label {
-            id: footer
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            color: Style.dangerAccent
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
+            Label {
+                id: footer
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                color: Style.dangerAccent
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+            }
         }
     }
 

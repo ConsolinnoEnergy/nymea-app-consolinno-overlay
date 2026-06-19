@@ -8,6 +8,8 @@ import "../delegates"
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property Thing thing
     property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
     property int directionID: 0
@@ -24,7 +26,13 @@ Page {
         root.done();
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Charging")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
@@ -61,49 +69,54 @@ Page {
         }
     }
 
-    ColumnLayout {
-        id: contentColumn
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: app.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin +
+                       contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: thing.name
+        ColumnLayout {
+            id: contentColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: app.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: thing.name
 
-                CoSwitch {
-                    id: gridSupportControl
-                    Layout.fillWidth: true
-                    text: qsTr("Grid-supportive-control")
-                    helpText: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                    Component.onCompleted: {
-                        checked = chargingOptimizationConfiguration.controllableLocalSystem;
+                    CoSwitch {
+                        id: gridSupportControl
+                        Layout.fillWidth: true
+                        text: qsTr("Grid-supportive-control")
+                        helpText: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
+
+                        Component.onCompleted: {
+                            checked = chargingOptimizationConfiguration.controllableLocalSystem;
+                        }
                     }
                 }
             }
-        }
 
-        Item {
-            id: spacer
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        // potential footer for the config app, as a way to show the user that certain attributes where invalid.
-        Label {
-            id: footer
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            color: Style.dangerAccent
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
+            // potential footer for the config app, as a way to show the user that certain attributes where invalid.
+            Label {
+                id: footer
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                color: Style.dangerAccent
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+            }
         }
     }
 

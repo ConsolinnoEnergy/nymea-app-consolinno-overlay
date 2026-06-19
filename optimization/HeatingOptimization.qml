@@ -10,6 +10,8 @@ import QtQml
 
 Page {
     id: root
+    bottomPadding: 0
+    property int navigationFooterHeight: 0
     property HeatingConfiguration heatingConfiguration
     property Thing heatPumpThing
     property int directionID: 0
@@ -76,7 +78,13 @@ Page {
         heatMeterCombo.comboBox.currentIndex = 0;
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Heating")
         backButtonVisible: directionID === 1 ? false : true
         onBackPressed: pageStack.pop()
@@ -124,82 +132,87 @@ Page {
         buildMeterModel();
     }
 
-    ColumnLayout {
-        id: contentColumn
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: app.margins
+        topMargin: header.height
+        clip: true
+        contentHeight: contentColumn.implicitHeight +
+                       contentColumn.anchors.topMargin +
+                       contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        CoFrostyCard {
-            Layout.fillWidth: true
-            contentTopMargin: Style.smallMargins
-            headerText: heatPumpThing.name
+        ColumnLayout {
+            id: contentColumn
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: app.margins
 
-            ColumnLayout {
-                anchors.left: parent.left
-                anchors.right: parent.right
-                spacing: 0
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: heatPumpThing.name
+
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
 
-                CoInputField {
-                    id: maxElectricalPower
-                    property bool maxElectricalPowerValid: textField.acceptableInput
-                    Layout.fillWidth: true
-                    labelText: qsTr("Maximal electrical power")
-                    compact: true
-                    unit: qsTr("kW")
-                    helpText:
-                        qsTr("The value must not be below %1.")
-                    .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
-                    feedbackText: qsTr("The value is outside the valid range.")
-                    textField.text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
-                    textField.maximumLength: 10
-                    textField.validator: DoubleValidator  {
-                        id: maxElectricalPowerValidator
-                        bottom: 0.5
+                    CoInputField {
+                        id: maxElectricalPower
+                        property bool maxElectricalPowerValid: textField.acceptableInput
+                        Layout.fillWidth: true
+                        labelText: qsTr("Maximal electrical power")
+                        compact: true
+                        unit: qsTr("kW")
+                        helpText:
+                            qsTr("The value must not be below %1.")
+                        .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
+                        feedbackText: qsTr("The value is outside the valid range.")
+                        textField.text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
+                        textField.maximumLength: 10
+                        textField.validator: DoubleValidator  {
+                            id: maxElectricalPowerValidator
+                            bottom: 0.5
+                        }
                     }
-                }
 
-                CoSwitch {
-                    id: gridSupportControl
-                    Layout.fillWidth: true
-                    text: qsTr("Grid-supportive-control")
-                    helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
-                    visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") ||
-                             heatPumpThing.thingClass.interfaces.includes("limitableconsumer") ||
-                             heatPumpThing.thingClass.interfaces.includes("heatpump")
+                    CoSwitch {
+                        id: gridSupportControl
+                        Layout.fillWidth: true
+                        text: qsTr("Grid-supportive-control")
+                        helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
+                        visible: heatPumpThing.thingClass.interfaces.includes("smartgridheatpump") ||
+                                 heatPumpThing.thingClass.interfaces.includes("limitableconsumer") ||
+                                 heatPumpThing.thingClass.interfaces.includes("heatpump")
 
-                    Component.onCompleted: {
-                        checked = heatingConfiguration.controllableLocalSystem;
+                        Component.onCompleted: {
+                            checked = heatingConfiguration.controllableLocalSystem;
+                        }
                     }
-                }
 
-                CoComboBox {
-                    id: heatMeterCombo
-                    Layout.fillWidth: true
-                    visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
-                    labelText: qsTr("Electricity meter")
-                    textRole: "text"
-                    model: ListModel { id: meterModel }
+                    CoComboBox {
+                        id: heatMeterCombo
+                        Layout.fillWidth: true
+                        visible: heatPumpThing.thingClass.interfaces.includes("smartmeterconsumerassignable")
+                        labelText: qsTr("Electricity meter")
+                        textRole: "text"
+                        model: ListModel { id: meterModel }
+                    }
                 }
             }
-        }
 
-        Item {
-            id: spacer
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-        }
-
-        // potential footer for the config app, as a way to show the user that certain attributes where invalid.
-        Label {
-            id: footer
-            Layout.fillWidth: true
-            Layout.leftMargin: app.margins
-            Layout.rightMargin: app.margins
-            color: Style.dangerAccent
-            //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
-            wrapMode: Text.WordWrap
-            font.pixelSize: app.smallFont
+            // potential footer for the config app, as a way to show the user that certain attributes where invalid.
+            Label {
+                id: footer
+                Layout.fillWidth: true
+                Layout.leftMargin: app.margins
+                Layout.rightMargin: app.margins
+                color: Style.dangerAccent
+                //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
+                wrapMode: Text.WordWrap
+                font.pixelSize: app.smallFont
+            }
         }
     }
 

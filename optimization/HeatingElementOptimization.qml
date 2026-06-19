@@ -32,7 +32,13 @@ Page {
         root.done()
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Heating")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -70,9 +76,12 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
+        topMargin: header.height
         clip: true
         contentHeight: contentColumn.implicitHeight + contentColumn.anchors.topMargin + contentColumn.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: contentColumn

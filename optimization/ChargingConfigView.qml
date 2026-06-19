@@ -1014,8 +1014,13 @@ GenericConfigPage {
                 restoreSchedule();
             }
 
-            header: CoHeader {
+            header: null
+
+            CoHeader {
                 id: header
+                anchors { left: parent.left; right: parent.right; top: parent.top }
+                z: 1
+                blurSource: optimizationFlickable
                 text: qsTr("Configure charging mode")
                 backButtonVisible: true
                 onBackPressed: {
@@ -1024,12 +1029,15 @@ GenericConfigPage {
             }
 
             Flickable {
+                id: optimizationFlickable
                 anchors.fill: parent
+                topMargin: header.height
                 contentHeight: optimizationPageLayout.implicitHeight +
                                optimizationPageLayout.anchors.topMargin +
                                optimizationPageLayout.anchors.bottomMargin +
                                optimizationPage.navigationFooterHeight
                 clip: true
+                Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
                 ColumnLayout {
                     id: optimizationPageLayout
