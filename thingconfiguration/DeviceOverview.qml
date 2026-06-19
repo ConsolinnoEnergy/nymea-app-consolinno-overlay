@@ -33,7 +33,13 @@ Page {
         }
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Device Overview")
         onBackPressed: {
             if (hemsManager.availableUseCases === 0){
@@ -116,14 +122,20 @@ Page {
 
     ColumnLayout {
         anchors.fill: parent
-        anchors.margins: Style.margins
+        anchors.leftMargin: Style.margins
+        anchors.rightMargin: Style.margins
+        anchors.bottomMargin: Style.margins
         spacing: Style.margins
 
         Flickable {
+            id: bodyFlickable
             Layout.fillWidth: true
             Layout.fillHeight: true
+            topMargin: header.height
             contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
+
+            Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
             ColumnLayout {
                 id: layout
