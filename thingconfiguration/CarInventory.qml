@@ -18,8 +18,13 @@ Page{
     signal done(var selectedCar)
     signal back()
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
         id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("List of Cars")
         backButtonVisible: true
         onBackPressed: root.back()
@@ -64,11 +69,14 @@ Page{
     }
 
     Flickable {
+        id: bodyFlickable
         clip: true
         anchors.fill: parent
+        topMargin: header.height
         contentHeight: layout.implicitHeight +
                        layout.anchors.topMargin +
                        layout.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout

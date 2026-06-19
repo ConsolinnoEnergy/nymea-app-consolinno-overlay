@@ -32,11 +32,17 @@ Page {
 
     signal done(bool skip, bool abort);
 
-    header: CoHeader {
+    header: null
+    background: Item {}
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: internalPageStack
         text: qsTr("Setup energy meter")
         onBackPressed: pageStack.pop()
     }
-    background: Item{}
 
 
     QtObject {
@@ -100,6 +106,7 @@ Page {
     StackView {
         id: internalPageStack
         anchors.fill: parent
+        anchors.topMargin: header.height
     }
 
     Binding {
@@ -126,6 +133,7 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.topMargin: header.height
         spacing: Style.margins
 
         CoFrostyCard {

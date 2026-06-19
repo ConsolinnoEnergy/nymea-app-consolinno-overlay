@@ -58,12 +58,18 @@ Page {
     signal done(bool skip, bool abort, bool back)
     signal countChanged()
 
-    header: CoHeader {
+    header: null
+    background: Item {}
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: root.headerTitle
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
-    background: Item {}
 
     // Internal state object
     QtObject {
@@ -135,6 +141,7 @@ Page {
     StackView {
         id: internalPageStack
         anchors.fill: parent
+        anchors.topMargin: header.height
     }
 
     Binding {
@@ -190,9 +197,12 @@ Page {
 
     // Main content layout
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
+        topMargin: header.height
         clip: true
         contentHeight: mainColumn.implicitHeight + mainColumn.anchors.margins * 2 + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: mainColumn

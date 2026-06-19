@@ -26,7 +26,13 @@ Page {
         }
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: flickable
         text: qsTr("Installed Devices")
         backButtonVisible: true
         onBackPressed: pageStack.pop()
@@ -35,8 +41,10 @@ Page {
     Flickable {
         id: flickable
         anchors.fill: parent
+        topMargin: header.height
         clip: true
         contentHeight: layout.implicitHeight + 2 * Style.margins + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: layout

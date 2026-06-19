@@ -52,12 +52,18 @@ Page {
         }
     }
 
-    header: CoHeader {
+    header: null
+    background: Item {}
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("EEBUS Devices")
         backButtonVisible: true
         onBackPressed: root.done(false, false, true)
     }
-    background: Item {}
 
     QtObject {
         id: d
@@ -121,11 +127,14 @@ Page {
     }
 
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
+        topMargin: header.height
         clip: true
         contentHeight: mainColumn.implicitHeight + mainColumn.anchors.margins * 2 + root.navigationFooterHeight
         // Hidden when opened via directToDiscovery (the list is never shown then).
         visible: !root.directToDiscovery
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: mainColumn

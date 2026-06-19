@@ -45,7 +45,13 @@ Page{
         }
     }
 
-    header: CoHeader {
+    header: null
+
+    CoHeader {
+        id: header
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
         text: qsTr("Contact")
         //text: userconfig.installerEmail
         backButtonVisible: true
@@ -63,9 +69,11 @@ Page{
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.topMargin: header.height
         spacing: Style.margins
 
         Flickable {
+            id: bodyFlickable
             Layout.fillHeight: true
             Layout.fillWidth: true
             contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
