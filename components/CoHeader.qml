@@ -6,7 +6,12 @@ import Nymea
 
 Item {
     id: root
-    implicitHeight: layout.implicitHeight + bottomBorder.height + 2 * Style.mediumMargins
+    // The header reaches the physical top edge of the screen. The interactive
+    // band (back button, title, menu button) is shifted down by the system
+    // status-bar / display-cutout inset so its content stays tappable while
+    // the blurred backdrop fills the area behind the status bar.
+    property int safeAreaTop: SafeArea.margins.top
+    implicitHeight: safeAreaTop + layout.implicitHeight + bottomBorder.height + 2 * Style.mediumMargins
     property alias text: headline.text
     property alias subText: subHeadline.text
     property alias backButtonVisible: backButton.visible
@@ -84,7 +89,7 @@ Item {
             left: parent.left
             top: parent.top
             right: parent.right
-            topMargin: Style.mediumMargins
+            topMargin: root.safeAreaTop + Style.mediumMargins
             leftMargin: Style.smallMargins
             rightMargin: Style.margins
         }
