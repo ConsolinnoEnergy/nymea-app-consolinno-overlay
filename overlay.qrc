@@ -237,7 +237,6 @@
         <file>optimization/HeatingElementOptimization.qml</file>
         <file>optimization/SwitchableConsumerOptimization.qml</file>
         <file>optimization/DynamicElectricityRate.qml</file>
-        <file>mainviews/energy/ConsolinnoDynamicElectricPricing.qml</file>
         <file>mainviews/energy/ConsolinnoDynamicElectricPricingHistory.qml</file>
         <file>devicepages/PageWraper.qml</file>
         <file>optimization/EvChargerOptimization.qml</file>
@@ -262,14 +261,11 @@
         <file>info/HemsControlledBatteryInfo.qml</file>
         <file>info/SwitchableConsumerOperatingModeInfo.qml</file>
         <file>components/ConsolinnoColorIcon.qml</file>
-        <file>components/ConsolinnoSwipeDelegate.qml</file>
         <file>components/CustomBarSeries.qml</file>
         <file>optimization/BatteryOptimization.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
         <file>system/ConsolinnoModbusRtuAddMasterPage.qml</file>
         <file>components/ConsolinnoSelectionTabs.qml</file>
-        <file>components/ConsolinnoSwitch.qml</file>
-        <file>components/ConsolinnoTextField.qml</file>
         <file>images/avoidZeroCompansation.svg</file>
         <file>system/ConsolinnoModbusRtuReconfigureMasterPage.qml</file>
         <file>components/ImageSVGHelper.qml</file>
