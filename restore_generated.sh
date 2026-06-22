@@ -3,6 +3,7 @@
 git restore \
 Configuration.qml \
 overlay.qrc \
+overlay-config.cmake \
 images/eebus.svg \
 images/leaf.svg \
 images/logo-wide.svg \
@@ -83,7 +84,6 @@ styles/light/Style.qml \
 styles/light/logo-wide.svg \
 terms_of_use_de_DE.html \
 
-rm overlay-config.pri
 rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
 rm LICENSE.*
