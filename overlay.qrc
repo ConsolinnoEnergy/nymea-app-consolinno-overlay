@@ -260,7 +260,6 @@
         <file>info/HeatingRodOperatingModeInfo.qml</file>
         <file>info/HemsControlledBatteryInfo.qml</file>
         <file>info/SwitchableConsumerOperatingModeInfo.qml</file>
-        <file>components/ConsolinnoColorIcon.qml</file>
         <file>components/CustomBarSeries.qml</file>
         <file>optimization/BatteryOptimization.qml</file>
         <file>system/ConsolinnoModbusRtuSettingsPage.qml</file>
