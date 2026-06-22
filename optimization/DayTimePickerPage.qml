@@ -39,64 +39,82 @@ Page {
         return 0
     }
 
-    header: Item {
-        height: 56
-        width: parent.width
+    header: null
 
-        // Back button (chevron left)
-        MouseArea {
-            id: backButton
-            width: 48
-            height: 48
-            anchors.left: parent.left
-            anchors.leftMargin: 4
-            anchors.verticalCenter: parent.verticalCenter
-            onClicked: pageStack.pop()
+    property Component navbarControls: dayTimePickerNavbarControls
 
-            ConsolinnoColorIcon {
-                anchors.centerIn: parent
-                height: Style.smallIconSize
-                width: height
-                name: "/icons/arrow_back_ios_new.svg"
-                color: Style.foregroundColor
+    Component {
+        id: dayTimePickerNavbarControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Confirm")
+                onClicked: root.confirm()
             }
-        }
 
-        // Title
-        Label {
-            anchors.centerIn: parent
-            text: qsTr("Time window") + " " + root.dayLabel
-            font.pixelSize: 18
-            font.bold: true
-            color: Style.foregroundColor
-        }
-
-        // Bottom border
-        Rectangle {
-            anchors.bottom: parent.bottom
-            width: parent.width
-            height: 1
-            color: "#E0E0E0"
+            CoNavbarButton {
+                Layout.fillWidth: true
+                flat: true
+                text: qsTr("Remove entry")
+                onClicked: {
+                    root.entryRemoved()
+                    pageStack.pop()
+                }
+            }
         }
     }
 
+    function confirm() {
+        var sh = startHourTumbler.currentIndex
+        var sm = startMinuteTumbler.currentIndex
+        var eh = endHourTumbler.currentIndex
+        var em = endMinuteTumbler.currentIndex
+
+        var startTotal = sh * 60 + sm
+        var endTotal = eh * 60 + em
+        if (startTotal >= endTotal) {
+            errorLabel.visible = true
+            return
+        }
+
+        errorLabel.visible = false
+        var startStr = (sh < 10 ? "0" : "") + sh + ":" + (sm < 10 ? "0" : "") + sm
+        var endStr = (eh < 10 ? "0" : "") + eh + ":" + (em < 10 ? "0" : "") + em
+        root.timeSelected(startStr, endStr)
+        pageStack.pop()
+    }
+
+    CoHeader {
+        id: coHeader
+        anchors { left: parent.left; right: parent.right; top: parent.top }
+        z: 1
+        blurSource: bodyFlickable
+        text: qsTr("Time window") + " " + root.dayLabel
+        backButtonVisible: true
+        onBackPressed: pageStack.pop()
+    }
+
     Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        contentHeight: mainColumn.implicitHeight + 40 + root.navigationFooterHeight
+        topMargin: coHeader.height
+        contentHeight: mainColumn.implicitHeight + mainColumn.anchors.topMargin + mainColumn.anchors.bottomMargin + root.navigationFooterHeight
+        clip: true
+
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
         ColumnLayout {
             id: mainColumn
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.margins: app.margins
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.margins: Style.margins
             spacing: 30
 
             // "Von" (From) section
             Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 160
-                Layout.topMargin: 20
 
                 RowLayout {
                     anchors.fill: parent
@@ -272,44 +290,6 @@ Page {
                 color: "red"
                 wrapMode: Text.WordWrap
                 horizontalAlignment: Text.AlignHCenter
-            }
-
-            Button {
-                Layout.fillWidth: true
-                flat: true
-                text: qsTr("Remove entry")
-                onClicked: {
-                    root.entryRemoved()
-                    pageStack.pop()
-                }
-            }
-
-            // Confirm button (green, at bottom)
-            Button {
-                id: confirmButton
-                Layout.fillWidth: true
-                text: qsTr("Confirm")
-
-                onClicked: {
-                    var sh = startHourTumbler.currentIndex
-                    var sm = startMinuteTumbler.currentIndex
-                    var eh = endHourTumbler.currentIndex
-                    var em = endMinuteTumbler.currentIndex
-
-                    // Validate: start time must be before end time
-                    var startTotal = sh * 60 + sm
-                    var endTotal = eh * 60 + em
-                    if (startTotal >= endTotal) {
-                        errorLabel.visible = true
-                        return
-                    }
-
-                    errorLabel.visible = false
-                    var startStr = (sh < 10 ? "0" : "") + sh + ":" + (sm < 10 ? "0" : "") + sm
-                    var endStr = (eh < 10 ? "0" : "") + eh + ":" + (em < 10 ? "0" : "") + em
-                    root.timeSelected(startStr, endStr)
-                    pageStack.pop()
-                }
             }
         }
     }
