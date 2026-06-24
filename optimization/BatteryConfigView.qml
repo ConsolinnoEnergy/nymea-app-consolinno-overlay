@@ -128,7 +128,9 @@ GenericConfigPage {
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
                 batteryConfiguration.optimizationEnabled !== tariffControlledChargingToggle.checked ||
-                (pvPrioGroup.visible && batteryConfiguration.targetSocPvSurplus.length > 0 && batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value));
+                (pvPrioGroup.visible &&
+                 (batteryConfiguration.targetSocPvSurplus.length === 0 ||
+                  batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value)));
     }
 
     ThingsProxy {
