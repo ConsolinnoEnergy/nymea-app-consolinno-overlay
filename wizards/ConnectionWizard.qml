@@ -10,9 +10,12 @@ ConsolinnoWizardPageBase {
     property Component navbarControls: welcomePageNavbarControls
     property int navigationFooterHeight: 0
 
-    headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+    headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
-    // #TODO back button (header) and cancel button possible at all here?
+    // #TODO if there is another connection set up in this app, show a header back button
+    // and navbar cancel button here and go to the last active connection if one of these
+    // is pressed.
+    backButtonVisible: false
 
     Component {
         id: welcomePageNavbarControls
@@ -35,12 +38,13 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            CoNavbarButton {
-                Layout.fillWidth: true
-                text: qsTr("Cancel")
-                flat: true
-                onClicked: pageStack.pop()
-            }
+            // Cf. #TODO comment above
+            // CoNavbarButton {
+            //     Layout.fillWidth: true
+            //     text: qsTr("Cancel")
+            //     flat: true
+            //     onClicked: pageStack.pop()
+            // }
         }
     }
 
@@ -91,33 +95,43 @@ ConsolinnoWizardPageBase {
             property Component navbarControls: licenseInfoNavbarControls
             property int navigationFooterHeight: 0
 
-            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+            headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
             Component {
                 id: licenseInfoNavbarControls
                 ColumnLayout {
                     spacing: Style.margins
 
-                    CheckBox {
+                    CoCheckBox {
                         id: termsOfUseCheckbox
                         Layout.fillWidth: true
                         text: qsTr("Yes, I have read the Terms of Use.")
                         checked: false
+                        feedbackText: qsTr("You must agree to the Terms of Use to continue.")
+                        onCheckedChanged: {
+                            if (checked) {
+                                showError = false;
+                            }
+                        }
                     }
 
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Next")
-                        // #TODO Always enable and handle unchecked checkbox as error notification
-                        enabled: termsOfUseCheckbox.checked
-                        onClicked: pageStack.push(privacyPolicyComponent)
+                        onClicked: {
+                            if (!termsOfUseCheckbox.checked) {
+                                termsOfUseCheckbox.showError = true;
+                                return;
+                            }
+                            pageStack.push(privacyPolicyComponent);
+                        }
                     }
 
                     CoNavbarButton {
                         Layout.fillWidth: true
-                        text: qsTr("Back")
+                        text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop()
+                        onClicked: pageStack.pop(root)
                     }
                 }
             }
@@ -180,40 +194,62 @@ ConsolinnoWizardPageBase {
             property Component navbarControls: privacyPolicyNavbarControls
             property int navigationFooterHeight: 0
 
-            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+            headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
             Component {
                 id: privacyPolicyNavbarControls
                 ColumnLayout {
                     spacing: Style.margins
 
-                    CheckBox {
+                    CoCheckBox {
                         id: accountCheckbox
                         Layout.fillWidth: true
                         text: qsTr("Yes, I agree to open a user account, according to part 6.")
                         checked: false
+                        feedbackText: qsTr("You must create a user account to continue.")
+                        onCheckedChanged: {
+                            if (checked) {
+                                showError = false;
+                            }
+                        }
                     }
 
-                    CheckBox {
+                    CoCheckBox {
                         id: policyCheckbox
                         Layout.fillWidth: true
                         text: qsTr("I confirm that I have read the the agreement and I am accepting it.")
                         checked: false
+                        feedbackText: qsTr("You must agree to the privacy policy to continue.")
+                        onCheckedChanged: {
+                            if (checked) {
+                                showError = false;
+                            }
+                        }
                     }
 
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Next")
-                        // #TODO Always enable and handle unchecked checkbox as error notification
-                        enabled: accountCheckbox.checked && policyCheckbox.checked
-                        onClicked: pageStack.push(networkConnectionInfoComponent)
+                        onClicked: {
+                            let anyError = false;
+                            if (!accountCheckbox.checked) {
+                                accountCheckbox.showError = true;
+                                anyError = true;
+                            }
+                            if (!policyCheckbox.checked) {
+                                policyCheckbox.showError = true;
+                                anyError = true;
+                            }
+                            if (anyError) { return; }
+                            pageStack.push(networkConnectionInfoComponent);
+                        }
                     }
 
                     CoNavbarButton {
                         Layout.fillWidth: true
-                        text: qsTr("Back")
+                        text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop()
+                        onClicked: pageStack.pop(root)
                     }
                 }
             }
@@ -276,7 +312,7 @@ ConsolinnoWizardPageBase {
             property Component navbarControls: networkConnectionInfoNavbarControls
             property int navigationFooterHeight: 0
 
-            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+            headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
             Component {
                 id: networkConnectionInfoNavbarControls
@@ -291,9 +327,9 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.fillWidth: true
-                        text: qsTr("Back")
+                        text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop()
+                        onClicked: pageStack.pop(root)
                     }
                 }
             }
@@ -351,7 +387,7 @@ ConsolinnoWizardPageBase {
             property Component navbarControls: discoverLeafletNavbarControls
             property int navigationFooterHeight: 0
 
-            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+            headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
             Component {
                 id: discoverLeafletNavbarControls
@@ -367,9 +403,9 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.fillWidth: true
-                        text: qsTr("Back")
+                        text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop()
+                        onClicked: pageStack.pop(root)
                     }
                 }
             }
@@ -378,7 +414,6 @@ ConsolinnoWizardPageBase {
                 id: discoveryTimer
                 interval: 15000
                 running: hostsModel.count === 0
-                onTriggered: pageStack.pop()
             }
 
             NymeaHostsFilterModel {
@@ -420,7 +455,9 @@ ConsolinnoWizardPageBase {
                                 Layout.fillWidth: true
                                 wrapMode: Text.WordWrap
                                 visible: hostsModel.count === 0
-                                text: qsTr("Searching for your %1...").arg(Configuration.deviceName)
+                                text: discoveryTimer.running ?
+                                          qsTr("Searching for your %1...").arg(Configuration.deviceName) :
+                                          qsTr("No %1 found. Please check the network connection! Alternatively, a manual connection can be established.").arg(Configuration.deviceName)
                             }
 
                             Repeater {
@@ -526,7 +563,7 @@ ConsolinnoWizardPageBase {
             property Component navbarControls: manualConnectionNavbarControls
             property int navigationFooterHeight: 0
 
-            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+            headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
             Component {
                 id: manualConnectionNavbarControls
@@ -582,9 +619,9 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.fillWidth: true
-                        text: qsTr("Back")
+                        text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop()
+                        onClicked: pageStack.pop(root)
                     }
                 }
             }

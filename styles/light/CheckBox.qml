@@ -11,6 +11,8 @@ import Nymea 1.0
 T.CheckBox {
     id: control
 
+    property bool showError: false
+
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             implicitContentWidth + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
@@ -19,6 +21,17 @@ T.CheckBox {
 
     padding: 6
     spacing: 6
+
+    background: Rectangle {
+        x: control.text ? (control.mirrored ? control.width - width - control.rightPadding : 0) : (control.availableWidth - width) / 2
+        y: control.topPadding + (control.availableHeight - height) / 2
+        width: 32
+        height: 32
+        radius: width / 2
+        color: control.showError ?
+                   Style.colors.system_Danger_Background :
+                   "transparent"
+    }
 
     // keep in sync with CheckDelegate.qml (shared CheckIndicator.qml was removed for performance reasons)
     indicator: Rectangle {
@@ -29,11 +42,15 @@ T.CheckBox {
         y: control.topPadding + (control.availableHeight - height) / 2
 
         radius: 4
-        color: control.checkState === Qt.Checked ?
-                   Style.colors.components_Forms_Selection_controls_Selected :
-                   Style.colors.typography_Background_Default
+        color: control.showError ?
+                   "transparent" :
+                   control.checkState === Qt.Checked ?
+                       Style.colors.components_Forms_Selection_controls_Selected :
+                       Style.colors.typography_Background_Default
         border.width: control.checkState === Qt.Checked ? 0 : 2
-        border.color: Style.colors.components_Forms_Selection_controls_Unselected
+        border.color: control.showError ?
+                          Style.colors.system_Danger_Accent :
+                          Style.colors.components_Forms_Selection_controls_Unselected
         opacity: control.enabled ? 1 : 0.3
 
         ColorImage {
@@ -56,11 +73,12 @@ T.CheckBox {
     }
 
     contentItem: CheckLabel {
-        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing : 0
-        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing : 0
+        leftPadding: control.indicator && !control.mirrored ? control.indicator.width + control.spacing + 2 : 0
+        rightPadding: control.indicator && control.mirrored ? control.indicator.width + control.spacing + 2 : 0
 
         text: control.text
         font: control.font
         color: control.palette.windowText
+        wrapMode: Text.WordWrap
     }
 }

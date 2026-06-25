@@ -1260,10 +1260,6 @@
         <translation></translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
-    </message>
-    <message>
         <source>Discovered Devices</source>
         <translation>Gefundene Geräte</translation>
     </message>
@@ -1292,10 +1288,6 @@
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <source>Setup Leaflet</source>
-        <translation>Einrichtung Leaflet</translation>
-    </message>
-    <message>
         <source>Yes, I have read the Terms of Use.</source>
         <translation>Ja, ich habe die Nutzungsbedingungen gelesen.</translation>
     </message>
@@ -1322,6 +1314,26 @@
     <message>
         <source>Yes, I agree to open a user account, according to part 6.</source>
         <translation>Ja, ich möchte wie in Teil 6. beschrieben ein Benutzerkonto eröffnen.</translation>
+    </message>
+    <message>
+        <source>Setup %1</source>
+        <translation>Einrichtung %1</translation>
+    </message>
+    <message>
+        <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
+        <translation>Es wurde kein %1 gefunden. Bitte überprüfen Sie die Netzwerkverbindung! Alternativ kann eine manuelle Verbindung hergestellt werden.</translation>
+    </message>
+    <message>
+        <source>You must agree to the Terms of Use to continue.</source>
+        <translation>Sie müssen den Nutzungsbedingungen zustimmen, um fortzufahren.</translation>
+    </message>
+    <message>
+        <source>You must create a user account to continue.</source>
+        <translation>Sie müssen ein Benutzerkonto eröffnen, um fortzufahren.</translation>
+    </message>
+    <message>
+        <source>You must agree to the privacy policy to continue.</source>
+        <translation>Sie müssen der Datenschutzerklärung zustimmen, um fortzufahren.</translation>
     </message>
 </context>
 <context>

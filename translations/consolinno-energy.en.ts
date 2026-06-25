@@ -1251,10 +1251,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Discovered Devices</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1283,10 +1279,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Setup Leaflet</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Yes, I have read the Terms of Use.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1312,6 +1304,26 @@
     </message>
     <message>
         <source>Yes, I agree to open a user account, according to part 6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must agree to the Terms of Use to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must create a user account to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must agree to the privacy policy to continue.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
