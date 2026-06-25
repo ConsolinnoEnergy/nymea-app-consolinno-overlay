@@ -12,6 +12,8 @@ ConsolinnoWizardPageBase {
 
     headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
 
+    // #TODO back button (header) and cancel button possible at all here?
+
     Component {
         id: welcomePageNavbarControls
         ColumnLayout {
@@ -46,8 +48,8 @@ ConsolinnoWizardPageBase {
         id: contentColumn
         anchors.fill: parent
         anchors.margins: Style.margins
-        anchors.topMargin: root.headerHeight
-        anchors.bottomMargin: root.navigationFooterHeight
+        anchors.topMargin: root.headerHeight + Style.margins
+        anchors.bottomMargin: root.navigationFooterHeight + Style.margins
         spacing: 0
 
         Item {
@@ -86,13 +88,13 @@ ConsolinnoWizardPageBase {
         ConsolinnoWizardPageBase {
             id: licenseInfoPage
 
-            property Component navbarControls: welcomePageNavbarControls
+            property Component navbarControls: licenseInfoNavbarControls
             property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
 
             Component {
-                id: welcomePageNavbarControls
+                id: licenseInfoNavbarControls
                 ColumnLayout {
                     spacing: Style.margins
 
@@ -108,7 +110,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Next")
                         // #TODO Always enable and handle unchecked checkbox as error notification
                         enabled: termsOfUseCheckbox.checked
-                        onClicked: pageStack.push(connectionInfo) // #TODO
+                        onClicked: pageStack.push(privacyPolicyComponent)
                     }
 
                     CoNavbarButton {
@@ -125,7 +127,7 @@ ConsolinnoWizardPageBase {
                 anchors.fill: parent
                 anchors.margins: Style.margins
                 anchors.topMargin: licenseInfoPage.headerHeight + Style.margins
-                anchors.bottomMargin: licenseInfoPage.navigationFooterHeight // #TODO  too large due to missing button navbar, fix
+                anchors.bottomMargin: licenseInfoPage.navigationFooterHeight + Style.margins
                 spacing: 0
 
                 CoFrostyCard {
@@ -169,440 +171,346 @@ ConsolinnoWizardPageBase {
         }
     }
 
-
-    function loadHtmlFile(fileName, textAreaView) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", Qt.resolvedUrl(fileName), false); // Synchronous read
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                textAreaView.text = xhr.responseText;
-            } else if (xhr.status !== 200) {
-                console.error("Failed to load file:", xhr.status, xhr.statusText);
-            }
-        };
-        xhr.send();
-    }
-}
-
-
-
-/*
-
-ConsolinnoWizardPageBase {
-    id: root
-
-    headerLabel: qsTr("License Terms HEMS<br/>(as of 11/2024)")
-    headerBackButtonVisible: false
-    showBackButton: false
-    showNextButton: false
-    onNext: pageStack.push(privacyPolicyComponent)
-
-    function exitWizard() {
-        pageStack.pop(root, StackView.Immediate)
-        pageStack.pop()
-    }
-
-    content: Item {
-        anchors.fill: parent
-        ColumnLayout {
-            anchors.fill: parent
-
-            ScrollView {
-                Layout.fillHeight: true
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.margins: Style.margins
-                clip: true
-
-                TextArea {
-                    id: textAreaTerms
-                    width: parent.width
-                    font: Style.smallFont
-                    wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                    textFormat: Text.RichText
-                    readOnly: true
-
-                    Component.onCompleted: {
-                        loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
-                    }
-                }
-            }
-
-            ConsolinnoCheckbox {
-                id: readCheckbox
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
-                text: qsTr("Yes I read the Term of Use and agree")
-                sizeFont: 17
-            }
-
-            Button {
-                Layout.alignment: Qt.AlignHCenter
-                text: readCheckbox.checked ? qsTr("Next") : qsTr("Cancel")
-                Layout.preferredWidth: 200
-                highlighted: readCheckbox.checked
-
-
-                onClicked: {
-                    if (readCheckbox.checked) {
-                        root.next()
-                    } else {
-                        Qt.quit();
-                    }
-                }
-            }
-        }
-    }
-
-    Component{
-        id: demoModeComponent
-
-        ConsolinnoWizardPageBase {
-            id: demoModePage
-
-            headerVisible: false
-            showNextButton: false
-            showBackButton: false
-
-            onNext: pageStack.push(connectionInfo)
-            onBack: pageStack.pop()
-
-            content: Item {
-                anchors.fill: parent
-
-                ColumnLayout {
-                    id: contentColumn
-
-                    anchors {
-                        top: parent.top
-                        bottom: parent.bottom
-                        left: parent.left
-                        right: parent.right
-                        topMargin: Style.margins
-                        bottomMargin: Style.margins
-                        leftMargin: Style.margins
-                        rightMargin: Style.margins
-                    }
-                    spacing: Style.hugeMargins
-
-                    Image {
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: parent.height / 4
-                        source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-                    ColumnLayout {
-                        Layout.fillHeight: true
-                        Layout.fillWidth: false
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: Math.min(parent.width, 300)
-
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.fillHeight: true
-                            horizontalAlignment: Text.AlignHCenter
-                            wrapMode: Text.WordWrap
-                            font: Style.bigFont
-                            text: qsTr('Welcome to %1!').arg(Configuration.appName)
-                        }
-
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr('Start setup')
-                            Layout.preferredWidth: 200
-                            onClicked: demoModePage.next()
-                        }
-
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            text: qsTr('Demo mode')
-                            Layout.preferredWidth: 200
-                            onClicked:
-                            {
-                                var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222')
-                                engine.jsonRpcClient.connectToHost(host)
-                            }
-                        }
-
-                        Button {
-                            Layout.alignment: Qt.AlignHCenter
-                            Layout.preferredWidth: 200
-                            text: qsTr('Back')
-                            // background: Rectangle{
-                            //     color: 'grey'
-                            //     radius: 4
-                            // }
-                            onClicked: pageStack.pop()
-                        }
-                    }
-                }
-
-
-            }
-
-
-        }
-    }
-
-
-
-
-
     Component {
         id: privacyPolicyComponent
+
         ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
-            headerLabel: qsTr("Privacy Policy and License Agreement HEMS<br/>(as of 11/2024)")
-            showNextButton: false
-            showBackButton: false
+            property Component navbarControls: privacyPolicyNavbarControls
+            property int navigationFooterHeight: 0
 
-            onNext: pageStack.push(demoModeComponent)
-            onBack: pageStack.pop()
+            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
 
-            content: ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; topMargin: Style.bigMargins; right: parent.right; left: parent.left }
-                width: Math.min(parent.width, 450)
+            Component {
+                id: privacyPolicyNavbarControls
+                ColumnLayout {
+                    spacing: Style.margins
 
-                ScrollView {
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.margins: Style.margins
-                    clip: true
-
-                    TextArea {
-                        id: textArea
-                        width: parent.width
-                        font: Style.smallFont
-                        wrapMode: Text.WrapAtWordBoundaryOrAnywhere
-                        textFormat: Text.RichText
-                        readOnly: true
-                        text: ""
-
-                        Component.onCompleted: {
-                            loadHtmlFile("../privacy_agreement_de_DE.html", textArea);
-                        }
-                    }
-                }
-
-                ConsolinnoCheckbox{
-                    id: accountCheckbox
-                    Layout.leftMargin: Style.margins
-                    Layout.rightMargin: Style.margins
-                    text: qsTr("Yes I agree to open a user account, according to part 6 ")
-                    sizeFont: 17
-                    spacing: 0
-                }
-
-                ConsolinnoCheckbox {
-                    id: policyCheckbox
-                    Layout.leftMargin: Style.margins
-                    Layout.rightMargin: Style.margins
-                    text: qsTr('I confirm that I have read the the agreement and I am accepting it.')
-                    sizeFont: 17
-                    spacing: 0
-                }
-
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: policyCheckbox.checked && accountCheckbox.checked ? qsTr("Next") : qsTr("Cancel")
-                    Layout.preferredWidth: 200
-                    highlighted: policyCheckbox.checked && accountCheckbox.checked
-
-                    onClicked: {
-                        if (policyCheckbox.checked && accountCheckbox.checked) {
-                            privacyPolicyPage.next()
-                        } else {
-                            pageStack.pop()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    Component {
-        id: connectionInfo
-        ConsolinnoWizardPageBase {
-            id: connectionInfoPage
-
-            headerLabel: qsTr("Internet Connection")
-            showNextButton: false
-            showBackButton: false
-            onNext: pageStack.push(findLeafletComponent)
-            onBack: pageStack.pop()
-
-            content: ColumnLayout {
-                anchors { top: parent.top; bottom: parent.bottom; horizontalCenter: parent.horizontalCenter; topMargin: Style.bigMargins }
-                width: Math.min(parent.width, 450)
-
-                ColumnLayout{
-                    Layout.fillWidth: true
-                    Label{
-                        id: pos
-
-                        wrapMode: Text.WordWrap
+                    CheckBox {
+                        id: accountCheckbox
                         Layout.fillWidth: true
-                        Layout.leftMargin: app.margins
-                        Layout.rightMargin: app.margins
-                        text: qsTr("Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.")
+                        text: qsTr("Yes, I agree to open a user account, according to part 6.")
+                        checked: false
+                    }
+
+                    CheckBox {
+                        id: policyCheckbox
+                        Layout.fillWidth: true
+                        text: qsTr("I confirm that I have read the the agreement and I am accepting it.")
+                        checked: false
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        // #TODO Always enable and handle unchecked checkbox as error notification
+                        enabled: accountCheckbox.checked && policyCheckbox.checked
+                        onClicked: pageStack.push(networkConnectionInfoComponent)
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back")
+                        flat: true
+                        onClicked: pageStack.pop()
                     }
                 }
+            }
 
-                Image {
+            ColumnLayout {
+                id: contentColumn
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                anchors.topMargin: privacyPolicyPage.headerHeight + Style.margins
+                anchors.bottomMargin: privacyPolicyPage.navigationFooterHeight + Style.margins
+                spacing: 0
+
+                CoFrostyCard {
+                    id: privacyPolicyCard
                     Layout.fillWidth: true
-                    Layout.preferredHeight: connectionInfoPage.visibleContentHeight - Style.margins * 2
-                    Layout.margins: Style.margins * 3
-                    fillMode: Image.PreserveAspectFit
-                    sourceSize.width: width
-                    source: "/ui/images/leaflet-ethernet-connect.png"
-                }
+                    Layout.fillHeight: true
+                    headerText: qsTr("Privacy Policy HEMS<br/>(as of 11/2024)")
+                    contentTopMargin: Style.smallMargins
 
+                    ScrollView {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
+                        clip: true
+                        height: privacyPolicyCard.availableContentHeight
+                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
 
-                Button {
-                    Layout.alignment: Qt.AlignHCenter
-                    text: qsTr("Next")
-                    Layout.preferredWidth: 200
+                        TextArea {
+                            id: textAreaPrivacyPolicy
+                            width: parent.width
+                            font: Style.smallFont
+                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                            textFormat: Text.RichText
+                            readOnly: true
+                            padding: 0
 
-                    onClicked: {
-                        connectionInfoPage.next()
+                            background: Rectangle {
+                                color: "transparent"
+                            }
+
+                            Component.onCompleted: {
+                                loadHtmlFile("../privacy_agreement_de_DE.html", textAreaPrivacyPolicy);
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-
     Component {
-        id: findLeafletComponent
+        id: networkConnectionInfoComponent
 
         ConsolinnoWizardPageBase {
-            id: findLeafletPage
+            id: networkConnectionInfoPage
 
-            headerLabel: qsTr("Discovered Devices")
-            showBackButton: false
-            nextButtonText: qsTr('Manual connection')
+            property Component navbarControls: networkConnectionInfoNavbarControls
+            property int navigationFooterHeight: 0
 
+            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
 
-            onNext: pageStack.push(manualConnectionComponent)
-            background: Item{}
+            Component {
+                id: networkConnectionInfoNavbarControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        onClicked: pageStack.push(discoverLeafletComponent)
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back")
+                        flat: true
+                        onClicked: pageStack.pop()
+                    }
+                }
+            }
+
+            ColumnLayout {
+                id: contentColumn
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                anchors.topMargin: networkConnectionInfoPage.headerHeight + Style.margins
+                anchors.bottomMargin: networkConnectionInfoPage.navigationFooterHeight + Style.margins
+                spacing: 0
+
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    headerText: qsTr("Network connection")
+                    contentTopMargin: Style.smallMargins
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
+                        spacing: Style.margins
+
+                        Label{
+                            wrapMode: Text.WordWrap
+                            Layout.fillWidth: true
+                            text: qsTr("Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.")
+                        }
+
+                        Image {
+                            Layout.fillWidth: true
+                            fillMode: Image.PreserveAspectFit
+                            sourceSize.width: width
+                            source: "/ui/images/leaflet-ethernet-connect.png"
+                        }
+                    }
+                }
+
+                Item {
+                    id: spacer
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                }
+            }
+        }
+    }
+
+    Component {
+        id: discoverLeafletComponent
+
+        ConsolinnoWizardPageBase {
+            id: discoverLeafletPage
+
+            property Component navbarControls: discoverLeafletNavbarControls
+            property int navigationFooterHeight: 0
+
+            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+
+            Component {
+                id: discoverLeafletNavbarControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Manual setup")
+                        flat: true
+                        onClicked: pageStack.push(manualConnectionComponent)
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back")
+                        flat: true
+                        onClicked: pageStack.pop()
+                    }
+                }
+            }
 
             Timer {
-                id: timeoutTimer
+                id: discoveryTimer
                 interval: 15000
-                running: hostsProxy.count == 0
+                running: hostsModel.count === 0
                 onTriggered: pageStack.pop()
             }
 
-            content: ColumnLayout {
+            NymeaHostsFilterModel {
+                id: hostsModel
+                discovery: nymeaDiscovery
+                showUnreachableBearers: false
+                jsonRpcClient: engine.jsonRpcClient
+                showUnreachableHosts: false
+            }
+
+            Flickable {
+                id: discoverLeafletFlickable
                 anchors.fill: parent
+                clip: true
 
-                Label {
-                    Layout.fillWidth: true
-                    Layout.margins: Style.margins
-                    wrapMode: Text.WordWrap
-                    text: hostsProxy.count === 0
-                          ? qsTr('Searching for your %1...').arg(Configuration.deviceName)
-                          : qsTr("Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).")
-                }
+                ColumnLayout {
+                    id: contentColumn
+                    anchors.fill: parent
+                    anchors.margins: Style.margins
+                    anchors.topMargin: discoverLeafletPage.headerHeight + Style.margins
+                    anchors.bottomMargin: discoverLeafletPage.navigationFooterHeight + Style.margins
+                    spacing: 0
 
-                ListView {
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: app.height/3
-                    clip: true
-                    model: NymeaHostsFilterModel {
-                        id: hostsProxy
-                        discovery: nymeaDiscovery
-                        showUnreachableBearers: false
-                        jsonRpcClient: engine.jsonRpcClient
-                        showUnreachableHosts: false
-                        // onCountChanged: {
-                        //    if (count === 1) {
-                        //        engine.jsonRpcClient.connectToHost(hostsProxy.get(0))
-                        //    }
+                    CoFrostyCard {
+                        id: discoverLeafletCard
+                        Layout.fillWidth: true
+                        headerText: qsTr("Discovered Devices")
+                        contentTopMargin: Style.smallMargins
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: Style.margins
+                            anchors.rightMargin: Style.margins
+                            spacing: 0
+
+                            Label {
+                                id: infoLabel
+                                Layout.fillWidth: true
+                                wrapMode: Text.WordWrap
+                                visible: hostsModel.count === 0
+                                text: qsTr("Searching for your %1...").arg(Configuration.deviceName)
+                            }
+
+                            Repeater {
+                                model: hostsModel
+
+                                delegate: CoCard {
+                                    Layout.fillWidth: true
+
+                                    property var nymeaHost: hostsModel.get(index)
+
+                                    property string defaultConnectionIndex: {
+                                        var bestIndex = -1;
+                                        var bestPriority = 0;
+                                        for (var i = 0; i < nymeaHost.connections.count; i++) {
+                                            var connection = nymeaHost.connections.get(i);
+                                            if (bestIndex === -1 || connection.priority > bestPriority) {
+                                                bestIndex = i;
+                                                bestPriority = connection.priority;
+                                            }
+                                        }
+                                        return bestIndex;
+                                    }
+                                    property var defaultConnection: nymeaHost.connections.get(defaultConnectionIndex)
+                                    property bool isSecure: defaultConnection.secure
+                                    property bool isOnline: defaultConnection.bearerType !== Connection.BearerTypeWan ?
+                                                                defaultConnection.online :
+                                                                true
+
+                                    text: model.name
+                                    helpText: nymeaHost.connections.get(defaultConnectionIndex).url
+
+                                    iconLeftColor: Style.colors.brand_Basic_Icon_accent
+                                    iconLeft: {
+                                        switch (nymeaHost.connections.get(defaultConnectionIndex).bearerType) {
+                                        case Connection.BearerTypeLan:
+                                        case Connection.BearerTypeWan:
+                                            if (engine.jsonRpcClient.availableBearerTypes & NymeaConnection.BearerTypeEthernet !=
+                                                    NymeaConnection.BearerTypeNone) {
+                                                return "/icons/connections/network-wired.svg";
+                                            }
+                                            return "/icons/connections/network-wifi.svg";
+                                        case Connection.BearerTypeBluetooth:
+                                            return "/icons/connections/bluetooth.svg";
+                                        case Connection.BearerTypeCloud:
+                                            return "/icons/connections/cloud.svg";
+                                        case Connection.BearerTypeLoopback:
+                                            return "qrc:/styles/%1/logo.svg".arg(styleController.currentStyle);
+                                        }
+                                        return "";
+                                    }
+
+                                    iconRight: isSecure ? "/icons/connections/network-secure.svg" : ""
+
+                                    onClicked: {
+                                        engine.jsonRpcClient.connectToHost(nymeaHostDelegate.nymeaHost)
+                                    }
+                                }
+
+                                // #TODO
+                                // - not connected icon?
+                                // - contextOptions?
+
+                                // delegate: NymeaSwipeDelegate {
+                                //     id: nymeaHostDelegate
+
+                                //     secondaryIconName: !isOnline ? '/icons/connections/cloud-error.svg' : ''
+                                //     secondaryIconColor: 'red'
+
+                                //     contextOptions: [
+                                //         {
+                                //             text: qsTr('Info'),
+                                //             icon: Qt.resolvedUrl('/icons/info.svg'),
+                                //             callback: function() {
+                                //                 var nymeaHost = hostsProxy.get(index);
+                                //                 var connectionInfoDialog = Qt.createComponent('/ui/components/ConnectionInfoDialog.qml')
+                                //                 var popup = connectionInfoDialog.createObject(app,{nymeaHost: nymeaHost})
+                                //                 console.warn('::', connectionInfoDialog.errorString())
+                                //                 popup.open()
+                                //             }
+                                //         }
+                                //     ]
+                                // }
+                            }
+                        }
                     }
 
-                    ColumnLayout {
-                        anchors.centerIn: parent
-                        width: parent.width
-                        visible: hostsProxy.count == 0
-                        spacing: Style.margins
-                        BusyIndicator {
-                            Layout.alignment: Qt.AlignHCenter
-                        }
-                        Label {
-                            Layout.fillWidth: true
-                            Layout.margins: Style.margins
-                            text: qsTr('Please wait while your %1 is being discovered.').arg(Configuration.deviceName)
-                            wrapMode: Text.WordWrap
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
-
-
-                    delegate: NymeaSwipeDelegate {
-                        id: nymeaHostDelegate
-                        width: parent.width
-                        property var nymeaHost: hostsProxy.get(index)
-                        property string defaultConnectionIndex: {
-                            var bestIndex = -1
-                            var bestPriority = 0;
-                            for (var i = 0; i < nymeaHost.connections.count; i++) {
-                                var connection = nymeaHost.connections.get(i);
-                                if (bestIndex === -1 || connection.priority > bestPriority) {
-                                    bestIndex = i;
-                                    bestPriority = connection.priority;
-                                }
-                            }
-                            return bestIndex;
-                        }
-                        iconName: {
-                            switch (nymeaHost.connections.get(defaultConnectionIndex).bearerType) {
-                            case Connection.BearerTypeLan:
-                            case Connection.BearerTypeWan:
-                                if (engine.jsonRpcClient.availableBearerTypes & NymeaConnection.BearerTypeEthernet != NymeaConnection.BearerTypeNone) {
-                                    return '/icons/connections/network-wired.svg'
-                                }
-                                return '/icons/connections/network-wifi.svg';
-                            case Connection.BearerTypeBluetooth:
-                                return '/icons/connections/bluetooth.svg';
-                            case Connection.BearerTypeCloud:
-                                return '/icons/connections/cloud.svg'
-                            case Connection.BearerTypeLoopback:
-                                return 'qrc:/styles/%1/logo.svg'.arg(styleController.currentStyle)
-                            }
-                            return ''
-                        }
-                        text: model.name
-                        subText: nymeaHost.connections.get(defaultConnectionIndex).url
-                        wrapTexts: false
-                        prominentSubText: false
-                        progressive: false
-                        property bool isSecure: nymeaHost.connections.get(defaultConnectionIndex).secure
-                        property bool isOnline: nymeaHost.connections.get(defaultConnectionIndex).bearerType !== Connection.BearerTypeWan ? nymeaHost.connections.get(defaultConnectionIndex).online : true
-                        tertiaryIconName: isSecure ? '/icons/connections/network-secure.svg' : ''
-                        secondaryIconName: !isOnline ? '/icons/connections/cloud-error.svg' : ''
-                        secondaryIconColor: 'red'
-
-                        onClicked: {
-                            engine.jsonRpcClient.connectToHost(nymeaHostDelegate.nymeaHost)
-                        }
-
-                        contextOptions: [
-                            {
-                                text: qsTr('Info'),
-                                icon: Qt.resolvedUrl('/icons/info.svg'),
-                                callback: function() {
-                                    var nymeaHost = hostsProxy.get(index);
-                                    var connectionInfoDialog = Qt.createComponent('/ui/components/ConnectionInfoDialog.qml')
-                                    var popup = connectionInfoDialog.createObject(app,{nymeaHost: nymeaHost})
-                                    console.warn('::', connectionInfoDialog.errorString())
-                                    popup.open()
-                                }
-                            }
-                        ]
+                    Item {
+                        id: spacer
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
                     }
                 }
             }
@@ -613,133 +521,158 @@ ConsolinnoWizardPageBase {
         id: manualConnectionComponent
 
         ConsolinnoWizardPageBase {
-            headerLabel: qsTr("Manual Connection")
-            showBackButton: false
-            showNextButton: false
+            id: manualConnectionPage
 
-            content: Item {
-                anchors {
-                    top: parent.top
-                    bottom: parent.bottom
-                    left: parent.left
-                    right: parent.right
-                    topMargin: Style.margins
-                    bottomMargin: Style.margins
-                    leftMargin: Style.margins
-                    rightMargin: Style.margins
-                }
+            property Component navbarControls: manualConnectionNavbarControls
+            property int navigationFooterHeight: 0
 
-                GridLayout {
-                    id: manualConnectionDetailsGridLayout
+            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
 
-                    width: parent.width
-                    height: parent.height / 2
-                    anchors.verticalCenter: parent.verticalCenter
-                    columns: 2
+            Component {
+                id: manualConnectionNavbarControls
+                ColumnLayout {
+                    spacing: Style.margins
 
-                    Label {
-                        text: qsTr('Protocol')
-                    }
-
-                    ComboBox {
-                        id: connectionTypeComboBox
+                    CoNavbarButton {
                         Layout.fillWidth: true
-                        model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]
+                        text: qsTr("Finish setup")
+                        onClicked: {
+                            var rpcUrl;
+                            var hostAddress;
+                            var port;
+
+                            // Set default to placeholder
+                            if (addressTextInput.text === "") {
+                                hostAddress = addressTextInput.placeholderText;
+                            } else {
+                                hostAddress = addressTextInput.text;
+                            }
+
+                            if (portTextInput.text === "") {
+                                port = portTextInput.placeholderText;
+                            } else {
+                                port = portTextInput.text;
+                            }
+
+                            if (connectionTypeComboBox.currentIndex === 0) {
+                                if (secureCheckBox.checked) {
+                                    rpcUrl = 'nymeas://' + hostAddress + ':' + port;
+                                } else {
+                                    rpcUrl = 'nymea://' + hostAddress + ':' + port;
+                                }
+                            } else if (connectionTypeComboBox.currentIndex === 1) {
+                                if (secureCheckBox.checked) {
+                                    rpcUrl = 'wss://' + hostAddress + ':' + port;
+                                } else {
+                                    rpcUrl = 'ws://' + hostAddress + ':' + port;
+                                }
+                            } else if (connectionTypeComboBox.currentIndex === 2) {
+                                if (secureCheckBox.checked) {
+                                    rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text;
+                                } else {
+                                    rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text;
+                                }
+                            }
+
+                            console.info("Trying to connect to ", rpcUrl);
+                            var host = nymeaDiscovery.nymeaHosts.createWanHost("Manual connection", rpcUrl);
+                            engine.jsonRpcClient.connectToHost(host);
+                        }
                     }
 
-                    Label {
-                        text: connectionTypeComboBox.currentIndex < 2 ? qsTr("Address:") : qsTr("Proxy address:")
-                    }
-                    TextField {
-                        id: addressTextInput
-                        objectName: "addressTextInput"
+                    CoNavbarButton {
                         Layout.fillWidth: true
-                        placeholderText: connectionTypeComboBox.currentIndex < 2 ? "127.0.0.1" : "hems-remoteproxy.services.consolinno.de"
-                    }
-
-                    Label {
-                        text: qsTr("%1 UUID:").arg(Configuration.systemName)
-                        visible: connectionTypeComboBox.currentIndex == 2
-                    }
-                    TextField {
-                        id: serverUuidTextInput
-                        Layout.fillWidth: true
-                        visible: connectionTypeComboBox.currentIndex == 2
-                    }
-                    Label { text: qsTr("Port:") }
-                    TextField {
-                        id: portTextInput
-                        Layout.fillWidth: true
-                        placeholderText: connectionTypeComboBox.currentIndex === 0
-                                         ? "2222"
-                                         : connectionTypeComboBox.currentIndex == 1
-                                           ? "4444"
-                                           : "2213"
-                        validator: IntValidator{bottom: 1; top: 65535;}
-                    }
-
-                    Label {
-                        Layout.fillWidth: true
-                        text: qsTr("SSL:")
-                    }
-                    ConsolinnoCheckbox {
-                        id: secureCheckBox
-                        checked: true
+                        text: qsTr("Back")
+                        flat: true
+                        onClicked: pageStack.pop()
                     }
                 }
+            }
 
-                Button {
-                    width: 200
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    anchors.top: manualConnectionDetailsGridLayout.bottom
-                    anchors.topMargin: Style.margins
-                    text: qsTr("Next")
-                    onClicked: {
-                        var rpcUrl
-                        var hostAddress
-                        var port
+            Flickable {
+                id: manualConnectionFlickable
+                anchors.fill: parent
+                clip: true
 
-                        // Set default to placeholder
-                        if (addressTextInput.text === '') {
-                            hostAddress = addressTextInput.placeholderText
-                        } else {
-                            hostAddress = addressTextInput.text
-                        }
+                ColumnLayout {
+                    id: contentColumn
+                    anchors.fill: parent
+                    anchors.margins: Style.margins
+                    anchors.topMargin: manualConnectionPage.headerHeight + Style.margins
+                    anchors.bottomMargin: manualConnectionPage.navigationFooterHeight + Style.margins
+                    spacing: 0
 
-                        if (portTextInput.text === '') {
-                            port = portTextInput.placeholderText
-                        } else {
-                            port = portTextInput.text
-                        }
+                    CoFrostyCard {
+                        id: manualConnectionCard
+                        Layout.fillWidth: true
+                        headerText: qsTr("Manual setup")
+                        contentTopMargin: Style.smallMargins
 
-                        if (connectionTypeComboBox.currentIndex == 0) {
-                            if (secureCheckBox.checked) {
-                                rpcUrl = 'nymeas://' + hostAddress + ':' + port
-                            } else {
-                                rpcUrl = 'nymea://' + hostAddress + ':' + port
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: Style.margins
+                            anchors.rightMargin: Style.margins
+                            spacing: 0
+
+                            CoComboBox {
+                                id: connectionTypeComboBox
+                                Layout.fillWidth: true
+                                labelText: qsTr("Protocol")
+                                model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]
                             }
-                        } else if (connectionTypeComboBox.currentIndex == 1) {
-                            if (secureCheckBox.checked) {
-                                rpcUrl = 'wss://' + hostAddress + ':' + port
-                            } else {
-                                rpcUrl = 'ws://' + hostAddress + ':' + port
+
+                            CoInputField {
+                                id: addressTextInput
+                                Layout.fillWidth: true
+                                labelText: connectionTypeComboBox.currentIndex < 2 ?
+                                               qsTr("Address:") :
+                                               qsTr("Proxy address:")
+                                placeholderText: connectionTypeComboBox.currentIndex < 2 ?
+                                                               "127.0.0.1" :
+                                                               "hems-remoteproxy.services.consolinno.de"
                             }
-                        } else if (connectionTypeComboBox.currentIndex == 2) {
-                            if (secureCheckBox.checked) {
-                                rpcUrl = "tunnels://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
-                            } else {
-                                rpcUrl = "tunnel://" + hostAddress + ":" + port + "?uuid=" + serverUuidTextInput.text
+
+                            CoInputField {
+                                id: serverUuidTextInput
+                                Layout.fillWidth: true
+                                visible: connectionTypeComboBox.currentIndex === 2
+                                labelText: qsTr("%1 UUID:").arg(Configuration.systemName)
+                            }
+
+                            CoInputField {
+                                id: portTextInput
+                                Layout.fillWidth: true
+                                labelText: qsTr("Port:")
+                                placeholderText: connectionTypeComboBox.currentIndex === 0 ?
+                                                               "2222" :
+                                                               connectionTypeComboBox.currentIndex === 1 ?
+                                                                   "4444" :
+                                                                   "2213"
+                                textField.validator: IntValidator{bottom: 1; top: 65535;}
+                            }
+
+                            CheckBox {
+                                id: secureCheckBox
+                                Layout.fillWidth: true
+                                Layout.leftMargin: Style.margins
+                                Layout.rightMargin: Style.margins
+                                text: qsTr("Establish a connection via SSL.")
+                                checked: true
                             }
                         }
+                    }
 
-                        print('Try to connect ', rpcUrl)
-                        var host = nymeaDiscovery.nymeaHosts.createWanHost('Manual connection', rpcUrl);
-                        engine.jsonRpcClient.connectToHost(host)
+                    Item {
+                        id: spacer
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
                     }
                 }
             }
         }
     }
+
 
     function loadHtmlFile(fileName, textAreaView) {
         var xhr = new XMLHttpRequest();
@@ -754,5 +687,3 @@ ConsolinnoWizardPageBase {
         xhr.send();
     }
 }
-
-*/

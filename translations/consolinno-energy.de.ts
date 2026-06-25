@@ -1216,16 +1216,8 @@
 <context>
     <name>ConnectionWizard</name>
     <message>
-        <source>Info</source>
-        <translation>Info</translation>
-    </message>
-    <message>
         <source>Start setup</source>
         <translation>Einrichtung starten</translation>
-    </message>
-    <message>
-        <source>Manual connection</source>
-        <translation>Manuelle Verbindung</translation>
     </message>
     <message>
         <source>Protocol</source>
@@ -1252,16 +1244,8 @@
         <translation>Demo-Modus</translation>
     </message>
     <message>
-        <source>Yes I agree to open a user account, according to part 6 </source>
-        <translation>Ja ich möchte wie in Teil 6 beschrieben ein Benutzerkonto eröffnen </translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
         <translation>Ich bestätige, dass ich die Bestimmungen gelesen habe und akzeptiere.</translation>
-    </message>
-    <message>
-        <source>Yes I read the Term of Use and agree</source>
-        <translation>Ja ich habe die Nutzungsbedingungen gelesen</translation>
     </message>
     <message>
         <source>Remote proxy</source>
@@ -1280,24 +1264,12 @@
         <translation>Zurück</translation>
     </message>
     <message>
-        <source>Internet Connection</source>
-        <translation>Internetverbindung</translation>
-    </message>
-    <message>
         <source>Discovered Devices</source>
         <translation>Gefundene Geräte</translation>
     </message>
     <message>
-        <source>Manual Connection</source>
-        <translation>Manuelle Verbindung</translation>
-    </message>
-    <message>
         <source>Next</source>
         <translation>Weiter</translation>
-    </message>
-    <message>
-        <source>SSL:</source>
-        <translation>SSL:</translation>
     </message>
     <message>
         <source>Welcome to %1!</source>
@@ -1308,28 +1280,48 @@
         <translation>Bitte verbinden Sie das Gerät (LAN Buchse 1) mit dem Netzwerk. Stellen Sie sicher, dass die App auch mit dem gleichen Netzwerk verbunden ist.</translation>
     </message>
     <message>
-        <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
-        <translation>Bitte das Gerät aus der Liste wählen, das eingerichtet werden soll. Wird kein Gerät in der Liste angezeigt bitte die Netzwerkverbindung prüfen! (Alternativ, kann auch eine manuelle Verbindung hergestellt werden).</translation>
-    </message>
-    <message>
         <source>Searching for your %1...</source>
         <translation>Suche nach Deinem %1...</translation>
-    </message>
-    <message>
-        <source>Please wait while your %1 is being discovered.</source>
-        <translation>Bitte warten während nach dem %1 gesucht wird.</translation>
     </message>
     <message>
         <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation>Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
     <message>
-        <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <source>Cancel</source>
+        <translation>Abbrechen</translation>
+    </message>
+    <message>
+        <source>Setup Leaflet</source>
+        <translation>Einrichtung Leaflet</translation>
+    </message>
+    <message>
+        <source>Yes, I have read the Terms of Use.</source>
+        <translation>Ja, ich habe die Nutzungsbedingungen gelesen.</translation>
+    </message>
+    <message>
+        <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation>Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
+        <source>Network connection</source>
+        <translation>Netzwerkverbindung</translation>
+    </message>
+    <message>
+        <source>Manual setup</source>
+        <translation>Manuelle Einrichtung</translation>
+    </message>
+    <message>
+        <source>Finish setup</source>
+        <translation>Einrichtung abschließen</translation>
+    </message>
+    <message>
+        <source>Establish a connection via SSL.</source>
+        <translation>Verbindung über SSL herstellen.</translation>
+    </message>
+    <message>
+        <source>Yes, I agree to open a user account, according to part 6.</source>
+        <translation>Ja, ich möchte wie in Teil 6. beschrieben ein Benutzerkonto eröffnen.</translation>
     </message>
 </context>
 <context>
@@ -1587,41 +1579,6 @@
     <message>
         <source>No</source>
         <translation>Nein</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDynamicElectricPricing</name>
-    <message>
-        <source>Consumers history</source>
-        <translation>Verbraucherhistorie</translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation>Stunden</translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation>Tage</translation>
-    </message>
-    <message>
-        <source>Weeks</source>
-        <translation>Wochen</translation>
-    </message>
-    <message>
-        <source>Months</source>
-        <translation>Monate</translation>
-    </message>
-    <message>
-        <source>No data available</source>
-        <translation>Keine Daten verfügbar</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation>Unbekannt</translation>
-    </message>
-    <message>
-        <source>Total</source>
-        <translation>Gesamt</translation>
     </message>
 </context>
 <context>
@@ -3093,13 +3050,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
 </context>
 <context>
-    <name>ConsolinnoSwipeDelegate</name>
-    <message>
-        <source>Delete</source>
-        <translation>Löschen</translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoThingClassDetailsPage</name>
     <message>
         <source>Type</source>
@@ -3303,17 +3253,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <message>
         <source>Authenticated user</source>
         <translation>Authentifizierter User</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoWizardPageBase</name>
-    <message>
-        <source>Back</source>
-        <translation>Zurück</translation>
-    </message>
-    <message>
-        <source>Next</source>
-        <translation>Weiter</translation>
     </message>
 </context>
 <context>
@@ -3680,6 +3619,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
+        <translation>Änderungen übernehmen</translation>
     </message>
 </context>
 <context>
@@ -4055,10 +3998,6 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <source>kW</source>
         <translation>kW</translation>
-    </message>
-    <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
-        <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
     <message>
         <source>Grid-supportive-control</source>
@@ -4860,6 +4799,10 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <message>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
     </message>
 </context>
 <context>

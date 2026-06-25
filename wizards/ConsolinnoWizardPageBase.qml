@@ -8,6 +8,7 @@ Page {
     id: root
 
     background: Rectangle { color: Style.colors.typography_Background_Default }
+    bottomPadding: 0
 
     property bool backButtonVisible: true
     property string headerLabel: ""

@@ -9,6 +9,7 @@ Item {
     id: root
     property alias text: textinput.text
     property alias displayText: textinput.displayText
+    property alias placeholderText: textinput.placeholderText
     property alias acceptableInput: textinput.acceptableInput
     property alias textField: textinput
     property alias labelText: label.text
