@@ -1207,15 +1207,7 @@
 <context>
     <name>ConnectionWizard</name>
     <message>
-        <source>Info</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Start setup</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manual connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1243,15 +1235,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Yes I agree to open a user account, according to part 6 </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Yes I read the Term of Use and agree</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1267,23 +1251,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>SSL:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Internet Connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Discovered Devices</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Manual Connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1299,15 +1267,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Please select the device from the list that you want to set up. If no device is displayed in the list, please check the network connection! (Alternatively, a manual connection can also be established).</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Searching for your %1...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Please wait while your %1 is being discovered.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1315,11 +1275,55 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Privacy Policy and License Agreement HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Cancel</source>
+        <source>Yes, I have read the Terms of Use.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Network connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Finish setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Establish a connection via SSL.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Yes, I agree to open a user account, according to part 6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Setup %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must agree to the Terms of Use to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must create a user account to continue.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You must agree to the privacy policy to continue.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1577,41 +1581,6 @@
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoDynamicElectricPricing</name>
-    <message>
-        <source>Consumers history</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hours</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Days</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Weeks</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Months</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>No data available</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Total</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3076,13 +3045,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>ConsolinnoSwipeDelegate</name>
-    <message>
-        <source>Delete</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ConsolinnoThingClassDetailsPage</name>
     <message>
         <source>Type</source>
@@ -3285,17 +3247,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <source>The given username is already in use. Please choose a different username.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoWizardPageBase</name>
-    <message>
-        <source>Back</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3659,6 +3610,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4034,10 +3989,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>kW</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4838,6 +4789,10 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <source>Please change name if necessary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
