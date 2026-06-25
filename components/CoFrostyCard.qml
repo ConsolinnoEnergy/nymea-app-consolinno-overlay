@@ -12,6 +12,11 @@ Frame {
     default property alias content: body.data
     property int contentBottomMargin: 8
     property int contentTopMargin: 16
+    property real availableContentHeight: availableHeight - (headerLayout.implicitHeight +
+                                                             headerLayout.anchors.topMargin +
+                                                             headerLayout.anchors.bottomMargin +
+                                                             body.anchors.topMargin +
+                                                             body.anchors.bottomMargin)
 
     leftPadding: 0
     rightPadding: 0
