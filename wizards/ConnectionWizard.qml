@@ -1,8 +1,192 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
-import 'qrc:/ui/components'
+import "../components"
 import Nymea 1.0
+
+ConsolinnoWizardPageBase {
+    id: root
+
+    property Component navbarControls: welcomePageNavbarControls
+    property int navigationFooterHeight: 0
+
+    headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+
+    Component {
+        id: welcomePageNavbarControls
+        ColumnLayout {
+            spacing: Style.margins
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Start setup")
+                onClicked: pageStack.push(licenseInfoComponent)
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Demo mode")
+                flat: true
+                onClicked: {
+                    var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222');
+                    engine.jsonRpcClient.connectToHost(host);
+                }
+            }
+
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                onClicked: pageStack.pop()
+            }
+        }
+    }
+
+    ColumnLayout {
+        id: contentColumn
+        anchors.fill: parent
+        anchors.margins: Style.margins
+        anchors.topMargin: root.headerHeight
+        anchors.bottomMargin: root.navigationFooterHeight
+        spacing: 0
+
+        Item {
+            id: spacerTop
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+
+        Image {
+            Layout.fillWidth: true
+            Layout.preferredHeight: parent.height / 4
+            source: "qrc:/styles/%1/logo-wide.svg".arg(styleController.currentStyle)
+            fillMode: Image.PreserveAspectFit
+        }
+
+        Label {
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignHCenter
+            wrapMode: Text.WordWrap
+            font: Style.newH2Font
+            color: Style.colors.typography_Headlines_H2
+            text: qsTr("Welcome to %1!").arg(Configuration.appName)
+        }
+
+        Item {
+            id: spacerBottom
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+        }
+    }
+
+
+    Component {
+        id: licenseInfoComponent
+
+        ConsolinnoWizardPageBase {
+            id: licenseInfoPage
+
+            property Component navbarControls: welcomePageNavbarControls
+            property int navigationFooterHeight: 0
+
+            headerLabel: qsTr("Setup Leaflet") // #TODO also for WL customers?
+
+            Component {
+                id: welcomePageNavbarControls
+                ColumnLayout {
+                    spacing: Style.margins
+
+                    CheckBox {
+                        id: termsOfUseCheckbox
+                        Layout.fillWidth: true
+                        text: qsTr("Yes, I have read the Terms of Use.")
+                        checked: false
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Next")
+                        // #TODO Always enable and handle unchecked checkbox as error notification
+                        enabled: termsOfUseCheckbox.checked
+                        onClicked: pageStack.push(connectionInfo) // #TODO
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Back")
+                        flat: true
+                        onClicked: pageStack.pop()
+                    }
+                }
+            }
+
+            ColumnLayout {
+                id: contentColumn
+                anchors.fill: parent
+                anchors.margins: Style.margins
+                anchors.topMargin: licenseInfoPage.headerHeight + Style.margins
+                anchors.bottomMargin: licenseInfoPage.navigationFooterHeight // #TODO  too large due to missing button navbar, fix
+                spacing: 0
+
+                CoFrostyCard {
+                    id: licenseTermsCard
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    headerText: qsTr("License Terms HEMS<br/>(as of 11/2024)")
+                    contentTopMargin: Style.smallMargins
+
+                    ScrollView {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        anchors.top: parent.top
+                        anchors.leftMargin: Style.margins
+                        anchors.rightMargin: Style.margins
+                        clip: true
+                        height: licenseTermsCard.availableContentHeight
+                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+
+                        TextArea {
+                            id: textAreaTerms
+                            width: parent.width
+                            font: Style.smallFont
+                            wrapMode: Text.WrapAtWordBoundaryOrAnywhere
+                            textFormat: Text.RichText
+                            readOnly: true
+                            padding: 0
+
+                            background: Rectangle {
+                                color: "transparent"
+                            }
+
+                            Component.onCompleted: {
+                                loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    function loadHtmlFile(fileName, textAreaView) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", Qt.resolvedUrl(fileName), false); // Synchronous read
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                textAreaView.text = xhr.responseText;
+            } else if (xhr.status !== 200) {
+                console.error("Failed to load file:", xhr.status, xhr.statusText);
+            }
+        };
+        xhr.send();
+    }
+}
+
+
+
+/*
 
 ConsolinnoWizardPageBase {
     id: root
@@ -334,12 +518,10 @@ ConsolinnoWizardPageBase {
                         showUnreachableBearers: false
                         jsonRpcClient: engine.jsonRpcClient
                         showUnreachableHosts: false
-                        /*
-                        onCountChanged: {
-                            if (count === 1) {
-                                engine.jsonRpcClient.connectToHost(hostsProxy.get(0))
-                            }
-                        }*/
+                        // onCountChanged: {
+                        //    if (count === 1) {
+                        //        engine.jsonRpcClient.connectToHost(hostsProxy.get(0))
+                        //    }
                     }
 
                     ColumnLayout {
@@ -572,3 +754,5 @@ ConsolinnoWizardPageBase {
         xhr.send();
     }
 }
+
+*/
