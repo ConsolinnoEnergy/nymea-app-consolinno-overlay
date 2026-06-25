@@ -9,7 +9,7 @@ Item {
     // The header reaches the physical top edge of the screen. The interactive
     // band (back button, title, menu button) is shifted down by the system
     // status-bar / display-cutout inset so its content stays tappable while
-    // the blurred backdrop fills the area behind the status bar.
+    // the header background stays flush with the screen edge.
     property int safeAreaTop: SafeArea.margins.top
     implicitHeight: safeAreaTop + layout.implicitHeight + bottomBorder.height + 2 * Style.smallMargins
     property alias text: headline.text

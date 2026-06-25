@@ -11,8 +11,8 @@ import "../delegates"
 Item {
     id: root
     // System status-bar / display-cutout inset. The interactive row is
-    // shifted down by this amount so it stays tappable on Android 16+ where
-    // the window draws under the status bar.
+    // shifted down by this amount so it stays tappable on Android 16+ while
+    // the header background stays flush with the screen edge.
     property int safeAreaTop: SafeArea.margins.top
     implicitHeight: safeAreaTop + layout.implicitHeight + infoPane.height
     property string text
