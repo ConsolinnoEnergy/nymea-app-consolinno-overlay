@@ -11,7 +11,7 @@ Item {
     // status-bar / display-cutout inset so its content stays tappable while
     // the blurred backdrop fills the area behind the status bar.
     property int safeAreaTop: SafeArea.margins.top
-    implicitHeight: safeAreaTop + layout.implicitHeight + bottomBorder.height + 2 * Style.mediumMargins
+    implicitHeight: safeAreaTop + layout.implicitHeight + bottomBorder.height + 2 * Style.smallMargins
     property alias text: headline.text
     property alias subText: subHeadline.text
     property alias backButtonVisible: backButton.visible
@@ -89,7 +89,7 @@ Item {
             left: parent.left
             top: parent.top
             right: parent.right
-            topMargin: root.safeAreaTop + Style.mediumMargins
+            topMargin: root.safeAreaTop + Style.smallMargins
             leftMargin: Style.smallMargins
             rightMargin: Style.margins
         }
@@ -157,7 +157,7 @@ Item {
             right: parent.right
             left: parent.left
             top: layout.bottom
-            topMargin: Style.mediumMargins
+            topMargin: Style.smallMargins
         }
         height: 1
         color: Style.colors.menu_Header_Footer_Border

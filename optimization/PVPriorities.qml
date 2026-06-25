@@ -277,7 +277,14 @@ Page {
                                 var mouseYInList = priorityListView.contentItem.mapFromItem(dndArea, mouseX, mouseY).y;
                                 var indexUnderMouse = priorityListView.indexAt(mouseX, mouseYInList - dndArea.dragOffset / 2);
                                 if (indexUnderMouse < 0) { return; }
-                                indexUnderMouse = Math.min(Math.max(0, indexUnderMouse), priorityListView.count - 1);
+                                // Locked entries are kept at the start of the list by the backend.
+                                // Prevent an unlocked entry from being dropped above any locked entry.
+                                var firstUnlockedIndex = 0;
+                                while (firstUnlockedIndex < prioListModel.count
+                                       && prioListModel.get(firstUnlockedIndex).locked) {
+                                    firstUnlockedIndex++;
+                                }
+                                indexUnderMouse = Math.min(Math.max(firstUnlockedIndex, indexUnderMouse), priorityListView.count - 1);
                                 if (priorityListView.draggingIndex !== indexUnderMouse) {
                                     prioListModel.move(priorityListView.draggingIndex, indexUnderMouse, 1);
                                     priorityListView.draggingIndex = indexUnderMouse;
