@@ -188,7 +188,8 @@ MainViewBase {
                         text: qsTr("Consolinno cloud services")
                         helpText: qsTr("Manage cloud connection and data sharing preferences.")
                         showChildrenIndicator: true
-                        visible: hemsManager.cloudConfigurationSupported
+                        visible: hemsManager.cloudConfigurationSupported &&
+                                 settings.showHiddenOptions
                         onClicked: pageStack.push(Qt.resolvedUrl("optimization/CloudServicesPage.qml"))
                     }
 
