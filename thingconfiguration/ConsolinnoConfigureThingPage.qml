@@ -44,29 +44,25 @@ SettingsPageBase {
 
     Component {
         id: configureThingControls
-        ColumnLayout {
-            spacing: Style.margins
+        CoNavbarButton {
+            Layout.fillWidth: true
+            text: qsTr("Apply")
+            enabled: settingsRepeater.dirty
+            visible: settingsRepeater.count > 0
 
-            CoNavbarButton {
-                Layout.fillWidth: true
-                text: qsTr("Apply")
-                enabled: settingsRepeater.dirty
-                visible: settingsRepeater.count > 0
-
-                onClicked: {
-                    var params = []
-                    for (var i = 0; i < settingsRepeater.count; i++) {
-                        if (!settingsRepeater.itemAt(i).dirty) {
-                            continue;
-                        }
-                        var setting = {}
-                        setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
-                        setting["value"] = settingsRepeater.itemAt(i).param.value
-                        params.push(setting)
+            onClicked: {
+                var params = []
+                for (var i = 0; i < settingsRepeater.count; i++) {
+                    if (!settingsRepeater.itemAt(i).dirty) {
+                        continue;
                     }
-
-                    engine.thingManager.setThingSettings(root.thing.id, params);
+                    var setting = {}
+                    setting["paramTypeId"] = settingsRepeater.itemAt(i).param.paramTypeId
+                    setting["value"] = settingsRepeater.itemAt(i).param.value
+                    params.push(setting)
                 }
+
+                engine.thingManager.setThingSettings(root.thing.id, params);
             }
         }
     }

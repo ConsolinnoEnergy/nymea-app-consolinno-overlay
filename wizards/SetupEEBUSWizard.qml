@@ -35,7 +35,7 @@ Page {
     Component {
         id: eebusWizardControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true
@@ -234,17 +234,13 @@ Page {
 
             Component {
                 id: discoveryControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(root.eebusGatewayThingClassId);
-                        }
-                        visible: !discovery.busy
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Search again")
+                    onClicked: {
+                        discovery.discoverThings(root.eebusGatewayThingClassId);
                     }
+                    visible: !discovery.busy
                 }
             }
 
@@ -338,33 +334,29 @@ Page {
 
             Component {
                 id: paramsControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("OK")
-                        onClicked: {
-                            var params = [];
-                            for (var i = 0; i < paramRepeater.count; i++) {
-                                var param = {};
-                                var paramType = paramRepeater.itemAt(i).paramType;
-                                if (!paramType.readOnly) {
-                                    param.paramTypeId = paramType.id;
-                                    param.value = paramRepeater.itemAt(i).value;
-                                    params.push(param);
-                                }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("OK")
+                    onClicked: {
+                        var params = [];
+                        for (var i = 0; i < paramRepeater.count; i++) {
+                            var param = {};
+                            var paramType = paramRepeater.itemAt(i).paramType;
+                            if (!paramType.readOnly) {
+                                param.paramTypeId = paramType.id;
+                                param.value = paramRepeater.itemAt(i).value;
+                                params.push(param);
                             }
-                            d.params = params;
-                            d.name = nameTextField.text;
-
-                            if (d.thingDescriptor) {
-                                engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
-                            } else {
-                                engine.thingManager.addThing(thingClass.id, d.name, params);
-                            }
-                            paramsView.busy = true;
                         }
+                        d.params = params;
+                        d.name = nameTextField.text;
+
+                        if (d.thingDescriptor) {
+                            engine.thingManager.addDiscoveredThing(thingClass.id, d.thingDescriptor.id, d.name, params);
+                        } else {
+                            engine.thingManager.addThing(thingClass.id, d.name, params);
+                        }
+                        paramsView.busy = true;
                     }
                 }
             }
@@ -448,7 +440,7 @@ Page {
             Component {
                 id: waitingControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true
@@ -712,17 +704,13 @@ Page {
 
             Component {
                 id: setupResultControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("OK")
-                        onClicked: {
-                            pageStack.pop(root);
-                            if (root.directToDiscovery) {
-                                root.done(true, false, false)
-                            }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("OK")
+                    onClicked: {
+                        pageStack.pop(root);
+                        if (root.directToDiscovery) {
+                            root.done(true, false, false)
                         }
                     }
                 }

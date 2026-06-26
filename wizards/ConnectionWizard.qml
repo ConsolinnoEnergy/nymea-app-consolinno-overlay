@@ -20,7 +20,7 @@ ConsolinnoWizardPageBase {
     Component {
         id: welcomePageNavbarControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true
@@ -100,7 +100,7 @@ ConsolinnoWizardPageBase {
             Component {
                 id: licenseInfoNavbarControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoCheckBox {
                         id: termsOfUseCheckbox
@@ -199,7 +199,7 @@ ConsolinnoWizardPageBase {
             Component {
                 id: privacyPolicyNavbarControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoCheckBox {
                         id: accountCheckbox
@@ -317,7 +317,7 @@ ConsolinnoWizardPageBase {
             Component {
                 id: networkConnectionInfoNavbarControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true
@@ -392,7 +392,7 @@ ConsolinnoWizardPageBase {
             Component {
                 id: discoverLeafletNavbarControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true
@@ -568,7 +568,7 @@ ConsolinnoWizardPageBase {
             Component {
                 id: manualConnectionNavbarControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true

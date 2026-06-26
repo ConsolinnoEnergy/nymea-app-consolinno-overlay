@@ -46,7 +46,7 @@ Page {
     Component {
         id: dayTimePickerNavbarControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true

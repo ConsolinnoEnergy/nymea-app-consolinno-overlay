@@ -37,7 +37,7 @@ Page {
     Component {
         id: setupWizardBaseControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true
@@ -370,24 +370,20 @@ Page {
 
             Component {
                 id: discoveryParamsControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Next")
-                        onClicked: {
-                            var paramTypes = thingClass.discoveryParamTypes;
-                            d.discoveryParams = [];
-                            for (var i = 0; i < paramTypes.count; i++) {
-                                var param = {};
-                                param["paramTypeId"] = paramTypes.get(i).id;
-                                param["value"] = paramRepeater.itemAt(i).value;
-                                d.discoveryParams.push(param);
-                            }
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                            pageStack.push(discoveryPage, {thingClass: thingClass});
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Next")
+                    onClicked: {
+                        var paramTypes = thingClass.discoveryParamTypes;
+                        d.discoveryParams = [];
+                        for (var i = 0; i < paramTypes.count; i++) {
+                            var param = {};
+                            param["paramTypeId"] = paramTypes.get(i).id;
+                            param["value"] = paramRepeater.itemAt(i).value;
+                            d.discoveryParams.push(param);
                         }
+                        discovery.discoverThings(thingClass.id, d.discoveryParams);
+                        pageStack.push(discoveryPage, {thingClass: thingClass});
                     }
                 }
             }
@@ -435,17 +431,13 @@ Page {
 
             Component {
                 id: discoveryControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                        }
-                        visible: !discovery.busy
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Search again")
+                    onClicked: {
+                        discovery.discoverThings(thingClass.id, d.discoveryParams);
                     }
+                    visible: !discovery.busy
                 }
             }
 
@@ -531,28 +523,24 @@ Page {
 
             Component {
                 id: paramsControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("OK")
-                        onClicked: {
-                            var params = [];
-                            for (var i = 0; i < paramRepeater.count; i++) {
-                                var param = {};
-                                var paramType = paramRepeater.itemAt(i).paramType;
-                                if (!paramType.readOnly) {
-                                    param.paramTypeId = paramType.id;
-                                    param.value = paramRepeater.itemAt(i).value;
-                                    print("adding param", param.paramTypeId, param.value);
-                                    params.push(param);
-                                }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("OK")
+                    onClicked: {
+                        var params = [];
+                        for (var i = 0; i < paramRepeater.count; i++) {
+                            var param = {};
+                            var paramType = paramRepeater.itemAt(i).paramType;
+                            if (!paramType.readOnly) {
+                                param.paramTypeId = paramType.id;
+                                param.value = paramRepeater.itemAt(i).value;
+                                print("adding param", param.paramTypeId, param.value);
+                                params.push(param);
                             }
-                            d.params = params;
-                            d.name = nameTextField.text;
-                            d.pairThing(thingClass, thing);
                         }
+                        d.params = params;
+                        d.name = nameTextField.text;
+                        d.pairThing(thingClass, thing);
                     }
                 }
             }
@@ -644,18 +632,14 @@ Page {
 
             Component {
                 id: setupResultControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Next")
-                        onClicked: {
-                            if (root.onSuccessHandler && thing) {
-                                root.onSuccessHandler(thing);
-                            } else {
-                                root.done(false, false, false);
-                            }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Next")
+                    onClicked: {
+                        if (root.onSuccessHandler && thing) {
+                            root.onSuccessHandler(thing);
+                        } else {
+                            root.done(false, false, false);
                         }
                     }
                 }
@@ -732,16 +716,12 @@ Page {
 
             Component {
                 id: pairingControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("OK")
-                        onClicked: {
-                            engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
-                            busyOverlay.shown = true;
-                        }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("OK")
+                    onClicked: {
+                        engine.thingManager.confirmPairing(transactionId, pinTextField.password, usernameTextField.text);
+                        busyOverlay.shown = true;
                     }
                 }
             }
@@ -804,7 +784,7 @@ Page {
             Component {
                 id: resultsControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true

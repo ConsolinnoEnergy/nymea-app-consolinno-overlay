@@ -47,7 +47,7 @@ Page {
     Component {
         id: modbusRtuNavbarControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true

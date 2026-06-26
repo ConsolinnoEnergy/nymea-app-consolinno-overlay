@@ -168,6 +168,7 @@ Page{
 
     Component {
         id: applyChangesNavbar
+
         CoNavbarButton {
             id: saveButton
             text: qsTr("Apply changes")
@@ -250,7 +251,7 @@ Page{
             Component {
                 id: carDataNavbar
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true

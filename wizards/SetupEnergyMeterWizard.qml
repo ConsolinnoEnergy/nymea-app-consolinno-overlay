@@ -18,15 +18,11 @@ Page {
 
     Component {
         id: energyMeterControls
-        ColumnLayout {
-            spacing: Style.margins
-
-            CoNavbarButton {
-                Layout.fillWidth: true
-                text: qsTr("Cancel")
-                flat: true
-                onClicked: root.done(false, true)
-            }
+        CoNavbarButton {
+            Layout.fillWidth: true
+            text: qsTr("Cancel")
+            flat: true
+            onClicked: root.done(false, true)
         }
     }
 
@@ -223,24 +219,20 @@ Page {
 
             Component {
                 id: discoveryParamsControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Next")
-                        onClicked: {
-                            var paramTypes = thingClass.discoveryParamTypes;
-                            d.discoveryParams = [];
-                            for (var i = 0; i < paramTypes.count; i++) {
-                                var param = {};
-                                param["paramTypeId"] = paramTypes.get(i).id;
-                                param["value"] = paramRepeater.itemAt(i).value;
-                                d.discoveryParams.push(param);
-                            }
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                            pageStack.push(discoveryPage, { thingClass: thingClass });
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Next")
+                    onClicked: {
+                        var paramTypes = thingClass.discoveryParamTypes;
+                        d.discoveryParams = [];
+                        for (var i = 0; i < paramTypes.count; i++) {
+                            var param = {};
+                            param["paramTypeId"] = paramTypes.get(i).id;
+                            param["value"] = paramRepeater.itemAt(i).value;
+                            d.discoveryParams.push(param);
                         }
+                        discovery.discoverThings(thingClass.id, d.discoveryParams);
+                        pageStack.push(discoveryPage, { thingClass: thingClass });
                     }
                 }
             }
@@ -290,17 +282,13 @@ Page {
 
             Component {
                 id: discoveryControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Search again")
-                        onClicked: {
-                            discovery.discoverThings(thingClass.id, d.discoveryParams);
-                        }
-                        visible: !discovery.busy
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Search again")
+                    onClicked: {
+                        discovery.discoverThings(thingClass.id, d.discoveryParams);
                     }
+                    visible: !discovery.busy
                 }
             }
 
@@ -384,28 +372,24 @@ Page {
 
             Component {
                 id: paramsControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("OK")
-                        onClicked: {
-                            var params = [];
-                            for (var i = 0; i < paramRepeater.count; i++) {
-                                var param = {};
-                                var paramType = paramRepeater.itemAt(i).paramType;
-                                if (!paramType.readOnly) {
-                                    param.paramTypeId = paramType.id;
-                                    param.value = paramRepeater.itemAt(i).value;
-                                    print("adding param", param.paramTypeId, param.value);
-                                    params.push(param);
-                                }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("OK")
+                    onClicked: {
+                        var params = [];
+                        for (var i = 0; i < paramRepeater.count; i++) {
+                            var param = {};
+                            var paramType = paramRepeater.itemAt(i).paramType;
+                            if (!paramType.readOnly) {
+                                param.paramTypeId = paramType.id;
+                                param.value = paramRepeater.itemAt(i).value;
+                                print("adding param", param.paramTypeId, param.value);
+                                params.push(param);
                             }
-                            d.params = params;
-                            d.name = nameTextField.text;
-                            d.pairThing(thingClass, thing);
                         }
+                        d.params = params;
+                        d.name = nameTextField.text;
+                        d.pairThing(thingClass, thing);
                     }
                 }
             }
@@ -498,15 +482,11 @@ Page {
 
             Component {
                 id: setupEnergyMeterControls
-                ColumnLayout {
-                    spacing: Style.margins
-
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Next")
-                        onClicked: {
-                            root.done(false, false);
-                        }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Next")
+                    onClicked: {
+                        root.done(false, false);
                     }
                 }
             }
