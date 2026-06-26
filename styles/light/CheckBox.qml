@@ -22,6 +22,8 @@ T.CheckBox {
     padding: 6
     spacing: 6
 
+    font: Style.newParagraphFont
+
     background: Rectangle {
         x: control.text ? (control.mirrored ? control.width - width - control.rightPadding : 0) : (control.availableWidth - width) / 2
         y: control.topPadding + (control.availableHeight - height) / 2
@@ -78,7 +80,7 @@ T.CheckBox {
 
         text: control.text
         font: control.font
-        color: control.palette.windowText
+        color: Style.colors.typography_Basic_Default
         wrapMode: Text.WordWrap
     }
 }
