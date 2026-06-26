@@ -12,10 +12,82 @@ ConsolinnoWizardPageBase {
 
     headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
-    // #TODO if there is another connection set up in this app, show a header back button
-    // and navbar cancel button here and go to the last active connection if one of these
-    // is pressed.
-    backButtonVisible: false
+    backButtonVisible: d.previousSlotIndex >= 0
+
+    backAction: function() {
+        if (!restorePreviouslyActiveConnection()) { return; }
+        pageStack.pop();
+    }
+
+    QtObject {
+        id: d
+        property int previousSlotIndex: -1
+    }
+
+    function rememberLastActiveConnection() {
+        d.previousSlotIndex = -1;
+
+        const nullUuid = "{00000000-0000-0000-0000-000000000000}";
+        const currentIdx = configuredHostsModel.currentIndex;
+        const currentSlot = configuredHostsModel.get(currentIdx);
+
+        if (!currentSlot || currentSlot.uuid.toString() === nullUuid) {
+            // New empty setup slot — use the index that was active just before it was created.
+            // setupWizardReturnIndex is captured by Nymea.qml's onCountChanged, which fires
+            // before setCurrentIndex() updates currentIndex to the new slot.
+            const savedIdx = configuredHostsModel.setupWizardReturnIndex;
+            if (savedIdx >= 0 && savedIdx < configuredHostsModel.count && savedIdx !== currentIdx) {
+                const savedSlot = configuredHostsModel.get(savedIdx);
+                if (savedSlot && savedSlot.uuid.toString() !== nullUuid) {
+                    d.previousSlotIndex = savedIdx;
+                    console.info("Remembering previous slot:", savedIdx, savedSlot.uuid);
+                    return;
+                }
+            }
+        } else {
+            // Wizard opened while already on a connected slot (no new slot was created).
+            d.previousSlotIndex = currentIdx;
+            console.info("Remembering current slot as previous:", currentIdx);
+            return;
+        }
+
+        console.warn("No previously active connection found.");
+    }
+
+    function restorePreviouslyActiveConnection() {
+        if (d.previousSlotIndex < 0) {
+            console.warn("No previously active connection to restore!");
+            return false;
+        }
+
+        const nullUuid = "{00000000-0000-0000-0000-000000000000}";
+        const currentIdx = configuredHostsModel.currentIndex;
+        const currentSlot = configuredHostsModel.get(currentIdx);
+        const isEmptySlot = !currentSlot || currentSlot.uuid.toString() === nullUuid;
+
+        // Switch the SwipeView back to the previously active slot.
+        configuredHostsModel.currentIndex = d.previousSlotIndex;
+
+        // If the current slot is a new, never-connected empty slot, schedule its removal.
+        // We defer with Qt.callLater so that pageStack.pop() below can finish first before
+        // the delegate (and its StackView) are destroyed by the model removal.
+        if (isEmptySlot && currentIdx !== d.previousSlotIndex) {
+            const slotToRemove = currentIdx;
+            Qt.callLater(function() {
+                // Verify it is still an empty slot before removing (safety check).
+                const slot = configuredHostsModel.get(slotToRemove);
+                if (slot && slot.uuid.toString() === nullUuid) {
+                    configuredHostsModel.removeHost(slotToRemove);
+                }
+            });
+        }
+
+        return true;
+    }
+
+    Component.onCompleted: {
+        rememberLastActiveConnection();
+    }
 
     Component {
         id: welcomePageNavbarControls
@@ -38,13 +110,16 @@ ConsolinnoWizardPageBase {
                 }
             }
 
-            // Cf. #TODO comment above
-            // CoNavbarButton {
-            //     Layout.fillWidth: true
-            //     text: qsTr("Cancel")
-            //     flat: true
-            //     onClicked: pageStack.pop()
-            // }
+            CoNavbarButton {
+                Layout.fillWidth: true
+                text: qsTr("Cancel")
+                flat: true
+                visible: d.previousSlotIndex >= 0
+                onClicked: {
+                    if (!restorePreviouslyActiveConnection()) { return; }
+                    pageStack.pop();
+                }
+            }
         }
     }
 
@@ -131,7 +206,15 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (d.previousSlotIndex >= 0) {
+                                if (!restorePreviouslyActiveConnection()) {
+                                    pageStack.pop(root);
+                                }
+                            } else {
+                                pageStack.pop(root);
+                            }
+                        }
                     }
                 }
             }
@@ -249,7 +332,15 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (d.previousSlotIndex >= 0) {
+                                if (!restorePreviouslyActiveConnection()) {
+                                    pageStack.pop(root);
+                                }
+                            } else {
+                                pageStack.pop(root);
+                            }
+                        }
                     }
                 }
             }
@@ -329,7 +420,15 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (d.previousSlotIndex >= 0) {
+                                if (!restorePreviouslyActiveConnection()) {
+                                    pageStack.pop(root);
+                                }
+                            } else {
+                                pageStack.pop(root);
+                            }
+                        }
                     }
                 }
             }
@@ -405,7 +504,15 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (d.previousSlotIndex >= 0) {
+                                if (!restorePreviouslyActiveConnection()) {
+                                    pageStack.pop(root);
+                                }
+                            } else {
+                                pageStack.pop(root);
+                            }
+                        }
                     }
                 }
             }
@@ -621,7 +728,15 @@ ConsolinnoWizardPageBase {
                         Layout.fillWidth: true
                         text: qsTr("Cancel")
                         flat: true
-                        onClicked: pageStack.pop(root)
+                        onClicked: {
+                            if (d.previousSlotIndex >= 0) {
+                                if (!restorePreviouslyActiveConnection()) {
+                                    pageStack.pop(root);
+                                }
+                            } else {
+                                pageStack.pop(root);
+                            }
+                        }
                     }
                 }
             }

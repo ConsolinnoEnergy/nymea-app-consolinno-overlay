@@ -13,6 +13,7 @@ Page {
     property bool backButtonVisible: true
     property string headerLabel: ""
     property real headerHeight: header.height
+    property var backAction: function() { pageStack.pop() }
 
     header: null
     footer: null
@@ -25,7 +26,7 @@ Page {
         backButtonVisible: root.backButtonVisible
         wrapMode: Text.WordWrap
         onBackPressed:{
-            pageStack.pop()
+            root.backAction()
         }
     }
 }
