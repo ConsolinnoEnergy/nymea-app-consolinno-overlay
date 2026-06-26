@@ -20,7 +20,7 @@ Page {
     Component {
         id: authorisationControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true

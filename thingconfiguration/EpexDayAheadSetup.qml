@@ -160,7 +160,7 @@ Page {
             Component {
                 id: paramsPageControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CoNavbarButton {
                         Layout.fillWidth: true

@@ -17,7 +17,7 @@ Page{
     Component {
         id: installerDataControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
 
             CoNavbarButton {
                 Layout.fillWidth: true

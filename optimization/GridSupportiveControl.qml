@@ -136,13 +136,10 @@ StackView {
 
             Component {
                 id: setUpStartControls
-                ColumnLayout {
-                    spacing: Style.margins
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Grid-supportive control setup")
-                        onClicked: pageStack.push(selectComponent)
-                    }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Grid-supportive control setup")
+                    onClicked: pageStack.push(selectComponent)
                 }
             }
 
@@ -315,7 +312,7 @@ StackView {
             Component {
                 id: relaisSetUpControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Complete setup")
@@ -512,7 +509,7 @@ StackView {
             Component {
                 id: eebusComfortPairingSetupControls
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Complete setup")
@@ -696,16 +693,13 @@ StackView {
 
             Component {
                 id: eebusComfortPairingViewStatusControls
-                ColumnLayout {
-                    spacing: Style.margins
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                        text: qsTr("Back to overview")
-                        onClicked: {
-                            pageStack.pop();
-                            pageStack.pop();
-                            pageStack.pop();
-                        }
+                CoNavbarButton {
+                    Layout.fillWidth: true
+                    text: qsTr("Back to overview")
+                    onClicked: {
+                        pageStack.pop();
+                        pageStack.pop();
+                        pageStack.pop();
                     }
                 }
             }
@@ -1115,7 +1109,7 @@ StackView {
             Component {
                 id: eebusViewSelectNavbar
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Search again")
@@ -1228,7 +1222,7 @@ StackView {
             Component {
                 id: eebusSetupNavbar
                 ColumnLayout {
-                    spacing: Style.margins
+                    spacing: Style.smallMargins
 
                     CheckBox {
                         id: deviceConnected

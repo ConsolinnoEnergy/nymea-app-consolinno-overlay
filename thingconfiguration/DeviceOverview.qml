@@ -19,12 +19,14 @@ Page {
     Component {
         id: deviceOverviewNavbarControls
         ColumnLayout {
-            spacing: Style.margins
+            spacing: Style.smallMargins
+
             CoNavbarButton {
                 Layout.fillWidth: true
                 text: qsTr("Start Wizard")
                 onClicked: wizardController.startManualSetup()
             }
+
             CoNavbarButton {
                 Layout.fillWidth: true
                 text: qsTr("Set up new device")

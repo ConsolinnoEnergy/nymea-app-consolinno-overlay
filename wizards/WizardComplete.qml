@@ -15,14 +15,10 @@ Page {
 
     Component {
         id: wizardCompleteControls
-        ColumnLayout {
-            spacing: Style.margins
-
-            CoNavbarButton {
-                Layout.fillWidth: true
-                text: qsTr("To the Dashboard")
-                onClicked: root.done(true, false)
-            }
+        CoNavbarButton {
+            Layout.fillWidth: true
+            text: qsTr("To the Dashboard")
+            onClicked: root.done(true, false)
         }
     }
 
