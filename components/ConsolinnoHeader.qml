@@ -10,7 +10,11 @@ import "../delegates"
 
 Item {
     id: root
-    implicitHeight: layout.implicitHeight + infoPane.height
+    // System status-bar / display-cutout inset. The interactive row is
+    // shifted down by this amount so it stays tappable on Android 16+ while
+    // the header background stays flush with the screen edge.
+    property int safeAreaTop: SafeArea.margins.top
+    implicitHeight: safeAreaTop + layout.implicitHeight + infoPane.height
     property string text
     property bool show_Image: false
     property alias backButtonVisible: backButton.visible
@@ -41,7 +45,7 @@ Item {
 
     RowLayout {
         id: layout
-        anchors { left: parent.left; top: parent.top; right: parent.right }
+        anchors { left: parent.left; top: parent.top; topMargin: root.safeAreaTop; right: parent.right }
 
         HeaderButton {
             id: menuButton
