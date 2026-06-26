@@ -1054,22 +1054,14 @@
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
-&lt;h4&gt;Redesign&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Die App wird moderner: Schrittweise wird das neue Design der App sichtbar&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Erster Schritt: Startseite mit vereinfachtem Energiefluss und neuer Navigation&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Kennzahlen Eigenverbrauch und Autarkiegrad inklusive Historie&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;SG-Ready WP: Erfassung der Leistungsaufnahme über einen separaten kompatiblen Zähler&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Neuer Lademodus zeitgesteuertes Laden: pro Wochentag kann ein Zeitfenster angelegt werden um Bonus/Cashback optimal zu nutzen&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung für EEBUS‑fähige Wärmepumpen&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Schutz vor Heimspeicher-Entladung bei Laden des E-Autos: Aktivieren über die App&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Verbesserung&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Factory Reset in der App verfügbar&lt;/li&gt;
+&lt;li&gt;Schritt 2 des Redesigns der App: Angleichen der Screens an das neue Corporate Design&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung beliebiger schaltbarer Verbraucher über Funkrelais und Steckdosen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Einstellbare Priorisierung der Geräte im PV-Überschussbetrieb&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Batterie-Steuerung von Batterien ohne eigene Netzanschlusspunktregelung&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Inbetriebnahme EEBUS-Steuerboxen über Comfort-Ship-Pairing&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Auslesen des Zählers am Netzverknüpfungspunkt über das Smart Meter Gateway&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>

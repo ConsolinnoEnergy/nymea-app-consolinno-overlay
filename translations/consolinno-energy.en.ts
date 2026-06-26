@@ -1045,22 +1045,14 @@
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
-&lt;h4&gt;Redesign&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;The app is becoming more modern: the new design will be rolled out step by step&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;First Step: A redesigned home screen with a simplified energy flow and a new navigation structure&lt;/li&gt;
-&lt;/ul&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;New KPIs: Self‑consumption rate and degree of autonomy, including historical data&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;SG‑Ready heat pump: Recording of power consumption via a separate compatible meter&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;New charging mode – Scheduled Charging: Define one time window per weekday to benefit from bonus/cashback tariffs&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Support for EEBUS‑compatible heat pumps&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Protection against home battery discharge when charging the EV: Activate through the app&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h4&gt;Improvement&lt;/h4&gt;
-&lt;ul&gt;
-&lt;li&gt;Factory Reset available in the app&lt;/li&gt;
+&lt;li&gt;Step 2 of the app redesign: Aligning screens with the new corporate design&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimization of controllable loads via relays and smart plugs&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Adjustable prioritization of devices in PV surplus operation&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Battery control for batteries without their own grid connection point regulation&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Commissioning of EEBUS control boxes via Comfort-Ship Pairing&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Meter data reading at the grid connection point via the smart meter gateway&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
