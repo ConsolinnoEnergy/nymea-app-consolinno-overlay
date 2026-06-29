@@ -246,7 +246,7 @@ Page {
                 Layout.fillWidth: true
                 contentTopMargin: 8
                 headerText: qsTr("Switchable consumers")
-                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseSwitch) != 0 ||
+                visible: ((hemsManager.availableUseCases & HemsManager.HemsUseCaseSwitch) != 0 ||
                           settings.showHiddenOptions) &&
                          switchableConsumerRepeater.count > 0
 
