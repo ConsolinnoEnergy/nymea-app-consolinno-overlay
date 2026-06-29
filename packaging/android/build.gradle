@@ -149,32 +149,6 @@ android {
         noCompress 'rcc'
     }
 
-    def keystorePath = System.getenv("KEYSTORE_PATH")
-    if (!keystorePath && !System.getenv("SELFSIGN")) {
-        throw new GradleException(
-            "KEYSTORE_PATH is not set. Release signing would be skipped and the AAB " +
-            "would be unsigned. Set KEYSTORE_PATH (plus SIGNING_KEY_ALIAS, " +
-            "SIGNING_STORE_PASSWORD, SIGNING_KEY_PASSWORD) or set SELFSIGN for a " +
-            "self-signed build."
-        )
-    }
-    signingConfigs {
-        release {
-            if (keystorePath) {
-                storeFile     file(keystorePath)
-                keyAlias      System.getenv("SIGNING_KEY_ALIAS")
-                storePassword System.getenv("SIGNING_STORE_PASSWORD")
-                keyPassword   System.getenv("SIGNING_KEY_PASSWORD")
-            }
-        }
-    }
-
-    buildTypes {
-        release {
-            signingConfig keystorePath ? signingConfigs.release : null
-        }
-    }
-
     defaultConfig {
         resConfigs "en", "de", "ko", "it", "nl", "es"
         minSdkVersion = 23
