@@ -149,6 +149,24 @@ android {
         noCompress 'rcc'
     }
 
+    def keystorePath = System.getenv("KEYSTORE_PATH")
+    signingConfigs {
+        release {
+            if (keystorePath) {
+                storeFile     file(keystorePath)
+                keyAlias      System.getenv("SIGNING_KEY_ALIAS")
+                storePassword System.getenv("SIGNING_STORE_PASSWORD")
+                keyPassword   System.getenv("SIGNING_KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig keystorePath ? signingConfigs.release : null
+        }
+    }
+
     defaultConfig {
         resConfigs "en", "de", "ko", "it", "nl", "es"
         minSdkVersion = 23
