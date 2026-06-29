@@ -12,7 +12,7 @@ ConsolinnoWizardPageBase {
 
     headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
-    backButtonVisible: d.previousSlotIndex >= 0
+    backButtonVisible: d.previousHostIndex >= 0
 
     backAction: function() {
         if (!restorePreviouslyActiveConnection()) { return; }
@@ -21,33 +21,33 @@ ConsolinnoWizardPageBase {
 
     QtObject {
         id: d
-        property int previousSlotIndex: -1
+        property int previousHostIndex: -1
     }
 
     function rememberLastActiveConnection() {
-        d.previousSlotIndex = -1;
+        d.previousHostIndex = -1;
 
         const nullUuid = "{00000000-0000-0000-0000-000000000000}";
         const currentIdx = configuredHostsModel.currentIndex;
-        const currentSlot = configuredHostsModel.get(currentIdx);
+        const currentHost = configuredHostsModel.get(currentIdx);
 
-        if (!currentSlot || currentSlot.uuid.toString() === nullUuid) {
-            // New empty setup slot — use the index that was active just before it was created.
+        if (!currentHost || currentHost.uuid.toString() === nullUuid) {
+            // New empty setup host — use the index that was active just before it was created.
             // setupWizardReturnIndex is captured by Nymea.qml's onCountChanged, which fires
-            // before setCurrentIndex() updates currentIndex to the new slot.
+            // before setCurrentIndex() updates currentIndex to the new host.
             const savedIdx = configuredHostsModel.setupWizardReturnIndex;
             if (savedIdx >= 0 && savedIdx < configuredHostsModel.count && savedIdx !== currentIdx) {
-                const savedSlot = configuredHostsModel.get(savedIdx);
-                if (savedSlot && savedSlot.uuid.toString() !== nullUuid) {
-                    d.previousSlotIndex = savedIdx;
-                    console.info("Remembering previous slot:", savedIdx, savedSlot.uuid);
+                const savedHost = configuredHostsModel.get(savedIdx);
+                if (savedHost && savedHost.uuid.toString() !== nullUuid) {
+                    d.previousHostIndex = savedIdx;
+                    console.info("Remembering previous host:", savedIdx, savedHost.uuid);
                     return;
                 }
             }
         } else {
-            // Wizard opened while already on a connected slot (no new slot was created).
-            d.previousSlotIndex = currentIdx;
-            console.info("Remembering current slot as previous:", currentIdx);
+            // Wizard opened while already on a connected host (no new host was created).
+            d.previousHostIndex = currentIdx;
+            console.info("Remembering current host as previous:", currentIdx);
             return;
         }
 
@@ -55,29 +55,29 @@ ConsolinnoWizardPageBase {
     }
 
     function restorePreviouslyActiveConnection() {
-        if (d.previousSlotIndex < 0) {
+        if (d.previousHostIndex < 0) {
             console.warn("No previously active connection to restore!");
             return false;
         }
 
         const nullUuid = "{00000000-0000-0000-0000-000000000000}";
         const currentIdx = configuredHostsModel.currentIndex;
-        const currentSlot = configuredHostsModel.get(currentIdx);
-        const isEmptySlot = !currentSlot || currentSlot.uuid.toString() === nullUuid;
+        const currentHost = configuredHostsModel.get(currentIdx);
+        const isEmptyHost = !currentHost || currentHost.uuid.toString() === nullUuid;
 
-        // Switch the SwipeView back to the previously active slot.
-        configuredHostsModel.currentIndex = d.previousSlotIndex;
+        // Switch the SwipeView back to the previously active host.
+        configuredHostsModel.currentIndex = d.previousHostIndex;
 
-        // If the current slot is a new, never-connected empty slot, schedule its removal.
+        // If the current host is a new, never-connected empty host, schedule its removal.
         // We defer with Qt.callLater so that pageStack.pop() below can finish first before
         // the delegate (and its StackView) are destroyed by the model removal.
-        if (isEmptySlot && currentIdx !== d.previousSlotIndex) {
-            const slotToRemove = currentIdx;
+        if (isEmptyHost && currentIdx !== d.previousHostIndex) {
+            const hostToRemove = currentIdx;
             Qt.callLater(function() {
-                // Verify it is still an empty slot before removing (safety check).
-                const slot = configuredHostsModel.get(slotToRemove);
-                if (slot && slot.uuid.toString() === nullUuid) {
-                    configuredHostsModel.removeHost(slotToRemove);
+                // Verify it is still an empty host before removing (safety check).
+                const host = configuredHostsModel.get(hostToRemove);
+                if (host && host.uuid.toString() === nullUuid) {
+                    configuredHostsModel.removeHost(hostToRemove);
                 }
             });
         }
@@ -114,7 +114,7 @@ ConsolinnoWizardPageBase {
                 Layout.fillWidth: true
                 text: qsTr("Cancel")
                 flat: true
-                visible: d.previousSlotIndex >= 0
+                visible: d.previousHostIndex >= 0
                 onClicked: {
                     if (!restorePreviouslyActiveConnection()) { return; }
                     pageStack.pop();
@@ -207,7 +207,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
-                            if (d.previousSlotIndex >= 0) {
+                            if (d.previousHostIndex >= 0) {
                                 if (!restorePreviouslyActiveConnection()) {
                                     pageStack.pop(root);
                                 }
@@ -333,7 +333,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
-                            if (d.previousSlotIndex >= 0) {
+                            if (d.previousHostIndex >= 0) {
                                 if (!restorePreviouslyActiveConnection()) {
                                     pageStack.pop(root);
                                 }
@@ -421,7 +421,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
-                            if (d.previousSlotIndex >= 0) {
+                            if (d.previousHostIndex >= 0) {
                                 if (!restorePreviouslyActiveConnection()) {
                                     pageStack.pop(root);
                                 }
@@ -505,7 +505,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
-                            if (d.previousSlotIndex >= 0) {
+                            if (d.previousHostIndex >= 0) {
                                 if (!restorePreviouslyActiveConnection()) {
                                     pageStack.pop(root);
                                 }
@@ -729,7 +729,7 @@ ConsolinnoWizardPageBase {
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
-                            if (d.previousSlotIndex >= 0) {
+                            if (d.previousHostIndex >= 0) {
                                 if (!restorePreviouslyActiveConnection()) {
                                     pageStack.pop(root);
                                 }
