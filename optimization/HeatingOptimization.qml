@@ -17,7 +17,12 @@ Page {
     property int directionID: 0
     signal done()
 
-    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+    readonly property bool applyEnabled: {
+        if (!maxElectricalPower.acceptableInput) { return false; }
+        return maxElectricalPower.text !== (+heatingConfiguration.maxElectricalPower).toLocaleString() ||
+                gridSupportControl.checked !== heatingConfiguration.controllableLocalSystem ||
+                (heatMeterCombo.visible && meterModel.get(heatMeterCombo.currentIndex).thingId !== heatingConfiguration.heatMeterThingId.toString());
+    }
 
     function applyChanges() {
         let inputText = maxElectricalPower.text
@@ -57,7 +62,7 @@ Page {
 
     function buildMeterModel() {
         meterModel.clear();
-        meterModel.append({ text: qsTr("No meter"), thingId: "" });
+        meterModel.append({ text: qsTr("No meter"), thingId: "{00000000-0000-0000-0000-000000000000}" });
         for (let i = 0; i < smartMeterConsumerProxy.count; i++) {
             let t = smartMeterConsumerProxy.get(i);
             if (t.thingClass.interfaces.indexOf("hideable") >= 0) {
@@ -160,7 +165,6 @@ Page {
 
                     CoInputField {
                         id: maxElectricalPower
-                        property bool maxElectricalPowerValid: textField.acceptableInput
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
@@ -200,18 +204,6 @@ Page {
                         model: ListModel { id: meterModel }
                     }
                 }
-            }
-
-            // potential footer for the config app, as a way to show the user that certain attributes where invalid.
-            Label {
-                id: footer
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                color: Style.dangerAccent
-                //text: qsTr("For a better optimization you can please insert the upper data, so our optimizer has the information it needs.")
-                wrapMode: Text.WordWrap
-                font.pixelSize: app.smallFont
             }
         }
     }
