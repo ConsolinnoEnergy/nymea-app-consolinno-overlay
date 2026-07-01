@@ -139,7 +139,7 @@ Item {
                 onClicked: {
                     var isRemote=function()
                     {
-                        if  (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
+                        if  (["hems-demo.consolinno-it.de", "hems-demo.services-test.consolinno-it.de"].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
                             return true
                         }
                         if  (engine.jsonRpcClient.currentConnection.hostAddress.toString().includes("hems-remoteproxy")) {
@@ -165,7 +165,7 @@ Item {
                 onClicked: {
                     var isRemote=function()
                     {
-                        if  (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
+                        if  (["hems-demo.consolinno-it.de", "hems-demo.services-test.consolinno-it.de"].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
                             return true
                         }
                         if  (engine.jsonRpcClient.currentConnection.hostAddress.toString().includes("hems-remoteproxy")) {
