@@ -19,7 +19,7 @@ Page {
 
     readonly property bool applyEnabled: {
         if (!maxElectricalPower.acceptableInput) { return false; }
-        return maxElectricalPower.text !== (+heatingConfiguration.maxElectricalPower).toLocaleString() ||
+        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingConfiguration.maxElectricalPower) > 0.000001 ||
                 gridSupportControl.checked !== heatingConfiguration.controllableLocalSystem ||
                 (heatMeterCombo.visible && meterModel.get(heatMeterCombo.currentIndex).thingId !== heatingConfiguration.heatMeterThingId.toString());
     }
@@ -219,4 +219,3 @@ Page {
         }
     }
 }
-

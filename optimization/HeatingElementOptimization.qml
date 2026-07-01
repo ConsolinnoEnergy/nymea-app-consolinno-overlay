@@ -18,7 +18,7 @@ Page {
 
     readonly property bool applyEnabled: {
         if (!maxElectricalPower.acceptableInput) { return false; }
-        return maxElectricalPower.text !== (+heatingElementConfiguration.maxElectricalPower).toLocaleString() ||
+        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingElementConfiguration.maxElectricalPower) > 0.000001 ||
                 gridSupportControl.checked !== heatingElementConfiguration.controllableLocalSystem;
     }
 

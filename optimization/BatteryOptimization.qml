@@ -19,7 +19,7 @@ Page {
 
     readonly property bool applyEnabled: {
         if (maxElectricalPower.visible && !maxElectricalPower.acceptableInput) { return false; }
-        return (maxElectricalPower.visible && maxElectricalPower.text !== (+batteryConfiguration.maxElectricalPower).toLocaleString()) ||
+        return (maxElectricalPower.visible && Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - batteryConfiguration.maxElectricalPower) > 0.000001) ||
                 gridSupportControl.checked !== batteryConfiguration.controllableLocalSystem ||
                 (zeroCompensationControl.visible && zeroCompensationControl.checked !== batteryConfiguration.avoidZeroFeedInEnabled) ||
                 (blockEVChargingFromBatteryControl.visible && blockEVChargingFromBatteryControl.checked !== Boolean(batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)) ||

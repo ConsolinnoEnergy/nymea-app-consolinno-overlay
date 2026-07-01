@@ -23,11 +23,11 @@ Page {
                 !peakPowerInput.acceptableInput) {
             return false;
         }
-        return Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== pvConfiguration.latitude ||
-                Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== pvConfiguration.longitude ||
+        return Math.abs(Number.fromLocaleString(Qt.locale(), latitudeInput.text) - pvConfiguration.latitude) > 0.000001 ||
+                Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
                 Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
                 alignment.currentValue !== pvConfiguration.alignment ||
-                Number.fromLocaleString(Qt.locale(), peakPowerInput.text) !== pvConfiguration.kwPeak ||
+                Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
                 (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
     }
 
