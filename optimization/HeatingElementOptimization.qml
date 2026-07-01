@@ -16,7 +16,11 @@ Page {
     property int directionID: 0
     signal done()
 
-    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+    readonly property bool applyEnabled: {
+        if (!maxElectricalPower.acceptableInput) { return false; }
+        return maxElectricalPower.text !== (+heatingElementConfiguration.maxElectricalPower).toLocaleString() ||
+                gridSupportControl.checked !== heatingElementConfiguration.controllableLocalSystem;
+    }
 
     function applyChanges() {
         let inputText = maxElectricalPower.text
@@ -24,7 +28,7 @@ Page {
         d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
             "maxElectricalPower": parseFloat(inputText),
             "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
-            "controllableLocalSystem": controllSwitch.checked
+            "controllableLocalSystem": gridSupportControl.checked
         })
         if (directionID !== 1) {
             pageStack.pop()
@@ -100,7 +104,6 @@ Page {
 
                     CoInputField {
                         id: maxElectricalPower
-                        property bool maxElectricalPowerValid: textField.acceptableInput
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
@@ -118,7 +121,7 @@ Page {
                     }
 
                     CoSwitch {
-                        id: controllSwitch
+                        id: gridSupportControl
                         Layout.fillWidth: true
                         text: qsTr("Grid-supportive-control")
                         helpText: qsTr("If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.")
