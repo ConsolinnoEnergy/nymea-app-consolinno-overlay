@@ -80,15 +80,16 @@ GenericConfigPage {
             }
         }
 
-        onBatteryConfigurationChanged: {
-            tariffControlledChargingToggle.checked = batteryConfiguration.optimizationEnabled;
-            chargeOnceToggle.checked = batteryConfiguration.chargeOnce;
-            relChargingThreshold = batteryConfiguration.priceThreshold;
-            relDischargeBlockedThreshold = batteryConfiguration.dischargePriceThreshold;
+        onBatteryConfigurationChanged: function(config) {
+            if (config.batteryThingId !== thing.id) { return; }
+            tariffControlledChargingToggle.checked = config.optimizationEnabled;
+            chargeOnceToggle.checked = config.chargeOnce;
+            relChargingThreshold = config.priceThreshold;
+            relDischargeBlockedThreshold = config.dischargePriceThreshold;
             console.debug("Battery configuration changed received. New priceThreshold: " +
-                          batteryConfiguration.priceThreshold +
+                          config.priceThreshold +
                           ", dischargePriceThreshold: " +
-                          batteryConfiguration.dischargePriceThreshold);
+                          config.dischargePriceThreshold);
         }
     }
 
@@ -107,8 +108,7 @@ GenericConfigPage {
         currentPriceLabel.text = Number(currentPrice).toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh";
     }
 
-    function saveSettings()
-    {
+    function saveSettings() {
         let targetSocPvSurplus = pvPrioGroup.visible ? [ Math.round(pvPrioSlider.value) ] : batteryConfiguration.targetSocPvSurplus;
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
@@ -122,8 +122,7 @@ GenericConfigPage {
                                                               });
     }
 
-    function enableSave(obj)
-    {
+    function enableSave(obj) {
         root.applyEnabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
@@ -288,7 +287,7 @@ GenericConfigPage {
                             id: chargeOnceToggle
                             Layout.fillWidth: true
                             text: qsTr("Activate instant charging")
-                            enabled: !root.isZeroCompensation
+                            enabled: tariffControlledChargingToggle.checked && !root.isZeroCompensation
                             // #TODO show helpText when not enabled to explain why?
                             visible: tariffControlledChargingToggle.checked
                             infoUrl: "ActivateInstantChargingInfo.qml"
