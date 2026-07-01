@@ -16,10 +16,20 @@ Page {
 
     signal done
 
-    readonly property bool applyEnabled: latitudeInput.acceptableInput
-                                         && longitudeInput.acceptableInput
-                                         && roofpitchInput.acceptableInput
-                                         && peakPowerInput.acceptableInput
+    readonly property bool applyEnabled: {
+        if (!latitudeInput.acceptableInput ||
+                !longitudeInput.acceptableInput ||
+                !roofpitchInput.acceptableInput ||
+                !peakPowerInput.acceptableInput) {
+            return false;
+        }
+        return Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== pvConfiguration.latitude ||
+                Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== pvConfiguration.longitude ||
+                Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
+                alignment.currentValue !== pvConfiguration.alignment ||
+                Number.fromLocaleString(Qt.locale(), peakPowerInput.text) !== pvConfiguration.kwPeak ||
+                (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
+    }
 
     function applyChanges() {
         if (directionID === 1) {
@@ -65,16 +75,6 @@ Page {
         }
     }
 
-    //    PositionSource{
-    //        id: src
-    //        updateInterval: 1000
-    //        name: "SerialPortNmea"
-    //        preferredPositioningMethods: PositionSource.SatellitePositioningMethods
-    //        active: true
-
-    //        onPositionChanged: {
-    //        }
-    //    }
     header: null
 
     CoHeader {
