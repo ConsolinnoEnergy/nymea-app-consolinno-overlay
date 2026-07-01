@@ -35,11 +35,12 @@ Page {
     property int configuredPhaseLimit: 25
 
     readonly property bool applyEnabled: {
-        if (currentCombo.comboBox.currentValue === 0 &&
-                !currentInput.textField.acceptableInput) {
-            return false;
+        if (currentCombo.currentValue === 0) {
+            if (!currentInput.acceptableInput) { return false; }
+            return Number(currentInput.text) !== configuredPhaseLimit;
+        } else {
+            return currentCombo.currentValue !== configuredPhaseLimit;
         }
-        return phaseLimit > 15;
     }
 
     function applyChanges() {
