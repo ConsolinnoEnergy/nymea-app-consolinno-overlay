@@ -304,16 +304,6 @@ Page {
                             y: dndArea.mouseY - dndArea.dragOffset
                             width: priorityListView.width
                         }
-                            }
-                        }
-
-                        CoSortableCard {
-                            id: dndItem
-                            visible: priorityListView.dragging
-                            dragging: true
-                            y: dndArea.mouseY - dndArea.dragOffset
-                            width: priorityListView.width
-                        }
                     }
 
                     Button {
