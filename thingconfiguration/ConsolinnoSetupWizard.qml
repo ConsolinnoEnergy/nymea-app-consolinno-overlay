@@ -609,14 +609,6 @@ Page {
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                 }
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
 
             Item {
@@ -624,8 +616,9 @@ Page {
                 anchors.fill: parent
 
                 Component.onCompleted: {
+                    console.warn("Trying to create webView");
                     var webView = Qt.createQmlObject(webViewString, webViewContainer);
-                    print("created webView", webView)
+                    console.warn("created webView", webView);
                 }
 
                 property string webViewString:

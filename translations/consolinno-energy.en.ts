@@ -3000,10 +3000,6 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Thing reconfigured!</source>
         <translation type="unfinished"></translation>
     </message>

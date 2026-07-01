@@ -3017,10 +3017,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>OAuth wird auf diesem System nicht unterstützt. Bitte benutze diese App auf einem anderen Gerät um dieses &quot;Thing&quot; einzurichten.</translation>
     </message>
     <message>
-        <source>In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.</source>
-        <translation>Um OAuth auf diesem System zu benutzen, stelle sicher, dass qml-module-qtwebview installiert ist.</translation>
-    </message>
-    <message>
         <source>Thing reconfigured!</source>
         <translation>Thing neu eingerichtet!</translation>
     </message>
