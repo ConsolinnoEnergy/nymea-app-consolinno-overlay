@@ -17,7 +17,16 @@ Page {
     property bool isSetup: false
     signal done()
 
-    readonly property bool applyEnabled: maxElectricalPower.inputValid
+    readonly property bool applyEnabled: {
+        if (maxElectricalPower.visible && !maxElectricalPower.acceptableInput) { return false; }
+        return (maxElectricalPower.visible && maxElectricalPower.text !== (+batteryConfiguration.maxElectricalPower).toLocaleString()) ||
+                gridSupportControl.checked !== batteryConfiguration.controllableLocalSystem ||
+                (zeroCompensationControl.visible && zeroCompensationControl.checked !== batteryConfiguration.avoidZeroFeedInEnabled) ||
+                (blockEVChargingFromBatteryControl.visible && blockEVChargingFromBatteryControl.checked !== Boolean(batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)) ||
+                (hemsControlledBattery.visible && hemsControlledBattery.checked !== batteryConfiguration.fullymanagableBattery) ||
+                (maxSoc.visible && maxSoc.value !== batteryConfiguration.maxSoC) ||
+                (minSoc.visible && minSoc.value !== batteryConfiguration.minSoC);
+    }
 
     function applyChanges() {
         var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
@@ -120,7 +129,6 @@ Page {
 
                     CoInputField {
                         id: maxElectricalPower
-                        property bool inputValid: !visible || textField.acceptableInput
                         Layout.fillWidth: true
                         visible: !thing.thingClass.interfaces.includes("controllablebattery")
                         labelText: qsTr("Maximal electrical power")
