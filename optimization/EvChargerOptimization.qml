@@ -15,6 +15,10 @@ Page {
     property int directionID: 0
     signal done()
 
+    readonly property bool applyEnabled: {
+        return gridSupportControl.checked != chargingOptimizationConfiguration.controllableLocalSystem;
+    }
+
     function applyChanges() {
         hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId,
                                                          {
@@ -106,17 +110,6 @@ Page {
                     }
                 }
             }
-
-            // potential footer for the config app, as a way to show the user that certain attributes where invalid.
-            Label {
-                id: footer
-                Layout.fillWidth: true
-                Layout.leftMargin: app.margins
-                Layout.rightMargin: app.margins
-                color: Style.dangerAccent
-                wrapMode: Text.WordWrap
-                font.pixelSize: app.smallFont
-            }
         }
     }
 
@@ -127,6 +120,7 @@ Page {
         CoNavbarButton {
             text: qsTr("Apply changes")
             onClicked: root.applyChanges()
+            enabled: root.applyEnabled
         }
     }
 }
