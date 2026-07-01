@@ -105,7 +105,11 @@ ConsolinnoWizardPageBase {
                 text: qsTr("Demo mode")
                 flat: true
                 onClicked: {
-                    var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', 'nymeas://hems-demo.consolinno-it.de:31222');
+                    var url = 'nymeas://hems-demo.consolinno-it.de:31222'
+                    if (Qt.platform.os === "wasm") {
+                        url = 'wss://hems-demo.services-test.consolinno-it.de:443/ws'
+                    }
+                    var host = nymeaDiscovery.nymeaHosts.createWanHost('Demo server', url)
                     engine.jsonRpcClient.connectToHost(host);
                 }
             }
