@@ -205,12 +205,12 @@ Page {
                         labelText: qsTr("Maximum SoC")
                         valueText: value + " %"
                         stepSize: 1
-                        from: 0
+                        from: 1
                         to: 100
 
                         onValueChanged: {
-                            if (minSoc.value > value) {
-                                minSoc.value = value;
+                            if (minSoc.value >= value) {
+                                minSoc.value = value - 1;
                             }
                         }
 
@@ -227,11 +227,11 @@ Page {
                         valueText: value + " %"
                         stepSize: 1
                         from: 0
-                        to: 100
+                        to: 99
 
                         onValueChanged: {
-                            if (maxSoc.value < value) {
-                                maxSoc.value = value;
+                            if (maxSoc.value <= value) {
+                                maxSoc.value = value + 1;
                             }
                         }
 
