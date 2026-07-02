@@ -611,58 +611,25 @@ Page {
                 }
             }
 
-            Item {
-                id: webViewContainer
+            Loader {
+                id: webViewLoader
                 anchors.fill: parent
+                source: Qt.resolvedUrl("OAuthWebView.qml")
 
-                Component.onCompleted: {
-                    console.warn("Trying to create webView");
-                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
-                    console.warn("created webView", webView);
+                Binding {
+                    target: webViewLoader.item
+                    property: "oAuthUrl"
+                    value: oAuthPage.oAuthUrl
+                    when: webViewLoader.status === Loader.Ready
                 }
 
-                property string webViewString:
-                    '
-                    import QtQuick;
-                    import QtWebView;
-                    import QtQuick.Controls
-                    import Nymea;
-
-                    Rectangle {
-                        anchors.fill: parent
-                        color: Style.backgroundColor
-
-                        BusyIndicator {
-                            id: busyIndicator
-                            anchors.centerIn: parent
-                            running: oAuthWebView.loading
-                        }
-
-                        WebView {
-                            id: oAuthWebView
-                            anchors.fill: parent
-                            url: oAuthPage.oAuthUrl
-
-                            function finishProcess(url) {
-                                print("Confirm pairing")
-                                engine.thingManager.confirmPairing(d.pairingTransactionId, url)
-                                busyIndicator.running = true
-                                oAuthWebView.visible = false
-                            }
-
-                            onUrlChanged: {
-                                print("OAUTH URL changed", url)
-                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
-                                    print("Redirect URL detected!")
-                                    finishProcess(url)
-                                } else if (url.toString().indexOf("device-complete") >= 0) {
-                                    print("Device code finish URL detected!")
-                                    finishProcess(url)
-                                }
-                            }
-                        }
+                Connections {
+                    target: webViewLoader.item
+                    function onPairingFinished(redirectUrl) {
+                        print("Confirm pairing", redirectUrl)
+                        engine.thingManager.confirmPairing(d.pairingTransactionId, redirectUrl)
                     }
-                    '
+                }
             }
         }
     }
