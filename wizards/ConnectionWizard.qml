@@ -535,10 +535,14 @@ ConsolinnoWizardPageBase {
                 id: discoverLeafletFlickable
                 anchors.fill: parent
                 clip: true
+                contentWidth: width
+                contentHeight: contentColumn.implicitHeight + contentColumn.anchors.topMargin + contentColumn.anchors.bottomMargin
 
                 ColumnLayout {
                     id: contentColumn
-                    anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.margins: Style.margins
                     anchors.topMargin: discoverLeafletPage.headerHeight + Style.margins
                     anchors.bottomMargin: discoverLeafletPage.navigationFooterHeight + Style.margins
