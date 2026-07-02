@@ -249,11 +249,12 @@ ConsolinnoWizardPageBase {
                         TextArea {
                             id: textAreaTerms
                             width: parent.width
-                            font: Style.smallFont
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
                             readOnly: true
                             padding: 0
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
 
                             background: Rectangle {
                                 color: "transparent"
@@ -376,11 +377,12 @@ ConsolinnoWizardPageBase {
                         TextArea {
                             id: textAreaPrivacyPolicy
                             width: parent.width
-                            font: Style.smallFont
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
                             readOnly: true
                             padding: 0
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
 
                             background: Rectangle {
                                 color: "transparent"
@@ -459,6 +461,8 @@ ConsolinnoWizardPageBase {
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             text: qsTr("Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.")
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
                         }
 
                         Image {
