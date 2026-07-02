@@ -245,6 +245,7 @@ ConsolinnoWizardPageBase {
                         flickableDirection: Flickable.VerticalFlick
                         contentWidth: width
                         contentHeight: textAreaTerms.implicitHeight
+                        onContentXChanged: contentX = 0
 
                         Text {
                             id: textAreaTerms
@@ -367,6 +368,7 @@ ConsolinnoWizardPageBase {
                         flickableDirection: Flickable.VerticalFlick
                         contentWidth: width
                         contentHeight: textAreaPrivacyPolicy.implicitHeight
+                        onContentXChanged: contentX = 0
 
                         Text {
                             id: textAreaPrivacyPolicy
