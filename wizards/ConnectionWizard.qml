@@ -242,6 +242,7 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: licenseTermsCard.availableContentHeight
+                        contentWidth: availableWidth
                         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                         ScrollBar.vertical.policy: ScrollBar.AlwaysOff
 
@@ -368,6 +369,7 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: privacyPolicyCard.availableContentHeight
+                        contentWidth: availableWidth
                         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
                         ScrollBar.vertical.policy: ScrollBar.AlwaysOff
 
@@ -535,6 +537,7 @@ ConsolinnoWizardPageBase {
                 id: discoverLeafletFlickable
                 anchors.fill: parent
                 clip: true
+                flickableDirection: Flickable.VerticalFlick
                 contentWidth: width
                 contentHeight: contentColumn.implicitHeight + contentColumn.anchors.topMargin + contentColumn.anchors.bottomMargin
 
@@ -750,6 +753,8 @@ ConsolinnoWizardPageBase {
                 id: manualConnectionFlickable
                 anchors.fill: parent
                 clip: true
+                flickableDirection: Flickable.VerticalFlick
+                contentWidth: width
 
                 ColumnLayout {
                     id: contentColumn
