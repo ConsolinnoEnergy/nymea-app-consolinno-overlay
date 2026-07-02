@@ -246,18 +246,13 @@ ConsolinnoWizardPageBase {
                         contentWidth: width
                         contentHeight: textAreaTerms.implicitHeight
 
-                        TextArea.flickable: TextArea {
+                        Text {
                             id: textAreaTerms
+                            width: parent.width
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
-                            readOnly: true
-                            padding: 0
                             font: Style.newParagraphFont
                             color: Style.colors.typography_Basic_Default
-
-                            background: Rectangle {
-                                color: "transparent"
-                            }
 
                             Component.onCompleted: {
                                 loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
@@ -373,18 +368,13 @@ ConsolinnoWizardPageBase {
                         contentWidth: width
                         contentHeight: textAreaPrivacyPolicy.implicitHeight
 
-                        TextArea.flickable: TextArea {
+                        Text {
                             id: textAreaPrivacyPolicy
+                            width: parent.width
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
-                            readOnly: true
-                            padding: 0
                             font: Style.newParagraphFont
                             color: Style.colors.typography_Basic_Default
-
-                            background: Rectangle {
-                                color: "transparent"
-                            }
 
                             Component.onCompleted: {
                                 loadHtmlFile("../privacy_agreement_de_DE.html", textAreaPrivacyPolicy);
