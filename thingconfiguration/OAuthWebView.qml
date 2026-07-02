@@ -47,6 +47,25 @@ Item {
         anchors.fill: parent
         url: parent.oAuthUrl
 
+        // Inject a responsive viewport meta tag once the page has loaded.
+        // OAuth pages that lack <meta name="viewport"> render at desktop scale
+        // on Android — this ensures they fit the screen width.
+        onLoadingChanged: function(loadRequest) {
+            if (loadRequest.status === WebView.LoadSucceededStatus) {
+                runJavaScript(
+                    "(function() {" +
+                    "  var m = document.querySelector('meta[name=viewport]');" +
+                    "  if (!m) {" +
+                    "    m = document.createElement('meta');" +
+                    "    m.name = 'viewport';" +
+                    "    document.head.appendChild(m);" +
+                    "  }" +
+                    "  m.content = 'width=device-width, initial-scale=1';" +
+                    "})();"
+                )
+            }
+        }
+
         onUrlChanged: {
             var urlStr = url.toString()
             if (urlStr.indexOf("https://127.0.0.1") === 0 || urlStr.indexOf("device-complete") >= 0) {
