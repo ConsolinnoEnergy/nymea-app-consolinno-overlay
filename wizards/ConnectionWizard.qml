@@ -575,6 +575,7 @@ ConsolinnoWizardPageBase {
                                 model: hostsModel
 
                                 delegate: CoCard {
+                                    id: nymeaHostDelegate
                                     Layout.fillWidth: true
 
                                     property var nymeaHost: hostsModel.get(index)
