@@ -234,7 +234,7 @@ ConsolinnoWizardPageBase {
                     headerText: qsTr("License Terms HEMS<br/>(as of 11/2024)")
                     contentTopMargin: Style.smallMargins
 
-                    ScrollView {
+                    Flickable {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -242,13 +242,12 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: licenseTermsCard.availableContentHeight
-                        contentWidth: availableWidth
-                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                        flickableDirection: Flickable.VerticalFlick
+                        contentWidth: width
+                        contentHeight: textAreaTerms.implicitHeight
 
-                        TextArea {
+                        TextArea.flickable: TextArea {
                             id: textAreaTerms
-                            width: parent.width
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
                             readOnly: true
@@ -362,7 +361,7 @@ ConsolinnoWizardPageBase {
                     headerText: qsTr("Privacy Policy HEMS<br/>(as of 11/2024)")
                     contentTopMargin: Style.smallMargins
 
-                    ScrollView {
+                    Flickable {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -370,13 +369,12 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: privacyPolicyCard.availableContentHeight
-                        contentWidth: availableWidth
-                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                        flickableDirection: Flickable.VerticalFlick
+                        contentWidth: width
+                        contentHeight: textAreaPrivacyPolicy.implicitHeight
 
-                        TextArea {
+                        TextArea.flickable: TextArea {
                             id: textAreaPrivacyPolicy
-                            width: parent.width
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
                             readOnly: true
