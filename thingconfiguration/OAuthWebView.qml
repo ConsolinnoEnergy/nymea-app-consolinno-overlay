@@ -47,11 +47,19 @@ Item {
         anchors.fill: parent
         url: parent.oAuthUrl
 
-        // Inject a responsive viewport meta tag once the page has loaded.
-        // OAuth pages that lack <meta name="viewport"> render at desktop scale
-        // on Android — this ensures they fit the screen width.
-        // We always overwrite the content, even if a viewport tag exists,
-        // because some pages set a fixed desktop width (e.g. width=1200).
+        // Fix viewport scaling for OAuth pages that lack <meta name="viewport">.
+        //
+        // Problem: on Android WebView (unlike QtWebEngine on desktop), injecting a
+        // viewport meta tag via JavaScript after page load does NOT trigger a viewport
+        // recalculation — the layout viewport is fixed at parse time (~980 px for pages
+        // without a viewport tag).  We therefore also apply a CSS zoom so the already-
+        // rendered content is scaled to fit the device width.  The zoom factor is
+        // computed as  screen.width / document.documentElement.scrollWidth  so that
+        // pages that already fit the screen (e.g. Zewo, which ships its own viewport
+        // tag) are left untouched (zoom ≈ 1).
+        //
+        // Injecting the meta tag is kept because it benefits desktop WebEngine builds
+        // and future Android WebView versions that may support dynamic viewport updates.
         onLoadingChanged: function(loadRequest) {
             if (loadRequest.status === WebView.LoadSucceededStatus) {
                 runJavaScript(
@@ -64,7 +72,23 @@ Item {
                     "    document.head.appendChild(m);" +
                     "  }" +
                     "  m.content = 'width=device-width, initial-scale=1';" +
-                    "  return JSON.stringify({url: location.href, viewportBefore: before, viewportAfter: m.content});" +
+                    "  if (!document.getElementById('__qt_vp_style')) {" +
+                    "    var s = document.createElement('style');" +
+                    "    s.id = '__qt_vp_style';" +
+                    "    s.textContent = 'html{-webkit-text-size-adjust:100%!important;text-size-adjust:100%!important}';" +
+                    "    document.head.appendChild(s);" +
+                    "  }" +
+                    "  var scrollW = document.documentElement.scrollWidth;" +
+                    "  var screenW = window.screen.width;" +
+                    "  var zoom = 1;" +
+                    "  if (scrollW > screenW * 1.1) {" +
+                    "    zoom = screenW / scrollW;" +
+                    "    document.body.style.zoom = zoom;" +
+                    "  }" +
+                    "  return JSON.stringify({url: location.href, viewportBefore: before," +
+                    "    screenWidth: screenW, innerWidth: window.innerWidth," +
+                    "    scrollWidth: scrollW, devicePixelRatio: window.devicePixelRatio," +
+                    "    zoomApplied: zoom});" +
                     "})();",
                     function(result) { console.warn('OAuthWebView viewport fix:', result); }
                 )
