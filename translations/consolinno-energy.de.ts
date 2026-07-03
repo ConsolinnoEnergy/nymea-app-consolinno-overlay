@@ -5913,7 +5913,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="59"/>
         <source>The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.</source>
-        <translation>Die Batterie wird ab SoC&#x202f;%1% als letztes priorisiert – unabhängig von ihrer Position in der Liste.</translation>
+        <translation>Die Batterie wird ab SoC&#x202f;%1 % als letztes priorisiert – unabhängig von ihrer Position in der Liste.</translation>
     </message>
 </context>
 <context>
