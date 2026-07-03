@@ -1002,6 +1002,13 @@ GenericConfigPage {
             }
 
             Connections {
+                target: hemsManager.emsConfiguration
+                onPvSurplusPriolistChanged: function() {
+                    pvPrioCard.updatePrioFromConfig();
+                }
+            }
+
+            Connections {
                 target: chargingConfiguration
                 onChargingScheduleChanged: {
                     restoreSchedule();
@@ -1223,6 +1230,10 @@ GenericConfigPage {
                                 onClicked: {
                                     pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"),
                                                    { alwaysEnabledThingId: root.thing.id.toString() });
+                                }
+
+                                function updatePrioFromConfig() {
+                                    text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
                                 }
                             }
 

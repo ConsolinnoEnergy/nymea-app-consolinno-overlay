@@ -83,6 +83,13 @@ GenericConfigPage {
         }
     }
 
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: function() {
+            pvPrioCard.updatePrioFromConfig();
+        }
+    }
+
     ListModel {
         id: optimizationModesModel
         ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
@@ -240,6 +247,10 @@ GenericConfigPage {
                             labelText: qsTr("Priority")
                             text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                             showChildrenIndicator: true
+
+                            function updatePrioFromConfig() {
+                                text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
+                            }
 
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });

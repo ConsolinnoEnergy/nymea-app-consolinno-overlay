@@ -102,6 +102,13 @@ GenericConfigPage {
                              }
     }
 
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: function() {
+            pvPrioCard.updatePrioFromConfig();
+        }
+    }
+
     function updatePrice() {
         if (dynamicPrice.count === 0) return;
         currentPrice = dynamicPrice.get(0).stateByName("currentMarketPrice").value;
@@ -234,6 +241,10 @@ GenericConfigPage {
 
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });
+                            }
+
+                            function updatePrioFromConfig() {
+                                text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
                             }
                         }
 
