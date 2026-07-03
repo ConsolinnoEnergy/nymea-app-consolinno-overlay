@@ -474,7 +474,7 @@ StackView {
                 CoFrostyCard {
                     Layout.fillWidth: true
                     contentTopMargin: Style.margins
-                    headerText: qsTr("Device connection")
+                    headerText: qsTr("Connect device")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -483,7 +483,7 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
-                            text: qsTr("The control box or the ripple control receiver must be connected as described in our manual.")
+                            text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                             interactive: false
                         }
                     }

@@ -1510,27 +1510,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="785"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="775"/>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="786"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
         <source>TCP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="786"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
         <source>Websocket</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="793"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="783"/>
         <source>Address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="810"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="800"/>
         <source>Port:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1540,34 +1540,34 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="304"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="299"/>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="786"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
         <source>Remote proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="794"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="784"/>
         <source>Proxy address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="804"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="794"/>
         <source>%1 UUID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="559"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="549"/>
         <source>Discovered Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="195"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="316"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="417"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="311"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="407"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1577,12 +1577,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="461"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="451"/>
         <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="575"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="565"/>
         <source>Searching for your %1...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1594,10 +1594,10 @@
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="115"/>
         <location filename="../wizards/ConnectionWizard.qml" line="207"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="334"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="423"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="509"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="739"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="329"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="413"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="499"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="729"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1607,48 +1607,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="361"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="356"/>
         <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="448"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="438"/>
         <source>Network connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="502"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="772"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="492"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="762"/>
         <source>Manual setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="692"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="682"/>
         <source>Finish setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="824"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="814"/>
         <source>Establish a connection via SSL.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="291"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="286"/>
         <source>Yes, I agree to open a user account, according to part 6.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="13"/>
         <location filename="../wizards/ConnectionWizard.qml" line="173"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="281"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="408"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="493"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="683"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="276"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="398"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="483"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="673"/>
         <source>Setup %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="576"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="566"/>
         <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1658,12 +1658,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="293"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="288"/>
         <source>You must create a user account to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="306"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="301"/>
         <source>You must agree to the privacy policy to continue.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3718,7 +3718,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="387"/>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="528"/>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="597"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="705"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="672"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3726,7 +3726,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="387"/>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="528"/>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="597"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="705"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="672"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3772,37 +3772,37 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="725"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
         <source>Thing reconfigured!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="725"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
         <source>Thing added!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="725"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
         <source>Uh oh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="733"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="700"/>
         <source>All done. You can now start using %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="733"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="700"/>
         <source>Something went wrong setting up this thing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="688"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="655"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="698"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="665"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4740,11 +4740,13 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="360"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="477"/>
         <source>Connect device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="369"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="486"/>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4759,16 +4761,6 @@ Would you like to continue anyway?</source>
         <location filename="../optimization/GridSupportiveControl.qml" line="406"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="1376"/>
         <source>Reconfigure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="477"/>
-        <source>Device connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="486"/>
-        <source>The control box or the ripple control receiver must be connected as described in our manual.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
