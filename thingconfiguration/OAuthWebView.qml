@@ -50,18 +50,23 @@ Item {
         // Inject a responsive viewport meta tag once the page has loaded.
         // OAuth pages that lack <meta name="viewport"> render at desktop scale
         // on Android — this ensures they fit the screen width.
+        // We always overwrite the content, even if a viewport tag exists,
+        // because some pages set a fixed desktop width (e.g. width=1200).
         onLoadingChanged: function(loadRequest) {
             if (loadRequest.status === WebView.LoadSucceededStatus) {
                 runJavaScript(
                     "(function() {" +
                     "  var m = document.querySelector('meta[name=viewport]');" +
+                    "  var before = m ? m.content : '(none)';" +
                     "  if (!m) {" +
                     "    m = document.createElement('meta');" +
                     "    m.name = 'viewport';" +
                     "    document.head.appendChild(m);" +
                     "  }" +
                     "  m.content = 'width=device-width, initial-scale=1';" +
-                    "})();"
+                    "  return JSON.stringify({url: location.href, viewportBefore: before, viewportAfter: m.content});" +
+                    "})();",
+                    function(result) { console.warn('OAuthWebView viewport fix:', result); }
                 )
             }
         }
