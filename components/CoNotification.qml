@@ -80,7 +80,11 @@ Item {
         id: layout
         anchors.fill: parent
         anchors.margins: Style.smallMargins
-        spacing: 0
+        spacing: root.collapsed ? 0 : Style.smallMargins
+
+        Behavior on spacing {
+            NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
+        }
 
         // ── Title row: [TypeIcon] [Title] [ActionButton] ──────────
         RowLayout {
@@ -111,7 +115,7 @@ Item {
             Text {
                 id: titleText
                 Layout.fillWidth: true
-                Layout.bottomMargin: Style.smallMargins
+                Layout.bottomMargin: 0
                 verticalAlignment: Text.AlignVCenter
                 wrapMode: Text.WordWrap
                 font: Style.newH3Font
@@ -161,7 +165,7 @@ Item {
 
             Item {
                 Layout.fillWidth: true
-                Layout.preferredHeight: root.collapsed ? 0 : messageText.implicitHeight
+                Layout.preferredHeight: root.collapsed ? 0 : messageText.implicitHeight + 20
                 clip: true
 
                 Behavior on Layout.preferredHeight {
@@ -175,6 +179,7 @@ Item {
                     wrapMode: Text.WordWrap
                     font: Style.newParagraphFont
                     color: root.accentColor()
+                    linkColor: root.accentColor()
 
                     onLinkActivated: function(link) {
                         Qt.openUrlExternally(link)

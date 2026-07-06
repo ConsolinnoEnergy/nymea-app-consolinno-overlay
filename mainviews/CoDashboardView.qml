@@ -297,16 +297,16 @@ MainViewBase {
                         actionType: CoNotification.ActionType.Collapsible
                         title: qsTr("Pending software update")
                         collapsed: false
-                        message: qsTr('
-                            <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.</p>
-                            <p>Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
-                            <p>If this message is still displayed, please contact our service team.</p>
-                            <ul>
-                                %6
-                                <li>Email: <a href=\'mailto:%4\'>%4</a></li>
-                            </ul>
-                            <p>Best regards</p>
-                            <p>Your %3 Team</p>')
+                        message: qsTr("
+Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.<br/><br/>
+Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.<br/><br/>
+If this message is still displayed, please contact our service team.<br/>
+<ul>
+    %6
+    <li>Email: <a href=\'mailto:%4\'>%4</a></li>
+</ul>
+<br/>Best regards<br/><br/>
+Your %3 Team")
                         .arg(appVersion)
                         .arg(engine.jsonRpcClient.experiences.Hems)
                         .arg(Configuration.appName)
