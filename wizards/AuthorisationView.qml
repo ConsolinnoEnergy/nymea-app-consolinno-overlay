@@ -81,12 +81,13 @@ Page {
             Layout.alignment: Qt.AlignCenter
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("To comission devices with the %1, you must be authorized. Otherwise the warranty expires.").arg(Configuration.coreBranding)
+            font: Style.newParagraphFont
+            color: Style.colors.typography_Basic_Default
         }
 
-        ConsolinnoCheckbox {
+        CoCheckBox {
             id: authorisationCheckbox
-            useFillWidth: false
-            position: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 
