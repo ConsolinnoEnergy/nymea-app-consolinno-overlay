@@ -269,7 +269,7 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: qsTr("EEBUS SKI Pairing")
-                            labelText: qsTr("Must be in same network.")
+                            helpText: qsTr("Must be in same network.")
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             enabled: genericEebusDeviceThingClass !== null
@@ -1171,7 +1171,7 @@ StackView {
                                         Layout.fillWidth: true
                                         iconLeft: "/icons/connections/network-wired.svg"
                                         text: model.name
-                                        labelText: model.description
+                                        helpText: model.description
                                         showChildrenIndicator: true
                                         onClicked: {
                                             pageStack.push(eebusSetup,
@@ -1311,8 +1311,8 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                                    labelText: qsTr("This SKI is required by the metering point operator.")
-                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    helpText: qsTr("This SKI is required by the metering point operator.")
+                                    labelText: qsTr("Local Subject Key Identifier (SKI)")
                                     iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                                     iconRightColor: Style.colors.brand_Basic_Accent
                                     interactive: text !== "-"
@@ -1330,7 +1330,7 @@ StackView {
                                         property var param: eebusSetupPage.discoveryThingParams.params.getParam(eebusSetupPage.thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
-                                        helpText: model.displayName
+                                        labelText: model.displayName
                                     }
                                 }
                             }
@@ -1468,8 +1468,8 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                                    labelText: qsTr("This SKI is required by the metering point operator.")
-                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    helpText: qsTr("This SKI is required by the metering point operator.")
+                                    labelText: qsTr("Local Subject Key Identifier (SKI)")
                                     iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                                     iconRightColor: Style.colors.brand_Basic_Accent
                                     interactive: text !== "-"
@@ -1760,8 +1760,8 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                            labelText: qsTr("This SKI is required by the metering point operator.")
-                            helpText: qsTr("Local Subject Key Identifier (SKI)")
+                            helpText: qsTr("This SKI is required by the metering point operator.")
+                            labelText: qsTr("Local Subject Key Identifier (SKI)")
                             iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                             iconRightColor: Style.colors.brand_Basic_Accent
                             interactive: text !== "-"
