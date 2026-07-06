@@ -16,7 +16,13 @@ Page {
     property int directionID: 0
     signal done()
 
-    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+    readonly property bool applyEnabled: {
+        if (!maxElectricalPower.maxElectricalPowerValid) { return false; }
+
+        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - switchConfiguration.maxElectricalPower) > 0.000001;
+        // #TODO CLS toggle starting with version 2.2.
+                // gridSupportControl.checked !== switchConfiguration.controllableLocalSystem
+    }
 
     function applyChanges() {
         let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
@@ -121,7 +127,7 @@ Page {
                     }
 
                     CoSwitch {
-                        id: controllSwitch
+                        id: gridSupportControl
                         Layout.fillWidth: true
                         visible: false // #TODO CLS toggle only starting with version 2.2
                         text: qsTr("Grid-supportive-control")
