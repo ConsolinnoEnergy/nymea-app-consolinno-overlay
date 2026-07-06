@@ -39,7 +39,7 @@ SettingsPageBase {
     id: root
     property Thing thing: null
     property var stateTypes: []
-    property Component navbarControls: configureThingControls
+    property Component navbarControls: settingsRepeater.count > 0 ? configureThingControls : undefined
     busy: d.pendingCommand != -1
 
     Component {
