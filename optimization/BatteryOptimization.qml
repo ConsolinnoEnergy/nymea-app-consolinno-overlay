@@ -13,19 +13,24 @@ Page {
     property int navigationFooterHeight: 0
     property BatteryConfiguration batteryConfiguration
     property Thing thing
-    property int directionID: 0
+    property bool calledFromAssistant: false
     property bool isSetup: false
     signal done()
 
     readonly property bool applyEnabled: {
         if (maxElectricalPower.visible && !maxElectricalPower.acceptableInput) { return false; }
-        return (maxElectricalPower.visible && Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - batteryConfiguration.maxElectricalPower) > 0.000001) ||
-                gridSupportControl.checked !== batteryConfiguration.controllableLocalSystem ||
-                (zeroCompensationControl.visible && zeroCompensationControl.checked !== batteryConfiguration.avoidZeroFeedInEnabled) ||
-                (blockEVChargingFromBatteryControl.visible && blockEVChargingFromBatteryControl.checked !== Boolean(batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)) ||
-                (hemsControlledBattery.visible && hemsControlledBattery.checked !== batteryConfiguration.fullymanagableBattery) ||
-                (maxSoc.visible && maxSoc.value !== batteryConfiguration.maxSoC) ||
-                (minSoc.visible && minSoc.value !== batteryConfiguration.minSoC);
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return (maxElectricalPower.visible && Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - batteryConfiguration.maxElectricalPower) > 0.000001) ||
+                    gridSupportControl.checked !== batteryConfiguration.controllableLocalSystem ||
+                    (zeroCompensationControl.visible && zeroCompensationControl.checked !== batteryConfiguration.avoidZeroFeedInEnabled) ||
+                    (blockEVChargingFromBatteryControl.visible && blockEVChargingFromBatteryControl.checked !== Boolean(batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)) ||
+                    (hemsControlledBattery.visible && hemsControlledBattery.checked !== batteryConfiguration.fullymanagableBattery) ||
+                    (maxSoc.visible && maxSoc.value !== batteryConfiguration.maxSoC) ||
+                    (minSoc.visible && minSoc.value !== batteryConfiguration.minSoC);
+        }
     }
 
     function applyChanges() {
@@ -53,7 +58,7 @@ Page {
         }
 
         hemsManager.setBatteryConfiguration(batteryConfiguration.batteryThingId, config);
-        if (directionID !== 1) {
+        if (!calledFromAssistant) {
             pageStack.pop();
         }
         root.done();
@@ -67,7 +72,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Battery")
-        backButtonVisible: directionID === 1 ? false : true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -259,7 +264,7 @@ Page {
     Component {
         id: batteryOptimizationNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

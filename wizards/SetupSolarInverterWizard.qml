@@ -30,7 +30,7 @@ SetupWizardBase {
             var page = pageStack.push("../optimization/PVOptimization.qml", {
                 pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(thing.id),
                 thing: thing,
-                directionID: 1
+                calledFromAssistant: true
             });
             page.done.connect(function() {
                 pageStack.pop(root);

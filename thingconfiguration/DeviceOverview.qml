@@ -30,7 +30,7 @@ Page {
             CoNavbarButton {
                 Layout.fillWidth: true
                 text: qsTr("Set up new device")
-                onClicked: pageStack.push("../wizards/AuthorisationView.qml", { directionID: 1 })
+                onClicked: pageStack.push("../wizards/AuthorisationView.qml", { calledFromSetupWizard: false })
             }
         }
     }

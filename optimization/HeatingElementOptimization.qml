@@ -13,13 +13,18 @@ Page {
 
     property HeatingElementConfiguration heatingElementConfiguration
     property Thing heatRodThing
-    property int directionID: 0
+    property bool calledFromAssistant: false
     signal done()
 
     readonly property bool applyEnabled: {
         if (!maxElectricalPower.acceptableInput) { return false; }
-        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingElementConfiguration.maxElectricalPower) > 0.000001 ||
-                gridSupportControl.checked !== heatingElementConfiguration.controllableLocalSystem;
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingElementConfiguration.maxElectricalPower) > 0.000001 ||
+                    gridSupportControl.checked !== heatingElementConfiguration.controllableLocalSystem;
+        }
     }
 
     function applyChanges() {
@@ -30,7 +35,7 @@ Page {
             "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
             "controllableLocalSystem": gridSupportControl.checked
         })
-        if (directionID !== 1) {
+        if (!calledFromAssistant) {
             pageStack.pop()
         }
         root.done()
@@ -44,7 +49,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Heating")
-        backButtonVisible: true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -152,7 +157,7 @@ Page {
     Component {
         id: heatingElementNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

@@ -12,7 +12,7 @@ Page {
     property int navigationFooterHeight: 0
     property PvConfiguration pvConfiguration
     property Thing thing
-    property int directionID: 0
+    property bool calledFromAssistant: false
 
     signal done
 
@@ -23,16 +23,22 @@ Page {
                 !peakPowerInput.acceptableInput) {
             return false;
         }
-        return Math.abs(Number.fromLocaleString(Qt.locale(), latitudeInput.text) - pvConfiguration.latitude) > 0.000001 ||
-                Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
-                Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
-                alignment.currentValue !== pvConfiguration.alignment ||
-                Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
-                (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), latitudeInput.text) - pvConfiguration.latitude) > 0.000001 ||
+                    Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
+                    Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
+                    alignment.currentValue !== pvConfiguration.alignment ||
+                    Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
+                    (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
+        }
     }
 
     function applyChanges() {
-        if (directionID === 1) {
+        // #TODO clean up (repetitive, header.text assignment ??)
+        if (calledFromAssistant) {
             if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
                     Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
                 header.text = longitudeInput.text;
@@ -53,7 +59,7 @@ Page {
                                                });
                 root.done();
             }
-        } else if (directionID === 0) {
+        } else {
             if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
                     Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
                 d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
@@ -83,7 +89,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("PV configuration")
-        backButtonVisible: directionID === 1 ? false : true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -282,7 +288,7 @@ Page {
     Component {
         id: pvOptimizationNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

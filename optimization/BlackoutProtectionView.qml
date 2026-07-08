@@ -9,7 +9,7 @@ Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property int directionID: 0
+    property bool calledFromAssistant: false
 
     signal done(bool skip, bool abort, bool back)
 
@@ -22,11 +22,11 @@ Page {
         blurSource: bodyFlickable
         text: qsTr("System")
         backButtonVisible: true
-        onBackPressed:{
-            if (directionID == 0) {
-                pageStack.pop();
-            } else {
+        onBackPressed: {
+            if (calledFromAssistant) {
                 root.done(false, false, true);
+            } else {
+                pageStack.pop();
             }
         }
     }
@@ -35,20 +35,28 @@ Page {
     property int configuredPhaseLimit: 25
 
     readonly property bool applyEnabled: {
-        if (currentCombo.currentValue === 0) {
-            if (!currentInput.acceptableInput) { return false; }
-            return Number(currentInput.text) !== configuredPhaseLimit;
+        if (calledFromAssistant) {
+            if (currentCombo.currentValue === 0 && !currentInput.acceptableInput) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
-            return currentCombo.currentValue !== configuredPhaseLimit;
+            if (currentCombo.currentValue === 0) {
+                if (!currentInput.acceptableInput) { return false; }
+                return Number(currentInput.text) !== configuredPhaseLimit;
+            } else {
+                return currentCombo.currentValue !== configuredPhaseLimit;
+            }
         }
     }
 
     function applyChanges() {
-        if (directionID === 0) {
-            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-        } else if (directionID === 1) {
+        if (calledFromAssistant) {
             hemsManager.setHousholdPhaseLimit(root.phaseLimit);
             root.done(false, false, false);
+        } else {
+            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
         }
     }
 
@@ -187,7 +195,7 @@ Page {
     Component {
         id: blackoutNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

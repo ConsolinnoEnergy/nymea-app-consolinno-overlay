@@ -14,7 +14,7 @@ Page {
 
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property real directionID: 0
+    property bool calledFromSetupWizard: true
     property Component navbarControls: authorisationControls
 
     Component {
@@ -28,9 +28,9 @@ Page {
                 enabled: authorisationCheckbox.checked
                 onClicked: {
                     if (authorisationCheckbox.checked) {
-                        if (directionID == 0) {
+                        if (calledFromSetupWizard) {
                             root.done(false, true);  // abort=false, accepted=true
-                        } else if (directionID == 1) {
+                        } else {
                             pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
                         }
                     }
@@ -42,7 +42,7 @@ Page {
                 text: qsTr("Cancel")
                 flat: true
                 onClicked: {
-                    if (directionID == 0) {
+                    if (calledFromSetupWizard) {
                         root.done(true, false);  // abort=true, accepted=false
                     } else {
                         pageStack.pop();
@@ -56,7 +56,7 @@ Page {
         text: qsTr("Authorisation page")
         backButtonVisible: true
         onBackPressed: {
-            if (directionID == 0) {
+            if (calledFromSetupWizard) {
                 root.done(true, false);  // abort=true, accepted=false
             } else {
                 pageStack.pop();

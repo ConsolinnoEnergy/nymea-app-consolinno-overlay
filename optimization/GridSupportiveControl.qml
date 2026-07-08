@@ -24,7 +24,6 @@ StackView {
               && "navigationFooterHeight" in root.currentItem
     }
 
-    property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eebusGridGuardGateway: null
     property ThingClass genericEebusDeviceThingClass: engine.thingManager.thingClasses.getThingClass("d7448dd7-cafc-4ef7-9169-09ea657f755c")
@@ -146,11 +145,8 @@ StackView {
             header: CoHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
-                onBackPressed:{
-                    if (directionID == 0)
-                    {
-                        pageStack.pop()
-                    }
+                onBackPressed: {
+                    pageStack.pop();
                 }
             }
 

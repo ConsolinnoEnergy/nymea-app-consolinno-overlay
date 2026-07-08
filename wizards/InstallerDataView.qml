@@ -11,7 +11,6 @@ Page{
     bottomPadding: 0
     property int navigationFooterHeight: 0
     signal done(bool saved, bool skip, bool back)
-    property int directionID: 0
     property Component navbarControls: installerDataControls
 
     Component {
@@ -56,11 +55,7 @@ Page{
         //text: userconfig.installerEmail
         backButtonVisible: true
         onBackPressed:{
-            if (directionID == 1) {
-                pageStack.pop();
-            } else {
-                root.done(false, false, true);
-            }
+            root.done(false, false, true);
         }
     }
 

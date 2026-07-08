@@ -29,7 +29,7 @@ SetupWizardBase {
         if (thing) {
             var page = pageStack.push("../optimization/EvChargerOptimization.qml", {
                 thing: thing,
-                directionID: 1
+                calledFromAssistant: true
             });
             page.done.connect(function() {
                 pageStack.pop(root);

@@ -16,10 +16,7 @@ StackView {
 
     initialItem: setUpComponent
 
-    property int directionID: 0
     readonly property string epexDayAheadThingClassId: "{678dd2a6-b162-4bfb-98cc-47f225f9008c}"
-
-    signal done(bool skip, bool abort, bool back);
 
     ThingsProxy {
         id: dynElectricThings
@@ -44,9 +41,7 @@ StackView {
                 text: qsTr("Dynamic electricity tariff")
                 backButtonVisible: true
                 onBackPressed: {
-                    if(directionID == 0) {
-                        pageStack.pop()
-                    }
+                    pageStack.pop();
                 }
             }
 

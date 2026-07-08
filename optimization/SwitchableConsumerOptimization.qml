@@ -13,15 +13,19 @@ Page {
 
     property SwitchConfiguration switchConfiguration
     property Thing switchThing
-    property int directionID: 0
+    property bool calledFromAssistant: false
     signal done()
 
     readonly property bool applyEnabled: {
         if (!maxElectricalPower.maxElectricalPowerValid) { return false; }
 
-        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - switchConfiguration.maxElectricalPower) > 0.000001;
-        // #TODO CLS toggle starting with version 2.2.
-                // gridSupportControl.checked !== switchConfiguration.controllableLocalSystem
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - switchConfiguration.maxElectricalPower) > 0.000001;
+            // #TODO CLS toggle starting with version 2.2.
+            // gridSupportControl.checked !== switchConfiguration.controllableLocalSystem
+        }
     }
 
     function applyChanges() {
@@ -33,7 +37,7 @@ Page {
                 "maxElectricalPower": parsedMaxElectricalPower
             }
         )
-        if (directionID !== 1) {
+        if (!calledFromAssistant) {
             pageStack.pop()
         }
         root.done()
@@ -47,7 +51,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Switchable consumers")
-        backButtonVisible: true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -157,7 +161,7 @@ Page {
     Component {
         id: switchableConsumerNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

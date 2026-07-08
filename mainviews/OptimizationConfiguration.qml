@@ -198,7 +198,7 @@ Page {
                             onClicked: pageStack.push(Qt.resolvedUrl("../optimization/BatteryOptimization.qml"),
                                                       {
                                                           thing: batteryThing,
-                                                          batteryConfiguration:batteryConfiguration
+                                                          batteryConfiguration: batteryConfiguration
                                                       })
                         }
                     }

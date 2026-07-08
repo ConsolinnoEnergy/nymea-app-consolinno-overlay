@@ -61,41 +61,41 @@ Page {
                 thingPage = pageStack.push("../optimization/HeatingOptimization.qml", {
                     heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
                     heatPumpThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("evcharger")) {
                 thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("heatingrod")) {
                 thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", {
                     heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thingDevice.id),
                     heatRodThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("solarinverter")) {
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", {
                     pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id),
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("energystorage")) {
                 thingPage = pageStack.push("../optimization/BatteryOptimization.qml", {
                     batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id),
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("powersocket")) {
                 thingPage = pageStack.push("../optimization/SwitchableConsumerOptimization.qml", {
                     switchConfiguration: hemsManager.switchConfigurations.getSwitchConfiguration(thingDevice.id),
                     switchThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else {
