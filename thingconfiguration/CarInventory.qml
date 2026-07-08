@@ -289,7 +289,7 @@ Page{
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Delete")
                         flat: true
                         onClicked: {

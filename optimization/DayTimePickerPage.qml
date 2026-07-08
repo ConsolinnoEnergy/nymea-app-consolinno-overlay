@@ -55,7 +55,7 @@ Page {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 flat: true
                 text: qsTr("Remove entry")
                 onClicked: {

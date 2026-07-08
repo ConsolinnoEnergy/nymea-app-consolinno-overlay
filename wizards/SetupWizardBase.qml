@@ -46,7 +46,7 @@ Page {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Cancel")
                 flat: true
                 onClicked: root.done(false, true, false)

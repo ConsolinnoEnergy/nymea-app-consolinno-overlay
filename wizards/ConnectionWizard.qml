@@ -101,7 +101,7 @@ ConsolinnoWizardPageBase {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Demo mode")
                 flat: true
                 onClicked: {
@@ -111,7 +111,7 @@ ConsolinnoWizardPageBase {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Cancel")
                 flat: true
                 visible: d.previousHostIndex >= 0
@@ -203,7 +203,7 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -325,7 +325,7 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -409,7 +409,7 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -488,14 +488,14 @@ ConsolinnoWizardPageBase {
                     spacing: Style.smallMargins
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Manual setup")
                         flat: true
                         onClicked: pageStack.push(manualConnectionComponent)
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -725,7 +725,7 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {

@@ -319,7 +319,7 @@ StackView {
                         }
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -524,7 +524,7 @@ StackView {
                         }
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -1112,7 +1112,7 @@ StackView {
                         onClicked: discovery.discoverThings(genericEebusDeviceThingClass.id)
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -1260,7 +1260,7 @@ StackView {
 
                     CoNavbarButton {
                         text: qsTr("Cancel")
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         flat: true
                         onClicked: {
                             pageStack.pop();

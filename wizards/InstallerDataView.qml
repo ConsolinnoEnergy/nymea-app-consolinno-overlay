@@ -34,7 +34,7 @@ Page{
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Skip")
                 flat: true
                 onClicked:{

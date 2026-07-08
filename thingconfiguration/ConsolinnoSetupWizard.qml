@@ -501,7 +501,7 @@ Page {
 
             Button {
                 visible: root.thing ? true : false
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.bigMargins

@@ -163,7 +163,7 @@ Page {
                     spacing: Style.smallMargins
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         visible: root.thing ? true : false
                         flat: true
                         text: qsTr("Reset values to default")
