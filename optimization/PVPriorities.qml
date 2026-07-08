@@ -10,10 +10,10 @@ Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property int directionID: 0
     property string alwaysEnabledThingId: ""
 
     // #TODO needed here? i.e. should this screen be included in the setup assistant?
+    property int directionID: 0
     signal done(bool skip, bool abort, bool back)
 
     header: null
