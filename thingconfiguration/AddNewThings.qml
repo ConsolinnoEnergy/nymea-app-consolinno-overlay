@@ -72,7 +72,7 @@ Page {
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("heatingrod")) {
                 thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", {
-                    heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
+                    heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thingDevice.id),
                     heatRodThing: thingDevice,
                     directionID: 1
                 });
