@@ -5055,38 +5055,28 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
-        <source>Minimum PV surplus power required for activation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="396"/>
         <source>Value must not be below %1 W.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="57"/>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
+        <source>Minimum required PV surplus that allows the HEMS to request an increased operating mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="407"/>
-        <source>Minimum runtime</source>
+        <source>Minimum demand duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="408"/>
-        <source>Runs at least this long after activation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
-        <source>Maximum runtime</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
-        <source>Limits the daily runtime and automatically switches the device off.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="57"/>
-        <source>Apply changes</source>
+        <source>Specifies how long a request for increased operating mode must remain active at minimum.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5098,6 +5088,16 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="419"/>
         <source>Value must be between 00:00 and %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
+        <source>Maximum demand duration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <source>Limits the daily duration for which the HEMS can request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

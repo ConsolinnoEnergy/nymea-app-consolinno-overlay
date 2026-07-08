@@ -5075,39 +5075,29 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Mindestleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
-        <source>Minimum PV surplus power required for activation.</source>
-        <translation>Minimal benötigte PV‑Überschuss-Leistung für die Aktivierung.</translation>
-    </message>
-    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="396"/>
         <source>Value must not be below %1 W.</source>
         <translation>Wert darf nicht unter %1&#x202f;W liegen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="407"/>
-        <source>Minimum runtime</source>
-        <translation>Mindestlaufzeit</translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="408"/>
-        <source>Runs at least this long after activation.</source>
-        <translation>Läuft nach der Aktivierung mindestens so lange.</translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
-        <source>Maximum runtime</source>
-        <translation>Maximale Laufzeit</translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
-        <source>Limits the daily runtime and automatically switches the device off.</source>
-        <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
-    </message>
-    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="57"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
+        <source>Minimum required PV surplus that allows the HEMS to request an increased operating mode.</source>
+        <translation>Minimal erforderlicher PV-Überschuss, damit das HEMS einen erhöhten Betrieb  anfordern kann.</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="407"/>
+        <source>Minimum demand duration</source>
+        <translation>Minimale Anforderungsdauer</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="408"/>
+        <source>Specifies how long a request for increased operating mode must remain active at minimum.</source>
+        <translation>Gibt an, wie lange eine Anforderung für erhöhten Betrieb mindestens bestehen bleibt.</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="409"/>
@@ -5119,6 +5109,16 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../optimization/HeatingConfigView.qml" line="419"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
+        <source>Maximum demand duration</source>
+        <translation>Maximale Anforderungsdauer</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <source>Limits the daily duration for which the HEMS can request an increased operating mode.</source>
+        <translation>Begrenzt die tägliche Dauer, für die das HEMS einen erhöhten Betrieb anfordern kann.</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="452"/>

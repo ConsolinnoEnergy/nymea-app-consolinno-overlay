@@ -390,7 +390,7 @@ GenericConfigPage {
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             compact: true
                             labelText: qsTr("Minimum power")
-                            helpText: qsTr("Minimum PV surplus power required for activation.")
+                            helpText: qsTr("Minimum required PV surplus that allows the HEMS to request an increased operating mode.")
                             unit: "W"
                             text: heatingconfig ? heatingconfig.pvSurplusThreshold : ""
                             feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
@@ -404,8 +404,8 @@ GenericConfigPage {
                             id: minRuntimeStepper
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                            labelText: qsTr("Minimum runtime")
-                            helpText: qsTr("Runs at least this long after activation.")
+                            labelText: qsTr("Minimum demand duration")
+                            helpText: qsTr("Specifies how long a request for increased operating mode must remain active at minimum.")
                             unit: qsTr("hh:mm")
                             compact: true
                             from: 0
@@ -437,8 +437,8 @@ GenericConfigPage {
                             id: maxTotalRuntimeStepper
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                            labelText: qsTr("Maximum runtime")
-                            helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
+                            labelText: qsTr("Maximum demand duration")
+                            helpText: qsTr("Limits the daily duration for which the HEMS can request an increased operating mode.")
                             unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value
