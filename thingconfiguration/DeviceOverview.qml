@@ -133,7 +133,7 @@ Page {
             id: bodyFlickable
             Layout.fillWidth: true
             Layout.fillHeight: true
-            topMargin: header.height
+            topMargin: header.height + Style.smallMargins
             contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
 
