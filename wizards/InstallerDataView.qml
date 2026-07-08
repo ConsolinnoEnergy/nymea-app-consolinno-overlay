@@ -52,7 +52,6 @@ Page{
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Contact")
-        //text: userconfig.installerEmail
         backButtonVisible: true
         onBackPressed:{
             root.done(false, false, true);
@@ -61,73 +60,69 @@ Page{
 
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
-    ColumnLayout {
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: Style.margins
-        anchors.topMargin: header.height
-        spacing: Style.margins
+        topMargin: header.height + Style.smallMargins
+        bottomMargin: Style.smallMargins
+        clip: true
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        Flickable {
-            id: bodyFlickable
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
-            clip: true
+        ColumnLayout {
+            id: layout
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
+            spacing: Style.margins
 
-            ColumnLayout {
-                id: layout
-                anchors { left: parent.left; right: parent.right; top: parent.top }
-                spacing: Style.margins
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Contact (optional)")
 
-                CoFrostyCard {
-                    Layout.fillWidth: true
-                    contentTopMargin: 8
-                    headerText: qsTr("Contact (optional)")
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer's app.")
+                    }
 
-                        CoCard {
-                            Layout.fillWidth: true
-                            text: qsTr("To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer's app.")
-                        }
+                    CoInputField {
+                        id: nameField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Name")
+                        text: userconfig.installerName
+                    }
 
-                        CoInputField {
-                            id: nameField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Name")
-                            text: userconfig.installerName
-                        }
+                    CoInputField {
+                        id: companyField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Workplace")
+                        text: userconfig.installerWorkplace
+                        textField.placeholderText: qsTr("Company")
+                    }
 
-                        CoInputField {
-                            id: companyField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Workplace")
-                            text: userconfig.installerWorkplace
-                            textField.placeholderText: qsTr("Company")
-                        }
+                    CoInputField {
+                        id: emailField
+                        Layout.fillWidth: true
+                        labelText: qsTr("E-mail")
+                        text: userconfig.installerEmail
+                        textField.placeholderText: qsTr("Example@mail.com")
+                    }
 
-                        CoInputField {
-                            id: emailField
-                            Layout.fillWidth: true
-                            labelText: qsTr("E-mail")
-                            text: userconfig.installerEmail
-                            textField.placeholderText: qsTr("Example@mail.com")
-                        }
-
-                        CoInputField {
-                            id: numberField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Phone number")
-                            text: userconfig.installerPhoneNr
-                            textField.placeholderText: qsTr("+1 ")
-                        }
+                    CoInputField {
+                        id: numberField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Phone number")
+                        text: userconfig.installerPhoneNr
+                        textField.placeholderText: qsTr("+1 ")
                     }
                 }
             }
         }
-
     }
 }
