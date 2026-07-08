@@ -390,7 +390,7 @@ GenericConfigPage {
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             compact: true
                             labelText: qsTr("Minimum power")
-                            helpText: qsTr("Minimum required PV surplus that allows the HEMS to request an increased operating mode.")
+                            helpText: qsTr("Minimum required PV surplus that allows the %1 to request an increased operating mode.").arg(Configuration.deviceName)
                             unit: "W"
                             text: heatingconfig ? heatingconfig.pvSurplusThreshold : ""
                             feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
@@ -438,7 +438,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             labelText: qsTr("Maximum demand duration")
-                            helpText: qsTr("Limits the daily duration for which the HEMS can request an increased operating mode.")
+                            helpText: qsTr("Limits the daily duration for which the %1 can request an increased operating mode.").arg(Configuration.deviceName)
                             unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value

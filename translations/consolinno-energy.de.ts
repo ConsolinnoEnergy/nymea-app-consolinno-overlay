@@ -5075,6 +5075,11 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Mindestleistung</translation>
     </message>
     <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
+        <source>Minimum required PV surplus that allows the %1 to request an increased operating mode.</source>
+        <translation>Minimal erforderlicher PV-Überschuss, damit das %1 einen erhöhten Betrieb  anfordern kann.</translation>
+    </message>
+    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="396"/>
         <source>Value must not be below %1 W.</source>
         <translation>Wert darf nicht unter %1&#x202f;W liegen.</translation>
@@ -5085,9 +5090,8 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
         <source>Minimum required PV surplus that allows the HEMS to request an increased operating mode.</source>
-        <translation>Minimal erforderlicher PV-Überschuss, damit das HEMS einen erhöhten Betrieb  anfordern kann.</translation>
+        <translation type="vanished">Minimal erforderlicher PV-Überschuss, damit das HEMS einen erhöhten Betrieb  anfordern kann.</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="407"/>
@@ -5116,9 +5120,8 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Maximale Anforderungsdauer</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
         <source>Limits the daily duration for which the HEMS can request an increased operating mode.</source>
-        <translation>Begrenzt die tägliche Dauer, für die das HEMS einen erhöhten Betrieb anfordern kann.</translation>
+        <translation type="vanished">Begrenzt die tägliche Dauer, für die das HEMS einen erhöhten Betrieb anfordern kann.</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="452"/>
@@ -5129,6 +5132,11 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../optimization/HeatingConfigView.qml" line="353"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation>„PV-Überschuss“</translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
+        <translation>Begrenzt die tägliche Dauer, für die das %1 einen erhöhten Betrieb anfordern kann.</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="475"/>

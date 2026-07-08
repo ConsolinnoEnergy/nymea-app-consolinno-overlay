@@ -5055,6 +5055,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
+        <source>Minimum required PV surplus that allows the %1 to request an increased operating mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="396"/>
         <source>Value must not be below %1 W.</source>
         <translation type="unfinished"></translation>
@@ -5062,11 +5067,6 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="57"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
-        <source>Minimum required PV surplus that allows the HEMS to request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -5096,11 +5096,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
-        <source>Limits the daily duration for which the HEMS can request an increased operating mode.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="452"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
@@ -5108,6 +5103,11 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="353"/>
         <source>&quot;PV Surplus&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
