@@ -518,7 +518,6 @@ Your %3 Team")
                                           Qt.resolvedUrl("/icons/input_circle.svg") :
                                           Qt.resolvedUrl("/icons/output_circle.svg")
                                 onClicked: {
-                                    console.info("Clicked grid card");
                                     pageStack.push(
                                                 "/ui/devicepages/RootMeterDevicePage.qml",
                                                 {
@@ -628,7 +627,6 @@ Your %3 Team")
                                 }
                                 icon: Qt.resolvedUrl("/icons/euro.svg")
                                 onClicked: {
-                                    console.info("Clicked dynamic tariff");
                                     pageStack.push("/ui/devicepages/PageWraper.qml",
                                                    { "thing": thing });
                                 }
@@ -659,7 +657,6 @@ Your %3 Team")
                                                                hemsManager.pvConfigurations.getPvConfiguration(thing.id).controllableLocalSystem :
                                                                false)
                                     onClicked: {
-                                        console.info("Clicked inverter:", thing.name);
                                         pageStack.push(
                                                     "/ui/devicepages/InverterDevicePage.qml",
                                                     {
@@ -701,8 +698,10 @@ Your %3 Team")
                                     powerValue: currentPower
                                     socValue: Math.round(soc)
                                     showWarningIndicator: avoidZeroCompensationActive(battery)
+                                    showInfoIndicator: !showWarningIndicator &&
+                                                       ThingUtils.targetSocPvSurplusExceeded(battery,
+                                                                                             hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))
                                     onClicked: {
-                                        console.info("Clicked battery:", battery.name);
                                         pageStack.push("/ui/optimization/BatteryConfigView.qml", { "thing": battery });
                                     }
                                 }
@@ -734,7 +733,6 @@ Your %3 Team")
                                         thing: heatingThings.get(index)
                                         icon: thingToIcon(thing)
                                         onClicked: {
-                                            console.info("Clicked heating thing:", thing.name);
                                             if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
                                                 pageStack.push(
                                                             "/ui/optimization/HeatingConfigView.qml",
@@ -775,7 +773,6 @@ Your %3 Team")
                                         thing: evChargerThings.get(index)
                                         icon: thingToIcon(thing)
                                         onClicked: {
-                                            console.info("Clicked EV charger thing:", thing.name);
                                             // Check if these states are provided by the thing
                                             let pluggedIn = thing.stateByName("pluggedIn");
                                             let maxChargingCurrent = thing.stateByName("maxChargingCurrent");
@@ -831,7 +828,6 @@ Your %3 Team")
                                             return true
                                         }
                                         onClicked: {
-                                            console.info("Clicked thing:", thing.name);
                                             if (thing.thingClass.interfaces.indexOf("powersocket") >= 0) {
                                                 pageStack.push(
                                                             "/ui/devicepages/SwitchableConsumerDevicePage.qml",

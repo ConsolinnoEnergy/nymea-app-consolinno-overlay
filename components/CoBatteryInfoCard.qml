@@ -10,6 +10,7 @@ Item {
     property alias text: titleText.text
     property double socValue: 0
     property double powerValue: 0
+    property bool showInfoIndicator: false
     property bool showWarningIndicator: false
     property bool showErrorIndicator: false
     property bool clickable: true
@@ -156,21 +157,25 @@ Item {
             leftMargin: 11
         }
 
-        visible: showWarningIndicator || showErrorIndicator
+        visible: showInfoIndicator || showWarningIndicator || showErrorIndicator
         width: 17
         height: 17
         radius: width / 2
         border.width: 1
-        border.color: showWarningIndicator ?
-                          Style.colors.system_Warning_Status_border :
-                          showErrorIndicator ?
-                              Style.colors.system_Danger_Status_light_border :
-                              "transparent"
-        color: showWarningIndicator ?
-                   Style.colors.system_Warning_Status_light :
-                   showErrorIndicator ?
-                       Style.colors.system_Danger_Status_light :
-                       "transparent"
+        border.color: showErrorIndicator ?
+                          Style.colors.system_Danger_Status_light_border :
+                          showWarningIndicator ?
+                              Style.colors.system_Warning_Status_border :
+                              showInfoIndicator ?
+                                  Style.colors.system_Neutral_Status_light_border :
+                                  "transparent"
+        color: showErrorIndicator ?
+                   Style.colors.system_Danger_Status_light :
+                   showWarningIndicator ?
+                       Style.colors.system_Warning_Status_light :
+                       showInfoIndicator ?
+                           Style.colors.system_Neutral_Status_light :
+                           "transparent"
     }
 
     MouseArea {

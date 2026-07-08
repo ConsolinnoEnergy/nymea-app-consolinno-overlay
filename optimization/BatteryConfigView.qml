@@ -21,6 +21,7 @@ GenericConfigPage {
     readonly property State batteryLevelState: thing.stateByName("batteryLevel")
     readonly property State currentPowerState: thing.stateByName("currentPower")
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
+    property bool targetSocPvSurplusExceeded: ThingUtils.targetSocPvSurplusExceeded(thing, batteryConfiguration)
 
     property double absChargingThreshold: 0
     property double absDischargeBlockedThreshold: 0
@@ -191,6 +192,15 @@ GenericConfigPage {
                     onClicked: {
                         pageStack.push("/ui/info/AvoidZeroCompensationInfo.qml", {stack: pageStack});
                     }
+                }
+
+                CoNotification {
+                    id: targetSocPvSurplusExceededInfo
+                    Layout.fillWidth: true
+                    visible: !avoidZeroCompensationWarning.visible && targetSocPvSurplusExceeded
+                    type: CoNotification.Type.Neutral
+                    title: qsTr("PV device prioritization⁨⁨")
+                    message: qsTr("⁨The battery has reached the SoC limit of %1% and is now prioritized last.").arg(batteryConfiguration.targetSocPvSurplus[0])
                 }
 
                 CoEnergyCircle {

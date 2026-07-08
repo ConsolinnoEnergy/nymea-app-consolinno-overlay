@@ -212,129 +212,139 @@
 <context>
     <name>BatteryConfigView</name>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="69"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="70"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="72"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="73"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="219"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="229"/>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="206"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="429"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="216"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="439"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="208"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="218"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="209"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="219"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="270"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="280"/>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="300"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="310"/>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="189"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="190"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="188"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="189"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="340"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="373"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="350"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="383"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="282"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="292"/>
         <source>Tariff-controlled charging</source>
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="445"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="455"/>
         <source>Discharging blocked</source>
         <translation>Entladen blockiert</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="461"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="471"/>
         <source>Discharging allowed</source>
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="339"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="349"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="372"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="338"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="348"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="371"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="220"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="230"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="227"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="202"/>
+        <source>PV device prioritization⁨⁨</source>
+        <translation>PV-Gerätepriorisierung</translation>
+    </message>
+    <message>
+        <location filename="../optimization/BatteryConfigView.qml" line="203"/>
+        <source>⁨The battery has reached the SoC limit of %1% and is now prioritized last.</source>
+        <translation>Die Batterie hat den SoC&#x202f;%1 % erreicht und wird jetzt als letztes priorisiert.</translation>
+    </message>
+    <message>
+        <location filename="../optimization/BatteryConfigView.qml" line="237"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="238"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="248"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="257"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="267"/>
         <source>Priority applies up to state of charge</source>
         <translation>Priorität gilt bis Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="322"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="332"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="476"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="486"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="258"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="268"/>
         <source>Above this state of charge, the battery is always considered last.</source>
         <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
@@ -1241,22 +1251,22 @@
 <context>
     <name>CoBatteryInfoCard</name>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="105"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="106"/>
         <source>SoC</source>
         <translation>SoC</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="133"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="134"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="135"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="136"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="136"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="137"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
@@ -1362,57 +1372,57 @@ Ihr %3 Team</translation>
         <translation>Netz</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="537"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="536"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="557"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="556"/>
         <source>Consumption</source>
         <translation>Verbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="585"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="584"/>
         <source>Energy status</source>
         <translation>Energie-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="593"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="592"/>
         <source>Self-sufficiency</source>
         <translation>Autarkie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="602"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="601"/>
         <source>Self-consumption</source>
         <translation>Eigenverbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="643"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="641"/>
         <source>Inverters</source>
         <translation>Wechselrichter</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="680"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="677"/>
         <source>Batteries</source>
         <translation>Batterien</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="722"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="721"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="763"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="761"/>
         <source>Mobility</source>
         <translation>Mobilität</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="813"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="810"/>
         <source>Other consumers</source>
         <translation>Weitere Verbraucher</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="854"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="850"/>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
     </message>
