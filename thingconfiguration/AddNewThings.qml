@@ -216,7 +216,6 @@ Page {
             ColumnLayout {
                 id: layout
                 anchors { left: parent.left; right: parent.right; top: parent.top }
-                anchors.topMargin: Style.margins
                 anchors.bottomMargin: Style.margins
                 spacing: Style.margins
 
