@@ -832,6 +832,10 @@ GenericConfigPage {
             }
 
             function applyChanges() {
+                footer.text = "";
+                footer.visible = false;
+                batteryLevel.feedbackText = "";
+
                 if (chargingConfiguration.optimizationEnabled ||
                         chargingConfiguration.optimizationMode !== 9) {
                     // Cancel running charging session.
@@ -907,18 +911,25 @@ GenericConfigPage {
                     optimizationPage.done();
                     pageStack.pop();
                 } else {
-                    // footer message to notifiy the user, what is wrong
+                    let anyKnownError = false;
                     if(batteryLevel.value === 0) {
-                        footer.text = qsTr("Please select a battery level greater than 0%.");
-                    } else if (carSelector.holdingItem === false) {
-                        footer.text = qsTr("Please select a car");
-                    } else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
-                              (endTimeSlider.value < 30)) {
-                        footer.text = qsTr("Please select a valid target time");
-                    } else {
-                        footer.text = qsTr("Unknown error");
+                        batteryLevel.feedbackText = qsTr("Please select a battery level greater than 0%.");
+                        anyKnownError = true;
                     }
-                    footer.visible = true;
+                    if (carSelector.holdingItem === false) {
+                        footer.text = qsTr("Please select a car");
+                        footer.visible = true;
+                        anyKnownError = true;
+                    }
+                    if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
+                              (endTimeSlider.value < 30)) {
+                        anyKnownError = true;
+                    }
+
+                    if (!anyKnownError) {
+                        footer.text = qsTr("Unknown error");
+                        footer.visible = true;
+                    }
                 }
             }
 
@@ -1360,7 +1371,7 @@ GenericConfigPage {
                                 }
 
                                 function updateFeasibilityWarning() {
-                                    if (value < maximumChargingthreshhold) {
+                                    if (value < maximumChargingthreshhold || value < 30) {
                                         feedbackText = qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time");
                                     } else {
                                         feedbackText = "";

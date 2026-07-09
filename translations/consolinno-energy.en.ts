@@ -100,12 +100,12 @@
 <context>
     <name>AddNewThings</name>
     <message>
-        <location filename="../thingconfiguration/AddNewThings.qml" line="42"/>
+        <location filename="../thingconfiguration/AddNewThings.qml" line="41"/>
         <source>Set up new device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddNewThings.qml" line="314"/>
+        <location filename="../thingconfiguration/AddNewThings.qml" line="204"/>
         <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
@@ -661,45 +661,40 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1077"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1094"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1088"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1105"/>
         <source>Select/Add Car</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1354"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1362"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1367"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1375"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1445"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1458"/>
         <source>Charge with minimum current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1446"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1459"/>
         <source>Pause charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="912"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="916"/>
         <source>Please select a battery level greater than 0%.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="914"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1944"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="920"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1957"/>
         <source>Please select a car</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="917"/>
-        <source>Please select a valid target time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="919"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="930"/>
         <source>Unknown error</source>
         <translation type="unfinished"></translation>
     </message>
@@ -715,19 +710,19 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="451"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1112"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1123"/>
         <source>Charging mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="593"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1346"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1357"/>
         <source>Ending time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="602"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1299"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1310"/>
         <source>Target charge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -749,7 +744,7 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="686"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1273"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1284"/>
         <source>Battery level</source>
         <translation type="unfinished"></translation>
     </message>
@@ -770,19 +765,19 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="468"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1121"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1132"/>
         <source>Charge always</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="472"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1123"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1134"/>
         <source>Next trip</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="480"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1122"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1133"/>
         <source>Solar only</source>
         <translation type="unfinished"></translation>
     </message>
@@ -797,8 +792,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1031"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1059"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1042"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1070"/>
         <source>Configure charging mode</source>
         <translation type="unfinished"></translation>
     </message>
@@ -819,7 +814,7 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="484"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1124"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1135"/>
         <source>Dynamic pricing</source>
         <translation type="unfinished"></translation>
     </message>
@@ -831,22 +826,22 @@
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="519"/>
         <location filename="../optimization/ChargingConfigView.qml" line="528"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1440"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1453"/>
         <source>Pausing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1595"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1608"/>
         <source>No data available</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1872"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1885"/>
         <source>No prices available, yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1891"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1904"/>
         <source>ct/kWh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -888,49 +883,49 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="64"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="957"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="968"/>
         <source>Monday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="65"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="958"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="969"/>
         <source>Tuesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="66"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="959"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="970"/>
         <source>Wednesday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="67"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="960"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="971"/>
         <source>Thursday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="68"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="961"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="972"/>
         <source>Friday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="69"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="962"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="973"/>
         <source>Saturday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="70"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="963"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="974"/>
         <source>Sunday</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="488"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1125"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1136"/>
         <source>Time controlled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -960,47 +955,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1074"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1085"/>
         <source>Selected car</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1218"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1229"/>
         <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1225"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1236"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1245"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1256"/>
         <source>Number of phases</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1439"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1452"/>
         <source>Low solar avalaibility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1458"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1471"/>
         <source>Charging plan</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1469"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1482"/>
         <source>Current price</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1480"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1493"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1481"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1494"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5539,22 +5534,22 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="94"/>
+        <location filename="../wizards/InstallerDataView.qml" line="91"/>
         <source>To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer&apos;s app.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="109"/>
+        <location filename="../wizards/InstallerDataView.qml" line="106"/>
         <source>Company</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="117"/>
+        <location filename="../wizards/InstallerDataView.qml" line="114"/>
         <source>Example@mail.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="125"/>
+        <location filename="../wizards/InstallerDataView.qml" line="122"/>
         <source>+1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5564,27 +5559,27 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="85"/>
+        <location filename="../wizards/InstallerDataView.qml" line="82"/>
         <source>Contact (optional)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="100"/>
+        <location filename="../wizards/InstallerDataView.qml" line="97"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="107"/>
+        <location filename="../wizards/InstallerDataView.qml" line="104"/>
         <source>Workplace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="115"/>
+        <location filename="../wizards/InstallerDataView.qml" line="112"/>
         <source>E-mail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="123"/>
+        <location filename="../wizards/InstallerDataView.qml" line="120"/>
         <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
