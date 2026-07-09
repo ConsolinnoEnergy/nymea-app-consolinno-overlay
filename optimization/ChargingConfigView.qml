@@ -1344,7 +1344,9 @@ GenericConfigPage {
 
                                 visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Ending time")
-                                valueText: endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                                valueText: Qt.locale().name.startsWith("en_") ?
+                                               endTime.toLocaleString(Qt.locale("en_US"), "MMM d, h:mm Ap") :
+                                               endTime.toLocaleString(Qt.locale("de_DE"), "d. MMM, H:mm") + " Uhr"
                                 valueTextWidth: 100
                                 from: 0
                                 to: 24 * 60
