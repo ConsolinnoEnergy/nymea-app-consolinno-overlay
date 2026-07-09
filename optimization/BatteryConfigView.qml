@@ -330,7 +330,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging plan")
-                    visible: tariffControlledChargingToggle.checked
+                    visible: tariffControlledChargingToggle.visible && tariffControlledChargingToggle.checked
                     enabled: !chargeOnceToggle.checked
 
                     ColumnLayout {
