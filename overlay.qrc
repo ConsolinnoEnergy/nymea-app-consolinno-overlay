@@ -247,7 +247,6 @@
         <file>images/leaflet-ethernet-connect.png</file>
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
-        <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
         <file>info/PvSurplusInfo.qml</file>
         <file>privacy_agreement_de_DE.html</file>
         <file>terms_of_use_de_DE.html</file>

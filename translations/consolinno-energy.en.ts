@@ -1525,27 +1525,27 @@ Your %3 Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="772"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="778"/>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="779"/>
         <source>TCP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="779"/>
         <source>Websocket</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="780"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="786"/>
         <source>Address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="797"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="803"/>
         <source>Port:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1555,169 +1555,131 @@ Your %3 Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="296"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="298"/>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="779"/>
         <source>Remote proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="781"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="787"/>
         <source>Proxy address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="791"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="797"/>
         <source>%1 UUID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="544"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="549"/>
         <source>Discovered Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="193"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="308"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="403"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="194"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="310"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="406"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="152"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="153"/>
         <source>Welcome to %1!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="447"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="451"/>
         <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="560"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="565"/>
         <source>Searching for your %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="232"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="234"/>
         <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="114"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="205"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="326"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="409"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="494"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="723"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="115"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="207"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="329"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="413"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="499"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="729"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="181"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="182"/>
         <source>Yes, I have read the Terms of Use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="353"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="356"/>
         <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="434"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="438"/>
         <source>Network connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="487"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="759"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="491"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="765"/>
         <source>Manual setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="676"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="681"/>
         <source>Finish setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="811"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="817"/>
         <source>Establish a connection via SSL.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="283"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="285"/>
         <source>Yes, I agree to open a user account, according to part 6.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="12"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="171"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="273"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="394"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="478"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="667"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="172"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="275"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="397"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="482"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="672"/>
         <source>Setup %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="561"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="566"/>
         <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="183"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="184"/>
         <source>You must agree to the Terms of Use to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="285"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="287"/>
         <source>You must create a user account to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="298"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="300"/>
         <source>You must agree to the privacy policy to continue.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoAppSettingsPage</name>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="12"/>
-        <source>App Settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="31"/>
-        <source>Look &amp; feel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="32"/>
-        <source>Customize the app&apos;s look and behavior</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="39"/>
-        <source>Developer options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="40"/>
-        <source>Access tools for debugging and error reporting</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="46"/>
-        <source>About %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoAppSettingsPage.qml" line="47"/>
-        <source>Find app versions and licence information</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5767,130 +5729,130 @@ Would you like to continue anyway?</source>
 <context>
     <name>PVOptimization</name>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="112"/>
+        <location filename="../optimization/PVOptimization.qml" line="93"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="116"/>
+        <location filename="../optimization/PVOptimization.qml" line="97"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="172"/>
+        <location filename="../optimization/PVOptimization.qml" line="153"/>
         <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="193"/>
+        <location filename="../optimization/PVOptimization.qml" line="174"/>
         <source>Longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="214"/>
+        <location filename="../optimization/PVOptimization.qml" line="195"/>
         <source>Roof pitch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="231"/>
+        <location filename="../optimization/PVOptimization.qml" line="212"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="258"/>
+        <location filename="../optimization/PVOptimization.qml" line="239"/>
         <source>Peak power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="260"/>
+        <location filename="../optimization/PVOptimization.qml" line="241"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="304"/>
+        <location filename="../optimization/PVOptimization.qml" line="285"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="91"/>
+        <location filename="../optimization/PVOptimization.qml" line="72"/>
         <source>PV configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="244"/>
+        <location filename="../optimization/PVOptimization.qml" line="225"/>
         <source>north</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="245"/>
+        <location filename="../optimization/PVOptimization.qml" line="226"/>
         <source>northeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="246"/>
+        <location filename="../optimization/PVOptimization.qml" line="227"/>
         <source>east</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="247"/>
+        <location filename="../optimization/PVOptimization.qml" line="228"/>
         <source>southeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="248"/>
+        <location filename="../optimization/PVOptimization.qml" line="229"/>
         <source>south</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="249"/>
+        <location filename="../optimization/PVOptimization.qml" line="230"/>
         <source>southwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="251"/>
+        <location filename="../optimization/PVOptimization.qml" line="232"/>
         <source>northwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="250"/>
+        <location filename="../optimization/PVOptimization.qml" line="231"/>
         <source>west</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="281"/>
+        <location filename="../optimization/PVOptimization.qml" line="262"/>
         <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="282"/>
+        <location filename="../optimization/PVOptimization.qml" line="263"/>
         <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="174"/>
-        <location filename="../optimization/PVOptimization.qml" line="195"/>
-        <location filename="../optimization/PVOptimization.qml" line="216"/>
+        <location filename="../optimization/PVOptimization.qml" line="155"/>
+        <location filename="../optimization/PVOptimization.qml" line="176"/>
+        <location filename="../optimization/PVOptimization.qml" line="197"/>
         <source>°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="179"/>
-        <location filename="../optimization/PVOptimization.qml" line="200"/>
-        <location filename="../optimization/PVOptimization.qml" line="218"/>
-        <location filename="../optimization/PVOptimization.qml" line="265"/>
+        <location filename="../optimization/PVOptimization.qml" line="160"/>
+        <location filename="../optimization/PVOptimization.qml" line="181"/>
+        <location filename="../optimization/PVOptimization.qml" line="199"/>
+        <location filename="../optimization/PVOptimization.qml" line="246"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="304"/>
+        <location filename="../optimization/PVOptimization.qml" line="285"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="176"/>
-        <location filename="../optimization/PVOptimization.qml" line="197"/>
-        <location filename="../optimization/PVOptimization.qml" line="217"/>
-        <location filename="../optimization/PVOptimization.qml" line="262"/>
+        <location filename="../optimization/PVOptimization.qml" line="157"/>
+        <location filename="../optimization/PVOptimization.qml" line="178"/>
+        <location filename="../optimization/PVOptimization.qml" line="198"/>
+        <location filename="../optimization/PVOptimization.qml" line="243"/>
         <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
