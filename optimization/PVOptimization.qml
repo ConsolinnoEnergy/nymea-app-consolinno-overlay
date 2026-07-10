@@ -142,7 +142,7 @@ Page {
             if (PlatformHelper.imeHeight <= 0) return;
             var focused = Window.activeFocusItem;
             if (!focused) return;
-            var itemPos = focused.mapToItem(contentColumn, 0, focused.height);
+            var itemPos = focused.mapToItem(bodyFlickable.contentItem, 0, focused.height);
             var itemBottom = itemPos.y;
             var usableHeight = bodyFlickable.height - root.navigationFooterHeight;
             var visibleBottom = bodyFlickable.contentY + usableHeight;
