@@ -37,46 +37,27 @@ Page {
     }
 
     function applyChanges() {
-        // #TODO clean up (repetitive, header.text assignment ??)
-        if (calledFromAssistant) {
-            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                header.text = longitudeInput.text;
-                hemsManager.setPvConfiguration(thing.id,
-                                               {
-                                                   "longitude": Number.fromLocaleString(
-                                                                    Qt.locale(),
-                                                                    longitudeInput.text),
-                                                   "latitude": Number.fromLocaleString(
-                                                                   Qt.locale(),
-                                                                   latitudeInput.text),
-                                                   "roofPitch": roofpitchInput.text,
-                                                   "alignment": alignment.comboBox.currentValue,
-                                                   "kwPeak": Number.fromLocaleString(
-                                                                 Qt.locale(),
-                                                                 peakPowerInput.text),
-                                                   "controllableLocalSystem": gridSupportControl.checked
-                                               });
+        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+            let callId = hemsManager.setPvConfiguration(thing.id,
+                                                        {
+                                                            "longitude": Number.fromLocaleString(
+                                                                             Qt.locale(),
+                                                                             longitudeInput.text),
+                                                            "latitude": Number.fromLocaleString(
+                                                                            Qt.locale(),
+                                                                            latitudeInput.text),
+                                                            "roofPitch": roofpitchInput.text,
+                                                            "alignment": alignment.comboBox.currentValue,
+                                                            "kwPeak": Number.fromLocaleString(
+                                                                          Qt.locale(),
+                                                                          peakPowerInput.text),
+                                                            "controllableLocalSystem": gridSupportControl.checked
+                                                        });
+            if (calledFromAssistant) {
                 root.done();
-            }
-        } else {
-            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
-                                                                 {
-                                                                     "longitude": Number.fromLocaleString(
-                                                                                      Qt.locale(),
-                                                                                      longitudeInput.text),
-                                                                     "latitude": Number.fromLocaleString(
-                                                                                     Qt.locale(),
-                                                                                     latitudeInput.text),
-                                                                     "roofPitch": roofpitchInput.text,
-                                                                     "alignment": alignment.comboBox.currentValue,
-                                                                     "kwPeak": Number.fromLocaleString(
-                                                                                   Qt.locale(),
-                                                                                   peakPowerInput.text),
-                                                                     "controllableLocalSystem": gridSupportControl.checked
-                                                                 });
+            } else {
+                d.pendingCallId = callId;
             }
         }
     }
