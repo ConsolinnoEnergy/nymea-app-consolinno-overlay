@@ -8,7 +8,6 @@ ConsolinnoWizardPageBase {
     id: root
 
     property Component navbarControls: welcomePageNavbarControls
-    property int navigationFooterHeight: 0
 
     headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -168,7 +167,6 @@ ConsolinnoWizardPageBase {
             id: licenseInfoPage
 
             property Component navbarControls: licenseInfoNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -271,7 +269,6 @@ ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
             property Component navbarControls: privacyPolicyNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -393,7 +390,6 @@ ConsolinnoWizardPageBase {
             id: networkConnectionInfoPage
 
             property Component navbarControls: networkConnectionInfoNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -478,7 +474,6 @@ ConsolinnoWizardPageBase {
             id: discoverLeafletPage
 
             property Component navbarControls: discoverLeafletNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -668,7 +663,6 @@ ConsolinnoWizardPageBase {
             id: manualConnectionPage
 
             property Component navbarControls: manualConnectionNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
