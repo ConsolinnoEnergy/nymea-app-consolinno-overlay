@@ -448,7 +448,7 @@
 <context>
     <name>BlackoutProtectionView</name>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="137"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="150"/>
         <source>Blackout protection</source>
         <translation type="unfinished"></translation>
     </message>
@@ -488,32 +488,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="147"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="160"/>
         <source>Blackout protection per phase</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="148"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="161"/>
         <source>Select the maximum current that this installation can safely handle.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="168"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="181"/>
         <source>User defined current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="175"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="188"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="198"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="211"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="198"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="211"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -523,7 +523,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/BlackoutProtectionView.qml" line="172"/>
+        <location filename="../optimization/BlackoutProtectionView.qml" line="185"/>
         <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1269,12 +1269,12 @@
 <context>
     <name>CoDashboardView</name>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="298"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="327"/>
         <source>Pending software update</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="300"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="329"/>
         <source>
 Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
 Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;br/&gt;&lt;br/&gt;
@@ -1288,47 +1288,47 @@ Your %3 Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="315"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="344"/>
         <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="323"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="352"/>
         <source>Feed-in curtailment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="324"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="353"/>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="332"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="361"/>
         <source>Grid-supportive control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="333"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="362"/>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="341"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="370"/>
         <source>Avoid zero compensation active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="342"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="371"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="356"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="385"/>
         <source>The app has been updated.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="357"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="386"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
@@ -1343,82 +1343,82 @@ Your %3 Team</source>
 &lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="370"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="399"/>
         <source>Live status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="491"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="520"/>
         <source>Solar</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="514"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="543"/>
         <source>Grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="536"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="565"/>
         <source>Battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="556"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="586"/>
         <source>Consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="584"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="615"/>
         <source>Energy status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="592"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="623"/>
         <source>Self-sufficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="601"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="632"/>
         <source>Self-consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="641"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="672"/>
         <source>Inverters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="677"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="708"/>
         <source>Batteries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="721"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="752"/>
         <source>Heating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="761"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="793"/>
         <source>Mobility</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="810"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="842"/>
         <source>Other consumers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="850"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="883"/>
         <source>Unallocated consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="511"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="540"/>
         <source>Feed-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="513"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="542"/>
         <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1487,7 +1487,7 @@ Your %3 Team</source>
     </message>
     <message>
         <location filename="../delegates/CoParamDelegate.qml" line="195"/>
-        <source>Filter %1</source>
+        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1520,165 +1520,165 @@ Your %3 Team</source>
 <context>
     <name>ConnectionWizard</name>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="99"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="98"/>
         <source>Start setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="775"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="772"/>
         <source>Protocol</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
         <source>TCP</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
         <source>Websocket</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="783"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="780"/>
         <source>Address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="800"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="797"/>
         <source>Port:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="105"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="104"/>
         <source>Demo mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="299"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="296"/>
         <source>I confirm that I have read the the agreement and I am accepting it.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="776"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="773"/>
         <source>Remote proxy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="784"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="781"/>
         <source>Proxy address:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="794"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="791"/>
         <source>%1 UUID:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="549"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="544"/>
         <source>Discovered Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="195"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="311"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="407"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="193"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="308"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="403"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="153"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="152"/>
         <source>Welcome to %1!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="451"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="447"/>
         <source>Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="565"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="560"/>
         <source>Searching for your %1...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="234"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="232"/>
         <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="115"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="207"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="329"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="413"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="499"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="729"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="114"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="205"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="326"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="409"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="494"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="723"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="183"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="181"/>
         <source>Yes, I have read the Terms of Use.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="356"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="353"/>
         <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="438"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="434"/>
         <source>Network connection</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="492"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="762"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="487"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="759"/>
         <source>Manual setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="682"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="676"/>
         <source>Finish setup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="814"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="811"/>
         <source>Establish a connection via SSL.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="286"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="283"/>
         <source>Yes, I agree to open a user account, according to part 6.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="13"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="173"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="276"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="398"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="483"/>
-        <location filename="../wizards/ConnectionWizard.qml" line="673"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="12"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="171"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="273"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="394"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="478"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="667"/>
         <source>Setup %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="566"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="561"/>
         <source>No %1 found. Please check the network connection! Alternatively, a manual connection can be established.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="185"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="183"/>
         <source>You must agree to the Terms of Use to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="288"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="285"/>
         <source>You must create a user account to continue.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/ConnectionWizard.qml" line="301"/>
+        <location filename="../wizards/ConnectionWizard.qml" line="298"/>
         <source>You must agree to the privacy policy to continue.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4960,7 +4960,7 @@ Would you like to continue anyway?</source>
     <name>HeatingConfigView</name>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="110"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="279"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="288"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4980,32 +4980,32 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="222"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="231"/>
         <source>Forwarded Solar Surplus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="243"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="252"/>
         <source>Operating mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="266"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="275"/>
         <source>Optimization</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="277"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="286"/>
         <source>PV Surplus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="278"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="287"/>
         <source>Dynamic Pricing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="233"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="242"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5020,42 +5020,52 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="191"/>
+        <source>PV device priorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="192"/>
+        <source>The maximum daily demand duration has been reached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="201"/>
         <source>Current power consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="209"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="218"/>
         <source>Total consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="224"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="233"/>
         <source> kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="256"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="265"/>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="374"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="383"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="392"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="401"/>
         <source>Minimum power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="393"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="402"/>
         <source>Minimum required PV surplus that allows the %1 to request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="396"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="405"/>
         <source>Value must not be below %1 W.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5065,48 +5075,48 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="407"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="416"/>
         <source>Minimum demand duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="408"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="417"/>
         <source>Specifies how long a request for increased operating mode must remain active at minimum.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="409"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="442"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="418"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="451"/>
         <source>hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="419"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="428"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="449"/>
         <source>Maximum demand duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="452"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="461"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="353"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="362"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="450"/>
         <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="475"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="484"/>
         <source>&quot;Dynamic pricing&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5534,22 +5544,22 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="91"/>
+        <location filename="../wizards/InstallerDataView.qml" line="104"/>
         <source>To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer&apos;s app.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="106"/>
+        <location filename="../wizards/InstallerDataView.qml" line="119"/>
         <source>Company</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="114"/>
+        <location filename="../wizards/InstallerDataView.qml" line="127"/>
         <source>Example@mail.com</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="122"/>
+        <location filename="../wizards/InstallerDataView.qml" line="135"/>
         <source>+1 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -5559,27 +5569,27 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="82"/>
+        <location filename="../wizards/InstallerDataView.qml" line="95"/>
         <source>Contact (optional)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="97"/>
+        <location filename="../wizards/InstallerDataView.qml" line="110"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="104"/>
+        <location filename="../wizards/InstallerDataView.qml" line="117"/>
         <source>Workplace</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="112"/>
+        <location filename="../wizards/InstallerDataView.qml" line="125"/>
         <source>E-mail</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/InstallerDataView.qml" line="120"/>
+        <location filename="../wizards/InstallerDataView.qml" line="133"/>
         <source>Phone number</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5767,37 +5777,37 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="159"/>
+        <location filename="../optimization/PVOptimization.qml" line="172"/>
         <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="180"/>
+        <location filename="../optimization/PVOptimization.qml" line="193"/>
         <source>Longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="201"/>
+        <location filename="../optimization/PVOptimization.qml" line="214"/>
         <source>Roof pitch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="218"/>
+        <location filename="../optimization/PVOptimization.qml" line="231"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="245"/>
+        <location filename="../optimization/PVOptimization.qml" line="258"/>
         <source>Peak power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="247"/>
+        <location filename="../optimization/PVOptimization.qml" line="260"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="291"/>
+        <location filename="../optimization/PVOptimization.qml" line="304"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5807,80 +5817,80 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="231"/>
+        <location filename="../optimization/PVOptimization.qml" line="244"/>
         <source>north</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="232"/>
+        <location filename="../optimization/PVOptimization.qml" line="245"/>
         <source>northeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="233"/>
+        <location filename="../optimization/PVOptimization.qml" line="246"/>
         <source>east</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="234"/>
+        <location filename="../optimization/PVOptimization.qml" line="247"/>
         <source>southeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="235"/>
+        <location filename="../optimization/PVOptimization.qml" line="248"/>
         <source>south</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="236"/>
+        <location filename="../optimization/PVOptimization.qml" line="249"/>
         <source>southwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="238"/>
+        <location filename="../optimization/PVOptimization.qml" line="251"/>
         <source>northwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="237"/>
+        <location filename="../optimization/PVOptimization.qml" line="250"/>
         <source>west</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="268"/>
+        <location filename="../optimization/PVOptimization.qml" line="281"/>
         <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="269"/>
+        <location filename="../optimization/PVOptimization.qml" line="282"/>
         <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="161"/>
-        <location filename="../optimization/PVOptimization.qml" line="182"/>
-        <location filename="../optimization/PVOptimization.qml" line="203"/>
+        <location filename="../optimization/PVOptimization.qml" line="174"/>
+        <location filename="../optimization/PVOptimization.qml" line="195"/>
+        <location filename="../optimization/PVOptimization.qml" line="216"/>
         <source>°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="166"/>
-        <location filename="../optimization/PVOptimization.qml" line="187"/>
-        <location filename="../optimization/PVOptimization.qml" line="205"/>
-        <location filename="../optimization/PVOptimization.qml" line="252"/>
+        <location filename="../optimization/PVOptimization.qml" line="179"/>
+        <location filename="../optimization/PVOptimization.qml" line="200"/>
+        <location filename="../optimization/PVOptimization.qml" line="218"/>
+        <location filename="../optimization/PVOptimization.qml" line="265"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="291"/>
+        <location filename="../optimization/PVOptimization.qml" line="304"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="163"/>
-        <location filename="../optimization/PVOptimization.qml" line="184"/>
-        <location filename="../optimization/PVOptimization.qml" line="204"/>
-        <location filename="../optimization/PVOptimization.qml" line="249"/>
+        <location filename="../optimization/PVOptimization.qml" line="176"/>
+        <location filename="../optimization/PVOptimization.qml" line="197"/>
+        <location filename="../optimization/PVOptimization.qml" line="217"/>
+        <location filename="../optimization/PVOptimization.qml" line="262"/>
         <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6613,7 +6623,7 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="96"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="188"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="197"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6629,92 +6639,102 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="135"/>
+        <source>PV device priorization</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="136"/>
+        <source>The maximum daily runtime has been reached.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="144"/>
         <source>Consuming</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="135"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="144"/>
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="147"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="156"/>
         <source>Total consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="156"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="167"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="165"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="176"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="172"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="181"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="173"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="182"/>
         <source>Not connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="183"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="192"/>
         <source>Switch state consumer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="187"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="196"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="197"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="206"/>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="207"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="216"/>
         <source>Operating mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="247"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="256"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="264"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="273"/>
         <source>Minimum power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="265"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="274"/>
         <source>Minimum PV surplus power required for activation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="268"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="277"/>
         <source>Value must not be below %1 W.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="278"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="287"/>
         <source>Minimum runtime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="279"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="288"/>
         <source>Runs at least this long after activation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="310"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="319"/>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="311"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="320"/>
         <source>Limits the daily runtime and automatically switches the device off.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6724,23 +6744,23 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="280"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="312"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="289"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="321"/>
         <source>hh:mm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="290"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="299"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="322"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="331"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="224"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="233"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>

@@ -127,6 +127,15 @@ GenericConfigPage {
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
+                CoNotification {
+                    id: runtimeExceededInfo
+                    Layout.fillWidth: true
+                    visible: hemsManager.conEMSState.runtimeExceededThings.includes(root.thing.id)
+                    type: CoNotification.Type.Neutral
+                    title: qsTr("PV device priorization")
+                    message: qsTr("The maximum daily runtime has been reached.")
+                }
+
                 CoEnergyCircle {
                     id: energyCircle
                     Layout.fillWidth: true
