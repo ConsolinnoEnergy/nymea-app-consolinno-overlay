@@ -138,6 +138,19 @@ Page {
 
         Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
+        onHeightChanged: {
+            if (PlatformHelper.imeHeight <= 0) return;
+            var focused = Window.activeFocusItem;
+            if (!focused) return;
+            var itemPos = focused.mapToItem(contentColumn, 0, focused.height);
+            var itemBottom = itemPos.y;
+            var usableHeight = bodyFlickable.height - root.navigationFooterHeight;
+            var visibleBottom = bodyFlickable.contentY + usableHeight;
+            if (itemBottom > visibleBottom) {
+                bodyFlickable.contentY = itemBottom - usableHeight + Style.margins;
+            }
+        }
+
         ColumnLayout {
             id: contentColumn
             anchors { left: parent.left; right: parent.right; top: parent.top }
