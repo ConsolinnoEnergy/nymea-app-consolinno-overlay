@@ -17,8 +17,10 @@ void ConEMSState::setCurrentState(QJsonObject currentState)
 
     QList<QUuid> runtimeExceeded;
     const QJsonArray runtimeArr = currentState.value("runtime_exceeded_things").toArray();
-    for (const QJsonValue &v : runtimeArr)
+    for (const QJsonValue &v : runtimeArr) {
         runtimeExceeded.append(QUuid(v.toString()));
+    }
+    runtimeExceeded.append(QUuid("3740647d-5732-4846-8356-e5a051ec5107"));
     if (m_runtimeExceededThings != runtimeExceeded) {
         m_runtimeExceededThings = runtimeExceeded;
         emit runtimeExceededThingsChanged(m_runtimeExceededThings);
@@ -26,8 +28,9 @@ void ConEMSState::setCurrentState(QJsonObject currentState)
 
     QList<QUuid> switchDownBlocked;
     const QJsonArray switchDownArr = currentState.value("switch_down_blocked_things").toArray();
-    for (const QJsonValue &v : switchDownArr)
+    for (const QJsonValue &v : switchDownArr) {
         switchDownBlocked.append(QUuid(v.toString()));
+    }
     if (m_switchDownBlockedThings != switchDownBlocked) {
         m_switchDownBlockedThings = switchDownBlocked;
         emit switchDownBlockedThingsChanged(m_switchDownBlockedThings);
@@ -52,14 +55,4 @@ QList<QUuid> ConEMSState::runtimeExceededThings() const
 QList<QUuid> ConEMSState::switchDownBlockedThings() const
 {
     return m_switchDownBlockedThings;
-}
-
-bool ConEMSState::isRuntimeExceeded(const QUuid &thingId) const
-{
-    return m_runtimeExceededThings.contains(thingId);
-}
-
-bool ConEMSState::isSwitchDownBlocked(const QUuid &thingId) const
-{
-    return m_switchDownBlockedThings.contains(thingId);
 }

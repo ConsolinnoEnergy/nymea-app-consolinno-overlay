@@ -820,6 +820,7 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         thing: otherConsumerThings.get(index)
                                         icon: thingToIcon(thing)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
                                         visible: {
                                             if (thing.thingClass.interfaces.indexOf("hideable") >= 0) {
                                                 var hiddenState = thing.stateByName("hidden")

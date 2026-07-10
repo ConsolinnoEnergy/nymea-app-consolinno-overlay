@@ -29,9 +29,6 @@ public:
     QList<QUuid> runtimeExceededThings() const;
     QList<QUuid> switchDownBlockedThings() const;
 
-    Q_INVOKABLE bool isRuntimeExceeded(const QUuid &thingId) const;
-    Q_INVOKABLE bool isSwitchDownBlocked(const QUuid &thingId) const;
-
 signals:
 
     void currentStateChanged(QJsonObject currentState);
