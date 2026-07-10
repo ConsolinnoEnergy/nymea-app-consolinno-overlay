@@ -194,6 +194,7 @@ MainViewBase {
                                  false
     property double lppPowerLimit: gridSupport ? gridSupport.stateByName("lppValue").value : 0
     property double lpcPowerLimit: gridSupport ? gridSupport.stateByName("lpcValue").value : 0
+
     property bool anyInverterLppActive: {
         if (!lppActive) { return false; }
         for (var i = 0; i < producerThings.count; ++i) {
@@ -205,10 +206,38 @@ MainViewBase {
         }
         return false;
     }
+
     property bool anyAvoidZeroCompensationActive: {
         for (var i = 0; i < batteryThings.count; ++i) {
             let battery = batteryThings.get(i);
             if (avoidZeroCompensationActive(battery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    property bool anyTargetSocPvSurplusExceeded: {
+        for (var i = 0; i < batteryThings.count; ++i) {
+            let battery = batteryThings.get(i);
+            if (ThingUtils.targetSocPvSurplusExceeded(battery,
+                                                      hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    property bool anyPvSurplusRuntimeExceeded: {
+        for (let i = 0; i < heatingThings.count; ++i) {
+            let thing = heatingThings.get(i);
+            if (hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)) {
+                return true;
+            }
+        }
+        for (let i = 0; i < otherConsumerThings.count; ++i) {
+            let thing = otherConsumerThings.get(i);
+            if (hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)) {
                 return true;
             }
         }
@@ -540,6 +569,7 @@ Your %3 Team")
                                 secondaryUnit: "%"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
+                                showInfoIndicator: !showWarningIndicator && anyTargetSocPvSurplusExceeded
                                 icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
                                                                dataProvider.currentPowerBatteries > 0)
                                 onClicked: {
@@ -557,6 +587,7 @@ Your %3 Team")
                                 value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerTotalConsumption))
                                 unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerTotalConsumption)
                                 compactLayout: true
+                                showInfoIndicator: anyPvSurplusRuntimeExceeded
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(consumptionGroup.y);
@@ -732,6 +763,7 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         thing: heatingThings.get(index)
                                         icon: thingToIcon(thing)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
                                         onClicked: {
                                             if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
                                                 pageStack.push(

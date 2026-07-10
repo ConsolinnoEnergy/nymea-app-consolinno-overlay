@@ -20,7 +20,6 @@ void ConEMSState::setCurrentState(QJsonObject currentState)
     for (const QJsonValue &v : runtimeArr) {
         runtimeExceeded.append(QUuid(v.toString()));
     }
-    runtimeExceeded.append(QUuid("3740647d-5732-4846-8356-e5a051ec5107"));
     if (m_runtimeExceededThings != runtimeExceeded) {
         m_runtimeExceededThings = runtimeExceeded;
         emit runtimeExceededThingsChanged(m_runtimeExceededThings);
