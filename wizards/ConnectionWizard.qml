@@ -741,10 +741,13 @@ ConsolinnoWizardPageBase {
                 clip: true
                 flickableDirection: Flickable.VerticalFlick
                 contentWidth: width
+                contentHeight: contentColumn.implicitHeight +
+                               contentColumn.anchors.topMargin +
+                               contentColumn.anchors.bottomMargin
 
                 ColumnLayout {
                     id: contentColumn
-                    anchors.fill: parent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
                     anchors.margins: Style.margins
                     anchors.topMargin: manualConnectionPage.headerHeight + Style.margins
                     anchors.bottomMargin: manualConnectionPage.navigationFooterHeight + Style.margins
@@ -809,12 +812,6 @@ ConsolinnoWizardPageBase {
                                 checked: true
                             }
                         }
-                    }
-
-                    Item {
-                        id: spacer
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
                     }
                 }
             }
