@@ -111,6 +111,7 @@ ConsolinnoWizardPageBase {
 
             CoNavbarButton {
                 Layout.alignment: Qt.AlignCenter
+                Layout.bottomMargin: Style.smallMargins
                 text: qsTr("Cancel")
                 flat: true
                 visible: d.previousHostIndex >= 0
@@ -202,6 +203,7 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -323,6 +325,7 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -406,6 +409,7 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -491,6 +495,7 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -720,6 +725,7 @@ ConsolinnoWizardPageBase {
 
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
