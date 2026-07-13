@@ -48,7 +48,7 @@ Frame {
         // Render the entire content area into a layer and clip it to the
         // rounded rectangle mask so every child (including e.g. CoCard hover
         // rectangles) is clipped to the rounded Forsty Card corners.
-        layer.enabled: true
+        layer.enabled: width > 0 && height > 0
         layer.effect: OpacityMask {
             maskSource: roundedRectMask
         }

@@ -55,7 +55,7 @@ Dialog {
         // Android edge-to-edge window.
         implicitHeight: PlatformHelper.topPadding + headerLayout.implicitHeight
 
-        layer.enabled: true
+        layer.enabled: width > 0 && height > 0
         layer.effect: OpacityMask {
             maskSource: headerMaskSource
         }

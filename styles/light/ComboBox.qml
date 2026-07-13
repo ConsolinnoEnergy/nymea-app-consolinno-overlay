@@ -158,7 +158,7 @@ T.ComboBox {
             id: roundedRectMask
             width: thePopup.availableWidth
             height: thePopup.availableHeight
-            layer.enabled: true
+            layer.enabled: width > 0 && height > 0
             opacity: 0
             Rectangle {
                 anchors.fill: parent
@@ -173,7 +173,7 @@ T.ComboBox {
             currentIndex: control.highlightedIndex
             highlightMoveDuration: 0
             T.ScrollIndicator.vertical: ScrollIndicator { }
-            layer.enabled: true
+            layer.enabled: width > 0 && height > 0
             layer.effect: OpacityMask {
                 maskSource: roundedRectMask
             }
