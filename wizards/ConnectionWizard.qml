@@ -231,7 +231,7 @@ ConsolinnoWizardPageBase {
                     id: licenseTermsCard
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    headerText: qsTr("License Terms HEMS<br/>(as of 11/2024)")
+                    headerText: qsTr("License Terms HEMS")
                     contentTopMargin: Style.smallMargins
 
                     Flickable {
@@ -282,7 +282,7 @@ ConsolinnoWizardPageBase {
                     CoCheckBox {
                         id: accountCheckbox
                         Layout.fillWidth: true
-                        text: qsTr("Yes, I agree to open a user account, according to part 6.")
+                        text: qsTr("Yes, I agree to open a user account, according to part %1.").arg(Configuration.privacyPolicyUserAccountSection)
                         checked: false
                         feedbackText: qsTr("You must create a user account to continue.")
                         onCheckedChanged: {
@@ -353,7 +353,7 @@ ConsolinnoWizardPageBase {
                     id: privacyPolicyCard
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    headerText: qsTr("Privacy Policy HEMS<br/>(as of 11/2024)")
+                    headerText: qsTr("Privacy Policy HEMS")
                     contentTopMargin: Style.smallMargins
 
                     Flickable {
