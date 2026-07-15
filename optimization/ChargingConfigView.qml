@@ -449,8 +449,8 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
                             labelText: qsTr("Charging mode")
-                            showChildrenIndicator: isCarPluggedIn()
-                            interactive: isCarPluggedIn()
+                            showChildrenIndicator: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
+                            interactive: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
 
                             onClicked: {
                                 if (isCarPluggedIn()) {
