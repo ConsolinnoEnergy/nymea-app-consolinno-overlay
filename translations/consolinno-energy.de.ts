@@ -5139,7 +5139,7 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="153"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="168"/>
         <source>Power Setpoint</source>
         <translation>Leistungsvorgabe</translation>
     </message>
@@ -5154,72 +5154,72 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="87"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="96"/>
         <source>No control</source>
         <translation>Keine Steuerung</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="86"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="94"/>
         <source>PV surplus</source>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="109"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
         <source>Consuming</source>
         <translation>Verbrauchend</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="109"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="123"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="138"/>
         <source>Current temperature</source>
         <translation>Aktuelle Temperatur</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="139"/>
         <source> °C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="133"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="148"/>
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="142"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="157"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="155"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="170"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="156"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="171"/>
         <source>Inactive</source>
         <translation>Inaktiv</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="166"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="181"/>
         <source>Power Setpoint Value</source>
         <translation>Wert für Leistungsvorgabe</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="184"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="199"/>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="194"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="210"/>
         <source>Operating mode</source>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="225"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="241"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
@@ -5229,12 +5229,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="173"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="188"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="214"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="230"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation>„PV-Überschuss“</translation>
     </message>
@@ -5914,8 +5914,13 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="48"/>
-        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
-        <translation>Eine SG-Ready Wärmepumpe ohne Zähler hat bei Steuerung durch das Leaflet HEMS immer Vorrang vor allen anderen Geräten und kann nicht verschoben werden.</translation>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via %1 and cannot be moved.</source>
+        <translation>Eine SG-Ready Wärmepumpe ohne Zähler hat bei Steuerung durch das %1 immer Vorrang vor allen anderen Geräten und kann nicht verschoben werden.</translation>
+    </message>
+    <message>
+        <location filename="../info/PVPrioritiesInfo.qml" line="70"/>
+        <source>Note:&#xa0;After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.</source>
+        <translation>Hinweis: Nach Änderungen der Priorisierung kann es bis zu 5 Minuten dauern, bis die neue Reihenfolge vom System übernommen und umgesetzt wird.</translation>
     </message>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="59"/>

@@ -5119,7 +5119,7 @@ Would you like to continue anyway?</source>
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="153"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="168"/>
         <source>Power Setpoint</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5134,72 +5134,72 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="87"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="96"/>
         <source>No control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="86"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="94"/>
         <source>PV surplus</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="109"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
         <source>Consuming</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="109"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="123"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="138"/>
         <source>Current temperature</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="139"/>
         <source> °C</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="133"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="148"/>
         <source>Total consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="142"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="157"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="155"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="170"/>
         <source>Active</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="156"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="171"/>
         <source>Inactive</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="166"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="181"/>
         <source>Power Setpoint Value</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="184"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="199"/>
         <source>Control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="194"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="210"/>
         <source>Operating mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="225"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="241"/>
         <source>Priority</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5209,12 +5209,12 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="173"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="188"/>
         <source>W</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="214"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="230"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5894,7 +5894,12 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="48"/>
-        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.</source>
+        <source>An SG Ready heat pump without a meter always takes priority over all other devices when controlled via %1 and cannot be moved.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/PVPrioritiesInfo.qml" line="70"/>
+        <source>Note:&#xa0;After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
