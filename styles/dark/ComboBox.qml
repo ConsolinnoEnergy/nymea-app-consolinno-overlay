@@ -149,9 +149,16 @@ T.ComboBox {
         x: 4
         y: 4
         width: control.width - 8
+        // Inset the popup from the window edges by the platform safe area
+        // (status bar / notch at the top, home indicator at the bottom) and
+        // the on-screen keyboard. This keeps Qt from sliding a long list under
+        // the status bar (where the top rows got clipped and were unreachable)
+        // or behind the keyboard; the ListView scrolls internally instead.
+        // topPadding/bottomPadding are 0 on desktop, so other platforms are
+        // unaffected.
+        topMargin: Style.margins + PlatformHelper.topPadding
+        bottomMargin: Style.margins + PlatformHelper.bottomPadding + PlatformHelper.imeHeight
         height: Math.min(contentItem.implicitHeight + topPadding + bottomPadding, control.Window.height - topMargin - bottomMargin)
-        topMargin: 6
-        bottomMargin: 6
         padding: 1
 
         Item {
