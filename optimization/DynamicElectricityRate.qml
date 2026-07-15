@@ -63,7 +63,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: noRateCard.visible ? Style.smallMargins : Style.margins
                         headerText: qsTr("Submitted rate")
 
                         ColumnLayout {
@@ -118,7 +118,9 @@ StackView {
                             }
 
                             CoCard {
+                                id: noRateCard
                                 Layout.fillWidth: true
+                                topMargin: 0
                                 visible: dynElectricThings.count === 0
                                 text: qsTr("There is no rate set up yet.")
                             }

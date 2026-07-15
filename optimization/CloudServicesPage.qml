@@ -49,6 +49,7 @@ Page {
             CoFrostyCard {
                 Layout.fillWidth: true
                 headerText: qsTr("Connection")
+                contentTopMargin: Style.smallMargins
 
                 ColumnLayout {
                     anchors.left: parent.left
@@ -106,6 +107,7 @@ Page {
                 Layout.fillWidth: true
                 headerText: qsTr("Release categories")
                 enabled: cloudConfiguration.cloudEnabled
+                contentTopMargin: Style.smallMargins
 
                 ColumnLayout {
                     anchors.left: parent.left

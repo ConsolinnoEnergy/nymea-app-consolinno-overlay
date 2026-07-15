@@ -212,7 +212,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                contentTopMargin: Style.margins
+                contentTopMargin: Style.smallMargins
                 headerText: root.integratedDevicesLabel
 
                 ColumnLayout {

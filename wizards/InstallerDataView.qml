@@ -91,7 +91,7 @@ Page{
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                contentTopMargin: 8
+                contentTopMargin: Style.smallMargins
                 headerText: qsTr("Contact (optional)")
 
                 ColumnLayout {
@@ -102,6 +102,7 @@ Page{
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer's app.")
+                        topMargin: 0
                     }
 
                     CoInputField {

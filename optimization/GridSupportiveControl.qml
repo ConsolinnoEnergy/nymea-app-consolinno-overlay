@@ -173,7 +173,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box connection")
 
                     ColumnLayout {
@@ -244,7 +244,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box connection")
 
                     ColumnLayout {
@@ -352,7 +352,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Connect device")
 
                     ColumnLayout {
@@ -364,6 +364,7 @@ StackView {
                             Layout.fillWidth: true
                             text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                             interactive: false
+                            topMargin: 0
                         }
                     }
                 }
@@ -469,7 +470,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Connect device")
 
                     ColumnLayout {
@@ -481,6 +482,7 @@ StackView {
                             Layout.fillWidth: true
                             text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                             interactive: false
+                            topMargin: 0
                         }
                     }
                 }
@@ -573,7 +575,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -586,6 +588,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -599,6 +602,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
+                                    topMargin: 0
                                 }
 
                                 RowLayout {
@@ -730,7 +734,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -743,6 +747,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -830,7 +835,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
 
                             ColumnLayout {
@@ -956,7 +961,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -969,6 +974,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -1056,7 +1062,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
 
                             ColumnLayout {
@@ -1296,7 +1302,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Parameter")
 
                             ColumnLayout {
@@ -1453,7 +1459,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("Parameter")
 
                             ColumnLayout {
@@ -1491,7 +1497,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
                             visible: eebusGridGuardGateway != null
 
@@ -1745,7 +1751,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box")
 
                     ColumnLayout {
@@ -1771,7 +1777,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Status")
                     visible: eebusGridGuardGateway != null
 
