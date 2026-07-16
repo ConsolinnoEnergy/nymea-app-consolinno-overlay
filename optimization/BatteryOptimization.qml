@@ -47,7 +47,8 @@ Page {
             blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
         };
         if (maxElectricalPower.visible) {
-            config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
+            // Backend expects value in W.
+            config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         }
         if (hemsControlledBattery.visible) {
             config.fullymanagableBattery = hemsControlledBattery.checked;
@@ -143,7 +144,7 @@ Page {
                             qsTr("The value must not be below %1.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+batteryConfiguration.maxElectricalPower).toLocaleString()
+                        textField.text: (+batteryConfiguration.maxElectricalPower / 1000).toLocaleString()
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
