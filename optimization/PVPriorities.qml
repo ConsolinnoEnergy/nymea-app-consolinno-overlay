@@ -206,7 +206,7 @@ Page {
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    spacing: Style.smallMargins
+                    spacing: 0
 
                     ListView {
                         id: priorityListView
@@ -294,11 +294,15 @@ Page {
                         }
                     }
 
+                    CoDivider {
+                        Layout.fillWidth: true
+                    }
+
                     Button {
                         id: restoreDefaultListButton
                         Layout.alignment: Qt.AlignHCenter
                         text: qsTr("Restore default order")
-                        iconRight: Qt.resolvedUrl("qrc:/icons/undo.svg")
+                        iconLeft: Qt.resolvedUrl("qrc:/icons/undo.svg")
                         flat: true
 
                         onClicked: {

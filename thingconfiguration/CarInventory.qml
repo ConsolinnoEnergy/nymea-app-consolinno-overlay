@@ -136,30 +136,37 @@ Page{
                             }
                         }
                     }
-                }
-            }
 
-            RoundButton {
-                id: addCarButton
-                Layout.alignment: Qt.AlignCenter
-                icon.source: Qt.resolvedUrl("/icons/add.svg")
+                    CoDivider {
+                        Layout.fillWidth: true
+                    }
 
-                onClicked: {
-                    for (var i = 0; i < thingClassesProxy.count; i++) {
-                        if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" ||
-                                thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ) {
-                            var page = pageStack.push("../thingconfiguration/AddGenericCar.qml",
-                                                      { thingClass: thingClassesProxy.get(i) });
-                            page.done.connect(function() {
-                                pageStack.pop();
-                            });
-                            page.aborted.connect(function() {
-                                pageStack.pop();
-                            });
+                    Button {
+                        id: addCarButton
+                        Layout.alignment: Qt.AlignCenter
+                        iconLeft: Qt.resolvedUrl("/icons/add.svg")
+                        flat: true
+                        text: qsTr("Add vehicle")
+
+                        onClicked: {
+                            for (var i = 0; i < thingClassesProxy.count; i++) {
+                                if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" ||
+                                        thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ) {
+                                    var page = pageStack.push("../thingconfiguration/AddGenericCar.qml",
+                                                              { thingClass: thingClassesProxy.get(i) });
+                                    page.done.connect(function() {
+                                        pageStack.pop();
+                                    });
+                                    page.aborted.connect(function() {
+                                        pageStack.pop();
+                                    });
+                                }
+                            }
                         }
                     }
                 }
             }
+
 
         }
     }

@@ -321,5 +321,6 @@
         <file>dependencies/QR-Code-Generator-QML/QRGenerator.qml</file>
         <file>dependencies/qrcode-svg/qrcode.min.js</file>
         <file>components/CoCheckBox.qml</file>
+        <file>components/CoDivider.qml</file>
     </qresource>
 </RCC>

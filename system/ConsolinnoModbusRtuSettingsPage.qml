@@ -283,24 +283,30 @@ Page {
                         visible: modbusRtuManager.modbusRtuMasters.count === 0
                         interactive: false
                     }
-                }
-            }
 
-            RoundButton {
-                id: addModbusRtuMasterButton
-                Layout.alignment: Qt.AlignCenter
-                icon.source: Qt.resolvedUrl("/icons/add.svg")
-                enabled: modbusRtuManager.supported
+                    CoDivider {
+                        Layout.fillWidth: true
+                    }
 
-                onClicked: {
-                    pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"),
-                                   {
-                                       modbusRtuManager: modbusRtuManager,
-                                       serialPortBaudrateModel: serialPortBaudrateModel,
-                                       serialPortParityModel: serialPortParityModel,
-                                       serialPortDataBitsModel: serialPortDataBitsModel,
-                                       serialPortStopBitsModel: serialPortStopBitsModel
-                                   });
+                    Button {
+                        id: addModbusRtuMasterButton
+                        Layout.alignment: Qt.AlignCenter
+                        flat: true
+                        enabled: modbusRtuManager.supported
+                        iconLeft: Qt.resolvedUrl("/icons/add.svg")
+                        text: qsTr("Add interface")
+
+                        onClicked: {
+                            pageStack.push(Qt.resolvedUrl("ConsolinnoModbusRtuAddMasterPage.qml"),
+                                           {
+                                               modbusRtuManager: modbusRtuManager,
+                                               serialPortBaudrateModel: serialPortBaudrateModel,
+                                               serialPortParityModel: serialPortParityModel,
+                                               serialPortDataBitsModel: serialPortDataBitsModel,
+                                               serialPortStopBitsModel: serialPortStopBitsModel
+                                           });
+                        }
+                    }
                 }
             }
         }
