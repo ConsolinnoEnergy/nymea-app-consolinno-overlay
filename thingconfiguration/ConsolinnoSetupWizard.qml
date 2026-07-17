@@ -336,6 +336,7 @@ Page {
                             text: model.name
                             labelText: model.description
                             iconLeft: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            showChildrenIndicator: true
                             onClicked: {
                                 d.thingDescriptor = discoveryProxy.get(index);
                                 d.thingName = model.name;
