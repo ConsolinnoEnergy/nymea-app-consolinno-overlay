@@ -365,82 +365,82 @@
 <context>
     <name>BatteryOptimization</name>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="95"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="96"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="98"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="99"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="157"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="158"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="169"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="170"/>
         <source>Avoid zero compensation</source>
         <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="158"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="159"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="183"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="184"/>
         <source>Block EV charging from the battery</source>
         <translation>Fahrzeug nicht aus Batterie laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="74"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="75"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="139"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="140"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="141"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="142"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="145"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="146"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="267"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="268"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="267"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="268"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="197"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="198"/>
         <source>HEMS-controlled battery</source>
         <translation>HEMS-gesteuerte Batterie</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="210"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="211"/>
         <source>Maximum SoC</source>
         <translation>Maximaler SoC</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="231"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="232"/>
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="143"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="144"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
@@ -1621,10 +1621,6 @@ Ihr %3 Team</translation>
         <translation>Suche nach Deinem %1...</translation>
     </message>
     <message>
-        <source>License Terms HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="vanished">Lizenzbedingungen HEMS&lt;br/&gt;(Stand 11/2024)</translation>
-    </message>
-    <message>
         <location filename="../wizards/ConnectionWizard.qml" line="115"/>
         <location filename="../wizards/ConnectionWizard.qml" line="207"/>
         <location filename="../wizards/ConnectionWizard.qml" line="329"/>
@@ -1643,10 +1639,6 @@ Ihr %3 Team</translation>
         <location filename="../wizards/ConnectionWizard.qml" line="285"/>
         <source>Yes, I agree to open a user account, according to part %1.</source>
         <translation>Ja, ich möchte wie in Teil %1. beschrieben ein Benutzerkonto eröffnen.</translation>
-    </message>
-    <message>
-        <source>Privacy Policy HEMS&lt;br/&gt;(as of 11/2024)</source>
-        <translation type="vanished">Datenschutzerklärung HEMS&lt;br/&gt;(Stand 11/2024)</translation>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="438"/>
@@ -2236,92 +2228,93 @@ Abgaben: %4 %2</translation>
         <translation>Aussehen</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="59"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="60"/>
         <source>View mode</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="62"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
         <source>Windowed</source>
         <translation>Fenster</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="62"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
         <source>Maximized</source>
         <translation>Maximiert</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="62"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
         <source>Fullscreen</source>
         <translation>Vollbild</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="62"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="40"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="96"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="97"/>
         <source>Regional</source>
         <translation>Regional</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="105"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="106"/>
         <source>Unit system</source>
         <translation>Einheitensystem</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="110"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="111"/>
         <source>Metric</source>
         <translation>Metrisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="110"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="111"/>
         <source>Imperial</source>
         <translation>Angloamerikanisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="137"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="138"/>
         <source>Behavior</source>
         <translation>Verhalten</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="142"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="143"/>
         <source>Return to home on idle</source>
         <translation>Bei Leerlauf zurück zum Startbildschirm</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="150"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="151"/>
         <source>Turn screen off when idle</source>
         <translation>Bildschirm im Leerlauf ausschalten</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="164"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="165"/>
         <source>Screen off timeout</source>
         <translation>Leerlaufzeit bis der Bildschirm ausgeschaltet wird</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="173"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="174"/>
         <source>seconds</source>
         <translation>Sekunden</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="185"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="186"/>
         <source>Screen brightness</source>
         <translation>Bildschirmhelligkeit</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="207"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="208"/>
         <source>Style changed</source>
         <translation>Stil geändert</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="219"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="220"/>
         <source>The application needs to be restarted for style changes to take effect.</source>
         <translation>Die Anwendung muss neu gestartet werden damit Stil-Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="124"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="125"/>
         <source>Language</source>
         <translation>Sprache</translation>
     </message>
@@ -6812,57 +6805,57 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SwitchableConsumerOptimization</name>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="74"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="75"/>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="77"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="78"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="118"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="119"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="120"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="121"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="124"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="125"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="137"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="138"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="138"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="139"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="164"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="165"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="164"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="165"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="53"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="54"/>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="122"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="123"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>

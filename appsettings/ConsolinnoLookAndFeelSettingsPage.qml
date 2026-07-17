@@ -37,7 +37,7 @@ SettingsPageBase {
             stylesModel.append({ value: "light", text: qsTr("Light") });
             if (Configuration.branding === "consolinno") {
                 stylesModel.append({ value: "dark", text: qsTr("Dark") });
-                stylesModel.append({ value: "auto", text: qsTr("Auto") });
+                stylesModel.append({ value: "auto", text: qsTr("Automatic") });
             }
         }
 
