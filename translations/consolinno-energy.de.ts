@@ -685,7 +685,7 @@
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="916"/>
         <source>Please select a battery level greater than 0%.</source>
-        <translation>Bitte wählen Sie ein Batteriestand, der größer als 0% ist.</translation>
+        <translation>Bitte wählen Sie ein Batteriestand, der größer als 0 % ist.</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="920"/>
@@ -1454,12 +1454,12 @@ Ihr %3 Team</translation>
     <message>
         <location filename="../mainviews/energy/CoKpiStats.qml" line="409"/>
         <source>Self-sufficiency: %1%</source>
-        <translation>Autarkie: %1%</translation>
+        <translation>Autarkie: %1 %</translation>
     </message>
     <message>
         <location filename="../mainviews/energy/CoKpiStats.qml" line="413"/>
         <source>Self-consumption: %1%</source>
-        <translation>Eigenverbrauch: %1%</translation>
+        <translation>Eigenverbrauch: %1 %</translation>
     </message>
     <message>
         <location filename="../mainviews/energy/CoKpiStats.qml" line="132"/>
@@ -5446,7 +5446,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <location filename="../info/HeatpumpOptimizationInfo.qml" line="52"/>
         <source>The heat pump is controlled in such a way that the available PV surplus is optimally utilized. If the PV surplus is more than 50% of the nominal output of the heat pump for 15 minutes, the heat pump is set to the “increased” operating state. PV surplus is allocated to devices according to your selected priority.</source>
-        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV‑Überschuss optimal ausgenutzt wird. Beträgt der PV‑Überschuss für 15&#x202f;Minuten mehr als 50&#x202f;% der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben. PV‑Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
+        <translation>Die Wärmepumpe wird so gesteuert, dass der vorhandene PV‑Überschuss optimal ausgenutzt wird. Beträgt der PV‑Überschuss für 15&#x202f;Minuten mehr als 50 % der Nennleistung der Wärmepumpe, wird der Wärmepumpe der Betriebszustand „erhöht“ vorgegeben. PV‑Überschuss wird Geräten nach deiner gewählten Priorität zugewiesen.</translation>
     </message>
 </context>
 <context>
@@ -5959,7 +5959,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <location filename="../info/PriceLimitInfo.qml" line="34"/>
         <source>The price limit is defined based on the average price, e.g. average price -10%. This means that charging takes place as soon as the price is cheaper than the average price -10% calculated for the day. The price limit is valid until a new price limit is entered, even after unplugging and plugging in again.</source>
-        <translation>Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10%. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10%. 
+        <translation>Die Preisgrenze wird ausgehend vom durchschnittlichen Preis definiert z.B. Durchschnittspreis -10 %. Das bedeutet, dass geladen wird, sobald der Preis günstiger ist als der für den Tag berechnete Durchschnittspreis -10 %. 
 Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine neue Preisgrenze eingegeben wird.</translation>
     </message>
 </context>
