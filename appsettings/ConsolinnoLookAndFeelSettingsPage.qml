@@ -29,15 +29,16 @@ SettingsPageBase {
           model: stylesModel
           textRole: "text"
           valueRole: "value"
-          Component.onCompleted: currentIndex = indexOfValue(styleController.currentStyle)
+          Component.onCompleted: currentIndex = indexOfValue(styleController.rawCurrentStyle)
           onActivated: styleController.currentStyle = currentValue
         }
 
         Component.onCompleted: {
-          stylesModel.append({ value: "light", text: qsTr("Light") })
-          if (Configuration.branding === "consolinno") {
-            stylesModel.append({ value: "dark", text: qsTr("Dark") })
-          }
+            stylesModel.append({ value: "light", text: qsTr("Light") });
+            if (Configuration.branding === "consolinno") {
+                stylesModel.append({ value: "dark", text: qsTr("Dark") });
+                stylesModel.append({ value: "auto", text: qsTr("Automatic") });
+            }
         }
 
         Connections {
