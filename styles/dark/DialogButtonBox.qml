@@ -41,5 +41,5 @@ T.DialogButtonBox {
     //     bottomRightRadius: Style.largeCornerRadius
     // }
 
-    background: {}
+    background: null
 }
