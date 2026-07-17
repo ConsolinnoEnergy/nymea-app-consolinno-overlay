@@ -16,6 +16,7 @@
         <file>styles/light/ItemDelegate.qml</file>
         <file>styles/light/RoundButton.qml</file>
         <file>styles/light/Page.qml</file>
+        <file>styles/light/DialogButtonBox.qml</file>
         <file>translations</file>
         <file>styles/light/Background.qml</file>
         <file>SOURCE_AVAIL_de_DE.txt</file>
@@ -37,6 +38,7 @@
         <file>styles/dark/SpinBox.qml</file>
         <file>styles/dark/ItemDelegate.qml</file>
         <file>styles/dark/RoundButton.qml</file>
+        <file>styles/dark/DialogButtonBox.qml</file>
         <file>icons/account_circle.svg</file>
         <file>icons/add.svg</file>
         <file>icons/android_wifi_3_bar.svg</file>

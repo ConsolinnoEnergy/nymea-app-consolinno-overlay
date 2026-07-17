@@ -38,8 +38,6 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
-import QtQuick.Controls.Material
-import QtQuick.Controls.Material.impl
 import Nymea 1.0
 
 T.Dialog {
@@ -60,7 +58,15 @@ T.Dialog {
     padding: 24
     topPadding: 20
 
-    Material.elevation: 24
+    dim: true
+
+    Overlay.modeless: Rectangle {
+        color: "#44000000"
+    }
+
+    Overlay.modal: Rectangle {
+        color: "#44000000"
+    }
 
     enter: Transition {
         // grow_fade_in
@@ -75,13 +81,8 @@ T.Dialog {
     }
 
     background: Rectangle {
-        radius: Style.cornerRadius
-        color: control.Material.dialogColor
-
-        layer.enabled: control.Material.elevation > 0
-        layer.effect: ElevationEffect {
-            elevation: control.Material.elevation
-        }
+        radius: Style.largeCornerRadius
+        color: Style.colors.typography_Background_Default
     }
 
     header: Label {
@@ -90,14 +91,8 @@ T.Dialog {
         elide: Label.ElideRight
         padding: 24
         bottomPadding: 0
-        // TODO: QPlatformTheme::TitleBarFont
-        font.bold: true
-        font.pixelSize: 16
-        background: Rectangle {
-            radius: 2
-            color: control.Material.dialogColor
-            clip: true
-        }
+        color: Style.colors.typography_Headlines_H2
+        font: Style.newH2Font
     }
 
     footer: DialogButtonBox {

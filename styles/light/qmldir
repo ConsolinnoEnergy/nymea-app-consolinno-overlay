@@ -11,3 +11,4 @@ TextField 1.0 TextField.qml
 SpinBox 1.0 SpinBox.qml
 ItemDelegate 1.0 ItemDelegate.qml
 RoundButton 1.0 RoundButton.qml
+DialogButtonBox 1.0 DialogButtonBox.qml
