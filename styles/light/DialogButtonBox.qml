@@ -32,14 +32,5 @@ T.DialogButtonBox {
         snapMode: ListView.SnapToItem
     }
 
-    // background: Rectangle {
-    //     implicitHeight: 40
-    //     width: parent.width
-    //     height: parent.height
-    //     color: Style.colors.menu_Header_Footer_Background
-    //     bottomLeftRadius: Style.largeCornerRadius
-    //     bottomRightRadius: Style.largeCornerRadius
-    // }
-
     background: null
 }
