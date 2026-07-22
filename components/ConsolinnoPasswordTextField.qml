@@ -51,6 +51,10 @@ ColumnLayout {
             id: passwordTextField
             Layout.fillWidth: true
             echoMode: root.hiddenPassword ? TextInput.Password : TextInput.Normal
+            // Qt.ImhNoTextHandles: workaround for QTBUG-146020 — QIOSTapRecognizer crashes on iOS
+            // when the field loses focus while a dispatch_async block is pending. Password fields
+            // don't need selection handles, and this flag prevents the recognizer from being created.
+            inputMethodHints: Qt.ImhNoTextHandles
             placeholderText: root.signup ? qsTr("Pick a password") : qsTr("Password")
 
             error: root.showErrors && !root.isValidPassword
@@ -139,6 +143,7 @@ ColumnLayout {
             id: confirmationPasswordTextField
             Layout.fillWidth: true
             echoMode: root.hiddenPassword ? TextInput.Password : TextInput.Normal
+            inputMethodHints: Qt.ImhNoTextHandles
             placeholderText: qsTr("Confirm password")
             error: root.showErrors && (!root.isValidPassword || !root.confirmationMatches)
 
