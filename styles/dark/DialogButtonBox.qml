@@ -12,24 +12,30 @@ T.DialogButtonBox {
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             (control.count === 1 ? implicitContentWidth * 2 : implicitContentWidth) + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             implicitContentHeight + topPadding + bottomPadding)
-    contentWidth: (contentItem as ListView)?.contentWidth
+                             contentItem.implicitHeight + topPadding + bottomPadding)
+    contentWidth: contentItem.implicitWidth
 
-    spacing: 1
+    spacing: Style.smallMargins
     padding: 12
+    topPadding: 0
     alignment: count === 1 ? Qt.AlignRight : undefined
 
     delegate: Button {
-        width: control.count === 1 ? control.availableWidth / 2 : undefined
+        width: flat ? undefined : control.availableWidth
     }
 
-    contentItem: ListView {
-        implicitWidth: contentWidth
-        model: control.contentModel
+    contentItem: Column {
         spacing: control.spacing
-        orientation: ListView.Horizontal
-        boundsBehavior: Flickable.StopAtBounds
-        snapMode: ListView.SnapToItem
+        width: control.availableWidth
+        Repeater {
+            model: control.contentModel
+            onItemAdded: (index, item) => {
+                item.flat = index !== 0
+                if (index !== 0) {
+                    item.x = Qt.binding(() => (control.availableWidth - item.width) / 2);
+                }
+            }
+        }
     }
 
     background: null
