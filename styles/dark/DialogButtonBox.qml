@@ -12,7 +12,7 @@ T.DialogButtonBox {
     implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
                             (control.count === 1 ? implicitContentWidth * 2 : implicitContentWidth) + leftPadding + rightPadding)
     implicitHeight: Math.max(implicitBackgroundHeight + topInset + bottomInset,
-                             contentItem.implicitHeight + topPadding + bottomPadding)
+                             contentItem.childrenRect.height + topPadding + bottomPadding)
     contentWidth: contentItem.implicitWidth
 
     spacing: Style.smallMargins
@@ -33,6 +33,8 @@ T.DialogButtonBox {
                 item.flat = index !== 0
                 if (index !== 0) {
                     item.x = Qt.binding(() => (control.availableWidth - item.width) / 2);
+                } else {
+                    item.width = Qt.binding(() => control.availableWidth);
                 }
             }
         }
