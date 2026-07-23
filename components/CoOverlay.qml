@@ -21,10 +21,10 @@ Dialog {
     topPadding: 0
     leftPadding: 0
     rightPadding: 0
-    // Keep the visual rounding at the bottom while also reserving the
-    // navigation-bar inset so buttons inside the overlay's content don't sit
-    // under the gesture/navigation bar on Android edge-to-edge.
-    bottomPadding: bg.radius + PlatformHelper.bottomPadding
+    // Keep the visual rounding at the bottom while reserving the navigation
+    // bar inset and the on-screen keyboard height so overlay content stays
+    // reachable on Android and iOS when a text field is focused.
+    bottomPadding: bg.radius + PlatformHelper.bottomPadding + PlatformHelper.imeHeight
 
     enter: Transition {
         NumberAnimation {
