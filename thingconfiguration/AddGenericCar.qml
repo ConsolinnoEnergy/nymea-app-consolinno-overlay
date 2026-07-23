@@ -255,7 +255,7 @@ Page {
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                     text: resultsView.success ?
-                              (root.thing ? root.thing ? qsTr("\“%1\” reconfigured!").arg(resultsView.thing.name) : qsTr("\“%1\” added!").arg(resultsView.thing.name)) :
+                              (root.thing ? qsTr("\“%1\” reconfigured!").arg(resultsView.thing.name) : qsTr("\“%1\” added!").arg(resultsView.thing.name)) :
                               qsTr("Uh oh")
                     color: Style.colors.typography_Headlines_H2
                     font: Style.newH2Font
