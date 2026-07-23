@@ -6,5 +6,4 @@
     <Publisher>Conslinno Energy GmbH</Publisher>
     <StartMenuDir>Consolinno</StartMenuDir>
     <TargetDir>@LocalAppDataDir@/Consolinno energy</TargetDir>
-    <AllowNonAdminTargetDirectory>true</AllowNonAdminTargetDirectory>
 </Installer>
