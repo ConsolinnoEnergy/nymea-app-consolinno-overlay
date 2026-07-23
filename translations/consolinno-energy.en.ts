@@ -32,6 +32,21 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="258"/>
+        <source>“%1” reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="258"/>
+        <source>“%1” added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="268"/>
+        <source>All done. You can now start using “%1”.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../thingconfiguration/AddGenericCar.qml" line="101"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
@@ -47,27 +62,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="257"/>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="257"/>
-        <source>Thing added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="257"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="259"/>
         <source>Uh oh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="265"/>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="265"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="269"/>
         <source>Something went wrong setting up this thing...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -567,27 +567,17 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="210"/>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="218"/>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="224"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="233"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="339"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="348"/>
         <source>Minimum charging current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="351"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="360"/>
         <source>Maximum charging limit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -602,28 +592,43 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="174"/>
-        <location filename="../thingconfiguration/CarInventory.qml" line="258"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="149"/>
+        <source>Add vehicle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/CarInventory.qml" line="181"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="267"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="312"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="217"/>
+        <source>“%1” reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/CarInventory.qml" line="225"/>
+        <source>All done. You can now start using “%1”.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/CarInventory.qml" line="321"/>
         <source>Setup car</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="322"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="331"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="330"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="339"/>
         <source>Capacity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarInventory.qml" line="293"/>
+        <location filename="../thingconfiguration/CarInventory.qml" line="302"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2665,13 +2670,13 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="259"/>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="432"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="438"/>
         <source>Connected</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="259"/>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="432"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="438"/>
         <source>Disconnected</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2687,89 +2692,94 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="247"/>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="407"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="413"/>
         <source>RJ45 connector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="249"/>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="409"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="415"/>
         <source>14-pin connector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="343"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="297"/>
+        <source>Add interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="349"/>
         <source>Modbus-RTU-Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="346"/>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="367"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="352"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="373"/>
         <source>Remove Modbus RTU Interface</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="368"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="374"/>
         <source>Are you sure you want to remove this Modbus RTU Interface?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="372"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="378"/>
         <source>Please note that all related things will stop working until you assign a new Modbus RTU Interface to them.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="422"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="428"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="431"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="437"/>
         <source>Connection status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="438"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="444"/>
         <source>UUID</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="445"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="451"/>
         <source>Path</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="452"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="458"/>
         <source>Baud rate</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="459"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="465"/>
         <source>Parity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="466"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="472"/>
         <source>Data bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="473"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="479"/>
         <source>Stop bits</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="480"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="486"/>
         <source>Request retries</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="487"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="493"/>
         <source>Request timeout [ms]</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="326"/>
+        <location filename="../system/ConsolinnoModbusRtuSettingsPage.qml" line="332"/>
         <source>Reconfigure</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3052,42 +3062,42 @@ Use a timeout value greater or equal to 10 ms.</source>
 <context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="54"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="58"/>
         <source>Pick a password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="54"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="58"/>
         <source>Password</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="77"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="81"/>
         <source>Minimum %1 characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="80"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="84"/>
         <source>Lowercase letters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="84"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="88"/>
         <source>Uppercase letters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="88"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="92"/>
         <source>Numbers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="92"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="96"/>
         <source>Special characters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="142"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="147"/>
         <source>Confirm password</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3668,22 +3678,22 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="350"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="351"/>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="357"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="358"/>
         <source>Too bad...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="363"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="365"/>
         <source>No things of this kind could be found...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="372"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="376"/>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3693,94 +3703,94 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="387"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="528"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="597"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="672"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="532"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="601"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="676"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="387"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="528"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="597"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="672"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="532"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="601"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="676"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="423"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="427"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="434"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="438"/>
         <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="448"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="452"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="509"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="513"/>
         <source>Reset values to default</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="394"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="535"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="697"/>
+        <source>“%1” reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="697"/>
+        <source>“%1” added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="706"/>
+        <source>All done. You can now start using “%1”.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="398"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="539"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="553"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="557"/>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="570"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="574"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="608"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
         <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
-        <source>Thing reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
-        <source>Thing added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="692"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="698"/>
         <source>Uh oh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="700"/>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="700"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="706"/>
         <source>Something went wrong setting up this thing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="655"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="659"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="665"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="669"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4450,8 +4460,23 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
+        <source>“%1” reconfigured!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
+        <source>“%1” added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="379"/>
         <source>Uh oh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
+        <source>All done. You can now start using “%1”.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4460,7 +4485,7 @@ Use a timeout value greater or equal to 10 ms.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="418"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="422"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4482,22 +4507,7 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
-        <source>&quot;%1&quot; reconfigured!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
-        <source>&quot;%1&quot; added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
-        <source>All done. You can now start using &quot;%1&quot;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="406"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="410"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5861,12 +5871,12 @@ Would you like to continue anyway?</source>
 <context>
     <name>PVPriorities</name>
     <message>
-        <location filename="../optimization/PVPriorities.qml" line="300"/>
+        <location filename="../optimization/PVPriorities.qml" line="304"/>
         <source>Restore default order</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVPriorities.qml" line="318"/>
+        <location filename="../optimization/PVPriorities.qml" line="322"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6023,7 +6033,7 @@ Would you like to continue anyway?</source>
     <name>SetupEEBUSWizard</name>
     <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="63"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="724"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="727"/>
         <source>EEBUS Devices</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6078,7 +6088,7 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="314"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="315"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6088,65 +6098,65 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="364"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="367"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="374"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="377"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="385"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="388"/>
         <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="397"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="400"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="339"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="448"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="490"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="709"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="342"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="451"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="493"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="712"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="643"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="646"/>
         <source>The EEBUS device has been successfully set up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="739"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="742"/>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="541"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="544"/>
         <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="547"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="550"/>
         <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="684"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="687"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="508"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="511"/>
         <source>EEBUS Device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="628"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="631"/>
         <source>Setting up EEBUS device...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6197,24 +6207,24 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="571"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="574"/>
         <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="39"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="495"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="498"/>
         <source>Setup energy meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="545"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="548"/>
         <source>The following energy meter has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="224"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="487"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="490"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6245,17 +6255,17 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="397"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="400"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="397"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="400"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="435"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="438"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6265,7 +6275,7 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="353"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="354"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6285,17 +6295,17 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="407"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="410"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="423"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="426"/>
         <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="377"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="380"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6424,7 +6434,7 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../wizards/SetupWizardBase.qml" line="44"/>
         <location filename="../wizards/SetupWizardBase.qml" line="375"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="637"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="640"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6460,7 +6470,7 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="502"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="503"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6470,86 +6480,86 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="548"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="729"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="816"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="551"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="732"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="819"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="548"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="551"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="558"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="561"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="574"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="577"/>
         <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="586"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="589"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="528"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="721"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="531"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="724"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="738"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="741"/>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="754"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="755"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="757"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="758"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="829"/>
-        <source>Thing added!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="829"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="832"/>
         <source>Uh oh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="838"/>
-        <source>All done. You can now start using %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="838"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
         <source>Something went wrong setting up this thing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="792"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="795"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="800"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="803"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="860"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="832"/>
+        <source>“%1” added!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
+        <source>All done. You can now start using “%1”.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="865"/>
         <source>OAuth Authentication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="869"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="874"/>
         <source>Please complete authentication in your browser</source>
         <translation type="unfinished"></translation>
     </message>
