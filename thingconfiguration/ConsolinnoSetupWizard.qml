@@ -356,15 +356,18 @@ Page {
                 Layout.preferredHeight: discoveryView.height - discoveryView.coHeader.height - Style.margins * 3
                 Label {
                     text: qsTr("Too bad...")
-                    font.pixelSize: app.largeFont
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
                 Label {
                     text: qsTr("No things of this kind could be found...")
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
                 Label {
                     Layout.fillWidth: true
@@ -690,21 +693,27 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                    text: resultsView.success ? (root.thing ? qsTr("Thing reconfigured!") : qsTr("Thing added!")) : qsTr("Uh oh")
-                    font.pixelSize: app.largeFont
-                    color: Style.accentColor
+                    text: resultsView.success ?
+                              (root.thing ? qsTr("\“%1\” reconfigured!").arg(resultsView.thing.name) : qsTr("\“%1\” added!").arg(resultsView.thing.name)) :
+                              qsTr("Uh oh")
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                    text: resultsView.success ? qsTr("All done. You can now start using \“%1\”.").arg(resultsView.thing.name) : qsTr("Something went wrong setting up this thing...");
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
                     text: resultsView.message
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
 
             }

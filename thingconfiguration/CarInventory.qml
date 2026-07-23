@@ -214,15 +214,17 @@ Page{
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                    text: qsTr("Thing reconfigured!")
-                    font.pixelSize: app.largeFont
-                    color: Style.accentColor
+                    text: qsTr("\“%1\” reconfigured!").arg(thing.name)
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: qsTr("All done. You can now start using %1.").arg(thing.name)
+                    text: qsTr("All done. You can now start using \“%1\”.").arg(thing.name)
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
 
                 Button {

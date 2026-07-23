@@ -492,10 +492,11 @@ Page {
 
                 Label {
                     text: qsTr("Too bad...")
-                    font.pixelSize: app.largeFont
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
 
                 Label {
@@ -504,6 +505,8 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
             }
 
@@ -826,16 +829,18 @@ Page {
                     Layout.fillWidth: true
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
-                    text: resultsView.success ? qsTr("Thing added!") : qsTr("Uh oh")
-                    font.pixelSize: app.largeFont
-                    color: Style.accentColor
+                    text: resultsView.success ? qsTr("\“%1\” added!").arg(resultsView.thing.name) : qsTr("Uh oh")
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
 
                 Label {
                     Layout.fillWidth: true
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
-                    text: resultsView.success ? qsTr("All done. You can now start using %1.").arg(resultsView.thing ? resultsView.thing.name : "") : qsTr("Something went wrong setting up this thing...")
+                    text: resultsView.success ? qsTr("All done. You can now start using \“%1\”.").arg(resultsView.thing ? resultsView.thing.name : "") : qsTr("Something went wrong setting up this thing...")
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
 
                 Label {

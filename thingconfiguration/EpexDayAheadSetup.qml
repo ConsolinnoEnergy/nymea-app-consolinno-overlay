@@ -375,10 +375,10 @@ Please note that the actual final price may be higher.\
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                     text: resultsView.success ?
-                              (root.thing ? qsTr("\"%1\" reconfigured!").arg(resultsView.thing.name) : qsTr("\"%1\" added!").arg(resultsView.thing.name)) :
+                              (root.thing ? qsTr("\“%1\” reconfigured!").arg(resultsView.thing.name) : qsTr("\“%1\” added!").arg(resultsView.thing.name)) :
                               qsTr("Uh oh")
-                    font: Style.largeFont
-                    color: Style.accentColor
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
 
                 Label {
@@ -386,8 +386,10 @@ Please note that the actual final price may be higher.\
                     horizontalAlignment: Text.AlignHCenter
                     wrapMode: Text.WordWrap
                     text: resultsView.success ?
-                              qsTr("All done. You can now start using \"%1\".").arg(resultsView.thing.name) :
+                              qsTr("All done. You can now start using \“%1\”.").arg(resultsView.thing.name) :
                               qsTr("Something went wrong setting up this thing...")
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
 
                 Label {
@@ -396,6 +398,8 @@ Please note that the actual final price may be higher.\
                     wrapMode: Text.WordWrap
                     text: resultsView.message
                     visible: resultsView.message.length > 0
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
 
                 Button {

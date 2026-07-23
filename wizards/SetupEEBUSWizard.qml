@@ -304,10 +304,11 @@ Page {
 
                 Label {
                     text: qsTr("Too bad...")
-                    font.pixelSize: app.largeFont
                     Layout.fillWidth: true
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     horizontalAlignment: Text.AlignHCenter
+                    color: Style.colors.typography_Headlines_H2
+                    font: Style.newH2Font
                 }
 
                 Label {
@@ -316,6 +317,8 @@ Page {
                     Layout.leftMargin: app.margins; Layout.rightMargin: app.margins
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
+                    font: Style.newParagraphFont
+                    color: Style.colors.typography_Basic_Default
                 }
             }
 
