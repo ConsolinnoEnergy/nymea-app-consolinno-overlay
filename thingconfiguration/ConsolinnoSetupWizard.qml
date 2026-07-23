@@ -396,7 +396,7 @@ Page {
                 CoNavbarButton {
                     Layout.fillWidth: true
                     text: qsTr("OK")
-                    onClicked: {
+                    enabled: !root.thing || paramRepeater.dirty
                         var params = []
                         for (var i = 0; i < paramRepeater.count; i++) {
                             var param = {}
@@ -460,11 +460,21 @@ Page {
                     Repeater {
                         id: paramRepeater
                         model: engine.jsonRpcClient.ensureServerVersion("1.12") || d.thingDescriptor == null ? root.thingClass.paramTypes : null
+
+                        property bool dirty: false
+                        function checkDirty() {
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                if (paramRepeater.itemAt(i).dirty) { dirty = true; return; }
+                            }
+                            dirty = false;
+                        }
+
                         delegate: CoParamDelegate {
                             Layout.fillWidth: true
                             enabled: !model.readOnly
                             visible: root.hiddenParamTypeIds.indexOf(paramType.id.toString().replace(/[{}]/g, "")) === -1
                             paramType: root.thingClass.paramTypes.get(index)
+                            onDirtyChanged: paramRepeater.checkDirty()
                             value: {
                                 if (d.thingDescriptor && d.thingDescriptor.params.getParam(paramType.id)) {
                                     return d.thingDescriptor.params.getParam(paramType.id).value

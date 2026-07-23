@@ -43,6 +43,11 @@ ItemDelegate {
     property bool nameVisible: false // #TODO unused here (but in ParamDelegate) but needed to fulfill the interface of ParamDelegate
     property string placeholderText: ""
 
+    property var initialValue: undefined
+    readonly property bool dirty: initialValue !== undefined && value !== initialValue
+
+    Component.onCompleted: { initialValue = value }
+
     topPadding: 0
     bottomPadding: 0
 

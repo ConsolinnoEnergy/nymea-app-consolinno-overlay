@@ -183,6 +183,7 @@ Page {
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Apply changes")
+                        enabled: !root.thing || paramRepeater.dirty
                         onClicked: {
                             var params = [];
                             var leviesIsZero = false;
@@ -274,6 +275,14 @@ Page {
                     Repeater {
                         id: paramRepeater
 
+                        property bool dirty: false
+                        function checkDirty() {
+                            for (var i = 0; i < paramRepeater.count; i++) {
+                                if (paramRepeater.itemAt(i).visible && paramRepeater.itemAt(i).dirty) { dirty = true; return; }
+                            }
+                            dirty = false;
+                        }
+
                         Component.onCompleted: {
                             if (root.thing) {
                                 var param = root.thing.params.getParam("c39d158c-d9a4-40f2-8d6d-746eca80f9ec");
@@ -311,6 +320,8 @@ Page {
                                     paramd.variableGridFees = value;
                                 }
                             }
+                            onDirtyChanged: paramRepeater.checkDirty()
+                            onVisibleChanged: paramRepeater.checkDirty()
 
                             value: {
                                 // Show current param value when reconfiguring a thing and default value

@@ -368,7 +368,6 @@ SettingsPageBase {
                                 writable: true
                                 // Hide electric vehicle's phase count setting.
                                 visible: paramType.id.toString() !== "{6ee1534a-f2c7-4819-8cd5-728dc63a31ba}"
-                                property bool dirty: root.thing.settings.get(index).value !== value
                                 onDirtyChanged: settingsRepeater.checkDirty()
                             }
                             function checkDirty() {
