@@ -397,6 +397,7 @@ Page {
                     Layout.fillWidth: true
                     text: qsTr("OK")
                     enabled: !root.thing || paramRepeater.dirty
+                    onClicked: {
                         var params = []
                         for (var i = 0; i < paramRepeater.count; i++) {
                             var param = {}
