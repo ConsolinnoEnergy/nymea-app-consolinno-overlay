@@ -18,8 +18,6 @@ Page {
     signal done()
 
     readonly property bool applyEnabled: {
-        if (maxElectricalPower.visible && !maxElectricalPower.acceptableInput) { return false; }
-
         if (calledFromAssistant) {
             return true;
         } else {
@@ -34,6 +32,11 @@ Page {
     }
 
     function applyChanges() {
+        if (maxElectricalPower.visible && !maxElectricalPower.acceptableInput) {
+            maxElectricalPower.textField.hasError = !maxElectricalPower.acceptableInput;
+            return;
+        }
+
         var blockBatteryOnGridConsumption = batteryConfiguration.blockBatteryOnGridConsumption;
         if (blockEVChargingFromBatteryControl.checked) {
             blockBatteryOnGridConsumption |= BatteryConfiguration.EvCharger;

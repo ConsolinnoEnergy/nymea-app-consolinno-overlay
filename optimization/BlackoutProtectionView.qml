@@ -36,14 +36,9 @@ Page {
 
     readonly property bool applyEnabled: {
         if (calledFromAssistant) {
-            if (currentCombo.currentValue === 0 && !currentInput.acceptableInput) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         } else {
             if (currentCombo.currentValue === 0) {
-                if (!currentInput.acceptableInput) { return false; }
                 return Number(currentInput.text) !== configuredPhaseLimit;
             } else {
                 return currentCombo.currentValue !== configuredPhaseLimit;
@@ -52,6 +47,11 @@ Page {
     }
 
     function applyChanges() {
+        if (currentCombo.currentValue === 0 && !currentInput.acceptableInput) {
+            currentInput.textField.hasError = !currentInput.acceptableInput;
+            return;
+        }
+
         if (calledFromAssistant) {
             hemsManager.setHousholdPhaseLimit(root.phaseLimit);
             root.done(false, false, false);

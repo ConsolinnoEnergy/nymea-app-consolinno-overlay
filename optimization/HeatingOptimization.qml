@@ -18,8 +18,6 @@ Page {
     signal done()
 
     readonly property bool applyEnabled: {
-        if (!maxElectricalPower.acceptableInput) { return false; }
-
         if (calledFromAssistant) {
             return true;
         } else {
@@ -30,6 +28,11 @@ Page {
     }
 
     function applyChanges() {
+        if (!maxElectricalPower.acceptableInput) {
+            maxElectricalPower.textField.hasError = !maxElectricalPower.acceptableInput;
+            return;
+        }
+
         let inputText = maxElectricalPower.text
         inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
         // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode

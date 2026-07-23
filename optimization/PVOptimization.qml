@@ -17,13 +17,6 @@ Page {
     signal done
 
     readonly property bool applyEnabled: {
-        if (!latitudeInput.acceptableInput ||
-                !longitudeInput.acceptableInput ||
-                !roofpitchInput.acceptableInput ||
-                !peakPowerInput.acceptableInput) {
-            return false;
-        }
-
         if (calledFromAssistant) {
             return true;
         } else {
@@ -37,6 +30,17 @@ Page {
     }
 
     function applyChanges() {
+        if (!latitudeInput.acceptableInput ||
+                !longitudeInput.acceptableInput ||
+                !roofpitchInput.acceptableInput ||
+                !peakPowerInput.acceptableInput) {
+            latitudeInput.textField.hasError = !latitudeInput.acceptableInput;
+            longitudeInput.textField.hasError = !longitudeInput.acceptableInput;
+            roofpitchInput.textField.hasError = !roofpitchInput.acceptableInput;
+            peakPowerInput.textField.hasError = !peakPowerInput.acceptableInput;
+            return;
+        }
+
         if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
                 Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
             let callId = hemsManager.setPvConfiguration(thing.id,

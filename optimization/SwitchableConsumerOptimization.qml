@@ -17,8 +17,6 @@ Page {
     signal done()
 
     readonly property bool applyEnabled: {
-        if (!maxElectricalPower.maxElectricalPowerValid) { return false; }
-
         if (calledFromAssistant) {
             return true;
         } else {
@@ -29,6 +27,11 @@ Page {
     }
 
     function applyChanges() {
+        if (!maxElectricalPower.acceptableInput) {
+            maxElectricalPower.textField.hasError = !maxElectricalPower.acceptableInput;
+            return;
+        }
+
         // Backend expects value in W.
         let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         // #TODO CLS toggle only starting with version 2.2
@@ -114,7 +117,6 @@ Page {
 
                     CoInputField {
                         id: maxElectricalPower
-                        property bool maxElectricalPowerValid: textField.acceptableInput
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
