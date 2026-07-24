@@ -20,7 +20,7 @@ Item {
         startTime: new Date(d.startTime.getTime() - d.range * 60000)
         endTime: new Date(d.endTime.getTime() + d.range * 60000)
         sampleRate: d.sampleRate
-        Component.onCompleted: fetchLogs()
+        Component.onCompleted: if (!engine.thingManager.fetchingData) fetchLogs()
 
         onEntriesAdded: function(index, entries) {
             print("entries added", index, entries.length)
@@ -44,6 +44,13 @@ Item {
                 consumptionUpperSeries.removePoints(index, Math.min(count, available))
             }
             zeroSeries.shrink()
+        }
+    }
+
+    Connections {
+        target: _engine.thingManager
+        function onFetchingDataChanged() {
+            if (!_engine.thingManager.fetchingData) powerBalanceLogs.fetchLogs()
         }
     }
 

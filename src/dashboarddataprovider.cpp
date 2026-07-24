@@ -54,6 +54,10 @@ void DashboardDataProvider::setEngine(Engine *engine)
     if (m_engine && m_engine->jsonRpcClient()) {
         connect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                 this, &DashboardDataProvider::fetchEnergyKPIs);
+        // Wait until GetThingClasses/GetThings have completed before fetching KPIs,
+        // so they don't queue up ahead of GetThings and delay the loading screen.
+        connect(m_engine->thingManager(), &ThingManager::fetchingDataChanged,
+                this, &DashboardDataProvider::onThingManagerFetchingDataChanged);
         fetchEnergyKPIs();
         m_kpiRefreshTimer.start();
     }
@@ -337,6 +341,13 @@ void DashboardDataProvider::fetchEnergyKPIs()
         return;
     }
 
+    // Defer until GetThingClasses/GetThings have completed to avoid queueing KPI requests
+    // ahead of GetThings on the server, which would delay the "Lade Daten" loading screen.
+    if (m_engine->thingManager()->fetchingData()) {
+        qCDebug(dcDashboardDataProvider()) << "ThingManager still fetching — deferring KPI fetch.";
+        return;
+    }
+
     // Calculate midnight today (local time) as Unix timestamp in seconds
     const QDateTime now = QDateTime::currentDateTime();
     QDateTime midnightToday(now.date(), QTime(0, 0, 0), now.timeZone());
@@ -612,4 +623,12 @@ void DashboardDataProvider::resetValues()
     // Will reset other power values and energy flow values to 0.
     updateConsumptions();
     updateEnergyFlow();
+}
+void DashboardDataProvider::onThingManagerFetchingDataChanged()
+{
+    if (!m_engine || m_engine->thingManager()->fetchingData()) {
+        return;
+    }
+    // ThingManager finished loading GetThingClasses/GetThings — now safe to fetch KPIs.
+    fetchEnergyKPIs();
 }

@@ -15,7 +15,14 @@ Item {
         startTime: new Date(d.startTime.getTime() - d.range * 60000)
         endTime: new Date(d.endTime.getTime() + d.range * 60000)
         sampleRate: d.sampleRate
-        Component.onCompleted: fetchLogs()
+        Component.onCompleted: if (!engine.thingManager.fetchingData) fetchLogs()
+    }
+
+    Connections {
+        target: _engine.thingManager
+        function onFetchingDataChanged() {
+            if (!_engine.thingManager.fetchingData) powerBalanceLogs.fetchLogs()
+        }
     }
 
     property ThingsProxy batteries: ThingsProxy {

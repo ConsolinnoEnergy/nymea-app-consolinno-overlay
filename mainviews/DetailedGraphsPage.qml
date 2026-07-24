@@ -15,7 +15,7 @@ MainViewBase {
 
     EnergyManager {
         id: energyManager
-        engine: _engine
+        engine: _engine && !_engine.thingManager.fetchingData ? _engine : null
     }
 
     property var totalColors: Configuration.totalColors

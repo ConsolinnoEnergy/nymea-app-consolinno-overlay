@@ -93,7 +93,7 @@ MainViewBase {
 
     EnergyManager {
         id: energyManager
-        engine: _engine
+        engine: _engine && !_engine.thingManager.fetchingData ? _engine : null
     }
 
     DashboardDataProvider {

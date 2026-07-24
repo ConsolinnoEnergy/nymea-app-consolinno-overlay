@@ -88,6 +88,7 @@ private:
     void updateEnergyFlow();
 
     void fetchEnergyKPIs();
+    void onThingManagerFetchingDataChanged();
 
     Q_INVOKABLE void getEnergyKPIsResponse(int commandId, const QVariantMap &data);
 
