@@ -5,5 +5,5 @@
     <Title>Consolinno Energy HEMS</Title>
     <Publisher>Conslinno Energy GmbH</Publisher>
     <StartMenuDir>Consolinno</StartMenuDir>
-    <TargetDir>@ApplicationsDirX64@/Consolinno energy</TargetDir>
+    <TargetDir>@HomeDir@/AppData/Local/Consolinno energy</TargetDir>
 </Installer>
