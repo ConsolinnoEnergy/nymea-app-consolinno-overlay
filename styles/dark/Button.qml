@@ -43,8 +43,8 @@ T.Button {
     property alias iconLeft: iconLeft.name
     property alias iconRight: iconRight.name
 
-    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
-    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
+    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding + leftInset + rightInset
+    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding + topInset + bottomInset
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     topPadding: Style.numbers.components_Forms_Buttons_Vertical_padding
