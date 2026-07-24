@@ -322,5 +322,6 @@
         <file>dependencies/qrcode-svg/qrcode.min.js</file>
         <file>components/CoCheckBox.qml</file>
         <file>components/CoDivider.qml</file>
+        <file>components/CoAboutPage.qml</file>
     </qresource>
 </RCC>

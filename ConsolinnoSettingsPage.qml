@@ -126,6 +126,15 @@ MainViewBase {
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
                     }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("New About") //#TODO
+                        helpText: qsTr("Find app versions and licence information.") //#TODO
+                        iconLeft: "/icons/info.svg" //#TODO
+                        showChildrenIndicator: true
+                        onClicked: pageStack.push(Qt.resolvedUrl("components/CoAboutPage.qml"))
+                    }
                 }
             }
 
