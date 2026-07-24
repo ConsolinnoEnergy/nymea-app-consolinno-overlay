@@ -49,14 +49,22 @@ void HemsManager::setEngine(Engine *engine)
         m_engine->jsonRpcClient()->unregisterNotificationHandler(this);
         disconnect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                    this, &HemsManager::initJsonRpcCommunication);
+        disconnect(m_engine->thingManager(), &ThingManager::fetchingDataChanged,
+                   this, &HemsManager::onThingManagerFetchingDataChanged);
     }
 
     m_engine = engine;
     emit engineChanged();
 
     if (m_engine) {
+        // React to disconnection so we can reset state when the connection drops.
         connect(m_engine->jsonRpcClient(), &JsonRpcClient::connectedChanged,
                 this, &HemsManager::initJsonRpcCommunication);
+        // Wait until GetThingClasses/GetThings have completed before flooding the server
+        // with Hems.Get* commands — otherwise they queue up ahead of GetThings and cause
+        // the "Lade Daten" screen to stay visible for an unnecessarily long time.
+        connect(m_engine->thingManager(), &ThingManager::fetchingDataChanged,
+                this, &HemsManager::onThingManagerFetchingDataChanged);
         initJsonRpcCommunication();
     }
 }
@@ -1123,6 +1131,21 @@ void HemsManager::initJsonRpcCommunication()
 
     m_available = true;
     emit availableChanged();
+
+    // Defer the actual Hems.Get* commands until GetThingClasses/GetThings have completed.
+    // Sending them immediately on connection floods the server queue ahead of GetThings,
+    // which causes the "Lade Daten" loading screen to stay visible for an unnecessarily
+    // long time on slow embedded hardware.
+    if (m_engine->thingManager()->fetchingData()) {
+        qCDebug(dcHems()) << "ThingManager still fetching — deferring Hems data fetch.";
+        return;
+    }
+
+    // Guard against being called again while a fetch is already running (e.g. reconnect).
+    if (m_fetchingData) {
+        return;
+    }
+
     m_fetchingData = true;
     emit fetchingDataChanged();
 
@@ -1643,4 +1666,14 @@ void HemsManager::updateAvailableUsecases(const QStringList &useCasesList)
         m_availableUseCases = availableUseCases;
         emit availableUseCasesChanged(m_availableUseCases);
     }
+}
+
+void HemsManager::onThingManagerFetchingDataChanged()
+{
+    if (!m_engine || m_engine->thingManager()->fetchingData()) {
+        return;
+    }
+    // ThingManager finished loading GetThingClasses/GetThings — now safe to send
+    // Hems.Get* commands without delaying the "Lade Daten" loading screen.
+    initJsonRpcCommunication();
 }

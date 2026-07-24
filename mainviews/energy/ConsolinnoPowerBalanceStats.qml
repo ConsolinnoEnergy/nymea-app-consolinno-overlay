@@ -166,7 +166,7 @@ StatsBase {
             startTime: root.calculateTimestamp(d.startTime, d.config.sampleRate, -d.config.count)
             endTime: root.calculateTimestamp(d.startTime, d.config.sampleRate, d.config.count)
             sampleRate: d.config.sampleRate
-            Component.onCompleted: fetchLogs()
+            Component.onCompleted: if (!engine.thingManager.fetchingData) fetchLogs()
 
             onFetchingDataChanged: {
                 if (!fetchingData) {
@@ -183,6 +183,13 @@ StatsBase {
                 d.startOffset--
                 d.startOffset++
                 //d.refresh()
+            }
+        }
+
+        Connections {
+            target: _engine.thingManager
+            function onFetchingDataChanged() {
+                if (!_engine.thingManager.fetchingData) powerBalanceLogs.fetchLogs()
             }
         }
 

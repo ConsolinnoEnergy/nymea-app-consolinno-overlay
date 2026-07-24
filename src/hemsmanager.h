@@ -228,6 +228,7 @@ private:
     DevConfigPvSurplus *m_devConfigPvSurplus = nullptr;
 
     void initJsonRpcCommunication();
+    void onThingManagerFetchingDataChanged();
 
     void addOrUpdateHeatingConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateChargingConfiguration(const QVariantMap &configurationMap);
