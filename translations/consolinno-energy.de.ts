@@ -377,82 +377,82 @@
 <context>
     <name>BatteryOptimization</name>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="96"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="99"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="99"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="102"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="158"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="161"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="170"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="173"/>
         <source>Avoid zero compensation</source>
         <translation>Nullvergütung vermeiden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="159"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="162"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="184"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="187"/>
         <source>Block EV charging from the battery</source>
         <translation>Fahrzeug nicht aus Batterie laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="75"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="78"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="140"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="143"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="142"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="145"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="146"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="149"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="268"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="271"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="268"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="271"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="198"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="201"/>
         <source>HEMS-controlled battery</source>
         <translation>HEMS-gesteuerte Batterie</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="211"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="214"/>
         <source>Maximum SoC</source>
         <translation>Maximaler SoC</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="232"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="235"/>
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="144"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="147"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
@@ -1269,6 +1269,232 @@
     </message>
 </context>
 <context>
+    <name>CoAboutPage</name>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="9"/>
+        <source>About %1</source>
+        <translation>Über %1</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="27"/>
+        <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
+        <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="30"/>
+        <source>Not available</source>
+        <translation>Nicht verfügbar</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="48"/>
+        <source>System</source>
+        <translation>System</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="59"/>
+        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
+        <translation>Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="60"/>
+        <source>Developer options are now disabled.</source>
+        <translation>Entwicklereinstellungen sind jetzt deaktiviert.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="63"/>
+        <source>Howdy cowboy!</source>
+        <translation>Howdy cowboy!</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="80"/>
+        <source>Serial number</source>
+        <translation>Seriennummer</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="86"/>
+        <location filename="../components/CoAboutPage.qml" line="98"/>
+        <location filename="../components/CoAboutPage.qml" line="130"/>
+        <location filename="../components/CoAboutPage.qml" line="142"/>
+        <source>%1 copied to clipboard</source>
+        <translation>%1 kopiert</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="93"/>
+        <source>Server UUID</source>
+        <translation>Server UUID</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="105"/>
+        <source>Connection</source>
+        <translation>Verbindung</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="114"/>
+        <source>Software versions</source>
+        <translation>Software-Versionen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="125"/>
+        <source>%1 (Device)</source>
+        <translation>%1 (Gerät)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="137"/>
+        <source>%1 (App)</source>
+        <translation>%1 (App)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="149"/>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="156"/>
+        <source>JSON RPC</source>
+        <translation>JSON RPC</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="162"/>
+        <source>Built with %1</source>
+        <translation>Gebaut mit %1</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="163"/>
+        <source>Qt (Device)</source>
+        <translation>Qt (Gerät)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="170"/>
+        <source>Qt (App)</source>
+        <translation>Qt (App)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="179"/>
+        <source>Privacy</source>
+        <translation>Datenschutz</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="189"/>
+        <source>Show privacy policy</source>
+        <translation>Datenschutzerklärung anzeigen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="203"/>
+        <source>Licenses (Device)</source>
+        <translation>Lizenzen (Gerät)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="220"/>
+        <source>Licensed under the terms of the GNU General Public License, version 3.</source>
+        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="267"/>
+        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
+        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub-Seiten für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="225"/>
+        <source>Common Licenses</source>
+        <translation>Allgemeine Lizenzen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="226"/>
+        <location filename="../components/CoAboutPage.qml" line="237"/>
+        <source>Only available on the local network</source>
+        <translation>Nur im lokalen Netzwerk verfügbar</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="236"/>
+        <source>Software and Libraries</source>
+        <translation>Software und Bibliotheken</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="250"/>
+        <source>Licenses (App)</source>
+        <translation>Lizenzen (App)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="272"/>
+        <source>Visit GitHub page</source>
+        <translation>Besuche die GitHub Seite</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="283"/>
+        <source>Visit Consolinno-Overlay on GitHub</source>
+        <translation>Besuche Consolinno-Overlay auf GitHub</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="294"/>
+        <source>Software and libraries (App)</source>
+        <translation>Software und Bibliotheken (App)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="295"/>
+        <source>View the software and libraries used in this product.</source>
+        <translation>Für dieses Produkt genutzte Software und Bibliotheken anzeigen.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="308"/>
+        <source>Further information</source>
+        <translation>Weitere Informationen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="319"/>
+        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
+        <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="325"/>
+        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
+        <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="330"/>
+        <source>Visit the Qt homepage</source>
+        <translation>Besuche die Qt-Website</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="341"/>
+        <source>Visit the nymea homepage</source>
+        <translation>Besuche die nymea-Website</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="355"/>
+        <source>Source code availability</source>
+        <translation>Verfügbarkeit des Quelltexts</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="366"/>
+        <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
+        <translation>Jeder kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="372"/>
+        <source>&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;%2&lt;br&gt;%3 %4&lt;br&gt;Tel: %5&lt;br&gt;Mail: %6</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="384"/>
+        <source>Please provide the following product data:</source>
+        <translation>Geben Sie bitte folgende Produktdaten an:</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="390"/>
+        <source>- Product name<byte value="xd"/>
+- Software version<byte value="xd"/>
+- Serial number - if known</source>
+        <translation>- Produktname
+- Software-Version
+- Seriennummer - falls bekannt</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="396"/>
+        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
+        <translation>und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
+    </message>
+</context>
+<context>
     <name>CoBatteryInfoCard</name>
     <message>
         <location filename="../components/CoBatteryInfoCard.qml" line="106"/>
@@ -1515,14 +1741,32 @@ Ihr %3 Team</translation>
 <context>
     <name>CoParamDelegate</name>
     <message>
-        <location filename="../delegates/CoParamDelegate.qml" line="177"/>
+        <location filename="../delegates/CoParamDelegate.qml" line="182"/>
         <source>Choose %1</source>
         <translation>%1 auswählen</translation>
     </message>
     <message>
-        <location filename="../delegates/CoParamDelegate.qml" line="195"/>
+        <location filename="../delegates/CoParamDelegate.qml" line="200"/>
         <source>Search</source>
         <translation>Suche</translation>
+    </message>
+</context>
+<context>
+    <name>CoThirdPartyLicensesPage</name>
+    <message>
+        <location filename="../components/CoThirdPartyLicensesPage.qml" line="9"/>
+        <source>About %1</source>
+        <translation>Über %1</translation>
+    </message>
+    <message>
+        <location filename="../components/CoThirdPartyLicensesPage.qml" line="10"/>
+        <source>Software and libraries (App)</source>
+        <translation>Software und Bibliotheken (App)</translation>
+    </message>
+    <message>
+        <location filename="../components/CoThirdPartyLicensesPage.qml" line="33"/>
+        <source>Project website</source>
+        <translation>Projekt-Website</translation>
     </message>
 </context>
 <context>
@@ -1800,42 +2044,42 @@ Ihr %3 Team</translation>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="399"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="398"/>
         <source>Remove thing?</source>
         <translation>&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="400"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="399"/>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="440"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="439"/>
         <source>Connect Inputs/Outputs</source>
         <translation>Verbundene Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="450"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="449"/>
         <source>Connect &quot;%1&quot; to:</source>
         <translation>Verbinde &quot;%1&quot; zu:</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="531"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="530"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="554"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="553"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="560"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="559"/>
         <source>Disconnect</source>
         <translation>Trennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="577"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="576"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
@@ -1924,42 +2168,42 @@ Ihr %3 Team</translation>
 <context>
     <name>ConsolinnoConsumersHistory</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="136"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="143"/>
         <source>Consumers history</source>
         <translation>Verbraucherhistorie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="320"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="327"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="750"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="757"/>
         <source>Total</source>
         <translation>Gesamt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="148"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="155"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="153"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="160"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="158"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="165"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="163"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="170"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="225"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="232"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
@@ -3142,102 +3386,102 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoPowerBalanceHistory</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="133"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="140"/>
         <source>My power balance history</source>
         <translation>Meine Energiebilanz</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="145"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="152"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="150"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="157"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="155"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="162"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="160"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="167"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="220"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="227"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="374"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="631"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="381"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="638"/>
         <source>To battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="402"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="603"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="409"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="610"/>
         <source>To grid</source>
         <translation>Netzeinspeisung</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="431"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="659"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="438"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="666"/>
         <source>From battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="460"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="576"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="467"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="583"/>
         <source>From grid</source>
         <translation>Netzbezug</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="549"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="556"/>
         <source>Produced</source>
         <translation>Erzeugt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="802"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="854"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="809"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="861"/>
         <source>Consumed: %1 %2</source>
         <translation>Verbraucht: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="803"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="810"/>
         <source>Produced: %1 %2</source>
         <translation>Erzeugt: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="831"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="838"/>
         <source>From grid: %1 %2</source>
         <translation>Netzbezug: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="832"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="839"/>
         <source>To grid: %1 %2</source>
         <translation>Netzeinspeisung: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="853"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="860"/>
         <source>From self production: %1 %2</source>
         <translation>Von Eigenproduktion: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="876"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="883"/>
         <source>To battery: %1 %2</source>
         <translation>Batterieladung: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="877"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="884"/>
         <source>From battery: %1 %2</source>
         <translation>Von Batterie: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="309"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="316"/>
         <source>From PV</source>
         <translation>Von PV</translation>
     </message>
@@ -3275,51 +3519,51 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Jahre</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="309"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="406"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="316"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="413"/>
         <source>Consumed</source>
         <translation>Verbraucht</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="327"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="431"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="334"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="438"/>
         <source>Produced</source>
         <translation>Erzeugt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="345"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="458"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="352"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="465"/>
         <source>From grid</source>
         <translation>Netzbezug</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="363"/>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="484"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="370"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="491"/>
         <source>To grid</source>
         <translation>Netzeinspeisung</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="650"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="657"/>
         <source>Consumed: %1 kWh</source>
         <translation>Verbraucht: %1 kWh</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="663"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="670"/>
         <source>Produced: %1 kWh</source>
         <translation>Erzeugt: %1 kWh</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="675"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="682"/>
         <source>From grid: %1 kWh</source>
         <translation>Netzbezug: %1 kWh</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="687"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="694"/>
         <source>To grid: %1 kWh</source>
         <translation>Netzeinspeisung: %1 kWh</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="228"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerBalanceStats.qml" line="235"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
@@ -3327,67 +3571,67 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoPowerConsumptionBalanceHistory</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="112"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="119"/>
         <source>My consumption history</source>
         <translation>Meine Verbrauchshistorie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="409"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="416"/>
         <source>From grid</source>
         <translation>Netzbezug</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="559"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="566"/>
         <source>Total consumption: %1 %2</source>
         <translation>Gesamtverbrauch: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="598"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="605"/>
         <source>From battery: %1 %2</source>
         <translation>Von Batterie: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="617"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="624"/>
         <source>From grid: %1 %2</source>
         <translation>Netzbezug: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="123"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="130"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="128"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="135"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="133"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="140"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="138"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="145"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="197"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="204"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="317"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="324"/>
         <source>From PV</source>
         <translation>Von PV</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="381"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="388"/>
         <source>From Battery</source>
         <translation>Von Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="578"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml" line="585"/>
         <source>From PV: %1 %2</source>
         <translation>Von PV: %1 %2</translation>
     </message>
@@ -3395,67 +3639,67 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoPowerProductionBalanceHistory</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="113"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="120"/>
         <source>My production history</source>
         <translation>Meine Erzeugnishistorie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="315"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="322"/>
         <source>Consumed</source>
         <translation>Verbraucht</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="377"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="384"/>
         <source>To battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="405"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="412"/>
         <source>To grid</source>
         <translation>Netzeinspeisung</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="552"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="559"/>
         <source>Total production: %1 %2</source>
         <translation>Gesamtproduktion: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="571"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="578"/>
         <source>Consumed: %1 %2</source>
         <translation>Verbraucht: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="591"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="598"/>
         <source>To battery: %1 %2</source>
         <translation>Batterieladung: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="610"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="617"/>
         <source>To grid: %1 %2</source>
         <translation>Netzeinspeisung: %1 %2</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="124"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="131"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="129"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="136"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="134"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="141"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="139"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="146"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="198"/>
+        <location filename="../mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml" line="205"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
@@ -3463,73 +3707,74 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoSettingsPage</name>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="135"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="136"/>
         <source>System settings</source>
         <translation>Systemeinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="145"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="146"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="155"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="156"/>
         <source>User settings</source>
         <translation>Benutzereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="166"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="167"/>
         <source>Networking</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="177"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="178"/>
         <source>Connection settings</source>
         <translation>Verbindungseinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="309"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="320"/>
         <source>MQTT broker</source>
         <translation>MQTT Broker</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="267"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="278"/>
         <source>Web server</source>
         <translation>Web Server</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="281"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="292"/>
         <source>ZigBee</source>
         <translation>ZigBee</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="295"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="306"/>
         <source>Z-Wave</source>
         <translation>Z-Wave</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="199"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="200"/>
         <source>Modbus RTU</source>
         <translation>Modbus RTU</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="210"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="211"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="322"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="333"/>
         <source>Developer tools</source>
         <translation>Entwicklerwerkzeuge</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="221"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="222"/>
         <source>Log viewer</source>
         <translation>Systemprotokoll</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="123"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="124"/>
         <location filename="../ConsolinnoSettingsPage.qml" line="237"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="248"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
@@ -3594,7 +3839,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Entwicklereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="248"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="259"/>
         <source>Developer settings</source>
         <translation>Developer-Einstellungen</translation>
     </message>
@@ -3605,67 +3850,72 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="115"/>
-        <location filename="../ConsolinnoSettingsPage.qml" line="323"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="334"/>
         <source>Access tools for debugging and error reporting.</source>
         <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="124"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="125"/>
         <source>Find app versions and licence information.</source>
         <translation>Finde App-Versionen und Lizenzinformationen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="146"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="147"/>
         <source>Change system name and time zone.</source>
         <translation>Ändere Systemname und Zeitzone.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="156"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="157"/>
         <source>Configure who can log in.</source>
         <translation>Konfiguriere, wer sich verbinden darf.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="178"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="179"/>
         <source>Configure how applications can connect to this system.</source>
         <translation>Verwalte, wie sich Anwendungen zu diesem System verbinden können.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="200"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="201"/>
         <source>Configure Modbus RTU master interfaces.</source>
         <translation>Modbus-RTU-Master-Schnittstellen einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="211"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="212"/>
         <source>List and cofigure installed plugins.</source>
         <translation>Installierte Plugins auflisten und einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="222"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="223"/>
         <source>View system log.</source>
         <translation>Systemprotokoll anzeigen.</translation>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="238"/>
+        <source>Find server UUID, versions and license information.</source>
+        <translation>Finde Server-UUID, Versionen und Lizenzinformationen.</translation>
+    </message>
+    <message>
+        <location filename="../ConsolinnoSettingsPage.qml" line="249"/>
         <source>Find server UUID and versions.</source>
         <translation>Finde Server-UUID und Versionen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="268"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="279"/>
         <source>Configure the web server.</source>
         <translation>Konfiguriere den Webserver.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="282"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="293"/>
         <source>Configure ZigBee networks.</source>
         <translation>ZigBee-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="296"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="307"/>
         <source>Configure Z-Wave networks.</source>
         <translation>Z-Wave-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="310"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="321"/>
         <source>Configure the MQTT broker.</source>
         <translation>Konfiguriere den MQTT Broker.</translation>
     </message>
@@ -3675,17 +3925,17 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Aussehen und Verhalten der App anpassen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="167"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="168"/>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="188"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="189"/>
         <source>Consolinno cloud services</source>
         <translation>Consolinno Cloud-Dienste</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="189"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="190"/>
         <source>Manage cloud connection and data sharing preferences.</source>
         <translation>Cloud-Verbindung und Datenfreigabe-Einstellungen verwalten.</translation>
     </message>
@@ -3741,73 +3991,73 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="532"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="601"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="676"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="543"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="687"/>
         <source>Reconfigure %1</source>
         <translation>Konfiguriere %1</translation>
     </message>
     <message>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="532"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="601"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="676"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="543"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="687"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="427"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="428"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="438"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="439"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="452"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="453"/>
         <source>Thing parameters</source>
         <translation>Geräteparameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="513"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="524"/>
         <source>Reset values to default</source>
         <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="697"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="708"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="697"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="708"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="706"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="717"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
         <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="398"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="539"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="550"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="557"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="568"/>
         <source>Login required</source>
         <translation>Anmeldung erforderlich</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="574"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="585"/>
         <source>Username</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="623"/>
         <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
         <translation>OAuth wird auf diesem System nicht unterstützt. Bitte benutze diese App auf einem anderen Gerät um dieses &quot;Thing&quot; einzurichten.</translation>
     </message>
@@ -3820,7 +4070,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation type="vanished">Thing hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="698"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="709"/>
         <source>Uh oh</source>
         <translation>Uh oh</translation>
     </message>
@@ -3829,17 +4079,17 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="706"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="717"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="659"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="670"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="669"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="680"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
@@ -4494,13 +4744,13 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <name>EpexDayAheadSetup</name>
     <message>
         <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="155"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="356"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
         <source>Reconfigure %1</source>
         <translation>%1 neu einrichten</translation>
     </message>
     <message>
         <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="156"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="356"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
@@ -4510,42 +4760,42 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="378"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="379"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
         <source>Uh oh</source>
         <translation>Oh oh</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="400"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="401"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="422"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="433"/>
         <source>Ok</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="334"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="345"/>
         <source>Incomplete Price Information</source>
         <translation>Unvollständige Preisangaben</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="335"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="346"/>
         <source>At least one of your values for levies or grid fees is set to 0. As a result, the total price shown will not be complete. Please note that the actual final price may be higher.
 
 Would you like to continue anyway?</source>
@@ -4554,7 +4804,7 @@ Would you like to continue anyway?</source>
 Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="265"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="266"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
@@ -4571,17 +4821,17 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="410"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="421"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="241"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="242"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="253"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="254"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
@@ -5297,57 +5547,57 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>HeatingElementOptimization</name>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="75"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="78"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="115"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="118"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="113"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="116"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="131"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="134"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="132"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="135"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="72"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="75"/>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="51"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="54"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="119"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="122"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="160"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="163"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="160"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="163"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="117"/>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="120"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
@@ -5355,67 +5605,67 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>HeatingOptimization</name>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="119"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="122"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="122"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="125"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="174"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="177"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="176"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="179"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="192"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="195"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="193"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="196"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="221"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="224"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="70"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="73"/>
         <source>No meter</source>
         <translation>Kein Zähler</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="207"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="210"/>
         <source>Electricity meter</source>
         <translation>Stromzähler</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="98"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="101"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="180"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="183"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="221"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="224"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="178"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="181"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>
@@ -5804,130 +6054,130 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>PVOptimization</name>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="93"/>
+        <location filename="../optimization/PVOptimization.qml" line="97"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="97"/>
+        <location filename="../optimization/PVOptimization.qml" line="101"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="153"/>
+        <location filename="../optimization/PVOptimization.qml" line="157"/>
         <source>Latitude</source>
         <translation>Breitengrad</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="174"/>
+        <location filename="../optimization/PVOptimization.qml" line="178"/>
         <source>Longitude</source>
         <translation>Längengrad</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="195"/>
+        <location filename="../optimization/PVOptimization.qml" line="199"/>
         <source>Roof pitch</source>
         <translation>Dachneigung</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="212"/>
+        <location filename="../optimization/PVOptimization.qml" line="216"/>
         <source>Alignment</source>
         <translation>Ausrichtung</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="239"/>
+        <location filename="../optimization/PVOptimization.qml" line="243"/>
         <source>Peak power</source>
         <translation>Spitzenleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="241"/>
+        <location filename="../optimization/PVOptimization.qml" line="245"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="285"/>
+        <location filename="../optimization/PVOptimization.qml" line="289"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="72"/>
+        <location filename="../optimization/PVOptimization.qml" line="76"/>
         <source>PV configuration</source>
         <translation>PV-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="225"/>
+        <location filename="../optimization/PVOptimization.qml" line="229"/>
         <source>north</source>
         <translation>Norden</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="226"/>
+        <location filename="../optimization/PVOptimization.qml" line="230"/>
         <source>northeast</source>
         <translation>Nordosten</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="227"/>
+        <location filename="../optimization/PVOptimization.qml" line="231"/>
         <source>east</source>
         <translation>Osten</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="228"/>
+        <location filename="../optimization/PVOptimization.qml" line="232"/>
         <source>southeast</source>
         <translation>Südosten</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="229"/>
+        <location filename="../optimization/PVOptimization.qml" line="233"/>
         <source>south</source>
         <translation>Süden</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="230"/>
+        <location filename="../optimization/PVOptimization.qml" line="234"/>
         <source>southwest</source>
         <translation>Südwesten</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="232"/>
+        <location filename="../optimization/PVOptimization.qml" line="236"/>
         <source>northwest</source>
         <translation>Nordwesten</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="231"/>
+        <location filename="../optimization/PVOptimization.qml" line="235"/>
         <source>west</source>
         <translation>Westen</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="262"/>
+        <location filename="../optimization/PVOptimization.qml" line="266"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="263"/>
+        <location filename="../optimization/PVOptimization.qml" line="267"/>
         <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 9 kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="155"/>
-        <location filename="../optimization/PVOptimization.qml" line="176"/>
-        <location filename="../optimization/PVOptimization.qml" line="197"/>
+        <location filename="../optimization/PVOptimization.qml" line="159"/>
+        <location filename="../optimization/PVOptimization.qml" line="180"/>
+        <location filename="../optimization/PVOptimization.qml" line="201"/>
         <source>°</source>
         <translation>°</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="160"/>
-        <location filename="../optimization/PVOptimization.qml" line="181"/>
-        <location filename="../optimization/PVOptimization.qml" line="199"/>
-        <location filename="../optimization/PVOptimization.qml" line="246"/>
+        <location filename="../optimization/PVOptimization.qml" line="164"/>
+        <location filename="../optimization/PVOptimization.qml" line="185"/>
+        <location filename="../optimization/PVOptimization.qml" line="203"/>
+        <location filename="../optimization/PVOptimization.qml" line="250"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="285"/>
+        <location filename="../optimization/PVOptimization.qml" line="289"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="157"/>
-        <location filename="../optimization/PVOptimization.qml" line="178"/>
-        <location filename="../optimization/PVOptimization.qml" line="198"/>
-        <location filename="../optimization/PVOptimization.qml" line="243"/>
+        <location filename="../optimization/PVOptimization.qml" line="161"/>
+        <location filename="../optimization/PVOptimization.qml" line="182"/>
+        <location filename="../optimization/PVOptimization.qml" line="202"/>
+        <location filename="../optimization/PVOptimization.qml" line="247"/>
         <source>The value must be between %1 and %2.</source>
         <translation>Der Wert muss zwischen %1 und %2 liegen.</translation>
     </message>
@@ -6867,57 +7117,57 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SwitchableConsumerOptimization</name>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="75"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="78"/>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation>Einige Werte sind nicht gültig. Konfiguration wurde nicht gespeichert.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="78"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="81"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="119"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="121"/>
         <source>Maximal electrical power</source>
         <translation>Maximale elektrische Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="121"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="123"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="125"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="127"/>
         <source>The value is outside the valid range.</source>
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="138"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="140"/>
         <source>Grid-supportive-control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="139"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="141"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden und die Nennleistung muss der eingetragenen Leistung entsprechen.</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="165"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="167"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="165"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="167"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="54"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="57"/>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="123"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="125"/>
         <source>The value must not be below %1.</source>
         <translation>Der Wert darf nicht unter %1 liegen.</translation>
     </message>

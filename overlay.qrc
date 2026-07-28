@@ -166,6 +166,8 @@
         <file>icons/water_heater.svg</file>
         <file>icons/zigbee.svg</file>
         <file>icons/z-wave.svg</file>
+        <file>LICENSE.QRCodeGeneratorQML</file>
+        <file>LICENSE.qrcodeSvg</file>
     </qresource>
     <qresource prefix="/ui">
         <file>wizards/WizardController.qml</file>
@@ -323,5 +325,6 @@
         <file>components/CoCheckBox.qml</file>
         <file>components/CoDivider.qml</file>
         <file>components/CoAboutPage.qml</file>
+        <file>components/CoThirdPartyLicensesPage.qml</file>
     </qresource>
 </RCC>

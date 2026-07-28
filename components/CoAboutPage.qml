@@ -10,7 +10,31 @@ SettingsPageBase {
 
     // #TODO
     // - multi click for dev mode
-    // - Hide flickable scrollbar (not only on this screen)
+
+    function isRemote() {
+        if (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
+            return true;
+        }
+        if (engine.jsonRpcClient.currentConnection.hostAddress.toString().includes("hems-remoteproxy")) {
+            return true;
+        }
+        return false;
+    }
+
+    function openLocal(port) {
+        if (isRemote()) {
+            var dialog = Qt.createComponent(Qt.resolvedUrl("NymeaDialog.qml"));
+            var text = qsTr("Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.").arg(Configuration.deviceName);
+            var popup = dialog.createObject(app,
+                                            {
+                                                title: qsTr("Not available"),
+                                                text: text
+                                            });
+            popup.open();
+        } else {
+            Qt.openUrlExternally("http://" + engine.jsonRpcClient.currentConnection.hostAddress.toString() + ":" + port);
+        }
+    }
 
     ColumnLayout {
         id: layout
@@ -23,6 +47,27 @@ SettingsPageBase {
             Layout.fillWidth: true
             headerText: qsTr("System")
             contentTopMargin: Style.smallMargins
+
+            property int clickCounter: 0
+
+            onHeaderClicked: {
+                clickCounter++;;
+                if (clickCounter >= 10) {
+                    settings.showHiddenOptions = !settings.showHiddenOptions;
+                    var dialog = Qt.createComponent(Qt.resolvedUrl("NymeaDialog.qml"));
+                    var text = settings.showHiddenOptions
+                            ? qsTr("Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.")
+                            : qsTr("Developer options are now disabled.");
+                    var popup = dialog.createObject(app,
+                                                    {
+                                                        title: qsTr("Howdy cowboy!"),
+                                                        text: text,
+                                                        closePolicy: Popup.NoAutoClose
+                                                    });
+                    popup.open();
+                    clickCounter = 0;
+                }
+            }
 
             ColumnLayout {
                 anchors.left: parent.left
@@ -146,7 +191,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/language.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally(Configuration.privacyPolicyUrl)
+                        Qt.openUrlExternally(Configuration.privacyPolicyUrl);
                     }
                 }
             }
@@ -166,35 +211,34 @@ SettingsPageBase {
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: "Copyright (C) %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH") // #TODO copyright C (cf. design)
+                    text: "© %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
                 }
 
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: qsTr("Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.")
+                    text: qsTr("Licensed under the terms of the GNU General Public License, version 3.")
                 }
 
-                // #TODO Github page?
                 CoCard {
                     Layout.fillWidth: true
-                    text: qsTr("Visit GitHub page")
-                    helpText: "github.com/ConsolinnoEnergy/nymea-app"
-                    iconLeft: Qt.resolvedUrl("/icons/language.svg")
+                    text: qsTr("Common Licenses")
+                    helpText: qsTr("Only available on the local network")
+                    iconLeft: Qt.resolvedUrl("/icons/deployed_code.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally("https://www.github.com/ConsolinnoEnergy/nymea-app")
+                        openLocal(8083);
                     }
                 }
 
                 CoCard {
                     Layout.fillWidth: true
-                    text: qsTr("Software and libraries (Device)")
-                    helpText: qsTr("View the software and libraries used in this product.")
+                    text: qsTr("Software and Libraries")
+                    helpText: qsTr("Only available on the local network")
                     iconLeft: Qt.resolvedUrl("/icons/deployed_code.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        // #TODO
+                        openLocal(8082);
                     }
                 }
             }
@@ -214,7 +258,7 @@ SettingsPageBase {
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: "Copyright (C) %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH") // #TODO copyright C (cf. design)
+                    text: "© %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
                 }
 
                 CoCard {
@@ -230,7 +274,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/language.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally("https://www.github.com/ConsolinnoEnergy/nymea-app")
+                        Qt.openUrlExternally("https://www.github.com/ConsolinnoEnergy/nymea-app");
                     }
                 }
 
@@ -241,7 +285,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/language.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally("https://www.github.com/ConsolinnoEnergy/nymea-app-consolinno-overlay")
+                        Qt.openUrlExternally("https://www.github.com/ConsolinnoEnergy/nymea-app-consolinno-overlay");
                     }
                 }
 
@@ -252,7 +296,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/deployed_code.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        // #TODO
+                        pageStack.push("CoThirdPartyLicensesPage.qml");
                     }
                 }
             }
@@ -288,7 +332,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/language.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally("https://www.qt.io")
+                        Qt.openUrlExternally("https://www.qt.io");
                     }
                 }
 
@@ -299,7 +343,7 @@ SettingsPageBase {
                     iconLeft: Qt.resolvedUrl("/icons/language.svg")
                     showChildrenIndicator: true
                     onClicked: {
-                        Qt.openUrlExternally("https://www.nymea.io")
+                        Qt.openUrlExternally("https://www.nymea.io");
                     }
                 }
             }
@@ -325,7 +369,13 @@ SettingsPageBase {
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: `${Configuration.companyName}\r\n${Configuration.companyAddress}\r\n${Configuration.companyZip} ${Configuration.companyLocation}\r\nTel: ${Configuration.companyTel}\r\nMail: ${Configuration.serviceEmail}`
+                    text: qsTr("<b>%1</b><br>%2<br>%3 %4<br>Tel: %5<br>Mail: %6")
+                    .arg(Configuration.companyName)
+                    .arg(Configuration.companyAddress)
+                    .arg(Configuration.companyZip)
+                    .arg(Configuration.companyLocation)
+                    .arg(Configuration.companyTel)
+                    .arg(Configuration.serviceEmail)
                 }
 
                 CoCard {

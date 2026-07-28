@@ -86,8 +86,8 @@ terms_of_use_de_DE.html \
 
 rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
-rm LICENSE.*
-rm packaging/appimage/Q.HOME-CONTROL.desktop
-rm packaging/appimage/Zewo-Dynamics.desktop
+rm -f LICENSE.DMSans LICENSE.Poppins LICENSE.NotoSans LICENSE.Roboto
+rm -f packaging/appimage/Q.HOME-CONTROL.desktop
+rm -f packaging/appimage/Zewo-Dynamics.desktop
 rm -rf packaging/windows/packages/de.qcells.qhomecontrol/
 rm -rf packaging/windows/packages/ems.zewo.dynamics/

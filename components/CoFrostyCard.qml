@@ -18,6 +18,8 @@ Frame {
                                                              body.anchors.topMargin +
                                                              body.anchors.bottomMargin)
 
+    signal headerClicked()
+
     leftPadding: 0
     rightPadding: 0
     topPadding: 0
@@ -80,6 +82,12 @@ Frame {
                 opacity: root.enabled ? 1 : Style.numbers.components_Disabled_opacity
                 wrapMode: Text.WordWrap
                 elide: Text.ElideRight
+
+                MouseArea {
+                    id: headerMouseArea
+                    anchors.fill: parent
+                    onClicked: root.headerClicked();
+                }
             }
 
             InfoButton {

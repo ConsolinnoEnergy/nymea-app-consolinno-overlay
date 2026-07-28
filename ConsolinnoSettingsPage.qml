@@ -118,6 +118,7 @@ MainViewBase {
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
                     }
 
+                    // #TODO remove
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("About %1").arg(Configuration.appName)
@@ -125,15 +126,6 @@ MainViewBase {
                         iconLeft: "/icons/info.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
-                    }
-
-                    CoCard {
-                        Layout.fillWidth: true
-                        text: qsTr("New About") //#TODO
-                        helpText: qsTr("Find app versions and licence information.") //#TODO
-                        iconLeft: "/icons/info.svg" //#TODO
-                        showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("components/CoAboutPage.qml"))
                     }
                 }
             }
@@ -240,6 +232,16 @@ MainViewBase {
                         }
                     }
 
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("About %1").arg(Configuration.appName)
+                        helpText: qsTr("Find server UUID, versions and license information.")
+                        iconLeft: "/icons/info.svg"
+                        showChildrenIndicator: true
+                        onClicked: pageStack.push(Qt.resolvedUrl("components/CoAboutPage.qml"))
+                    }
+
+                    // #TODO remove
                     CoCard {
                         Layout.fillWidth: true
                         iconLeft: "/icons/info.svg"
