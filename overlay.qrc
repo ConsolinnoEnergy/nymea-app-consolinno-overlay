@@ -225,8 +225,6 @@
         <file>mainviews/energy/ConsolinnoPowerConsumptionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerProductionBalanceHistory.qml</file>
         <file>mainviews/energy/ConsolinnoPowerBalanceHistory.qml</file>
-        <file>components/ConsolinnoImprintSystem.qml</file>
-        <file>components/ConsolinnoImprintApp.qml</file>
         <file>info/GridConsumptionInfo.qml</file>
         <file>thingconfiguration/DebugCharts.qml</file>
         <file>thingconfiguration/ConEMSState.qml</file>

@@ -117,16 +117,6 @@ MainViewBase {
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
                     }
-
-                    // #TODO remove
-                    CoCard {
-                        Layout.fillWidth: true
-                        text: qsTr("About %1").arg(Configuration.appName)
-                        helpText: qsTr("Find app versions and licence information.")
-                        iconLeft: "/icons/info.svg"
-                        showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("appsettings/AboutPage.qml"))
-                    }
                 }
             }
 
@@ -239,16 +229,6 @@ MainViewBase {
                         iconLeft: "/icons/info.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("components/CoAboutPage.qml"))
-                    }
-
-                    // #TODO remove
-                    CoCard {
-                        Layout.fillWidth: true
-                        iconLeft: "/icons/info.svg"
-                        text: qsTr("About %1").arg(Configuration.systemName)
-                        helpText: qsTr("Find server UUID and versions.")
-                        showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("system/AboutNymeaPage.qml"))
                     }
                 }
             }
