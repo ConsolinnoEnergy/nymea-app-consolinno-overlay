@@ -90,7 +90,7 @@ Item {
             top: parent.top
             right: parent.right
             topMargin: root.safeAreaTop + Style.smallMargins
-            leftMargin: Style.smallMargins
+            leftMargin: backButtonVisible ? Style.smallMargins : 0
             rightMargin: Style.margins
         }
 
@@ -104,7 +104,7 @@ Item {
         Item {
             id: spacer
             visible: !backButton.visible
-            width: backButton.implicitWidth
+            width: 0
             height: backButton.implicitHeight
         }
 
