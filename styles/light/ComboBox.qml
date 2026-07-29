@@ -123,7 +123,7 @@ T.ComboBox {
 
         color: control.pressed ?
                    Style.colors.typography_States_Hover_pressed_outline :
-                   control.hovered ?
+                   control.hovered && control.enabled ?
                        Style.colors.typography_States_Hover :
                        "transparent"
         border.width: 0

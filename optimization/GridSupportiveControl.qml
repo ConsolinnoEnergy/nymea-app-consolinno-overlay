@@ -1091,6 +1091,7 @@ StackView {
             bottomPadding: 0
             property int navigationFooterHeight: 0
             property bool busy: discovery.busy
+            enabled: !busy
             property Component navbarControls: eebusViewSelectNavbar
 
             header: null

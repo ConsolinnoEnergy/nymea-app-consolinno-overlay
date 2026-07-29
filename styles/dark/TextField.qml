@@ -83,7 +83,7 @@ T.TextField {
         implicitHeight: 40
 
         radius: Style.cornerRadius + 2
-        color: (control.hovered && !control.activeFocus) ?
+        color: (control.hovered && !control.activeFocus && control.enabled) ?
                    Style.colors.typography_States_Hover_pressed_outline :
                    "transparent"
 

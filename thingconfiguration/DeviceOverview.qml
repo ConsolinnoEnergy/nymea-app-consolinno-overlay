@@ -12,6 +12,7 @@ Page {
     bottomPadding: 0
     property int navigationFooterHeight: 0
     property bool busy: d.thingToRemove !== null
+    enabled: !busy
     signal startWizard()
 
     property Component navbarControls: deviceOverviewNavbarControls

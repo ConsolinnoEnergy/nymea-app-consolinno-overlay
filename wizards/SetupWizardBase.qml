@@ -30,6 +30,7 @@ Page {
     // Optional: custom success handler (e.g., SolarInverter pushes PVOptimization)
     property var onSuccessHandler: null
     property bool busy: busyOverlay.shown
+    enabled: !busy
     property Component navbarControls: internalPageStack.currentItem
         && "navbarControls" in internalPageStack.currentItem
         ? internalPageStack.currentItem.navbarControls : setupWizardBaseControls

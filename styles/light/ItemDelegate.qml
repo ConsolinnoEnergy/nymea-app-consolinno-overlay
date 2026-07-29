@@ -39,7 +39,7 @@ T.ItemDelegate {
     background: Rectangle {
         implicitWidth: 100
         implicitHeight: 40
-        visible: control.down || control.highlighted || control.visualFocus || control.hovered
+        visible: control.down || control.highlighted || control.visualFocus || (control.hovered && control.enabled)
         color: Style.colors.typography_Background_Selection
     }
 }

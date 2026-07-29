@@ -38,15 +38,15 @@ Item {
     Rectangle {
         id: background
         anchors.fill: parent
-        color: mouseArea.containsMouse ? Style.colors.typography_Background_Default : "transparent"
+        color: mouseArea.containsMouse && root.enabled ? Style.colors.typography_Background_Default : "transparent"
 
         Rectangle {
             id: backgroundInteractionOverlay
             anchors.fill: parent
             color: {
-                if (mouseArea.pressed) {
+                if (mouseArea.pressed && root.enabled) {
                     return Style.colors.typography_States_Pressed;
-                } else if (mouseArea.containsMouse) {
+                } else if (mouseArea.containsMouse && root.enabled) {
                     return Style.colors.typography_States_Hover;
                 } else {
                     return "transparent";

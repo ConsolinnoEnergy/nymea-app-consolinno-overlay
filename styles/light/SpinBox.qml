@@ -112,7 +112,7 @@ T.SpinBox {
         implicitHeight: 45
 
         radius: Style.cornerRadius + 2
-        color: (control.hovered &&
+        color: (control.hovered && control.enabled &&
                 !control.activeFocus &&
                 !control.up.pressed &&
                 !control.up.hovered &&

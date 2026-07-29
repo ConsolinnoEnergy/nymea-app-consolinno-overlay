@@ -44,6 +44,7 @@ Page {
     bottomPadding: 0
     property int navigationFooterHeight: 0
     property bool busy: busyOverlay.shown
+    enabled: !busy
     property Component navbarControls: internalPageStack.currentItem
         && "navbarControls" in internalPageStack.currentItem
         ? internalPageStack.currentItem.navbarControls : null
