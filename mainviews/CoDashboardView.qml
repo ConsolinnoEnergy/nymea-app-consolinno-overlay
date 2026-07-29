@@ -197,7 +197,7 @@ MainViewBase {
 
     property bool anyInverterLppActive: {
         if (!lppActive) { return false; }
-        for (var i = 0; i < producerThings.count; ++i) {
+        for (let i = 0; i < producerThings.count; ++i) {
             let inverter = producerThings.get(i);
             let config = hemsManager.pvConfigurations.getPvConfiguration(inverter.id);
             if (config !== null && config.controllableLocalSystem) {
@@ -207,8 +207,18 @@ MainViewBase {
         return false;
     }
 
+    readonly property bool anyInverterNotConnected: {
+        for (let i = 0; i < producerThings.count; ++i) {
+            let producer = producerThings.get(i);
+            if (!ThingUtils.isConnected(producer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     property bool anyAvoidZeroCompensationActive: {
-        for (var i = 0; i < batteryThings.count; ++i) {
+        for (let i = 0; i < batteryThings.count; ++i) {
             let battery = batteryThings.get(i);
             if (avoidZeroCompensationActive(battery)) {
                 return true;
@@ -217,11 +227,43 @@ MainViewBase {
         return false;
     }
 
+    readonly property bool anyBatteryNotConnected: {
+        for (let i = 0; i < batteryThings.count; ++i) {
+            let battery = batteryThings.get(i);
+            if (!ThingUtils.isConnected(battery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     property bool anyTargetSocPvSurplusExceeded: {
-        for (var i = 0; i < batteryThings.count; ++i) {
+        for (let i = 0; i < batteryThings.count; ++i) {
             let battery = batteryThings.get(i);
             if (ThingUtils.targetSocPvSurplusExceeded(battery,
                                                       hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    readonly property bool anyConsumerNotConnected: {
+        for (let i = 0; i < heatingThings.count; ++i) {
+            let consumer = heatingThings.get(i);
+            if (!ThingUtils.isConnected(consumer)) {
+                return true;
+            }
+        }
+        for (let i = 0; i < evChargerThings.count; ++i) {
+            let consumer = evChargerThings.get(i);
+            if (!ThingUtils.isConnected(consumer)) {
+                return true;
+            }
+        }
+        for (let i = 0; i < otherConsumerThings.count; ++i) {
+            let consumer = otherConsumerThings.get(i);
+            if (!ThingUtils.isConnected(consumer)) {
                 return true;
             }
         }
@@ -522,7 +564,8 @@ Your %3 Team")
                                 unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerProduction)
                                 compactLayout: true
                                 icon: Qt.resolvedUrl("qrc:/icons/solar_power.svg")
-                                showWarningIndicator: anyInverterLppActive
+                                showWarningIndicator: anyInverterLppActive && !showErrorIndicator
+                                showErrorIndicator: anyInverterNotConnected
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(invertersGroup.y);
                                     flickableContentYAnimation.start();
@@ -542,7 +585,8 @@ Your %3 Team")
                                               qsTr("Grid import") :
                                               qsTr("Grid")
                                 compactLayout: true
-                                showWarningIndicator: lpcActive
+                                showWarningIndicator: lpcActive && !showErrorIndicator
+                                showErrorIndicator: !ThingUtils.isConnected(root.rootMeter)
                                 icon: dataProvider.currentPowerRootMeter < 0 ?
                                           Qt.resolvedUrl("/icons/input_circle.svg") :
                                           Qt.resolvedUrl("/icons/output_circle.svg")
@@ -568,8 +612,9 @@ Your %3 Team")
                                 secondaryValue: Math.round(dataProvider.totalBatteryLevel)
                                 secondaryUnit: "%"
                                 compactLayout: true
-                                showWarningIndicator: anyAvoidZeroCompensationActive
-                                showInfoIndicator: !showWarningIndicator && anyTargetSocPvSurplusExceeded
+                                showInfoIndicator: anyTargetSocPvSurplusExceeded && !showWarningIndicator && !showErrorIndicator
+                                showWarningIndicator: anyAvoidZeroCompensationActive && !showErrorIndicator
+                                showErrorIndicator: anyBatteryNotConnected
                                 icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
                                                                dataProvider.currentPowerBatteries > 0)
                                 onClicked: {
@@ -587,7 +632,8 @@ Your %3 Team")
                                 value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerTotalConsumption))
                                 unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerTotalConsumption)
                                 compactLayout: true
-                                showInfoIndicator: anyPvSurplusRuntimeExceeded
+                                showInfoIndicator: anyPvSurplusRuntimeExceeded && !showErrorIndicator
+                                showErrorIndicator: anyConsumerNotConnected
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(consumptionGroup.y);
@@ -686,7 +732,9 @@ Your %3 Team")
                                     showWarningIndicator: lppActive &&
                                                           (hemsManager.pvConfigurations.getPvConfiguration(thing.id) !== null ?
                                                                hemsManager.pvConfigurations.getPvConfiguration(thing.id).controllableLocalSystem :
-                                                               false)
+                                                               false) &&
+                                                          !showErrorIndicator
+                                    showErrorIndicator: !ThingUtils.isConnected(thing)
                                     onClicked: {
                                         pageStack.push(
                                                     "/ui/devicepages/InverterDevicePage.qml",
@@ -728,10 +776,12 @@ Your %3 Team")
                                     text: battery.name
                                     powerValue: currentPower
                                     socValue: Math.round(soc)
-                                    showWarningIndicator: avoidZeroCompensationActive(battery)
-                                    showInfoIndicator: !showWarningIndicator &&
-                                                       ThingUtils.targetSocPvSurplusExceeded(battery,
-                                                                                             hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))
+                                    showInfoIndicator: ThingUtils.targetSocPvSurplusExceeded(battery,
+                                                                                             hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id)) &&
+                                                       !showWarningIndicator &&
+                                                       !showErrorIndicator
+                                    showWarningIndicator: avoidZeroCompensationActive(battery) && !showErrorIndicator
+                                    showErrorIndicator: !ThingUtils.isConnected(battery)
                                     onClicked: {
                                         pageStack.push("/ui/optimization/BatteryConfigView.qml", { "thing": battery });
                                     }
@@ -763,7 +813,9 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         thing: heatingThings.get(index)
                                         icon: thingToIcon(thing)
-                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
+                                                           !showErrorIndicator
+                                        showErrorIndicator: !ThingUtils.isConnected(thing)
                                         onClicked: {
                                             if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
                                                 pageStack.push(
@@ -804,6 +856,7 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         thing: evChargerThings.get(index)
                                         icon: thingToIcon(thing)
+                                        showErrorIndicator: !ThingUtils.isConnected(thing)
                                         onClicked: {
                                             // Check if these states are provided by the thing
                                             let pluggedIn = thing.stateByName("pluggedIn");
@@ -852,7 +905,9 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         thing: otherConsumerThings.get(index)
                                         icon: thingToIcon(thing)
-                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
+                                                           !showErrorIndicator
+                                        showErrorIndicator: !ThingUtils.isConnected(thing)
                                         visible: {
                                             if (thing.thingClass.interfaces.indexOf("hideable") >= 0) {
                                                 var hiddenState = thing.stateByName("hidden")

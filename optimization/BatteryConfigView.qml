@@ -181,6 +181,11 @@ GenericConfigPage {
                 anchors.margins: Style.margins
                 spacing: Style.margins
 
+                CoNotConnectedNotification {
+                    Layout.fillWidth: true
+                    thing: root.thing
+                }
+
                 CoNotification {
                     id: avoidZeroCompensationWarning
                     Layout.fillWidth: true

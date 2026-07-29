@@ -19,4 +19,14 @@ Item {
         if (!targetSocPvSurplus || targetSocPvSurplus.length === 0) { return false; }
         return batteryLevel > targetSocPvSurplus[0];
     }
+
+    function isConnected(thing) {
+        // If thing is invalid or has no connected state, assume connected
+        // to avoid showing "not connected" warnings for things that may
+        // be conncted.
+        if (!thing) { return true; }
+        const connectedState = thing.stateByName("connected");
+        if (!connectedState) { return true; }
+        return connectedState.value === true;
+    }
 }

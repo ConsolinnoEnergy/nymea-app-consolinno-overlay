@@ -234,129 +234,129 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="229"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="234"/>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="216"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="439"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="221"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="444"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="218"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="223"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="219"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="224"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="280"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="285"/>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="310"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="315"/>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="190"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="195"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="189"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="194"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="350"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="383"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="355"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="388"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="292"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="297"/>
         <source>Tariff-controlled charging</source>
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="455"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="460"/>
         <source>Discharging blocked</source>
         <translation>Entladen blockiert</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="471"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="476"/>
         <source>Discharging allowed</source>
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="349"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="354"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="387"/>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="348"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="353"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="386"/>
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="230"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="235"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="202"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="207"/>
         <source>PV device prioritization⁨⁨</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="203"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="208"/>
         <source>⁨The battery has reached the SoC limit of %1% and is now prioritized last.</source>
         <translation>Die Batterie hat den SoC&#x202f;%1 % erreicht und wird jetzt als letztes priorisiert.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="237"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="242"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="248"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="253"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="267"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="272"/>
         <source>Priority applies up to state of charge</source>
         <translation>Priorität gilt bis Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="332"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="337"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="486"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="491"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="268"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="273"/>
         <source>Above this state of charge, the battery is always considered last.</source>
         <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
@@ -661,371 +661,371 @@
         <translation>kein Auto ausgewählt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="476"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="481"/>
         <source>PV only</source>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="649"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="654"/>
         <source>Initialising</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="651"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="656"/>
         <source>Running</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="653"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="658"/>
         <source>Finished</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="655"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="660"/>
         <source>Interrupted</source>
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1367"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1375"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1372"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1380"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation>Ladevorgang in der vorgegeben Zeit nicht möglich, verringern sie das Ladeziel oder verlängern sie die Zeitvorgabe.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1088"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1105"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1093"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1110"/>
         <source>Select/Add Car</source>
         <translation>hinzufügen/wähle Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1458"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1463"/>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1459"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1464"/>
         <source>Pause charging</source>
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="916"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="921"/>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0 % ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="920"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1957"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="925"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1962"/>
         <source>Please select a car</source>
         <translation>Bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="930"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="935"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="409"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="414"/>
         <source>Activate simulated car</source>
         <translation>Auto Simulation aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="497"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="502"/>
         <source>Car</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="451"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1123"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="456"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1128"/>
         <source>Charging mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="593"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1357"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="598"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1362"/>
         <source>Ending time</source>
         <translation>Zielzeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="602"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1310"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="607"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1315"/>
         <source>Target charge</source>
         <translation>Ladeziel</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="628"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="662"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="633"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="667"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="657"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="662"/>
         <source>Pending</source>
         <translation>Pausiert</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="659"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="664"/>
         <source>Failed</source>
         <translation>Fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="686"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1284"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="691"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1289"/>
         <source>Battery level</source>
         <translation>Batteriestand</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="703"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="708"/>
         <source>Battery charge</source>
         <translation>Batterieinhalt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="747"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="752"/>
         <source>Energy charged</source>
         <translation>Geladene Energie</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="761"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="766"/>
         <source>Time elapsed</source>
         <translation>Vergangene Zeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="468"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1132"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="473"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1137"/>
         <source>Charge always</source>
         <translation>Immer laden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="472"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1134"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="477"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1139"/>
         <source>Next trip</source>
         <translation>Nächste Fahrt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="480"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1133"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="485"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1138"/>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="526"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="531"/>
         <source>Minimal current</source>
         <translation>Minimalstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="639"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="644"/>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1042"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1070"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1047"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1075"/>
         <source>Configure charging mode</source>
         <translation>Lademodus konfigurieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="729"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="734"/>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="738"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="743"/>
         <source>Actual charging current</source>
         <translation>Ladestrom (Ist)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="720"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="725"/>
         <source>Charging power</source>
         <translation>Ladeleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="484"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1135"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="489"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1140"/>
         <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="537"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="542"/>
         <source>Price limit</source>
         <translation>Preisgrenze</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="519"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="528"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1453"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="524"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="533"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1458"/>
         <source>Pausing</source>
         <translation>Pausieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1608"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1613"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1885"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1890"/>
         <source>No prices available, yet</source>
         <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1904"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1909"/>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="561"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="566"/>
         <source>Current Price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="560"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="565"/>
         <source>%1 ct/kWh</source>
         <translation>%1 ct/kWh</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="575"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="580"/>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="520"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="525"/>
         <source>Low solar availability</source>
         <translation>Bei wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="488"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1136"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="493"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1141"/>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="64"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="968"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="973"/>
         <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="65"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="969"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="974"/>
         <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="66"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="970"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="975"/>
         <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="67"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="971"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="976"/>
         <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="68"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="972"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="977"/>
         <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="69"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="973"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="978"/>
         <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="70"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="974"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="979"/>
         <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="377"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="382"/>
         <source>Phase setting could not be applied</source>
         <translation>Phasenanzahl konnte nicht übernommen werden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="378"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="383"/>
         <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
         <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="611"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="770"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="616"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="775"/>
         <source>Phase count</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="387"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="392"/>
         <source>Vehicle</source>
         <translation>Fahrzeug</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="398"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="403"/>
         <source>Car plugged in</source>
         <translation>Auto eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="399"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="404"/>
         <source>Car not plugged in</source>
         <translation>Auto nicht eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="429"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="434"/>
         <source>Charging settings</source>
         <translation>Ladeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="790"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="795"/>
         <source>Cancel charging</source>
         <translation>Laden abbrechen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1085"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1090"/>
         <source>Selected car</source>
         <translation>Ausgewähltes Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1229"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1234"/>
         <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
         <translation>Bei überschrittener Preisgrenze wird PV‑Überschuss nach Gerätepriorität genutzt.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1236"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1241"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1256"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1261"/>
         <source>Number of phases</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1452"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1457"/>
         <source>Low solar avalaibility</source>
         <translation>Bei zu wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1471"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1476"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1482"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1487"/>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1493"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1498"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1494"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1499"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="829"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="834"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -1520,12 +1520,12 @@
 <context>
     <name>CoDashboardView</name>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="327"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="369"/>
         <source>Pending software update</source>
         <translation>Ausstehendes Software-Update</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="329"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="371"/>
         <source>
 Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
 Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;br/&gt;&lt;br/&gt;
@@ -1548,47 +1548,47 @@ Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren 
 Ihr %3 Team</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="344"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="386"/>
         <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
         <translation>&lt;li&gt;Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="352"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="394"/>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="353"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="395"/>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="361"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="403"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="362"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="404"/>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="370"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="412"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="371"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="413"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="385"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="427"/>
         <source>The app has been updated.</source>
         <translation>Die App wurde aktualisiert.</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="386"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="428"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
@@ -1603,82 +1603,82 @@ Ihr %3 Team</translation>
 &lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="399"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="441"/>
         <source>Live status</source>
         <translation>Live-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="520"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="562"/>
         <source>Solar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="543"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="586"/>
         <source>Grid</source>
         <translation>Netz</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="565"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="609"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="586"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="631"/>
         <source>Consumption</source>
         <translation>Verbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="615"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="661"/>
         <source>Energy status</source>
         <translation>Energie-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="623"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="669"/>
         <source>Self-sufficiency</source>
         <translation>Autarkie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="632"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="678"/>
         <source>Self-consumption</source>
         <translation>Eigenverbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="672"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="718"/>
         <source>Inverters</source>
         <translation>Wechselrichter</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="708"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="756"/>
         <source>Batteries</source>
         <translation>Batterien</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="752"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="802"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="793"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="845"/>
         <source>Mobility</source>
         <translation>Mobilität</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="842"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="895"/>
         <source>Other consumers</source>
         <translation>Weitere Verbraucher</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="883"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="938"/>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="540"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="583"/>
         <source>Feed-in</source>
         <translation>Einspeisung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="542"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="585"/>
         <source>Grid import</source>
         <translation>Netzbezug</translation>
     </message>
@@ -1736,6 +1736,19 @@ Ihr %3 Team</translation>
         <location filename="../mainviews/energy/CoKpiStats.qml" line="136"/>
         <source>Years</source>
         <translation>Jahre</translation>
+    </message>
+</context>
+<context>
+    <name>CoNotConnectedNotification</name>
+    <message>
+        <location filename="../components/CoNotConnectedNotification.qml" line="13"/>
+        <source>Connection to “Thing” interrupted</source>
+        <translation>Verbindung zu „Thing“ unterbrochen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoNotConnectedNotification.qml" line="14"/>
+        <source>If the problem persists, try restarting the device. For more information, see the &lt;u&gt;log.&lt;/u&gt;</source>
+        <translation>Sollte das Problem länger bestehen, versuche, das Gerät neu zu starten. Weitere Informationen findest du im &lt;u&gt;Protokoll.&lt;/u&gt;</translation>
     </message>
 </context>
 <context>
@@ -2296,184 +2309,147 @@ Abgaben: %4 %2</translation>
 <context>
     <name>ConsolinnoImprintApp</name>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="42"/>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation>Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
+        <translation type="vanished">Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="43"/>
         <source>Developer options are now disabled.</source>
-        <translation>Entwicklereinstellungen sind jetzt deaktiviert.</translation>
+        <translation type="vanished">Entwicklereinstellungen sind jetzt deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="44"/>
         <source>Howdy cowboy!</source>
-        <translation>Howdy cowboy!</translation>
+        <translation type="vanished">Howdy cowboy!</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="84"/>
         <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuchen Sie die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
+        <translation type="vanished">Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuchen Sie die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="92"/>
         <source>Visit GitHub page</source>
-        <translation>Besuchen Sie die GitHub Seite</translation>
+        <translation type="vanished">Besuchen Sie die GitHub Seite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="103"/>
         <source>View privacy policy</source>
-        <translation>Datenschutzerklärung anzeigen</translation>
+        <translation type="vanished">Datenschutzerklärung anzeigen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="115"/>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="256"/>
         <source>Common Licenses</source>
-        <translation>Allgemeine Lizenzen</translation>
+        <translation type="vanished">Allgemeine Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="117"/>
         <source>Common Licenses used for this Product</source>
-        <translation>Für dieses Produkt genutzte Lizenzen</translation>
+        <translation type="vanished">Für dieses Produkt genutzte Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="127"/>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="308"/>
         <source>Software and Libraries</source>
-        <translation>Software und Bibliotheken</translation>
+        <translation type="vanished">Software und Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="129"/>
         <source>Software and libraries used for this Product</source>
-        <translation>Für dieses Produkt genutzte Software und Bibliotheken</translation>
+        <translation type="vanished">Für dieses Produkt genutzte Software und Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="155"/>
         <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
+        <translation type="vanished">Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="162"/>
         <source>Visit the Qt website</source>
-        <translation>Besuchen Sie die Qt Webseite</translation>
+        <translation type="vanished">Besuchen Sie die Qt Webseite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="174"/>
         <source>Visit the nymea website</source>
-        <translation>Besuchen Sie die nymea Webseite</translation>
+        <translation type="vanished">Besuchen Sie die nymea Webseite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="192"/>
         <source>Source code availability</source>
-        <translation>Verfügbarkeit des Quelltexts</translation>
+        <translation type="vanished">Verfügbarkeit des Quelltexts</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="204"/>
         <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
-        <translation>Jedermann kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
+        <translation type="vanished">Jedermann kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="220"/>
         <source>Please provide the following product data:</source>
-        <translation>Geben Sie bitte folgende Produktdaten an:</translation>
+        <translation type="vanished">Geben Sie bitte folgende Produktdaten an:</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="236"/>
         <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
-        <translation>und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
+        <translation type="vanished">und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="228"/>
         <source>- Product name<byte value="xd"/>
 - Software version<byte value="xd"/>
 - Serial number - if known</source>
-        <translation>- Produktname
+        <translation type="vanished">- Produktname
 - Software-Version
 - Seriennummer - falls bekannt</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintApp.qml" line="145"/>
         <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
-        <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
+        <translation type="vanished">Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
 </context>
 <context>
     <name>ConsolinnoImprintSystem</name>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="42"/>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation>Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
+        <translation type="vanished">Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="43"/>
         <source>Developer options are now disabled.</source>
-        <translation>Entwicklereinstellungen sind jetzt deaktiviert.</translation>
+        <translation type="vanished">Entwicklereinstellungen sind jetzt deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="44"/>
         <source>Howdy cowboy!</source>
-        <translation>Howdy cowboy!</translation>
+        <translation type="vanished">Howdy cowboy!</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="84"/>
         <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
+        <translation type="vanished">Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="92"/>
         <source>Visit GitHub page</source>
-        <translation>Besuchen Sie die GitHub Seite</translation>
+        <translation type="vanished">Besuchen Sie die GitHub Seite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="103"/>
         <source>View privacy policy</source>
-        <translation>Datenschutzerklärung anzeigen</translation>
+        <translation type="vanished">Datenschutzerklärung anzeigen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="134"/>
         <source>Common Licenses</source>
-        <translation>Allgemeine Lizenzen</translation>
+        <translation type="vanished">Allgemeine Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="246"/>
         <source>Additional software licenses</source>
-        <translation>Zusätzliche Software-Lizenzen</translation>
+        <translation type="vanished">Zusätzliche Software-Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="202"/>
         <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
+        <translation type="vanished">Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="209"/>
         <source>Visit the Qt website</source>
-        <translation>Besuchen Sie die Qt Webseite</translation>
+        <translation type="vanished">Besuchen Sie die Qt Webseite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="136"/>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="162"/>
         <source>Only available on the local network</source>
-        <translation>Nur im lokalen Netzwerk verfügbar</translation>
+        <translation type="vanished">Nur im lokalen Netzwerk verfügbar</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="221"/>
         <source>Visit the nymea website</source>
-        <translation>Besuchen Sie die nymea Webseite</translation>
+        <translation type="vanished">Besuchen Sie die nymea Webseite</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="160"/>
         <source>Software and Libraries</source>
-        <translation>Software und Bibliotheken</translation>
+        <translation type="vanished">Software und Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="128"/>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
-        <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
+        <translation type="vanished">Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoImprintSystem.qml" line="192"/>
         <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
-        <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
+        <translation type="vanished">Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
 </context>
 <context>
@@ -3707,74 +3683,72 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoSettingsPage</name>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="136"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="126"/>
         <source>System settings</source>
         <translation>Systemeinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="146"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="136"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="156"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="146"/>
         <source>User settings</source>
         <translation>Benutzereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="167"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="157"/>
         <source>Networking</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="178"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="168"/>
         <source>Connection settings</source>
         <translation>Verbindungseinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="320"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="300"/>
         <source>MQTT broker</source>
         <translation>MQTT Broker</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="278"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="258"/>
         <source>Web server</source>
         <translation>Web Server</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="292"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="272"/>
         <source>ZigBee</source>
         <translation>ZigBee</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="306"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="286"/>
         <source>Z-Wave</source>
         <translation>Z-Wave</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="200"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="190"/>
         <source>Modbus RTU</source>
         <translation>Modbus RTU</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="211"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="201"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="333"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="313"/>
         <source>Developer tools</source>
         <translation>Entwicklerwerkzeuge</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="222"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="212"/>
         <source>Log viewer</source>
         <translation>Systemprotokoll</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="124"/>
-        <location filename="../ConsolinnoSettingsPage.qml" line="237"/>
-        <location filename="../ConsolinnoSettingsPage.qml" line="248"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="227"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
@@ -3839,7 +3813,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Entwicklereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="259"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="239"/>
         <source>Developer settings</source>
         <translation>Developer-Einstellungen</translation>
     </message>
@@ -3850,72 +3824,70 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="115"/>
-        <location filename="../ConsolinnoSettingsPage.qml" line="334"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="314"/>
         <source>Access tools for debugging and error reporting.</source>
         <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="125"/>
         <source>Find app versions and licence information.</source>
-        <translation>Finde App-Versionen und Lizenzinformationen.</translation>
+        <translation type="vanished">Finde App-Versionen und Lizenzinformationen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="147"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="137"/>
         <source>Change system name and time zone.</source>
         <translation>Ändere Systemname und Zeitzone.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="157"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="147"/>
         <source>Configure who can log in.</source>
         <translation>Konfiguriere, wer sich verbinden darf.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="179"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="169"/>
         <source>Configure how applications can connect to this system.</source>
         <translation>Verwalte, wie sich Anwendungen zu diesem System verbinden können.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="201"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="191"/>
         <source>Configure Modbus RTU master interfaces.</source>
         <translation>Modbus-RTU-Master-Schnittstellen einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="212"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="202"/>
         <source>List and cofigure installed plugins.</source>
         <translation>Installierte Plugins auflisten und einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="223"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="213"/>
         <source>View system log.</source>
         <translation>Systemprotokoll anzeigen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="238"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="228"/>
         <source>Find server UUID, versions and license information.</source>
         <translation>Finde Server-UUID, Versionen und Lizenzinformationen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="249"/>
         <source>Find server UUID and versions.</source>
-        <translation>Finde Server-UUID und Versionen.</translation>
+        <translation type="vanished">Finde Server-UUID und Versionen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="279"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="259"/>
         <source>Configure the web server.</source>
         <translation>Konfiguriere den Webserver.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="293"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="273"/>
         <source>Configure ZigBee networks.</source>
         <translation>ZigBee-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="307"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="287"/>
         <source>Configure Z-Wave networks.</source>
         <translation>Z-Wave-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="321"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="301"/>
         <source>Configure the MQTT broker.</source>
         <translation>Konfiguriere den MQTT Broker.</translation>
     </message>
@@ -3925,17 +3897,17 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Aussehen und Verhalten der App anpassen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="168"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="158"/>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="189"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="179"/>
         <source>Consolinno cloud services</source>
         <translation>Consolinno Cloud-Dienste</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="190"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="180"/>
         <source>Manage cloud connection and data sharing preferences.</source>
         <translation>Cloud-Verbindung und Datenfreigabe-Einstellungen verwalten.</translation>
     </message>
@@ -5247,7 +5219,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <name>HeatingConfigView</name>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="110"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="288"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="293"/>
         <source>Off</source>
         <translation>Aus</translation>
     </message>
@@ -5267,32 +5239,32 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Hoch</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="231"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="236"/>
         <source>Forwarded Solar Surplus</source>
         <translation>Übermittelter PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="252"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="257"/>
         <source>Operating mode</source>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="275"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="280"/>
         <source>Optimization</source>
         <translation>Optimierung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="286"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="291"/>
         <source>PV Surplus</source>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="287"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="292"/>
         <source>Dynamic Pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="242"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="247"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
@@ -5307,52 +5279,52 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="191"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="196"/>
         <source>PV device priorization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="192"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="197"/>
         <source>The maximum daily demand duration has been reached.</source>
         <translation>Die maximale tägliche Anforderungsdauer wurde erreicht.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="201"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="206"/>
         <source>Current power consumption</source>
         <translation>Aktuelle Leistungsaufnahme</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="218"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="223"/>
         <source>Total consumption</source>
         <translation>Aufgenommene elektrische Energie</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="233"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="238"/>
         <source> kW</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="265"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="270"/>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="383"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="388"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="401"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="406"/>
         <source>Minimum power</source>
         <translation>Mindestleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="402"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="407"/>
         <source>Minimum required PV surplus that allows the %1 to request an increased operating mode.</source>
         <translation>Minimal erforderlicher PV-Überschuss, damit das %1 einen erhöhten Betrieb  anfordern kann.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="405"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="410"/>
         <source>Value must not be below %1 W.</source>
         <translation>Wert darf nicht unter %1&#x202f;W liegen.</translation>
     </message>
@@ -5362,48 +5334,48 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="416"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="421"/>
         <source>Minimum demand duration</source>
         <translation>Minimale Anforderungsdauer</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="417"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="422"/>
         <source>Specifies how long a request for increased operating mode must remain active at minimum.</source>
         <translation>Gibt an, wie lange eine Anforderung für erhöhten Betrieb mindestens bestehen bleibt.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="418"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="451"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="423"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="456"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="428"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="433"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="449"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="454"/>
         <source>Maximum demand duration</source>
         <translation>Maximale Anforderungsdauer</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="461"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="466"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="362"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="367"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation>„PV-Überschuss“</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="450"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="455"/>
         <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
         <translation>Begrenzt die tägliche Dauer, für die das %1 einen erhöhten Betrieb anfordern kann.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="484"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="489"/>
         <source>&quot;Dynamic pricing&quot;</source>
         <translation>„Dynamischer Tarif“</translation>
     </message>
@@ -5444,7 +5416,7 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>HeatingElementDevicePage</name>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="168"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="173"/>
         <source>Power Setpoint</source>
         <translation>Leistungsvorgabe</translation>
     </message>
@@ -5469,62 +5441,62 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="129"/>
         <source>Consuming</source>
         <translation>Verbrauchend</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="124"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="129"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="138"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="143"/>
         <source>Current temperature</source>
         <translation>Aktuelle Temperatur</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="139"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="144"/>
         <source> °C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="148"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="153"/>
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="157"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="162"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="170"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="175"/>
         <source>Active</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="171"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="176"/>
         <source>Inactive</source>
         <translation>Inaktiv</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="181"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="186"/>
         <source>Power Setpoint Value</source>
         <translation>Wert für Leistungsvorgabe</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="199"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="204"/>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="210"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="215"/>
         <source>Operating mode</source>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="241"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="246"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
@@ -5534,12 +5506,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="188"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="193"/>
         <source>W</source>
         <translation>W</translation>
     </message>
     <message>
-        <location filename="../devicepages/HeatingElementDevicePage.qml" line="230"/>
+        <location filename="../devicepages/HeatingElementDevicePage.qml" line="235"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation>„PV-Überschuss“</translation>
     </message>
@@ -5889,27 +5861,27 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>InverterDevicePage</name>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="45"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="50"/>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="46"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="51"/>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="56"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="61"/>
         <source>Producing</source>
         <translation>Erzeugend</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="57"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="62"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="69"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="74"/>
         <source>Total production</source>
         <translation>Gesamtproduktion</translation>
     </message>
@@ -6291,37 +6263,37 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Netz</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="48"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="53"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="49"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="54"/>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="63"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="68"/>
         <source>Consuming</source>
         <translation>Verbrauchend</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="65"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="70"/>
         <source>Producing</source>
         <translation>Erzeugend</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="66"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="71"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="90"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="95"/>
         <source>Total grid feed-in</source>
         <translation>Gesamte Netzeinspeisung</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="80"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="85"/>
         <source>Total grid import</source>
         <translation>Gesamter Netzbezug</translation>
     </message>
@@ -6924,7 +6896,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="96"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="197"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="202"/>
         <source>Off</source>
         <translation>Aus</translation>
     </message>
@@ -6939,103 +6911,103 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="135"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="140"/>
         <source>PV device priorization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="136"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="141"/>
         <source>The maximum daily runtime has been reached.</source>
         <translation>Die maximale tägliche Laufzeit wurde erreicht.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="144"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="149"/>
         <source>Consuming</source>
         <translation>Verbrauchend</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="144"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="149"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="156"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="161"/>
         <source>Total consumption</source>
         <translation>Gesamtverbrauch</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="165"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="176"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="170"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="181"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="181"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="186"/>
         <source>Connected</source>
         <translation>Verbunden</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="182"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="187"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="192"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="197"/>
         <source>Switch state consumer</source>
         <translation>Schaltzustand Verbraucher</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="196"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="201"/>
         <source>On</source>
         <translation>An</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="206"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="211"/>
         <source>Control</source>
         <translation>Steuerung</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="216"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="221"/>
         <source>Operating mode</source>
         <translation>Betriebsmodus</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="256"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="261"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="273"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="278"/>
         <source>Minimum power</source>
         <translation>Mindestleistung</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="274"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="279"/>
         <source>Minimum PV surplus power required for activation.</source>
         <translation>Minimal benötigte PV‑Überschuss-Leistung für die Aktivierung.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="277"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="282"/>
         <source>Value must not be below %1 W.</source>
         <translation>Wert darf nicht unter %1&#x202f;W liegen.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="287"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="292"/>
         <source>Minimum runtime</source>
         <translation>Mindestlaufzeit</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="288"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="293"/>
         <source>Runs at least this long after activation.</source>
         <translation>Läuft nach der Aktivierung mindestens so lange.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="319"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="324"/>
         <source>Maximum runtime</source>
         <translation>Maximale Laufzeit</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="320"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="325"/>
         <source>Limits the daily runtime and automatically switches the device off.</source>
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
@@ -7045,23 +7017,23 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="289"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="321"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="294"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="326"/>
         <source>hh:mm</source>
         <translation>hh:mm</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="299"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="304"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="331"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="336"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="233"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="238"/>
         <source>&quot;PV Surplus&quot;</source>
         <translation>„PV-Überschuss“</translation>
     </message>
