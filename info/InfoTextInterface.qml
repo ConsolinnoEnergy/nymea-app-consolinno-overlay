@@ -25,6 +25,7 @@ Item {
         width: parent.width
         height: parent.height
         bottomPadding: interfaceItem.navigationFooterHeight
+        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
     ColumnLayout{
         id: upperColumn
         anchors.top: parent.top

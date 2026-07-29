@@ -93,7 +93,7 @@ Page {
         bottomMargin: root.navigationFooterHeight
         clip: true
         model: logsModelNg
-        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.vertical: null
 
         Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
