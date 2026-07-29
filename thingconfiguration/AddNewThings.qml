@@ -202,6 +202,12 @@ Page {
             Layout.fillWidth: true
             Layout.topMargin: header.height
             labelText: qsTr("Search")
+
+            Component.onCompleted: {
+                if (Qt.platform.os !== "android" && Qt.platform.os !== "ios") {
+                    textField.forceActiveFocus()
+                }
+            }
         }
 
         Flickable {
