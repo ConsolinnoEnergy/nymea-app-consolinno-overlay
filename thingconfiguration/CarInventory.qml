@@ -362,7 +362,7 @@ Page{
                             from: 0
                             to: 100
                             stepSize: 1
-                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
+                            value: (thing && thing.stateByName("batteryLevelLimit")) ? thing.stateByName("batteryLevelLimit").value : 100
                             valueText: value + " %"
                         }
                     }
