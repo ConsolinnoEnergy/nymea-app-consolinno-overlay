@@ -177,7 +177,6 @@ Page {
 
                                     Layout.fillWidth: true
                                     text: thing.name
-                                    // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
                                     iconLeft: UiUtils.interfacesToIcon(thing.thingClass.interfaces)
                                     showChildrenIndicator: true
 
