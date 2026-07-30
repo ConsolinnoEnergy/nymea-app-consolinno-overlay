@@ -41,7 +41,6 @@ SettingsPageBase {
                     CoCard {
                         Layout.fillWidth: true
                         text: model.licenseName
-                        // #TODO URL to License as helpText?
                         showChildrenIndicator: true
                         onClicked: {
                             pageStack.push(licenseTextComponent, {licenseFull: model.licenseName, license: model.license })
