@@ -88,6 +88,7 @@ MainViewBase {
         if (!battery) { return false; }
         if (battery.thingClass.interfaces.indexOf("controllablebattery") === 0) { return false; }
         const batteryConfig = hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id);
+        if (!batteryConfig) { return false; }
         return batteryConfig.avoidZeroFeedInActive && batteryConfig.avoidZeroFeedInEnabled;
     }
 
