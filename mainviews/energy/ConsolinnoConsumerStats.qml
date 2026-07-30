@@ -375,9 +375,12 @@ StatsBase {
                             spacing: Style.smallMargins
                             ColorIcon {
                                 id: icons
-                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                name: app.interfacesToIcon(legendDelegate.thing ?
+                                                               legendDelegate.thing.thingClass.interfaces :
+                                                               [])
                                 size: Style.smallIconSize
                                 color: {
+                                    if (!legendDelegate.thing) { return "transparent"; }
                                     let consumerThingClass = legendDelegate.thing.thingClass.interfaces;
                                     var col = "";
                                     if(consumerThingClass.indexOf("heatpump") >= 0){
@@ -393,7 +396,7 @@ StatsBase {
                                 }
                             }
                             Label {
-                                text: legendDelegate.thing.name
+                                text: legendDelegate.thing ? legendDelegate.thing.name : ""
                                 width: Math.max(0, legendDelegate.width - x)
                                 anchors.verticalCenter: parent.verticalCenter
                                 elide: Text.ElideRight

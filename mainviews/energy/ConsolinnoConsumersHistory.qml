@@ -566,9 +566,12 @@ Item {
                             spacing: Style.smallMargins
                             ColorIcon {
                                 id: icons
-                                name: app.interfacesToIcon(legendDelegate.thing.thingClass.interfaces)
+                                name: app.interfacesToIcon(legendDelegate.thing ?
+                                                               legendDelegate.thing.thingClass.interfaces :
+                                                               [])
                                 size: Style.smallIconSize
                                 color: {
+                                    if (!thing) { return "transparent"; }
                                     if(thing.thingClass.interfaces.indexOf("heatpump") >= 0){
                                         return Configuration.heatpumpColor
                                     }else if(thing.thingClass.interfaces.indexOf("heatingrod") >= 0){
@@ -581,7 +584,7 @@ Item {
                                 }
                             }
                             Label {
-                                text: legendDelegate.thing.name
+                                text: legendDelegate.thing ? legendDelegate.thing.name : ""
                                 width: Math.max(0, legendDelegate.width - x)
                                 anchors.verticalCenter: parent.verticalCenter
                                 elide: Text.ElideRight
