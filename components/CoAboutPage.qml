@@ -8,9 +8,6 @@ SettingsPageBase {
     id: root
     headerText: qsTr("About %1").arg(Configuration.systemName)
 
-    // #TODO
-    // - multi click for dev mode
-
     function isRemote() {
         if (["hems-demo.consolinno-it.de", ].includes(engine.jsonRpcClient.currentConnection.hostAddress.toString())) {
             return true;

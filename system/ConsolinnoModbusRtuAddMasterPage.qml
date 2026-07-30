@@ -72,7 +72,7 @@ SettingsPageBase {
                 model: modbusRtuManager.serialPorts
                 delegate: CoCard {
                     Layout.fillWidth: true
-                    iconLeft: Qt.resolvedUrl("/icons/stock_usb.svg") // #TODO replace
+                    iconLeft: Qt.resolvedUrl("/icons/modbus.svg")
                     showChildrenIndicator: true
                     helpText:  model.description + (model.manufacturer === "" ? "" : " - " + model.manufacturer)
                     text: repeaterModBusRtu.getName(model.systemLocation) + (model.serialNumber === "" ? "" : " - " + model.serialNumber)
