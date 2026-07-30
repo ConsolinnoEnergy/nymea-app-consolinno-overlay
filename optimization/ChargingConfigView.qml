@@ -570,7 +570,6 @@ GenericConfigPage {
                             visible: chargingIsAnyOf([dyn_pricing])
                             interactive: false
 
-                            // #TODO needed here?
                             Component.onCompleted: {
                                 if (!dpThing) return;
                                 currentPrice = dpThing.stateByName("currentTotalCost").value;
@@ -672,11 +671,11 @@ GenericConfigPage {
                             interactive: false
                             status: {
                                 if (initializing) {
-                                    return CoCard.StatusType.Warning; // yellow
+                                    return CoCard.StatusType.Warning;
                                 } else if (chargingSessionConfiguration.state === 2) {
                                     return CoCard.StatusType.Success;
                                 } else if (chargingSessionConfiguration.state === 3) {
-                                    return CoCard.StatusType.Success; // #TODO was formerly blue. what color/type should be used?
+                                    return CoCard.StatusType.Success;
                                 } else if (chargingSessionConfiguration.state === 4) {
                                     return CoCard.StatusType.Neutral;
                                 } else if (chargingSessionConfiguration.state === 6) {
@@ -842,7 +841,7 @@ GenericConfigPage {
             function applyChanges() {
                 footer.text = "";
                 footer.visible = false;
-                batteryLevel.feedbackText = "";
+                batteryLevelSlider.feedbackText = "";
 
                 if (chargingConfiguration.optimizationEnabled ||
                         chargingConfiguration.optimizationMode !== 9) {
@@ -857,7 +856,7 @@ GenericConfigPage {
 
                 // if simple PV excess mode is used set the batteryLevel to 1
                 if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
-                    batteryLevel.value = 1;
+                    batteryLevelSlider.value = 1;
                     targetPercentageSlider.value = 100;
                 }
 
@@ -881,16 +880,16 @@ GenericConfigPage {
 
                 if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) &&
                         (endTimeSlider.value >= 30) &&
-                        carSelector.holdingItem !== false &&
-                        batteryLevel.value !== 0) {
-                    if (carSelector.holdingItem.stateByName("batteryLevel").value) {
-                        carSelector.holdingItem.executeAction("batteryLevel",
+                        selectVehicleCard.selectedVehicle &&
+                        batteryLevelSlider.value !== 0) {
+                    if (selectVehicleCard.selectedVehicle.stateByName("batteryLevel").value) {
+                        selectVehicleCard.selectedVehicle.executeAction("batteryLevel",
                                                               [{
                                                                    paramName: "batteryLevel",
-                                                                   value: batteryLevel.value
+                                                                   value: batteryLevelSlider.value
                                                                }]);
                     }
-                    pageSelectedCar = carSelector.holdingItem.name;
+                    pageSelectedCar = selectVehicleCard.selectedVehicle.name;
                     var optimizationMode = compute_OptimizationMode();
                     var desiredPhaseCount = 3;
                     if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
@@ -898,11 +897,11 @@ GenericConfigPage {
                         desiredPhaseCount = desiredPhaseCountDropdown.currentValue;
                     }
 
-                    hemsManager.setUserConfiguration({defaultChargingMode: comboboxloadingmod.currentIndex});
+                    hemsManager.setUserConfiguration({defaultChargingMode: comboBoxChargingMode.currentIndex});
 
                     var configData = {
                         optimizationEnabled: true,
-                        carThingId: carSelector.holdingItem.id,
+                        carThingId: selectVehicleCard.selectedVehicle.id,
                         endTime: endTimeSlider.endTime.getHours() + ":" +  endTimeSlider.endTime.getMinutes() + ":00",
                         targetPercentage: targetPercentageSlider.value,
                         optimizationMode: optimizationMode,
@@ -920,11 +919,11 @@ GenericConfigPage {
                     pageStack.pop();
                 } else {
                     let anyKnownError = false;
-                    if(batteryLevel.value === 0) {
-                        batteryLevel.feedbackText = qsTr("Please select a battery level greater than 0%.");
+                    if(batteryLevelSlider.value === 0) {
+                        batteryLevelSlider.feedbackText = qsTr("Please select a battery level greater than 0%.");
                         anyKnownError = true;
                     }
-                    if (carSelector.holdingItem === false) {
+                    if (!selectVehicleCard.selectedVehicle) {
                         footer.text = qsTr("Please select a car");
                         footer.visible = true;
                         anyKnownError = true;
@@ -942,9 +941,9 @@ GenericConfigPage {
             }
 
             function compute_OptimizationMode(){
-                var mode = comboboxloadingmod.currentValue;
+                var mode = comboBoxChargingMode.currentValue;
                 if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
-                    var gridConsumptionOption = gridConsumptionloadingmod.currentValue;
+                    var gridConsumptionOption = gridConsumptionChargingMode.currentValue;
                     mode = mode + gridConsumptionOption;
                 }
                 if(isAnyOfModesSelected([time_controlled])) {
@@ -957,7 +956,7 @@ GenericConfigPage {
             }
 
             function getSelectedMode() {
-                return getChargingMode(comboboxloadingmod.currentValue);
+                return getChargingMode(comboBoxChargingMode.currentValue);
             }
 
             function isAnyOfModesSelected(modes)
@@ -1083,12 +1082,9 @@ GenericConfigPage {
                             spacing: 0
 
                             CoCard {
-                                id: carSelector // #TODO rename (selectVehicleCard)
+                                id: selectVehicleCard
 
-                                // #TODO rename (e.g. selectedCarThing) and don't use false as "no selected car" (but undefined)
-                                property var holdingItem: evProxy.getThing(userconfig.lastSelectedCar) ?
-                                                              evProxy.getThing(userconfig.lastSelectedCar) :
-                                                              false
+                                property var selectedVehicle: evProxy.getThing(userconfig.lastSelectedCar)
                                 Layout.fillWidth: true
                                 labelText: qsTr("Selected car")
                                 text: evProxy.getThing(userconfig.lastSelectedCar) ?
@@ -1101,24 +1097,24 @@ GenericConfigPage {
                                     page.done.connect(function(selectedCar) {
                                         footer.visible = false;
                                         hemsManager.setUserConfiguration({ lastSelectedCar: selectedCar.id });
-                                        carSelector.text = selectedCar.name;
-                                        holdingItem = selectedCar;
-                                        batteryLevel.value = 0;
+                                        selectVehicleCard.text = selectedCar.name;
+                                        selectedVehicle = selectedCar;
+                                        batteryLevelSlider.value = 0;
                                     });
 
                                     page.back.connect(function() {
                                         pageStack.pop();
-                                        carSelector.text = evProxy.getThing(userconfig.lastSelectedCar) ?
+                                        selectVehicleCard.text = evProxy.getThing(userconfig.lastSelectedCar) ?
                                                     evProxy.getThing(userconfig.lastSelectedCar).name :
                                                     qsTr("Select/Add Car");
                                         if (!(evProxy.getThing(userconfig.lastSelectedCar))){
-                                            holdingItem = false;
+                                            selectedVehicle = null;
                                         }
                                     });
                                 }
 
-                                onHoldingItemChanged: {
-                                    if (holdingItem !== false){
+                                onSelectedVehicleChanged: {
+                                    if (selectedVehicle){
                                         endTimeSlider.computeFeasibility();
                                         endTimeSlider.updateFeasibilityWarning();
                                     }
@@ -1126,7 +1122,7 @@ GenericConfigPage {
                             }
 
                             CoComboBox {
-                                id: comboboxloadingmod // #TODO rename (comboBoxChargingMode)
+                                id: comboBoxChargingMode
                                 Layout.fillWidth: true
                                 labelText: qsTr("Charging mode")
                                 infoUrl: "ChargingModeInfo.qml"
@@ -1156,16 +1152,16 @@ GenericConfigPage {
                                 Connections {
                                     target: hemsManager
                                     onAvailableUseCasesChanged: {
-                                        comboboxloadingmod.rebuildModel();
+                                        comboBoxChargingMode.rebuildModel();
                                     }
                                 }
 
                                 onCurrentIndexChanged: {
                                     endTimeSlider.computeFeasibility();
                                     endTimeSlider.updateFeasibilityWarning();
-                                    comboboxloadingmod.currentValue === 4000 ?
-                                                gridConsumptionloadingmod.currentIndex = 1 :
-                                                gridConsumptionloadingmod.currentIndex = 0;
+                                    comboBoxChargingMode.currentValue === 4000 ?
+                                                gridConsumptionChargingMode.currentIndex = 1 :
+                                                gridConsumptionChargingMode.currentIndex = 0;
                                 }
 
                                 // Function to rebuild model based on available use cases
@@ -1203,13 +1199,13 @@ GenericConfigPage {
                                                      " vs config mode: " +
                                                      currentChargingConfigOptimizationMode);
                                         if (dynamicModel.get(j).mode === currentChargingConfigOptimizationMode) {
-                                            comboboxloadingmod.currentIndex = j;
+                                            comboBoxChargingMode.currentIndex = j;
                                             return;
                                         }
                                         if (chargingConfiguration.optimizationMode === 9) {
                                             // If optimizationMode is 9 (no optimization), set to "Charge always"
                                             if (dynamicModel.get(j).mode === 0) {
-                                                comboboxloadingmod.currentIndex = j;
+                                                comboBoxChargingMode.currentIndex = j;
                                                 return;
                                             }
                                         }
@@ -1223,7 +1219,7 @@ GenericConfigPage {
                         id: configureChargingModeGroup
                         Layout.fillWidth: true
                         contentTopMargin: Style.smallMargins
-                        headerText: comboboxloadingmod.currentText
+                        headerText: comboBoxChargingMode.currentText
                         visible: isAnyOfModesSelected([pv_optimized, pv_excess, simple_pv_excess, dyn_pricing, time_controlled])
 
                         ColumnLayout {
@@ -1286,7 +1282,7 @@ GenericConfigPage {
                             }
 
                             CoSlider {
-                                id: batteryLevel // #TODO rename
+                                id: batteryLevelSlider
                                 Layout.fillWidth: true
                                 visible: isAnyOfModesSelected([pv_optimized, pv_excess])
                                 labelText: qsTr("Battery level")
@@ -1298,7 +1294,7 @@ GenericConfigPage {
 
                                 onValueChanged: {
                                     // if the "new Car" option is not picked do something
-                                    if (carSelector.holdingItem !== false) {
+                                    if (selectVehicleCard.selectedVehicle) {
                                         if (value  >= targetPercentageSlider.value) {
                                             if (value === 100) {
                                                 value = 99;
@@ -1312,7 +1308,7 @@ GenericConfigPage {
                             }
 
                             CoSlider {
-                                id: targetPercentageSlider // #TODO rename
+                                id: targetPercentageSlider
                                 Layout.fillWidth: true
                                 visible: isAnyOfModesSelected([pv_optimized, pv_excess])
                                 labelText: qsTr("Target charge")
@@ -1324,21 +1320,21 @@ GenericConfigPage {
                                 value: 0
 
                                 Component.onCompleted: {
-                                    if (carSelector.holdingItem !== false) {
+                                    if (selectVehicleCard.selectedVehicle) {
                                         endTimeSlider.computeFeasibility();
                                         endTimeSlider.updateFeasibilityWarning();
                                     }
                                 }
                                 onValueChanged: {
-                                    if (carSelector.holdingItem !== false) {
+                                    if (selectVehicleCard.selectedVehicle) {
                                         endTimeSlider.computeFeasibility();
                                         endTimeSlider.updateFeasibilityWarning();
 
-                                        if (value <= batteryLevel.value) {
+                                        if (value <= batteryLevelSlider.value) {
                                             if (value === 100) {
-                                                value = batteryLevel.value;
+                                                value = batteryLevelSlider.value;
                                             } else {
-                                                value = batteryLevel.value + 1;
+                                                value = batteryLevelSlider.value + 1;
                                             }
                                         }
                                     }
@@ -1346,7 +1342,7 @@ GenericConfigPage {
                             }
 
                             CoSlider {
-                                id: endTimeSlider // #TODO rename
+                                id: endTimeSlider
                                 Layout.fillWidth: true
 
                                 property var today: new Date()
@@ -1387,23 +1383,23 @@ GenericConfigPage {
                                 }
 
                                 function computeFeasibility() {
-                                    if (carSelector.holdingItem !== false){
+                                    if (selectVehicleCard.selectedVehicle){
                                         var maxChargingCurrent = thing.stateByName("maxChargingCurrent").maxValue;
                                         var loadingVoltage = thing.stateByName("phaseCount").value * 230;
 
-                                        for (let i = 0; i < carSelector.holdingItem.thingClass.stateTypes.count; i++) {
-                                            var thingStateId = carSelector.holdingItem.thingClass.stateTypes.get(i).id;
-                                            if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "capacity" ) {
+                                        for (let i = 0; i < selectVehicleCard.selectedVehicle.thingClass.stateTypes.count; i++) {
+                                            var thingStateId = selectVehicleCard.selectedVehicle.thingClass.stateTypes.get(i).id;
+                                            if (selectVehicleCard.selectedVehicle.thingClass.stateTypes.get(i).name === "capacity" ) {
                                                 // capacity in KWh
-                                                var capacity = carSelector.holdingItem.states.getState(thingStateId).value;
+                                                var capacity = selectVehicleCard.selectedVehicle.states.getState(thingStateId).value;
                                                 capacityInAh = (capacity * 1000) / loadingVoltage;
                                             }
-                                            if (carSelector.holdingItem.thingClass.stateTypes.get(i).name === "minChargingCurrent") {
-                                                minChargingCurrent = carSelector.holdingItem.states.getState(thingStateId).value;
+                                            if (selectVehicleCard.selectedVehicle.thingClass.stateTypes.get(i).name === "minChargingCurrent") {
+                                                minChargingCurrent = selectVehicleCard.selectedVehicle.states.getState(thingStateId).value;
                                             }
                                         }
 
-                                        batteryContentInAh = capacityInAh * batteryLevel.value / 100;
+                                        batteryContentInAh = capacityInAh * batteryLevelSlider.value / 100;
                                         var targetSOCinAh = capacityInAh * targetSOC / 100;
                                         var necessaryTimeinHMinCharg = (targetSOCinAh - batteryContentInAh) / minChargingCurrent;
                                         var necessaryTimeinHMaxCharg = (targetSOCinAh - batteryContentInAh) / maxChargingCurrent;
@@ -1453,7 +1449,7 @@ GenericConfigPage {
                             }
 
                             CoComboBox {
-                                id: gridConsumptionloadingmod // #TODO rename
+                                id: gridConsumptionChargingMode
                                 Layout.fillWidth: true
                                 visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
                                 labelText: isAnyOfModesSelected([pv_excess, simple_pv_excess]) ?
