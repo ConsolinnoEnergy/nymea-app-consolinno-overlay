@@ -3,7 +3,7 @@ import Qt5Compat.GraphicalEffects
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../components"
-import Nymea 1.0
+import Nymea
 
 import "../delegates"
 

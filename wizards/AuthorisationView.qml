@@ -3,7 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "qrc:/ui/components"
 import "../components"
-import Nymea 1.0
+import Nymea
 
 
 Page {

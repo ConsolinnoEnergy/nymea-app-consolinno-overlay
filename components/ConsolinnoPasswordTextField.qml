@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Controls.Material
-import Nymea 1.0
+import Nymea
 
 ColumnLayout {
     id: root

@@ -3,9 +3,9 @@ import Qt5Compat.GraphicalEffects
 import QtCharts
 import QtQuick.Layouts
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 import "qrc:/ui/components"
-import NymeaApp.Utils 1.0
+import NymeaApp.Utils
 
 Item {
     id: root

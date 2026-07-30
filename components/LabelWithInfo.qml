@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import Nymea 1.0
+import Nymea
 
 Row {
     property alias text: label.text

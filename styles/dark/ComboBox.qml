@@ -41,7 +41,7 @@ import QtQuick.Controls
 import QtQuick.Controls.impl
 import QtQuick.Templates as T
 import Qt5Compat.GraphicalEffects
-import Nymea 1.0
+import Nymea
 
 T.ComboBox {
     id: control

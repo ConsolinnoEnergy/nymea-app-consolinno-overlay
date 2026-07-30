@@ -1,7 +1,7 @@
 import "../components"
 import "../delegates"
 import "../devicepages"
-import Nymea 1.0
+import Nymea
 import QtQml
 import QtQuick
 import QtQuick.Controls

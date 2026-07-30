@@ -1,8 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import Nymea 1.0
-import NymeaApp.Utils 1.0
+import Nymea
+import NymeaApp.Utils
 
 import "../components"
 

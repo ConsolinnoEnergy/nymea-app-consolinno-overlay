@@ -32,7 +32,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import "../components"
-import Nymea 1.0
+import Nymea
 
 SettingsPageBase {
     id: root

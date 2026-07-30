@@ -1,4 +1,4 @@
-import Nymea 1.0
+import Nymea
 import QtCharts
 import QtQuick
 import QtQuick.Controls

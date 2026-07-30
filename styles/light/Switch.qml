@@ -39,7 +39,7 @@ import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
 import QtQuick.Controls.impl
-import Nymea 1.0
+import Nymea
 
 T.Switch {
     id: control

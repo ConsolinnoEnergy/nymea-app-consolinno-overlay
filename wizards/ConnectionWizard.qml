@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../components"
-import Nymea 1.0
+import Nymea
 
 ConsolinnoWizardPageBase {
     id: root

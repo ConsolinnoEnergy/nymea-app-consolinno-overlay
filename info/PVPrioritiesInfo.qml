@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQml
-import Nymea 1.0
+import Nymea
 import QtQuick.Layouts
 import "../components"
 import "../delegates"
@@ -67,7 +67,7 @@ Page {
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
                 visible: root.hasBattery
-                text: qsTr("Note: After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.")
+                text: qsTr("Note: After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.")
             }
         }
     }

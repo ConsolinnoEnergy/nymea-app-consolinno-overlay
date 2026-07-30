@@ -29,7 +29,7 @@ import Nymea
 
 import "../components"
 import "../delegates"
-import NymeaApp.Utils 1.0
+import NymeaApp.Utils
 
 Page {
     id: root

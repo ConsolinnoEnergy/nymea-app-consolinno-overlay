@@ -2,7 +2,7 @@ import QtQuick
 import QtCharts
 import QtQuick.Layouts
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 import "qrc:/ui/components"
 
 Item {

@@ -1,8 +1,8 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-import NymeaApp.Utils 1.0
-import Nymea 1.0
+import NymeaApp.Utils
+import Nymea
 import "components"
 
 MainViewBase {

@@ -5,8 +5,8 @@ import Qt5Compat.GraphicalEffects
 import "../components"
 import "../delegates"
 import "../wizards"
-import Nymea 1.0
-import NymeaApp.Utils 1.0
+import Nymea
+import NymeaApp.Utils
 
 Page {
     id: root

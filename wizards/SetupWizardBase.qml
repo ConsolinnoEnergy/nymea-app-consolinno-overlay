@@ -3,11 +3,11 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Qt5Compat.GraphicalEffects
 import "qrc:/ui/components"
-import Nymea 1.0
+import Nymea
 
 import "../delegates"
 import "../components"
-import NymeaApp.Utils 1.0
+import NymeaApp.Utils
 
 Page {
     id: root

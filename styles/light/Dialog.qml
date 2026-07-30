@@ -38,7 +38,7 @@
 import QtQuick
 import QtQuick.Templates as T
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 
 T.Dialog {
     id: control

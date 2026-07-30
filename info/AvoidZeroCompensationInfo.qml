@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 import QtQml
-import Nymea 1.0
+import Nymea
 import QtQuick.Layouts
 import QtCharts
 import "../components"

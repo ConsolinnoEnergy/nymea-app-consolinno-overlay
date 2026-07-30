@@ -33,7 +33,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
 import "../components"
-import Nymea 1.0
+import Nymea
 
 Page {
     id: root

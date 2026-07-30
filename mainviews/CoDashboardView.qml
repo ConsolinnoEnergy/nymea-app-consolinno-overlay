@@ -6,8 +6,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import QtQuick.Window
 import QtCharts
-import Nymea 1.0
-import NymeaApp.Utils 1.0
+import Nymea
+import NymeaApp.Utils
 import Qt5Compat.GraphicalEffects
 
 import "../components"

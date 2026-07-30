@@ -2,8 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 import "../components"
-import Nymea 1.0
-import NymeaApp.Utils 1.0
+import Nymea
+import NymeaApp.Utils
 
 Page {
     id: root

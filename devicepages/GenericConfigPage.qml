@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Qt5Compat.GraphicalEffects
-import Nymea 1.0
+import Nymea
 import "../components"
 import "../customviews"
 

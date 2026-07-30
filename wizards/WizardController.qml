@@ -10,7 +10,7 @@
 import QtCore
 import QtQuick
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 
 Item {
     id: root

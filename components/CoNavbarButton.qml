@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 
 // Wrapper around a regular Button intended for use on a frosted/translucent
 // surface (e.g. the navbar controls strip).

@@ -2,10 +2,10 @@ import QtQuick
 import Qt5Compat.GraphicalEffects
 import QtQuick.Layouts
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 import "../components"
 import "../delegates"
-import NymeaApp.Utils 1.0
+import NymeaApp.Utils
 
 Page {
     id: root

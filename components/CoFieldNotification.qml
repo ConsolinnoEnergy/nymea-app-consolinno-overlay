@@ -1,6 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
-import Nymea 1.0
+import Nymea
 
 Item {
     property alias text: label.text

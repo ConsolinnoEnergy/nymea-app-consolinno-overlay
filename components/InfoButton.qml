@@ -4,7 +4,7 @@ import QtQuick.Layouts
 //import QtQuick.Controls.Styles 1.4
 import QtQml
 import Qt5Compat.GraphicalEffects
-import Nymea 1.0
+import Nymea
 
 import "../components"
 import "../delegates"

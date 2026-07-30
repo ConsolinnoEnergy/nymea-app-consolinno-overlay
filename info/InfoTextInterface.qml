@@ -2,7 +2,7 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Material
 import QtQuick.Controls
-import Nymea 1.0
+import Nymea
 
 import "../components"
 import "../delegates"

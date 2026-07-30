@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
-import Nymea 1.0
+import Nymea
 
 ColumnLayout {
     anchors.leftMargin: Style.margins

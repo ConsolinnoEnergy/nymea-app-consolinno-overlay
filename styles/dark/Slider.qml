@@ -38,7 +38,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Templates 2.12 as T
-import Nymea 1.0
+import Nymea
 
 T.Slider {
     id: control

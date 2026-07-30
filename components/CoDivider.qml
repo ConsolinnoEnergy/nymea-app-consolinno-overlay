@@ -1,5 +1,5 @@
 import QtQuick
-import Nymea 1.0
+import Nymea
 
 Item {
     id: root
