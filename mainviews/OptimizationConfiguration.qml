@@ -6,6 +6,7 @@ import Nymea 1.0
 import "../components"
 import "../delegates"
 import "../optimization"
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -265,7 +266,7 @@ Page {
                                 engine.thingManager.things.getThing(model.switchThingId)
                             Layout.fillWidth: true
                             text: switchThing.name
-                            iconLeft: app.interfacesToIcon(switchThing.thingClass.interfaces)
+                            iconLeft: UiUtils.interfacesToIcon(switchThing.thingClass.interfaces)
                             showChildrenIndicator: true
                             onClicked: pageStack.push(Qt.resolvedUrl("../optimization/SwitchableConsumerOptimization.qml"),
                                                       {

@@ -6,6 +6,7 @@ import "../components"
 import "../delegates"
 import "../wizards"
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -177,7 +178,7 @@ Page {
                                     Layout.fillWidth: true
                                     text: thing.name
                                     // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
-                                    iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
+                                    iconLeft: UiUtils.interfacesToIcon(thing.thingClass.interfaces)
                                     showChildrenIndicator: true
 
                                     // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated

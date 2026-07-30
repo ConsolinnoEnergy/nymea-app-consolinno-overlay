@@ -5,6 +5,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import Nymea 1.0
 import "qrc:/ui/components"
+import NymeaApp.Utils 1.0
 
 Item {
     id: root
@@ -566,7 +567,7 @@ Item {
                             spacing: Style.smallMargins
                             ColorIcon {
                                 id: icons
-                                name: app.interfacesToIcon(legendDelegate.thing ?
+                                name: UiUtils.interfacesToIcon(legendDelegate.thing ?
                                                                legendDelegate.thing.thingClass.interfaces :
                                                                [])
                                 size: Style.smallIconSize

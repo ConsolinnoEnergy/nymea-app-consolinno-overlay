@@ -33,7 +33,7 @@ GenericConfigPage {
                     id: energyCircle
                     Layout.fillWidth: true
                     power: root.currentConsumption ? root.currentConsumption.value : 0
-                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    icon: UiUtils.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: Math.round(power) > 0 ? qsTr("Consuming") : qsTr("Idle")
                 }
 

@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls
 import "../components"
 import Nymea 1.0
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -87,7 +88,7 @@ Page {
                         delegate: CoCard {
                             Layout.fillWidth: true
                             text: model.name
-                            iconLeft: app.interfacesToIcon(model.interfaces)
+                            iconLeft: UiUtils.interfacesToIcon(model.interfaces)
                             interactive: false
                         }
                     }

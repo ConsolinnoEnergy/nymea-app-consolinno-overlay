@@ -5,6 +5,7 @@ import QtQuick.Controls
 import Nymea 1.0
 import "../components"
 import "../delegates"
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -291,7 +292,7 @@ Page {
                                     helpText: thingClass ?
                                                   engine.thingManager.vendors.getVendor(thingClass.vendorId).displayName :
                                                   ""
-                                    iconLeft: thingClass ? app.interfacesToIcon(thingClass.interfaces) : ""
+                                    iconLeft: thingClass ? UiUtils.interfacesToIcon(thingClass.interfaces) : ""
                                     showChildrenIndicator: true
                                     visible: thingClass !== null
 

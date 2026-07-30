@@ -7,6 +7,7 @@ import Nymea 1.0
 
 import "../delegates"
 import "../components"
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -177,7 +178,7 @@ Page {
                                     readonly property Thing parentThing: thing ? engine.thingManager.things.getThing(thing.parentId) : null
                                     text: model.name
                                     helpText: parentThing ? parentThing.name : ""
-                                    iconLeft: app.interfacesToIcon(model.interfaces)
+                                    iconLeft: UiUtils.interfacesToIcon(model.interfaces)
                                 }
                             }
                         }
@@ -281,7 +282,7 @@ Page {
                             Layout.fillWidth: true
                             text: model.name
                             helpText: model.description
-                            iconLeft: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            iconLeft: UiUtils.interfacesToIcon(discoveryView.thingClass.interfaces)
                             showChildrenIndicator: true
 
                             onClicked: {

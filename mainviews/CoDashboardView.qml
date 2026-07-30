@@ -12,6 +12,7 @@ import Qt5Compat.GraphicalEffects
 
 import "../components"
 import "../delegates"
+import "../utils/VersionUtils.js" as VersionUtils
 
 MainViewBase {
     id: root
@@ -26,62 +27,13 @@ MainViewBase {
         return Qt.resolvedUrl("qrc:/icons/battery/battery2-" + batteryLevelForIcon + chargingSelector + ".svg");
     }
 
-    function batteryIconByLevel(batteryLevel) {
-        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
-        return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
-    }
-
-    function thingToIcon(thing) {
-        let ifaces = thing.thingClass.interfaces;
-        if (ifaces.indexOf("battery") >= 0) {
-            let batteryLevelState = thing.stateByName("batteryLevel");
-            if (batteryLevelState) {
-                let batteryLevel = batteryLevelState.value;
-                return batteryIconByLevel(batteryLevel);
-            } else {
-                return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
-            }
-        }
-        return app.interfacesToIcon(ifaces);
-    }
-
-    // #TODO next 2 functions copied from old ConsolinnoView. Oli wanted to extract this into so utils file.
-    // Use from there when that is done.
-    function compareSemanticVersions(version1, version2) {
-        // Returns 0 if version1 == version2
-        // Returns 1 if version1 > version2
-        // Returns -1 if version1 < version2
-
-        var v1 = version1.split('.').map(function(part) { return parseInt(part); });
-        var v2 = version2.split('.').map(function(part) { return parseInt(part); });
-
-        for (var i = 0; i < Math.max(v1.length, v2.length); i++) {
-            var num1 = i < v1.length ? v1[i] : 0;
-            var num2 = i < v2.length ? v2[i] : 0;
-
-            if (num1 < num2) {
-                return -1; // version1 is lower
-            } else if (num1 > num2) {
-                return 1; // version1 is higher
-            }
-        }
-
-        return 0; // versions are equal
-    }
-
     function hemsVersionOk(){
-        var minSysVersion = Configuration.minSysVersion
+        var minSysVersion = Configuration.minSysVersion;
         // Checks if System version is less or equal to minSysVersion
-        if ([-1].includes(compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion)))
-        {
-            return false
+        if ([-1].includes(VersionUtils.compareSemanticVersions(engine.jsonRpcClient.experiences.Hems, minSysVersion))) {
+            return false;
         }
-        return true
-    }
-
-    // #TODO move to some utils file
-    function convertToKw(numberW){
-        return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
+        return true;
     }
 
     function avoidZeroCompensationActive(battery) {
@@ -393,7 +345,7 @@ Your %3 Team")
                         visible: anyInverterLppActive
                         type: CoNotification.Type.Warning
                         title: qsTr("Feed-in curtailment")
-                        message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(lppPowerLimit))
+                        message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(UiUtils.convertToKw(lppPowerLimit))
                     }
 
                     CoNotification {
@@ -402,7 +354,7 @@ Your %3 Team")
                         visible: lpcActive
                         type: CoNotification.Type.Warning
                         title: qsTr("Grid-supportive control")
-                        message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(lpcPowerLimit))
+                        message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(UiUtils.convertToKw(lpcPowerLimit))
                     }
 
                     CoNotification {
@@ -729,7 +681,7 @@ Your %3 Team")
                                 delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
                                     thing: producerThings.get(index)
-                                    icon: thingToIcon(thing)
+                                    icon: UiUtils.thingToIcon(thing)
                                     showWarningIndicator: lppActive &&
                                                           (hemsManager.pvConfigurations.getPvConfiguration(thing.id) !== null ?
                                                                hemsManager.pvConfigurations.getPvConfiguration(thing.id).controllableLocalSystem :
@@ -773,7 +725,7 @@ Your %3 Team")
                                     readonly property State socState: battery ? battery.stateByName("batteryLevel") : null
                                     readonly property double soc: socState ? Number(socState.value) : 0
 
-                                    icon: thingToIcon(battery)
+                                    icon: UiUtils.thingToIcon(battery)
                                     text: battery.name
                                     powerValue: currentPower
                                     socValue: Math.round(soc)
@@ -813,7 +765,7 @@ Your %3 Team")
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
                                         thing: heatingThings.get(index)
-                                        icon: thingToIcon(thing)
+                                        icon: UiUtils.thingToIcon(thing)
                                         showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
                                                            !showErrorIndicator
                                         showErrorIndicator: !ThingUtils.isConnected(thing)
@@ -856,7 +808,7 @@ Your %3 Team")
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
                                         thing: evChargerThings.get(index)
-                                        icon: thingToIcon(thing)
+                                        icon: UiUtils.thingToIcon(thing)
                                         showErrorIndicator: !ThingUtils.isConnected(thing)
                                         onClicked: {
                                             // Check if these states are provided by the thing
@@ -905,7 +857,7 @@ Your %3 Team")
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
                                         thing: otherConsumerThings.get(index)
-                                        icon: thingToIcon(thing)
+                                        icon: UiUtils.thingToIcon(thing)
                                         showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
                                                            !showErrorIndicator
                                         showErrorIndicator: !ThingUtils.isConnected(thing)

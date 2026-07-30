@@ -29,6 +29,7 @@ import Nymea
 
 import "../components"
 import "../delegates"
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -336,7 +337,7 @@ Page {
                             Layout.fillWidth: true
                             text: model.name
                             labelText: model.description
-                            iconLeft: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            iconLeft: UiUtils.interfacesToIcon(discoveryView.thingClass.interfaces)
                             showChildrenIndicator: true
                             onClicked: {
                                 d.thingDescriptor = discoveryProxy.get(index);

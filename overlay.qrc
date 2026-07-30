@@ -284,6 +284,7 @@
         <file>utils/DynPricingUtils.js</file>
         <file>utils/ThingUtils.qml</file>
         <file>utils/UiUtils.qml</file>
+        <file>utils/VersionUtils.js</file>
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>

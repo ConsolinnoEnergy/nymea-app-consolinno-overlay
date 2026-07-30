@@ -19,10 +19,6 @@ GenericConfigPage {
                                  false
     property double lpcPowerLimit: gridSupport ? gridSupport.stateByName("lpcValue").value : 0
 
-    function convertToKw(numberW){
-        return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
-    }
-
     title: qsTr("Grid")
     headerOptionsVisible: true
 
@@ -51,7 +47,7 @@ GenericConfigPage {
                     visible: lpcActive
                     type: CoNotification.Type.Warning
                     title: qsTr("Grid-supportive control")
-                    message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(convertToKw(lpcPowerLimit))
+                    message: qsTr("Due to a control order from the network operator, the total power of controllable devices is <b>temporarily limited</b> to <b>%1 kW.</b> If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.").arg(UiUtils.convertToKw(lpcPowerLimit))
                 }
 
                 CoEnergyCircle {
@@ -63,7 +59,7 @@ GenericConfigPage {
                                Qt.resolvedUrl("qrc:/icons/output_circle.svg") :
                                Math.round(rawPowerValue) < 0 ?
                                    Qt.resolvedUrl("qrc:/icons/input_circle.svg") :
-                                   app.interfacesToIcon(root.thing.thingClass.interfaces)
+                                   UiUtils.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: Math.round(rawPowerValue) > 0 ?
                                qsTr("Consuming") :
                                Math.round(rawPowerValue) < 0 ?

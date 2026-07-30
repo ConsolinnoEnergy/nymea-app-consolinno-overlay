@@ -7,6 +7,7 @@ import Nymea 1.0
 
 import "../delegates"
 import "../components"
+import NymeaApp.Utils 1.0
 
 Page {
     id: root
@@ -470,7 +471,7 @@ Page {
                             Layout.fillWidth: true
                             text: model.name
                             helpText: model.description
-                            iconLeft: root.deviceIcon !== "" ? Qt.resolvedUrl(root.deviceIcon) : app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            iconLeft: root.deviceIcon !== "" ? Qt.resolvedUrl(root.deviceIcon) : UiUtils.interfacesToIcon(discoveryView.thingClass.interfaces)
                             showChildrenIndicator: true
 
                             onClicked: {

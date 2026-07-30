@@ -202,7 +202,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     visible: root.currentPowerState !== null
                     power: root.currentPowerState.value
-                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    icon: UiUtils.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: qsTr("Current power consumption")
                 }
 

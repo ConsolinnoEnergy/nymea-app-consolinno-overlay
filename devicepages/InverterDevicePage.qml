@@ -17,10 +17,6 @@ GenericConfigPage {
     property bool showLppWarning: false
     property double lppPowerLimit: gridSupport.stateByName("lppValue") ? gridSupport.stateByName("lppValue").value : 0
 
-    function convertToKw(numberW){
-        return (+(Math.round((numberW / 1000) * 100 ) / 100)).toLocaleString()
-    }
-
     title: root.thing.name
 
     content: [
@@ -48,7 +44,7 @@ GenericConfigPage {
                     visible: showLppWarning
                     type: CoNotification.Type.Warning
                     title: qsTr("Feed-in curtailment")
-                    message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(convertToKw(lppPowerLimit))
+                    message: qsTr("The feed-in is <b>limited temporarily</b> to <b>%1 kW</b> due to a control command from the grid operator.").arg(UiUtils.convertToKw(lppPowerLimit))
                 }
 
                 CoEnergyCircle {
@@ -56,7 +52,7 @@ GenericConfigPage {
                     property var rawPowerValue: root.currentPower ? root.currentPower.value : 0
                     Layout.fillWidth: true
                     power: Math.abs(rawPowerValue)
-                    icon: app.interfacesToIcon(root.thing.thingClass.interfaces)
+                    icon: UiUtils.interfacesToIcon(root.thing.thingClass.interfaces)
                     label: Math.round(rawPowerValue) < 0 ?
                                qsTr("Producing") :
                                qsTr("Idle")

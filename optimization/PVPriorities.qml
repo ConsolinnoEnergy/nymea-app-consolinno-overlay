@@ -52,26 +52,6 @@ Page {
         }
     }
 
-    // #TODO the following 2 functions were copied from CoDashboardView.qml -> move to common utils file
-    function batteryIconByLevel(batteryLevel) {
-        let batteryLevelForIcon = NymeaUtils.pad(Math.round(batteryLevel / 10) * 10, 3);
-        return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
-    }
-
-    function thingToIcon(thing) {
-        let ifaces = thing.thingClass.interfaces;
-        if (ifaces.indexOf("battery") >= 0) {
-            let batteryLevelState = thing.stateByName("batteryLevel");
-            if (batteryLevelState) {
-                let batteryLevel = batteryLevelState.value;
-                return batteryIconByLevel(batteryLevel);
-            } else {
-                return Qt.resolvedUrl("qrc:/icons/battery/battery-060.svg");
-            }
-        }
-        return app.interfacesToIcon(ifaces);
-    }
-
     function thingOptimizationEnabled(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("heatingrod") >= 0) {
@@ -118,7 +98,7 @@ Page {
                 "name": thing ? thing.name : thingId.toString(),
                 "thingId": thing ? "" + thing.id : "" + thingId,
                 "locked": locked,
-                "icon": thing ? root.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg"),
+                "icon": thing ? UiUtils.thingToIcon(thing) : Qt.resolvedUrl("qrc:/icons/select-none.svg"),
                 "optimizationEnabled": thing ? root.thingOptimizationEnabled(thing) : false
             });
         }
