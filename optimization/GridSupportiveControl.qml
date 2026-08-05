@@ -218,6 +218,43 @@ StackView {
                     }
                 }
 
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("EEBUS Pairing Data")
+                    visible: eebusInformationThing !== null
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: eebusInformationThing ? eebusInformationThing.param("ab65e48a-c5a8-4d89-93b0-da863e83ae55").value : "-"
+                            labelText: qsTr("Local Subject Key Identifier (SKI)")
+                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                            iconRightColor: Style.colors.brand_Basic_Accent
+                            onClicked: {
+                                PlatformHelper.toClipBoard(text);
+                                ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                            }
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: eebusInformationThing ? eebusInformationThing.param("aa519adc-e834-461f-b2f3-be149edbcc5e").value : "-"
+                            labelText: qsTr("SHIP ID (ID)")
+                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                            iconRightColor: Style.colors.brand_Basic_Accent
+                            onClicked: {
+                                PlatformHelper.toClipBoard(text);
+                                ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                            }
+                        }
+                    }
+                }
+
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
