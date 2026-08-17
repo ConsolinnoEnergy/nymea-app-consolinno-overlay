@@ -103,18 +103,19 @@ Page {
         }
     }
 
-    ThingClassesProxy {
-        id: thingClassesProxy
+    ThingsProxy {
+        id: thingsProxy
         engine: _engine
-        includeProvidedInterfaces: true
+        hideTagId: "hiddenInDeviceView"
+        hiddenInterfaces: ["gridsupport", "epexdatasource"]
         groupByInterface: true
     }
 
     Component.onCompleted: {
         let map = {};
-        for (let i = 0; i < thingClassesProxy.count; ++i) {
-            const item = thingClassesProxy.get(i);
-            const baseInterface = item.baseInterface;
+        for (let i = 0; i < thingsProxy.count; ++i) {
+            const item = thingsProxy.get(i);
+            const baseInterface = item.thingClass.baseInterface;
             if (!map[baseInterface]) {
                 map[baseInterface] = [];
             }
@@ -151,18 +152,14 @@ Page {
                     model: Object.keys(d.baseInterfacesWithThingClasses)
 
                     delegate: CoFrostyCard {
+                        id: baseInterfaceCard
+                        property string baseInterface: modelData
+                        property var thingIds: d.baseInterfacesWithThingClasses[baseInterface] || []
+
                         Layout.fillWidth: true
                         contentTopMargin: 8
                         headerText: app.interfaceToString(modelData)
-                        visible: thingsProxy.count > 0
-
-                        ThingsProxy {
-                            id: thingsProxy
-                            engine: _engine
-                            hideTagId: "hiddenInDeviceView"
-                            hiddenInterfaces: ["gridsupport", "epexdatasource"]
-                            shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
-                        }
+                        visible: thingIds.length > 0
 
                         ColumnLayout {
                             anchors.left: parent.left
@@ -171,9 +168,10 @@ Page {
 
                             Repeater {
                                 id: thingsRepeater
-                                model: thingsProxy
+                                model: baseInterfaceCard.thingIds
+
                                 delegate: CoCard {
-                                    property var thing: thingsProxy.getThing(model.id)
+                                    property var thing: thingsProxy.getThing(modelData)
 
                                     Layout.fillWidth: true
                                     text: thing.name
