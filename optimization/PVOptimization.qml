@@ -248,7 +248,7 @@ Page {
                         textField.validator: DoubleValidator {
                             id: peakPowerValidator
                             bottom: 1
-                            top: 30
+                            top: 100
                             decimals: 2
                             notation: "StandardNotation"
                         }
