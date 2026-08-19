@@ -173,7 +173,8 @@ Page {
                         text: qsTr("Avoid zero compensation")
                         infoUrl: "AvoidZeroCompensationInfo.qml"
                         visible: (thing.thingClass.interfaces.includes("limitablesoc") ||
-                                  thing.thingClass.interfaces.includes("limitableconsumer")) &&
+                                  thing.thingClass.interfaces.includes("limitableconsumer") ||
+                                  thing.thingClass.interfaces.includes("fullymanagedbattery")) &&
                                  ((hemsManager.availableUseCases & HemsManager.HemsUseCaseAvoidZeroCompensation) !== 0)
 
                         Component.onCompleted: {
