@@ -105,6 +105,12 @@ Page {
         id: thingClassesProxy
         engine: _engine
         includeProvidedInterfaces: true
+        hideTagId: "hiddenInDeviceView"
+        hiddenInterfaces: ["gridsupport", "epexdatasource"]
+        hiddenThingClassIds: [
+            "7a597210-8f7e-4667-8cf7-82ccdc23c313", // Device claiming plugin
+            "f5f3c387-2482-4154-99ee-7a473f6d81e9" // Eebus information plugin
+        ]
         groupByInterface: true
     }
 
