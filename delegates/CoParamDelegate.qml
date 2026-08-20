@@ -172,7 +172,7 @@ ItemDelegate {
 
             Connections {
                 target: chooserPopup
-                onAccepted: {
+                function onAccepted() {
                     root.param.value = chooserPopup.selection;
                 }
             }

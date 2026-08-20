@@ -107,7 +107,7 @@ Page {
 
     Connections {
         target: hemsManager.emsConfiguration
-        onPvSurplusPriolistChanged: root.populatePrioModel()
+        function onPvSurplusPriolistChanged() { root.populatePrioModel() }
     }
 
     Connections {

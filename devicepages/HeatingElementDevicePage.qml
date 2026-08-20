@@ -99,7 +99,7 @@ GenericConfigPage {
 
     Connections {
         target: hemsManager
-        onAvailableUseCasesChanged: optimizationModesModel.populate()
+        function onAvailableUseCasesChanged() { optimizationModesModel.populate() }
     }
 
     content: [

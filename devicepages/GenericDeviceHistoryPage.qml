@@ -288,7 +288,7 @@ GenericConfigPage {
 
             Connections {
                 target: stateDelegateLoader.item && stateDelegateLoader.item.hasOwnProperty("changed") ? stateDelegateLoader.item : null
-                onChanged: {
+                function onChanged() {
                     stateDelegate.enqueueSetValue(value)
                 }
             }

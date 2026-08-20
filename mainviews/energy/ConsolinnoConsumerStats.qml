@@ -90,7 +90,7 @@ StatsBase {
 
             Connections {
                 target: d
-                onStartOffsetChanged: refresh()
+                function onStartOffsetChanged() { refresh() }
             }
 
             function refreshLabels() {

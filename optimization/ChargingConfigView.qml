@@ -438,9 +438,9 @@ GenericConfigPage {
 
                     Connections {
                         target: chargingConfiguration
-                        onChargingScheduleChanged: parseScheduleForOverview()
-                        onOptimizationModeChanged: parseScheduleForOverview()
-                        onOptimizationEnabledChanged: parseScheduleForOverview()
+                        function onChargingScheduleChanged() { parseScheduleForOverview() }
+                        function onOptimizationModeChanged() { parseScheduleForOverview() }
+                        function onOptimizationEnabledChanged() { parseScheduleForOverview() }
                     }
 
                     Component.onCompleted: {
@@ -1025,7 +1025,7 @@ GenericConfigPage {
 
             Connections {
                 target: chargingConfiguration
-                onChargingScheduleChanged: {
+                function onChargingScheduleChanged() {
                     restoreSchedule();
                 }
             }
@@ -1148,7 +1148,7 @@ GenericConfigPage {
 
                                 Connections {
                                     target: hemsManager
-                                    onAvailableUseCasesChanged: {
+                                    function onAvailableUseCasesChanged() {
                                         comboBoxChargingMode.rebuildModel();
                                     }
                                 }

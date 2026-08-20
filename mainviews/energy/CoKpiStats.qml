@@ -142,7 +142,7 @@ StatsBase {
 
         Connections {
             target: _engine ? _engine.jsonRpcClient : null
-            onConnectedChanged: {
+            function onConnectedChanged() {
                 if (root.visible && _engine && _engine.jsonRpcClient && _engine.jsonRpcClient.connected) {
                     d.fetchKpis()
                 }
