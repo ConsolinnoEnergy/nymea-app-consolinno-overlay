@@ -30,7 +30,7 @@ GenericConfigPage {
     property int currentValue : 0
     property double thresholdPrice: 0
 
-    property double currentPrice: 0
+    readonly property double currentPrice: dpThing ? dpThing.stateByName("currentTotalCost").value : 0
     property double lowestPrice: 0
     property double highestPrice: 0
     property var prices: ({})
@@ -565,15 +565,12 @@ GenericConfigPage {
                         CoCard {
                             id: currentPriceCard
                             Layout.fillWidth: true
-                            text: qsTr("%1 ct/kWh").arg((Math.round(currentPrice * 100) / 100).toLocaleString());
+                            text: dpThing ?
+                                      currentPrice.toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh" :
+                                      "—"
                             labelText: qsTr("Current Price")
                             visible: chargingIsAnyOf([dyn_pricing])
                             interactive: false
-
-                            Component.onCompleted: {
-                                if (!dpThing) return;
-                                currentPrice = dpThing.stateByName("currentTotalCost").value;
-                            }
                         }
 
                         CoCard {
@@ -1487,7 +1484,7 @@ GenericConfigPage {
                                 iconLeft: Qt.resolvedUrl("qrc:/icons/euro.svg")
                                 iconLeftColor: Style.colors.brand_Basic_Icon
                                 text: dpThing ?
-                                          dpThing.stateByName("currentTotalCost").value.toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh" :
+                                          currentPrice.toLocaleString(Qt.locale(), 'f', 2) + " ct/kWh" :
                                           "—"
                             }
 
@@ -1574,8 +1571,6 @@ GenericConfigPage {
                                         pricingCurrentLimitSeries.clear();
                                         pricingUpperSeries.clear();
                                         pricingUpperSeriesAbove.clear();
-
-                                        currentPrice = dpThing.stateByName("currentTotalCost").value
 
                                         consumptionSeries.insertEntry(dpThing.stateByName("totalCostSeries").value, false)
                                         valueAxis.adjustMax((Math.ceil(lowestPrice)), highestPrice);
