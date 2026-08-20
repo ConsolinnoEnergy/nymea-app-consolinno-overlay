@@ -5,15 +5,13 @@ import Qt5Compat.GraphicalEffects
 import "../components"
 import "../delegates"
 import "../wizards"
-import Nymea
-import NymeaApp.Utils
+import Nymea 1.0
 
 Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
     property bool busy: d.thingToRemove !== null
-    enabled: !busy
     signal startWizard()
 
     property Component navbarControls: deviceOverviewNavbarControls
@@ -61,27 +59,6 @@ Page {
         id: d
         property var thingToRemove: null
         property var baseInterfacesWithThingClasses: ({})
-
-        // ESUI-1620: Rebuild the base-interface -> thing-id map from the live
-        // thingsProxy. Needs to run again whenever thingsProxy's content
-        // changes, not just once on page creation - see thingsProxy.onCountChanged
-        // below. Without this, things added/removed elsewhere (e.g. via the
-        // "Set up new device" wizard, or by deleting a thing here) wouldn't
-        // show up until this page instance is destroyed and recreated, since
-        // Component.onCompleted only runs once per instance and this page is
-        // kept alive on the pageStack while the wizard is pushed on top of it.
-        function rebuildBaseInterfaceMap() {
-            let map = {};
-            for (let i = 0; i < thingsProxy.count; ++i) {
-                const item = thingsProxy.get(i);
-                const baseInterface = item.thingClass.baseInterface;
-                if (!map[baseInterface]) {
-                    map[baseInterface] = [];
-                }
-                map[baseInterface].push(item.id);
-            }
-            d.baseInterfacesWithThingClasses = map;
-        }
     }
 
     Connections {
@@ -124,23 +101,25 @@ Page {
         }
     }
 
-    ThingsProxy {
-        id: thingsProxy
+    ThingClassesProxy {
+        id: thingClassesProxy
         engine: _engine
-        hideTagId: "hiddenInDeviceView"
-        hiddenInterfaces: ["gridsupport", "epexdatasource"]
-        hiddenThingClassIds: [
-            "7a597210-8f7e-4667-8cf7-82ccdc23c313", // Device claiming plugin
-            "f5f3c387-2482-4154-99ee-7a473f6d81e9" // Eebus information plugin
-        ]
+        includeProvidedInterfaces: true
         groupByInterface: true
-        // ESUI-1620: keep the JS snapshot in d.baseInterfacesWithThingClasses
-        // in sync with the live model instead of only building it once in
-        // Component.onCompleted.
-        onCountChanged: d.rebuildBaseInterfaceMap()
     }
 
-    Component.onCompleted: d.rebuildBaseInterfaceMap()
+    Component.onCompleted: {
+        let map = {};
+        for (let i = 0; i < thingClassesProxy.count; ++i) {
+            const item = thingClassesProxy.get(i);
+            const baseInterface = item.baseInterface;
+            if (!map[baseInterface]) {
+                map[baseInterface] = [];
+            }
+            map[baseInterface].push(item.id);
+        }
+        d.baseInterfacesWithThingClasses = map;
+    }
 
 
     ColumnLayout {
@@ -170,14 +149,18 @@ Page {
                     model: Object.keys(d.baseInterfacesWithThingClasses)
 
                     delegate: CoFrostyCard {
-                        id: baseInterfaceCard
-                        property string baseInterface: modelData
-                        property var thingIds: d.baseInterfacesWithThingClasses[baseInterface] || []
-
                         Layout.fillWidth: true
                         contentTopMargin: 8
                         headerText: app.interfaceToString(modelData)
-                        visible: thingIds.length > 0
+                        visible: thingsProxy.count > 0
+
+                        ThingsProxy {
+                            id: thingsProxy
+                            engine: _engine
+                            hideTagId: "hiddenInDeviceView"
+                            hiddenInterfaces: ["gridsupport", "epexdatasource"]
+                            shownThingClassIds: d.baseInterfacesWithThingClasses[modelData]
+                        }
 
                         ColumnLayout {
                             anchors.left: parent.left
@@ -186,14 +169,14 @@ Page {
 
                             Repeater {
                                 id: thingsRepeater
-                                model: baseInterfaceCard.thingIds
-
+                                model: thingsProxy
                                 delegate: CoCard {
-                                    property var thing: thingsProxy.getThing(modelData)
+                                    property var thing: thingsProxy.getThing(model.id)
 
                                     Layout.fillWidth: true
                                     text: thing.name
-                                    iconLeft: UiUtils.interfacesToIcon(thing.thingClass.interfaces)
+                                    // #TODO use same stuff as in CoDashboardView.qml to get battery icons right
+                                    iconLeft: app.interfacesToIcon(thing.thingClass.interfaces)
                                     showChildrenIndicator: true
 
                                     // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
