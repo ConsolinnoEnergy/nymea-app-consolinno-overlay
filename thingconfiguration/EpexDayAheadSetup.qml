@@ -279,7 +279,7 @@ Page {
                         property bool dirty: false
                         function checkDirty() {
                             for (var i = 0; i < paramRepeater.count; i++) {
-                                if (paramRepeater.itemAt(i).visible && paramRepeater.itemAt(i).dirty) { dirty = true; return; }
+                                if (paramRepeater.itemAt(i) && paramRepeater.itemAt(i).visible && paramRepeater.itemAt(i).dirty) { dirty = true; return; }
                             }
                             dirty = false;
                         }
