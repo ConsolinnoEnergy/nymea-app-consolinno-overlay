@@ -298,6 +298,7 @@
         <file>components/CoNotConnectedNotification.qml</file>
         <file>components/CoIconButton.qml</file>
         <file>components/CoLegendPill.qml</file>
+        <file>components/CoPeriodSelector.qml</file>
         <file>components/CoNavbarButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
