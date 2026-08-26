@@ -198,7 +198,8 @@ Item {
                 Layout.fillWidth: true
                 text: qsTr("Day")
                 checked: true
-                onClicked: {
+                onCheckedChanged: {
+                    if (!checked) { return; }
                     root.sampleRate = EnergyLogs.SampleRate1Day;
                     d.resetToToday();
                 }
@@ -208,7 +209,8 @@ Item {
                 id: weekButton
                 Layout.fillWidth: true
                 text: qsTr("Week")
-                onClicked: {
+                onCheckedChanged: {
+                    if (!checked) { return; }
                     root.sampleRate = EnergyLogs.SampleRate1Week;
                     d.resetToToday();
                 }
@@ -218,7 +220,8 @@ Item {
                 id: monthButton
                 Layout.fillWidth: true
                 text: qsTr("Month")
-                onClicked: {
+                onCheckedChanged: {
+                    if (!checked) { return; }
                     root.sampleRate = EnergyLogs.SampleRate1Month;
                     d.resetToToday();
                 }
@@ -228,7 +231,8 @@ Item {
                 id: yearButton
                 Layout.fillWidth: true
                 text: qsTr("Year")
-                onClicked: {
+                onCheckedChanged: {
+                    if (!checked) { return; }
                     root.sampleRate = EnergyLogs.SampleRate1Year;
                     d.resetToToday();
                 }
@@ -375,7 +379,7 @@ Item {
                     MouseArea {
                         anchors.fill: parent
                         enabled: !isFuture
-                        onClicked: listView.currentIndex = index
+                        onClicked: pickerOverlay.open()
                     }
                 }
             }
@@ -396,5 +400,12 @@ Item {
                 onClicked: listView.incrementCurrentIndex()
             }
         }
+    }
+
+    CoPeriodPickerOverlay {
+        id: pickerOverlay
+        sampleRate: root.sampleRate
+        selectedDate: d.periodStart(d.selectedInstant, root.sampleRate)
+        onDateChosen: (date) => root.setReferenceDate(date)
     }
 }

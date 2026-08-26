@@ -285,6 +285,7 @@
         <file>utils/ThingUtils.qml</file>
         <file>utils/UiUtils.qml</file>
         <file>utils/VersionUtils.js</file>
+        <file>utils/DateUtils.js</file>
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
@@ -299,6 +300,12 @@
         <file>components/CoIconButton.qml</file>
         <file>components/CoLegendPill.qml</file>
         <file>components/CoPeriodSelector.qml</file>
+        <file>components/CoWheelPicker.qml</file>
+        <file>components/CoDayPickerContent.qml</file>
+        <file>components/CoWeekPickerContent.qml</file>
+        <file>components/CoMonthPickerContent.qml</file>
+        <file>components/CoYearPickerContent.qml</file>
+        <file>components/CoPeriodPickerOverlay.qml</file>
         <file>components/CoNavbarButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
