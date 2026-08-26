@@ -22,6 +22,16 @@ ColumnLayout {
     property int displayMonth: selectedDate.getMonth()
     property int displayYear: selectedDate.getFullYear()
 
+    // Whether the inline month/year wheel picker (opened via the dropdown
+    // chevron next to the "Month Year" nav label) is showing instead of the
+    // weekday row + calendar grid.
+    property bool monthPickerOpen: false
+
+    // Earliest year selectable - see CoPeriodPickerOverlay for rationale
+    // (no backend signal for "data available since", so a fixed year is used).
+    readonly property int minYear: 2017
+    readonly property int maxYear: new Date().getFullYear()
+
     readonly property date todayStart: {
         var result = new Date()
         result.setHours(0, 0, 0, 0)
@@ -31,6 +41,7 @@ ColumnLayout {
     function resetToSelection() {
         displayMonth = selectedDate.getMonth()
         displayYear = selectedDate.getFullYear()
+        monthPickerOpen = false
     }
 
     function isSameDay(a, b) {
@@ -78,9 +89,21 @@ ColumnLayout {
             color: Style.subTextColor
         }
 
+        CoIconButton {
+            width: 24
+            height: 24
+            icon: Qt.resolvedUrl("qrc:/icons/keyboard_arrow_down.svg")
+            // Flips to point up while the month/year picker is open, as a
+            // typical "expanded accordion" affordance.
+            rotation: root.monthPickerOpen ? 180 : 0
+            Behavior on rotation { NumberAnimation { duration: 150 } }
+            onClicked: root.monthPickerOpen = !root.monthPickerOpen
+        }
+
         Item { Layout.fillWidth: true }
 
         CoIconButton {
+            visible: !root.monthPickerOpen
             width: 32
             height: 32
             icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
@@ -88,6 +111,7 @@ ColumnLayout {
         }
 
         CoIconButton {
+            visible: !root.monthPickerOpen
             width: 32
             height: 32
             icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
@@ -95,16 +119,70 @@ ColumnLayout {
         }
     }
 
+    // Inline month/year wheel picker, shown instead of the weekday row and
+    // calendar grid while root.monthPickerOpen is true. Lets the user jump
+    // to a distant month/year without having to tap the prev/next chevrons
+    // repeatedly. Selecting a value updates displayMonth/displayYear live;
+    // the calendar grid (and its selectable days) below reflects it once
+    // the picker is closed again via the chevron.
+    RowLayout {
+        Layout.fillWidth: true
+        spacing: Style.margins
+        visible: root.monthPickerOpen
+
+        CoWheelPicker {
+            id: monthWheel
+            Layout.fillWidth: true
+            values: {
+                var result = []
+                for (var m = 0; m < 12; m++)
+                    result.push(m)
+                return result
+            }
+            // Locale.standaloneMonthName() is 0-based (0-11, matching JS
+            // Date), unlike the C++ QLocale API (1-12) - no "+1" here.
+            textForValue: function(value) { return Qt.locale().standaloneMonthName(value, Locale.LongFormat) }
+            // currentValue is briefly undefined while the Tumbler is still
+            // populating its model on startup - guard against propagating
+            // that (would try to assign undefined to the int property).
+            onCurrentIndexChanged: if (currentValue !== undefined) root.displayMonth = currentValue
+        }
+
+        CoWheelPicker {
+            id: yearWheel
+            Layout.fillWidth: true
+            values: {
+                var result = []
+                for (var y = root.minYear; y <= root.maxYear; y++)
+                    result.push(y)
+                return result
+            }
+            onCurrentIndexChanged: if (currentValue !== undefined) root.displayYear = currentValue
+        }
+    }
+
+    // Sync the wheels to the currently displayed month/year whenever the
+    // picker is (re-)opened, so it doesn't retain a stale position from a
+    // previous open.
+    onMonthPickerOpenChanged: {
+        if (monthPickerOpen) {
+            monthWheel.selectValue(displayMonth)
+            yearWheel.selectValue(displayYear)
+        }
+    }
+
     DayOfWeekRow {
         Layout.fillWidth: true
         locale: Qt.locale()
         font: Style.newSmallFont
+        visible: !root.monthPickerOpen
     }
 
     MonthGrid {
         id: grid
         Layout.fillWidth: true
         Layout.fillHeight: true
+        visible: !root.monthPickerOpen
         month: root.displayMonth
         year: root.displayYear
         locale: Qt.locale()
