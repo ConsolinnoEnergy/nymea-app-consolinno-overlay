@@ -1,4 +1,5 @@
 # CMake overlay configuration for Consolinno-HEMS
+# Equivalent to overlay-config.pri
 
 set(APPLICATION_NAME "consolinno-energy" CACHE STRING "Application name" FORCE)
 set(ORGANISATION_NAME "consolinno" CACHE STRING "Organisation name" FORCE)
