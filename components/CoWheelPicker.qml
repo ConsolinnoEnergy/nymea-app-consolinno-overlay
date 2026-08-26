@@ -33,10 +33,25 @@ Tumbler {
     readonly property var currentValue: values.length > 0 ? values[currentIndex] : undefined
 
     // Selects the entry matching 'value', if present. No-op otherwise.
+    // Animates the wheel to the new position, like a user-driven scroll -
+    // use selectValueImmediate() instead for programmatic resets that
+    // should not visibly animate (e.g. restoring a value after the model
+    // was rebuilt).
     function selectValue(value) {
         var index = values.indexOf(value)
         if (index >= 0)
             currentIndex = index
+    }
+
+    // Like selectValue(), but jumps to the position instantly without the
+    // usual scroll animation. SnapPosition (not "Immediate" - that mode
+    // doesn't exist on Tumbler/PathView, and silently resolves to
+    // undefined/0, causing an incorrect jump) positions the view exactly
+    // like a settled/snapped selection would, without animating there.
+    function selectValueImmediate(value) {
+        var index = values.indexOf(value)
+        if (index >= 0)
+            positionViewAtIndex(index, Tumbler.SnapPosition)
     }
 
     model: values

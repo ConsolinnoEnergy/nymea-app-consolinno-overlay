@@ -60,12 +60,22 @@ ColumnLayout {
                 return result
             }
             onCurrentValueChanged: {
-                // Re-clamp the week wheel if the newly picked year has fewer
-                // ISO weeks than the currently picked week number (week 53
-                // doesn't exist in every year).
-                var maxWeek = DateUtils.isoWeeksInYear(currentValue)
-                if (weekPicker.currentValue > maxWeek)
-                    weekPicker.selectValue(maxWeek)
+                // weekPicker.values is itself bound to yearPicker.currentValue
+                // (below), so changing the year always reassigns weekPicker's
+                // Tumbler model - which resets its currentIndex/currentValue
+                // to the first entry (week 1), even when the previously
+                // picked week is still valid in the new year. Capture the
+                // week to restore *before* that recompute happens (this
+                // handler runs before the values binding re-evaluates), then
+                // reapply it via Qt.callLater once the new values array (and
+                // the reset it caused) have settled, clamping to the new
+                // year's week count (week 53 doesn't exist in every year).
+                var oldWeek = weekPicker.currentValue
+                var newYear = currentValue
+                Qt.callLater(function() {
+                    var maxWeek = DateUtils.isoWeeksInYear(newYear)
+                    weekPicker.selectValueImmediate(Math.min(oldWeek, maxWeek))
+                })
             }
         }
 

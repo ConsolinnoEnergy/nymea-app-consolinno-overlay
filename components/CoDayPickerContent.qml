@@ -145,7 +145,11 @@ ColumnLayout {
             // currentValue is briefly undefined while the Tumbler is still
             // populating its model on startup - guard against propagating
             // that (would try to assign undefined to the int property).
-            onCurrentIndexChanged: if (currentValue !== undefined) root.displayMonth = currentValue
+            // NOTE: must react to currentValueChanged, not currentIndexChanged -
+            // currentValue is itself a binding derived from currentIndex, and
+            // reading it from an onCurrentIndexChanged handler observes a
+            // stale (one-step-behind) value due to signal handler ordering.
+            onCurrentValueChanged: if (currentValue !== undefined) root.displayMonth = currentValue
         }
 
         CoWheelPicker {
@@ -157,7 +161,9 @@ ColumnLayout {
                     result.push(y)
                 return result
             }
-            onCurrentIndexChanged: if (currentValue !== undefined) root.displayYear = currentValue
+            // See monthWheel's onCurrentValueChanged above for why this
+            // can't be onCurrentIndexChanged.
+            onCurrentValueChanged: if (currentValue !== undefined) root.displayYear = currentValue
         }
     }
 
