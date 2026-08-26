@@ -48,11 +48,12 @@ ColumnLayout {
 
     RowLayout {
         Layout.fillWidth: true
-        spacing: Style.margins
+        Layout.margins: Style.smallMargins
+        Layout.alignment: Qt.AlignCenter
+        spacing: Style.largeMargins
 
         CoWheelPicker {
             id: yearPicker
-            Layout.fillWidth: true
             values: {
                 var result = []
                 for (var y = root.minYear; y <= root.maxYear; y++)
@@ -81,7 +82,6 @@ ColumnLayout {
 
         CoWheelPicker {
             id: weekPicker
-            Layout.fillWidth: true
             values: {
                 var count = DateUtils.isoWeeksInYear(yearPicker.currentValue || root.selectedDate.getFullYear())
                 var result = []
@@ -93,5 +93,19 @@ ColumnLayout {
             // provide the localized abbreviation (e.g. German "KW").
             textForValue: function(value) { return qsTr("Week %1").arg(value) }
         }
+    }
+
+    // Invisible width anchor: a ColumnLayout that is a *direct* StackLayout
+    // child (as this one is, in CoPeriodPickerOverlay) does not actually
+    // stretch to fill the available width from its own Layout.fillWidth -
+    // it only gets stretched if at least one (possibly nested) descendant
+    // has an unbounded/"fillWidth" size hint that propagates up. The wheel
+    // row above is deliberately compact/centered (no Layout.fillWidth on
+    // its CoWheelPickers), so without this it's the only content and the
+    // whole picker would shrink to that compact width instead of spanning
+    // the overlay - see CoDayPickerContent's always-visible header spacer
+    // Item for a case where this already happens incidentally.
+    Item {
+        Layout.fillWidth: true
     }
 }

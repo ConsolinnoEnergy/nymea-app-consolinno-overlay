@@ -127,12 +127,13 @@ ColumnLayout {
     // the picker is closed again via the chevron.
     RowLayout {
         Layout.fillWidth: true
-        spacing: Style.margins
+        Layout.margins: Style.smallMargins
+        Layout.alignment: Qt.AlignCenter
+        spacing: Style.largeMargins
         visible: root.monthPickerOpen
 
         CoWheelPicker {
             id: monthWheel
-            Layout.fillWidth: true
             values: {
                 var result = []
                 for (var m = 0; m < 12; m++)
@@ -141,7 +142,7 @@ ColumnLayout {
             }
             // Locale.standaloneMonthName() is 0-based (0-11, matching JS
             // Date), unlike the C++ QLocale API (1-12) - no "+1" here.
-            textForValue: function(value) { return Qt.locale().standaloneMonthName(value, Locale.LongFormat) }
+            textForValue: function(value) { return Qt.locale().standaloneMonthName(value, Locale.ShortFormat) }
             // currentValue is briefly undefined while the Tumbler is still
             // populating its model on startup - guard against propagating
             // that (would try to assign undefined to the int property).
@@ -154,7 +155,6 @@ ColumnLayout {
 
         CoWheelPicker {
             id: yearWheel
-            Layout.fillWidth: true
             values: {
                 var result = []
                 for (var y = root.minYear; y <= root.maxYear; y++)
@@ -187,7 +187,6 @@ ColumnLayout {
     MonthGrid {
         id: grid
         Layout.fillWidth: true
-        Layout.fillHeight: true
         visible: !root.monthPickerOpen
         month: root.displayMonth
         year: root.displayYear

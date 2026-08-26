@@ -32,12 +32,18 @@ ColumnLayout {
 
     CoWheelPicker {
         id: yearPicker
-        Layout.fillWidth: true
+        Layout.alignment: Qt.AlignCenter
         values: {
             var result = []
             for (var y = root.minYear; y <= root.maxYear; y++)
                 result.push(y)
             return result
         }
+    }
+
+    // Invisible width anchor - see CoWeekPickerContent for why this is
+    // needed once the wheel above no longer has Layout.fillWidth: true.
+    Item {
+        Layout.fillWidth: true
     }
 }
