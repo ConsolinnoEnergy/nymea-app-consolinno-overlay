@@ -235,23 +235,6 @@ Item {
             }
         }
 
-        // ConsolinnoSelectionTabs {
-        //     id: selectionTabs
-        //     Layout.fillWidth: true
-        //     currentIndex: 0
-        //     model: ListModel {
-        //         ListElement { modelData: qsTr("Day") }
-        //         ListElement { modelData: qsTr("Week") }
-        //         ListElement { modelData: qsTr("Month") }
-        //         ListElement { modelData: qsTr("Year") }
-        //     }
-        //     onTabSelected: function(index) {
-        //         var rates = [EnergyLogs.SampleRate1Day, EnergyLogs.SampleRate1Week, EnergyLogs.SampleRate1Month, EnergyLogs.SampleRate1Year]
-        //         root.sampleRate = rates[index]
-        //         d.resetToToday()
-        //     }
-        // }
-
         RowLayout {
             Layout.fillWidth: true
             spacing: Style.smallMargins
@@ -398,41 +381,19 @@ Item {
             }
 
             // ── Prev/next chevron buttons ─────────────────────────────────
-            Item {
-                Layout.preferredWidth: Style.iconSize
-                Layout.preferredHeight: Style.iconSize
-                opacity: prevMouseArea.pressed ? 0.5 : 1
-
-                ColorIcon {
-                    anchors.fill: parent
-                    name: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
-                    color: Style.colors.brand_Basic_Icon
-                }
-
-                MouseArea {
-                    id: prevMouseArea
-                    anchors.fill: parent
-                    onClicked: listView.decrementCurrentIndex()
-                }
+            CoIconButton {
+                width: 36
+                height: 36
+                icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
+                onClicked: listView.decrementCurrentIndex()
             }
 
-            Item {
-                Layout.preferredWidth: Style.iconSize
-                Layout.preferredHeight: Style.iconSize
+            CoIconButton {
+                width: 36
+                height: 36
                 enabled: d.selectedOffset < 0
-                opacity: !enabled ? Style.numbers.components_Disabled_opacity : (nextMouseArea.pressed ? 0.5 : 1)
-
-                ColorIcon {
-                    anchors.fill: parent
-                    name: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
-                    color: Style.colors.brand_Basic_Icon
-                }
-
-                MouseArea {
-                    id: nextMouseArea
-                    anchors.fill: parent
-                    onClicked: listView.incrementCurrentIndex()
-                }
+                icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
+                onClicked: listView.incrementCurrentIndex()
             }
         }
     }
