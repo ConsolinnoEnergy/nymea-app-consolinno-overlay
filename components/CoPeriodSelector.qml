@@ -186,22 +186,71 @@ Item {
             id: statsHelper
         }
 
-        ConsolinnoSelectionTabs {
-            id: selectionTabs
+        CoTabBar {
             Layout.fillWidth: true
-            currentIndex: 0
-            model: ListModel {
-                ListElement { modelData: qsTr("Day") }
-                ListElement { modelData: qsTr("Week") }
-                ListElement { modelData: qsTr("Month") }
-                ListElement { modelData: qsTr("Year") }
+
+            ButtonGroup {
+                buttons: [dayButton, weekButton, monthButton, yearButton]
             }
-            onTabSelected: function(index) {
-                var rates = [EnergyLogs.SampleRate1Day, EnergyLogs.SampleRate1Week, EnergyLogs.SampleRate1Month, EnergyLogs.SampleRate1Year]
-                root.sampleRate = rates[index]
-                d.resetToToday()
+
+            CoTabButton {
+                id: dayButton
+                Layout.fillWidth: true
+                text: qsTr("Day")
+                checked: true
+                onClicked: {
+                    root.sampleRate = EnergyLogs.SampleRate1Day;
+                    d.resetToToday();
+                }
+            }
+
+            CoTabButton {
+                id: weekButton
+                Layout.fillWidth: true
+                text: qsTr("Week")
+                onClicked: {
+                    root.sampleRate = EnergyLogs.SampleRate1Week;
+                    d.resetToToday();
+                }
+            }
+
+            CoTabButton {
+                id: monthButton
+                Layout.fillWidth: true
+                text: qsTr("Month")
+                onClicked: {
+                    root.sampleRate = EnergyLogs.SampleRate1Month;
+                    d.resetToToday();
+                }
+            }
+
+            CoTabButton {
+                id: yearButton
+                Layout.fillWidth: true
+                text: qsTr("Year")
+                onClicked: {
+                    root.sampleRate = EnergyLogs.SampleRate1Year;
+                    d.resetToToday();
+                }
             }
         }
+
+        // ConsolinnoSelectionTabs {
+        //     id: selectionTabs
+        //     Layout.fillWidth: true
+        //     currentIndex: 0
+        //     model: ListModel {
+        //         ListElement { modelData: qsTr("Day") }
+        //         ListElement { modelData: qsTr("Week") }
+        //         ListElement { modelData: qsTr("Month") }
+        //         ListElement { modelData: qsTr("Year") }
+        //     }
+        //     onTabSelected: function(index) {
+        //         var rates = [EnergyLogs.SampleRate1Day, EnergyLogs.SampleRate1Week, EnergyLogs.SampleRate1Month, EnergyLogs.SampleRate1Year]
+        //         root.sampleRate = rates[index]
+        //         d.resetToToday()
+        //     }
+        // }
 
         RowLayout {
             Layout.fillWidth: true

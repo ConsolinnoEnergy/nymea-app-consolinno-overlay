@@ -329,5 +329,7 @@
         <file>components/CoDivider.qml</file>
         <file>components/CoAboutPage.qml</file>
         <file>components/CoThirdPartyLicensesPage.qml</file>
+        <file>components/CoTabButton.qml</file>
+        <file>components/CoTabBar.qml</file>
     </qresource>
 </RCC>
