@@ -338,5 +338,7 @@
         <file>components/CoThirdPartyLicensesPage.qml</file>
         <file>components/CoTabButton.qml</file>
         <file>components/CoTabBar.qml</file>
+        <file>components/CoStatsLineChart.qml</file>
+        <file>components/CoStatsLineChartLegend.qml</file>
     </qresource>
 </RCC>
