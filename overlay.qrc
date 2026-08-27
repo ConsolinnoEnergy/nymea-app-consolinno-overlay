@@ -340,5 +340,6 @@
         <file>components/CoTabBar.qml</file>
         <file>components/CoStatsLineChart.qml</file>
         <file>components/CoStatsLineChartLegend.qml</file>
+        <file>components/CoStatsBarChart.qml</file>
     </qresource>
 </RCC>
