@@ -750,7 +750,6 @@ ConsolinnoWizardPageBase {
                             }
                         }
                     }
-                    }
                 }
             }
 
