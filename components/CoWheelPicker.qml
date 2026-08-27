@@ -30,6 +30,18 @@ Tumbler {
     // design, rather than stretching to fill all available layout height.
     readonly property real rowHeight: Style.newSmallFontBold.pixelSize + Style.smallMargins
 
+    // Extra vertical room opened up around the selected row only. Tumbler's
+    // row pitch is fixed/uniform (it doesn't derive from the delegate's own
+    // height), so the rows themselves can't get individually taller. Instead,
+    // each delegate's label is nudged away from center by up to this much,
+    // clamped to +-1 row worth of displacement - so only the gap right
+    // around the selected row opens up, while rows further out keep their
+    // normal, compact spacing relative to each other (they're just carried
+    // along by the same constant offset). Being a plain linear function of
+    // Tumbler.displacement (which is continuous, not integral, mid-scroll),
+    // this stays smooth throughout the selection-change animation.
+    readonly property real dividerGap: Style.margins
+
     readonly property var currentValue: values.length > 0 ? values[currentIndex] : undefined
 
     // Selects the entry matching 'value', if present. No-op otherwise.
@@ -75,7 +87,15 @@ Tumbler {
         height: root.rowHeight
 
         Label {
-            anchors.centerIn: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            // Push the label away from center as the row moves off the
+            // middle position - see dividerGap's comment above for why.
+            // Note the minus sign: Tumbler.displacement is positive for
+            // rows *above* center and negative for rows *below* it (the
+            // opposite of screen-y direction), so it must be negated to
+            // push rows away from (rather than into) the center.
+            y: (parent.height - height) / 2
+               - root.dividerGap * Math.max(-1, Math.min(1, delegateItem.displacement))
             text: root.textForValue(delegateItem.modelData)
             font: Style.newParagraphFont
             color: Style.colors.typography_Basic_Default
@@ -89,12 +109,12 @@ Tumbler {
     }
 
     CoDivider {
-        y: root.topPadding + root.availableHeight / 2 - root.rowHeight / 2 - Style.smallMargins - 1
+        y: root.topPadding + root.availableHeight / 2 - root.rowHeight / 2 - root.dividerGap / 2 - Style.smallMargins - 1
         width: parent.width
     }
 
     CoDivider {
-        y: root.topPadding + root.availableHeight / 2 + root.rowHeight / 2 - Style.smallMargins - 1
+        y: root.topPadding + root.availableHeight / 2 + root.rowHeight / 2 + root.dividerGap / 2 - Style.smallMargins - 1
         width: parent.width
     }
 }
