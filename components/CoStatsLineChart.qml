@@ -44,189 +44,221 @@ import Nymea
 Item {
     id: root
 
+    // ── Public API ────────────────────────────────────────────────────────
     property var series: []
     property date selectedDay: new Date()
     property bool percentAxisVisible: false
     property bool loading: false
 
-    readonly property date visibleDay: new Date(_visibleStartTime + _visibleWindowMs / 2)
+    readonly property date visibleDay: new Date(d.visibleStartTime + d.visibleWindowMs / 2)
 
     signal visibleRangeChanged(date startTime, date endTime)
 
-    readonly property int _maxSeriesCount: 8
-    readonly property real _hourMs: 3600000
-    readonly property real _dayMs: 24 * _hourMs
-    readonly property real _minWindowMs: 6 * _hourMs
-    readonly property real _maxWindowMs: 24 * _hourMs
-    readonly property int _yLabelCount: 5
-
-    property real _visibleStartTime: 0
-    property real _visibleWindowMs: _maxWindowMs
-
-    function _seriesDescriptor(index) {
-        return index < root.series.length ? root.series[index] : null
-    }
-
-    function _clamp(value, min, max) {
-        return Math.max(min, Math.min(max, value))
-    }
-
-    // "Nice numbers" axis calculation: rounds the per-label step up to the
-    // next value in a widened set of round fractions so that 5 evenly spaced
-    // labels are as round as possible while never clipping the data.
-    function _niceStep(rawStep) {
-        if (rawStep <= 0)
-            return 1
-        var exponent = Math.floor(Math.log(rawStep) / Math.LN10)
-        var base = Math.pow(10, exponent)
-        var fraction = rawStep / base
-        var niceFractions = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]
-        for (var i = 0; i < niceFractions.length; i++) {
-            if (fraction <= niceFractions[i] + 1e-9)
-                return niceFractions[i] * base
-        }
-        return 10 * base
-    }
-
-    function _maxLeftValue() {
-        var max = 0
-        for (var i = 0; i < root.series.length; i++) {
-            var desc = root.series[i]
-            if (!desc || desc.axis === "right" || desc.visible === false || !desc.model)
-                continue
-            var model = desc.model
-            var count = model.count !== undefined ? model.count : 0
-            for (var j = 0; j < count; j++) {
-                var entry = model.get(j)
-                if (!entry)
-                    continue
-                var v = desc.valueFunction(entry)
-                if (v > max)
-                    max = v
-            }
-        }
-        return max
-    }
-
-    function _updateLeftAxisRange() {
-        var intervals = root._yLabelCount - 1
-        var maxValue = root._maxLeftValue()
-        if (maxValue <= 0)
-            maxValue = intervals
-        var step = root._niceStep(maxValue / intervals)
-        yAxisLeft.max = step * intervals
-    }
-
-    function _resetToSelectedDay() {
-        var d = new Date(root.selectedDay)
-        d.setHours(0, 0, 0, 0)
-        root._visibleStartTime = d.getTime()
-        root._visibleWindowMs = root._maxWindowMs
-        root._updateLeftAxisRange()
-        rangeSettleTimer.restart()
-    }
-
-    onSelectedDayChanged: root._resetToSelectedDay()
-    Component.onCompleted: root._resetToSelectedDay()
-
     // Sets the visible x-axis window to the given size (clamped to
-    // [_minWindowMs, _maxWindowMs]) while keeping the current center time,
+    // [d.minWindowMs, d.maxWindowMs]) while keeping the current center time,
     // similar to a pinch-zoom centered on the middle of the current view.
     // Intended for programmatic/test use (e.g. quick "24h/12h/6h" buttons).
     function setVisibleWindowHours(hours) {
-        var newWindow = root._clamp(hours * root._hourMs, root._minWindowMs, root._maxWindowMs)
-        var center = root._visibleStartTime + root._visibleWindowMs / 2
-        root._visibleWindowMs = newWindow
-        root._visibleStartTime = center - newWindow / 2
+        var newWindow = d.clamp(hours * d.hourMs, d.minWindowMs, d.maxWindowMs)
+        var center = d.visibleStartTime + d.visibleWindowMs / 2
+        d.visibleWindowMs = newWindow
+        d.visibleStartTime = center - newWindow / 2
         rangeSettleTimer.restart()
     }
 
-    // Debounce visibleRangeChanged so pan/zoom gestures don't flood listeners
-    // (e.g. a page that triggers a data (re)fetch on this signal).
+    onSelectedDayChanged: d.resetToSelectedDay()
+    Component.onCompleted: d.resetToSelectedDay()
+
+    // ── Private state & helpers ──────────────────────────────────────────
+    QtObject {
+        id: d
+
+        readonly property int maxSeriesCount: 8
+        readonly property real hourMs: 3600000
+        readonly property real dayMs: 24 * hourMs
+        readonly property real minWindowMs: 6 * hourMs
+        readonly property real maxWindowMs: 24 * hourMs
+        readonly property int yLabelCount: 5
+
+        property real visibleStartTime: 0
+        property real visibleWindowMs: maxWindowMs
+
+        // Reserved ChartView margins, sized via FontMetrics for the custom
+        // axis label overlays below. ChartView's own plotArea auto-sizing
+        // (with labelsVisible: false on all axes) is not reliable across
+        // platforms/fonts - it left far too little room in some
+        // environments, causing the label overlays to render outside the
+        // chart bounds. Reserving explicit margins on the ChartView itself
+        // guarantees the plotArea always leaves enough room for them.
+        readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
+        readonly property real rightAxisReserve: root.percentAxisVisible ? (axisFontMetrics.advanceWidth("100%") + Style.extraSmallMargins) : Style.extraSmallMargins
+        readonly property real xLabelsHeight: axisFontMetrics.height * 2 + 2
+        readonly property real bottomAxisReserve: xLabelsHeight + Style.extraSmallMargins
+
+        function seriesDescriptor(index) {
+            return index < root.series.length ? root.series[index] : null
+        }
+
+        function clamp(value, min, max) {
+            return Math.max(min, Math.min(max, value))
+        }
+
+        // "Nice numbers" axis calculation: rounds the per-label step up to
+        // the next value in a widened set of round fractions so that 5
+        // evenly spaced labels are as round as possible while never
+        // clipping the data.
+        function niceStep(rawStep) {
+            if (rawStep <= 0)
+                return 1
+            var exponent = Math.floor(Math.log(rawStep) / Math.LN10)
+            var base = Math.pow(10, exponent)
+            var fraction = rawStep / base
+            var niceFractions = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]
+            for (var i = 0; i < niceFractions.length; i++) {
+                if (fraction <= niceFractions[i] + 1e-9)
+                    return niceFractions[i] * base
+            }
+            return 10 * base
+        }
+
+        function maxLeftValue() {
+            var max = 0
+            for (var i = 0; i < root.series.length; i++) {
+                var desc = root.series[i]
+                if (!desc || desc.axis === "right" || desc.visible === false || !desc.model)
+                    continue
+                var model = desc.model
+                var count = model.count !== undefined ? model.count : 0
+                for (var j = 0; j < count; j++) {
+                    var entry = model.get(j)
+                    if (!entry)
+                        continue
+                    var v = desc.valueFunction(entry)
+                    if (v > max)
+                        max = v
+                }
+            }
+            return max
+        }
+
+        function updateLeftAxisRange() {
+            var intervals = d.yLabelCount - 1
+            var maxValue = d.maxLeftValue()
+            if (maxValue <= 0)
+                maxValue = intervals
+            var step = d.niceStep(maxValue / intervals)
+            yAxisLeft.max = step * intervals
+        }
+
+        function resetToSelectedDay() {
+            var dt = new Date(root.selectedDay)
+            dt.setHours(0, 0, 0, 0)
+            d.visibleStartTime = dt.getTime()
+            d.visibleWindowMs = d.maxWindowMs
+            d.updateLeftAxisRange()
+            rangeSettleTimer.restart()
+        }
+
+        function dayBoundariesInRange(startMs, endMs) {
+            var result = []
+            var dt = new Date(startMs)
+            dt.setHours(0, 0, 0, 0)
+            if (dt.getTime() < startMs)
+                dt.setDate(dt.getDate() + 1)
+            while (dt.getTime() <= endMs) {
+                result.push(dt.getTime())
+                dt.setDate(dt.getDate() + 1)
+            }
+            return result
+        }
+
+        function dayNoonsInRange(startMs, endMs) {
+            var result = []
+            var dt = new Date(startMs)
+            dt.setHours(12, 0, 0, 0)
+            if (dt.getTime() < startMs)
+                dt.setDate(dt.getDate() + 1)
+            while (dt.getTime() <= endMs) {
+                result.push(dt.getTime())
+                dt.setDate(dt.getDate() + 1)
+            }
+            return result
+        }
+
+        // Picks a "nice" hour step (divisor of 24h) for the x-axis time
+        // labels, aiming for roughly 4 evenly spaced intervals across the
+        // visible window, e.g. 6h steps for a 24h window, 3h steps for 12h,
+        // 1h steps for a 6h window. Ticks are then placed at absolute
+        // clock-time multiples of this step (not relative to the visible
+        // window start), so they stay at fixed positions (e.g. always
+        // 00:00, 06:00, 12:00, 18:00) while panning instead of shifting
+        // with the visible window.
+        function niceHourStep(windowHours) {
+            var candidates = [1, 2, 3, 4, 6, 8, 12, 24]
+            var target = windowHours / 4
+            var step = candidates[0]
+            for (var i = 0; i < candidates.length; i++) {
+                if (candidates[i] <= target)
+                    step = candidates[i]
+                else
+                    break
+            }
+            return step
+        }
+
+        // Absolute clock-time tick positions (multiples of stepHours since
+        // local midnight) that fall within [startMs, endMs].
+        function xTicksInRange(startMs, endMs, stepHours) {
+            var stepMs = stepHours * hourMs
+            var dt = new Date(startMs)
+            dt.setHours(0, 0, 0, 0)
+            var t = dt.getTime()
+            while (t < startMs)
+                t += stepMs
+            var result = []
+            while (t <= endMs) {
+                result.push(t)
+                t += stepMs
+            }
+            return result
+        }
+
+        // -- Position the day-boundary marker lines --
+        function updateDayBoundaries() {
+            var boundaries = d.dayBoundariesInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
+            var slots = [dayBoundarySeries0, dayBoundarySeries1]
+            for (var i = 0; i < slots.length; i++) {
+                var s = slots[i]
+                s.clear()
+                if (i < boundaries.length) {
+                    s.append(boundaries[i], yAxisLeft.min)
+                    s.append(boundaries[i], yAxisLeft.max)
+                    s.visible = true
+                } else {
+                    s.visible = false
+                }
+            }
+        }
+    }
+
+    // Debounce visibleRangeChanged so pan/zoom gestures don't flood
+    // listeners (e.g. a page that triggers a data (re)fetch on this
+    // signal).
     Timer {
         id: rangeSettleTimer
         interval: 200
-        onTriggered: root.visibleRangeChanged(new Date(root._visibleStartTime), new Date(root._visibleStartTime + root._visibleWindowMs))
+        onTriggered: root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
     }
 
-    function _dayBoundariesInRange(startMs, endMs) {
-        var result = []
-        var d = new Date(startMs)
-        d.setHours(0, 0, 0, 0)
-        if (d.getTime() < startMs)
-            d.setDate(d.getDate() + 1)
-        while (d.getTime() <= endMs) {
-            result.push(d.getTime())
-            d.setDate(d.getDate() + 1)
-        }
-        return result
-    }
-
-    // Font metrics used to reserve exact space for the custom axis label
-    // overlays below. ChartView's own plotArea auto-sizing (with
-    // labelsVisible: false on all axes) is not reliable across platforms/
-    // fonts - it left far too little room in some environments, causing the
-    // label overlays to render outside the chart bounds. Reserving explicit
-    // margins on the ChartView itself guarantees the plotArea always leaves
-    // enough room for them.
     FontMetrics {
         id: axisFontMetrics
         font: Style.extraSmallFont
     }
 
-    readonly property real _leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
-    readonly property real _rightAxisReserve: root.percentAxisVisible ? (axisFontMetrics.advanceWidth("100%") + Style.extraSmallMargins) : Style.extraSmallMargins
-    readonly property real _xLabelsHeight: axisFontMetrics.height * 2 + 2
-    readonly property real _bottomAxisReserve: root._xLabelsHeight + Style.extraSmallMargins
-
-    function _dayNoonsInRange(startMs, endMs) {
-        var result = []
-        var d = new Date(startMs)
-        d.setHours(12, 0, 0, 0)
-        if (d.getTime() < startMs)
-            d.setDate(d.getDate() + 1)
-        while (d.getTime() <= endMs) {
-            result.push(d.getTime())
-            d.setDate(d.getDate() + 1)
-        }
-        return result
-    }
-
-    // Picks a "nice" hour step (divisor of 24h) for the x-axis time labels,
-    // aiming for roughly 4 evenly spaced intervals across the visible
-    // window, e.g. 6h steps for a 24h window, 3h steps for 12h, 1h steps for
-    // a 6h window. Ticks are then placed at absolute clock-time multiples of
-    // this step (not relative to the visible window start), so they stay at
-    // fixed positions (e.g. always 00:00, 06:00, 12:00, 18:00) while panning
-    // instead of shifting with the visible window.
-    function _niceHourStep(windowHours) {
-        var candidates = [1, 2, 3, 4, 6, 8, 12, 24]
-        var target = windowHours / 4
-        var step = candidates[0]
-        for (var i = 0; i < candidates.length; i++) {
-            if (candidates[i] <= target)
-                step = candidates[i]
-            else
-                break
-        }
-        return step
-    }
-
-    // Absolute clock-time tick positions (multiples of stepHours since local
-    // midnight) that fall within [startMs, endMs].
-    function _xTicksInRange(startMs, endMs, stepHours) {
-        var stepMs = stepHours * root._hourMs
-        var d = new Date(startMs)
-        d.setHours(0, 0, 0, 0)
-        var t = d.getTime()
-        while (t < startMs)
-            t += stepMs
-        var result = []
-        while (t <= endMs) {
-            result.push(t)
-            t += stepMs
-        }
-        return result
+    Connections {
+        target: d
+        function onVisibleStartTimeChanged() { d.updateDayBoundaries() }
+        function onVisibleWindowMsChanged() { d.updateDayBoundaries() }
     }
 
     Item {
@@ -240,15 +272,15 @@ Item {
         legend.visible: false
         antialiasing: true
         margins.top: Style.extraSmallMargins
-        margins.bottom: root._bottomAxisReserve
-        margins.left: root._leftAxisReserve
-        margins.right: root._rightAxisReserve
+        margins.bottom: d.bottomAxisReserve
+        margins.left: d.leftAxisReserve
+        margins.right: d.rightAxisReserve
 
         ValueAxis {
             id: yAxisLeft
             min: 0
             max: 4
-            tickCount: root._yLabelCount
+            tickCount: d.yLabelCount
             labelsVisible: false
             gridLineColor: Style.colors.components_Statistics_Grid
             lineVisible: false
@@ -259,7 +291,7 @@ Item {
             id: yAxisRight
             min: 0
             max: 100
-            tickCount: root._yLabelCount
+            tickCount: d.yLabelCount
             labelsVisible: false
             gridVisible: false
             lineVisible: false
@@ -269,8 +301,8 @@ Item {
 
         DateTimeAxis {
             id: xAxis
-            min: new Date(root._visibleStartTime)
-            max: new Date(root._visibleStartTime + root._visibleWindowMs)
+            min: new Date(d.visibleStartTime)
+            max: new Date(d.visibleStartTime + d.visibleWindowMs)
             labelsVisible: false
             gridVisible: false
             lineVisible: false
@@ -331,7 +363,7 @@ Item {
             if (!s)
                 return
             s.clear()
-            var desc = root._seriesDescriptor(index)
+            var desc = d.seriesDescriptor(index)
             if (!desc || !desc.model)
                 return
             var model = desc.model
@@ -344,14 +376,14 @@ Item {
                 var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
                 s.append(t, fn(entry))
             }
-            root._updateLeftAxisRange()
+            d.updateLeftAxisRange()
         }
 
         function updateSlotProperties(index) {
             var s = slot(index)
             if (!s)
                 return
-            var desc = root._seriesDescriptor(index)
+            var desc = d.seriesDescriptor(index)
             s.visible = desc ? desc.visible !== false : false
             s.color = desc && desc.color ? desc.color : "transparent"
             s.axisY = desc && desc.axis === "right" ? yAxisRight : yAxisLeft
@@ -366,13 +398,13 @@ Item {
     // rebuild instead of fine-grained incremental updates - simpler and fast
     // enough for the point counts involved here).
     Repeater {
-        model: root._maxSeriesCount
+        model: d.maxSeriesCount
         delegate: Item {
             id: slotBinding
             required property int index
             visible: false
             readonly property int seriesIndex: index
-            readonly property var _desc: root._seriesDescriptor(seriesIndex)
+            readonly property var desc: d.seriesDescriptor(seriesIndex)
 
             onSeriesIndexChanged: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
             Component.onCompleted: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
@@ -385,7 +417,7 @@ Item {
             }
 
             Connections {
-                target: slotBinding._desc ? slotBinding._desc.model : null
+                target: slotBinding.desc ? slotBinding.desc.model : null
                 function onEntriesAddedIdx(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
                 function onEntriesRemoved(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
                 function onCountChanged() { seriesBinder.rebuild(slotBinding.seriesIndex) }
@@ -402,14 +434,14 @@ Item {
         x: chartView.plotArea.x
         y: chartView.plotArea.y + chartView.plotArea.height + Style.extraSmallMargins
         width: chartView.plotArea.width
-        height: root._xLabelsHeight
+        height: d.xLabelsHeight
 
         Repeater {
-            model: root._xTicksInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs, root._niceHourStep(root._visibleWindowMs / root._hourMs))
+            model: d.xTicksInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs, d.niceHourStep(d.visibleWindowMs / d.hourMs))
 
             delegate: Label {
                 required property var modelData
-                x: xLabelsLayout.width * ((modelData - root._visibleStartTime) / root._visibleWindowMs) - width / 2
+                x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
                 horizontalAlignment: Text.AlignHCenter
                 font: Style.extraSmallFont
                 color: Style.colors.typography_Basic_Secondary
@@ -418,11 +450,11 @@ Item {
         }
 
         Repeater {
-            model: root._dayNoonsInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs)
+            model: d.dayNoonsInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
 
             delegate: Label {
                 required property var modelData
-                x: xLabelsLayout.width * ((modelData - root._visibleStartTime) / root._visibleWindowMs) - width / 2
+                x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
                 y: axisFontMetrics.height + 2
                 horizontalAlignment: Text.AlignHCenter
                 font: Style.extraSmallFont
@@ -441,15 +473,15 @@ Item {
         height: chartView.plotArea.height
 
         Repeater {
-            model: root._yLabelCount
+            model: d.yLabelCount
 
             delegate: Label {
                 width: parent.width - Style.extraSmallMargins
-                y: parent.height / (root._yLabelCount - 1) * index - font.pixelSize / 2
+                y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                 horizontalAlignment: Text.AlignRight
                 font: Style.extraSmallFont
                 color: Style.colors.typography_Basic_Secondary
-                text: Math.round((yAxisLeft.max - index * (yAxisLeft.max - yAxisLeft.min) / (root._yLabelCount - 1)) * 10) / 10
+                text: Math.round((yAxisLeft.max - index * (yAxisLeft.max - yAxisLeft.min) / (d.yLabelCount - 1)) * 10) / 10
             }
         }
     }
@@ -464,41 +496,18 @@ Item {
         visible: root.percentAxisVisible
 
         Repeater {
-            model: root._yLabelCount
+            model: d.yLabelCount
 
             delegate: Label {
                 width: parent.width - Style.extraSmallMargins
                 x: Style.extraSmallMargins
-                y: parent.height / (root._yLabelCount - 1) * index - font.pixelSize / 2
+                y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                 horizontalAlignment: Text.AlignLeft
                 font: Style.extraSmallFont
                 color: Style.colors.typography_Basic_Secondary
-                text: Math.round(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (root._yLabelCount - 1)) + "%"
+                text: Math.round(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1)) + "%"
             }
         }
-    }
-
-    // -- Position the day-boundary marker lines --
-    function _updateDayBoundaries() {
-        var boundaries = root._dayBoundariesInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs)
-        var slots = [dayBoundarySeries0, dayBoundarySeries1]
-        for (var i = 0; i < slots.length; i++) {
-            var s = slots[i]
-            s.clear()
-            if (i < boundaries.length) {
-                s.append(boundaries[i], yAxisLeft.min)
-                s.append(boundaries[i], yAxisLeft.max)
-                s.visible = true
-            } else {
-                s.visible = false
-            }
-        }
-    }
-
-    Connections {
-        target: root
-        function on_VisibleStartTimeChanged() { chartContainer._updateDayBoundaries() }
-        function on_VisibleWindowMsChanged() { chartContainer._updateDayBoundaries() }
     }
 
     // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
@@ -508,15 +517,15 @@ Item {
         minimumPointCount: 2
         maximumPointCount: 2
 
-        property real _startWindowMs
-        property real _startStartTime
-        property real _pivotFraction
+        property real startWindowMs
+        property real startStartTime
+        property real pivotFraction
 
         onActiveChanged: {
             if (active) {
-                _startWindowMs = root._visibleWindowMs
-                _startStartTime = root._visibleStartTime
-                _pivotFraction = root._clamp((centroid.position.x - chartView.plotArea.x) / chartView.plotArea.width, 0, 1)
+                startWindowMs = d.visibleWindowMs
+                startStartTime = d.visibleStartTime
+                pivotFraction = d.clamp((centroid.position.x - chartView.plotArea.x) / chartView.plotArea.width, 0, 1)
             } else {
                 rangeSettleTimer.restart()
             }
@@ -525,10 +534,10 @@ Item {
         onScaleChanged: {
             if (!active)
                 return
-            var newWindow = root._clamp(_startWindowMs / scale, root._minWindowMs, root._maxWindowMs)
-            var timeAtPivot = _startStartTime + _pivotFraction * _startWindowMs
-            root._visibleWindowMs = newWindow
-            root._visibleStartTime = timeAtPivot - _pivotFraction * newWindow
+            var newWindow = d.clamp(startWindowMs / scale, d.minWindowMs, d.maxWindowMs)
+            var timeAtPivot = startStartTime + pivotFraction * startWindowMs
+            d.visibleWindowMs = newWindow
+            d.visibleStartTime = timeAtPivot - pivotFraction * newWindow
         }
     }
 
@@ -538,11 +547,11 @@ Item {
         minimumPointCount: 1
         maximumPointCount: 1
 
-        property real _startStartTime
+        property real startStartTime
 
         onActiveChanged: {
             if (active) {
-                _startStartTime = root._visibleStartTime
+                startStartTime = d.visibleStartTime
             } else {
                 rangeSettleTimer.restart()
             }
@@ -551,8 +560,8 @@ Item {
         onTranslationChanged: {
             if (!active)
                 return
-            var deltaMs = -(translation.x / chartView.plotArea.width) * root._visibleWindowMs
-            root._visibleStartTime = _startStartTime + deltaMs
+            var deltaMs = -(translation.x / chartView.plotArea.width) * d.visibleWindowMs
+            d.visibleStartTime = startStartTime + deltaMs
         }
     }
     } // chartContainer
