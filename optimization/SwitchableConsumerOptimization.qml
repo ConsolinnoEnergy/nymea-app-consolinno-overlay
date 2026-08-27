@@ -13,13 +13,24 @@ Page {
 
     property SwitchConfiguration switchConfiguration
     property Thing switchThing
-    property int directionID: 0
+    property bool calledFromAssistant: false
     signal done()
 
-    readonly property bool applyEnabled: maxElectricalPower.maxElectricalPowerValid
+    readonly property bool applyEnabled: {
+        if (!maxElectricalPower.maxElectricalPowerValid) { return false; }
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - switchConfiguration.maxElectricalPower) > 0.000001;
+            // #TODO CLS toggle starting with version 2.2.
+            // gridSupportControl.checked !== switchConfiguration.controllableLocalSystem
+        }
+    }
 
     function applyChanges() {
-        let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text)
+        // Backend expects value in W.
+        let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         // #TODO CLS toggle only starting with version 2.2
         d.pendingCallId = hemsManager.setSwitchConfiguration(
             switchConfiguration.switchThingId,
@@ -27,7 +38,7 @@ Page {
                 "maxElectricalPower": parsedMaxElectricalPower
             }
         )
-        if (directionID !== 1) {
+        if (!calledFromAssistant) {
             pageStack.pop()
         }
         root.done()
@@ -41,7 +52,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Switchable consumers")
-        backButtonVisible: true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -112,16 +123,16 @@ Page {
                             qsTr("The value must not be below %1.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
+                        textField.text: (+switchConfiguration.maxElectricalPower / 1000).toLocaleString()
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
-                            bottom: 0.5
+                            bottom: 0.01
                         }
                     }
 
                     CoSwitch {
-                        id: controllSwitch
+                        id: gridSupportControl
                         Layout.fillWidth: true
                         visible: false // #TODO CLS toggle only starting with version 2.2
                         text: qsTr("Grid-supportive-control")
@@ -151,7 +162,7 @@ Page {
     Component {
         id: switchableConsumerNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

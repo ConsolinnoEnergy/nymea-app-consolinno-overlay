@@ -18,7 +18,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_dynamicElectricPricingConfigurations = new DynamicElectricPricingConfigurations(this);
     m_batteryConfigurations = new BatteryConfigurations(this);
     m_chargingSessionConfigurations = new ChargingSessionConfigurations(this);
-    m_conEMSState = new ConEMSState();
+    m_conEMSState = new ConEMSState(this);
     m_userConfigurations = new UserConfigurations(this);
     m_emsConfiguration = new EmsConfiguration(this);
     m_switchConfigurations = new SwitchConfigurations(this);

@@ -11,7 +11,6 @@ Page{
     bottomPadding: 0
     property int navigationFooterHeight: 0
     signal done(bool saved, bool skip, bool back)
-    property int directionID: 0
     property Component navbarControls: installerDataControls
 
     Component {
@@ -35,7 +34,7 @@ Page{
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Skip")
                 flat: true
                 onClicked:{
@@ -53,86 +52,91 @@ Page{
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Contact")
-        //text: userconfig.installerEmail
         backButtonVisible: true
         onBackPressed:{
-            if (directionID == 1) {
-                pageStack.pop();
-            } else {
-                root.done(false, false, true);
-            }
+            root.done(false, false, true);
         }
     }
 
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
-    ColumnLayout {
+    Flickable {
+        id: bodyFlickable
         anchors.fill: parent
-        anchors.margins: Style.margins
-        anchors.topMargin: header.height
-        spacing: Style.margins
+        topMargin: header.height + Style.smallMargins
+        bottomMargin: Style.smallMargins
+        clip: true
+        contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
+        Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
-        Flickable {
-            id: bodyFlickable
-            Layout.fillHeight: true
-            Layout.fillWidth: true
-            contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
-            clip: true
+        onHeightChanged: {
+            if (PlatformHelper.imeHeight <= 0) return;
+            var focused = Window.activeFocusItem;
+            if (!focused) return;
+            var itemPos = focused.mapToItem(layout, 0, focused.height);
+            var itemBottom = itemPos.y;
+            var usableHeight = bodyFlickable.height - root.navigationFooterHeight;
+            var visibleBottom = bodyFlickable.contentY + usableHeight;
+            if (itemBottom > visibleBottom) {
+                bodyFlickable.contentY = itemBottom - usableHeight + Style.margins;
+            }
+        }
 
-            ColumnLayout {
-                id: layout
-                anchors { left: parent.left; right: parent.right; top: parent.top }
-                spacing: Style.margins
+        ColumnLayout {
+            id: layout
+            anchors { left: parent.left; right: parent.right; top: parent.top }
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
+            spacing: Style.margins
 
-                CoFrostyCard {
-                    Layout.fillWidth: true
-                    contentTopMargin: 8
-                    headerText: qsTr("Contact (optional)")
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentTopMargin: Style.smallMargins
+                headerText: qsTr("Contact (optional)")
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                        CoCard {
-                            Layout.fillWidth: true
-                            text: qsTr("To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer's app.")
-                        }
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("To be available for the customer in case of questions or problems, enter your contact data here. The data will only be sent to the customer's app.")
+                        topMargin: 0
+                    }
 
-                        CoInputField {
-                            id: nameField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Name")
-                            text: userconfig.installerName
-                        }
+                    CoInputField {
+                        id: nameField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Name")
+                        text: userconfig.installerName
+                    }
 
-                        CoInputField {
-                            id: companyField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Workplace")
-                            text: userconfig.installerWorkplace
-                            textField.placeholderText: qsTr("Company")
-                        }
+                    CoInputField {
+                        id: companyField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Workplace")
+                        text: userconfig.installerWorkplace
+                        textField.placeholderText: qsTr("Company")
+                    }
 
-                        CoInputField {
-                            id: emailField
-                            Layout.fillWidth: true
-                            labelText: qsTr("E-mail")
-                            text: userconfig.installerEmail
-                            textField.placeholderText: qsTr("Example@mail.com")
-                        }
+                    CoInputField {
+                        id: emailField
+                        Layout.fillWidth: true
+                        labelText: qsTr("E-mail")
+                        text: userconfig.installerEmail
+                        textField.placeholderText: qsTr("Example@mail.com")
+                    }
 
-                        CoInputField {
-                            id: numberField
-                            Layout.fillWidth: true
-                            labelText: qsTr("Phone number")
-                            text: userconfig.installerPhoneNr
-                            textField.placeholderText: qsTr("+1 ")
-                        }
+                    CoInputField {
+                        id: numberField
+                        Layout.fillWidth: true
+                        labelText: qsTr("Phone number")
+                        text: userconfig.installerPhoneNr
+                        textField.placeholderText: qsTr("+1 ")
                     }
                 }
             }
         }
-
     }
 }

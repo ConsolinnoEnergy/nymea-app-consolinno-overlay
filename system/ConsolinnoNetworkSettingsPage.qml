@@ -183,8 +183,8 @@ SettingsPageBase {
     CoFrostyCard {
         Layout.fillWidth: true
         Layout.topMargin: Style.margins
-        Layout.leftMargin: Style.smallMargins
-        Layout.rightMargin: Style.smallMargins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
         visible: networkManager.available
         contentTopMargin: Style.smallMargins
         headerText: qsTr("General")
@@ -241,8 +241,8 @@ SettingsPageBase {
 
     CoFrostyCard {
         Layout.fillWidth: true
-        Layout.leftMargin: Style.smallMargins
-        Layout.rightMargin: Style.smallMargins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
         Layout.topMargin: Style.margins
         visible: networkManager.available && networkManager.networkingEnabled
         contentTopMargin: Style.smallMargins
@@ -340,8 +340,8 @@ SettingsPageBase {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("Details")
@@ -378,8 +378,8 @@ SettingsPageBase {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("IP configuration")
@@ -414,8 +414,8 @@ SettingsPageBase {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                Layout.leftMargin: Style.smallMargins
-                Layout.rightMargin: Style.smallMargins
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.margins
                 contentTopMargin: Style.smallMargins
                 headerText: qsTr("\"Static\"")

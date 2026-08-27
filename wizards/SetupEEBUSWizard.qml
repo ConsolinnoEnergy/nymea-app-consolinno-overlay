@@ -44,7 +44,7 @@ Page {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Cancel")
                 flat: true
                 onClicked: root.done(false, true, false)
@@ -144,7 +144,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                contentTopMargin: Style.margins
+                contentTopMargin: Style.smallMargins
                 headerText: qsTr("Configured EEBUS Devices")
 
                 ColumnLayout {
@@ -455,14 +455,14 @@ Page {
                                 // EEBUS Wallbox → EV charger optimisation
                                 optPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
                                     thing: childThing,
-                                    directionID: 1
+                                    calledFromAssistant: true
                                 })
                             } else if (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158") {
                                 // EEBUS Heatpump → heating optimisation
                                 optPage = pageStack.push("../optimization/HeatingOptimization.qml", {
                                     heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(childThing.id),
                                     heatPumpThing: childThing,
-                                    directionID: 1
+                                    calledFromAssistant: true
                                 })
                             } else {
                                 // No optimisation screen for inverter / GridGuard

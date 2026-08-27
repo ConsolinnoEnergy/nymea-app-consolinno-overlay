@@ -24,7 +24,7 @@ Dialog {
     // Keep the visual rounding at the bottom while also reserving the
     // navigation-bar inset so buttons inside the overlay's content don't sit
     // under the gesture/navigation bar on Android edge-to-edge.
-    bottomPadding: bg.radius + SafeArea.margins.bottom
+    bottomPadding: bg.radius + PlatformHelper.bottomPadding
 
     enter: Transition {
         NumberAnimation {
@@ -53,16 +53,16 @@ Dialog {
         // Reserve room for the status-bar inset above the header content so the
         // close button stays tappable when the overlay is opened over an
         // Android edge-to-edge window.
-        implicitHeight: SafeArea.margins.top + headerLayout.implicitHeight
+        implicitHeight: PlatformHelper.topPadding + headerLayout.implicitHeight
 
-        layer.enabled: true
+        layer.enabled: width > 0 && height > 0
         layer.effect: OpacityMask {
             maskSource: headerMaskSource
         }
 
         RowLayout {
             id: headerLayout
-            anchors { left: parent.left; right: parent.right; top: parent.top; topMargin: SafeArea.margins.top; bottom: parent.bottom }
+            anchors { left: parent.left; right: parent.right; top: parent.top; topMargin: PlatformHelper.topPadding; bottom: parent.bottom }
             Layout.margins: 4
             spacing: Style.smallMargins
 

@@ -12,11 +12,15 @@ Page {
     property int navigationFooterHeight: 0
     property Thing thing
     property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
-    property int directionID: 0
+    property bool calledFromAssistant: false
     signal done()
 
     readonly property bool applyEnabled: {
-        return gridSupportControl.checked != chargingOptimizationConfiguration.controllableLocalSystem;
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return gridSupportControl.checked != chargingOptimizationConfiguration.controllableLocalSystem;
+        }
     }
 
     function applyChanges() {
@@ -24,7 +28,7 @@ Page {
                                                          {
                                                              controllableLocalSystem: gridSupportControl.checked
                                                          });
-        if (directionID !== 1) {
+        if (!calledFromAssistant) {
             pageStack.pop();
         }
         root.done();
@@ -38,7 +42,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Charging")
-        backButtonVisible: directionID === 1 ? false : true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -118,7 +122,7 @@ Page {
     Component {
         id: evChargerNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             onClicked: root.applyChanges()
             enabled: root.applyEnabled
         }

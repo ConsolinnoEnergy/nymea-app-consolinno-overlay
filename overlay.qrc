@@ -327,7 +327,6 @@
         <file>images/leaflet-ethernet-connect.png</file>
         <file>system/ConsolinnoNetworkSettingsPage.qml</file>
         <file>appsettings/ConsolinnoLookAndFeelSettingsPage.qml</file>
-        <file>appsettings/ConsolinnoAppSettingsPage.qml</file>
         <file>info/PvSurplusInfo.qml</file>
         <file>privacy_agreement_de_DE.html</file>
         <file>terms_of_use_de_DE.html</file>
@@ -355,11 +354,13 @@
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>thingconfiguration/ConsolinnoSetupWizard.qml</file>
+        <file>thingconfiguration/OAuthWebView.qml</file>
         <file>thingconfiguration/ConsolinnoThingClassDetailsPage.qml</file>
         <file>delegates/CoParamDelegate.qml</file>
         <file>devicepages/ConsolinnoDeviceLogPage.qml</file>
         <file>thingconfiguration/EpexDayAheadSetup.qml</file>
         <file>utils/DynPricingUtils.js</file>
+        <file>utils/ThingUtils.qml</file>
         <file>utils/UiUtils.qml</file>
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>

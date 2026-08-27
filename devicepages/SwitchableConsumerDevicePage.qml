@@ -83,6 +83,13 @@ GenericConfigPage {
         }
     }
 
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: function() {
+            pvPrioCard.updatePrioFromConfig();
+        }
+    }
+
     ListModel {
         id: optimizationModesModel
         ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
@@ -119,6 +126,15 @@ GenericConfigPage {
                 anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
+
+                CoNotification {
+                    id: runtimeExceededInfo
+                    Layout.fillWidth: true
+                    visible: hemsManager.conEMSState.runtimeExceededThings.includes(root.thing.id)
+                    type: CoNotification.Type.Neutral
+                    title: qsTr("PV device priorization")
+                    message: qsTr("The maximum daily runtime has been reached.")
+                }
 
                 CoEnergyCircle {
                     id: energyCircle
@@ -240,6 +256,10 @@ GenericConfigPage {
                             labelText: qsTr("Priority")
                             text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                             showChildrenIndicator: true
+
+                            function updatePrioFromConfig() {
+                                text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
+                            }
 
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });

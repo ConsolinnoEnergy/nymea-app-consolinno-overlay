@@ -43,10 +43,8 @@ T.Button {
     property alias iconLeft: iconLeft.name
     property alias iconRight: iconRight.name
 
-    implicitWidth: Math.max(background ? background.implicitWidth : 0,
-                            contentItem.implicitWidth + leftPadding + rightPadding)
-    implicitHeight: Math.max(background ? background.implicitHeight : 0,
-                             contentItem.implicitHeight + topPadding + bottomPadding)
+    implicitWidth: contentItem.implicitWidth + leftPadding + rightPadding
+    implicitHeight: contentItem.implicitHeight + topPadding + bottomPadding
     baselineOffset: contentItem.y + contentItem.baselineOffset
 
     topPadding: Style.numbers.components_Forms_Buttons_Vertical_padding
@@ -98,9 +96,6 @@ T.Button {
     }
 
     background: Rectangle {
-        implicitWidth: 64
-        implicitHeight: 48
-
         width: parent.width - control.leftInset - control.rightInset
         height: parent.height - control.topInset - control.bottomInset
         radius: height / 2

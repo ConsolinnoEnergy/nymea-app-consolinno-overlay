@@ -25,12 +25,27 @@ MainViewBase {
 
     readonly property Thing rootMeter: engine.thingManager.fetchingData ? null : engine.thingManager.things.getThing(energyManager.rootMeterId)
 
+    readonly property var hiddenConsumerIds: {
+        const ids = [];
+        for (let i = 0; i < hiddenConsumers.count; ++i) {
+            ids.push(hiddenConsumers.get(i).id);
+        }
+        return ids;
+    }
+
+    ThingsProxy {
+        id: hiddenConsumers
+        engine: _engine
+        shownInterfaces: ["smartmeterconsumer", "energymeter"]
+        stateFilter: { "hidden": true }
+    }
+
     ThingsProxy {
         id: consumers
         engine: _engine
         shownInterfaces: ["smartmeterconsumer", "energymeter"]
         hideTagId: "hiddenInEnergyView"
-        hiddenThingIds: [energyManager.rootMeterId]
+        hiddenThingIds: [energyManager.rootMeterId].concat(hiddenConsumerIds)
     }
 
     ThingsProxy {

@@ -11,6 +11,7 @@
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterSingletonType(QUrl("qrc:///ui/utils/UiUtils.qml"), uri, versionMajor, versionMinor, "UiUtils");
+    qmlRegisterSingletonType(QUrl("qrc:///ui/utils/ThingUtils.qml"), uri, versionMajor, versionMinor, "ThingUtils");
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
     qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
     qmlRegisterType<DashboardDataProvider>(uri, versionMajor, versionMinor, "DashboardDataProvider");

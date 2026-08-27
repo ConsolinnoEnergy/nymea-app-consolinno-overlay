@@ -8,7 +8,6 @@ ConsolinnoWizardPageBase {
     id: root
 
     property Component navbarControls: welcomePageNavbarControls
-    property int navigationFooterHeight: 0
 
     headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -101,7 +100,7 @@ ConsolinnoWizardPageBase {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Demo mode")
                 flat: true
                 onClicked: {
@@ -115,7 +114,8 @@ ConsolinnoWizardPageBase {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
+                Layout.bottomMargin: Style.smallMargins
                 text: qsTr("Cancel")
                 flat: true
                 visible: d.previousHostIndex >= 0
@@ -172,7 +172,6 @@ ConsolinnoWizardPageBase {
             id: licenseInfoPage
 
             property Component navbarControls: licenseInfoNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -207,7 +206,8 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -235,10 +235,10 @@ ConsolinnoWizardPageBase {
                     id: licenseTermsCard
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    headerText: qsTr("License Terms HEMS<br/>(as of 11/2024)")
+                    headerText: qsTr("License Terms HEMS")
                     contentTopMargin: Style.smallMargins
 
-                    ScrollView {
+                    Flickable {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -246,21 +246,17 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: licenseTermsCard.availableContentHeight
-                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                        flickableDirection: Flickable.VerticalFlick
+                        contentWidth: width
+                        contentHeight: textAreaTerms.implicitHeight
 
-                        TextArea {
+                        Text {
                             id: textAreaTerms
                             width: parent.width
-                            font: Style.smallFont
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
-                            readOnly: true
-                            padding: 0
-
-                            background: Rectangle {
-                                color: "transparent"
-                            }
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
 
                             Component.onCompleted: {
                                 loadHtmlFile("../terms_of_use_de_DE.html", textAreaTerms);
@@ -279,7 +275,6 @@ ConsolinnoWizardPageBase {
             id: privacyPolicyPage
 
             property Component navbarControls: privacyPolicyNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -291,7 +286,7 @@ ConsolinnoWizardPageBase {
                     CoCheckBox {
                         id: accountCheckbox
                         Layout.fillWidth: true
-                        text: qsTr("Yes, I agree to open a user account, according to part 6.")
+                        text: qsTr("Yes, I agree to open a user account, according to part %1.").arg(Configuration.privacyPolicyUserAccountSection)
                         checked: false
                         feedbackText: qsTr("You must create a user account to continue.")
                         onCheckedChanged: {
@@ -333,7 +328,8 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -361,10 +357,10 @@ ConsolinnoWizardPageBase {
                     id: privacyPolicyCard
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    headerText: qsTr("Privacy Policy HEMS<br/>(as of 11/2024)")
+                    headerText: qsTr("Privacy Policy HEMS")
                     contentTopMargin: Style.smallMargins
 
-                    ScrollView {
+                    Flickable {
                         anchors.left: parent.left
                         anchors.right: parent.right
                         anchors.top: parent.top
@@ -372,21 +368,17 @@ ConsolinnoWizardPageBase {
                         anchors.rightMargin: Style.margins
                         clip: true
                         height: privacyPolicyCard.availableContentHeight
-                        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-                        ScrollBar.vertical.policy: ScrollBar.AlwaysOff
+                        flickableDirection: Flickable.VerticalFlick
+                        contentWidth: width
+                        contentHeight: textAreaPrivacyPolicy.implicitHeight
 
-                        TextArea {
+                        Text {
                             id: textAreaPrivacyPolicy
                             width: parent.width
-                            font: Style.smallFont
                             wrapMode: Text.WrapAtWordBoundaryOrAnywhere
                             textFormat: Text.RichText
-                            readOnly: true
-                            padding: 0
-
-                            background: Rectangle {
-                                color: "transparent"
-                            }
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
 
                             Component.onCompleted: {
                                 loadHtmlFile("../privacy_agreement_de_DE.html", textAreaPrivacyPolicy);
@@ -405,7 +397,6 @@ ConsolinnoWizardPageBase {
             id: networkConnectionInfoPage
 
             property Component navbarControls: networkConnectionInfoNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -421,7 +412,8 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -461,6 +453,8 @@ ConsolinnoWizardPageBase {
                             wrapMode: Text.WordWrap
                             Layout.fillWidth: true
                             text: qsTr("Please connect your device (LAN port 1) to your network. Be sure this app is also connected to the same network.")
+                            font: Style.newParagraphFont
+                            color: Style.colors.typography_Basic_Default
                         }
 
                         Image {
@@ -488,7 +482,6 @@ ConsolinnoWizardPageBase {
             id: discoverLeafletPage
 
             property Component navbarControls: discoverLeafletNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -498,14 +491,15 @@ ConsolinnoWizardPageBase {
                     spacing: Style.smallMargins
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Manual setup")
                         flat: true
                         onClicked: pageStack.push(manualConnectionComponent)
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -539,10 +533,15 @@ ConsolinnoWizardPageBase {
                 id: discoverLeafletFlickable
                 anchors.fill: parent
                 clip: true
+                flickableDirection: Flickable.VerticalFlick
+                contentWidth: width
+                contentHeight: contentColumn.implicitHeight + contentColumn.anchors.topMargin + contentColumn.anchors.bottomMargin
 
                 ColumnLayout {
                     id: contentColumn
-                    anchors.fill: parent
+                    anchors.top: parent.top
+                    anchors.left: parent.left
+                    anchors.right: parent.right
                     anchors.margins: Style.margins
                     anchors.topMargin: discoverLeafletPage.headerHeight + Style.margins
                     anchors.bottomMargin: discoverLeafletPage.navigationFooterHeight + Style.margins
@@ -575,6 +574,7 @@ ConsolinnoWizardPageBase {
                                 model: hostsModel
 
                                 delegate: CoCard {
+                                    id: nymeaHostDelegate
                                     Layout.fillWidth: true
 
                                     property var nymeaHost: hostsModel.get(index)
@@ -672,7 +672,6 @@ ConsolinnoWizardPageBase {
             id: manualConnectionPage
 
             property Component navbarControls: manualConnectionNavbarControls
-            property int navigationFooterHeight: 0
 
             headerLabel: qsTr("Setup %1").arg(Configuration.deviceName)
 
@@ -737,11 +736,8 @@ ConsolinnoWizardPageBase {
                     }
 
                     CoNavbarButton {
-                        Layout.fillWidth: true
-                    CoNavbarButton {
-                        Layout.fillWidth: true
-                    CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
+                        Layout.bottomMargin: Style.smallMargins
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -762,10 +758,15 @@ ConsolinnoWizardPageBase {
                 id: manualConnectionFlickable
                 anchors.fill: parent
                 clip: true
+                flickableDirection: Flickable.VerticalFlick
+                contentWidth: width
+                contentHeight: contentColumn.implicitHeight +
+                               contentColumn.anchors.topMargin +
+                               contentColumn.anchors.bottomMargin
 
                 ColumnLayout {
                     id: contentColumn
-                    anchors.fill: parent
+                    anchors { left: parent.left; right: parent.right; top: parent.top }
                     anchors.margins: Style.margins
                     anchors.topMargin: manualConnectionPage.headerHeight + Style.margins
                     anchors.bottomMargin: manualConnectionPage.navigationFooterHeight + Style.margins
@@ -830,12 +831,6 @@ ConsolinnoWizardPageBase {
                                 checked: Qt.platform.os !== "wasm" || connectionTypeComboBox.currentIndex === 2
                             }
                         }
-                    }
-
-                    Item {
-                        id: spacer
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
                     }
                 }
             }

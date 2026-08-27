@@ -12,7 +12,7 @@ Page {
     property int navigationFooterHeight: 0
     property PvConfiguration pvConfiguration
     property Thing thing
-    property int directionID: 0
+    property bool calledFromAssistant: false
 
     signal done
 
@@ -23,54 +23,41 @@ Page {
                 !peakPowerInput.acceptableInput) {
             return false;
         }
-        return Math.abs(Number.fromLocaleString(Qt.locale(), latitudeInput.text) - pvConfiguration.latitude) > 0.000001 ||
-                Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
-                Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
-                alignment.currentValue !== pvConfiguration.alignment ||
-                Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
-                (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), latitudeInput.text) - pvConfiguration.latitude) > 0.000001 ||
+                    Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
+                    Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
+                    alignment.currentValue !== pvConfiguration.alignment ||
+                    Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
+                    (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
+        }
     }
 
     function applyChanges() {
-        if (directionID === 1) {
-            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                header.text = longitudeInput.text;
-                hemsManager.setPvConfiguration(thing.id,
-                                               {
-                                                   "longitude": Number.fromLocaleString(
-                                                                    Qt.locale(),
-                                                                    longitudeInput.text),
-                                                   "latitude": Number.fromLocaleString(
-                                                                   Qt.locale(),
-                                                                   latitudeInput.text),
-                                                   "roofPitch": roofpitchInput.text,
-                                                   "alignment": alignment.comboBox.currentValue,
-                                                   "kwPeak": Number.fromLocaleString(
-                                                                 Qt.locale(),
-                                                                 peakPowerInput.text),
-                                                   "controllableLocalSystem": gridSupportControl.checked
-                                               });
+        if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
+                Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
+            let callId = hemsManager.setPvConfiguration(thing.id,
+                                                        {
+                                                            "longitude": Number.fromLocaleString(
+                                                                             Qt.locale(),
+                                                                             longitudeInput.text),
+                                                            "latitude": Number.fromLocaleString(
+                                                                            Qt.locale(),
+                                                                            latitudeInput.text),
+                                                            "roofPitch": roofpitchInput.text,
+                                                            "alignment": alignment.comboBox.currentValue,
+                                                            "kwPeak": Number.fromLocaleString(
+                                                                          Qt.locale(),
+                                                                          peakPowerInput.text),
+                                                            "controllableLocalSystem": gridSupportControl.checked
+                                                        });
+            if (calledFromAssistant) {
                 root.done();
-            }
-        } else if (directionID === 0) {
-            if (Number.fromLocaleString(Qt.locale(), longitudeInput.text) !== 0 ||
-                    Number.fromLocaleString(Qt.locale(), latitudeInput.text) !== 0) {
-                d.pendingCallId = hemsManager.setPvConfiguration(thing.id,
-                                                                 {
-                                                                     "longitude": Number.fromLocaleString(
-                                                                                      Qt.locale(),
-                                                                                      longitudeInput.text),
-                                                                     "latitude": Number.fromLocaleString(
-                                                                                     Qt.locale(),
-                                                                                     latitudeInput.text),
-                                                                     "roofPitch": roofpitchInput.text,
-                                                                     "alignment": alignment.comboBox.currentValue,
-                                                                     "kwPeak": Number.fromLocaleString(
-                                                                                   Qt.locale(),
-                                                                                   peakPowerInput.text),
-                                                                     "controllableLocalSystem": gridSupportControl.checked
-                                                                 });
+            } else {
+                d.pendingCallId = callId;
             }
         }
     }
@@ -83,7 +70,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("PV configuration")
-        backButtonVisible: directionID === 1 ? false : true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -131,6 +118,19 @@ Page {
                        contentColumn.anchors.bottomMargin + root.navigationFooterHeight
 
         Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
+        onHeightChanged: {
+            if (PlatformHelper.imeHeight <= 0) return;
+            var focused = Window.activeFocusItem;
+            if (!focused) return;
+            var itemPos = focused.mapToItem(bodyFlickable.contentItem, 0, focused.height);
+            var itemBottom = itemPos.y;
+            var usableHeight = bodyFlickable.height - root.navigationFooterHeight;
+            var visibleBottom = bodyFlickable.contentY + usableHeight;
+            if (itemBottom > visibleBottom) {
+                bodyFlickable.contentY = itemBottom - usableHeight + Style.margins;
+            }
+        }
 
         ColumnLayout {
             id: contentColumn
@@ -248,7 +248,7 @@ Page {
                         textField.validator: DoubleValidator {
                             id: peakPowerValidator
                             bottom: 1
-                            top: 30
+                            top: 100
                             decimals: 2
                             notation: "StandardNotation"
                         }
@@ -282,7 +282,7 @@ Page {
     Component {
         id: pvOptimizationNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

@@ -33,7 +33,7 @@ GenericConfigPage {
                                                                      });
     }
 
-    property Component navbarControls: heatingElementNavbarControls
+    property Component navbarControls: optimizationModesModel.count > 1 ? heatingElementNavbarControls : undefined
 
     Component {
         id: heatingElementNavbarControls
@@ -74,10 +74,32 @@ GenericConfigPage {
         }
     }
 
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: function() {
+            pvPrioCard.updatePrioFromConfig();
+        }
+    }
+
+    readonly property bool pvSurplusModeAvailable: !!(hemsManager.availableUseCases & HemsManager.HemsUseCasePv)
+
     ListModel {
         id: optimizationModesModel
-        ListElement{ name: qsTr("PV surplus"); value: 1 }
-        ListElement{ name: qsTr("No control"); value: 0 }
+
+        Component.onCompleted: populate()
+
+        function populate() {
+            clear()
+            if (root.pvSurplusModeAvailable) {
+                append({ name: qsTr("PV surplus"), value: 1 })
+            }
+            append({ name: qsTr("No control"), value: 0 })
+        }
+    }
+
+    Connections {
+        target: hemsManager
+        onAvailableUseCasesChanged: optimizationModesModel.populate()
     }
 
     content: [
@@ -175,6 +197,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control")
+                    visible: optimizationModesModel.count > 1
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -191,7 +214,7 @@ GenericConfigPage {
                             valueRole: "value"
                             Component.onCompleted: {
                                 if (!heatingRodConfig) {
-                                    comboBox.currentIndex = 1;
+                                    comboBox.currentIndex = 0;
                                 } else {
                                     comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 0 : 1;
                                 }
@@ -221,6 +244,10 @@ GenericConfigPage {
 
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });
+                            }
+
+                            function updatePrioFromConfig() {
+                                text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
                             }
                         }
                     }

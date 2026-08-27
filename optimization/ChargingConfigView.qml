@@ -449,8 +449,8 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
                             labelText: qsTr("Charging mode")
-                            showChildrenIndicator: isCarPluggedIn()
-                            interactive: isCarPluggedIn()
+                            showChildrenIndicator: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
+                            interactive: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
 
                             onClicked: {
                                 if (isCarPluggedIn()) {
@@ -832,6 +832,10 @@ GenericConfigPage {
             }
 
             function applyChanges() {
+                footer.text = "";
+                footer.visible = false;
+                batteryLevel.feedbackText = "";
+
                 if (chargingConfiguration.optimizationEnabled ||
                         chargingConfiguration.optimizationMode !== 9) {
                     // Cancel running charging session.
@@ -907,18 +911,25 @@ GenericConfigPage {
                     optimizationPage.done();
                     pageStack.pop();
                 } else {
-                    // footer message to notifiy the user, what is wrong
+                    let anyKnownError = false;
                     if(batteryLevel.value === 0) {
-                        footer.text = qsTr("Please select a battery level greater than 0%.");
-                    } else if (carSelector.holdingItem === false) {
-                        footer.text = qsTr("Please select a car");
-                    } else if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
-                              (endTimeSlider.value < 30)) {
-                        footer.text = qsTr("Please select a valid target time");
-                    } else {
-                        footer.text = qsTr("Unknown error");
+                        batteryLevel.feedbackText = qsTr("Please select a battery level greater than 0%.");
+                        anyKnownError = true;
                     }
-                    footer.visible = true;
+                    if (carSelector.holdingItem === false) {
+                        footer.text = qsTr("Please select a car");
+                        footer.visible = true;
+                        anyKnownError = true;
+                    }
+                    if((endTimeSlider.value < endTimeSlider.maximumChargingthreshhold) ||
+                              (endTimeSlider.value < 30)) {
+                        anyKnownError = true;
+                    }
+
+                    if (!anyKnownError) {
+                        footer.text = qsTr("Unknown error");
+                        footer.visible = true;
+                    }
                 }
             }
 
@@ -998,6 +1009,13 @@ GenericConfigPage {
                     }
                 } catch (e) {
                     console.error("Failed to parse charging schedule:", e);
+                }
+            }
+
+            Connections {
+                target: hemsManager.emsConfiguration
+                onPvSurplusPriolistChanged: function() {
+                    pvPrioCard.updatePrioFromConfig();
                 }
             }
 
@@ -1224,6 +1242,10 @@ GenericConfigPage {
                                     pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"),
                                                    { alwaysEnabledThingId: root.thing.id.toString() });
                                 }
+
+                                function updatePrioFromConfig() {
+                                    text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
+                                }
                             }
 
                             CoComboBox {
@@ -1333,7 +1355,9 @@ GenericConfigPage {
 
                                 visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Ending time")
-                                valueText: endTime.toLocaleString(Qt.locale("de-DE"), "dd.MM HH:mm")
+                                valueText: Qt.locale().name.startsWith("en_") ?
+                                               endTime.toLocaleString(Qt.locale("en_US"), "MMM d, h:mm Ap") :
+                                               endTime.toLocaleString(Qt.locale("de_DE"), "d. MMM, H:mm") + " Uhr"
                                 valueTextWidth: 100
                                 from: 0
                                 to: 24 * 60
@@ -1347,7 +1371,7 @@ GenericConfigPage {
                                 }
 
                                 function updateFeasibilityWarning() {
-                                    if (value < maximumChargingthreshhold) {
+                                    if (value < maximumChargingthreshhold || value < 30) {
                                         feedbackText = qsTr("In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time");
                                     } else {
                                         feedbackText = "";

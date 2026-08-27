@@ -336,6 +336,7 @@ Page {
                             text: model.name
                             labelText: model.description
                             iconLeft: app.interfacesToIcon(discoveryView.thingClass.interfaces)
+                            showChildrenIndicator: true
                             onClicked: {
                                 d.thingDescriptor = discoveryProxy.get(index);
                                 d.thingName = model.name;
@@ -501,7 +502,7 @@ Page {
 
             Button {
                 visible: root.thing ? true : false
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
                 Layout.leftMargin: Style.margins
                 Layout.rightMargin: Style.margins
                 Layout.topMargin: Style.bigMargins
@@ -609,72 +610,27 @@ Page {
                     wrapMode: Text.WordWrap
                     horizontalAlignment: Text.AlignHCenter
                 }
-
-                Label {
-                    Layout.fillWidth: true
-                    text: qsTr("In order to use OAuth on this platform, make sure qml-module-qtwebview is installed.")
-                    wrapMode: Text.WordWrap
-                    font.pixelSize: app.smallFont
-                    horizontalAlignment: Text.AlignHCenter
-                }
             }
 
-            Item {
-                id: webViewContainer
+            Loader {
+                id: webViewLoader
                 anchors.fill: parent
+                source: Qt.resolvedUrl("OAuthWebView.qml")
 
-                Component.onCompleted: {
-                    var webView = Qt.createQmlObject(webViewString, webViewContainer);
-                    print("created webView", webView)
-                    if (webView) {
-                        webView.oAuthUrl = oAuthPage.oAuthUrl
-                    }
+                Binding {
+                    target: webViewLoader.item
+                    property: "oAuthUrl"
+                    value: oAuthPage.oAuthUrl
+                    when: webViewLoader.status === Loader.Ready
                 }
 
-                property string webViewString:
-                    '
-                    import QtQuick;
-                    import QtWebView;
-                    import QtQuick.Controls
-                    import Nymea;
-
-                    Rectangle {
-                        anchors.fill: parent
-                        color: Style.backgroundColor
-
-                        property string oAuthUrl: ""
-
-                        BusyIndicator {
-                            id: busyIndicator
-                            anchors.centerIn: parent
-                            running: Qt.platform.os !== "wasm" && oAuthWebView.loading
-                        }
-
-                        WebView {
-                            id: oAuthWebView
-                            anchors.fill: parent
-                            url: parent.oAuthUrl
-
-                            function finishProcess(url) {
-                                print("Confirm pairing")
-                                engine.thingManager.confirmPairing(d.pairingTransactionId, url)
-                                busyIndicator.running = true
-                                oAuthWebView.visible = false
-                            }
-
-                            onUrlChanged: {
-                                print("OAUTH URL changed", url)
-                                if (url.toString().indexOf("https://127.0.0.1") == 0) {
-                                    print("Redirect URL detected!")
-                                    finishProcess(url)
-                                } else if (url.toString().indexOf("device-complete") >= 0) {
-                                    print("Device code finish URL detected!")
-                                    finishProcess(url)
-                                }
-                            }
-                        }
+                Connections {
+                    target: webViewLoader.item
+                    function onPairingFinished(redirectUrl) {
+                        print("Confirm pairing", redirectUrl)
+                        engine.thingManager.confirmPairing(d.pairingTransactionId, redirectUrl)
                     }
-                    '
+                }
             }
         }
     }

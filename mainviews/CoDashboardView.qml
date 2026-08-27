@@ -194,6 +194,7 @@ MainViewBase {
                                  false
     property double lppPowerLimit: gridSupport ? gridSupport.stateByName("lppValue").value : 0
     property double lpcPowerLimit: gridSupport ? gridSupport.stateByName("lpcValue").value : 0
+
     property bool anyInverterLppActive: {
         if (!lppActive) { return false; }
         for (var i = 0; i < producerThings.count; ++i) {
@@ -205,10 +206,38 @@ MainViewBase {
         }
         return false;
     }
+
     property bool anyAvoidZeroCompensationActive: {
         for (var i = 0; i < batteryThings.count; ++i) {
             let battery = batteryThings.get(i);
             if (avoidZeroCompensationActive(battery)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    property bool anyTargetSocPvSurplusExceeded: {
+        for (var i = 0; i < batteryThings.count; ++i) {
+            let battery = batteryThings.get(i);
+            if (ThingUtils.targetSocPvSurplusExceeded(battery,
+                                                      hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    property bool anyPvSurplusRuntimeExceeded: {
+        for (let i = 0; i < heatingThings.count; ++i) {
+            let thing = heatingThings.get(i);
+            if (hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)) {
+                return true;
+            }
+        }
+        for (let i = 0; i < otherConsumerThings.count; ++i) {
+            let thing = otherConsumerThings.get(i);
+            if (hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)) {
                 return true;
             }
         }
@@ -297,16 +326,16 @@ MainViewBase {
                         actionType: CoNotification.ActionType.Collapsible
                         title: qsTr("Pending software update")
                         collapsed: false
-                        message: qsTr('
-                            <p>Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.</p>
-                            <p>Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.</p>
-                            <p>If this message is still displayed, please contact our service team.</p>
-                            <ul>
-                                %6
-                                <li>Email: <a href=\'mailto:%4\'>%4</a></li>
-                            </ul>
-                            <p>Best regards</p>
-                            <p>Your %3 Team</p>')
+                        message: qsTr("
+Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.<br/><br/>
+Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.<br/><br/>
+If this message is still displayed, please contact our service team.<br/>
+<ul>
+    %6
+    <li>Email: <a href=\'mailto:%4\'>%4</a></li>
+</ul>
+<br/>Best regards<br/><br/>
+Your %3 Team")
                         .arg(appVersion)
                         .arg(engine.jsonRpcClient.experiences.Hems)
                         .arg(Configuration.appName)
@@ -518,7 +547,6 @@ MainViewBase {
                                           Qt.resolvedUrl("/icons/input_circle.svg") :
                                           Qt.resolvedUrl("/icons/output_circle.svg")
                                 onClicked: {
-                                    console.info("Clicked grid card");
                                     pageStack.push(
                                                 "/ui/devicepages/RootMeterDevicePage.qml",
                                                 {
@@ -541,6 +569,7 @@ MainViewBase {
                                 secondaryUnit: "%"
                                 compactLayout: true
                                 showWarningIndicator: anyAvoidZeroCompensationActive
+                                showInfoIndicator: !showWarningIndicator && anyTargetSocPvSurplusExceeded
                                 icon: batteryIconForEnergyFlow(dataProvider.totalBatteryLevel,
                                                                dataProvider.currentPowerBatteries > 0)
                                 onClicked: {
@@ -558,6 +587,7 @@ MainViewBase {
                                 value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerTotalConsumption))
                                 unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerTotalConsumption)
                                 compactLayout: true
+                                showInfoIndicator: anyPvSurplusRuntimeExceeded
                                 icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                                 onClicked: {
                                     flickableContentYAnimation.setTargetY(consumptionGroup.y);
@@ -628,7 +658,6 @@ MainViewBase {
                                 }
                                 icon: Qt.resolvedUrl("/icons/euro.svg")
                                 onClicked: {
-                                    console.info("Clicked dynamic tariff");
                                     pageStack.push("/ui/devicepages/PageWraper.qml",
                                                    { "thing": thing });
                                 }
@@ -659,7 +688,6 @@ MainViewBase {
                                                                hemsManager.pvConfigurations.getPvConfiguration(thing.id).controllableLocalSystem :
                                                                false)
                                     onClicked: {
-                                        console.info("Clicked inverter:", thing.name);
                                         pageStack.push(
                                                     "/ui/devicepages/InverterDevicePage.qml",
                                                     {
@@ -701,8 +729,10 @@ MainViewBase {
                                     powerValue: currentPower
                                     socValue: Math.round(soc)
                                     showWarningIndicator: avoidZeroCompensationActive(battery)
+                                    showInfoIndicator: !showWarningIndicator &&
+                                                       ThingUtils.targetSocPvSurplusExceeded(battery,
+                                                                                             hemsManager.batteryConfigurations.getBatteryConfiguration(battery.id))
                                     onClicked: {
-                                        console.info("Clicked battery:", battery.name);
                                         pageStack.push("/ui/optimization/BatteryConfigView.qml", { "thing": battery });
                                     }
                                 }
@@ -733,8 +763,8 @@ MainViewBase {
                                         Layout.fillWidth: true
                                         thing: heatingThings.get(index)
                                         icon: thingToIcon(thing)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
                                         onClicked: {
-                                            console.info("Clicked heating thing:", thing.name);
                                             if (thing.thingClass.interfaces.indexOf("heatpump") >= 0) {
                                                 pageStack.push(
                                                             "/ui/optimization/HeatingConfigView.qml",
@@ -775,7 +805,6 @@ MainViewBase {
                                         thing: evChargerThings.get(index)
                                         icon: thingToIcon(thing)
                                         onClicked: {
-                                            console.info("Clicked EV charger thing:", thing.name);
                                             // Check if these states are provided by the thing
                                             let pluggedIn = thing.stateByName("pluggedIn");
                                             let maxChargingCurrent = thing.stateByName("maxChargingCurrent");
@@ -823,6 +852,7 @@ MainViewBase {
                                         Layout.fillWidth: true
                                         thing: otherConsumerThings.get(index)
                                         icon: thingToIcon(thing)
+                                        showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id)
                                         visible: {
                                             if (thing.thingClass.interfaces.indexOf("hideable") >= 0) {
                                                 var hiddenState = thing.stateByName("hidden")
@@ -831,7 +861,6 @@ MainViewBase {
                                             return true
                                         }
                                         onClicked: {
-                                            console.info("Clicked thing:", thing.name);
                                             if (thing.thingClass.interfaces.indexOf("powersocket") >= 0) {
                                                 pageStack.push(
                                                             "/ui/devicepages/SwitchableConsumerDevicePage.qml",

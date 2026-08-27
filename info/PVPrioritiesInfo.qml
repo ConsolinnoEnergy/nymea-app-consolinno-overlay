@@ -45,7 +45,7 @@ Page {
                 Layout.topMargin: 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("An SG Ready heat pump without a meter always takes priority over all other devices when controlled via Leaflet HEMS and cannot be moved.")
+                text: qsTr("An SG Ready heat pump without a meter always takes priority over all other devices when controlled via %1 and cannot be moved.").arg(Configuration.deviceName)
             }
 
             Label {
@@ -57,6 +57,17 @@ Page {
                 Layout.preferredWidth: app.width
                 visible: root.hasBattery
                 text: qsTr("The battery is always prioritized last once the SoC reaches %1%, regardless of its position in the list.").arg(root.batteryTargetSoc)
+            }
+
+            Label {
+                Layout.fillWidth: true
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                Layout.topMargin: 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                visible: root.hasBattery
+                text: qsTr("Note: After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.")
             }
         }
     }

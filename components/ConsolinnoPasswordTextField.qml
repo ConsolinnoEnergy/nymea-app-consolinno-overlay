@@ -51,6 +51,14 @@ ColumnLayout {
             id: passwordTextField
             Layout.fillWidth: true
             echoMode: root.hiddenPassword ? TextInput.Password : TextInput.Normal
+            // ESUI-1615: Qt.ImhNoTextHandles used to be set here as a workaround for
+            // QTBUG-146020 (QIOSTapRecognizer crashing on iOS when a field loses focus
+            // while a dispatch_async block showing the edit menu is still pending), but
+            // it also disabled the native edit menu entirely - including Paste - since
+            // Qt's password fields rely on that same overlay for clipboard operations.
+            // The crash is now guarded against natively via a runtime swizzle in
+            // PlatformHelperIOS (see platformintegration/ios/platformhelperios.mm in
+            // nymea-app), so this field can safely use the normal input handles again.
             placeholderText: root.signup ? qsTr("Pick a password") : qsTr("Password")
 
             error: root.showErrors && !root.isValidPassword
@@ -139,6 +147,8 @@ ColumnLayout {
             id: confirmationPasswordTextField
             Layout.fillWidth: true
             echoMode: root.hiddenPassword ? TextInput.Password : TextInput.Normal
+            // ESUI-1615: see comment on passwordTextField above - Qt.ImhNoTextHandles
+            // removed now that the underlying QTBUG-146020 crash is guarded natively.
             placeholderText: qsTr("Confirm password")
             error: root.showErrors && (!root.isValidPassword || !root.confirmationMatches)
 

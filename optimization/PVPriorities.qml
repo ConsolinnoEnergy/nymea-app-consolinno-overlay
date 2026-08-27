@@ -10,11 +10,7 @@ Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property int directionID: 0
     property string alwaysEnabledThingId: ""
-
-    // #TODO needed here? i.e. should this screen be included in the setup assistant?
-    signal done(bool skip, bool abort, bool back)
 
     header: null
 
@@ -25,12 +21,8 @@ Page {
         blurSource: bodyFlickable
         text: qsTr("System")
         backButtonVisible: true
-        onBackPressed:{
-            if (directionID == 0) {
-                pageStack.pop();
-            } else {
-                root.done(false, false, true);
-            }
+        onBackPressed: {
+            pageStack.pop();
         }
     }
 
@@ -144,11 +136,7 @@ Page {
             if (commandId === d.pendingCallId) {
                 d.pendingCallId = -1;
                 if (error === "HemsErrorNoError") {
-                    if (directionID === 0) {
-                        pageStack.pop();
-                    } else {
-                        root.done(false, false, false);
-                    }
+                    pageStack.pop();
                 } else {
                     var comp = Qt.createComponent("../components/ErrorDialog.qml");
                     var popup = comp.createObject(app, { errorCode: error });

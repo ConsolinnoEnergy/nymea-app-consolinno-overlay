@@ -192,7 +192,7 @@ ItemDelegate {
                     CoInputField {
                         id: filterInput
                         Layout.fillWidth: true
-                        labelText: qsTr("Filter %1").arg(root.paramType.displayName)
+                        labelText: qsTr("Search")
                     }
 
                     CoFrostyCard {

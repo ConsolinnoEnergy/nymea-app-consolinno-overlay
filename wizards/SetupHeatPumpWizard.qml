@@ -30,7 +30,7 @@ SetupWizardBase {
             var page = pageStack.push("../optimization/HeatingOptimization.qml", {
                 heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id),
                 heatPumpThing: thing,
-                directionID: 1
+                calledFromAssistant: true
             });
             page.done.connect(function() {
                 pageStack.pop(root);

@@ -14,7 +14,7 @@ Page {
 
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property real directionID: 0
+    property bool calledFromSetupWizard: true
     property Component navbarControls: authorisationControls
 
     Component {
@@ -28,9 +28,9 @@ Page {
                 enabled: authorisationCheckbox.checked
                 onClicked: {
                     if (authorisationCheckbox.checked) {
-                        if (directionID == 0) {
+                        if (calledFromSetupWizard) {
                             root.done(false, true);  // abort=false, accepted=true
-                        } else if (directionID == 1) {
+                        } else {
                             pageStack.replace(Qt.resolvedUrl("../thingconfiguration/AddNewThings.qml"));
                         }
                     }
@@ -38,11 +38,11 @@ Page {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Cancel")
                 flat: true
                 onClicked: {
-                    if (directionID == 0) {
+                    if (calledFromSetupWizard) {
                         root.done(true, false);  // abort=true, accepted=false
                     } else {
                         pageStack.pop();
@@ -56,7 +56,7 @@ Page {
         text: qsTr("Authorisation page")
         backButtonVisible: true
         onBackPressed: {
-            if (directionID == 0) {
+            if (calledFromSetupWizard) {
                 root.done(true, false);  // abort=true, accepted=false
             } else {
                 pageStack.pop();
@@ -81,12 +81,13 @@ Page {
             Layout.alignment: Qt.AlignCenter
             horizontalAlignment: Text.AlignHCenter
             text: qsTr("To comission devices with the %1, you must be authorized. Otherwise the warranty expires.").arg(Configuration.coreBranding)
+            font: Style.newParagraphFont
+            color: Style.colors.typography_Basic_Default
         }
 
-        ConsolinnoCheckbox {
+        CoCheckBox {
             id: authorisationCheckbox
-            useFillWidth: false
-            position: Qt.AlignHCenter
+            Layout.alignment: Qt.AlignHCenter
             text: qsTr("I am authorized to operate the %1").arg(Configuration.coreBranding)
         }
 

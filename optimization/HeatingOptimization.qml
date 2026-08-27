@@ -14,14 +14,19 @@ Page {
     property int navigationFooterHeight: 0
     property HeatingConfiguration heatingConfiguration
     property Thing heatPumpThing
-    property int directionID: 0
+    property bool calledFromAssistant: false
     signal done()
 
     readonly property bool applyEnabled: {
         if (!maxElectricalPower.acceptableInput) { return false; }
-        return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingConfiguration.maxElectricalPower) > 0.000001 ||
-                gridSupportControl.checked !== heatingConfiguration.controllableLocalSystem ||
-                (heatMeterCombo.visible && meterModel.get(heatMeterCombo.currentIndex).thingId !== heatingConfiguration.heatMeterThingId.toString());
+
+        if (calledFromAssistant) {
+            return true;
+        } else {
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingConfiguration.maxElectricalPower) > 0.000001 ||
+                    gridSupportControl.checked !== heatingConfiguration.controllableLocalSystem ||
+                    (heatMeterCombo.visible && meterModel.get(heatMeterCombo.currentIndex).thingId !== heatingConfiguration.heatMeterThingId.toString());
+        }
     }
 
     function applyChanges() {
@@ -54,7 +59,7 @@ Page {
         };
 
         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
-        if(directionID !== 1){
+        if (!calledFromAssistant) {
             pageStack.pop()
         }
         root.done()
@@ -91,7 +96,7 @@ Page {
         z: 1
         blurSource: bodyFlickable
         text: qsTr("Heating")
-        backButtonVisible: directionID === 1 ? false : true
+        backButtonVisible: !calledFromAssistant
         onBackPressed: pageStack.pop()
     }
 
@@ -213,7 +218,7 @@ Page {
     Component {
         id: heatingOptimizationNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

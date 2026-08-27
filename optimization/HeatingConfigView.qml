@@ -156,6 +156,13 @@ GenericConfigPage {
         }
     }
 
+    Connections {
+        target: hemsManager.emsConfiguration
+        onPvSurplusPriolistChanged: function() {
+            pvPrioCard.updatePrioFromConfig();
+        }
+    }
+
     ThingsProxy {
         id: dynamicPrice
         engine: _engine
@@ -175,6 +182,15 @@ GenericConfigPage {
                 anchors { left: parent.left; right: parent.right; top: parent.top }
                 anchors.margins: Style.margins
                 spacing: Style.margins
+
+                CoNotification {
+                    id: runtimeExceededInfo
+                    Layout.fillWidth: true
+                    visible: hemsManager.conEMSState.runtimeExceededThings.includes(root.thing.id)
+                    type: CoNotification.Type.Neutral
+                    title: qsTr("PV device priorization")
+                    message: qsTr("The maximum daily demand duration has been reached.")
+                }
 
                 CoEnergyCircle {
                     id: energyCircle
@@ -371,6 +387,10 @@ GenericConfigPage {
                             onClicked: {
                                 pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"), { alwaysEnabledThingId: root.thing.id.toString() });
                             }
+
+                            function updatePrioFromConfig() {
+                                text = (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString();
+                            }
                         }
 
                         CoInputField {
@@ -379,7 +399,7 @@ GenericConfigPage {
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
                             compact: true
                             labelText: qsTr("Minimum power")
-                            helpText: qsTr("Minimum PV surplus power required for activation.")
+                            helpText: qsTr("Minimum required PV surplus that allows the %1 to request an increased operating mode.").arg(Configuration.deviceName)
                             unit: "W"
                             text: heatingconfig ? heatingconfig.pvSurplusThreshold : ""
                             feedbackText: qsTr("Value must not be below %1 W.").arg(minPVSurplusPowerValidator.bottom)
@@ -393,8 +413,8 @@ GenericConfigPage {
                             id: minRuntimeStepper
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                            labelText: qsTr("Minimum runtime")
-                            helpText: qsTr("Runs at least this long after activation.")
+                            labelText: qsTr("Minimum demand duration")
+                            helpText: qsTr("Specifies how long a request for increased operating mode must remain active at minimum.")
                             unit: qsTr("hh:mm")
                             compact: true
                             from: 0
@@ -426,8 +446,8 @@ GenericConfigPage {
                             id: maxTotalRuntimeStepper
                             Layout.fillWidth: true
                             visible: thing.thingClass.interfaces.indexOf("smartgridheatpump") >= 0
-                            labelText: qsTr("Maximum runtime")
-                            helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
+                            labelText: qsTr("Maximum demand duration")
+                            helpText: qsTr("Limits the daily duration for which the %1 can request an increased operating mode.").arg(Configuration.deviceName)
                             unit: qsTr("hh:mm")
                             compact: true
                             from: minRuntimeStepper.value

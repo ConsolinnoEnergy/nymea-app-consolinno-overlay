@@ -24,7 +24,6 @@ StackView {
               && "navigationFooterHeight" in root.currentItem
     }
 
-    property int directionID: 0
     property Thing gridSupportThing: gridSupport.get(0)
     property Thing eebusGridGuardGateway: null
     property ThingClass genericEebusDeviceThingClass: engine.thingManager.thingClasses.getThingClass("d7448dd7-cafc-4ef7-9169-09ea657f755c")
@@ -146,11 +145,8 @@ StackView {
             header: CoHeader {
                 text: qsTr("Grid-supportive control")
                 backButtonVisible: true
-                onBackPressed:{
-                    if (directionID == 0)
-                    {
-                        pageStack.pop()
-                    }
+                onBackPressed: {
+                    pageStack.pop();
                 }
             }
 
@@ -177,7 +173,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box connection")
 
                     ColumnLayout {
@@ -222,6 +218,43 @@ StackView {
                     }
                 }
 
+                CoFrostyCard {
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("EEBUS Pairing Data")
+                    visible: eebusInformationThing !== null
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: 0
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: eebusInformationThing ? eebusInformationThing.param("ab65e48a-c5a8-4d89-93b0-da863e83ae55").value : "-"
+                            labelText: qsTr("Local Subject Key Identifier (SKI)")
+                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                            iconRightColor: Style.colors.brand_Basic_Accent
+                            onClicked: {
+                                PlatformHelper.toClipBoard(text);
+                                ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                            }
+                        }
+
+                        CoCard {
+                            Layout.fillWidth: true
+                            text: eebusInformationThing ? eebusInformationThing.param("aa519adc-e834-461f-b2f3-be149edbcc5e").value : "-"
+                            labelText: qsTr("SHIP ID (ID)")
+                            iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                            iconRightColor: Style.colors.brand_Basic_Accent
+                            onClicked: {
+                                PlatformHelper.toClipBoard(text);
+                                ToolTip.show(qsTr("%1 copied to clipboard").arg(labelText), 1000);
+                            }
+                        }
+                    }
+                }
+
                 Item {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -248,7 +281,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box connection")
 
                     ColumnLayout {
@@ -269,7 +302,7 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: qsTr("EEBUS SKI Pairing")
-                            labelText: qsTr("Must be in same network.")
+                            helpText: qsTr("Must be in same network.")
                             iconLeft: Qt.resolvedUrl("/ui/images/eebus.svg")
                             showChildrenIndicator: true
                             enabled: genericEebusDeviceThingClass !== null
@@ -323,7 +356,7 @@ StackView {
                         }
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -356,7 +389,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Connect device")
 
                     ColumnLayout {
@@ -368,6 +401,7 @@ StackView {
                             Layout.fillWidth: true
                             text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                             interactive: false
+                            topMargin: 0
                         }
                     }
                 }
@@ -473,8 +507,8 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
-                    headerText: qsTr("Device connection")
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("Connect device")
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -483,8 +517,9 @@ StackView {
 
                         CoCard {
                             Layout.fillWidth: true
-                            text: qsTr("The control box or the ripple control receiver must be connected as described in our manual.")
+                            text: qsTr("Please connect the control box or the ripple control receiver as described in our manual.")
                             interactive: false
+                            topMargin: 0
                         }
                     }
                 }
@@ -528,7 +563,7 @@ StackView {
                         }
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -577,7 +612,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -590,6 +625,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -603,6 +639,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.")
+                                    topMargin: 0
                                 }
 
                                 RowLayout {
@@ -734,7 +771,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -747,6 +784,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -834,7 +872,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
 
                             ColumnLayout {
@@ -960,7 +998,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("QR Code & Pairing Data")
 
                             ColumnLayout {
@@ -973,6 +1011,7 @@ StackView {
                                     Layout.fillWidth: true
                                     interactive: false
                                     text: qsTr("EEBUS Comfort Pairing data not available.")
+                                    topMargin: 0
                                 }
                             }
 
@@ -1060,7 +1099,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
 
                             ColumnLayout {
@@ -1116,7 +1155,7 @@ StackView {
                         onClicked: discovery.discoverThings(genericEebusDeviceThingClass.id)
                     }
                     CoNavbarButton {
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         text: qsTr("Cancel")
                         flat: true
                         onClicked: {
@@ -1171,7 +1210,7 @@ StackView {
                                         Layout.fillWidth: true
                                         iconLeft: "/icons/connections/network-wired.svg"
                                         text: model.name
-                                        labelText: model.description
+                                        helpText: model.description
                                         showChildrenIndicator: true
                                         onClicked: {
                                             pageStack.push(eebusSetup,
@@ -1264,7 +1303,7 @@ StackView {
 
                     CoNavbarButton {
                         text: qsTr("Cancel")
-                        Layout.fillWidth: true
+                        Layout.alignment: Qt.AlignCenter
                         flat: true
                         onClicked: {
                             pageStack.pop();
@@ -1300,7 +1339,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Parameter")
 
                             ColumnLayout {
@@ -1311,8 +1350,8 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                                    labelText: qsTr("This SKI is required by the metering point operator.")
-                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    helpText: qsTr("This SKI is required by the metering point operator.")
+                                    labelText: qsTr("Local Subject Key Identifier (SKI)")
                                     iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                                     iconRightColor: Style.colors.brand_Basic_Accent
                                     interactive: text !== "-"
@@ -1330,7 +1369,7 @@ StackView {
                                         property var param: eebusSetupPage.discoveryThingParams.params.getParam(eebusSetupPage.thingClass.paramTypes.get(index).id)
                                         property string paramValue: param ? param.value : ""
                                         text: paramValue !== "" ? paramValue : "—"
-                                        helpText: model.displayName
+                                        labelText: model.displayName
                                     }
                                 }
                             }
@@ -1457,7 +1496,7 @@ StackView {
 
                     CoFrostyCard {
                         Layout.fillWidth: true
-                        contentTopMargin: Style.margins
+                        contentTopMargin: Style.smallMargins
                         headerText: qsTr("Parameter")
 
                             ColumnLayout {
@@ -1468,8 +1507,8 @@ StackView {
                                 CoCard {
                                     Layout.fillWidth: true
                                     text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                                    labelText: qsTr("This SKI is required by the metering point operator.")
-                                    helpText: qsTr("Local Subject Key Identifier (SKI)")
+                                    helpText: qsTr("This SKI is required by the metering point operator.")
+                                    labelText: qsTr("Local Subject Key Identifier (SKI)")
                                     iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                                     iconRightColor: Style.colors.brand_Basic_Accent
                                     interactive: text !== "-"
@@ -1495,7 +1534,7 @@ StackView {
 
                         CoFrostyCard {
                             Layout.fillWidth: true
-                            contentTopMargin: Style.margins
+                            contentTopMargin: Style.smallMargins
                             headerText: qsTr("Status")
                             visible: eebusGridGuardGateway != null
 
@@ -1749,7 +1788,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Control box")
 
                     ColumnLayout {
@@ -1760,8 +1799,8 @@ StackView {
                         CoCard {
                             Layout.fillWidth: true
                             text: eebusInformationThing ? eebusInformationThing.paramByName("localSki").value : "-"
-                            labelText: qsTr("This SKI is required by the metering point operator.")
-                            helpText: qsTr("Local Subject Key Identifier (SKI)")
+                            helpText: qsTr("This SKI is required by the metering point operator.")
+                            labelText: qsTr("Local Subject Key Identifier (SKI)")
                             iconRight: text !== "-" ? "/icons/file_copy.svg" : ""
                             iconRightColor: Style.colors.brand_Basic_Accent
                             interactive: text !== "-"
@@ -1775,7 +1814,7 @@ StackView {
 
                 CoFrostyCard {
                     Layout.fillWidth: true
-                    contentTopMargin: Style.margins
+                    contentTopMargin: Style.smallMargins
                     headerText: qsTr("Status")
                     visible: eebusGridGuardGateway != null
 

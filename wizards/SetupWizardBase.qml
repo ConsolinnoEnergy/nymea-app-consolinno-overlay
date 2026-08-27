@@ -46,7 +46,7 @@ Page {
             }
 
             CoNavbarButton {
-                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignCenter
                 text: qsTr("Cancel")
                 flat: true
                 onClicked: root.done(false, true, false)
@@ -212,7 +212,7 @@ Page {
 
             CoFrostyCard {
                 Layout.fillWidth: true
-                contentTopMargin: Style.margins
+                contentTopMargin: Style.smallMargins
                 headerText: root.integratedDevicesLabel
 
                 ColumnLayout {

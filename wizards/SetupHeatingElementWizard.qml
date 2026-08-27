@@ -28,9 +28,9 @@ SetupWizardBase {
     onSuccessHandler: function(thing) {
         if (thing) {
             var page = pageStack.push("../optimization/HeatingElementOptimization.qml", {
-                heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id),
+                heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thing.id),
                 heatRodThing: thing,
-                directionID: 1
+                calledFromAssistant: true
             });
             page.done.connect(function() {
                 pageStack.pop(root);

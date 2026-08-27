@@ -28,6 +28,7 @@ Item {
     property alias interactive: mouseArea.enabled
     property int status: CoCard.StatusType.NoStatus
     property bool deletable: false
+    property alias topMargin: layout.anchors.topMargin
 
     signal clicked()
     signal deleteClicked()

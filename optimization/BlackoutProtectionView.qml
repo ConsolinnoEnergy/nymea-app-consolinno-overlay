@@ -9,7 +9,7 @@ Page {
     id: root
     bottomPadding: 0
     property int navigationFooterHeight: 0
-    property int directionID: 0
+    property bool calledFromAssistant: false
 
     signal done(bool skip, bool abort, bool back)
 
@@ -22,11 +22,11 @@ Page {
         blurSource: bodyFlickable
         text: qsTr("System")
         backButtonVisible: true
-        onBackPressed:{
-            if (directionID == 0) {
-                pageStack.pop();
-            } else {
+        onBackPressed: {
+            if (calledFromAssistant) {
                 root.done(false, false, true);
+            } else {
+                pageStack.pop();
             }
         }
     }
@@ -35,20 +35,28 @@ Page {
     property int configuredPhaseLimit: 25
 
     readonly property bool applyEnabled: {
-        if (currentCombo.currentValue === 0) {
-            if (!currentInput.acceptableInput) { return false; }
-            return Number(currentInput.text) !== configuredPhaseLimit;
+        if (calledFromAssistant) {
+            if (currentCombo.currentValue === 0 && !currentInput.acceptableInput) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
-            return currentCombo.currentValue !== configuredPhaseLimit;
+            if (currentCombo.currentValue === 0) {
+                if (!currentInput.acceptableInput) { return false; }
+                return Number(currentInput.text) !== configuredPhaseLimit;
+            } else {
+                return currentCombo.currentValue !== configuredPhaseLimit;
+            }
         }
     }
 
     function applyChanges() {
-        if (directionID === 0) {
-            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
-        } else if (directionID === 1) {
+        if (calledFromAssistant) {
             hemsManager.setHousholdPhaseLimit(root.phaseLimit);
             root.done(false, false, false);
+        } else {
+            d.pendingCallId = hemsManager.setHousholdPhaseLimit(root.phaseLimit);
         }
     }
 
@@ -117,6 +125,19 @@ Page {
                        contentColumn.anchors.topMargin +
                        contentColumn.anchors.bottomMargin + root.navigationFooterHeight
         Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
+
+        onHeightChanged: {
+            if (PlatformHelper.imeHeight <= 0) return;
+            var focused = Window.activeFocusItem;
+            if (!focused) return;
+            var itemPos = focused.mapToItem(bodyFlickable.contentItem, 0, focused.height);
+            var itemBottom = itemPos.y;
+            var usableHeight = bodyFlickable.height - root.navigationFooterHeight;
+            var visibleBottom = bodyFlickable.contentY + usableHeight;
+            if (itemBottom > visibleBottom) {
+                bodyFlickable.contentY = itemBottom - usableHeight + Style.margins;
+            }
+        }
 
         ColumnLayout {
             id: contentColumn
@@ -187,7 +208,7 @@ Page {
     Component {
         id: blackoutNavbarControls
         CoNavbarButton {
-            text: qsTr("Apply changes")
+            text: root.calledFromAssistant ? qsTr("Next") : qsTr("Apply changes")
             enabled: root.applyEnabled
             onClicked: root.applyChanges()
         }

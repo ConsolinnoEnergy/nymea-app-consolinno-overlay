@@ -21,6 +21,34 @@ Item {
     signal backRequested()
 
     property int navigationFooterHeight: 0
+    property var _contentFlickable: null
+
+    function _findFlickable(item) {
+        if (!item) return null;
+        if (item.hasOwnProperty("contentY") && item.hasOwnProperty("contentItem"))
+            return item;
+        var kids = item.children || [];
+        for (var i = 0; i < kids.length; i++) {
+            var f = _findFlickable(kids[i]);
+            if (f) return f;
+        }
+        return null;
+    }
+
+    onHeightChanged: {
+        if (PlatformHelper.imeHeight <= 0) return;
+        var flickable = _contentFlickable;
+        if (!flickable) return;
+        var focused = Window.activeFocusItem;
+        if (!focused) return;
+        var itemPos = focused.mapToItem(flickable.contentItem, 0, focused.height);
+        var itemBottom = itemPos.y;
+        var usableHeight = flickable.height - root.navigationFooterHeight;
+        var visibleBottom = flickable.contentY + usableHeight;
+        if (itemBottom > visibleBottom) {
+            flickable.contentY = itemBottom - usableHeight + Style.margins;
+        }
+    }
 
     Rectangle {
         anchors.fill: parent
@@ -65,19 +93,9 @@ Item {
     }
 
     Component.onCompleted: {
-        function findFlickable(item) {
-            if (!item) return null;
-            if (item.hasOwnProperty("contentY") && item.hasOwnProperty("contentItem"))
-                return item;
-            var kids = item.children || [];
-            for (var i = 0; i < kids.length; i++) {
-                var f = findFlickable(kids[i]);
-                if (f) return f;
-            }
-            return null;
-        }
-        var c = findFlickable(content);
+        var c = _findFlickable(content);
         if (c) {
+            _contentFlickable = c;
             header.blurSource = c;
             c.topMargin = Qt.binding(function() { return header.height; });
             Qt.callLater(function() { c.contentY = -c.topMargin; });

@@ -22,7 +22,7 @@ Item {
         anchors.fill: parent
         color: Style.colors.typography_Background_Accent
 
-        layer.enabled: true
+        layer.enabled: width > 0 && height > 0
         layer.effect: OpacityMask {
             maskSource: roundedRectMask
         }
@@ -34,7 +34,7 @@ Item {
         anchors.topMargin: valueLayout.height
         color: Style.colors.typography_Background_Accent_secondary
 
-        layer.enabled: true
+        layer.enabled: width > 0 && height > 0
         layer.effect: OpacityMask {
             maskSource: backgroundLabelMaskSource
         }

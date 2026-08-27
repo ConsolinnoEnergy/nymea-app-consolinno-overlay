@@ -35,7 +35,7 @@ ConfigurationBase {
     property string serviceTel: "+49 (0) 0941 20300 333"
 
     //Branding company
-    property string companyAddress: "Franz-Mayer-Straße 1"
+    property string companyAddress: "Rudolf-Vogt-Straße 8"
     property string companyZip: "93053"
     property string companyLocation: "Regensburg"
     property string companyTel: "+49 (0) 941 20 300 000"

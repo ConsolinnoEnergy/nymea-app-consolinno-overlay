@@ -38,7 +38,6 @@ Page {
         id: header
         anchors { left: parent.left; right: parent.right; top: parent.top }
         z: 1
-        blurSource: bodyFlickable
         text: qsTr("Set up new device")
         onBackPressed: {
             pageStack.pop();
@@ -61,41 +60,41 @@ Page {
                 thingPage = pageStack.push("../optimization/HeatingOptimization.qml", {
                     heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
                     heatPumpThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("evcharger")) {
                 thingPage = pageStack.push("../optimization/EvChargerOptimization.qml", {
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("heatingrod")) {
                 thingPage = pageStack.push("../optimization/HeatingElementOptimization.qml", {
-                    heatingConfiguration: hemsManager.heatingConfigurations.getHeatingConfiguration(thingDevice.id),
+                    heatingElementConfiguration: hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thingDevice.id),
                     heatRodThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("solarinverter")) {
                 thingPage = pageStack.push("../optimization/PVOptimization.qml", {
                     pvConfiguration: hemsManager.pvConfigurations.getPvConfiguration(thingDevice.id),
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("energystorage")) {
                 thingPage = pageStack.push("../optimization/BatteryOptimization.qml", {
                     batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thingDevice.id),
                     thing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else if (thingClass.interfaces.includes("powersocket")) {
                 thingPage = pageStack.push("../optimization/SwitchableConsumerOptimization.qml", {
                     switchConfiguration: hemsManager.switchConfigurations.getSwitchConfiguration(thingDevice.id),
                     switchThing: thingDevice,
-                    directionID: 1
+                    calledFromAssistant: true
                 });
                 navigateBack(thingPage);
             } else {
@@ -198,22 +197,25 @@ Page {
         anchors.fill: parent
         spacing: 0
 
+        CoInputField {
+            id: filterField
+            Layout.fillWidth: true
+            Layout.topMargin: header.height
+            labelText: qsTr("Search")
+        }
+
         Flickable {
             id: bodyFlickable
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.leftMargin: Style.margins
             Layout.rightMargin: Style.margins
-            topMargin: header.height
             contentHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin + root.navigationFooterHeight
             clip: true
-
-            Component.onCompleted: Qt.callLater(() => contentY = -topMargin)
 
             ColumnLayout {
                 id: layout
                 anchors { left: parent.left; right: parent.right; top: parent.top }
-                anchors.topMargin: Style.margins
                 anchors.bottomMargin: Style.margins
                 spacing: Style.margins
 
@@ -307,11 +309,5 @@ Page {
             }
         }
 
-        CoInputField {
-            id: filterField
-            Layout.fillWidth: true
-            Layout.bottomMargin: root.navigationFooterHeight
-            labelText: qsTr("Search")
-        }
     }
 }

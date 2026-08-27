@@ -326,7 +326,7 @@ Item {
 
             if (!blackoutProtectionSetting.blackoutProtectionDone) {
                 var page = pushPage("../optimization/BlackoutProtectionView.qml", {
-                                        "directionID": 1
+                                        "calledFromAssistant": true
                                     })
                 page.done.connect(function (skip, abort, back) {
                     if (back) {
@@ -347,9 +347,7 @@ Item {
             }
 
             if ((!wizardSettings.installerData) || !manualWizardSettings.installerData) {
-                var page = pushPage("/ui/wizards/InstallerDataView.qml", {
-                                        "directionID": 0
-                                    })
+                var page = pushPage("/ui/wizards/InstallerDataView.qml")
                 page.done.connect(function (saved, skip, back) {
                     if (back) {
                         if (blackoutProtectionSetting.blackoutBackPage) {
