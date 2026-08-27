@@ -34,16 +34,16 @@ ColumnLayout {
     }
 
     Label {
-        text: qsTr("%1, Week %2").arg(yearPicker.currentValue).arg(weekPicker.currentValue)
-        font: Style.newSmallFontBold
-        color: Style.foregroundColor
+        text: qsTr("Week %1, %2").arg(weekPicker.currentValue).arg(yearPicker.currentValue)
+        font: Style.newH2Font
+        color: Style.colors.typography_Basic_Default
     }
 
     Label {
         text: root.resultDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat) + " – "
               + root.resultWeekEnd.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
         font: Style.newSmallFont
-        color: Style.subTextColor
+        color: Style.colors.typography_Basic_Default
     }
 
     RowLayout {
@@ -51,6 +51,20 @@ ColumnLayout {
         Layout.margins: Style.smallMargins
         Layout.alignment: Qt.AlignCenter
         spacing: Style.largeMargins
+
+        CoWheelPicker {
+            id: weekPicker
+            values: {
+                var count = DateUtils.isoWeeksInYear(yearPicker.currentValue || root.selectedDate.getFullYear())
+                var result = []
+                for (var w = 1; w <= count; w++)
+                    result.push(w)
+                return result
+            }
+            // Source string in English per project convention; translators
+            // provide the localized abbreviation (e.g. German "KW").
+            textForValue: function(value) { return qsTr("Week %1").arg(value) }
+        }
 
         CoWheelPicker {
             id: yearPicker
@@ -78,20 +92,6 @@ ColumnLayout {
                     weekPicker.selectValueImmediate(Math.min(oldWeek, maxWeek))
                 })
             }
-        }
-
-        CoWheelPicker {
-            id: weekPicker
-            values: {
-                var count = DateUtils.isoWeeksInYear(yearPicker.currentValue || root.selectedDate.getFullYear())
-                var result = []
-                for (var w = 1; w <= count; w++)
-                    result.push(w)
-                return result
-            }
-            // Source string in English per project convention; translators
-            // provide the localized abbreviation (e.g. German "KW").
-            textForValue: function(value) { return qsTr("Week %1").arg(value) }
         }
     }
 

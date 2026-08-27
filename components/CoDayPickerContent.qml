@@ -67,13 +67,9 @@ ColumnLayout {
     }
 
     Label {
-        // Full localized date incl. weekday - LongFormat guarantees correct
-        // day/month/year ORDER per locale (a fixed "d. MMMM yyyy" pattern
-        // would hardcode the German day-first convention and read wrong
-        // e.g. in en_US).
-        text: root.selectedDate.toLocaleDateString(Qt.locale(), Locale.LongFormat)
-        font: Style.newSmallFontBold
-        color: Style.foregroundColor
+        text: root.selectedDate.toLocaleDateString(Qt.locale(), qsTr("d. MMMM yyyy"))
+        font: Style.newH2Font
+        color: Style.colors.typography_Basic_Default
     }
 
     RowLayout {
@@ -81,12 +77,9 @@ ColumnLayout {
         spacing: Style.smallMargins
 
         Label {
-            // Locale.standaloneMonthName() expects a 0-based month (0-11,
-            // matching JS Date), UNLIKE the C++ QLocale API (which is
-            // 1-12) - no "+1" here.
             text: Qt.locale().standaloneMonthName(root.displayMonth, Locale.LongFormat) + " " + root.displayYear
             font: Style.newSmallFont
-            color: Style.subTextColor
+            color: Style.colors.typography_Basic_Default
         }
 
         CoIconButton {
@@ -100,7 +93,10 @@ ColumnLayout {
             onClicked: root.monthPickerOpen = !root.monthPickerOpen
         }
 
-        Item { Layout.fillWidth: true }
+        Item {
+            Layout.fillWidth: true
+            Layout.preferredHeight: 32
+        }
 
         CoIconButton {
             visible: !root.monthPickerOpen
@@ -180,8 +176,9 @@ ColumnLayout {
     DayOfWeekRow {
         Layout.fillWidth: true
         locale: Qt.locale()
-        font: Style.newSmallFont
+        font: Style.newParagraphFont
         visible: !root.monthPickerOpen
+        palette.text: Style.colors.typography_Basic_Default
     }
 
     MonthGrid {
@@ -217,9 +214,12 @@ ColumnLayout {
                 anchors.centerIn: parent
                 text: model.day
                 opacity: dayDelegate.isCurrentMonth ? (dayDelegate.isFuture ? Style.numbers.components_Disabled_opacity : 1) : 0
-                color: dayDelegate.isSelected ? Style.colors.components_Datepicker_Selection_text
-                                               : (model.today ? Style.colors.components_Datepicker_Today : Style.foregroundColor)
-                font: dayDelegate.isSelected || model.today ? Style.newSmallFontBold : Style.newSmallFont
+                color: dayDelegate.isSelected ?
+                           Style.colors.components_Datepicker_Selection_text :
+                           model.today ?
+                                Style.colors.components_Datepicker_Today :
+                                Style.colors.typography_Basic_Default
+                font: Style.newParagraphFont
             }
 
             MouseArea {

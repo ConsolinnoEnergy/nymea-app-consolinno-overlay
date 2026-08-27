@@ -74,6 +74,7 @@ CoOverlay {
         id: stack
         anchors.fill: parent
         anchors.margins: Style.margins
+        anchors.topMargin: Style.bigMargins
 
         CoDayPickerContent {
             id: dayContent

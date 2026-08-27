@@ -241,6 +241,7 @@ Item {
 
         RowLayout {
             Layout.fillWidth: true
+            Layout.leftMargin: Style.extraExtraSmallMargins
             spacing: Style.smallMargins
 
             ListView {
@@ -366,13 +367,13 @@ Item {
                     width: label.implicitWidth + Style.margins
                     height: label.implicitHeight + Style.smallMargins
 
-                    opacity: isFuture ? 0.3 : (ListView.isCurrentItem ? 1 : 0.5)
+                    opacity: ListView.isCurrentItem ? 1 : 0.33
 
                     Label {
                         id: label
                         anchors.centerIn: parent
                         text: d.formatPeriod(periodDate, root.sampleRate)
-                        font: parent.ListView.isCurrentItem ? Style.newSmallFontBold : Style.smallFont
+                        font: Style.newSmallFont
                         color: Style.foregroundColor
                     }
 

@@ -33,8 +33,8 @@ ColumnLayout {
         // Locale.standaloneMonthName() is 0-based (0-11, matching JS Date),
         // UNLIKE the C++ QLocale API (which is 1-12) - no "+1" here.
         text: Qt.locale().standaloneMonthName(monthPicker.currentValue, Locale.LongFormat) + " " + yearPicker.currentValue
-        font: Style.newSmallFontBold
-        color: Style.foregroundColor
+        font: Style.newH2Font
+        color: Style.colors.typography_Basic_Default
     }
 
     RowLayout {
@@ -54,7 +54,7 @@ ColumnLayout {
             // QLocale month names are 0-based in QML (Locale.standaloneMonthName
             // expects 0-11, matching JS Date), unlike the C++ QLocale API
             // (1-12) - our values are already 0-based JS Date month indices.
-            textForValue: function(value) { return Qt.locale().standaloneMonthName(value, Locale.LongFormat) }
+            textForValue: function(value) { return Qt.locale().standaloneMonthName(value, Locale.ShortFormat) }
         }
 
         CoWheelPicker {

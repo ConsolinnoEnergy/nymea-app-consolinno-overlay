@@ -58,6 +58,7 @@ Tumbler {
     wrap: false
     visibleItemCount: 7
     implicitHeight: rowHeight * visibleItemCount
+    implicitWidth: 80
 
     delegate: Item {
         id: delegateItem
@@ -76,9 +77,9 @@ Tumbler {
         Label {
             anchors.centerIn: parent
             text: root.textForValue(delegateItem.modelData)
-            font: delegateItem.isCurrent ? Style.newSmallFontBold : Style.newSmallFont
-            color: delegateItem.isCurrent ? Style.foregroundColor : Style.subTextColor
-            opacity: delegateItem.isCurrent ? 1 : Math.max(0.25, 1 - Math.abs(delegateItem.displacement) * 0.25)
+            font: Style.newParagraphFont
+            color: Style.colors.typography_Basic_Default
+            opacity: delegateItem.isCurrent ? 1 : Math.max(0.33, 1 - Math.abs(delegateItem.displacement) * 0.33)
         }
 
         MouseArea {
@@ -87,21 +88,13 @@ Tumbler {
         }
     }
 
-    // Hairlines above/below the centered selection row, matching the visual
-    // reference (a subtle "window" indicating the currently picked value).
-    Rectangle {
-        y: root.topPadding + root.availableHeight / 2 - root.rowHeight / 2
+    CoDivider {
+        y: root.topPadding + root.availableHeight / 2 - root.rowHeight / 2 - Style.smallMargins - 1
         width: parent.width
-        height: 1
-        color: Style.subTextColor
-        opacity: 0.3
     }
 
-    Rectangle {
-        y: root.topPadding + root.availableHeight / 2 + root.rowHeight / 2
+    CoDivider {
+        y: root.topPadding + root.availableHeight / 2 + root.rowHeight / 2 - Style.smallMargins - 1
         width: parent.width
-        height: 1
-        color: Style.subTextColor
-        opacity: 0.3
     }
 }

@@ -26,8 +26,8 @@ ColumnLayout {
 
     Label {
         text: root.resultDate.getFullYear().toString()
-        font: Style.newSmallFontBold
-        color: Style.foregroundColor
+        font: Style.newH2Font
+        color: Style.colors.typography_Basic_Default
     }
 
     CoWheelPicker {
