@@ -59,7 +59,6 @@ Item {
     readonly property real _minWindowMs: 6 * _hourMs
     readonly property real _maxWindowMs: 24 * _hourMs
     readonly property int _yLabelCount: 5
-    readonly property int _xLabelCount: 6
 
     property real _visibleStartTime: 0
     property real _visibleWindowMs: _maxWindowMs
@@ -130,6 +129,18 @@ Item {
     onSelectedDayChanged: root._resetToSelectedDay()
     Component.onCompleted: root._resetToSelectedDay()
 
+    // Sets the visible x-axis window to the given size (clamped to
+    // [_minWindowMs, _maxWindowMs]) while keeping the current center time,
+    // similar to a pinch-zoom centered on the middle of the current view.
+    // Intended for programmatic/test use (e.g. quick "24h/12h/6h" buttons).
+    function setVisibleWindowHours(hours) {
+        var newWindow = root._clamp(hours * root._hourMs, root._minWindowMs, root._maxWindowMs)
+        var center = root._visibleStartTime + root._visibleWindowMs / 2
+        root._visibleWindowMs = newWindow
+        root._visibleStartTime = center - newWindow / 2
+        rangeSettleTimer.restart()
+    }
+
     // Debounce visibleRangeChanged so pan/zoom gestures don't flood listeners
     // (e.g. a page that triggers a data (re)fetch on this signal).
     Timer {
@@ -151,15 +162,87 @@ Item {
         return result
     }
 
+    // Font metrics used to reserve exact space for the custom axis label
+    // overlays below. ChartView's own plotArea auto-sizing (with
+    // labelsVisible: false on all axes) is not reliable across platforms/
+    // fonts - it left far too little room in some environments, causing the
+    // label overlays to render outside the chart bounds. Reserving explicit
+    // margins on the ChartView itself guarantees the plotArea always leaves
+    // enough room for them.
+    FontMetrics {
+        id: axisFontMetrics
+        font: Style.extraSmallFont
+    }
+
+    readonly property real _leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
+    readonly property real _rightAxisReserve: root.percentAxisVisible ? (axisFontMetrics.advanceWidth("100%") + Style.extraSmallMargins) : Style.extraSmallMargins
+    readonly property real _xLabelsHeight: axisFontMetrics.height * 2 + 2
+    readonly property real _bottomAxisReserve: root._xLabelsHeight + Style.extraSmallMargins
+
+    function _dayNoonsInRange(startMs, endMs) {
+        var result = []
+        var d = new Date(startMs)
+        d.setHours(12, 0, 0, 0)
+        if (d.getTime() < startMs)
+            d.setDate(d.getDate() + 1)
+        while (d.getTime() <= endMs) {
+            result.push(d.getTime())
+            d.setDate(d.getDate() + 1)
+        }
+        return result
+    }
+
+    // Picks a "nice" hour step (divisor of 24h) for the x-axis time labels,
+    // aiming for roughly 4 evenly spaced intervals across the visible
+    // window, e.g. 6h steps for a 24h window, 3h steps for 12h, 1h steps for
+    // a 6h window. Ticks are then placed at absolute clock-time multiples of
+    // this step (not relative to the visible window start), so they stay at
+    // fixed positions (e.g. always 00:00, 06:00, 12:00, 18:00) while panning
+    // instead of shifting with the visible window.
+    function _niceHourStep(windowHours) {
+        var candidates = [1, 2, 3, 4, 6, 8, 12, 24]
+        var target = windowHours / 4
+        var step = candidates[0]
+        for (var i = 0; i < candidates.length; i++) {
+            if (candidates[i] <= target)
+                step = candidates[i]
+            else
+                break
+        }
+        return step
+    }
+
+    // Absolute clock-time tick positions (multiples of stepHours since local
+    // midnight) that fall within [startMs, endMs].
+    function _xTicksInRange(startMs, endMs, stepHours) {
+        var stepMs = stepHours * root._hourMs
+        var d = new Date(startMs)
+        d.setHours(0, 0, 0, 0)
+        var t = d.getTime()
+        while (t < startMs)
+            t += stepMs
+        var result = []
+        while (t <= endMs) {
+            result.push(t)
+            t += stepMs
+        }
+        return result
+    }
+
+    Item {
+        id: chartContainer
+        anchors.fill: parent
+        anchors.margins: Style.smallMargins
+
     ChartView {
         id: chartView
         anchors.fill: parent
         legend.visible: false
         antialiasing: true
-        margins.top: 0
-        margins.bottom: 0
-        margins.left: 0
-        margins.right: 0
+        margins.top: Style.extraSmallMargins
+        margins.bottom: root._bottomAxisReserve
+        margins.left: root._leftAxisReserve
+        margins.right: root._rightAxisReserve
 
         ValueAxis {
             id: yAxisLeft
@@ -189,7 +272,7 @@ Item {
             min: new Date(root._visibleStartTime)
             max: new Date(root._visibleStartTime + root._visibleWindowMs)
             labelsVisible: false
-            gridLineColor: Style.colors.components_Statistics_Grid
+            gridVisible: false
             lineVisible: false
             minorGridVisible: false
         }
@@ -310,49 +393,41 @@ Item {
         }
     }
 
-    // -- Custom x-axis labels: time (hh:mm) on every tick, date only on the
-    // tick nearest a day boundary --
+    // -- Custom x-axis labels: hh:mm at fixed clock-time positions (based on
+    // the current zoom level's nice hour step, anchored to absolute time so
+    // they don't shift while panning), date at the tick nearest noon of each
+    // visible day --
     Item {
         id: xLabelsLayout
         x: chartView.plotArea.x
-        y: chartView.plotArea.y + chartView.plotArea.height
+        y: chartView.plotArea.y + chartView.plotArea.height + Style.extraSmallMargins
         width: chartView.plotArea.width
-        height: 32
+        height: root._xLabelsHeight
 
         Repeater {
-            model: root._xLabelCount
+            model: root._xTicksInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs, root._niceHourStep(root._visibleWindowMs / root._hourMs))
 
-            delegate: Column {
-                readonly property real _tickTime: root._visibleStartTime + index * (root._visibleWindowMs / (root._xLabelCount - 1))
-                readonly property real _halfSpacing: root._visibleWindowMs / (root._xLabelCount - 1) / 2
-                readonly property bool _showDate: {
-                    var boundaries = root._dayBoundariesInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs)
-                    for (var i = 0; i < boundaries.length; i++) {
-                        if (Math.abs(_tickTime - boundaries[i]) <= _halfSpacing)
-                            return true
-                    }
-                    return false
-                }
+            delegate: Label {
+                required property var modelData
+                x: xLabelsLayout.width * ((modelData - root._visibleStartTime) / root._visibleWindowMs) - width / 2
+                horizontalAlignment: Text.AlignHCenter
+                font: Style.extraSmallFont
+                color: Style.colors.typography_Basic_Secondary
+                text: Qt.formatTime(new Date(modelData), "hh:mm")
+            }
+        }
 
-                x: xLabelsLayout.width * (index / (root._xLabelCount - 1)) - width / 2
-                width: xLabelsLayout.width / root._xLabelCount
-                spacing: 2
+        Repeater {
+            model: root._dayNoonsInRange(root._visibleStartTime, root._visibleStartTime + root._visibleWindowMs)
 
-                Label {
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                    font: Style.extraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
-                    text: Qt.formatTime(new Date(parent._tickTime), "hh:mm")
-                }
-                Label {
-                    width: parent.width
-                    horizontalAlignment: Text.AlignHCenter
-                    font: Style.extraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
-                    visible: parent._showDate
-                    text: Qt.formatDate(new Date(parent._tickTime), "d. MMM yyyy")
-                }
+            delegate: Label {
+                required property var modelData
+                x: xLabelsLayout.width * ((modelData - root._visibleStartTime) / root._visibleWindowMs) - width / 2
+                y: axisFontMetrics.height + 2
+                horizontalAlignment: Text.AlignHCenter
+                font: Style.extraSmallFont
+                color: Style.colors.typography_Basic_Secondary
+                text: Qt.formatDate(new Date(modelData), "d. MMM yyyy")
             }
         }
     }
@@ -369,7 +444,7 @@ Item {
             model: root._yLabelCount
 
             delegate: Label {
-                width: parent.width - 4
+                width: parent.width - Style.extraSmallMargins
                 y: parent.height / (root._yLabelCount - 1) * index - font.pixelSize / 2
                 horizontalAlignment: Text.AlignRight
                 font: Style.extraSmallFont
@@ -384,7 +459,7 @@ Item {
         id: yRightLabelsLayout
         x: chartView.plotArea.x + chartView.plotArea.width
         y: chartView.plotArea.y
-        width: root.width - x
+        width: chartContainer.width - x
         height: chartView.plotArea.height
         visible: root.percentAxisVisible
 
@@ -392,8 +467,8 @@ Item {
             model: root._yLabelCount
 
             delegate: Label {
-                width: parent.width - 4
-                x: 4
+                width: parent.width - Style.extraSmallMargins
+                x: Style.extraSmallMargins
                 y: parent.height / (root._yLabelCount - 1) * index - font.pixelSize / 2
                 horizontalAlignment: Text.AlignLeft
                 font: Style.extraSmallFont
@@ -422,8 +497,8 @@ Item {
 
     Connections {
         target: root
-        function on_VisibleStartTimeChanged() { root._updateDayBoundaries() }
-        function on_VisibleWindowMsChanged() { root._updateDayBoundaries() }
+        function on_VisibleStartTimeChanged() { chartContainer._updateDayBoundaries() }
+        function on_VisibleWindowMsChanged() { chartContainer._updateDayBoundaries() }
     }
 
     // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
@@ -480,6 +555,7 @@ Item {
             root._visibleStartTime = _startStartTime + deltaMs
         }
     }
+    } // chartContainer
 
     // -- Busy overlay: dim the chart and show a spinner while loading --
     Rectangle {

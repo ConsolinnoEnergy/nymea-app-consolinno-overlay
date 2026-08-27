@@ -7,13 +7,17 @@ import Nymea
 //
 // Row of CoLegendPill controls, one per entry in "series" (the same array
 // passed to CoStatsLineChart), letting the user toggle the visibility of
-// each line. Tapping a pill toggles that series' "visible" flag and
-// re-assigns "series" with a new array reference so property bindings on
-// CoStatsLineChart pick up the change.
+// each line. Tapping a pill emits "seriesVisibilityToggled(index, visible)" -
+// the consumer (whoever owns the "series" array passed to both this legend
+// and CoStatsLineChart) is expected to update that array's entry and
+// re-assign it (with a new array reference) to both components in response,
+// since "series" is a plain JS array, not a shared/bindable model.
 Row {
     id: root
 
     required property var series
+
+    signal seriesVisibilityToggled(int index, bool visible)
 
     spacing: 8
 
@@ -29,11 +33,7 @@ Row {
             pillAccentColor: modelData.color
             checked: modelData.visible !== false
 
-            onToggled: {
-                var updated = root.series.slice()
-                updated[index] = Object.assign({}, updated[index], { visible: checked })
-                root.series = updated
-            }
+            onToggled: root.seriesVisibilityToggled(index, checked)
         }
     }
 }
