@@ -27,7 +27,7 @@ import Nymea
 //
 // stacks: array of exactly 2 objects, each with:
 //   - series: array of objects, each with:
-//     - name: string, series name (used by CoStatsLineChartLegend)
+//     - name: string, series name (used by CoStatsChartLegend)
 //     - color: color, bar segment/legend color
 //     - borderColor: color (optional), bar segment border color. Defaults
 //       to "color" (no visible border) if omitted.

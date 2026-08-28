@@ -20,7 +20,7 @@ import Nymea
 // property names.
 //
 // series: array of objects, each with:
-//   - name: string, series name (used by CoStatsLineChartLegend)
+//   - name: string, series name (used by CoStatsChartLegend)
 //   - color: color, line/legend color
 //   - visible: bool (optional, defaults to true), toggled by the legend
 //   - axis: "left" (default) or "right" - which y-axis the series belongs to
