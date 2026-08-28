@@ -29,6 +29,8 @@ import Nymea
 //   - series: array of objects, each with:
 //     - name: string, series name (used by CoStatsLineChartLegend)
 //     - color: color, bar segment/legend color
+//     - borderColor: color (optional), bar segment border color. Defaults
+//       to "color" (no visible border) if omitted.
 //     - visible: bool (optional, defaults to true), toggled by the legend
 //     - values: array of numbers, same length as "categories" - the value
 //       contributed by this series to each category's bar stack
@@ -56,9 +58,52 @@ Item {
         // values, which are always assumed to be in kWh).
         readonly property real mWhThreshold: 1000
 
+        // Gap between stacked bar segments within one bar. QtCharts has no
+        // native concept of spacing between the layers of a stacked bar -
+        // segments are always drawn flush against each other. The
+        // established workaround (matching the one already used above for
+        // inter-category spacing) is to insert an extra transparent,
+        // borderless "spacer" BarSet between every pair of real segments,
+        // whose value is a small sliver of the axis range. Since the axis
+        // is in kWh (not pixels) and the desired gap is a fixed pixel size
+        // regardless of the current zoom/scale, the sliver's value is
+        // computed from the current pixels-per-kWh ratio and recomputed
+        // whenever the axis range or plot area size changes.
+        readonly property real segmentGapPixels: Style.numbers.components_Statistics_Bar_spacing_L
+        readonly property real segmentGapValue: chartView.plotArea.height > 0 && yAxis.max > yAxis.min
+                                                 ? d.segmentGapPixels * (yAxis.max - yAxis.min) / chartView.plotArea.height
+                                                 : 0
+        onSegmentGapValueChanged: { d.rebuildStack(0); d.rebuildStack(1) }
+
         readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
         readonly property real xLabelsHeight: axisFontMetrics.height + 2
         readonly property real bottomAxisReserve: xLabelsHeight + Style.extraSmallMargins
+        // Reserve room above the plot area for the unit label ("kWh"/"MWh"),
+        // which is placed at a fixed offset from the container top
+        // (independent of plotArea/Controls padding quirks) plus a gap
+        // before the topmost y-axis number so they never collide.
+        readonly property real topAxisReserve: Style.extraSmallMargins + axisFontMetrics.height + Style.extraSmallMargins * 2
+
+        // Because QtCharts spaces all bars evenly across the whole
+        // category axis (there's no separate "within-group" vs
+        // "between-group" gap concept), grouping the two stacks' bars
+        // tightly per category while keeping a bigger gap between
+        // categories requires inserting an extra "spacer" category slot
+        // between every pair of real categories (with all bar values at
+        // that slot set to 0, i.e. invisible). Spacer category names must
+        // be unique - QtCharts mishandles duplicate (e.g. repeated "")
+        // category labels, corrupting the axis-to-value index mapping.
+        readonly property int expandedSlotCount: root.categories.length > 0 ? root.categories.length * 2 - 1 : 0
+
+        function expandedCategories() {
+            var result = []
+            for (var c = 0; c < root.categories.length; c++) {
+                result.push(root.categories[c])
+                if (c < root.categories.length - 1)
+                    result.push("__coStatsBarChartGap" + c + "__")
+            }
+            return result
+        }
 
         function stackAt(stackIndex) {
             return stackIndex < root.stacks.length ? root.stacks[stackIndex] : null
@@ -133,17 +178,54 @@ Item {
             return Math.round(scaled * 10) / 10
         }
 
-        function valuesForSlot(stackIndex, seriesIndex) {
+        function expandedValues(stackIndex, seriesIndex) {
             var desc = d.seriesDescriptor(stackIndex, seriesIndex)
             var count = root.categories.length
             var result = []
             for (var c = 0; c < count; c++) {
-                if (!desc || desc.visible === false || !desc.values) {
-                    result.push(0)
-                    continue
+                var v = 0
+                if (desc && desc.visible !== false && desc.values) {
+                    var raw = desc.values[c]
+                    if (raw)
+                        v = raw
                 }
-                var v = desc.values[c]
-                result.push(v ? v : 0)
+                result.push(v)
+                if (c < count - 1)
+                    result.push(0)
+            }
+            return result
+        }
+
+        function hasVisibleValue(stackIndex, seriesIndex, categoryIndex) {
+            var desc = d.seriesDescriptor(stackIndex, seriesIndex)
+            if (!desc || desc.visible === false || !desc.values)
+                return false
+            var v = desc.values[categoryIndex]
+            return !!v && v > 0
+        }
+
+        // The gap slot sitting directly above real segment "seriesIndex"
+        // should only be visible (non-zero) if that segment itself is
+        // visible/non-zero AND at least one later segment will be stacked
+        // on top of it for this category - otherwise it would just add a
+        // stray sliver of empty space above the topmost visible segment.
+        function gapValueForCategory(stackIndex, seriesIndex, categoryIndex) {
+            if (!d.hasVisibleValue(stackIndex, seriesIndex, categoryIndex))
+                return 0
+            for (var j = seriesIndex + 1; j < d.maxSeriesPerStack; j++) {
+                if (d.hasVisibleValue(stackIndex, j, categoryIndex))
+                    return d.segmentGapValue
+            }
+            return 0
+        }
+
+        function expandedGapValues(stackIndex, seriesIndex) {
+            var count = root.categories.length
+            var result = []
+            for (var c = 0; c < count; c++) {
+                result.push(d.gapValueForCategory(stackIndex, seriesIndex, c))
+                if (c < count - 1)
+                    result.push(0)
             }
             return result
         }
@@ -151,14 +233,30 @@ Item {
         function updateBarSet(barSet, stackIndex, seriesIndex) {
             var desc = d.seriesDescriptor(stackIndex, seriesIndex)
             barSet.color = desc && desc.color ? desc.color : "transparent"
-            barSet.borderColor = barSet.color
-            barSet.values = d.valuesForSlot(stackIndex, seriesIndex)
+            barSet.borderColor = desc && desc.borderColor ? desc.borderColor : barSet.color
+            barSet.borderWidth = 1
+            barSet.values = d.expandedValues(stackIndex, seriesIndex)
+        }
+
+        function updateGapSet(barSet, stackIndex, seriesIndex) {
+            // borderWidth: 0 alone is not enough - QBarSet still renders a
+            // cosmetic (always ~1px) pen using borderColor, which otherwise
+            // falls back to the chart theme's default (dark) border color.
+            // Explicitly set borderColor to transparent as well so no line
+            // is drawn at all.
+            barSet.color = "transparent"
+            barSet.borderColor = "transparent"
+            barSet.borderWidth = 0
+            barSet.values = d.expandedGapValues(stackIndex, seriesIndex)
         }
 
         function rebuildStack(stackIndex) {
             var sets = stackIndex === 0 ? chartView.barSets0 : chartView.barSets1
             for (var i = 0; i < sets.length; i++)
                 d.updateBarSet(sets[i], stackIndex, i)
+            var gaps = stackIndex === 0 ? chartView.gapSets0 : chartView.gapSets1
+            for (var i = 0; i < gaps.length; i++)
+                d.updateGapSet(gaps[i], stackIndex, i)
             d.updateAxisRange()
         }
     }
@@ -182,7 +280,7 @@ Item {
             anchors.fill: parent
             legend.visible: false
             antialiasing: true
-            margins.top: Style.extraSmallMargins
+            margins.top: d.topAxisReserve
             margins.bottom: d.bottomAxisReserve
             margins.left: d.leftAxisReserve
             margins.right: Style.extraSmallMargins
@@ -200,50 +298,68 @@ Item {
 
             BarCategoryAxis {
                 id: categoryAxis
-                categories: root.categories
+                categories: d.expandedCategories()
                 labelsVisible: false
                 gridVisible: false
                 lineVisible: false
             }
 
             // -- Stack 0 (e.g. "sources") - fixed data-series slots, bound
-            // to root.stacks[0].series[i] --
+            // to root.stacks[0].series[i], interleaved with transparent
+            // "segment gap" spacer BarSets (see d.segmentGapValue) --
             StackedBarSeries {
                 id: barSeries0
                 axisX: categoryAxis
                 axisY: yAxis
-                barWidth: 0.35
+                barWidth: 0.7
 
                 BarSet { id: barSet0_0 }
+                BarSet { id: gapSet0_0 }
                 BarSet { id: barSet0_1 }
+                BarSet { id: gapSet0_1 }
                 BarSet { id: barSet0_2 }
+                BarSet { id: gapSet0_2 }
                 BarSet { id: barSet0_3 }
+                BarSet { id: gapSet0_3 }
                 BarSet { id: barSet0_4 }
+                BarSet { id: gapSet0_4 }
                 BarSet { id: barSet0_5 }
+                BarSet { id: gapSet0_5 }
                 BarSet { id: barSet0_6 }
+                BarSet { id: gapSet0_6 }
                 BarSet { id: barSet0_7 }
             }
 
             // -- Stack 1 (e.g. "consumers") - fixed data-series slots, bound
-            // to root.stacks[1].series[i] --
+            // to root.stacks[1].series[i], interleaved with transparent
+            // "segment gap" spacer BarSets (see d.segmentGapValue) --
             StackedBarSeries {
                 id: barSeries1
                 axisX: categoryAxis
                 axisY: yAxis
-                barWidth: 0.35
+                barWidth: 0.7
 
                 BarSet { id: barSet1_0 }
+                BarSet { id: gapSet1_0 }
                 BarSet { id: barSet1_1 }
+                BarSet { id: gapSet1_1 }
                 BarSet { id: barSet1_2 }
+                BarSet { id: gapSet1_2 }
                 BarSet { id: barSet1_3 }
+                BarSet { id: gapSet1_3 }
                 BarSet { id: barSet1_4 }
+                BarSet { id: gapSet1_4 }
                 BarSet { id: barSet1_5 }
+                BarSet { id: gapSet1_5 }
                 BarSet { id: barSet1_6 }
+                BarSet { id: gapSet1_6 }
                 BarSet { id: barSet1_7 }
             }
 
             property var barSets0: [barSet0_0, barSet0_1, barSet0_2, barSet0_3, barSet0_4, barSet0_5, barSet0_6, barSet0_7]
             property var barSets1: [barSet1_0, barSet1_1, barSet1_2, barSet1_3, barSet1_4, barSet1_5, barSet1_6, barSet1_7]
+            property var gapSets0: [gapSet0_0, gapSet0_1, gapSet0_2, gapSet0_3, gapSet0_4, gapSet0_5, gapSet0_6]
+            property var gapSets1: [gapSet1_0, gapSet1_1, gapSet1_2, gapSet1_3, gapSet1_4, gapSet1_5, gapSet1_6]
         }
 
         // -- x-axis category labels --
@@ -261,8 +377,8 @@ Item {
                     required property var modelData
                     required property int index
 
-                    width: xLabelsLayout.width / Math.max(1, root.categories.length)
-                    x: width * index
+                    width: xLabelsLayout.width / Math.max(1, d.expandedSlotCount)
+                    x: width * (index * 2)
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.extraSmallFont
                     color: Style.colors.typography_Basic_Secondary
@@ -295,10 +411,18 @@ Item {
             }
         }
 
-        // -- Unit label (top-left, e.g. "kWh" or "MWh") --
+        // -- Unit label (top-left, e.g. "kWh" or "MWh") - right-aligned in
+        // the same column/width as the y-axis numbers below it, so it lines
+        // up with them regardless of how narrow/wide the current numbers
+        // are (numbers are right-aligned too; the reserved column can be
+        // much wider than short numbers like "40", so left-aligning the
+        // unit label at column x:0 would drift far away from them) --
         Label {
             x: 0
-            y: 0
+            y: Style.extraSmallMargins
+            width: yLabelsLayout.width - Style.extraSmallMargins
+            height: axisFontMetrics.height
+            horizontalAlignment: Text.AlignRight
             font: Style.extraSmallFont
             color: Style.colors.typography_Basic_Secondary
             text: d.unitLabel()
