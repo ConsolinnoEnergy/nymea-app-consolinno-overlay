@@ -76,7 +76,19 @@ Item {
                                                 : 0
         onSegmentGapValueChanged: { d.rebuildStack(0); d.rebuildStack(1) }
 
-        readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
+        // Note: axisFontMetrics.advanceWidth() is a *method call*, not a
+        // property read. QML only re-evaluates a binding when a property it
+        // read changes - a method call by itself creates no such dependency.
+        // Without the "axisFontMetrics.font," part below, this binding would
+        // only ever run once (with whatever font was active at that exact
+        // moment, e.g. a fallback font before "DM Sans" finished loading)
+        // and then never update again, even after the font changes - which
+        // is exactly the bug we hit (leftAxisReserve stayed "frozen" at a
+        // too-large value). Reading "axisFontMetrics.font" first (a real,
+        // notifying property) and discarding it via the comma operator
+        // forces this binding to depend on the font and re-run whenever it
+        // changes, while still evaluating to the advanceWidth() result.
+        readonly property real leftAxisReserve: (axisFontMetrics.font, axisFontMetrics.advanceWidth("999.9")) + Style.extraSmallMargins
         readonly property real xLabelsHeight: axisFontMetrics.height + 2
         readonly property real bottomAxisReserve: xLabelsHeight + Style.smallMargins
         // Reserve room above the plot area for the unit label ("kWh"/"MWh"),
@@ -284,7 +296,7 @@ Item {
             margins.top: d.topAxisReserve
             margins.bottom: d.bottomAxisReserve
             margins.left: d.leftAxisReserve
-            margins.right: Style.extraSmallMargins
+            margins.right: Style.smallMargins
 
             ValueAxis {
                 id: yAxis
