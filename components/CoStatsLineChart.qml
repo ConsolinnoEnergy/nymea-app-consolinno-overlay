@@ -94,7 +94,7 @@ Item {
         readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
         readonly property real rightAxisReserve: root.percentAxisVisible ? (axisFontMetrics.advanceWidth("100%") + Style.extraSmallMargins) : Style.extraSmallMargins
         readonly property real xLabelsHeight: axisFontMetrics.height * 2 + 2
-        readonly property real bottomAxisReserve: xLabelsHeight + Style.smallMargins
+        readonly property real bottomAxisReserve: xLabelsHeight + Style.margins
         readonly property real topAxisReserve: Style.margins + axisFontMetrics.height + Style.extraSmallMargins * 2
 
         function seriesDescriptor(index) {
@@ -433,7 +433,7 @@ Item {
         Item {
             id: xLabelsLayout
             x: chartView.plotArea.x
-            y: chartView.plotArea.y + chartView.plotArea.height + Style.smallMargins
+            y: chartView.plotArea.y + chartView.plotArea.height + Style.margins
             width: chartView.plotArea.width
             height: d.xLabelsHeight
 
