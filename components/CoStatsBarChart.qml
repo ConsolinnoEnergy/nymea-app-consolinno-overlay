@@ -275,7 +275,6 @@ Item {
     Item {
         id: chartContainer
         anchors.fill: parent
-        anchors.margins: Style.smallMargins
 
         ChartView {
             id: chartView
