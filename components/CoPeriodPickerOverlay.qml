@@ -23,6 +23,7 @@ CoOverlay {
     // ── Public API ────────────────────────────────────────────────────────
     property int sampleRate: EnergyLogs.SampleRate1Day
     property date selectedDate: new Date()
+    property date minDate: new Date(2017, 0, 1)
 
     signal dateChosen(date date)
 
@@ -80,24 +81,28 @@ CoOverlay {
             id: dayContent
             Layout.fillWidth: true
             Layout.fillHeight: true
+            minDate: root.minDate
         }
 
         CoWeekPickerContent {
             id: weekContent
             Layout.fillWidth: true
             Layout.fillHeight: true
+            minDate: root.minDate
         }
 
         CoMonthPickerContent {
             id: monthContent
             Layout.fillWidth: true
             Layout.fillHeight: true
+            minDate: root.minDate
         }
 
         CoYearPickerContent {
             id: yearContent
             Layout.fillWidth: true
             Layout.fillHeight: true
+            minDate: root.minDate
         }
     }
 }

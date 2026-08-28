@@ -17,6 +17,9 @@ import "../components"
 //   and only re-interprets it for the new granularity (e.g. "May 2025" ->
 //   the week containing May 1st), instead of jumping back to today.
 // - Navigation into the future is limited to the current period ("today").
+// - Navigation into the past is limited to "minDate" (defaults to
+//   2017-01-01; overridable once the backend can report how far back data
+//   actually is available).
 Item {
     id: root
 
@@ -26,18 +29,36 @@ Item {
     // ── Public API ────────────────────────────────────────────────────────
     property int sampleRate: EnergyLogs.SampleRate1Day
 
+    // Earliest selectable date. Defaults to 2017-01-01 since there is
+    // currently no backend signal for "data available since" - settable so
+    // callers can narrow (or widen) this once such information becomes
+    // available.
+    property date minDate: new Date(2017, 0, 1)
+
     readonly property date referenceDate: d.periodStart(d.selectedInstant, root.sampleRate)
     readonly property int fromTimestamp: Math.floor(referenceDate.getTime() / 1000)
     readonly property int toTimestamp: Math.floor(d.addPeriods(referenceDate, root.sampleRate, 1).getTime() / 1000) - 1
 
     // Called when the currently displayed period should be set from outside
     // (e.g. the chart below was scrolled/zoomed by the user). Clamped to
-    // "today" at the latest, same as interactive swiping/tapping.
+    // "today" at the latest and "minDate" at the earliest, same as
+    // interactive swiping/tapping.
     function setReferenceDate(date) {
-        var isFuture = d.periodStart(date, root.sampleRate) > d.todayStart
-        d.selectedInstant = isFuture ? d.todayStart : date
+        var periodStartDate = d.periodStart(date, root.sampleRate)
+        if (periodStartDate > d.todayStart) {
+            d.selectedInstant = d.todayStart
+        } else if (periodStartDate < d.minDateStart) {
+            d.selectedInstant = root.minDate
+        } else {
+            d.selectedInstant = date
+        }
         d.syncListViewFromSelection()
     }
+
+    // Re-clamps the current selection whenever minDate changes (e.g. once
+    // set from a backend response), in case it moves past the currently
+    // selected period.
+    onMinDateChanged: root.setReferenceDate(d.selectedInstant)
 
     // ── Private state & date-math helpers ───────────────────────────────────
     QtObject {
@@ -61,7 +82,9 @@ Item {
         property bool updatingListView: false
 
         readonly property date todayStart: periodStart(new Date(), root.sampleRate)
+        readonly property date minDateStart: periodStart(root.minDate, root.sampleRate)
         readonly property int selectedOffset: periodsBetween(todayStart, periodStart(selectedInstant, root.sampleRate), root.sampleRate)
+        readonly property int minOffset: periodsBetween(todayStart, minDateStart, root.sampleRate)
 
         // Normalizes 'date' to the start of the period (day/week/month/year)
         // that contains it. Weeks start on Monday (ISO 8601).
@@ -330,6 +353,13 @@ Item {
                         d.updatingListView = false
                         return
                     }
+                    if (newOffset < d.minOffset) {
+                        // Never allow scrolling past root.minDate into the past.
+                        d.updatingListView = true
+                        currentIndex += d.minOffset - newOffset
+                        d.updatingListView = false
+                        return
+                    }
 
                     d.selectedInstant = d.addPeriods(d.todayStart, root.sampleRate, newOffset)
                     updateCurrentLabelWidth()
@@ -389,6 +419,7 @@ Item {
             CoIconButton {
                 width: 36
                 height: 36
+                enabled: d.selectedOffset > d.minOffset
                 icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
                 onClicked: listView.decrementCurrentIndex()
             }
@@ -407,6 +438,7 @@ Item {
         id: pickerOverlay
         sampleRate: root.sampleRate
         selectedDate: d.periodStart(d.selectedInstant, root.sampleRate)
+        minDate: root.minDate
         onDateChosen: (date) => root.setReferenceDate(date)
     }
 }

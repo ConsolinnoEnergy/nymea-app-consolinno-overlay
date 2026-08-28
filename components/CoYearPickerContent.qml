@@ -13,9 +13,13 @@ ColumnLayout {
 
     property date selectedDate: new Date()
 
-    // Earliest year selectable - see CoPeriodPickerOverlay for rationale
-    // (no backend signal for "data available since", so a fixed year is used).
-    readonly property int minYear: 2017
+    // Earliest selectable date, passed down from CoPeriodPickerOverlay (which
+    // in turn gets it from CoPeriodSelector's settable "minDate" property;
+    // defaults to 2017-01-01 since there is currently no backend signal for
+    // "data available since"). Only the year matters here, since this
+    // picker's granularity is a single year wheel.
+    property date minDate: new Date(2017, 0, 1)
+    readonly property int minYear: minDate.getFullYear()
     readonly property int maxYear: new Date().getFullYear()
 
     readonly property date resultDate: new Date(yearPicker.currentValue, 0, 1)

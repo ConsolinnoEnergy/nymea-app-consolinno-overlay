@@ -27,10 +27,21 @@ ColumnLayout {
     // weekday row + calendar grid.
     property bool monthPickerOpen: false
 
-    // Earliest year selectable - see CoPeriodPickerOverlay for rationale
-    // (no backend signal for "data available since", so a fixed year is used).
-    readonly property int minYear: 2017
+    // Earliest selectable date, passed down from CoPeriodPickerOverlay (which
+    // in turn gets it from CoPeriodSelector's settable "minDate" property;
+    // defaults to 2017-01-01 since there is currently no backend signal for
+    // "data available since"). Only the year is used for the inline
+    // month/year wheel below; the exact date is enforced per-day-cell
+    // further down (isTooEarly).
+    property date minDate: new Date(2017, 0, 1)
+    readonly property int minYear: minDate.getFullYear()
     readonly property int maxYear: new Date().getFullYear()
+
+    readonly property date minDateStart: {
+        var result = new Date(root.minDate)
+        result.setHours(0, 0, 0, 0)
+        return result
+    }
 
     readonly property date todayStart: {
         var result = new Date()
@@ -199,6 +210,7 @@ ColumnLayout {
             readonly property bool isCurrentMonth: model.month === grid.month
             readonly property bool isSelected: isCurrentMonth && root.isSameDay(model.date, root.selectedDate)
             readonly property bool isFuture: model.date > root.todayStart
+            readonly property bool isTooEarly: model.date < root.minDateStart
 
             Rectangle {
                 anchors.centerIn: parent
@@ -213,7 +225,7 @@ ColumnLayout {
             Label {
                 anchors.centerIn: parent
                 text: model.day
-                opacity: dayDelegate.isCurrentMonth ? (dayDelegate.isFuture ? Style.numbers.components_Disabled_opacity : 1) : 0
+                opacity: dayDelegate.isCurrentMonth ? ((dayDelegate.isFuture || dayDelegate.isTooEarly) ? Style.numbers.components_Disabled_opacity : 1) : 0
                 color: dayDelegate.isSelected ?
                            Style.colors.components_Datepicker_Selection_text :
                            model.today ?
@@ -224,7 +236,7 @@ ColumnLayout {
 
             MouseArea {
                 anchors.fill: parent
-                enabled: dayDelegate.isCurrentMonth && !dayDelegate.isFuture
+                enabled: dayDelegate.isCurrentMonth && !dayDelegate.isFuture && !dayDelegate.isTooEarly
                 onClicked: root.selectedDate = dayDelegate.model.date
             }
         }
