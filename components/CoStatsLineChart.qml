@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtCharts
 import Nymea
+import NymeaApp.Utils
 
 // CoStatsLineChart
 //
@@ -93,7 +94,8 @@ Item {
         readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
         readonly property real rightAxisReserve: root.percentAxisVisible ? (axisFontMetrics.advanceWidth("100%") + Style.extraSmallMargins) : Style.extraSmallMargins
         readonly property real xLabelsHeight: axisFontMetrics.height * 2 + 2
-        readonly property real bottomAxisReserve: xLabelsHeight + Style.extraSmallMargins
+        readonly property real bottomAxisReserve: xLabelsHeight + Style.smallMargins
+        readonly property real topAxisReserve: Style.margins + axisFontMetrics.height + Style.extraSmallMargins * 2
 
         function seriesDescriptor(index) {
             return index < root.series.length ? root.series[index] : null
@@ -252,7 +254,7 @@ Item {
 
     FontMetrics {
         id: axisFontMetrics
-        font: Style.extraSmallFont
+        font: Style.newExtraSmallFont
     }
 
     Connections {
@@ -266,304 +268,319 @@ Item {
         anchors.fill: parent
         anchors.margins: Style.smallMargins
 
-    ChartView {
-        id: chartView
-        anchors.fill: parent
-        legend.visible: false
-        antialiasing: true
-        margins.top: Style.extraSmallMargins
-        margins.bottom: d.bottomAxisReserve
-        margins.left: d.leftAxisReserve
-        margins.right: d.rightAxisReserve
+        ChartView {
+            id: chartView
+            anchors.fill: parent
+            legend.visible: false
+            antialiasing: true
+            margins.top: d.topAxisReserve
+            margins.bottom: d.bottomAxisReserve
+            margins.left: d.leftAxisReserve
+            margins.right: d.rightAxisReserve
 
-        ValueAxis {
-            id: yAxisLeft
-            min: 0
-            max: 4
-            tickCount: d.yLabelCount
-            labelsVisible: false
-            gridLineColor: Style.colors.components_Statistics_Grid
-            lineVisible: false
-            minorGridVisible: false
-        }
-
-        ValueAxis {
-            id: yAxisRight
-            min: 0
-            max: 100
-            tickCount: d.yLabelCount
-            labelsVisible: false
-            gridVisible: false
-            lineVisible: false
-            minorGridVisible: false
-            visible: root.percentAxisVisible
-        }
-
-        DateTimeAxis {
-            id: xAxis
-            min: new Date(d.visibleStartTime)
-            max: new Date(d.visibleStartTime + d.visibleWindowMs)
-            labelsVisible: false
-            gridVisible: false
-            lineVisible: false
-            minorGridVisible: false
-        }
-
-        // -- Day boundary markers (at most 2 midnights can fall within any
-        // window <= 24h wide) --
-        LineSeries {
-            id: dayBoundarySeries0
-            axisX: xAxis
-            axisY: yAxisLeft
-            color: Style.colors.typography_Basic_Divider
-            width: 1
-            visible: false
-        }
-        LineSeries {
-            id: dayBoundarySeries1
-            axisX: xAxis
-            axisY: yAxisLeft
-            color: Style.colors.typography_Basic_Divider
-            width: 1
-            visible: false
-        }
-
-        // -- Fixed data-series slots, bound to root.series[i] --
-        LineSeries { id: dataSeries0; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries1; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries2; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries3; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries4; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries5; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries6; axisX: xAxis; width: 2 }
-        LineSeries { id: dataSeries7; axisX: xAxis; width: 2 }
-    }
-
-    // Helper that binds one fixed LineSeries slot to root.series[index] and
-    // rebuilds its points whenever the referenced model's data changes.
-    QtObject {
-        id: seriesBinder
-
-        function slot(index) {
-            switch (index) {
-            case 0: return dataSeries0
-            case 1: return dataSeries1
-            case 2: return dataSeries2
-            case 3: return dataSeries3
-            case 4: return dataSeries4
-            case 5: return dataSeries5
-            case 6: return dataSeries6
-            case 7: return dataSeries7
+            ValueAxis {
+                id: yAxisLeft
+                min: 0
+                max: 4
+                tickCount: d.yLabelCount
+                labelsVisible: false
+                gridLineColor: Style.colors.components_Statistics_Grid
+                lineVisible: false
+                minorGridVisible: false
             }
-            return null
-        }
 
-        function rebuild(index) {
-            var s = slot(index)
-            if (!s)
-                return
-            s.clear()
-            var desc = d.seriesDescriptor(index)
-            if (!desc || !desc.model)
-                return
-            var model = desc.model
-            var fn = desc.valueFunction
-            var count = model.count !== undefined ? model.count : 0
-            for (var i = 0; i < count; i++) {
-                var entry = model.get(i)
-                if (!entry)
-                    continue
-                var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
-                s.append(t, fn(entry))
+            ValueAxis {
+                id: yAxisRight
+                min: 0
+                max: 100
+                tickCount: d.yLabelCount
+                labelsVisible: false
+                gridVisible: false
+                lineVisible: false
+                minorGridVisible: false
+                visible: root.percentAxisVisible
             }
-            d.updateLeftAxisRange()
+
+            DateTimeAxis {
+                id: xAxis
+                min: new Date(d.visibleStartTime)
+                max: new Date(d.visibleStartTime + d.visibleWindowMs)
+                labelsVisible: false
+                gridVisible: false
+                lineVisible: false
+                minorGridVisible: false
+            }
+
+            // -- Day boundary markers (at most 2 midnights can fall within any
+            // window <= 24h wide) --
+            LineSeries {
+                id: dayBoundarySeries0
+                axisX: xAxis
+                axisY: yAxisLeft
+                color: Style.colors.typography_Basic_Divider
+                width: 1
+                visible: false
+            }
+            LineSeries {
+                id: dayBoundarySeries1
+                axisX: xAxis
+                axisY: yAxisLeft
+                color: Style.colors.typography_Basic_Divider
+                width: 1
+                visible: false
+            }
+
+            // -- Fixed data-series slots, bound to root.series[i] --
+            LineSeries { id: dataSeries0; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries1; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries2; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries3; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries4; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries5; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries6; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries7; axisX: xAxis; width: 2 }
         }
 
-        function updateSlotProperties(index) {
-            var s = slot(index)
-            if (!s)
-                return
-            var desc = d.seriesDescriptor(index)
-            s.visible = desc ? desc.visible !== false : false
-            s.color = desc && desc.color ? desc.color : "transparent"
-            s.axisY = desc && desc.axis === "right" ? yAxisRight : yAxisLeft
-            rebuild(index)
+        // Helper that binds one fixed LineSeries slot to root.series[index] and
+        // rebuilds its points whenever the referenced model's data changes.
+        QtObject {
+            id: seriesBinder
+
+            function slot(index) {
+                switch (index) {
+                case 0: return dataSeries0
+                case 1: return dataSeries1
+                case 2: return dataSeries2
+                case 3: return dataSeries3
+                case 4: return dataSeries4
+                case 5: return dataSeries5
+                case 6: return dataSeries6
+                case 7: return dataSeries7
+                }
+                return null
+            }
+
+            function rebuild(index) {
+                var s = slot(index)
+                if (!s)
+                    return
+                s.clear()
+                var desc = d.seriesDescriptor(index)
+                if (!desc || !desc.model)
+                    return
+                var model = desc.model
+                var fn = desc.valueFunction
+                var count = model.count !== undefined ? model.count : 0
+                for (var i = 0; i < count; i++) {
+                    var entry = model.get(i)
+                    if (!entry)
+                        continue
+                    var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
+                    s.append(t, fn(entry))
+                }
+                d.updateLeftAxisRange()
+            }
+
+            function updateSlotProperties(index) {
+                var s = slot(index)
+                if (!s)
+                    return
+                var desc = d.seriesDescriptor(index)
+                s.visible = desc ? desc.visible !== false : false
+                s.color = desc && desc.color ? desc.color : "transparent"
+                s.axisY = desc && desc.axis === "right" ? yAxisRight : yAxisLeft
+                rebuild(index)
+            }
         }
-    }
 
-    // One Connections block per fixed slot, dynamically re-targeting the
-    // model referenced by root.series[i] so slot i's line is rebuilt whenever
-    // that model's data changes (mirrors the entriesAddedIdx/entriesRemoved
-    // driven approach used in PowerBalanceHistory.qml, but with a full
-    // rebuild instead of fine-grained incremental updates - simpler and fast
-    // enough for the point counts involved here).
-    Repeater {
-        model: d.maxSeriesCount
-        delegate: Item {
-            id: slotBinding
-            required property int index
-            visible: false
-            readonly property int seriesIndex: index
-            readonly property var desc: d.seriesDescriptor(seriesIndex)
+        // One Connections block per fixed slot, dynamically re-targeting the
+        // model referenced by root.series[i] so slot i's line is rebuilt whenever
+        // that model's data changes (mirrors the entriesAddedIdx/entriesRemoved
+        // driven approach used in PowerBalanceHistory.qml, but with a full
+        // rebuild instead of fine-grained incremental updates - simpler and fast
+        // enough for the point counts involved here).
+        Repeater {
+            model: d.maxSeriesCount
+            delegate: Item {
+                id: slotBinding
+                required property int index
+                visible: false
+                readonly property int seriesIndex: index
+                readonly property var desc: d.seriesDescriptor(seriesIndex)
 
-            onSeriesIndexChanged: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
-            Component.onCompleted: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
+                onSeriesIndexChanged: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
+                Component.onCompleted: seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
 
-            Connections {
-                target: root
-                function onSeriesChanged() {
-                    seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
+                Connections {
+                    target: root
+                    function onSeriesChanged() {
+                        seriesBinder.updateSlotProperties(slotBinding.seriesIndex)
+                    }
+                }
+
+                Connections {
+                    target: slotBinding.desc ? slotBinding.desc.model : null
+                    function onEntriesAddedIdx(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
+                    function onEntriesRemoved(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
+                    function onCountChanged() { seriesBinder.rebuild(slotBinding.seriesIndex) }
+                }
+            }
+        }
+
+        // -- Custom x-axis labels: hh:mm at fixed clock-time positions (based on
+        // the current zoom level's nice hour step, anchored to absolute time so
+        // they don't shift while panning), date at the tick nearest noon of each
+        // visible day --
+        Item {
+            id: xLabelsLayout
+            x: chartView.plotArea.x
+            y: chartView.plotArea.y + chartView.plotArea.height + Style.smallMargins
+            width: chartView.plotArea.width
+            height: d.xLabelsHeight
+
+            Repeater {
+                model: d.xTicksInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs, d.niceHourStep(d.visibleWindowMs / d.hourMs))
+
+                delegate: Label {
+                    required property var modelData
+                    x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
+                    horizontalAlignment: Text.AlignHCenter
+                    font: Style.newExtraSmallFont
+                    color: Style.colors.typography_Basic_Secondary
+                    text: Qt.formatTime(new Date(modelData), "hh:mm")
                 }
             }
 
-            Connections {
-                target: slotBinding.desc ? slotBinding.desc.model : null
-                function onEntriesAddedIdx(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
-                function onEntriesRemoved(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
-                function onCountChanged() { seriesBinder.rebuild(slotBinding.seriesIndex) }
-            }
-        }
-    }
+            Repeater {
+                model: d.dayNoonsInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
 
-    // -- Custom x-axis labels: hh:mm at fixed clock-time positions (based on
-    // the current zoom level's nice hour step, anchored to absolute time so
-    // they don't shift while panning), date at the tick nearest noon of each
-    // visible day --
-    Item {
-        id: xLabelsLayout
-        x: chartView.plotArea.x
-        y: chartView.plotArea.y + chartView.plotArea.height + Style.extraSmallMargins
-        width: chartView.plotArea.width
-        height: d.xLabelsHeight
-
-        Repeater {
-            model: d.xTicksInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs, d.niceHourStep(d.visibleWindowMs / d.hourMs))
-
-            delegate: Label {
-                required property var modelData
-                x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
-                horizontalAlignment: Text.AlignHCenter
-                font: Style.extraSmallFont
-                color: Style.colors.typography_Basic_Secondary
-                text: Qt.formatTime(new Date(modelData), "hh:mm")
+                delegate: Label {
+                    required property var modelData
+                    x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
+                    y: axisFontMetrics.height + 2
+                    horizontalAlignment: Text.AlignHCenter
+                    font: Style.newExtraSmallFont
+                    color: Style.colors.typography_Basic_Secondary
+                    text: Qt.formatDate(new Date(modelData), "d. MMM yyyy")
+                }
             }
         }
 
-        Repeater {
-            model: d.dayNoonsInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
-
-            delegate: Label {
-                required property var modelData
-                x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
-                y: axisFontMetrics.height + 2
-                horizontalAlignment: Text.AlignHCenter
-                font: Style.extraSmallFont
-                color: Style.colors.typography_Basic_Secondary
-                text: Qt.formatDate(new Date(modelData), "d. MMM yyyy")
-            }
+        // -- Unit label (top-left, "kW") - right-aligned in the same
+        // column/width as the y-axis numbers below it, so it lines up with them
+        // regardless of how narrow/wide the current numbers are (see analogous
+        // comment in CoStatsBarChart.qml) --
+        Label {
+            x: 0
+            y: Style.margins
+            width: yLeftLabelsLayout.width - Style.extraSmallMargins
+            height: axisFontMetrics.height
+            horizontalAlignment: Text.AlignRight
+            font: Style.newExtraSmallFontBold
+            color: Style.colors.typography_Basic_Secondary
+            text: qsTr("kW")
         }
-    }
 
-    // -- Left (kW) y-axis labels --
-    Item {
-        id: yLeftLabelsLayout
-        x: 0
-        y: chartView.plotArea.y
-        width: chartView.plotArea.x
-        height: chartView.plotArea.height
+        // -- Left (kW) y-axis labels --
+        Item {
+            id: yLeftLabelsLayout
+            x: 0
+            y: chartView.plotArea.y
+            width: chartView.plotArea.x
+            height: chartView.plotArea.height
 
-        Repeater {
-            model: d.yLabelCount
+            Repeater {
+                model: d.yLabelCount
 
-            delegate: Label {
-                width: parent.width - Style.extraSmallMargins
-                y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
-                horizontalAlignment: Text.AlignRight
-                font: Style.extraSmallFont
-                color: Style.colors.typography_Basic_Secondary
-                text: Math.round((yAxisLeft.max - index * (yAxisLeft.max - yAxisLeft.min) / (d.yLabelCount - 1)) * 10) / 10
-            }
-        }
-    }
-
-    // -- Right (%) y-axis labels --
-    Item {
-        id: yRightLabelsLayout
-        x: chartView.plotArea.x + chartView.plotArea.width
-        y: chartView.plotArea.y
-        width: chartContainer.width - x
-        height: chartView.plotArea.height
-        visible: root.percentAxisVisible
-
-        Repeater {
-            model: d.yLabelCount
-
-            delegate: Label {
-                width: parent.width - Style.extraSmallMargins
-                x: Style.extraSmallMargins
-                y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
-                horizontalAlignment: Text.AlignLeft
-                font: Style.extraSmallFont
-                color: Style.colors.typography_Basic_Secondary
-                text: Math.round(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1)) + "%"
-            }
-        }
-    }
-
-    // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
-    PinchHandler {
-        id: pinchHandler
-        target: null
-        minimumPointCount: 2
-        maximumPointCount: 2
-
-        property real startWindowMs
-        property real startStartTime
-        property real pivotFraction
-
-        onActiveChanged: {
-            if (active) {
-                startWindowMs = d.visibleWindowMs
-                startStartTime = d.visibleStartTime
-                pivotFraction = d.clamp((centroid.position.x - chartView.plotArea.x) / chartView.plotArea.width, 0, 1)
-            } else {
-                rangeSettleTimer.restart()
+                delegate: Label {
+                    width: parent.width - Style.extraSmallMargins
+                    y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
+                    horizontalAlignment: Text.AlignRight
+                    font: Style.newExtraSmallFont
+                    color: Style.colors.typography_Basic_Secondary
+                    text: NymeaUtils.floatToLocaleString(yAxisLeft.max - index * (yAxisLeft.max - yAxisLeft.min) / (d.yLabelCount - 1), 1)
+                }
             }
         }
 
-        onScaleChanged: {
-            if (!active)
-                return
-            var newWindow = d.clamp(startWindowMs / scale, d.minWindowMs, d.maxWindowMs)
-            var timeAtPivot = startStartTime + pivotFraction * startWindowMs
-            d.visibleWindowMs = newWindow
-            d.visibleStartTime = timeAtPivot - pivotFraction * newWindow
-        }
-    }
+        // -- Right (%) y-axis labels --
+        Item {
+            id: yRightLabelsLayout
+            x: chartView.plotArea.x + chartView.plotArea.width
+            y: chartView.plotArea.y
+            width: chartContainer.width - x
+            height: chartView.plotArea.height
+            visible: root.percentAxisVisible
 
-    DragHandler {
-        id: dragHandler
-        target: null
-        minimumPointCount: 1
-        maximumPointCount: 1
+            Repeater {
+                model: d.yLabelCount
 
-        property real startStartTime
-
-        onActiveChanged: {
-            if (active) {
-                startStartTime = d.visibleStartTime
-            } else {
-                rangeSettleTimer.restart()
+                delegate: Label {
+                    width: parent.width - Style.extraSmallMargins
+                    x: Style.extraSmallMargins
+                    y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
+                    horizontalAlignment: Text.AlignLeft
+                    font: Style.newExtraSmallFont
+                    color: Style.colors.typography_Basic_Secondary
+                    text: NymeaUtils.floatToLocaleString(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1), 0) + "%"
+                }
             }
         }
 
-        onTranslationChanged: {
-            if (!active)
-                return
-            var deltaMs = -(translation.x / chartView.plotArea.width) * d.visibleWindowMs
-            d.visibleStartTime = startStartTime + deltaMs
+        // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
+        PinchHandler {
+            id: pinchHandler
+            target: null
+            minimumPointCount: 2
+            maximumPointCount: 2
+
+            property real startWindowMs
+            property real startStartTime
+            property real pivotFraction
+
+            onActiveChanged: {
+                if (active) {
+                    startWindowMs = d.visibleWindowMs
+                    startStartTime = d.visibleStartTime
+                    pivotFraction = d.clamp((centroid.position.x - chartView.plotArea.x) / chartView.plotArea.width, 0, 1)
+                } else {
+                    rangeSettleTimer.restart()
+                }
+            }
+
+            onScaleChanged: {
+                if (!active)
+                    return
+                var newWindow = d.clamp(startWindowMs / scale, d.minWindowMs, d.maxWindowMs)
+                var timeAtPivot = startStartTime + pivotFraction * startWindowMs
+                d.visibleWindowMs = newWindow
+                d.visibleStartTime = timeAtPivot - pivotFraction * newWindow
+            }
         }
-    }
+
+        DragHandler {
+            id: dragHandler
+            target: null
+            minimumPointCount: 1
+            maximumPointCount: 1
+
+            property real startStartTime
+
+            onActiveChanged: {
+                if (active) {
+                    startStartTime = d.visibleStartTime
+                } else {
+                    rangeSettleTimer.restart()
+                }
+            }
+
+            onTranslationChanged: {
+                if (!active)
+                    return
+                var deltaMs = -(translation.x / chartView.plotArea.width) * d.visibleWindowMs
+                d.visibleStartTime = startStartTime + deltaMs
+            }
+        }
     } // chartContainer
 
     // -- Busy overlay: dim the chart and show a spinner while loading --

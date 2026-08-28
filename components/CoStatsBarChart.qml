@@ -2,6 +2,7 @@ import QtQuick
 import QtQuick.Controls
 import QtCharts
 import Nymea
+import NymeaApp.Utils
 
 // CoStatsBarChart
 //
@@ -71,18 +72,19 @@ Item {
         // whenever the axis range or plot area size changes.
         readonly property real segmentGapPixels: Style.numbers.components_Statistics_Bar_spacing_L
         readonly property real segmentGapValue: chartView.plotArea.height > 0 && yAxis.max > yAxis.min
-                                                 ? d.segmentGapPixels * (yAxis.max - yAxis.min) / chartView.plotArea.height
-                                                 : 0
+                                                ? d.segmentGapPixels * (yAxis.max - yAxis.min) / chartView.plotArea.height
+                                                : 0
         onSegmentGapValueChanged: { d.rebuildStack(0); d.rebuildStack(1) }
 
         readonly property real leftAxisReserve: axisFontMetrics.advanceWidth("999.9") + Style.extraSmallMargins
         readonly property real xLabelsHeight: axisFontMetrics.height + 2
-        readonly property real bottomAxisReserve: xLabelsHeight + Style.extraSmallMargins
+        readonly property real bottomAxisReserve: xLabelsHeight + Style.smallMargins
         // Reserve room above the plot area for the unit label ("kWh"/"MWh"),
-        // which is placed at a fixed offset from the container top
-        // (independent of plotArea/Controls padding quirks) plus a gap
-        // before the topmost y-axis number so they never collide.
-        readonly property real topAxisReserve: Style.extraSmallMargins + axisFontMetrics.height + Style.extraSmallMargins * 2
+        // which is placed at a fixed offset (Style.margins) from the
+        // container top - so the white chart background still shows above
+        // it, matching the design - plus a gap before the topmost y-axis
+        // number so they never collide.
+        readonly property real topAxisReserve: Style.margins + axisFontMetrics.height + Style.extraSmallMargins * 2
 
         // Because QtCharts spaces all bars evenly across the whole
         // category axis (there's no separate "within-group" vs
@@ -175,7 +177,7 @@ Item {
 
         function formatAxisValue(value) {
             var scaled = d.unitUsesMWh ? value / 1000 : value
-            return Math.round(scaled * 10) / 10
+            return NymeaUtils.floatToLocaleString(scaled)
         }
 
         function expandedValues(stackIndex, seriesIndex) {
@@ -267,7 +269,7 @@ Item {
 
     FontMetrics {
         id: axisFontMetrics
-        font: Style.extraSmallFont
+        font: Style.newExtraSmallFont
     }
 
     Item {
@@ -366,7 +368,7 @@ Item {
         Item {
             id: xLabelsLayout
             x: chartView.plotArea.x
-            y: chartView.plotArea.y + chartView.plotArea.height + Style.extraSmallMargins
+            y: chartView.plotArea.y + chartView.plotArea.height + Style.smallMargins
             width: chartView.plotArea.width
             height: d.xLabelsHeight
 
@@ -380,7 +382,7 @@ Item {
                     width: xLabelsLayout.width / Math.max(1, d.expandedSlotCount)
                     x: width * (index * 2)
                     horizontalAlignment: Text.AlignHCenter
-                    font: Style.extraSmallFont
+                    font: Style.newExtraSmallFont
                     color: Style.colors.typography_Basic_Secondary
                     text: modelData
                 }
@@ -404,7 +406,7 @@ Item {
                     width: parent.width - Style.extraSmallMargins
                     y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                     horizontalAlignment: Text.AlignRight
-                    font: Style.extraSmallFont
+                    font: Style.newExtraSmallFont
                     color: Style.colors.typography_Basic_Secondary
                     text: d.formatAxisValue(yAxis.max - index * (yAxis.max - yAxis.min) / (d.yLabelCount - 1))
                 }
@@ -419,11 +421,11 @@ Item {
         // unit label at column x:0 would drift far away from them) --
         Label {
             x: 0
-            y: Style.extraSmallMargins
+            y: Style.margins
             width: yLabelsLayout.width - Style.extraSmallMargins
             height: axisFontMetrics.height
             horizontalAlignment: Text.AlignRight
-            font: Style.extraSmallFont
+            font: Style.newExtraSmallFontBold
             color: Style.colors.typography_Basic_Secondary
             text: d.unitLabel()
         }
