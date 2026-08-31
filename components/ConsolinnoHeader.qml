@@ -13,7 +13,7 @@ Item {
     // System status-bar / display-cutout inset. The interactive row is
     // shifted down by this amount so it stays tappable on Android 16+ while
     // the header background stays flush with the screen edge.
-    property int safeAreaTop: SafeArea.margins.top
+    property int safeAreaTop: typeof SafeArea !== "undefined" ? SafeArea.margins.top : 0
     implicitHeight: safeAreaTop + layout.implicitHeight + infoPane.height
     property string text
     property bool show_Image: false

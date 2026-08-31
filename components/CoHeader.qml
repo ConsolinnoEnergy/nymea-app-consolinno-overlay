@@ -10,7 +10,7 @@ Item {
     // band (back button, title, menu button) is shifted down by the system
     // status-bar / display-cutout inset so its content stays tappable while
     // the header background stays flush with the screen edge.
-    property int safeAreaTop: SafeArea.margins.top
+    property int safeAreaTop: typeof SafeArea !== "undefined" ? SafeArea.margins.top : 0
     implicitHeight: safeAreaTop + layout.implicitHeight + bottomBorder.height + 2 * Style.smallMargins
     property alias text: headline.text
     property alias subText: subHeadline.text
