@@ -307,11 +307,310 @@ MainViewBase {
                     anchors.fill: parent
                     spacing: Style.margins
 
+                    // Dummy series definition for the CoStatsLineChart test card
+                    // below. "visible" is toggled by CoStatsChartLegend.
+                    property var chartTestSeries: [
+                        {
+                            name: "Erzeugung",
+                            color: "#3AA757",
+                            visible: true,
+                            axis: "left",
+                            model: dummyProductionLog,
+                            valueFunction: function (entry) { return entry.value }
+                        },
+                        {
+                            name: "Akku SoC",
+                            color: "#3A7FA7",
+                            visible: true,
+                            axis: "right",
+                            model: dummyBatteryLog,
+                            valueFunction: function (entry) { return entry.value }
+                        }
+                    ]
+
                     Item {
                         id: spacerTopMargin
                         height: root.topMargin
                         Layout.fillWidth: true
                     }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentBottomMargin: 16
+
+                        headerText: "Zeitraum"
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: Style.margins
+                            anchors.rightMargin: Style.margins
+                            spacing: Style.margins
+
+                            CoPeriodSelector {
+                                id: periodSelector
+                                Layout.fillWidth: true
+                            }
+
+                            Button {
+                                Layout.fillWidth: true
+                                text: "01.08.26"
+                                onClicked: {
+                                    periodSelector.setReferenceDate(new Date(2026, 7, 1))
+                                }
+                            }
+
+                            Button {
+                                Layout.fillWidth: true
+                                text: "11.05.26"
+                                onClicked: {
+                                    periodSelector.setReferenceDate(new Date(2026, 4, 11))
+                                }
+                            }
+
+                            Button {
+                                Layout.fillWidth: true
+                                text: "24.12.26"
+                                onClicked: {
+                                    periodSelector.setReferenceDate(new Date(2026, 11, 24))
+                                }
+                            }
+
+                            Button {
+                                Layout.fillWidth: true
+                                text: "24.12.25"
+                                onClicked: {
+                                    periodSelector.setReferenceDate(new Date(2025, 11, 24))
+                                }
+                            }
+                        }
+                    }
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentBottomMargin: 16
+
+                        headerText: "Chart Test"
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: Style.margins
+                            anchors.rightMargin: Style.margins
+                            spacing: Style.margins
+
+                            CoStatsChartLegend {
+                                Layout.fillWidth: true
+                                series: dashboardLayout.chartTestSeries
+                                onSeriesVisibilityToggled: (index, visible) => {
+                                    var updated = dashboardLayout.chartTestSeries.slice()
+                                    updated[index] = Object.assign({}, updated[index], { visible: visible })
+                                    dashboardLayout.chartTestSeries = updated
+                                }
+                            }
+
+                            CoStatsLineChart {
+                                id: statsChart
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 300
+
+                                selectedDay: periodSelector.referenceDate
+                                percentAxisVisible: true
+                                loading: dummyProductionLog.loading || dummyBatteryLog.loading
+
+                                series: dashboardLayout.chartTestSeries
+
+                                onVisibleRangeChanged: (startTime, endTime) => {
+                                    console.log("CoStatsLineChart demo: visibleRangeChanged", startTime, endTime)
+                                    dummyDataGenerator.reseedIfNeeded(startTime, endTime)
+                                }
+                            }
+
+                            RowLayout {
+                                Layout.fillWidth: true
+                                spacing: Style.margins
+
+                                // Test buttons: since pinch-zoom cannot be
+                                // reliably simulated on a desktop dev machine
+                                // without touch hardware, these jump the
+                                // chart's visible window directly to 24h/12h/
+                                // 6h for manual testing of the zoomed views.
+                                Button {
+                                    Layout.fillWidth: true
+                                    text: "24h"
+                                    onClicked: statsChart.setVisibleWindowHours(24)
+                                }
+                                Button {
+                                    Layout.fillWidth: true
+                                    text: "12h"
+                                    onClicked: statsChart.setVisibleWindowHours(12)
+                                }
+                                Button {
+                                    Layout.fillWidth: true
+                                    text: "6h"
+                                    onClicked: statsChart.setVisibleWindowHours(6)
+                                }
+                            }
+                        }
+                    }
+
+                    // Dummy stack definitions for the CoStatsBarChart test card
+                    // below. "visible" is toggled by CoStatsChartLegend.
+                    property var chartTestBarCategories: ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+                    property var chartTestBarSourceSeries: [
+                        { name: "Produktion", color: "#F5C242", borderColor: "#B79131", visible: true, values: [30, 20, 28, 18, 30, 22, 30] },
+                        { name: "Von Batterie", color: "#F06BB0", borderColor: "#B45084", visible: true, values: [8, 10, 9, 6, 9, 10, 9] }
+                    ]
+                    property var chartTestBarConsumerSeries: [
+                        { name: "Netzbezug", color: "#E0575B", borderColor: "#A84144", visible: true, values: [10, 8, 12, 6, 10, 6, 9] },
+                        { name: "Netzeinspeisung", color: "#3FA9F5", borderColor: "#2F7EB7", visible: true, values: [8, 6, 9, 4, 8, 8, 8] }
+                    ]
+
+                    CoFrostyCard {
+                        Layout.fillWidth: true
+                        contentBottomMargin: 16
+
+                        headerText: "Bar Chart Test"
+
+                        ColumnLayout {
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+                            anchors.leftMargin: Style.margins
+                            anchors.rightMargin: Style.margins
+                            spacing: Style.margins
+
+                            CoStatsBarChart {
+                                id: statsBarChart
+                                Layout.fillWidth: true
+                                Layout.preferredHeight: 300
+
+                                categories: dashboardLayout.chartTestBarCategories
+                                stacks: [
+                                    { series: dashboardLayout.chartTestBarSourceSeries },
+                                    { series: dashboardLayout.chartTestBarConsumerSeries }
+                                ]
+                            }
+
+                            Label {
+                                Layout.fillWidth: true
+                                text: "Quellen"
+                                font: Style.smallFont
+                            }
+
+                            CoStatsChartLegend {
+                                Layout.fillWidth: true
+                                series: dashboardLayout.chartTestBarSourceSeries
+                                onSeriesVisibilityToggled: (index, visible) => {
+                                    var updated = dashboardLayout.chartTestBarSourceSeries.slice()
+                                    updated[index] = Object.assign({}, updated[index], { visible: visible })
+                                    dashboardLayout.chartTestBarSourceSeries = updated
+                                }
+                            }
+
+                            Label {
+                                Layout.fillWidth: true
+                                text: "Verbraucher"
+                                font: Style.smallFont
+                            }
+
+                            CoStatsChartLegend {
+                                Layout.fillWidth: true
+                                series: dashboardLayout.chartTestBarConsumerSeries
+                                onSeriesVisibilityToggled: (index, visible) => {
+                                    var updated = dashboardLayout.chartTestBarConsumerSeries.slice()
+                                    updated[index] = Object.assign({}, updated[index], { visible: visible })
+                                    dashboardLayout.chartTestBarConsumerSeries = updated
+                                }
+                            }
+                        }
+                    }
+
+                    // ---- Dummy data generator for the CoStatsLineChart test above ----
+                    // Mimics the shape of an EnergyLogs-derived model (count, get(index),
+                    // entriesAddedIdx/entriesRemoved) with made-up sine-wave data. Only
+                    // used for manual testing of CoStatsLineChart; not real data.
+                    QtObject {
+                        id: dummyProductionLog
+                        property var entries: []
+                        property int count: entries.length
+                        property bool loading: false
+                        signal entriesAddedIdx(int index, int count)
+                        signal entriesRemoved(int index, int count)
+                        function get(index) { return entries[index] }
+                    }
+
+                    QtObject {
+                        id: dummyBatteryLog
+                        property var entries: []
+                        property int count: entries.length
+                        property bool loading: false
+                        signal entriesAddedIdx(int index, int count)
+                        signal entriesRemoved(int index, int count)
+                        function get(index) { return entries[index] }
+                    }
+
+                    QtObject {
+                        id: dummyDataGenerator
+
+                        property date loadedStart
+                        property date loadedEnd
+
+                        function generate(centerDate) {
+                            var dayMs = 24 * 3600000
+                            var rangeStart = new Date(centerDate.getTime() - dayMs)
+                            var rangeEnd = new Date(centerDate.getTime() + 2 * dayMs)
+
+                            dummyProductionLog.loading = true
+                            dummyBatteryLog.loading = true
+
+                            var productionEntries = []
+                            var batteryEntries = []
+                            var stepMs = 15 * 60000
+                            var i = 0
+                            for (var t = rangeStart.getTime(); t <= rangeEnd.getTime(); t += stepMs) {
+                                var hourOfDay = (new Date(t).getHours() + new Date(t).getMinutes() / 60)
+                                var production = Math.max(0, Math.sin((hourOfDay - 6) / 12 * Math.PI)) * (4 + Math.sin(i / 9) * 1.5)
+                                var soc = 50 + Math.sin(i / 40) * 45
+                                productionEntries.push({ timestamp: new Date(t), value: production })
+                                batteryEntries.push({ timestamp: new Date(t), value: Math.max(0, Math.min(100, soc)) })
+                                i++
+                            }
+
+                            // Simulate a short network delay, like a real data fetch would have.
+                            dummyLoadDelayTimer.pendingProduction = productionEntries
+                            dummyLoadDelayTimer.pendingBattery = batteryEntries
+                            dummyLoadDelayTimer.pendingStart = rangeStart
+                            dummyLoadDelayTimer.pendingEnd = rangeEnd
+                            dummyLoadDelayTimer.restart()
+                        }
+
+                        function reseedIfNeeded(startTime, endTime) {
+                            if (loadedStart && startTime >= loadedStart && endTime <= loadedEnd)
+                                return
+                            generate(startTime)
+                        }
+                    }
+
+                    Timer {
+                        id: dummyLoadDelayTimer
+                        interval: 400
+                        property var pendingProduction: []
+                        property var pendingBattery: []
+                        property date pendingStart
+                        property date pendingEnd
+                        onTriggered: {
+                            dummyProductionLog.entries = pendingProduction
+                            dummyBatteryLog.entries = pendingBattery
+                            dummyDataGenerator.loadedStart = pendingStart
+                            dummyDataGenerator.loadedEnd = pendingEnd
+                            dummyProductionLog.entriesAddedIdx(0, pendingProduction.length)
+                            dummyBatteryLog.entriesAddedIdx(0, pendingBattery.length)
+                            dummyProductionLog.loading = false
+                            dummyBatteryLog.loading = false
+                        }
+                    }
+
+                    Component.onCompleted: dummyDataGenerator.generate(periodSelector.referenceDate)
 
                     CoNotification {
                         id: incompatibilityWarning
