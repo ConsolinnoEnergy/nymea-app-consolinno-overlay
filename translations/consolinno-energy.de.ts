@@ -17,94 +17,82 @@
 <context>
     <name>AddGenericCar</name>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="93"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="94"/>
         <source>Add new car</source>
         <translation>Auto hinzufügen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="173"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="174"/>
         <source>Minimum charging current</source>
         <translation>Minimaler Ladestrom</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="185"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="186"/>
         <source>Maximum charging limit</source>
         <translation>Maximales Ladelimit</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="258"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="259"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="258"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="259"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="268"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="269"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="101"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="102"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="237"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="238"/>
         <source>Reconfigure %1</source>
         <translation>Konfiguriere %1</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="237"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="238"/>
         <source>Add generic car</source>
         <translation>Auto hinzufügen</translation>
     </message>
     <message>
-        <source>Thing reconfigured!</source>
-        <translation type="vanished">Thing neu eingerichtet!</translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="vanished">Thing hinzugefügt!</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="259"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="260"/>
         <source>Uh oh</source>
         <translation>Uh oh</translation>
     </message>
     <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="269"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="270"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="218"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="219"/>
         <source>Retry</source>
         <translation>erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="228"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="229"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="146"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="147"/>
         <source>Setup car</source>
         <translation>Auto einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="156"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="157"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddGenericCar.qml" line="164"/>
+        <location filename="../thingconfiguration/AddGenericCar.qml" line="165"/>
         <source>Capacity</source>
         <translation>Kapazität</translation>
     </message>
@@ -112,12 +100,12 @@
 <context>
     <name>AddNewThings</name>
     <message>
-        <location filename="../thingconfiguration/AddNewThings.qml" line="41"/>
+        <location filename="../thingconfiguration/AddNewThings.qml" line="42"/>
         <source>Set up new device</source>
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddNewThings.qml" line="204"/>
+        <location filename="../thingconfiguration/AddNewThings.qml" line="205"/>
         <source>Search</source>
         <translation>Suche</translation>
     </message>
@@ -224,139 +212,139 @@
 <context>
     <name>BatteryConfigView</name>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="70"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="64"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="73"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="67"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="234"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="228"/>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="221"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="444"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="215"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="438"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="223"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="217"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="224"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="218"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="285"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="279"/>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="315"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="309"/>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="195"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="189"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="194"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="188"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="355"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="388"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="349"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="297"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="291"/>
         <source>Tariff-controlled charging</source>
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="460"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="454"/>
         <source>Discharging blocked</source>
         <translation>Entladen blockiert</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="476"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="470"/>
         <source>Discharging allowed</source>
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="354"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="348"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="387"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="353"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="347"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="386"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="380"/>
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="235"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="229"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="207"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="201"/>
         <source>PV device prioritization⁨⁨</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="208"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="202"/>
         <source>⁨The battery has reached the SoC limit of %1% and is now prioritized last.</source>
         <translation>Die Batterie hat den SoC&#x202f;%1 % erreicht und wird jetzt als letztes priorisiert.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="242"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="236"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="253"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="247"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="272"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="266"/>
         <source>Priority applies up to state of charge</source>
         <translation>Priorität gilt bis Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="337"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="331"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="491"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="485"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="273"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="267"/>
         <source>Above this state of charge, the battery is always considered last.</source>
         <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
@@ -402,7 +390,7 @@
         <translation>Sofern das Gerät in Übereinstimmung mit § 14a kontrolliert werden soll, muss diese Einstellung aktiviert werden.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="187"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="188"/>
         <source>Block EV charging from the battery</source>
         <translation>Fahrzeug nicht aus Batterie laden</translation>
     </message>
@@ -427,27 +415,27 @@
         <translation>Der Wert liegt außerhalb des gültigen Bereichs.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="271"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="272"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="271"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="272"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="201"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="202"/>
         <source>HEMS-controlled battery</source>
         <translation>HEMS-gesteuerte Batterie</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="214"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="215"/>
         <source>Maximum SoC</source>
         <translation>Maximaler SoC</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="235"/>
+        <location filename="../optimization/BatteryOptimization.qml" line="236"/>
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
@@ -579,14 +567,6 @@
 <context>
     <name>CarInventory</name>
     <message>
-        <source>Thing reconfigured!</source>
-        <translation type="vanished">&quot;Thing&quot; neu eingerichtet!</translation>
-    </message>
-    <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="vanished">Alles erledigt. Du kannst %1 jetzt benutzen.</translation>
-    </message>
-    <message>
         <location filename="../thingconfiguration/CarInventory.qml" line="233"/>
         <source>Ok</source>
         <translation>OK</translation>
@@ -656,376 +636,381 @@
 <context>
     <name>ChargingConfigView</name>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="25"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="28"/>
         <source>no car selected</source>
         <translation>kein Auto ausgewählt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="481"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="490"/>
         <source>PV only</source>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="654"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="659"/>
         <source>Initialising</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="656"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="661"/>
         <source>Running</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="658"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="663"/>
         <source>Finished</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="660"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="665"/>
         <source>Interrupted</source>
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1372"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1380"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="848"/>
+        <source>When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.</source>
+        <translation>Beim gleichzeitigen Betrieb mehrerer Wallboxen erfolgt derzeit keine automatische Lastverteilung. Die Einhaltung der für deinen Netzanschluss genehmigten Gesamtladeleistung liegt in deiner Verantwortung.</translation>
+    </message>
+    <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="1389"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1397"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation>Ladevorgang in der vorgegeben Zeit nicht möglich, verringern sie das Ladeziel oder verlängern sie die Zeitvorgabe.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1093"/>
         <location filename="../optimization/ChargingConfigView.qml" line="1110"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1127"/>
         <source>Select/Add Car</source>
         <translation>hinzufügen/wähle Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1463"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1480"/>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1464"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1481"/>
         <source>Pause charging</source>
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="921"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="941"/>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0 % ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="925"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1962"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="945"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1977"/>
         <source>Please select a car</source>
         <translation>Bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="935"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="955"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="414"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="423"/>
         <source>Activate simulated car</source>
         <translation>Auto Simulation aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="502"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="511"/>
         <source>Car</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="456"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1128"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="465"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1145"/>
         <source>Charging mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="598"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1362"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="603"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1379"/>
         <source>Ending time</source>
         <translation>Zielzeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="607"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1315"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="612"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1332"/>
         <source>Target charge</source>
         <translation>Ladeziel</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="633"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="667"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="638"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="672"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="662"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="667"/>
         <source>Pending</source>
         <translation>Pausiert</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="664"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="669"/>
         <source>Failed</source>
         <translation>Fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="691"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1289"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="696"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1306"/>
         <source>Battery level</source>
         <translation>Batteriestand</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="708"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="713"/>
         <source>Battery charge</source>
         <translation>Batterieinhalt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="752"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="757"/>
         <source>Energy charged</source>
         <translation>Geladene Energie</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="766"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="771"/>
         <source>Time elapsed</source>
         <translation>Vergangene Zeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="473"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1137"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="482"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1154"/>
         <source>Charge always</source>
         <translation>Immer laden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="477"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1139"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="486"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1156"/>
         <source>Next trip</source>
         <translation>Nächste Fahrt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="485"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1138"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="494"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1155"/>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="531"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="540"/>
         <source>Minimal current</source>
         <translation>Minimalstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="644"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="649"/>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1047"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1075"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1067"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1095"/>
         <source>Configure charging mode</source>
         <translation>Lademodus konfigurieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="734"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="739"/>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="743"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="748"/>
         <source>Actual charging current</source>
         <translation>Ladestrom (Ist)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="725"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="730"/>
         <source>Charging power</source>
         <translation>Ladeleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="489"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1140"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="498"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1157"/>
         <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="542"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="551"/>
         <source>Price limit</source>
         <translation>Preisgrenze</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="524"/>
         <location filename="../optimization/ChargingConfigView.qml" line="533"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1458"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="542"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1475"/>
         <source>Pausing</source>
         <translation>Pausieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1613"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1628"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1890"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1905"/>
         <source>No prices available, yet</source>
         <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1909"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1924"/>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="566"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="577"/>
         <source>Current Price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="565"/>
-        <source>%1 ct/kWh</source>
-        <translation>%1 ct/kWh</translation>
-    </message>
-    <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="580"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="585"/>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="525"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="534"/>
         <source>Low solar availability</source>
         <translation>Bei wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="493"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1141"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="502"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1158"/>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="64"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="973"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="67"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="993"/>
         <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="65"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="974"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="68"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="994"/>
         <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="66"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="975"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="69"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="995"/>
         <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="67"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="976"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="70"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="996"/>
         <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="68"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="977"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="71"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="997"/>
         <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="69"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="978"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="72"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="998"/>
         <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="70"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="979"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="73"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="999"/>
         <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="382"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="391"/>
         <source>Phase setting could not be applied</source>
         <translation>Phasenanzahl konnte nicht übernommen werden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="383"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="392"/>
         <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
         <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="616"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="775"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="621"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="780"/>
         <source>Phase count</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="392"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="401"/>
         <source>Vehicle</source>
         <translation>Fahrzeug</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="403"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="412"/>
         <source>Car plugged in</source>
         <translation>Auto eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="404"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="413"/>
         <source>Car not plugged in</source>
         <translation>Auto nicht eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="434"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="443"/>
         <source>Charging settings</source>
         <translation>Ladeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="795"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="800"/>
         <source>Cancel charging</source>
         <translation>Laden abbrechen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1090"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="847"/>
+        <source>Note</source>
+        <translation>Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="1107"/>
         <source>Selected car</source>
         <translation>Ausgewähltes Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1234"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1251"/>
         <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
         <translation>Bei überschrittener Preisgrenze wird PV‑Überschuss nach Gerätepriorität genutzt.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1241"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1258"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1261"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1278"/>
         <source>Number of phases</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1457"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1474"/>
         <source>Low solar avalaibility</source>
         <translation>Bei zu wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1476"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1493"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1487"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1504"/>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1498"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1515"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1499"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1516"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="834"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="853"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -1276,211 +1261,211 @@
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="27"/>
+        <location filename="../components/CoAboutPage.qml" line="24"/>
         <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
         <translation>Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="30"/>
+        <location filename="../components/CoAboutPage.qml" line="27"/>
         <source>Not available</source>
         <translation>Nicht verfügbar</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="48"/>
+        <location filename="../components/CoAboutPage.qml" line="45"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="59"/>
+        <location filename="../components/CoAboutPage.qml" line="56"/>
         <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
         <translation>Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="60"/>
+        <location filename="../components/CoAboutPage.qml" line="57"/>
         <source>Developer options are now disabled.</source>
         <translation>Entwicklereinstellungen sind jetzt deaktiviert.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="63"/>
+        <location filename="../components/CoAboutPage.qml" line="60"/>
         <source>Howdy cowboy!</source>
         <translation>Howdy cowboy!</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="80"/>
+        <location filename="../components/CoAboutPage.qml" line="77"/>
         <source>Serial number</source>
         <translation>Seriennummer</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="86"/>
-        <location filename="../components/CoAboutPage.qml" line="98"/>
-        <location filename="../components/CoAboutPage.qml" line="130"/>
-        <location filename="../components/CoAboutPage.qml" line="142"/>
+        <location filename="../components/CoAboutPage.qml" line="83"/>
+        <location filename="../components/CoAboutPage.qml" line="95"/>
+        <location filename="../components/CoAboutPage.qml" line="127"/>
+        <location filename="../components/CoAboutPage.qml" line="139"/>
         <source>%1 copied to clipboard</source>
         <translation>%1 kopiert</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="93"/>
+        <location filename="../components/CoAboutPage.qml" line="90"/>
         <source>Server UUID</source>
         <translation>Server UUID</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="105"/>
+        <location filename="../components/CoAboutPage.qml" line="102"/>
         <source>Connection</source>
         <translation>Verbindung</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="114"/>
+        <location filename="../components/CoAboutPage.qml" line="111"/>
         <source>Software versions</source>
         <translation>Software-Versionen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="125"/>
+        <location filename="../components/CoAboutPage.qml" line="122"/>
         <source>%1 (Device)</source>
         <translation>%1 (Gerät)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="137"/>
+        <location filename="../components/CoAboutPage.qml" line="134"/>
         <source>%1 (App)</source>
         <translation>%1 (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="149"/>
+        <location filename="../components/CoAboutPage.qml" line="146"/>
         <source>Server</source>
         <translation>Server</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="156"/>
+        <location filename="../components/CoAboutPage.qml" line="153"/>
         <source>JSON RPC</source>
         <translation>JSON RPC</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="162"/>
+        <location filename="../components/CoAboutPage.qml" line="159"/>
         <source>Built with %1</source>
         <translation>Gebaut mit %1</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="163"/>
+        <location filename="../components/CoAboutPage.qml" line="160"/>
         <source>Qt (Device)</source>
         <translation>Qt (Gerät)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="170"/>
+        <location filename="../components/CoAboutPage.qml" line="167"/>
         <source>Qt (App)</source>
         <translation>Qt (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="179"/>
+        <location filename="../components/CoAboutPage.qml" line="176"/>
         <source>Privacy</source>
         <translation>Datenschutz</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="189"/>
+        <location filename="../components/CoAboutPage.qml" line="186"/>
         <source>Show privacy policy</source>
         <translation>Datenschutzerklärung anzeigen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="203"/>
+        <location filename="../components/CoAboutPage.qml" line="200"/>
         <source>Licenses (Device)</source>
         <translation>Lizenzen (Gerät)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="220"/>
+        <location filename="../components/CoAboutPage.qml" line="217"/>
         <source>Licensed under the terms of the GNU General Public License, version 3.</source>
         <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="267"/>
+        <location filename="../components/CoAboutPage.qml" line="264"/>
         <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
         <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub-Seiten für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="225"/>
+        <location filename="../components/CoAboutPage.qml" line="222"/>
         <source>Common Licenses</source>
         <translation>Allgemeine Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="226"/>
-        <location filename="../components/CoAboutPage.qml" line="237"/>
+        <location filename="../components/CoAboutPage.qml" line="223"/>
+        <location filename="../components/CoAboutPage.qml" line="234"/>
         <source>Only available on the local network</source>
         <translation>Nur im lokalen Netzwerk verfügbar</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="236"/>
+        <location filename="../components/CoAboutPage.qml" line="233"/>
         <source>Software and Libraries</source>
         <translation>Software und Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="250"/>
+        <location filename="../components/CoAboutPage.qml" line="247"/>
         <source>Licenses (App)</source>
         <translation>Lizenzen (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="272"/>
+        <location filename="../components/CoAboutPage.qml" line="269"/>
         <source>Visit GitHub page</source>
         <translation>Besuche die GitHub Seite</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="283"/>
+        <location filename="../components/CoAboutPage.qml" line="280"/>
         <source>Visit Consolinno-Overlay on GitHub</source>
         <translation>Besuche Consolinno-Overlay auf GitHub</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="294"/>
+        <location filename="../components/CoAboutPage.qml" line="291"/>
         <source>Software and libraries (App)</source>
         <translation>Software und Bibliotheken (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="295"/>
+        <location filename="../components/CoAboutPage.qml" line="292"/>
         <source>View the software and libraries used in this product.</source>
         <translation>Für dieses Produkt genutzte Software und Bibliotheken anzeigen.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="308"/>
+        <location filename="../components/CoAboutPage.qml" line="305"/>
         <source>Further information</source>
         <translation>Weitere Informationen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="319"/>
+        <location filename="../components/CoAboutPage.qml" line="316"/>
         <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
         <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="325"/>
+        <location filename="../components/CoAboutPage.qml" line="322"/>
         <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
         <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="330"/>
+        <location filename="../components/CoAboutPage.qml" line="327"/>
         <source>Visit the Qt homepage</source>
         <translation>Besuche die Qt-Website</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="341"/>
+        <location filename="../components/CoAboutPage.qml" line="338"/>
         <source>Visit the nymea homepage</source>
         <translation>Besuche die nymea-Website</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="355"/>
+        <location filename="../components/CoAboutPage.qml" line="352"/>
         <source>Source code availability</source>
         <translation>Verfügbarkeit des Quelltexts</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="366"/>
+        <location filename="../components/CoAboutPage.qml" line="363"/>
         <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
         <translation>Jeder kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="372"/>
+        <location filename="../components/CoAboutPage.qml" line="369"/>
         <source>&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;%2&lt;br&gt;%3 %4&lt;br&gt;Tel: %5&lt;br&gt;Mail: %6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="384"/>
+        <location filename="../components/CoAboutPage.qml" line="381"/>
         <source>Please provide the following product data:</source>
         <translation>Geben Sie bitte folgende Produktdaten an:</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="390"/>
+        <location filename="../components/CoAboutPage.qml" line="387"/>
         <source>- Product name<byte value="xd"/>
 - Software version<byte value="xd"/>
 - Serial number - if known</source>
@@ -1489,7 +1474,7 @@
 - Seriennummer - falls bekannt</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="396"/>
+        <location filename="../components/CoAboutPage.qml" line="393"/>
         <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
         <translation>und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
     </message>
@@ -1520,12 +1505,12 @@
 <context>
     <name>CoDashboardView</name>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="369"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="322"/>
         <source>Pending software update</source>
         <translation>Ausstehendes Software-Update</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="371"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="324"/>
         <source>
 Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
 Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;br/&gt;&lt;br/&gt;
@@ -1548,47 +1533,47 @@ Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren 
 Ihr %3 Team</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="386"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="339"/>
         <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
         <translation>&lt;li&gt;Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;&lt;/li&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="394"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="347"/>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="395"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="348"/>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="403"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="356"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="404"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="357"/>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="412"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="365"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="413"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="366"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="427"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="380"/>
         <source>The app has been updated.</source>
         <translation>Die App wurde aktualisiert.</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="428"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="381"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
         <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
@@ -1603,82 +1588,82 @@ Ihr %3 Team</translation>
 &lt;/ul&gt;</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="441"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="394"/>
         <source>Live status</source>
         <translation>Live-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="562"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="515"/>
         <source>Solar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="586"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="539"/>
         <source>Grid</source>
         <translation>Netz</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="609"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="562"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="631"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="584"/>
         <source>Consumption</source>
         <translation>Verbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="661"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="614"/>
         <source>Energy status</source>
         <translation>Energie-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="669"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="622"/>
         <source>Self-sufficiency</source>
         <translation>Autarkie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="678"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="631"/>
         <source>Self-consumption</source>
         <translation>Eigenverbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="718"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="671"/>
         <source>Inverters</source>
         <translation>Wechselrichter</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="756"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="709"/>
         <source>Batteries</source>
         <translation>Batterien</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="802"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="755"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="845"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="798"/>
         <source>Mobility</source>
         <translation>Mobilität</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="895"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="848"/>
         <source>Other consumers</source>
         <translation>Weitere Verbraucher</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="938"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="891"/>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="583"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="536"/>
         <source>Feed-in</source>
         <translation>Einspeisung</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="585"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="538"/>
         <source>Grid import</source>
         <translation>Netzbezug</translation>
     </message>
@@ -2143,37 +2128,37 @@ Ihr %3 Team</translation>
 <context>
     <name>ConsolinnoConsumerStats</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="201"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="202"/>
         <source>Consumers totals</source>
         <translation>Verbrauchersummen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="212"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="213"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="213"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="214"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="214"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="215"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="215"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="216"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="216"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="217"/>
         <source>Years</source>
         <translation>Jahre</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="262"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumerStats.qml" line="263"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
@@ -2181,42 +2166,42 @@ Ihr %3 Team</translation>
 <context>
     <name>ConsolinnoConsumersHistory</name>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="143"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="144"/>
         <source>Consumers history</source>
         <translation>Verbraucherhistorie</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="327"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="328"/>
         <source>Unknown</source>
         <translation>Unbekannt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="757"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="761"/>
         <source>Total</source>
         <translation>Gesamt</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="155"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="156"/>
         <source>Hours</source>
         <translation>Stunden</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="160"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="161"/>
         <source>Days</source>
         <translation>Tage</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="165"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="166"/>
         <source>Weeks</source>
         <translation>Wochen</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="170"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="171"/>
         <source>Months</source>
         <translation>Monate</translation>
     </message>
     <message>
-        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="232"/>
+        <location filename="../mainviews/energy/ConsolinnoConsumersHistory.qml" line="233"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
@@ -2304,152 +2289,6 @@ Levies: %4 %2</source>
         <translation>Gesamt: %1 %2
 Netzentgelte: %3 %2
 Abgaben: %4 %2</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoImprintApp</name>
-    <message>
-        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation type="vanished">Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
-    </message>
-    <message>
-        <source>Developer options are now disabled.</source>
-        <translation type="vanished">Entwicklereinstellungen sind jetzt deaktiviert.</translation>
-    </message>
-    <message>
-        <source>Howdy cowboy!</source>
-        <translation type="vanished">Howdy cowboy!</translation>
-    </message>
-    <message>
-        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation type="vanished">Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuchen Sie die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
-    </message>
-    <message>
-        <source>Visit GitHub page</source>
-        <translation type="vanished">Besuchen Sie die GitHub Seite</translation>
-    </message>
-    <message>
-        <source>View privacy policy</source>
-        <translation type="vanished">Datenschutzerklärung anzeigen</translation>
-    </message>
-    <message>
-        <source>Common Licenses</source>
-        <translation type="vanished">Allgemeine Lizenzen</translation>
-    </message>
-    <message>
-        <source>Common Licenses used for this Product</source>
-        <translation type="vanished">Für dieses Produkt genutzte Lizenzen</translation>
-    </message>
-    <message>
-        <source>Software and Libraries</source>
-        <translation type="vanished">Software und Bibliotheken</translation>
-    </message>
-    <message>
-        <source>Software and libraries used for this Product</source>
-        <translation type="vanished">Für dieses Produkt genutzte Software und Bibliotheken</translation>
-    </message>
-    <message>
-        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation type="vanished">Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
-    </message>
-    <message>
-        <source>Visit the Qt website</source>
-        <translation type="vanished">Besuchen Sie die Qt Webseite</translation>
-    </message>
-    <message>
-        <source>Visit the nymea website</source>
-        <translation type="vanished">Besuchen Sie die nymea Webseite</translation>
-    </message>
-    <message>
-        <source>Source code availability</source>
-        <translation type="vanished">Verfügbarkeit des Quelltexts</translation>
-    </message>
-    <message>
-        <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
-        <translation type="vanished">Jedermann kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
-    </message>
-    <message>
-        <source>Please provide the following product data:</source>
-        <translation type="vanished">Geben Sie bitte folgende Produktdaten an:</translation>
-    </message>
-    <message>
-        <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
-        <translation type="vanished">und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
-    </message>
-    <message>
-        <source>- Product name<byte value="xd"/>
-- Software version<byte value="xd"/>
-- Serial number - if known</source>
-        <translation type="vanished">- Produktname
-- Software-Version
-- Seriennummer - falls bekannt</translation>
-    </message>
-    <message>
-        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
-        <translation type="vanished">Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
-    </message>
-</context>
-<context>
-    <name>ConsolinnoImprintSystem</name>
-    <message>
-        <source>Developer options are now enabled. If you have found this by accident, it is most likely not of any use for you. It will just enable some nerdy developer gibberish in the app. Tap the icon another 10 times to disable it again.</source>
-        <translation type="vanished">Entwicklereinstellungen sind jetzt aktiviert. Falls Du diese Einstellung aus Zufall gefunden hast, wirst Du wahrscheinlich keinen Nutzen davon haben. Sie aktiviert nur ein wenig unverständliches Entwickler-Zeug. Berühre das Icon weitere 10 mal um die Entwicklereinstellungen wieder zu deaktivieren.</translation>
-    </message>
-    <message>
-        <source>Developer options are now disabled.</source>
-        <translation type="vanished">Entwicklereinstellungen sind jetzt deaktiviert.</translation>
-    </message>
-    <message>
-        <source>Howdy cowboy!</source>
-        <translation type="vanished">Howdy cowboy!</translation>
-    </message>
-    <message>
-        <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
-        <translation type="vanished">Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub Seite für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
-    </message>
-    <message>
-        <source>Visit GitHub page</source>
-        <translation type="vanished">Besuchen Sie die GitHub Seite</translation>
-    </message>
-    <message>
-        <source>View privacy policy</source>
-        <translation type="vanished">Datenschutzerklärung anzeigen</translation>
-    </message>
-    <message>
-        <source>Common Licenses</source>
-        <translation type="vanished">Allgemeine Lizenzen</translation>
-    </message>
-    <message>
-        <source>Additional software licenses</source>
-        <translation type="vanished">Zusätzliche Software-Lizenzen</translation>
-    </message>
-    <message>
-        <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
-        <translation type="vanished">Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
-    </message>
-    <message>
-        <source>Visit the Qt website</source>
-        <translation type="vanished">Besuchen Sie die Qt Webseite</translation>
-    </message>
-    <message>
-        <source>Only available on the local network</source>
-        <translation type="vanished">Nur im lokalen Netzwerk verfügbar</translation>
-    </message>
-    <message>
-        <source>Visit the nymea website</source>
-        <translation type="vanished">Besuchen Sie die nymea Webseite</translation>
-    </message>
-    <message>
-        <source>Software and Libraries</source>
-        <translation type="vanished">Software und Bibliotheken</translation>
-    </message>
-    <message>
-        <source>Only available on the local network. Please connect the device running this app to the same network as your %1 system, e.g. your home network.</source>
-        <translation type="vanished">Nur im lokalen Netzwerk verfügbar. Bitte verbinden Sie das Gerät, auf dem diese App ausgeführt wird, mit demselben Netzwerk wie Ihr %1-System, z. B. Ihrem Heimnetzwerk.</translation>
-    </message>
-    <message>
-        <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
-        <translation type="vanished">Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
 </context>
 <context>
@@ -3319,42 +3158,42 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoPasswordTextField</name>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="58"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="62"/>
         <source>Pick a password</source>
         <translation>Wähle ein Passwort</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="58"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="62"/>
         <source>Password</source>
         <translation>Passwort</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="81"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="85"/>
         <source>Minimum %1 characters</source>
         <translation>Mindestens %1 Zeichen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="84"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="88"/>
         <source>Lowercase letters</source>
         <translation>Kleinbuchstaben</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="88"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="92"/>
         <source>Uppercase letters</source>
         <translation>Großbuchstaben</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="92"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="96"/>
         <source>Numbers</source>
         <translation>Zahlen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="96"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="100"/>
         <source>Special characters</source>
         <translation>Sonderzeichen</translation>
     </message>
     <message>
-        <location filename="../components/ConsolinnoPasswordTextField.qml" line="147"/>
+        <location filename="../components/ConsolinnoPasswordTextField.qml" line="152"/>
         <source>Confirm password</source>
         <translation>Passwort bestätigen</translation>
     </message>
@@ -3829,10 +3668,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
     </message>
     <message>
-        <source>Find app versions and licence information.</source>
-        <translation type="vanished">Finde App-Versionen und Lizenzinformationen.</translation>
-    </message>
-    <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="137"/>
         <source>Change system name and time zone.</source>
         <translation>Ändere Systemname und Zeitzone.</translation>
@@ -3866,10 +3701,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <location filename="../ConsolinnoSettingsPage.qml" line="228"/>
         <source>Find server UUID, versions and license information.</source>
         <translation>Finde Server-UUID, Versionen und Lizenzinformationen.</translation>
-    </message>
-    <message>
-        <source>Find server UUID and versions.</source>
-        <translation type="vanished">Finde Server-UUID und Versionen.</translation>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="259"/>
@@ -3915,158 +3746,146 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoSetupWizard</name>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="231"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="254"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="301"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="233"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="256"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="303"/>
         <source>Discover %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="262"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="264"/>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="238"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="240"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="305"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="307"/>
         <source>Add thing manually</source>
         <translation>Thing manuell hinzufügen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="351"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="353"/>
         <source>Searching for things...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="358"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="360"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="365"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="367"/>
         <source>No things of this kind could be found...</source>
         <translation>Keine &quot;Things&quot; von diesem Typ gefunden...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="376"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="378"/>
         <source>Make sure your things are set up and connected, try searching again or go back and pick a different kind of thing.</source>
         <translation>Stellen Sie sicher, dass Ihr &quot;Thing&quot; eingerichtet und verbunden ist, versuchen Sie dann erneut zu suchen oder wählen Sie einen anderen Typ von &quot;Things&quot;.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="295"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="297"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="543"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="687"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="393"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="545"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="614"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="689"/>
         <source>Reconfigure %1</source>
         <translation>Konfiguriere %1</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="391"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="543"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="612"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="687"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="393"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="545"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="614"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="689"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="428"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="430"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="439"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="441"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="453"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="455"/>
         <source>Thing parameters</source>
         <translation>Geräteparameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="524"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="526"/>
         <source>Reset values to default</source>
         <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="708"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="710"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="708"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="710"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="717"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="719"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="398"/>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="550"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="400"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="552"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="568"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="570"/>
         <source>Login required</source>
         <translation>Anmeldung erforderlich</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="585"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="587"/>
         <source>Username</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="623"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="625"/>
         <source>OAuth is not supported on this platform. Please use this app on a different device to set up this thing.</source>
         <translation>OAuth wird auf diesem System nicht unterstützt. Bitte benutze diese App auf einem anderen Gerät um dieses &quot;Thing&quot; einzurichten.</translation>
     </message>
     <message>
-        <source>Thing reconfigured!</source>
-        <translation type="vanished">Thing neu eingerichtet!</translation>
-    </message>
-    <message>
-        <source>Thing added!</source>
-        <translation type="vanished">Thing hinzugefügt!</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="709"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="711"/>
         <source>Uh oh</source>
         <translation>Uh oh</translation>
     </message>
     <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="717"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="719"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="670"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="672"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="680"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="682"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="318"/>
+        <location filename="../thingconfiguration/ConsolinnoSetupWizard.qml" line="320"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
@@ -4568,27 +4387,27 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>DeviceOverview</name>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="45"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="47"/>
         <source>Device Overview</source>
         <translation>Geräteübersicht</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="26"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="28"/>
         <source>Start Wizard</source>
         <translation>Inbetriebnahme-Assistent</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="209"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="226"/>
         <source>There are no things set up yet.</source>
         <translation>Bis jetzt sind keine Things eingerichtet</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="210"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="227"/>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
         <translation>Damit ihr %1 System effizient arbeiten kann, fügen Sie bitte Things hinzu.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="32"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="34"/>
         <source>Set up new device</source>
         <translation>Gerät hinzufügen</translation>
     </message>
@@ -4715,59 +4534,59 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>EpexDayAheadSetup</name>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="155"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="156"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="368"/>
         <source>Reconfigure %1</source>
         <translation>%1 neu einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="156"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="157"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="368"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="169"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="170"/>
         <source>Reset values to default</source>
         <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="391"/>
         <source>Uh oh</source>
         <translation>Oh oh</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="400"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="401"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="401"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="402"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="433"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="434"/>
         <source>Ok</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="345"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="346"/>
         <source>Incomplete Price Information</source>
         <translation>Unvollständige Preisangaben</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="346"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="347"/>
         <source>At least one of your values for levies or grid fees is set to 0. As a result, the total price shown will not be complete. Please note that the actual final price may be higher.
 
 Would you like to continue anyway?</source>
@@ -4776,39 +4595,27 @@ Would you like to continue anyway?</source>
 Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="266"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="267"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <source>&quot;%1&quot; reconfigured!</source>
-        <translation type="vanished">&quot;%1&quot; neu eingerichtet!</translation>
-    </message>
-    <message>
-        <source>&quot;%1&quot; added!</source>
-        <translation type="vanished">&quot;%1&quot; hinzugefügt!</translation>
-    </message>
-    <message>
-        <source>All done. You can now start using &quot;%1&quot;.</source>
-        <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="421"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="422"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="242"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="243"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="254"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="255"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="185"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="186"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -4920,297 +4727,306 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="140"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="235"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="334"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="547"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="714"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1103"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1218"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1635"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1727"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="136"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="268"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="367"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="580"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="747"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1137"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1252"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1669"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1761"/>
         <source>Grid-supportive control setup</source>
         <translation>Netzdienlichkeit einrichten</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="146"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="170"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="385"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="873"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1360"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="142"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="166"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="418"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="906"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1394"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="162"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="158"/>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="177"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="248"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="173"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="281"/>
         <source>Control box connection</source>
         <translation>Verbindung zur Steuerbox</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="188"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="257"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="335"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="386"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="184"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="290"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="368"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="419"/>
         <source>Relais</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="200"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1361"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="196"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1395"/>
         <source>EEBUS</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="267"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1104"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1219"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1636"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1728"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="220"/>
+        <source>EEBUS Pairing Data</source>
+        <translation>EEBUS Pairing-Daten</translation>
+    </message>
+    <message>
+        <location filename="../optimization/GridSupportiveControl.qml" line="300"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1138"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1253"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1670"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1762"/>
         <source>EEBUS SKI Pairing</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="268"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="301"/>
         <source>Must be in same network.</source>
         <translation>Muss im selben Netzwerk sein.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="281"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="548"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="715"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="874"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="314"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="581"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="748"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="907"/>
         <source>EEBUS Comfort Pairing</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="314"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="513"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1239"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="347"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="546"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1273"/>
         <source>Complete setup</source>
         <translation>Einrichtung abschließen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="323"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="530"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1122"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1268"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="356"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="563"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1156"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1302"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="349"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="572"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1299"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="382"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="605"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1333"/>
         <source>Attention</source>
         <translation>Achtung</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="350"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="573"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1300"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="383"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="606"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1334"/>
         <source>Existing setup will be overwritten.</source>
         <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="356"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="474"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="389"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="507"/>
         <source>Connect device</source>
         <translation>Gerät anschließen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="365"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="483"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="398"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="516"/>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
         <translation>Bitte schließe die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="398"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="886"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1373"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="431"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="919"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1407"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="403"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1378"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="436"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1412"/>
         <source>Reconfigure</source>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="579"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="738"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="965"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="612"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="771"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="998"/>
         <source>QR Code &amp; Pairing Data</source>
         <translation>QR‑Code &amp; Pairing‑Daten</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="590"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="749"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="976"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="623"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="782"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1009"/>
         <source>EEBUS Comfort Pairing data not available.</source>
         <translation>EEBUS Comfort Pairing-Daten nicht verfügbar.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="604"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="763"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="990"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="637"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="796"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1023"/>
         <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
         <translation>Der QR‑Code oder die untenstehenden Pairing‑Daten sind für das SHIP Pairing durch den Messstellenbetreiber zu verwenden.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="636"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="792"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1019"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="669"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="825"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1052"/>
         <source>QR code content copied to clipboard</source>
         <translation>QR Code Inhalt kopiert</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="646"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="801"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1028"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="679"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="834"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1061"/>
         <source>Secret Key (SPSEC)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="651"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="663"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="675"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="806"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="818"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="830"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1033"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1045"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1057"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="236"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="248"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="684"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="696"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="708"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="839"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="851"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="863"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1066"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1078"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1090"/>
         <source>%1 copied to clipboard</source>
         <translation>%1 kopiert</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="658"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="813"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1040"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="243"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="691"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="846"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1073"/>
         <source>SHIP ID (ID)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="670"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="825"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1052"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="703"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="858"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1085"/>
         <source>Certificate Fingerprint (SHA-256)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="698"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1737"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="731"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1771"/>
         <source>Back to overview</source>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="839"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1066"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1501"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1781"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="872"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1099"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1535"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1815"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="848"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1075"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="881"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1108"/>
         <source>Completion by the metering point operator pending</source>
         <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1117"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1151"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1150"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1184"/>
         <source>The following EEBUS devices were found</source>
         <translation>Folgende EEBUS-Geräte wurden gefunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1159"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1193"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation>Es wurde kein EEBUS-Gerät im Netzwerk gefunden. Bitte stellen Sie sicher, dass das Gerät eingeschaltet und mit demselben Netzwerk verbunden ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1194"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1228"/>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1232"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1266"/>
         <source>Establish a connection with this device.</source>
         <translation>Mit diesem Gerät eine Verbindung aufbauen.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1306"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1463"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1340"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1497"/>
         <source>Parameter</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1316"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1473"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1765"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1350"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1507"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1799"/>
         <source>This SKI is required by the metering point operator.</source>
         <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1317"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1474"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1766"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="231"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1351"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1508"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1800"/>
         <source>Local Subject Key Identifier (SKI)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1323"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1480"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1772"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1357"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1514"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1806"/>
         <source>SKI copied to clipboard</source>
         <translation>SKI kopiert</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1512"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1792"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1546"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1826"/>
         <source>Confirmation by metering point operator pending</source>
         <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1514"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1794"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1548"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1828"/>
         <source>Connected</source>
         <translation>Verbunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1515"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1795"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1549"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1829"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1669"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1703"/>
         <source>Setting up EEBUS device...</source>
         <translation>EEBUS Gerät wird eingerichtet...</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1694"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1728"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1704"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1738"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1755"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1789"/>
         <source>Control box</source>
         <translation>Steuerbox</translation>
     </message>
@@ -5785,12 +5601,12 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>InfoTextInterface</name>
     <message>
-        <location filename="../info/InfoTextInterface.qml" line="34"/>
+        <location filename="../info/InfoTextInterface.qml" line="35"/>
         <source>Summary:</source>
         <translation>Zusammenfassung:</translation>
     </message>
     <message>
-        <location filename="../info/InfoTextInterface.qml" line="105"/>
+        <location filename="../info/InfoTextInterface.qml" line="106"/>
         <source>Further Readings:</source>
         <translation>Weitere Links</translation>
     </message>
@@ -5861,27 +5677,27 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>InverterDevicePage</name>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="50"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="46"/>
         <source>Feed-in curtailment</source>
         <translation>Einspeiseabregelung</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="51"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="47"/>
         <source>The feed-in is &lt;b&gt;limited temporarily&lt;/b&gt; to &lt;b&gt;%1 kW&lt;/b&gt; due to a control command from the grid operator.</source>
         <translation>Die Einspeisung wird auf Grund eines Steuerbefehls des Netzbetreibers &lt;b&gt;vorübergehend begrenzt&lt;/b&gt; auf &lt;b&gt;%1 kW.&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="61"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="57"/>
         <source>Producing</source>
         <translation>Erzeugend</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="62"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="58"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/InverterDevicePage.qml" line="74"/>
+        <location filename="../devicepages/InverterDevicePage.qml" line="70"/>
         <source>Total production</source>
         <translation>Gesamtproduktion</translation>
     </message>
@@ -5968,57 +5784,57 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>OptimizationConfiguration</name>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="63"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="64"/>
         <source>Blackout protection</source>
         <translation>Überlastschutz</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="87"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="88"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="291"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="292"/>
         <source>No optimizations available</source>
         <translation>Keine Optimierungen verfügbar</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="292"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="293"/>
         <source>Optimizations will be available once the required things have been added to the system.</source>
         <translation>Optimierungen sind verfügbar, sobald die benötigten Geräte im System eingerichtet wurden.</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="22"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="23"/>
         <source>Optimization configuration</source>
         <translation>Optimierungskonfiguration</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="143"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="144"/>
         <source>Charging</source>
         <translation>Laden</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="176"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="177"/>
         <source>Battery</source>
         <translation>Batterie</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="48"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="49"/>
         <source>System</source>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="75"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="76"/>
         <source>PV device priorization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="212"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="213"/>
         <source>PV</source>
         <translation>PV</translation>
     </message>
     <message>
-        <location filename="../mainviews/OptimizationConfiguration.qml" line="248"/>
+        <location filename="../mainviews/OptimizationConfiguration.qml" line="249"/>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
     </message>
@@ -6157,12 +5973,12 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>PVPriorities</name>
     <message>
-        <location filename="../optimization/PVPriorities.qml" line="304"/>
+        <location filename="../optimization/PVPriorities.qml" line="284"/>
         <source>Restore default order</source>
         <translation>Default-Reihenfolge</translation>
     </message>
     <message>
-        <location filename="../optimization/PVPriorities.qml" line="322"/>
+        <location filename="../optimization/PVPriorities.qml" line="302"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -6172,7 +5988,7 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>System</translation>
     </message>
     <message>
-        <location filename="../optimization/PVPriorities.qml" line="199"/>
+        <location filename="../optimization/PVPriorities.qml" line="179"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
@@ -6196,7 +6012,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="70"/>
-        <source>Note:&#xa0;After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.</source>
+        <source>Note: After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.</source>
         <translation>Hinweis: Nach Änderungen der Priorisierung kann es bis zu 5 Minuten dauern, bis die neue Reihenfolge vom System übernommen und umgesetzt wird.</translation>
     </message>
     <message>
@@ -6258,42 +6074,42 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>RootMeterDevicePage</name>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="26"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="22"/>
         <source>Grid</source>
         <translation>Netz</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="53"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="49"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="54"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="50"/>
         <source>Due to a control order from the network operator, the total power of controllable devices is &lt;b&gt;temporarily limited&lt;/b&gt; to &lt;b&gt;%1 kW.&lt;/b&gt; If, for example, you are currently charging your electric car, the charging process may not be carried out at the usual power level.</source>
         <translation>Wegen eines Steuerbefehls des Netzbetreibers ist die Gesamtleistung steuerbarer Geräte &lt;b&gt;vorübergehend&lt;/b&gt; auf &lt;b&gt;%1&#x202f;kW begrenzt.&lt;/b&gt; Sollten Sie z.&#x202f;B. Ihr E-Auto derzeit laden, erfolgt der Ladevorgang ggf. nicht mit gewohnter Leistung.</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="68"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="64"/>
         <source>Consuming</source>
         <translation>Verbrauchend</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="70"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="66"/>
         <source>Producing</source>
         <translation>Erzeugend</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="71"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="67"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="95"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="91"/>
         <source>Total grid feed-in</source>
         <translation>Gesamte Netzeinspeisung</translation>
     </message>
     <message>
-        <location filename="../devicepages/RootMeterDevicePage.qml" line="85"/>
+        <location filename="../devicepages/RootMeterDevicePage.qml" line="81"/>
         <source>Total grid import</source>
         <translation>Gesamter Netzbezug</translation>
     </message>
@@ -6319,131 +6135,131 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SetupEEBUSWizard</name>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="63"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="727"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="64"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="728"/>
         <source>EEBUS Devices</source>
         <translation>EEBUS-Geräte</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="148"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="149"/>
         <source>Configured EEBUS Devices</source>
         <translation>Eingerichtete EEBUS-Geräte</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="190"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="191"/>
         <source>No EEBUS devices configured yet.</source>
         <translation>Noch keine EEBUS-Geräte eingerichtet.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="201"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="202"/>
         <source>Add EEBUS Device</source>
         <translation>EEBUS-Gerät Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="212"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="213"/>
         <source>Search in network</source>
         <translation>Im Netzwerk suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="42"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="43"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="48"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="49"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="247"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="248"/>
         <source>Discover EEBUS Devices</source>
         <translation>EEBUS-Geräte einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="264"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="265"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="298"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="299"/>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="306"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="307"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="315"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="316"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation>Es wurde kein EEBUS-Gerät im Netzwerk gefunden. Bitte stellen Sie sicher, dass das Gerät eingeschaltet und mit demselben Netzwerk verbunden ist.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="239"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="240"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="367"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="368"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="377"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="378"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="388"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="389"/>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="400"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="401"/>
         <source>Thing parameters</source>
         <translation>Geräteparameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="342"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="451"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="493"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="712"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="343"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="452"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="494"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="713"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="646"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="545"/>
+        <source>At the moment, %1 can only control up to 3 EV chargers. The device will be removed again.</source>
+        <translation>Derzeit kann %1 nur bis zu 3 Wallboxen steuern. Das Gerät wird wieder entfernt.</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="647"/>
         <source>The EEBUS device has been successfully set up:</source>
         <translation>Das folgende EEBUS-Gerät wurde erfolgreich eingerichtet:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="742"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="743"/>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="544"/>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="550"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="551"/>
         <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="687"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="688"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="511"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="512"/>
         <source>EEBUS Device</source>
         <translation>EEBUS Gerät</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="631"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="632"/>
         <source>Setting up EEBUS device...</source>
         <translation>EEBUS Gerät wird eingerichtet...</translation>
     </message>
@@ -6467,8 +6283,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="24"/>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+        <source>At the moment, %1 can only control up to 3 EV chargers.</source>
+        <translation>Derzeit kann %1 nur bis zu 3 Wallboxen steuern.</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>
@@ -6489,110 +6305,110 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SetupEnergyMeterWizard</name>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="148"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="149"/>
         <source>Please select your model:</source>
         <translation>Bitte Modell auswählen:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="574"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="575"/>
         <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Stromzähler überprüfen und erneut versuchen.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="39"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="498"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="40"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="499"/>
         <source>Setup energy meter</source>
         <translation>Stromzähler einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="548"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="549"/>
         <source>The following energy meter has been found and set up:</source>
         <translation>Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="224"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="490"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="225"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="491"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="241"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="295"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="242"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="296"/>
         <source>Discover %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="250"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="251"/>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="337"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="338"/>
         <source>Searching for things...</source>
         <translation>Suche Geräte</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="345"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="346"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="287"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="288"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="400"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
         <source>Reconfigure %1</source>
         <translation>Konfiguriere %1</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="400"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="438"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="439"/>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="303"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="304"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="354"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="355"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="138"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="139"/>
         <source>Add energy meter</source>
         <translation>Stromzähler hinzufügen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="160"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="161"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="23"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="24"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="410"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="411"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="426"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="427"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="380"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="381"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -6709,152 +6525,144 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SetupWizardBase</name>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="283"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="285"/>
         <source>Please select your model:</source>
         <translation>Bitte Modell auswählen:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="297"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="299"/>
         <source>Add</source>
         <translation>Hinzufügen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="44"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="375"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="640"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="46"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="377"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="642"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="50"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="52"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="391"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="444"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="393"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="446"/>
         <source>Discover %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="400"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="402"/>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="452"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="454"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="486"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="488"/>
         <source>Searching for things...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="494"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="496"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="503"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="505"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="436"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="438"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="551"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="732"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="819"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="734"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="821"/>
         <source>Reconfigure %1</source>
         <translation>%1 neu einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="551"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="561"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="563"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="577"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="579"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="589"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="591"/>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="531"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="724"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="533"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="726"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="741"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="743"/>
         <source>Login required</source>
         <translation>Anmeldung erforderlich</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="757"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="758"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="759"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="760"/>
         <source>Username</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <source>Thing added!</source>
-        <translation type="vanished">Thing hinzugefügt!</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="832"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
         <source>Uh oh</source>
         <translation>Uh oh</translation>
     </message>
     <message>
-        <source>All done. You can now start using %1.</source>
-        <translation type="vanished">Sie können &quot;%1&quot; nun benutzen.</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="795"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="797"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="803"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="805"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="832"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="865"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="867"/>
         <source>OAuth Authentication</source>
         <translation>OAuth-Authentifizierung</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="874"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="876"/>
         <source>Please complete authentication in your browser</source>
         <translation>Bitte führen Sie die Authentifizierung in Ihrem Browser durch</translation>
     </message>
@@ -7242,18 +7050,18 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
 <context>
     <name>WizardComplete</name>
     <message>
-        <location filename="../wizards/WizardComplete.qml" line="32"/>
-        <location filename="../wizards/WizardComplete.qml" line="59"/>
+        <location filename="../wizards/WizardComplete.qml" line="33"/>
+        <location filename="../wizards/WizardComplete.qml" line="60"/>
         <source>Installed Devices</source>
         <translation>Installierte Geräte</translation>
     </message>
     <message>
-        <location filename="../wizards/WizardComplete.qml" line="69"/>
+        <location filename="../wizards/WizardComplete.qml" line="70"/>
         <source>Your %1 is now configured. The following devices are set up:</source>
         <translation>Ihr %1 ist jetzt konfiguriert. Die folgenden Geräte sind eingerichtet:</translation>
     </message>
     <message>
-        <location filename="../wizards/WizardComplete.qml" line="20"/>
+        <location filename="../wizards/WizardComplete.qml" line="21"/>
         <source>To the Dashboard</source>
         <translation>Zum Dashboard</translation>
     </message>
