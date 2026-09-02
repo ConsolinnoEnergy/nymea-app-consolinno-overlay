@@ -137,10 +137,16 @@ Item {
         }
 
         function maxLeftValue() {
+            // Deliberately ignores "desc.visible" here: the y-axis range
+            // must stay stable when the user toggles series on/off via the
+            // legend pills, otherwise the chart would visibly rescale on
+            // every click, which is jarring and makes it harder to compare
+            // line heights across toggles. (Mirrors the same fix in
+            // CoStatsBarChart.qml's maxStackedValue().)
             var max = 0
             for (var i = 0; i < root.series.length; i++) {
                 var desc = root.series[i]
-                if (!desc || desc.axis === "right" || desc.visible === false || !desc.model)
+                if (!desc || desc.axis === "right" || !desc.model)
                     continue
                 var model = desc.model
                 var count = model.count !== undefined ? model.count : 0

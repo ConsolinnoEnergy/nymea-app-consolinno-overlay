@@ -149,6 +149,12 @@ Item {
         }
 
         function maxStackedValue() {
+            // Deliberately ignores "desc.visible" here (unlike the other
+            // helpers below, e.g. expandedValues()/hasVisibleValue()): the
+            // y-axis range must stay stable when the user toggles series on
+            // /off via the legend pills, otherwise the chart would visibly
+            // rescale on every click, which is jarring and makes it harder
+            // to compare bar heights across toggles.
             var max = 0
             for (var s = 0; s < root.stacks.length; s++) {
                 var stack = root.stacks[s]
@@ -158,7 +164,7 @@ Item {
                     var sum = 0
                     for (var i = 0; i < stack.series.length; i++) {
                         var desc = stack.series[i]
-                        if (!desc || desc.visible === false || !desc.values)
+                        if (!desc || !desc.values)
                             continue
                         var v = desc.values[c]
                         if (v)
