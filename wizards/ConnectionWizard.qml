@@ -323,7 +323,15 @@ ConsolinnoWizardPageBase {
                                 anyError = true;
                             }
                             if (anyError) { return; }
-                            pageStack.push(networkConnectionInfoComponent);
+                            if (Qt.platform.os === "wasm") {
+                                // Local network discovery does not work in a browser
+                                // sandbox, so skip the ethernet leaflet and discovery
+                                // pages entirely and go straight to manual setup,
+                                // where only the Remote proxy connection is offered.
+                                pageStack.push(manualConnectionComponent);
+                            } else {
+                                pageStack.push(networkConnectionInfoComponent);
+                            }
                         }
                     }
 
@@ -787,8 +795,14 @@ ConsolinnoWizardPageBase {
                             CoComboBox {
                                 id: connectionTypeComboBox
                                 Layout.fillWidth: true
+                                visible: Qt.platform.os !== "wasm"
                                 labelText: qsTr("Protocol")
                                 model: [ qsTr("TCP"), qsTr("Websocket"), qsTr("Remote proxy") ]
+                                // On WASM, only the Remote proxy connection works (no
+                                // direct TCP/raw-Websocket sockets, no local network
+                                // discovery), so force that selection and hide the
+                                // picker entirely.
+                                currentIndex: Qt.platform.os === "wasm" ? 2 : 0
                             }
 
                             CoInputField {
