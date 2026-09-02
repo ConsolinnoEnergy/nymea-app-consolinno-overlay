@@ -540,9 +540,9 @@ Page {
                 var isEvCharger = (classId === "15e6bb51-ef91-4668-9f6f-a43413d4ee4b")
                 var isHeatPump  = (classId === "a6273bc4-6ee4-4b76-ba20-edb3c054f158")
 
-                if (isEvCharger && evChargerLimitProxy.count > 1) {
+                if (isEvCharger && evChargerLimitProxy.count > 3) {
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
-                    d2.errorText = qsTr("At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.").arg(Configuration.deviceName)
+                    d2.errorText = qsTr("At the moment, %1 can only control up to 3 EV chargers. The device will be removed again.").arg(Configuration.deviceName)
                     d2.state = "limit_error"
                     return
                 }
