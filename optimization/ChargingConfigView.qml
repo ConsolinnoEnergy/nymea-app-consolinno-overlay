@@ -326,6 +326,12 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    ThingsProxy {
+        id: evChargerProxy
+        engine: _engine
+        shownInterfaces: ["evcharger"]
+    }
+
     Timer {
         id: checkPhaseCountTimer
         interval: 5000
@@ -829,9 +835,24 @@ GenericConfigPage {
 
             Component {
                 id: chargingNavbarControls
-                CoNavbarButton {
-                    text: qsTr("Apply changes")
-                    onClicked: optimizationPage.applyChanges()
+
+                ColumnLayout {
+                    spacing: Style.smallMargins
+
+                    CoNotification {
+                        Layout.fillWidth: true
+                        type: CoNotification.Type.Neutral
+                        actionType: CoNotification.ActionType.Collapsible
+                        visible: evChargerProxy.count > 1
+                        title: qsTr("Note")
+                        message: qsTr("⁨When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.⁨")
+                    }
+
+                    CoNavbarButton {
+                        Layout.fillWidth: true
+                        text: qsTr("Apply changes")
+                        onClicked: optimizationPage.applyChanges()
+                    }
                 }
             }
 
