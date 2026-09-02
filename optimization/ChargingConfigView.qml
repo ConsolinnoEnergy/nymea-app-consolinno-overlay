@@ -845,7 +845,7 @@ GenericConfigPage {
                         actionType: CoNotification.ActionType.Collapsible
                         visible: evChargerProxy.count > 1
                         title: qsTr("Note")
-                        message: qsTr("⁨When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.⁨")
+                        message: qsTr("When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.")
                     }
 
                     CoNavbarButton {

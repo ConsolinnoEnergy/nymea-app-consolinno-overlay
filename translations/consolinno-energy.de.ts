@@ -666,6 +666,11 @@
         <translation>Unterbrochen</translation>
     </message>
     <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="848"/>
+        <source>When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.</source>
+        <translation>Beim gleichzeitigen Betrieb mehrerer Wallboxen erfolgt derzeit keine automatische Lastverteilung. Die Einhaltung der für deinen Netzanschluss genehmigten Gesamtladeleistung liegt in deiner Verantwortung.</translation>
+    </message>
+    <message>
         <location filename="../optimization/ChargingConfigView.qml" line="1389"/>
         <location filename="../optimization/ChargingConfigView.qml" line="1397"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
@@ -958,11 +963,6 @@
         <location filename="../optimization/ChargingConfigView.qml" line="847"/>
         <source>Note</source>
         <translation>Hinweis</translation>
-    </message>
-    <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="848"/>
-        <source>⁨When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.⁨</source>
-        <translation>Beim gleichzeitigen Betrieb mehrerer Wallboxen erfolgt derzeit keine automatische Lastverteilung. Die Einhaltung der für deinen Netzanschluss genehmigten Gesamtladeleistung liegt in deiner Verantwortung.</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="1107"/>

@@ -666,6 +666,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="848"/>
+        <source>When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/ChargingConfigView.qml" line="1110"/>
         <location filename="../optimization/ChargingConfigView.qml" line="1127"/>
         <source>Select/Add Car</source>
@@ -957,11 +962,6 @@
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="847"/>
         <source>Note</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="848"/>
-        <source>⁨When operating multiple wallboxes simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.⁨</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
