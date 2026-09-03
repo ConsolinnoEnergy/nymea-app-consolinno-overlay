@@ -136,12 +136,12 @@ MainViewBase {
                 }
             }
 
-            // ---- "Key figures" card -------------------------------------------------
+            // ---- "Metrics" card -------------------------------------------------
             CoFrostyCard {
                 Layout.fillWidth: true
                 contentBottomMargin: 16
 
-                headerText: qsTr("Key figures")
+                headerText: qsTr("Metrics")
                 // #TODO infoUrl?
 
                 GridLayout {
@@ -175,7 +175,7 @@ MainViewBase {
                         Layout.fillWidth: true
                         icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
                         valueText: d.kpis.gridConsumptionText
-                        labelText: qsTr("From grid")
+                        labelText: qsTr("Grid import")
                     }
                 }
             }
