@@ -135,7 +135,9 @@ ConfigurationBase {
     // Additional MainViews
     property var additionalMainViews: ListModel {
         ListElement { name: "consolinnoDashboard"; source: "CoDashboardView"; displayName: qsTr("Dashboard") ; icon: "home" }
-        ListElement { name: "consolinnoStats"; source: "DetailedGraphsPage"; displayName: qsTr("History") ; icon: "bar_chart" }
+        ListElement { name: "consolinnoStats"; source: "CoStatsView"; displayName: qsTr("History") ; icon: "bar_chart" }
+        // TODO: remove once CoStatsView fully replaces DetailedGraphsPage - kept temporarily for A/B testing during the transition.
+        ListElement { name: "consolinnoStatsOld"; source: "DetailedGraphsPage"; displayName: qsTr("History old") ; icon: "bar_chart" }
     }
 
     // Main views filter: Only those main views are enabled

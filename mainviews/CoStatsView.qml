@@ -1,0 +1,791 @@
+// #TODO copyright notice
+
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+import Nymea
+
+import "../components"
+import "../utils/DateUtils.js" as DateUtils
+
+// CoStatsView
+//
+// New statistics page (replaces DetailedGraphsPage). Structure, top to
+// bottom:
+//   - "Time period" card: CoPeriodSelector (Day/Week/Month/Year)
+//   - "Key figures" card: 4 CoStatsKPICard instances, always reflecting the
+//     currently selected period
+//   - Chart card: a simple 2-item tab switcher (Energiebilanz/Verbrauch)
+//     followed by a chart area whose shape depends on the selected sample
+//     rate (1 line chart for Day, 1 bar chart for Week, 2 bar charts for
+//     Month/Year - a sub-period breakdown plus a year-over-year comparison)
+//     and a legend below it.
+//
+// IMPORTANT: this is currently a UI skeleton only. All values/series below
+// are generated locally by "d.*" dummy-data functions (clearly marked with
+// TODO comments) so the page layout can be reviewed before the real
+// backend wiring (Energy.GetEnergyKPIs, Energy.GetPowerBalanceLogs,
+// Energy.GetThingPowerLogs, dynamic Thing discovery via ThingsProxy) is
+// implemented in a follow-up. See DetailedGraphsPage.qml and its "energy/"
+// subcomponents for the equivalent real-data patterns this will eventually
+// be based on.
+
+MainViewBase {
+    id: root
+
+    // Reusable legend block for the bar-chart views (Week/Month/Year): a single
+    // flat legend for the Energiebilanz tab (no "Quellen"/"Verbraucher" split in
+    // that design) plus a "Quellen"/"Verbraucher" grouped legend for the
+    // Verbrauch tab, built directly here rather than teaching CoStatsChartLegend
+    // a "grouped" mode. Factored out as an inline component since this exact
+    // block is otherwise duplicated identically for Week/Month/Year.
+    component ChartLegendSection: ColumnLayout {
+        id: legendSection
+
+        // "dataSource" is passed explicitly (rather than relying on this inline
+        // component implicitly resolving the outer file's "d" id) so the
+        // dependency is obvious and unambiguous.
+        required property QtObject dataSource
+        required property var energyBalanceSeries
+        required property var sourceSeries
+        required property var consumerSeries
+
+        Layout.fillWidth: true
+        spacing: Style.margins
+
+        CoStatsChartLegend {
+            Layout.fillWidth: true
+            visible: legendSection.dataSource.activeChartTab === 0
+            series: legendSection.energyBalanceSeries
+            onSeriesVisibilityToggled: (index, visible) => legendSection.dataSource.toggleSeriesVisibility(legendSection.energyBalanceSeries, index, visible)
+        }
+
+        ColumnLayout {
+            Layout.fillWidth: true
+            visible: legendSection.dataSource.activeChartTab === 1
+            spacing: Style.smallMargins
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Sources")
+                font: Style.newSmallFontBold
+                color: Style.colors.typography_Basic_Default
+            }
+            CoStatsChartLegend {
+                Layout.fillWidth: true
+                series: legendSection.sourceSeries
+                onSeriesVisibilityToggled: (index, visible) => legendSection.dataSource.toggleSeriesVisibility(legendSection.sourceSeries, index, visible)
+            }
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Consumers")
+                font: Style.newSmallFontBold
+                color: Style.colors.typography_Basic_Default
+            }
+            CoStatsChartLegend {
+                Layout.fillWidth: true
+                series: legendSection.consumerSeries
+                onSeriesVisibilityToggled: (index, visible) => legendSection.dataSource.toggleSeriesVisibility(legendSection.consumerSeries, index, visible)
+            }
+        }
+    }
+
+    contentY: flickable.contentY + topMargin
+
+    headerButtons: []
+
+    Flickable {
+        id: flickable
+        anchors.fill: parent
+        anchors.margins: app.margins / 2
+        contentHeight: contentColumn.height
+
+        ColumnLayout {
+            id: contentColumn
+            width: parent.width
+            spacing: Style.margins
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.topMargin
+            }
+
+            Label {
+                Layout.fillWidth: true
+                Layout.leftMargin: Style.margins
+                Layout.rightMargin: Style.margins
+                text: qsTr("History")
+                font: Style.newH1Font
+                color: Style.colors.typography_Basic_Default
+            }
+
+            // ---- "Time period" card ------------------------------------------------
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentBottomMargin: 16
+
+                headerText: qsTr("Time period")
+
+                CoPeriodSelector {
+                    id: periodSelector
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                }
+            }
+
+            // ---- "Key figures" card -------------------------------------------------
+            CoFrostyCard {
+                Layout.fillWidth: true
+                contentBottomMargin: 16
+
+                headerText: qsTr("Key figures")
+                // #TODO infoUrl?
+
+                GridLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    columns: 2
+                    rowSpacing: Style.margins
+                    columnSpacing: Style.margins
+
+                    CoStatsKPICard {
+                        Layout.fillWidth: true
+                        icon: Qt.resolvedUrl("qrc:/icons/house_with_shield.svg")
+                        valueText: d.kpis.selfSufficiencyText
+                        labelText: qsTr("Self-sufficiency")
+                    }
+                    CoStatsKPICard {
+                        Layout.fillWidth: true
+                        icon: Qt.resolvedUrl("qrc:/icons/attribution.svg")
+                        valueText: d.kpis.selfConsumptionText
+                        labelText: qsTr("Self-consumption")
+                    }
+                    CoStatsKPICard {
+                        Layout.fillWidth: true
+                        icon: Qt.resolvedUrl("qrc:/icons/input_circle.svg")
+                        valueText: d.kpis.feedInText
+                        labelText: qsTr("Feed-in")
+                    }
+                    CoStatsKPICard {
+                        Layout.fillWidth: true
+                        icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
+                        valueText: d.kpis.gridConsumptionText
+                        labelText: qsTr("From grid")
+                    }
+                }
+            }
+
+            // ---- Chart card -----------------------------------------------------
+            // Unlike "Time period"/"Key figures" above, the Figma design does not
+            // put this section in a Frosty Card: a full-bleed gray Rectangle (same
+            // background color/radius as CoFrostyCard's own background - see
+            // CoFrostyCard.qml - but reaching the actual screen edges instead of
+            // stopping at the page's side margins) hosts the tab switcher, with a
+            // separate white rounded Rectangle nested inside it providing the
+            // background for just the chart + legend area.
+            Rectangle {
+                id: chartSectionBackground
+                Layout.fillWidth: true
+                // Bleeds past contentColumn's own inset (flickable.anchors.margins)
+                // to reach the true screen edges, per design.
+                Layout.leftMargin: -flickable.anchors.margins
+                Layout.rightMargin: -flickable.anchors.margins
+                implicitHeight: chartSectionLayout.implicitHeight + chartSectionLayout.anchors.topMargin + chartSectionLayout.anchors.bottomMargin
+                color: Style.colors.components_Dashboard_Background_accent_dashboard
+                // No rounded corners: unlike a Frosty Card, this section
+                // bleeds all the way to the screen edges, so a radius here
+                // would look wrong.
+
+                ColumnLayout {
+                    id: chartSectionLayout
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.leftMargin: Style.margins
+                    anchors.rightMargin: Style.margins
+                    anchors.topMargin: Style.margins
+                    anchors.bottomMargin: Style.margins
+                    spacing: Style.margins
+
+                    // Simple 2-item tab switcher. The Figma design shows a
+                    // swipeable 4-tab carousel with chevron navigation
+                    // (Energiebilanz/Verbrauch/Photovoltaik/Batterie), but per
+                    // product decision only Energiebilanz/Verbrauch are
+                    // implemented for now, as a plain segmented control - the
+                    // other two tabs are intentionally omitted, not just hidden.
+                    CoTabBar {
+                        Layout.fillWidth: true
+
+                        ButtonGroup {
+                            buttons: [energyBalanceTabButton, consumptionTabButton]
+                        }
+
+                        CoTabButton {
+                            id: energyBalanceTabButton
+                            Layout.fillWidth: true
+                            text: qsTr("Energy balance")
+                            checked: true
+                            onCheckedChanged: if (checked) d.activeChartTab = 0
+                        }
+                        CoTabButton {
+                            id: consumptionTabButton
+                            Layout.fillWidth: true
+                            text: qsTr("Consumption")
+                            onCheckedChanged: if (checked) d.activeChartTab = 1
+                        }
+                    }
+
+                    // White rounded rectangle: background for just the chart +
+                    // legend area (as opposed to chartSectionBackground above,
+                    // which also underlies the tab switcher).
+                    Rectangle {
+                        Layout.fillWidth: true
+                        implicitHeight: chartContentLayout.implicitHeight + chartContentLayout.anchors.margins * 2
+                        color: Style.colors.typography_Background_Default
+                        radius: Style.largeCornerRadius
+
+                        ColumnLayout {
+                            id: chartContentLayout
+                            anchors.fill: parent
+                            anchors.margins: Style.margins
+                            spacing: Style.margins
+
+                            // ---- Day: single line chart, one flat legend ----
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: Style.margins
+                                visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Day
+
+                                CoStatsLineChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    selectedDay: periodSelector.referenceDate
+                                    // Right axis is only meaningful once a Battery
+                                    // SoC series is actually populated (see the
+                                    // reserved, always-invisible entry appended in
+                                    // "computeEnergyBalanceLineSeries" below) -
+                                    // kept false for now since the backend cannot
+                                    // provide this data yet.
+                                    percentAxisVisible: false
+
+                                    series: d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries
+                                }
+
+                                CoStatsChartLegend {
+                                    Layout.fillWidth: true
+                                    visible: d.activeChartTab === 0
+                                    series: d.energyBalanceLineSeries
+                                    onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.energyBalanceLineSeries, index, visible)
+                                }
+
+                                // Verbrauch: "Quellen"/"Verbraucher" grouped
+                                // legend, built directly here (rather than
+                                // extending CoStatsChartLegend with a "grouped"
+                                // mode) - just two Label+CoStatsChartLegend pairs,
+                                // each bound to its own dummy series array.
+                                // "consumptionLineSeries" (passed to the chart
+                                // above) is simply the concatenation of both
+                                // arrays, so toggling either legend group is
+                                // automatically reflected in the chart - both
+                                // ultimately read the same shared
+                                // "hiddenSeriesNames" visibility state.
+                                ColumnLayout {
+                                    Layout.fillWidth: true
+                                    visible: d.activeChartTab === 1
+                                    spacing: Style.smallMargins
+
+                                    Label {
+                                        Layout.fillWidth: true
+                                        text: qsTr("Sources")
+                                        font: Style.newSmallFontBold
+                                        color: Style.colors.typography_Basic_Default
+                                    }
+                                    CoStatsChartLegend {
+                                        Layout.fillWidth: true
+                                        series: d.consumptionSourceLineSeries
+                                        onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.consumptionSourceLineSeries, index, visible)
+                                    }
+
+                                    Label {
+                                        Layout.fillWidth: true
+                                        text: qsTr("Consumers")
+                                        font: Style.newSmallFontBold
+                                        color: Style.colors.typography_Basic_Default
+                                    }
+                                    CoStatsChartLegend {
+                                        Layout.fillWidth: true
+                                        series: d.consumptionConsumerLineSeries
+                                        onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.consumptionConsumerLineSeries, index, visible)
+                                    }
+                                }
+                            }
+
+                            // ---- Week: single bar chart, 7 categories ----
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: Style.margins
+                                visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Week
+
+                                CoStatsBarChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    categories: d.weekCategories
+                                    stacks: d.activeChartTab === 0
+                                            ? [{ series: d.weekEnergyBalanceProductionSeries }, { series: d.weekEnergyBalanceConsumptionSeries }]
+                                            : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }]
+                                }
+
+
+                                ChartLegendSection {
+                                    dataSource: d
+                                    energyBalanceSeries: d.weekEnergyBalanceProductionSeries.concat(d.weekEnergyBalanceConsumptionSeries)
+                                    sourceSeries: d.weekConsumptionSourceSeries
+                                    consumerSeries: d.weekConsumptionConsumerSeries
+                                }
+                            }
+
+                            // ---- Month: sub-period breakdown + year-over-year bar charts ----
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: Style.margins
+                                visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
+
+                                CoStatsBarChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    categories: d.monthCategories
+                                    stacks: d.activeChartTab === 0
+                                            ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
+                                            : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }]
+                                }
+
+                                CoStatsBarChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    categories: d.yoyCategories
+                                    stacks: d.activeChartTab === 0
+                                            ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
+                                            : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                }
+
+                                ChartLegendSection {
+                                    dataSource: d
+                                    energyBalanceSeries: d.monthEnergyBalanceProductionSeries.concat(d.monthEnergyBalanceConsumptionSeries)
+                                    sourceSeries: d.monthConsumptionSourceSeries
+                                    consumerSeries: d.monthConsumptionConsumerSeries
+                                }
+                            }
+
+                            // ---- Year: sub-period breakdown + year-over-year bar charts ----
+                            ColumnLayout {
+                                Layout.fillWidth: true
+                                spacing: Style.margins
+                                visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
+
+                                CoStatsBarChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    categories: d.yearCategories
+                                    stacks: d.activeChartTab === 0
+                                            ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
+                                            : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }]
+                                }
+
+                                CoStatsBarChart {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: 300
+
+                                    categories: d.yoyCategories
+                                    stacks: d.activeChartTab === 0
+                                            ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
+                                            : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                }
+
+                                ChartLegendSection {
+                                    dataSource: d
+                                    energyBalanceSeries: d.yearEnergyBalanceProductionSeries.concat(d.yearEnergyBalanceConsumptionSeries)
+                                    sourceSeries: d.yearConsumptionSourceSeries
+                                    consumerSeries: d.yearConsumptionConsumerSeries
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            Item {
+                Layout.fillWidth: true
+                Layout.preferredHeight: root.bottomMargin
+            }
+        }
+    }
+
+    // ---- Dummy data & helpers --------------------------------------------
+    //
+    // Everything below stands in for real backend wiring and is meant to be
+    // replaced wholesale once that is implemented. All "*Series"/"*Categories"
+    // properties are plain reactive bindings (readonly property var: <expr>)
+    // depending only on "periodSelector"'s current state and the toggle
+    // state below - this guarantees every chart/legend always sees
+    // internally-consistent, correctly-shaped data no matter which one is
+    // currently visible (all of them stay bound/instantiated in the
+    // background even while hidden via "visible: false", so their bindings
+    // are still evaluated - a plain imperative "recompute on demand"
+    // function tied to a signal handler would risk a stale/wrong-shaped
+    // read on whichever section is currently invisible).
+    QtObject {
+        id: d
+
+        property int activeChartTab: 0 // 0 = Energiebilanz, 1 = Verbrauch
+
+        // ---- Dummy "which Thing types are present" flags ----
+        // Stand in for a real ThingsProxy{shownInterfaces:[...]}-based
+        // detection (see ConsolinnoPowerBalanceHistory.qml/
+        // ConsolinnoConsumersHistory.qml for the real pattern using
+        // "smartmeterproducer"/"energystorage"/"smartmeterconsumer"
+        // interfaces). All series driven by these flags are meant to be
+        // fully optional - a system without a battery/PV simply omits the
+        // corresponding series/legend entries, it is not zero-filled.
+        property bool hasProducer: true
+        property bool hasBattery: true
+
+        // Dummy per-consumer "Things" for the Verbrauch tab, standing in
+        // for a dynamic ThingsProxy{shownInterfaces:["smartmeterconsumer",
+        // "energymeter"]} list. Names here mimic real (untranslated)
+        // Thing names, colors mirror ConsolinnoConsumersHistory.qml's
+        // interface-based special-casing (heatpump/evcharger/heatingrod)
+        // with an indexed palette fallback for anything else.
+        property var dummyConsumerThings: [
+            { name: "Wallbox", color: Configuration.wallboxColor },
+            { name: "Wärmepumpe", color: Configuration.heatpumpColor },
+            { name: "Heizstab", color: Configuration.heatingRodColor }
+        ]
+
+        // ---- Legend visibility toggle state ----
+        // Set of series names currently hidden via a legend pill tap,
+        // shared across all periods/tabs (toggling "Netzbezug" off is
+        // remembered regardless of which period/tab it was toggled from -
+        // simpler than per-view toggle state and arguably the more
+        // intuitive behavior anyway). Looked up by "name" rather than index
+        // since the same series can appear at different indices in
+        // different generated arrays.
+        property var hiddenSeriesNames: []
+
+        function isSeriesVisible(name) { return d.hiddenSeriesNames.indexOf(name) === -1 }
+
+        // "seriesArray"/"index" identify which pill was tapped; resolved to
+        // a stable name before updating "hiddenSeriesNames" so the toggle
+        // state doesn't depend on any particular array's current indexing.
+        function toggleSeriesVisibility(seriesArray, index, visible) {
+            var name = seriesArray[index].name
+            var currentIndex = d.hiddenSeriesNames.indexOf(name)
+            if (visible && currentIndex !== -1) {
+                var updated = d.hiddenSeriesNames.slice()
+                updated.splice(currentIndex, 1)
+                d.hiddenSeriesNames = updated
+            } else if (!visible && currentIndex === -1) {
+                d.hiddenSeriesNames = d.hiddenSeriesNames.concat([name])
+            }
+        }
+
+        // Deterministic pseudo-random value in [min, max), seeded by an
+        // arbitrary string. Used instead of Math.random() so the dummy
+        // charts don't visibly jump/flicker on every re-render (e.g. when
+        // toggling a legend pill re-evaluates unrelated bindings) - the
+        // same category+series combination always produces the same value.
+        function pseudoRandom(seed, min, max) {
+            var hash = 0
+            for (var i = 0; i < seed.length; i++) {
+                hash = (hash * 31 + seed.charCodeAt(i)) % 1000000007
+            }
+            var frac = Math.abs(Math.sin(hash))
+            return min + frac * (max - min)
+        }
+
+        // ---- KPI values ----
+        // TODO: replace with a real Energy.GetEnergyKPIs({from, to}) call,
+        // mapping selfSufficiencyRate/selfConsumptionRate/totalReturn/
+        // totalAcquisition onto the 4 cards above.
+        readonly property var kpis: d.computeKpis(periodSelector.fromTimestamp, periodSelector.toTimestamp)
+        function computeKpis(fromTimestamp, toTimestamp) {
+            var seed = fromTimestamp + "-" + toTimestamp
+            var selfSufficiency = Math.round(d.pseudoRandom(seed + "autarky", 55, 100))
+            var selfConsumption = Math.round(d.pseudoRandom(seed + "selfconsumption", 35, 90))
+            var feedIn = d.pseudoRandom(seed + "feedin", 5, 60)
+            var gridConsumption = d.pseudoRandom(seed + "gridconsumption", 1, 30)
+            return {
+                selfSufficiencyText: selfSufficiency + " %",
+                selfConsumptionText: selfConsumption + " %",
+                feedInText: feedIn.toFixed(1) + " kWh",
+                gridConsumptionText: gridConsumption.toFixed(1) + " kWh"
+            }
+        }
+
+        // ==== Day (line-chart shape) ====
+        // A structurally reserved (but unpopulated/invisible) Battery SoC
+        // slot is appended on the right axis, per product decision: the
+        // backend cannot report this yet, but the data shape should
+        // already account for it so wiring it up later is a drop-in
+        // change, not a redesign.
+        readonly property var energyBalanceLineSeries: d.computeEnergyBalanceLineSeries(periodSelector.referenceDate)
+        function computeEnergyBalanceLineSeries(referenceDate) {
+            var series = []
+            if (d.hasProducer) {
+                series.push(d.dummyLineSeriesFor("Production", Configuration.inverterColor, referenceDate, 0, 6))
+                series.push(d.dummyLineSeriesFor("To grid", Configuration.rootMeterReturnColor, referenceDate, 0, 3))
+            }
+            series.push(d.dummyLineSeriesFor("Consumption", Configuration.consumedColor, referenceDate, 0.2, 4))
+            if (d.hasBattery) {
+                series.push(d.dummyLineSeriesFor("To battery", Configuration.batteryChargeColor, referenceDate, 0, 2))
+                series.push(d.dummyLineSeriesFor("From battery", Configuration.batteryDischargeColor, referenceDate, 0, 2))
+            }
+            series.push(d.dummyLineSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, referenceDate, 0, 3))
+            // Reserved Battery SoC slot: not rendered (percentAxisVisible
+            // is false above) and not assigned any real data yet, but
+            // already shaped correctly (axis: "right", 0-100 range) for
+            // later use.
+            if (d.hasBattery) {
+                series.push({
+                    name: qsTr("Battery charge level"),
+                    color: Configuration.batteriesColor,
+                    visible: false,
+                    axis: "right",
+                    model: d.emptyLogModel,
+                    valueFunction: function (entry) { return entry.value }
+                })
+            }
+            return series
+        }
+
+        readonly property var consumptionSourceLineSeries: d.computeConsumptionSourceLineSeries(periodSelector.referenceDate)
+        function computeConsumptionSourceLineSeries(referenceDate) {
+            var series = []
+            if (d.hasProducer) {
+                series.push(d.dummyLineSeriesFor("Self-consumption", Configuration.inverterColor, referenceDate, 0.2, 3))
+            }
+            if (d.hasBattery) {
+                series.push(d.dummyLineSeriesFor("From battery", Configuration.batteryDischargeColor, referenceDate, 0, 1.5))
+            }
+            series.push(d.dummyLineSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, referenceDate, 0, 3))
+            return series
+        }
+
+        readonly property var consumptionConsumerLineSeries: d.computeConsumptionConsumerLineSeries(periodSelector.referenceDate)
+        function computeConsumptionConsumerLineSeries(referenceDate) {
+            var series = d.dummyConsumerThings.map(function (thing, index) {
+                return d.dummyLineSeriesFor(thing.name, thing.color, referenceDate, 0, 1.5, index)
+            })
+            // "Sonstiger Verbrauch"/"Other consumption" is not an optional
+            // Thing-backed series like the ones above - it is always
+            // present as an explicit catch-all bucket (total consumption
+            // minus the sum of all known consumers). The old area-chart
+            // page could show this as an implicit visual gap, but a
+            // stacked representation needs it as a real series.
+            series.push(d.dummyLineSeriesFor(qsTr("Other consumption"), Configuration.consumerColors[Configuration.consumerColors.length - 1], referenceDate, 0.1, 1))
+            return series
+        }
+
+        readonly property var consumptionLineSeries: d.consumptionSourceLineSeries.concat(d.consumptionConsumerLineSeries)
+
+        // Generates a single dummy line-chart series entry: a sine-wave
+        // shaped, 15-minute-resolution "log" for the 24h window around
+        // "referenceDate", wrapped in a plain object that mimics the shape
+        // CoStatsLineChart expects from a real EnergyLogs-derived model
+        // (count/get(index); entriesAddedIdx/entriesRemoved are not needed
+        // here since the dummy data never changes after creation).
+        function dummyLineSeriesFor(name, color, referenceDate, min, max, phaseOffset) {
+            var entries = []
+            var dayStart = new Date(referenceDate)
+            dayStart.setHours(0, 0, 0, 0)
+            var stepMs = 15 * 60000
+            var phase = d.pseudoRandom(name + "|" + (phaseOffset || 0), 0, Math.PI * 2)
+            for (var t = 0; t <= 24 * 3600000; t += stepMs) {
+                var hourOfDay = t / 3600000
+                var value = Math.max(0, Math.sin((hourOfDay / 24) * Math.PI * 2 - Math.PI / 2 + phase)) * (max - min) + min
+                entries.push({ timestamp: new Date(dayStart.getTime() + t), value: value })
+            }
+            return {
+                name: name,
+                color: color,
+                visible: d.isSeriesVisible(name),
+                axis: "left",
+                model: d.wrapAsLogModel(entries),
+                valueFunction: function (entry) { return entry.value }
+            }
+        }
+
+        // Wraps a plain array of {timestamp, value} entries into the
+        // minimal object shape CoStatsLineChart expects from a model.
+        function wrapAsLogModel(entries) {
+            return {
+                count: entries.length,
+                get: function (index) { return entries[index] }
+            }
+        }
+        readonly property var emptyLogModel: d.wrapAsLogModel([])
+
+        // ==== Week/Month/Year (bar-chart shape) ====
+        // Segment semantics/whether these truly sum additively will need
+        // confirming once wired to real Energy.GetPowerBalanceLogs fields -
+        // for now, dummy values are simply stacked for layout purposes.
+        //
+        // Week/Month/Year/year-over-year each get their own dedicated set
+        // of category+series properties below (rather than one shared set)
+        // since their category counts differ (7/~5/12/up to 5) - sharing
+        // would mean whichever section is currently hidden ends up bound
+        // to data shaped for a *different* category count, which
+        // CoStatsBarChart cannot render.
+
+        readonly property var weekCategories: d.weekdayCategories(periodSelector.referenceDate)
+        readonly property var weekEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.weekCategories)
+        readonly property var weekEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.weekCategories)
+        readonly property var weekConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.weekCategories)
+        readonly property var weekConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.weekCategories)
+
+        readonly property var monthCategories: d.isoWeeksInMonthCategories(periodSelector.referenceDate)
+        readonly property var monthEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.monthCategories)
+        readonly property var monthEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.monthCategories)
+        readonly property var monthConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.monthCategories)
+        readonly property var monthConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.monthCategories)
+
+        readonly property var yearCategories: d.monthsInYearCategories(periodSelector.referenceDate)
+        readonly property var yearEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.yearCategories)
+        readonly property var yearEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.yearCategories)
+        readonly property var yearConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.yearCategories)
+        readonly property var yearConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.yearCategories)
+
+        // Year-over-year comparison chart: shared between the Month and
+        // Year views (both compare "the same sub-period across the last
+        // ~5 years"), since only one of Month/Year is ever visible at a
+        // time and both derive this purely from the current reference
+        // date/minDate.
+        readonly property var yoyCategories: d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate)
+        readonly property var yoyEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.yoyCategories)
+        readonly property var yoyEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.yoyCategories)
+        readonly property var yoyConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.yoyCategories)
+        readonly property var yoyConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.yoyCategories)
+
+        function computeEnergyBalanceProductionSeries(categories) {
+            var series = []
+            if (d.hasProducer) {
+                series.push(d.dummyStackSeriesFor("Production", Configuration.inverterColor, categories, 10, 40))
+                series.push(d.dummyStackSeriesFor("To grid", Configuration.rootMeterReturnColor, categories, 2, 15))
+            }
+            if (d.hasBattery) {
+                series.push(d.dummyStackSeriesFor("To battery", Configuration.batteryChargeColor, categories, 1, 10))
+            }
+            return series
+        }
+
+        function computeEnergyBalanceConsumptionSeries(categories) {
+            var series = [d.dummyStackSeriesFor("Consumption", Configuration.consumedColor, categories, 15, 45)]
+            if (d.hasBattery) {
+                series.push(d.dummyStackSeriesFor("From battery", Configuration.batteryDischargeColor, categories, 1, 8))
+            }
+            series.push(d.dummyStackSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, categories, 2, 20))
+            return series
+        }
+
+        function computeConsumptionSourceStackSeries(categories) {
+            var series = []
+            if (d.hasProducer) {
+                series.push(d.dummyStackSeriesFor("Self-consumption", Configuration.inverterColor, categories, 5, 25))
+            }
+            if (d.hasBattery) {
+                series.push(d.dummyStackSeriesFor("From battery", Configuration.batteryDischargeColor, categories, 1, 12))
+            }
+            series.push(d.dummyStackSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, categories, 2, 20))
+            return series
+        }
+
+        function computeConsumptionConsumerStackSeries(categories) {
+            var series = d.dummyConsumerThings.map(function (thing, index) {
+                return d.dummyStackSeriesFor(thing.name, thing.color, categories, 1, 12, index)
+            })
+            series.push(d.dummyStackSeriesFor(qsTr("Other consumption"), Configuration.consumerColors[Configuration.consumerColors.length - 1], categories, 1, 8))
+            return series
+        }
+
+        // Generates a single dummy bar-chart series entry: one
+        // deterministic pseudo-random value per category.
+        function dummyStackSeriesFor(name, color, categories, min, max, phaseOffset) {
+            return {
+                name: name,
+                color: color,
+                visible: d.isSeriesVisible(name),
+                values: categories.map(function (category) {
+                    return d.pseudoRandom(name + "|" + (phaseOffset || 0) + "|" + category, min, max)
+                })
+            }
+        }
+
+        // ---- Category label helpers ----
+
+        // "Mo".."So" for the ISO week starting at "mondayDate" (already the
+        // Monday of the selected week when sampleRate is Week - for other
+        // sample rates this is only used by the (hidden) Week section, so
+        // exact alignment doesn't matter there).
+        function weekdayCategories(mondayDate) {
+            var result = []
+            var day = new Date(mondayDate)
+            for (var i = 0; i < 7; i++) {
+                var isoDay = ((day.getDay() + 6) % 7) + 1 // 1 (Mon) .. 7 (Sun)
+                result.push(Qt.locale().dayName(isoDay, Locale.ShortFormat))
+                day.setDate(day.getDate() + 1)
+            }
+            return result
+        }
+
+        // "CW18", "CW19", ... for every ISO week that overlaps the month
+        // containing "referenceDate".
+        function isoWeeksInMonthCategories(referenceDate) {
+            var first = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1)
+            var last = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0)
+            var cursor = new Date(first)
+            cursor.setDate(cursor.getDate() - ((cursor.getDay() + 6) % 7)) // back up to that week's Monday
+            var result = []
+            while (cursor <= last) {
+                result.push(qsTr("CW%1").arg(DateUtils.isoWeekNumber(cursor)))
+                cursor.setDate(cursor.getDate() + 7)
+            }
+            return result
+        }
+
+        // Short month names (Jan..Dez) for the year containing "referenceDate".
+        // Uses standaloneMonthName (not monthName), matching the convention
+        // established in CoDayPickerContent/CoMonthPickerContent: some
+        // locales inflect a month name differently depending on whether it
+        // is used standalone (as here, an axis label) or as part of a full
+        // date - standaloneMonthName is 0-based, same as JS Date.
+        function monthsInYearCategories(referenceDate) {
+            var result = []
+            for (var month = 0; month < 12; month++) {
+                result.push(Qt.locale().standaloneMonthName(month, Locale.ShortFormat))
+            }
+            return result
+        }
+
+        // Last 5 years up to and including the year of "referenceDate",
+        // clamped to not go below "minDate"'s year (the same lower bound
+        // CoPeriodSelector itself enforces for navigation).
+        function yearOverYearCategories(referenceDate, minDate) {
+            var endYear = referenceDate.getFullYear()
+            var startYear = Math.max(minDate.getFullYear(), endYear - 4)
+            var result = []
+            for (var year = startYear; year <= endYear; year++) {
+                result.push(String(year))
+            }
+            return result
+        }
+    }
+}
