@@ -1,5 +1,13 @@
 .pragma library
 
+// True if both dates fall on the same calendar day (year/month/day), ignoring
+// time-of-day.
+function isSameDay(a, b) {
+    return a.getFullYear() === b.getFullYear()
+        && a.getMonth() === b.getMonth()
+        && a.getDate() === b.getDate()
+}
+
 // ISO 8601 week number (Monday-based weeks, week 1 contains the year's first
 // Thursday). Kept in sync with the (private) copy in CoPeriodSelector.qml -
 // duplicated rather than shared since that one lives inside a QtObject not

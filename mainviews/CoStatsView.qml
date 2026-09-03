@@ -324,12 +324,26 @@ MainViewBase {
                                     // Reflect back into the period selector when the
                                     // user pans/zooms the chart across a day boundary,
                                     // using the reverse-binding hook CoPeriodSelector
-                                    // exposes for exactly this purpose. Harmless
-                                    // no-op the rest of the time: setReferenceDate()
-                                    // only changes anything (and thus only feeds back
-                                    // into "selectedDay" above) once "visibleDay"
-                                    // actually crosses into a different calendar day.
-                                    onVisibleDayChanged: periodSelector.setReferenceDate(visibleDay)
+                                    // exposes for exactly this purpose. Two guards are
+                                    // needed to avoid QML "binding loop" warnings:
+                                    // - Only fire when "visibleDay" actually lands on
+                                    //   a different calendar day than the one
+                                    //   currently selected above.
+                                    // - Even then, defer the actual call via
+                                    //   Qt.callLater(): calling setReferenceDate()
+                                    //   synchronously here would - still within the
+                                    //   same notification chain that changed
+                                    //   "visibleDay" - reset the chart's own visible
+                                    //   window (via "selectedDay" above), which
+                                    //   writes back into the very properties
+                                    //   "visibleDay" is computed from. Deferring to
+                                    //   the next event loop iteration breaks that
+                                    //   reentrant chain.
+                                    onVisibleDayChanged: {
+                                        if (!DateUtils.isSameDay(visibleDay, periodSelector.referenceDate)) {
+                                            Qt.callLater(periodSelector.setReferenceDate, visibleDay)
+                                        }
+                                    }
                                 }
 
                                 CoStatsChartLegend {
