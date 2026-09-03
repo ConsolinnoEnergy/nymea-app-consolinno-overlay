@@ -288,6 +288,16 @@ MainViewBase {
                                     percentAxisVisible: false
 
                                     series: d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries
+
+                                    // Reflect back into the period selector when the
+                                    // user pans/zooms the chart across a day boundary,
+                                    // using the reverse-binding hook CoPeriodSelector
+                                    // exposes for exactly this purpose. Harmless
+                                    // no-op the rest of the time: setReferenceDate()
+                                    // only changes anything (and thus only feeds back
+                                    // into "selectedDay" above) once "visibleDay"
+                                    // actually crosses into a different calendar day.
+                                    onVisibleDayChanged: periodSelector.setReferenceDate(visibleDay)
                                 }
 
                                 CoStatsChartLegend {
