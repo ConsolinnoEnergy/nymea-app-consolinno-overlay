@@ -664,6 +664,9 @@ MainViewBase {
         readonly property var energyBalanceLineSeries: d.computeEnergyBalanceLineSeries()
         function computeEnergyBalanceLineSeries() {
             var series = []
+            // PowerBalanceLogs reports consumption/production/acquisition/
+            // storage in Watts, but the chart's left axis is in kW, so
+            // every valueFunction below divides by 1000.
             if (d.hasProducer) {
                 series.push({
                     name: "Production",
@@ -671,7 +674,7 @@ MainViewBase {
                     visible: d.isSeriesVisible("Production"),
                     axis: "left",
                     model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) }
+                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) / 1000 }
                 })
                 series.push({
                     name: "To grid",
@@ -679,7 +682,7 @@ MainViewBase {
                     visible: d.isSeriesVisible("To grid"),
                     axis: "left",
                     model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.max(0, -entry.acquisition) }
+                    valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
                 })
             }
             series.push({
@@ -688,7 +691,7 @@ MainViewBase {
                 visible: d.isSeriesVisible("Consumption"),
                 axis: "left",
                 model: powerBalanceLogs,
-                valueFunction: function (entry) { return entry.consumption }
+                valueFunction: function (entry) { return entry.consumption / 1000 }
             })
             if (d.hasBattery) {
                 series.push({
@@ -697,7 +700,7 @@ MainViewBase {
                     visible: d.isSeriesVisible("To battery"),
                     axis: "left",
                     model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.max(0, entry.storage) }
+                    valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
                 })
                 series.push({
                     name: "From battery",
@@ -705,7 +708,7 @@ MainViewBase {
                     visible: d.isSeriesVisible("From battery"),
                     axis: "left",
                     model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) }
+                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
                 })
             }
             series.push({
@@ -714,7 +717,7 @@ MainViewBase {
                 visible: d.isSeriesVisible("From grid"),
                 axis: "left",
                 model: powerBalanceLogs,
-                valueFunction: function (entry) { return Math.max(0, entry.acquisition) }
+                valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
             })
             // Reserved Battery SoC slot: not rendered (percentAxisVisible
             // is false above) and not assigned any real data yet, but
