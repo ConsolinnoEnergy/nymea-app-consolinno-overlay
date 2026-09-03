@@ -101,6 +101,35 @@ MainViewBase {
         engine: _engine
     }
 
+    // ---- Real backend data sources for the Chart card (Day/Energiebilanz) ----
+    // Producer/battery detection: which optional series to even show/compute
+    // (e.g. no point rendering "Production"/"To battery" lines if the
+    // installation has neither). Mirrors the equivalent ThingsProxy
+    // instances in EnergyView.qml/PowerBalanceHistory.qml.
+    ThingsProxy {
+        id: producers
+        engine: _engine
+        shownInterfaces: ["smartmeterproducer"]
+    }
+    ThingsProxy {
+        id: batteries
+        engine: _engine
+        shownInterfaces: ["energystorage"]
+    }
+
+    // Backs the Day view's line chart (both the Energiebilanz and Verbrauch/
+    // Sources tabs - they share the same underlying power-balance samples,
+    // just extract different fields via "valueFunction"). "startTime"/
+    // "endTime" are kept in sync with the chart's own visible window via
+    // "onVisibleRangeChanged" below, so panning/zooming re-fetches exactly
+    // the range that's actually on screen (plus whatever margin the chart
+    // itself requests).
+    PowerBalanceLogs {
+        id: powerBalanceLogs
+        engine: _engine
+        sampleRate: EnergyLogs.SampleRate15Mins
+    }
+
     // Fetches KPIs for the period currently selected in "periodSelector".
     // Guarded by "root.visible" for the same reason as the equivalent guard
     // in CoKpiStats.qml: this view is instantiated eagerly (e.g. inside the
@@ -307,6 +336,7 @@ MainViewBase {
                                 visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Day
 
                                 CoStatsLineChart {
+                                    id: dayLineChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -319,7 +349,22 @@ MainViewBase {
                                     // provide this data yet.
                                     percentAxisVisible: false
 
+                                    loading: powerBalanceLogs.fetchingData
+
                                     series: d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries
+
+                                    // Fetches (or re-fetches) power-balance data for
+                                    // exactly the range currently visible in the
+                                    // chart, whenever it settles after a pan/zoom/day
+                                    // change (see "visibleRangeChanged" doc comment in
+                                    // CoStatsLineChart.qml) - this is the one hook that
+                                    // covers both the initial fetch (fires once on
+                                    // Component.onCompleted) and subsequent ones.
+                                    onVisibleRangeChanged: function (startTime, endTime) {
+                                        powerBalanceLogs.startTime = startTime
+                                        powerBalanceLogs.endTime = endTime
+                                        powerBalanceLogs.fetchLogs()
+                                    }
 
                                     // Reflect back into the period selector when the
                                     // user pans/zooms the chart across a day boundary,
@@ -517,16 +562,13 @@ MainViewBase {
 
         property int activeChartTab: 0 // 0 = Energiebilanz, 1 = Verbrauch
 
-        // ---- Dummy "which Thing types are present" flags ----
-        // Stand in for a real ThingsProxy{shownInterfaces:[...]}-based
-        // detection (see ConsolinnoPowerBalanceHistory.qml/
-        // ConsolinnoConsumersHistory.qml for the real pattern using
-        // "smartmeterproducer"/"energystorage"/"smartmeterconsumer"
-        // interfaces). All series driven by these flags are meant to be
+        // ---- "Which Thing types are present" flags ----
+        // Backed by the "producers"/"batteries" ThingsProxy instances
+        // declared above (root level). All series driven by these flags are
         // fully optional - a system without a battery/PV simply omits the
         // corresponding series/legend entries, it is not zero-filled.
-        property bool hasProducer: true
-        property bool hasBattery: true
+        readonly property bool hasProducer: producers.count > 0
+        readonly property bool hasBattery: batteries.count > 0
 
         // Dummy per-consumer "Things" for the Verbrauch tab, standing in
         // for a dynamic ThingsProxy{shownInterfaces:["smartmeterconsumer",
@@ -606,24 +648,74 @@ MainViewBase {
         }
 
         // ==== Day (line-chart shape) ====
+        // Backed directly by "powerBalanceLogs" (see its declaration near
+        // the top of the file, kept in sync with the chart's own visible
+        // window via "onVisibleRangeChanged"). Sign convention for the
+        // per-sample "production"/"acquisition"/"storage" fields matches
+        // the real-data precedent in PowerBalanceHistory.qml: production/
+        // storage negative = generating/discharging, acquisition positive =
+        // importing from grid (negative = exporting).
+        //
         // A structurally reserved (but unpopulated/invisible) Battery SoC
         // slot is appended on the right axis, per product decision: the
         // backend cannot report this yet, but the data shape should
         // already account for it so wiring it up later is a drop-in
         // change, not a redesign.
-        readonly property var energyBalanceLineSeries: d.computeEnergyBalanceLineSeries(periodSelector.referenceDate)
-        function computeEnergyBalanceLineSeries(referenceDate) {
+        readonly property var energyBalanceLineSeries: d.computeEnergyBalanceLineSeries()
+        function computeEnergyBalanceLineSeries() {
             var series = []
             if (d.hasProducer) {
-                series.push(d.dummyLineSeriesFor("Production", Configuration.inverterColor, referenceDate, 0, 6))
-                series.push(d.dummyLineSeriesFor("To grid", Configuration.rootMeterReturnColor, referenceDate, 0, 3))
+                series.push({
+                    name: "Production",
+                    color: Configuration.inverterColor,
+                    visible: d.isSeriesVisible("Production"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) }
+                })
+                series.push({
+                    name: "To grid",
+                    color: Configuration.rootMeterReturnColor,
+                    visible: d.isSeriesVisible("To grid"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.max(0, -entry.acquisition) }
+                })
             }
-            series.push(d.dummyLineSeriesFor("Consumption", Configuration.consumedColor, referenceDate, 0.2, 4))
+            series.push({
+                name: "Consumption",
+                color: Configuration.consumedColor,
+                visible: d.isSeriesVisible("Consumption"),
+                axis: "left",
+                model: powerBalanceLogs,
+                valueFunction: function (entry) { return entry.consumption }
+            })
             if (d.hasBattery) {
-                series.push(d.dummyLineSeriesFor("To battery", Configuration.batteryChargeColor, referenceDate, 0, 2))
-                series.push(d.dummyLineSeriesFor("From battery", Configuration.batteryDischargeColor, referenceDate, 0, 2))
+                series.push({
+                    name: "To battery",
+                    color: Configuration.batteryChargeColor,
+                    visible: d.isSeriesVisible("To battery"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.max(0, entry.storage) }
+                })
+                series.push({
+                    name: "From battery",
+                    color: Configuration.batteryDischargeColor,
+                    visible: d.isSeriesVisible("From battery"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) }
+                })
             }
-            series.push(d.dummyLineSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, referenceDate, 0, 3))
+            series.push({
+                name: "From grid",
+                color: Configuration.rootMeterAcquisitionColor,
+                visible: d.isSeriesVisible("From grid"),
+                axis: "left",
+                model: powerBalanceLogs,
+                valueFunction: function (entry) { return Math.max(0, entry.acquisition) }
+            })
             // Reserved Battery SoC slot: not rendered (percentAxisVisible
             // is false above) and not assigned any real data yet, but
             // already shaped correctly (axis: "right", 0-100 range) for
