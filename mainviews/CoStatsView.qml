@@ -13,18 +13,19 @@ import "../utils/DateUtils.js" as DateUtils
 // New statistics page (replaces DetailedGraphsPage). Structure, top to
 // bottom:
 //   - "Time period" card: CoPeriodSelector (Day/Week/Month/Year)
-//   - "Key figures" card: 4 CoStatsKPICard instances, always reflecting the
-//     currently selected period
+//   - "Metrics" card: 4 CoStatsKPICard instances, always reflecting the
+//     currently selected period (wired to a real Energy.GetEnergyKPIs call
+//     via CoStatsKpiProvider)
 //   - Chart card: a simple 2-item tab switcher (Energiebilanz/Verbrauch)
 //     followed by a chart area whose shape depends on the selected sample
 //     rate (1 line chart for Day, 1 bar chart for Week, 2 bar charts for
 //     Month/Year - a sub-period breakdown plus a year-over-year comparison)
 //     and a legend below it.
 //
-// IMPORTANT: this is currently a UI skeleton only. All values/series below
-// are generated locally by "d.*" dummy-data functions (clearly marked with
-// TODO comments) so the page layout can be reviewed before the real
-// backend wiring (Energy.GetEnergyKPIs, Energy.GetPowerBalanceLogs,
+// IMPORTANT: this is currently a UI skeleton for the Chart card. Its
+// series below are still generated locally by "d.*" dummy-data functions
+// (clearly marked with TODO comments) so the page layout can be reviewed
+// before the real backend wiring (Energy.GetPowerBalanceLogs,
 // Energy.GetThingPowerLogs, dynamic Thing discovery via ThingsProxy) is
 // implemented in a follow-up. See DetailedGraphsPage.qml and its "energy/"
 // subcomponents for the equivalent real-data patterns this will eventually
@@ -94,6 +95,37 @@ MainViewBase {
     contentY: flickable.contentY + topMargin
 
     headerButtons: []
+
+    CoStatsKpiProvider {
+        id: kpiProvider
+        engine: _engine
+    }
+
+    // Fetches KPIs for the period currently selected in "periodSelector".
+    // Guarded by "root.visible" for the same reason as the equivalent guard
+    // in CoKpiStats.qml: this view is instantiated eagerly (e.g. inside the
+    // navigation drawer's view stack) even when the user has never opened
+    // it, so an unconditional fetch at startup would hit "No such method"/
+    // "not connected" warnings before the page is ever shown.
+    function fetchKpis() {
+        if (!root.visible || !_engine || !_engine.jsonRpcClient || !_engine.jsonRpcClient.connected) {
+            return
+        }
+        kpiProvider.fetchKpis(periodSelector.fromTimestamp, periodSelector.toTimestamp)
+    }
+
+    onVisibleChanged: root.fetchKpis()
+
+    Connections {
+        target: _engine ? _engine.jsonRpcClient : null
+        function onConnectedChanged() { root.fetchKpis() }
+    }
+
+    Connections {
+        target: periodSelector
+        function onFromTimestampChanged() { root.fetchKpis() }
+        function onToTimestampChanged() { root.fetchKpis() }
+    }
 
     Flickable {
         id: flickable
@@ -536,21 +568,26 @@ MainViewBase {
         }
 
         // ---- KPI values ----
-        // TODO: replace with a real Energy.GetEnergyKPIs({from, to}) call,
-        // mapping selfSufficiencyRate/selfConsumptionRate/totalReturn/
-        // totalAcquisition onto the 4 cards above.
-        readonly property var kpis: d.computeKpis(periodSelector.fromTimestamp, periodSelector.toTimestamp)
-        function computeKpis(fromTimestamp, toTimestamp) {
-            var seed = fromTimestamp + "-" + toTimestamp
-            var selfSufficiency = Math.round(d.pseudoRandom(seed + "autarky", 55, 100))
-            var selfConsumption = Math.round(d.pseudoRandom(seed + "selfconsumption", 35, 90))
-            var feedIn = d.pseudoRandom(seed + "feedin", 5, 60)
-            var gridConsumption = d.pseudoRandom(seed + "gridconsumption", 1, 30)
+        // Backed by "kpiProvider" (CoStatsKpiProvider, see root.fetchKpis()
+        // above), which fetches Energy.GetEnergyKPIs for the period
+        // currently selected in "periodSelector". Shows "–" for any value
+        // until the first successful response arrives (kpiProvider.valid
+        // stays false until then, e.g. also while fetching or if the
+        // backend doesn't support this API yet).
+        readonly property var kpis: {
+            if (!kpiProvider.valid) {
+                return {
+                    selfSufficiencyText: "–",
+                    selfConsumptionText: "–",
+                    feedInText: "–",
+                    gridConsumptionText: "–"
+                }
+            }
             return {
-                selfSufficiencyText: selfSufficiency + " %",
-                selfConsumptionText: selfConsumption + " %",
-                feedInText: feedIn.toFixed(1) + " kWh",
-                gridConsumptionText: gridConsumption.toFixed(1) + " kWh"
+                selfSufficiencyText: Math.round(kpiProvider.selfSufficiencyRate) + " %",
+                selfConsumptionText: Math.round(kpiProvider.selfConsumptionRate) + " %",
+                feedInText: kpiProvider.totalReturn.toFixed(1) + " kWh",
+                gridConsumptionText: kpiProvider.totalAcquisition.toFixed(1) + " kWh"
             }
         }
 
