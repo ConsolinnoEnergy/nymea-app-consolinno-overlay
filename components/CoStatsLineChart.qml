@@ -599,6 +599,33 @@ Item {
                 d.visibleStartTime = startStartTime + deltaMs
             }
         }
+
+        // -- Desktop mouse-wheel gesture handling (zoom) --
+        // Ctrl+wheel zooms (mirrors PinchHandler above, pivoting on the
+        // cursor position instead of a touch centroid). Plain wheel is
+        // deliberately NOT used for panning: the chart lives inside a page
+        // that itself scrolls vertically with the wheel, so intercepting
+        // unmodified wheel events here would break that page scrolling.
+        // Panning without Ctrl is still available via click-and-drag
+        // (DragHandler above).
+        WheelHandler {
+            id: wheelHandler
+            target: null
+            acceptedModifiers: Qt.ControlModifier
+
+            onWheel: (event) => {
+                // Zoom: negative angleDelta.y ("scroll down") zooms out,
+                // positive ("scroll up") zooms in - matches PinchHandler's
+                // "scale > 1 == zoom in" convention via the exponent below.
+                var factor = Math.exp(event.angleDelta.y / 960)
+                var pivotFraction = d.clamp((event.x - chartView.plotArea.x) / chartView.plotArea.width, 0, 1)
+                var timeAtPivot = d.visibleStartTime + pivotFraction * d.visibleWindowMs
+                var newWindow = d.clamp(d.visibleWindowMs / factor, d.minWindowMs, d.maxWindowMs)
+                d.visibleWindowMs = newWindow
+                d.visibleStartTime = timeAtPivot - pivotFraction * newWindow
+                rangeSettleTimer.restart()
+            }
+        }
     } // chartContainer
 
     // -- Busy overlay: dim the chart and show a spinner while loading --
