@@ -1,75 +1,75 @@
-#include "costatskpiprovider.h"
+#include "costatsmetricsprovider.h"
 
 #include "logging.h"
 
-NYMEA_LOGGING_CATEGORY(dcCoStatsKpiProvider, "CoStatsKpiProvider");
+NYMEA_LOGGING_CATEGORY(dcCoStatsMetricsProvider, "CoStatsMetricsProvider");
 
-CoStatsKpiProvider::CoStatsKpiProvider(QObject *parent)
+CoStatsMetricsProvider::CoStatsMetricsProvider(QObject *parent)
     : QObject{ parent }
 {
 }
 
-Engine *CoStatsKpiProvider::engine() const
+Engine *CoStatsMetricsProvider::engine() const
 {
     return m_engine;
 }
 
-void CoStatsKpiProvider::setEngine(Engine *engine)
+void CoStatsMetricsProvider::setEngine(Engine *engine)
 {
     if (m_engine == engine) { return; }
     m_engine = engine;
     emit engineChanged();
 }
 
-bool CoStatsKpiProvider::fetching() const
+bool CoStatsMetricsProvider::fetching() const
 {
     return m_fetching;
 }
 
-bool CoStatsKpiProvider::valid() const
+bool CoStatsMetricsProvider::valid() const
 {
     return m_valid;
 }
 
-double CoStatsKpiProvider::selfSufficiencyRate() const
+double CoStatsMetricsProvider::selfSufficiencyRate() const
 {
     return m_selfSufficiencyRate;
 }
 
-double CoStatsKpiProvider::selfConsumptionRate() const
+double CoStatsMetricsProvider::selfConsumptionRate() const
 {
     return m_selfConsumptionRate;
 }
 
-double CoStatsKpiProvider::totalConsumption() const
+double CoStatsMetricsProvider::totalConsumption() const
 {
     return m_totalConsumption;
 }
 
-double CoStatsKpiProvider::totalProduction() const
+double CoStatsMetricsProvider::totalProduction() const
 {
     return m_totalProduction;
 }
 
-double CoStatsKpiProvider::totalAcquisition() const
+double CoStatsMetricsProvider::totalAcquisition() const
 {
     return m_totalAcquisition;
 }
 
-double CoStatsKpiProvider::totalReturn() const
+double CoStatsMetricsProvider::totalReturn() const
 {
     return m_totalReturn;
 }
 
-void CoStatsKpiProvider::fetchKpis(qlonglong fromSecs, qlonglong toSecs)
+void CoStatsMetricsProvider::fetchKpis(qlonglong fromSecs, qlonglong toSecs)
 {
     if (!m_engine || !m_engine->jsonRpcClient()) {
-        qCWarning(dcCoStatsKpiProvider()) << "Cannot fetch KPIs: no engine or JSON-RPC client";
+        qCWarning(dcCoStatsMetricsProvider()) << "Cannot fetch KPIs: no engine or JSON-RPC client";
         return;
     }
 
     if (!m_engine->jsonRpcClient()->connected()) {
-        qCDebug(dcCoStatsKpiProvider()) << "Cannot fetch KPIs: not connected.";
+        qCDebug(dcCoStatsMetricsProvider()) << "Cannot fetch KPIs: not connected.";
         return;
     }
 
@@ -77,7 +77,7 @@ void CoStatsKpiProvider::fetchKpis(qlonglong fromSecs, qlonglong toSecs)
     params.insert("from", fromSecs);
     params.insert("to", toSecs);
 
-    qCDebug(dcCoStatsKpiProvider()) << "Fetching KPIs from:" << fromSecs << "to:" << toSecs;
+    qCDebug(dcCoStatsMetricsProvider()) << "Fetching KPIs from:" << fromSecs << "to:" << toSecs;
 
     if (!m_fetching) {
         m_fetching = true;
@@ -88,7 +88,7 @@ void CoStatsKpiProvider::fetchKpis(qlonglong fromSecs, qlonglong toSecs)
         "Energy.GetEnergyKPIs", params, this, "kpisResponse");
 }
 
-void CoStatsKpiProvider::kpisResponse(int commandId, const QVariantMap &data)
+void CoStatsMetricsProvider::kpisResponse(int commandId, const QVariantMap &data)
 {
     if (commandId != m_pendingCommandId) {
         // Stale response from a previous (superseded) fetch
@@ -102,7 +102,7 @@ void CoStatsKpiProvider::kpisResponse(int commandId, const QVariantMap &data)
     }
 
     if (data.contains("error") || data.contains("energyError")) {
-        qCWarning(dcCoStatsKpiProvider()) << "KPIs request failed:"
+        qCWarning(dcCoStatsMetricsProvider()) << "KPIs request failed:"
                                           << data.value("error").toString()
                                           << data.value("energyError").toString();
         return;
@@ -111,9 +111,9 @@ void CoStatsKpiProvider::kpisResponse(int commandId, const QVariantMap &data)
     if (!data.contains("selfSufficiencyRate") || !data.contains("selfConsumptionRate")) {
         if (data.isEmpty()) {
             // Empty response means "No such method" — backend does not support this API yet (version mismatch)
-            qCDebug(dcCoStatsKpiProvider()) << "KPIs not supported by this backend (empty response).";
+            qCDebug(dcCoStatsMetricsProvider()) << "KPIs not supported by this backend (empty response).";
         } else {
-            qCWarning(dcCoStatsKpiProvider()) << "KPIs response missing expected fields. Keys:" << data.keys();
+            qCWarning(dcCoStatsMetricsProvider()) << "KPIs response missing expected fields. Keys:" << data.keys();
         }
         return;
     }
@@ -126,7 +126,7 @@ void CoStatsKpiProvider::kpisResponse(int commandId, const QVariantMap &data)
     m_totalAcquisition = data.value("totalAcquisition").toDouble();
     m_totalReturn = data.value("totalReturn").toDouble();
 
-    qCDebug(dcCoStatsKpiProvider()) << "KPIs parsed -> valid:" << m_valid
+    qCDebug(dcCoStatsMetricsProvider()) << "KPIs parsed -> valid:" << m_valid
                                     << "selfSufficiency:" << m_selfSufficiencyRate << "%"
                                     << "selfConsumption:" << m_selfConsumptionRate << "%"
                                     << "totalAcquisition:" << m_totalAcquisition

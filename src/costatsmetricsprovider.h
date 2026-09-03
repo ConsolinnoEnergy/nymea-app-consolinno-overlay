@@ -1,5 +1,5 @@
-#ifndef COSTATSKPIPROVIDER_H
-#define COSTATSKPIPROVIDER_H
+#ifndef COSTATSMETRICSPROVIDER_H
+#define COSTATSMETRICSPROVIDER_H
 
 #include <QObject>
 #include <QPointer>
@@ -11,7 +11,7 @@
 // plain QML properties. Unlike CoKpiStatsProvider (which fetches a whole
 // series of periods for a bar chart), this is a single-shot fetch for
 // exactly one [from, to) range.
-class CoStatsKpiProvider : public QObject
+class CoStatsMetricsProvider : public QObject
 {
     Q_OBJECT
 
@@ -26,7 +26,7 @@ class CoStatsKpiProvider : public QObject
     Q_PROPERTY(double totalReturn READ totalReturn NOTIFY kpisChanged)
 
 public:
-    explicit CoStatsKpiProvider(QObject *parent = nullptr);
+    explicit CoStatsMetricsProvider(QObject *parent = nullptr);
 
     Engine *engine() const;
     void setEngine(Engine *engine);
@@ -69,4 +69,4 @@ private:
     double m_totalReturn = 0;
 };
 
-#endif // COSTATSKPIPROVIDER_H
+#endif // COSTATSMETRICSPROVIDER_H

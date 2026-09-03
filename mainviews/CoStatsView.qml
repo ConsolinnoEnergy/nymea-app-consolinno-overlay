@@ -15,7 +15,7 @@ import "../utils/DateUtils.js" as DateUtils
 //   - "Time period" card: CoPeriodSelector (Day/Week/Month/Year)
 //   - "Metrics" card: 4 CoStatsKPICard instances, always reflecting the
 //     currently selected period (wired to a real Energy.GetEnergyKPIs call
-//     via CoStatsKpiProvider)
+//     via CoStatsMetricsProvider)
 //   - Chart card: a simple 2-item tab switcher (Energiebilanz/Verbrauch)
 //     followed by a chart area whose shape depends on the selected sample
 //     rate (1 line chart for Day, 1 bar chart for Week, 2 bar charts for
@@ -96,7 +96,7 @@ MainViewBase {
 
     headerButtons: []
 
-    CoStatsKpiProvider {
+    CoStatsMetricsProvider {
         id: kpiProvider
         engine: _engine
     }
@@ -582,7 +582,7 @@ MainViewBase {
         }
 
         // ---- KPI values ----
-        // Backed by "kpiProvider" (CoStatsKpiProvider, see root.fetchKpis()
+        // Backed by "kpiProvider" (CoStatsMetricsProvider, see root.fetchKpis()
         // above), which fetches Energy.GetEnergyKPIs for the period
         // currently selected in "periodSelector". Shows "–" for any value
         // until the first successful response arrives (kpiProvider.valid

@@ -3,7 +3,7 @@
 
 #include "hemsmanager.h"
 #include "cokpistatsprovider.h"
-#include "costatskpiprovider.h"
+#include "costatsmetricsprovider.h"
 #include "dashboarddataprovider.h"
 #include "Configurations/userconfigurations.h"
 #include "Configurations/cloudconfiguration.h"
@@ -15,7 +15,7 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterSingletonType(QUrl("qrc:///ui/utils/ThingUtils.qml"), uri, versionMajor, versionMinor, "ThingUtils");
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
     qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
-    qmlRegisterType<CoStatsKpiProvider>(uri, versionMajor, versionMinor, "CoStatsKpiProvider");
+    qmlRegisterType<CoStatsMetricsProvider>(uri, versionMajor, versionMinor, "CoStatsMetricsProvider");
     qmlRegisterType<DashboardDataProvider>(uri, versionMajor, versionMinor, "DashboardDataProvider");
     qmlRegisterUncreatableType<ChargingConfiguration>(uri, versionMajor, versionMinor, "ChargingConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<ChargingConfigurations>(uri, versionMajor, versionMinor, "ChargingConfigurations", "Get it from HemsManager");
