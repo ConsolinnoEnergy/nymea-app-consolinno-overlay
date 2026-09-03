@@ -338,6 +338,8 @@
         <file>components/CoAboutPage.qml</file>
         <file>components/CoThirdPartyLicensesPage.qml</file>
         <file>components/CoTabButton.qml</file>
+        <file>components/CoHeadlineTabBar.qml</file>
+        <file>components/CoHeadlineTabButton.qml</file>
         <file>components/CoTabBar.qml</file>
         <file>components/CoStatsLineChart.qml</file>
         <file>components/CoStatsChartLegend.qml</file>

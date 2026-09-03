@@ -212,29 +212,42 @@ MainViewBase {
                     anchors.bottomMargin: Style.margins
                     spacing: Style.margins
 
-                    // Simple 2-item tab switcher. The Figma design shows a
-                    // swipeable 4-tab carousel with chevron navigation
-                    // (Energiebilanz/Verbrauch/Photovoltaik/Batterie), but per
-                    // product decision only Energiebilanz/Verbrauch are
-                    // implemented for now, as a plain segmented control - the
-                    // other two tabs are intentionally omitted, not just hidden.
-                    CoTabBar {
+                    // Headline-style 2-item tab switcher (CoHeadlineTabButton):
+                    // left-aligned, transparent background, no hover/press
+                    // feedback - just the selected tab's text growing/using
+                    // the headline color, per Figma. The Figma design shows
+                    // a swipeable 4-tab carousel with chevron navigation
+                    // (Energiebilanz/Verbrauch/Photovoltaik/Batterie), but
+                    // per product decision only Energiebilanz/Verbrauch are
+                    // implemented for now - the other two tabs are
+                    // intentionally omitted, not just hidden. With only two
+                    // tabs, "previous"/"next" simply means "the other one";
+                    // each chevron is only enabled while it would actually
+                    // move to a different tab (i.e. disabled at whichever
+                    // end is already selected), and clicking it flips the
+                    // actual button's "checked" state (rather than setting
+                    // d.activeChartTab directly) so the tab switcher's own
+                    // visuals - which are bound to "checked", not
+                    // "activeChartTab" - stay in sync.
+                    CoHeadlineTabBar {
                         Layout.fillWidth: true
+                        previousEnabled: d.activeChartTab > 0
+                        nextEnabled: d.activeChartTab < 1
+                        onPreviousClicked: energyBalanceTabButton.checked = true
+                        onNextClicked: consumptionTabButton.checked = true
 
                         ButtonGroup {
                             buttons: [energyBalanceTabButton, consumptionTabButton]
                         }
 
-                        CoTabButton {
+                        CoHeadlineTabButton {
                             id: energyBalanceTabButton
-                            Layout.fillWidth: true
                             text: qsTr("Energy balance")
                             checked: true
                             onCheckedChanged: if (checked) d.activeChartTab = 0
                         }
-                        CoTabButton {
+                        CoHeadlineTabButton {
                             id: consumptionTabButton
-                            Layout.fillWidth: true
                             text: qsTr("Consumption")
                             onCheckedChanged: if (checked) d.activeChartTab = 1
                         }
