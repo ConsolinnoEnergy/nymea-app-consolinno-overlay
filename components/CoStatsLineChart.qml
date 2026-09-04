@@ -76,7 +76,7 @@ Item {
     QtObject {
         id: d
 
-        readonly property int maxSeriesCount: 8
+        readonly property int maxSeriesCount: 20
         readonly property real hourMs: 3600000
         readonly property real dayMs: 24 * hourMs
         readonly property real minWindowMs: 6 * hourMs
@@ -398,6 +398,18 @@ Item {
             LineSeries { id: dataSeries5; axisX: xAxis; width: 2 }
             LineSeries { id: dataSeries6; axisX: xAxis; width: 2 }
             LineSeries { id: dataSeries7; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries8; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries9; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries10; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries11; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries12; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries13; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries14; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries15; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries16; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries17; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries18; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries19; axisX: xAxis; width: 2 }
         }
 
         // Helper that binds one fixed LineSeries slot to root.series[index] and
@@ -415,6 +427,18 @@ Item {
                 case 5: return dataSeries5
                 case 6: return dataSeries6
                 case 7: return dataSeries7
+                case 8: return dataSeries8
+                case 9: return dataSeries9
+                case 10: return dataSeries10
+                case 11: return dataSeries11
+                case 12: return dataSeries12
+                case 13: return dataSeries13
+                case 14: return dataSeries14
+                case 15: return dataSeries15
+                case 16: return dataSeries16
+                case 17: return dataSeries17
+                case 18: return dataSeries18
+                case 19: return dataSeries19
                 }
                 return null
             }
