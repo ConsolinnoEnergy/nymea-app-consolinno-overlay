@@ -83,7 +83,26 @@ Item {
         readonly property real maxWindowMs: 24 * hourMs
         readonly property int yLabelCount: 5
 
-        property real visibleStartTime: 0
+        // Tracks whether "resetToSelectedDay()" has run at least once. The
+        // very first call (from Component.onCompleted) must always run to
+        // completion - including the "rangeSettleTimer.restart()" that
+        // triggers the page's initial data fetch - even though
+        // "visibleStartTime"'s initializer below already matches
+        // "selectedDay" (so the isSameDay-based skip in
+        // "resetToSelectedDay()" would otherwise short-circuit it).
+        property bool initialResetDone: false
+
+        // Initialized from "root.selectedDay" (not a literal 0/epoch)
+        // so "visibleDay" never transiently reports an epoch date before
+        // "resetToSelectedDay()" runs on Component.onCompleted - such a
+        // transient value could otherwise get propagated out (e.g. via a
+        // page's onVisibleDayChanged handler) before being corrected,
+        // causing spurious clamping against external date bounds.
+        property real visibleStartTime: {
+            var dt = new Date(root.selectedDay)
+            dt.setHours(0, 0, 0, 0)
+            return dt.getTime()
+        }
         property real visibleWindowMs: maxWindowMs
 
         // Reserved ChartView margins, sized via FontMetrics for the custom
@@ -184,10 +203,15 @@ Item {
             // (full day, reset zoom) when "selectedDay" refers to a
             // genuinely different day than what's currently visible (i.e.
             // an external "jump to this day" request, e.g. from the date
-            // picker).
-            if (DateUtils.isSameDay(root.selectedDay, root.visibleDay)) {
+            // picker). The very first call (Component.onCompleted) is
+            // exempt from this check - see "initialResetDone" above - so
+            // the initial data fetch always happens even though
+            // "visibleStartTime"'s initializer already matches
+            // "selectedDay".
+            if (d.initialResetDone && DateUtils.isSameDay(root.selectedDay, root.visibleDay)) {
                 return
             }
+            d.initialResetDone = true
 
             var dt = new Date(root.selectedDay)
             dt.setHours(0, 0, 0, 0)
