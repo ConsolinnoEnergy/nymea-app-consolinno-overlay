@@ -414,7 +414,24 @@ MainViewBase {
                                     // indicator.
                                     loading: powerBalanceLogs.fetchingData || consumerConsumptionLogs.fetchingData
 
-                                    series: d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries
+                                    // Guarded by sampleRate (not just this
+                                    // section's own "visible") so that a
+                                    // legend-pill toggle made while some
+                                    // other period tab (Week/Month/Year) is
+                                    // selected doesn't still force this
+                                    // hidden chart to rebuild - QML property
+                                    // bindings keep evaluating even while an
+                                    // Item's "visible" is false, so without
+                                    // this guard "series" would still read
+                                    // (and re-read on every hiddenSeriesNames
+                                    // change) d.energyBalanceLineSeries/
+                                    // d.consumptionLineSeries, and
+                                    // CoStatsLineChart would still run its
+                                    // (expensive) internal rebuild() for
+                                    // data nobody can currently see.
+                                    series: periodSelector.sampleRate === EnergyLogs.SampleRate1Day
+                                            ? (d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries)
+                                            : []
 
                                     // Fetches (or re-fetches) power-balance data and
                                     // per-consumer power data for exactly the range
@@ -519,9 +536,17 @@ MainViewBase {
                                     Layout.preferredHeight: 300
 
                                     categories: d.weekCategories
-                                    stacks: d.activeChartTab === 0
-                                            ? [{ series: d.weekEnergyBalanceProductionSeries }, { series: d.weekEnergyBalanceConsumptionSeries }]
-                                            : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }]
+                                    // Guarded by sampleRate (see the
+                                    // day-view "series" binding above for
+                                    // the full rationale) so a legend-pill
+                                    // toggle made in a different period tab
+                                    // doesn't still force this hidden bar
+                                    // chart to rebuild.
+                                    stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Week
+                                            ? (d.activeChartTab === 0
+                                               ? [{ series: d.weekEnergyBalanceProductionSeries }, { series: d.weekEnergyBalanceConsumptionSeries }]
+                                               : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }])
+                                            : []
                                     loading: weekEnergyLogs.fetchingData
                                 }
 
@@ -545,9 +570,11 @@ MainViewBase {
                                     Layout.preferredHeight: 300
 
                                     categories: d.monthCategories
-                                    stacks: d.activeChartTab === 0
-                                            ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
-                                            : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }]
+                                    stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
+                                            ? (d.activeChartTab === 0
+                                               ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
+                                               : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }])
+                                            : []
                                     loading: monthEnergyLogs.fetchingData
                                 }
 
@@ -556,9 +583,11 @@ MainViewBase {
                                     Layout.preferredHeight: 300
 
                                     categories: d.yoyCategories
-                                    stacks: d.activeChartTab === 0
-                                            ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
-                                            : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                    stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
+                                            ? (d.activeChartTab === 0
+                                               ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
+                                               : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
+                                            : []
                                     loading: yoyEnergyLogs.fetchingData
                                 }
 
@@ -581,9 +610,11 @@ MainViewBase {
                                     Layout.preferredHeight: 300
 
                                     categories: d.yearCategories
-                                    stacks: d.activeChartTab === 0
-                                            ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
-                                            : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }]
+                                    stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
+                                            ? (d.activeChartTab === 0
+                                               ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
+                                               : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }])
+                                            : []
                                     loading: yearEnergyLogs.fetchingData
                                 }
 
@@ -592,9 +623,11 @@ MainViewBase {
                                     Layout.preferredHeight: 300
 
                                     categories: d.yoyCategories
-                                    stacks: d.activeChartTab === 0
-                                            ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
-                                            : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                    stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
+                                            ? (d.activeChartTab === 0
+                                               ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
+                                               : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
+                                            : []
                                     loading: yoyEnergyLogs.fetchingData
                                 }
 

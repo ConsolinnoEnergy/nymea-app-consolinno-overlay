@@ -449,12 +449,42 @@ Item {
                     return
                 s.clear()
                 var desc = d.seriesDescriptor(index)
-                if (!desc || !desc.model)
+                if (!desc || !desc.model) {
                     return
+                }
                 var model = desc.model
                 var fn = desc.valueFunction
                 var count = model.count !== undefined ? model.count : 0
-                for (var i = 0; i < count; i++) {
+
+                // Only append entries within the chart's currently visible
+                // window (+ a one-entry buffer on each side, for the line
+                // to extend cleanly to the plot edges) - "count" alone is
+                // not a safe iteration bound: the underlying EnergyLogs
+                // model intentionally retains up to ~20x the visible
+                // window's worth of cached entries (see
+                // EnergyLogs::trimCache() in the nymea-app submodule) so
+                // panning/zooming stays refetch-free. Iterating that whole
+                // cache on every rebuild() - which runs on every legend-
+                // pill toggle/tab switch, not just when the visible window
+                // itself changes - caused multi-second UI freezes once a
+                // user had navigated across enough days in one session for
+                // the cache to fill up.
+                var startIndex = 0
+                var endIndex = count
+                if (typeof model.indexOf === "function") {
+                    var rangeStart = d.visibleStartTime
+                    var rangeEnd = d.visibleStartTime + d.visibleWindowMs
+                    var lowIdx = model.indexOf(new Date(rangeStart))
+                    var highIdx = model.indexOf(new Date(rangeEnd))
+                    // indexOf() is a nearest-neighbour lookup (only -1 when
+                    // the target is fully outside the loaded range) -
+                    // widen by one entry on each side so a near-but-not-
+                    // exact boundary match never clips an actually-visible
+                    // point.
+                    startIndex = lowIdx >= 0 ? Math.max(0, lowIdx - 1) : 0
+                    endIndex = highIdx >= 0 ? Math.min(count, highIdx + 2) : count
+                }
+                for (var i = startIndex; i < endIndex; i++) {
                     var entry = model.get(i)
                     if (!entry)
                         continue

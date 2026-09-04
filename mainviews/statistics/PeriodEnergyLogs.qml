@@ -55,6 +55,16 @@ Item {
     readonly property bool fetchingData: powerBalanceLogs.fetchingData || consumerPowerLogsLoader.fetchingData
     readonly property alias energyManager: consumerThings.energyManager
 
+    // The union range spanning all of "categoryRanges" - computed in
+    // fetchLogs() below and also bound onto every per-consumer
+    // ThingPowerLogs delegate (see the Repeater below), so
+    // EnergyLogs::trimCache() - which relies on each instance's own
+    // startTime/endTime, not the shared loader's - actually has something
+    // to trim against. Without this, per-consumer log caches grow
+    // unboundedly across every period navigation.
+    property date _rangeStart
+    property date _rangeEnd
+
     function fetchLogs() {
         if (root.categoryRanges.length === 0) {
             return
@@ -67,6 +77,9 @@ Item {
             if (root.categoryRanges[i].to > to)
                 to = root.categoryRanges[i].to
         }
+
+        root._rangeStart = from
+        root._rangeEnd = to
 
         powerBalanceLogs.startTime = from
         powerBalanceLogs.endTime = to
@@ -105,6 +118,8 @@ Item {
                 thingId: consumerDelegate.thing ? consumerDelegate.thing.id : ""
                 sampleRate: root.sampleRate
                 loader: consumerPowerLogsLoader
+                startTime: root._rangeStart
+                endTime: root._rangeEnd
             }
         }
         // Newly discovered consumers (e.g. once ThingManager finishes

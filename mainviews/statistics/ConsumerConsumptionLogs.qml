@@ -84,6 +84,17 @@ Item {
                 thingId: consumerDelegate.thing ? consumerDelegate.thing.id : ""
                 sampleRate: EnergyLogs.SampleRate15Mins
                 loader: consumerPowerLogsLoader
+                // Without these, EnergyLogs::trimCache() (which relies on
+                // this instance's own startTime/endTime, not the shared
+                // loader's) never runs for per-consumer logs - the cached
+                // entry list then grows unboundedly across every day
+                // navigation (weeks of stale 15-min samples pile up),
+                // which in turn makes every legend-pill toggle / tab
+                // switch dramatically slower, since CoStatsLineChart
+                // re-appends the model's *entire* cached history - not
+                // just the visible day - to the chart on every rebuild.
+                startTime: root.startTime
+                endTime: root.endTime
             }
 
             // Rebuild "otherConsumption" whenever this consumer's own power
