@@ -140,6 +140,34 @@ MainViewBase {
         totalConsumptionLogs: powerBalanceLogs
     }
 
+    // Backs the Week/Month/Year/year-over-year bar charts - one instance
+    // per section, since each fetches a different sampleRate and a
+    // different set of category ranges (see PeriodEnergyLogs.qml).
+    PeriodEnergyLogs {
+        id: weekEnergyLogs
+        engine: _engine
+        sampleRate: EnergyLogs.SampleRate1Day
+        categoryRanges: d.weekBarCategoryRanges
+    }
+    PeriodEnergyLogs {
+        id: monthEnergyLogs
+        engine: _engine
+        sampleRate: EnergyLogs.SampleRate1Week
+        categoryRanges: d.monthBarCategoryRanges
+    }
+    PeriodEnergyLogs {
+        id: yearEnergyLogs
+        engine: _engine
+        sampleRate: EnergyLogs.SampleRate1Month
+        categoryRanges: d.yearBarCategoryRanges
+    }
+    PeriodEnergyLogs {
+        id: yoyEnergyLogs
+        engine: _engine
+        sampleRate: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? EnergyLogs.SampleRate1Month : EnergyLogs.SampleRate1Year
+        categoryRanges: d.yoyBarCategoryRanges
+    }
+
     // Fetches KPIs for the period currently selected in "periodSelector".
     // Guarded by "root.visible" for the same reason as the equivalent guard
     // in CoKpiStats.qml: this view is instantiated eagerly (e.g. inside the
@@ -153,17 +181,38 @@ MainViewBase {
         kpiProvider.fetchKpis(periodSelector.fromTimestamp, periodSelector.toTimestamp)
     }
 
-    onVisibleChanged: root.fetchKpis()
+    // Fetches the Week/Month/Year/year-over-year bar-chart data for the
+    // period currently selected in "periodSelector" - same visibility/
+    // connection guard as "fetchKpis()" above, for the same reason.
+    function fetchBarLogs() {
+        if (!root.visible || !_engine || !_engine.jsonRpcClient || !_engine.jsonRpcClient.connected) {
+            return
+        }
+        weekEnergyLogs.fetchLogs()
+        monthEnergyLogs.fetchLogs()
+        yearEnergyLogs.fetchLogs()
+        yoyEnergyLogs.fetchLogs()
+    }
+
+    onVisibleChanged: {
+        root.fetchKpis()
+        root.fetchBarLogs()
+    }
 
     Connections {
         target: _engine ? _engine.jsonRpcClient : null
-        function onConnectedChanged() { root.fetchKpis() }
+        function onConnectedChanged() {
+            root.fetchKpis()
+            root.fetchBarLogs()
+        }
     }
 
     Connections {
         target: periodSelector
         function onFromTimestampChanged() { root.fetchKpis() }
         function onToTimestampChanged() { root.fetchKpis() }
+        function onReferenceDateChanged() { root.fetchBarLogs() }
+        function onSampleRateChanged() { root.fetchBarLogs() }
     }
 
     Flickable {
@@ -473,6 +522,7 @@ MainViewBase {
                                     stacks: d.activeChartTab === 0
                                             ? [{ series: d.weekEnergyBalanceProductionSeries }, { series: d.weekEnergyBalanceConsumptionSeries }]
                                             : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }]
+                                    loading: weekEnergyLogs.fetchingData
                                 }
 
 
@@ -498,6 +548,7 @@ MainViewBase {
                                     stacks: d.activeChartTab === 0
                                             ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
                                             : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }]
+                                    loading: monthEnergyLogs.fetchingData
                                 }
 
                                 CoStatsBarChart {
@@ -508,6 +559,7 @@ MainViewBase {
                                     stacks: d.activeChartTab === 0
                                             ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
                                             : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                    loading: yoyEnergyLogs.fetchingData
                                 }
 
                                 ChartLegendSection {
@@ -532,6 +584,7 @@ MainViewBase {
                                     stacks: d.activeChartTab === 0
                                             ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
                                             : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }]
+                                    loading: yearEnergyLogs.fetchingData
                                 }
 
                                 CoStatsBarChart {
@@ -542,6 +595,7 @@ MainViewBase {
                                     stacks: d.activeChartTab === 0
                                             ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
                                             : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }]
+                                    loading: yoyEnergyLogs.fetchingData
                                 }
 
                                 ChartLegendSection {
@@ -588,18 +642,6 @@ MainViewBase {
         // corresponding series/legend entries, it is not zero-filled.
         readonly property bool hasProducer: producers.count > 0
         readonly property bool hasBattery: batteries.count > 0
-
-        // Dummy per-consumer "Things" for the Verbrauch tab, standing in
-        // for a dynamic ThingsProxy{shownInterfaces:["smartmeterconsumer",
-        // "energymeter"]} list. Names here mimic real (untranslated)
-        // Thing names, colors mirror ConsolinnoConsumersHistory.qml's
-        // interface-based special-casing (heatpump/evcharger/heatingrod)
-        // with an indexed palette fallback for anything else.
-        property var dummyConsumerThings: [
-            { name: "Wallbox", color: Configuration.wallboxColor },
-            { name: "Wärmepumpe", color: Configuration.heatpumpColor },
-            { name: "Heizstab", color: Configuration.heatingRodColor }
-        ]
 
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
@@ -886,22 +928,25 @@ MainViewBase {
         // CoStatsBarChart cannot render.
 
         readonly property var weekCategories: d.weekdayCategories(periodSelector.referenceDate)
-        readonly property var weekEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.weekCategories)
-        readonly property var weekEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.weekCategories)
-        readonly property var weekConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.weekCategories)
-        readonly property var weekConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.weekCategories)
+        readonly property var weekBarCategoryRanges: d.weekCategoryRanges(periodSelector.referenceDate)
+        readonly property var weekEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(weekEnergyLogs)
+        readonly property var weekEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(weekEnergyLogs)
+        readonly property var weekConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(weekEnergyLogs)
+        readonly property var weekConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(weekEnergyLogs)
 
         readonly property var monthCategories: d.isoWeeksInMonthCategories(periodSelector.referenceDate)
-        readonly property var monthEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.monthCategories)
-        readonly property var monthEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.monthCategories)
-        readonly property var monthConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.monthCategories)
-        readonly property var monthConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.monthCategories)
+        readonly property var monthBarCategoryRanges: d.monthCategoryRanges(periodSelector.referenceDate)
+        readonly property var monthEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(monthEnergyLogs)
+        readonly property var monthEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(monthEnergyLogs)
+        readonly property var monthConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(monthEnergyLogs)
+        readonly property var monthConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(monthEnergyLogs)
 
         readonly property var yearCategories: d.monthsInYearCategories(periodSelector.referenceDate)
-        readonly property var yearEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.yearCategories)
-        readonly property var yearEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.yearCategories)
-        readonly property var yearConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.yearCategories)
-        readonly property var yearConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.yearCategories)
+        readonly property var yearBarCategoryRanges: d.yearCategoryRanges(periodSelector.referenceDate)
+        readonly property var yearEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(yearEnergyLogs)
+        readonly property var yearEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(yearEnergyLogs)
+        readonly property var yearConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(yearEnergyLogs)
+        readonly property var yearConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(yearEnergyLogs)
 
         // Year-over-year comparison chart: shared between the Month and
         // Year views (both compare "the same sub-period across the last
@@ -909,63 +954,61 @@ MainViewBase {
         // time and both derive this purely from the current reference
         // date/minDate.
         readonly property var yoyCategories: d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate)
-        readonly property var yoyEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(d.yoyCategories)
-        readonly property var yoyEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(d.yoyCategories)
-        readonly property var yoyConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(d.yoyCategories)
-        readonly property var yoyConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(d.yoyCategories)
+        readonly property var yoyBarCategoryRanges: d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
+        readonly property var yoyEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(yoyEnergyLogs)
+        readonly property var yoyEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(yoyEnergyLogs)
+        readonly property var yoyConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(yoyEnergyLogs)
+        readonly property var yoyConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(yoyEnergyLogs)
 
-        function computeEnergyBalanceProductionSeries(categories) {
+        // "provider" is one of the PeriodEnergyLogs instances declared near
+        // the top of this file (weekEnergyLogs/monthEnergyLogs/
+        // yearEnergyLogs/yoyEnergyLogs) - each already holds real backend
+        // data for exactly the category ranges of the section it backs.
+        //
+        // "To battery"/"From battery" are deliberately not included here -
+        // see PeriodEnergyLogs.qml's file doc comment for why (no
+        // cumulative battery energy counter is reliably available at these
+        // aggregated sample rates).
+        function computeEnergyBalanceProductionSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push(d.dummyStackSeriesFor("Production", Configuration.inverterColor, categories, 10, 40))
-                series.push(d.dummyStackSeriesFor("To grid", Configuration.rootMeterReturnColor, categories, 2, 15))
-            }
-            if (d.hasBattery) {
-                series.push(d.dummyStackSeriesFor("To battery", Configuration.batteryChargeColor, categories, 1, 10))
+                series.push({ name: "Production", color: Configuration.inverterColor, visible: d.isSeriesVisible("Production"), values: provider.totalProductionSeries() })
+                series.push({ name: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
             }
             return series
         }
 
-        function computeEnergyBalanceConsumptionSeries(categories) {
-            var series = [d.dummyStackSeriesFor("Consumption", Configuration.consumedColor, categories, 15, 45)]
-            if (d.hasBattery) {
-                series.push(d.dummyStackSeriesFor("From battery", Configuration.batteryDischargeColor, categories, 1, 8))
-            }
-            series.push(d.dummyStackSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, categories, 2, 20))
+        function computeEnergyBalanceConsumptionSeries(provider) {
+            var series = [{ name: "Consumption", color: Configuration.consumedColor, visible: d.isSeriesVisible("Consumption"), values: provider.totalConsumptionSeries() }]
+            series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
             return series
         }
 
-        function computeConsumptionSourceStackSeries(categories) {
+        function computeConsumptionSourceStackSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push(d.dummyStackSeriesFor("Self-consumption", Configuration.inverterColor, categories, 5, 25))
+                series.push({ name: "Self-consumption", color: Configuration.inverterColor, visible: d.isSeriesVisible("Self-consumption"), values: provider.selfConsumptionSeries() })
             }
-            if (d.hasBattery) {
-                series.push(d.dummyStackSeriesFor("From battery", Configuration.batteryDischargeColor, categories, 1, 12))
-            }
-            series.push(d.dummyStackSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, categories, 2, 20))
+            series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
             return series
         }
 
-        function computeConsumptionConsumerStackSeries(categories) {
-            var series = d.dummyConsumerThings.map(function (thing, index) {
-                return d.dummyStackSeriesFor(thing.name, thing.color, categories, 1, 12, index)
+        function computeConsumptionConsumerStackSeries(provider) {
+            var series = provider.consumerSeries().map(function (entry, i) {
+                return {
+                    name: entry.thing.name,
+                    color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
+                    visible: d.isSeriesVisible(entry.thing.name),
+                    values: entry.values
+                }
             })
-            series.push(d.dummyStackSeriesFor(qsTr("Other consumption"), Configuration.consumerColors[Configuration.consumerColors.length - 1], categories, 1, 8))
+            series.push({
+                name: qsTr("Other consumption"),
+                color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
+                visible: d.isSeriesVisible(qsTr("Other consumption")),
+                values: provider.otherConsumptionSeries()
+            })
             return series
-        }
-
-        // Generates a single dummy bar-chart series entry: one
-        // deterministic pseudo-random value per category.
-        function dummyStackSeriesFor(name, color, categories, min, max, phaseOffset) {
-            return {
-                name: name,
-                color: color,
-                visible: d.isSeriesVisible(name),
-                values: categories.map(function (category) {
-                    return d.pseudoRandom(name + "|" + (phaseOffset || 0) + "|" + category, min, max)
-                })
-            }
         }
 
         // ---- Category label helpers ----
@@ -985,6 +1028,21 @@ MainViewBase {
             return result
         }
 
+        // One {from, to} day range per weekday, matching "weekdayCategories"
+        // 1:1 - backs the real PeriodEnergyLogs fetch (sampleRate=1Day) for
+        // the Week bar chart.
+        function weekCategoryRanges(mondayDate) {
+            var result = []
+            var day = new Date(mondayDate)
+            for (var i = 0; i < 7; i++) {
+                var next = new Date(day)
+                next.setDate(next.getDate() + 1)
+                result.push({ from: new Date(day), to: next })
+                day = next
+            }
+            return result
+        }
+
         // "CW18", "CW19", ... for every ISO week that overlaps the month
         // containing "referenceDate".
         function isoWeeksInMonthCategories(referenceDate) {
@@ -996,6 +1054,24 @@ MainViewBase {
             while (cursor <= last) {
                 result.push(qsTr("CW%1").arg(DateUtils.isoWeekNumber(cursor)))
                 cursor.setDate(cursor.getDate() + 7)
+            }
+            return result
+        }
+
+        // One {from, to} Monday-to-Monday week range per ISO week, matching
+        // "isoWeeksInMonthCategories" 1:1 - backs the real PeriodEnergyLogs
+        // fetch (sampleRate=1Week) for the Month bar chart.
+        function monthCategoryRanges(referenceDate) {
+            var first = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1)
+            var last = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0)
+            var cursor = new Date(first)
+            cursor.setDate(cursor.getDate() - ((cursor.getDay() + 6) % 7))
+            var result = []
+            while (cursor <= last) {
+                var next = new Date(cursor)
+                next.setDate(next.getDate() + 7)
+                result.push({ from: new Date(cursor), to: next })
+                cursor = next
             }
             return result
         }
@@ -1014,6 +1090,19 @@ MainViewBase {
             return result
         }
 
+        // One {from, to} calendar-month range per month, matching
+        // "monthsInYearCategories" 1:1 - backs the real PeriodEnergyLogs
+        // fetch (sampleRate=1Month) for the Year bar chart.
+        function yearCategoryRanges(referenceDate) {
+            var result = []
+            for (var month = 0; month < 12; month++) {
+                var from = new Date(referenceDate.getFullYear(), month, 1)
+                var to = new Date(referenceDate.getFullYear(), month + 1, 1)
+                result.push({ from: from, to: to })
+            }
+            return result
+        }
+
         // Last 5 years up to and including the year of "referenceDate",
         // clamped to not go below "minDate"'s year (the same lower bound
         // CoPeriodSelector itself enforces for navigation).
@@ -1023,6 +1112,33 @@ MainViewBase {
             var result = []
             for (var year = startYear; year <= endYear; year++) {
                 result.push(String(year))
+            }
+            return result
+        }
+
+        // One range per year, matching "yearOverYearCategories" 1:1. What
+        // exactly is compared "the same sub-period" across those years
+        // depends on which view this comparison chart is shown in:
+        //  - Year view: the sub-period is the whole year - each range spans
+        //    Jan 1 to Jan 1 of the next year (sampleRate=1Year).
+        //  - Month view: the sub-period is the one calendar month currently
+        //    selected (e.g. August) - each range only covers that single
+        //    month within its year (sampleRate=1Month), even though the
+        //    fetch this backs (see PeriodEnergyLogs.fetchLogs()) still
+        //    covers the entire multi-year span in one request; the other
+        //    11 months per year are simply never looked up.
+        function yearOverYearCategoryRanges(referenceDate, minDate, activeSampleRate) {
+            var endYear = referenceDate.getFullYear()
+            var startYear = Math.max(minDate.getFullYear(), endYear - 4)
+            var result = []
+            for (var year = startYear; year <= endYear; year++) {
+                if (activeSampleRate === EnergyLogs.SampleRate1Month) {
+                    var from = new Date(year, referenceDate.getMonth(), 1)
+                    var to = new Date(year, referenceDate.getMonth() + 1, 1)
+                    result.push({ from: from, to: to })
+                } else {
+                    result.push({ from: new Date(year, 0, 1), to: new Date(year + 1, 0, 1) })
+                }
             }
             return result
         }

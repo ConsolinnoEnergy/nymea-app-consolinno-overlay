@@ -289,6 +289,8 @@
         <file>mainviews/CoDashboardView.qml</file>
         <file>mainviews/CoStatsView.qml</file>
         <file>mainviews/statistics/ConsumerConsumptionLogs.qml</file>
+        <file>mainviews/statistics/ConsumerThings.qml</file>
+        <file>mainviews/statistics/PeriodEnergyLogs.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>

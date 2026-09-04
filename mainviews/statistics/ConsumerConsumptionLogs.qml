@@ -62,29 +62,9 @@ Item {
         consumerPowerLogsLoader.fetchLogs()
     }
 
-    EnergyManager {
-        id: energyManager
-        engine: root.engine && !root.engine.thingManager.fetchingData ? root.engine : null
-    }
-    readonly property var hiddenConsumerIds: {
-        const ids = []
-        for (let i = 0; i < hiddenConsumers.count; ++i) {
-            ids.push(hiddenConsumers.get(i).id)
-        }
-        return ids
-    }
-    ThingsProxy {
-        id: hiddenConsumers
+    ConsumerThings {
+        id: consumerThings
         engine: root.engine
-        shownInterfaces: ["smartmeterconsumer", "energymeter"]
-        stateFilter: { "hidden": true }
-    }
-    ThingsProxy {
-        id: consumers
-        engine: root.engine
-        shownInterfaces: ["smartmeterconsumer", "energymeter"]
-        hideTagId: "hiddenInEnergyView"
-        hiddenThingIds: [energyManager.rootMeterId].concat(root.hiddenConsumerIds)
     }
 
     ThingPowerLogsLoader {
@@ -94,11 +74,11 @@ Item {
     }
     Repeater {
         id: consumerPowerLogsRepeater
-        model: consumers
+        model: consumerThings.things
         delegate: Item {
             id: consumerDelegate
             required property int index
-            readonly property Thing thing: consumers.get(consumerDelegate.index)
+            readonly property Thing thing: consumerThings.things.get(consumerDelegate.index)
             readonly property ThingPowerLogs logs: ThingPowerLogs {
                 engine: root.engine
                 thingId: consumerDelegate.thing ? consumerDelegate.thing.id : ""
