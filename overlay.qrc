@@ -285,7 +285,12 @@
         <file>utils/ThingUtils.qml</file>
         <file>utils/UiUtils.qml</file>
         <file>utils/VersionUtils.js</file>
+        <file>utils/DateUtils.js</file>
         <file>mainviews/CoDashboardView.qml</file>
+        <file>mainviews/CoStatsView.qml</file>
+        <file>mainviews/statistics/ConsumerConsumptionLogs.qml</file>
+        <file>mainviews/statistics/ConsumerThings.qml</file>
+        <file>mainviews/statistics/PeriodEnergyLogs.qml</file>
         <file>mainviews/UnconfiguredHemsView.qml</file>
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
@@ -297,6 +302,14 @@
         <file>components/CoNotification.qml</file>
         <file>components/CoNotConnectedNotification.qml</file>
         <file>components/CoIconButton.qml</file>
+        <file>components/CoLegendPill.qml</file>
+        <file>components/CoPeriodSelector.qml</file>
+        <file>components/CoWheelPicker.qml</file>
+        <file>components/CoDayPickerContent.qml</file>
+        <file>components/CoWeekPickerContent.qml</file>
+        <file>components/CoMonthPickerContent.qml</file>
+        <file>components/CoYearPickerContent.qml</file>
+        <file>components/CoPeriodPickerOverlay.qml</file>
         <file>components/CoNavbarButton.qml</file>
         <file>optimization/DayTimePickerPage.qml</file>
         <file>components/LabelWithInfo.qml</file>
@@ -310,6 +323,7 @@
         <file>components/CoInputField.qml</file>
         <file>components/CoInputStepper.qml</file>
         <file>components/CoSortableCard.qml</file>
+        <file>components/CoStatsKPICard.qml</file>
         <file>optimization/PVPriorities.qml</file>
         <file>components/CoCardWithRadioButton.qml</file>
         <file>optimization/CloudServicesPage.qml</file>
@@ -326,5 +340,12 @@
         <file>components/CoDivider.qml</file>
         <file>components/CoAboutPage.qml</file>
         <file>components/CoThirdPartyLicensesPage.qml</file>
+        <file>components/CoTabButton.qml</file>
+        <file>components/CoHeadlineTabBar.qml</file>
+        <file>components/CoHeadlineTabButton.qml</file>
+        <file>components/CoTabBar.qml</file>
+        <file>components/CoStatsLineChart.qml</file>
+        <file>components/CoStatsChartLegend.qml</file>
+        <file>components/CoStatsBarChart.qml</file>
     </qresource>
 </RCC>
