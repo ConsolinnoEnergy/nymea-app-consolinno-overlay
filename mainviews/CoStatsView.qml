@@ -7,6 +7,7 @@ import Nymea
 
 import "../components"
 import "../utils/DateUtils.js" as DateUtils
+import "statistics"
 
 // CoStatsView
 //
@@ -128,6 +129,15 @@ MainViewBase {
         id: powerBalanceLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate15Mins
+    }
+
+    // Backs the Verbrauch/Consumers tab: consumer Thing discovery, per-
+    // consumer power logs, and the derived "Other consumption" catch-all
+    // bucket - see ConsumerConsumptionLogs.qml for details.
+    ConsumerConsumptionLogs {
+        id: consumerConsumptionLogs
+        engine: _engine
+        totalConsumptionLogs: powerBalanceLogs
     }
 
     // Fetches KPIs for the period currently selected in "periodSelector".
@@ -349,14 +359,19 @@ MainViewBase {
                                     // provide this data yet.
                                     percentAxisVisible: false
 
-                                    loading: powerBalanceLogs.fetchingData
+                                    // Also true while per-consumer power logs are
+                                    // being (re)fetched for the Verbrauch/Consumers
+                                    // tab - both sources share this one chart/loading
+                                    // indicator.
+                                    loading: powerBalanceLogs.fetchingData || consumerConsumptionLogs.fetchingData
 
                                     series: d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries
 
-                                    // Fetches (or re-fetches) power-balance data for
-                                    // exactly the range currently visible in the
-                                    // chart, whenever it settles after a pan/zoom/day
-                                    // change (see "visibleRangeChanged" doc comment in
+                                    // Fetches (or re-fetches) power-balance data and
+                                    // per-consumer power data for exactly the range
+                                    // currently visible in the chart, whenever it
+                                    // settles after a pan/zoom/day change (see
+                                    // "visibleRangeChanged" doc comment in
                                     // CoStatsLineChart.qml) - this is the one hook that
                                     // covers both the initial fetch (fires once on
                                     // Component.onCompleted) and subsequent ones.
@@ -364,6 +379,10 @@ MainViewBase {
                                         powerBalanceLogs.startTime = startTime
                                         powerBalanceLogs.endTime = endTime
                                         powerBalanceLogs.fetchLogs()
+
+                                        consumerConsumptionLogs.startTime = startTime
+                                        consumerConsumptionLogs.endTime = endTime
+                                        consumerConsumptionLogs.fetchLogs()
                                     }
 
                                     // Reflect back into the period selector when the
@@ -736,31 +755,82 @@ MainViewBase {
             return series
         }
 
-        readonly property var consumptionSourceLineSeries: d.computeConsumptionSourceLineSeries(periodSelector.referenceDate)
-        function computeConsumptionSourceLineSeries(referenceDate) {
+        readonly property var consumptionSourceLineSeries: d.computeConsumptionSourceLineSeries()
+        function computeConsumptionSourceLineSeries() {
             var series = []
+            // "Self-consumption": the part of total consumption covered
+            // neither by the battery nor the grid, i.e. directly-used own
+            // production. Only meaningful (and only ever non-zero) when a
+            // producer is present.
             if (d.hasProducer) {
-                series.push(d.dummyLineSeriesFor("Self-consumption", Configuration.inverterColor, referenceDate, 0.2, 3))
+                series.push({
+                    name: "Self-consumption",
+                    color: Configuration.inverterColor,
+                    visible: d.isSeriesVisible("Self-consumption"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) {
+                        var fromBattery = Math.abs(Math.min(0, entry.storage))
+                        var fromGrid = Math.max(0, entry.acquisition)
+                        return Math.max(0, entry.consumption - fromBattery - fromGrid) / 1000
+                    }
+                })
             }
             if (d.hasBattery) {
-                series.push(d.dummyLineSeriesFor("From battery", Configuration.batteryDischargeColor, referenceDate, 0, 1.5))
+                series.push({
+                    name: "From battery",
+                    color: Configuration.batteryDischargeColor,
+                    visible: d.isSeriesVisible("From battery"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
+                })
             }
-            series.push(d.dummyLineSeriesFor("From grid", Configuration.rootMeterAcquisitionColor, referenceDate, 0, 3))
+            series.push({
+                name: "From grid",
+                color: Configuration.rootMeterAcquisitionColor,
+                visible: d.isSeriesVisible("From grid"),
+                axis: "left",
+                model: powerBalanceLogs,
+                valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
+            })
             return series
         }
 
-        readonly property var consumptionConsumerLineSeries: d.computeConsumptionConsumerLineSeries(periodSelector.referenceDate)
-        function computeConsumptionConsumerLineSeries(referenceDate) {
-            var series = d.dummyConsumerThings.map(function (thing, index) {
-                return d.dummyLineSeriesFor(thing.name, thing.color, referenceDate, 0, 1.5, index)
-            })
+        readonly property var consumptionConsumerLineSeries: d.computeConsumptionConsumerLineSeries()
+        function computeConsumptionConsumerLineSeries() {
+            var series = []
+            // One series per discovered consumer Thing, backed directly by
+            // its own ThingPowerLogs instance (see
+            // "consumerConsumptionLogs" near the top of the file).
+            for (var i = 0; i < consumerConsumptionLogs.count; i++) {
+                var item = consumerConsumptionLogs.consumerAt(i)
+                if (!item || !item.thing) {
+                    continue
+                }
+                series.push({
+                    name: item.thing.name,
+                    color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
+                    visible: d.isSeriesVisible(item.thing.name),
+                    axis: "left",
+                    model: item.logs,
+                    valueFunction: function (entry) { return entry.currentPower / 1000 }
+                })
+            }
             // "Sonstiger Verbrauch"/"Other consumption" is not an optional
             // Thing-backed series like the ones above - it is always
             // present as an explicit catch-all bucket (total consumption
-            // minus the sum of all known consumers). The old area-chart
-            // page could show this as an implicit visual gap, but a
-            // stacked representation needs it as a real series.
-            series.push(d.dummyLineSeriesFor(qsTr("Other consumption"), Configuration.consumerColors[Configuration.consumerColors.length - 1], referenceDate, 0.1, 1))
+            // minus the sum of all known consumers at the same instant),
+            // computed and kept up to date by "consumerConsumptionLogs"
+            // (see ConsumerConsumptionLogs.qml - "otherConsumption").
+            series.push({
+                name: qsTr("Other consumption"),
+                color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
+                visible: d.isSeriesVisible(qsTr("Other consumption")),
+                axis: "left",
+                model: consumerConsumptionLogs.otherConsumption,
+                valueFunction: function (entry) { return entry.consumption / 1000 }
+            })
             return series
         }
 
