@@ -4,6 +4,8 @@ import QtCharts
 import Nymea
 import NymeaApp.Utils
 
+import "../utils/DateUtils.js" as DateUtils
+
 // CoStatsLineChart
 //
 // A multi-line chart for the statistics page. Shows a left kW y-axis (auto
@@ -172,6 +174,21 @@ Item {
         }
 
         function resetToSelectedDay() {
+            // "selectedDay" also changes as a side effect of panning across
+            // a day boundary while zoomed in: CoStatsView syncs the newly
+            // crossed-into day back to the period selector, which in turn
+            // re-assigns this same day to "selectedDay". In that case the
+            // chart is already showing (part of) that day - actually
+            // resetting to a full 24h window here would undo the user's
+            // zoom/pan on every day crossing. Only perform the actual jump
+            // (full day, reset zoom) when "selectedDay" refers to a
+            // genuinely different day than what's currently visible (i.e.
+            // an external "jump to this day" request, e.g. from the date
+            // picker).
+            if (DateUtils.isSameDay(root.selectedDay, root.visibleDay)) {
+                return
+            }
+
             var dt = new Date(root.selectedDay)
             dt.setHours(0, 0, 0, 0)
             d.visibleStartTime = dt.getTime()
