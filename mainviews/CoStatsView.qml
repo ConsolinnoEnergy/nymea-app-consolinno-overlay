@@ -184,14 +184,32 @@ MainViewBase {
     // Fetches the Week/Month/Year/year-over-year bar-chart data for the
     // period currently selected in "periodSelector" - same visibility/
     // connection guard as "fetchKpis()" above, for the same reason.
+    //
+    // Only fetches the section(s) backing the currently active tab
+    // ("periodSelector.sampleRate" - same tab-identity value used to guard
+    // the chart bindings themselves, see the series:/stacks: bindings
+    // below). This runs on every reference-date navigation *and* every tab
+    // switch (see the Connections block below), so - unlike the chart
+    // bindings, which can simply stay unevaluated while hidden - a
+    // section's data is always (re-)fetched for the current reference date
+    // by the time its tab becomes active, it's just not fetched while some
+    // *other* tab is showing. Previously this fetched all four sections
+    // unconditionally on every single navigation/tab switch, quadrupling
+    // the number of backend round trips regardless of which tab was
+    // actually visible.
     function fetchBarLogs() {
         if (!root.visible || !_engine || !_engine.jsonRpcClient || !_engine.jsonRpcClient.connected) {
             return
         }
-        weekEnergyLogs.fetchLogs()
-        monthEnergyLogs.fetchLogs()
-        yearEnergyLogs.fetchLogs()
-        yoyEnergyLogs.fetchLogs()
+        if (periodSelector.sampleRate === EnergyLogs.SampleRate1Week) {
+            weekEnergyLogs.fetchLogs()
+        } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Month) {
+            monthEnergyLogs.fetchLogs()
+            yoyEnergyLogs.fetchLogs()
+        } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Year) {
+            yearEnergyLogs.fetchLogs()
+            yoyEnergyLogs.fetchLogs()
+        }
     }
 
     onVisibleChanged: {
