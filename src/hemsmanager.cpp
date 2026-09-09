@@ -12,7 +12,6 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
 {
     m_heatingConfigurations = new HeatingConfigurations(this);
     m_chargingConfigurations = new ChargingConfigurations(this);
-    m_chargingOptimizationConfigurations = new ChargingOptimizationConfigurations(this);
     m_pvConfigurations = new PvConfigurations(this);
     m_heatingElementConfigurations = new HeatingElementConfigurations(this);
     m_dynamicElectricPricingConfigurations = new DynamicElectricPricingConfigurations(this);
@@ -104,11 +103,6 @@ HeatingConfigurations *HemsManager::heatingConfigurations() const
 ChargingConfigurations *HemsManager::chargingConfigurations() const
 {
     return m_chargingConfigurations;
-}
-
-ChargingOptimizationConfigurations *HemsManager::chargingOptimizationConfigurations() const
-{
-    return m_chargingOptimizationConfigurations;
 }
 
 ChargingSessionConfigurations *HemsManager::chargingSessionConfigurations() const
@@ -367,51 +361,6 @@ int HemsManager::setDynamicElectricPricingConfiguration(const QUuid &electricThi
     return m_engine->jsonRpcClient()->sendCommand("Hems.setDynamicElectricPricingConfiguration", params, this, "setDynamicElectricPricingConfigurationResponse");
 }
 
-
-int HemsManager::setChargingOptimizationConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
-{
-
-    ChargingOptimizationConfiguration *configuration = m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
-    // if the configuration does not exist yet. Set up a dummy configuration
-    // This ensures that if the Thing does not exist that the program wont crash
-    if (!configuration){
-        qCDebug(dcHems()) << "Adding a dummy Config" << evChargerThingId;
-        QVariantMap dummyConfig;
-        dummyConfig.insert("evChargerThingId", evChargerThingId);
-        dummyConfig.insert("reenableChargepoint", false);
-        dummyConfig.insert("p_value", 0.001);
-        dummyConfig.insert("i_value", 0.001);
-        dummyConfig.insert("d_value", 0);
-        dummyConfig.insert("setpoint", 0);
-        dummyConfig.insert("controllableLocalSystem", false);
-        addOrUpdateChargingOptimizationConfiguration(dummyConfig);
-        // and get the dummy Config
-        configuration =  m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerThingId);
-    }
-
-    // Make a MetaObject of an configuration
-    const QMetaObject *metaObj = configuration->metaObject();
-    // add the values from data which match with the MetaObject
-    QVariantMap config;
-    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name()))
-            {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-            }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-            }
-    }
-
-
-
-    QVariantMap params;
-    params.insert("chargingOptimizationConfiguration", config);
-
-    qCWarning(dcHems()) << "Set charging Optimization configuration" << params;
-    return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingOptimizationConfiguration", params, this, "setChargingOptimizationConfigurationResponse");
-}
 
 int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const QVariantMap &data )
 {
@@ -676,13 +625,6 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.ChargingConfigurationChanged") {
         addOrUpdateChargingConfiguration(params.value("chargingConfiguration").toMap());
 
-    } else if (notification == "Hems.ChargingOptimizationConfigurationAdded") {
-        addOrUpdateChargingOptimizationConfiguration(params.value("chargingOptimizationConfiguration").toMap());
-    } else if (notification == "Hems.ChargingOptimizationConfigurationRemoved") {
-        qCDebug(dcHems()) << "Charging configuration removed" << params.value("evChargerThingId").toUuid();
-        m_chargingOptimizationConfigurations->removeConfiguration(params.value("evChargerThingId").toUuid());
-    } else if (notification == "Hems.ChargingOptimizationConfigurationChanged") {
-        addOrUpdateChargingOptimizationConfiguration(params.value("chargingOptimizationConfiguration").toMap());
     } else if (notification == "Hems.ConEMSStateChanged") {
         qCDebug(dcHems()) << "ConEMSStateChanged Notification";
         addOrUpdateConEMSState(params.value("conEMSState").toMap());
@@ -876,16 +818,6 @@ void HemsManager::getChargingConfigurationsResponse(int commandId, const QVarian
     qCDebug(dcHems()) << "Charging configuration" << data;
     foreach (const QVariant &configurationVariant, data.value("chargingConfigurations").toList()) {
         addOrUpdateChargingConfiguration(configurationVariant.toMap());
-    }
-}
-
-
-void HemsManager::getChargingOptimizationConfigurationsResponse(int commandId, const QVariantMap &data)
-{
-    Q_UNUSED(commandId);
-    qCDebug(dcHems()) << "Charging Optimization configuration" << data;
-    foreach (const QVariant &configurationVariant, data.value("chargingOptimizationConfigurations").toList()) {
-        addOrUpdateChargingOptimizationConfiguration(configurationVariant.toMap());
     }
 }
 
@@ -1173,10 +1105,6 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getChargingConfigurationsResponse");
-    m_engine->jsonRpcClient()->sendCommand("Hems.GetChargingOptimizationConfigurations",
-                                           QVariantMap(),
-                                           this,
-                                           "getChargingOptimizationConfigurationsResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetPvConfigurations",
                                            QVariantMap(),
                                            this,
@@ -1239,14 +1167,6 @@ void HemsManager::setChargingConfigurationResponse(int commandId, const QVariant
 }
 
 
-void HemsManager::setChargingOptimizationConfigurationResponse(int commandId, const QVariantMap &data)
-{
-
-    qCDebug(dcHems()) << "Set charging Optimization configuration response" << data.value("hemsError").toString();
-    emit setChargingOptimizationConfigurationReply(commandId, data.value("hemsError").toString());
-}
-
-
 void HemsManager::setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
@@ -1295,7 +1215,7 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     
     qCDebug(dcHems()) << "Optimization mode set to " << hpMode;
     configuration->setOptimizationMode(hpMode);
-    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
@@ -1357,13 +1277,13 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
     configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
     configuration->setAvoidZeroFeedInEnabled(configurationMap.value("avoidZeroFeedInEnabled").toBool());
     configuration->setAvoidZeroFeedInActive(configurationMap.value("avoidZeroFeedInActive").toBool());
-    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
-    configuration->setDischargePriceThreshold(configurationMap.value("dischargePriceThreshold").toFloat());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
+    configuration->setDischargePriceThreshold(configurationMap.value("dischargePriceThreshold").toDouble());
     configuration->setRelativePriceEnabled(configurationMap.value("relativePriceEnabled").toBool());
     configuration->setChargeOnce(configurationMap.value("chargeOnce").toBool());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setBlockBatteryOnGridConsumption(configurationMap.value("blockBatteryOnGridConsumption").toInt());
-    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toFloat());
+    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
 
     QList<int> targetSocPvSurplus;
     foreach (const QVariant &v, configurationMap.value("targetSocPvSurplus").toList()) {
@@ -1430,7 +1350,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
-    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toFloat());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
     configuration->setChargingSchedule(configurationMap.value("chargingSchedule").toString());
     configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
     configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toUInt());
@@ -1444,34 +1364,6 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         emit chargingConfigurationChanged(configuration);
     }
 }
-
-void HemsManager::addOrUpdateChargingOptimizationConfiguration(const QVariantMap &configurationMap)
-{
-    QUuid evChargerUuid = configurationMap.value("evChargerThingId").toUuid();
-    ChargingOptimizationConfiguration *configuration = m_chargingOptimizationConfigurations->getChargingOptimizationConfiguration(evChargerUuid);
-    bool newConfiguration = false;
-    if (!configuration) {
-        newConfiguration = true;
-        configuration = new ChargingOptimizationConfiguration(this);
-        configuration->setEvChargerThingId(evChargerUuid);
-    }
-
-    configuration->setReenableChargepoint(configurationMap.value("reenableChargepoint").toBool());
-    configuration->setP_value(configurationMap.value("p_value").toFloat());
-    configuration->setI_value(configurationMap.value("i_value").toFloat());
-    configuration->setD_value(configurationMap.value("d_value").toFloat());
-    configuration->setSetpoint(configurationMap.value("setpoint").toFloat());
-    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
-
-    if (newConfiguration) {
-        qCDebug(dcHems()) << "Charging Optimization configuration added" << configuration->evChargerThingId();
-        m_chargingOptimizationConfigurations->addConfiguration(configuration);
-    } else {
-        qCDebug(dcHems()) << "Charging Optimization configuration changed" << configuration->evChargerThingId();
-        emit chargingOptimizationConfigurationChanged(configuration);
-    }
-}
-
 
 void HemsManager::addOrUpdateChargingSessionConfiguration(const QVariantMap &configurationMap)
 {

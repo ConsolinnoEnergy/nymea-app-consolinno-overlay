@@ -32,8 +32,7 @@ Page {
             return;
         }
 
-        // Backend expects value in W.
-        let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
+        let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text);
         // #TODO CLS toggle only starting with version 2.2
         d.pendingCallId = hemsManager.setSwitchConfiguration(
             switchConfiguration.switchThingId,
@@ -120,16 +119,16 @@ Page {
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
-                        unit: qsTr("kW")
+                        unit: qsTr("W")
                         helpText:
                             qsTr("The value must not be below %1.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+switchConfiguration.maxElectricalPower / 1000).toLocaleString()
+                        textField.text: (+switchConfiguration.maxElectricalPower).toLocaleString()
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
-                            bottom: 0.01
+                            bottom: 10
                         }
                     }
 

@@ -176,7 +176,7 @@ Page {
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
-                        unit: qsTr("kW")
+                        unit: qsTr("W")
                         helpText:
                             qsTr("The value must not be below %1.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
@@ -185,7 +185,7 @@ Page {
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
-                            bottom: 0.5
+                            bottom: 500
                         }
                     }
 
