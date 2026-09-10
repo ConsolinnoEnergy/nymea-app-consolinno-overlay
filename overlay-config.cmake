@@ -1,6 +1,12 @@
 # CMake overlay configuration for Consolinno-HEMS
 
-set(APPLICATION_NAME "consolinno-energy" CACHE STRING "Application name" FORCE)
+# iOS passes the whitelabel display name explicitly. Keep that value instead
+# of replacing it with the desktop application name from this overlay.
+if(IOS AND DEFINED APPLICATION_NAME)
+    set(APPLICATION_NAME "${APPLICATION_NAME}" CACHE STRING "Application name")
+else()
+    set(APPLICATION_NAME "consolinno-energy" CACHE STRING "Application name" FORCE)
+endif()
 set(ORGANISATION_NAME "consolinno" CACHE STRING "Organisation name" FORCE)
 set(PACKAGE_URN "hems.consolinno.energy" CACHE STRING "Package URN" FORCE)
 set(PACKAGE_NAME "consolinno-energy" CACHE STRING "Package name" FORCE)
