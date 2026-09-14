@@ -164,7 +164,7 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
         dummyConfig.insert("latitude", 0);
         dummyConfig.insert("roofPitch", 0);
         dummyConfig.insert("alignment", 0);
-        dummyConfig.insert("kwPeak", 0);
+        dummyConfig.insert("wPeak", 0);
         dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdatePvConfiguration(dummyConfig);
@@ -1416,7 +1416,7 @@ void HemsManager::addOrUpdatePvConfiguration(const QVariantMap &configurationMap
     configuration->setLatitude(configurationMap.value("latitude").toDouble());
     configuration->setRoofPitch(configurationMap.value("roofPitch").toInt());
     configuration->setAlignment(configurationMap.value("alignment").toInt());
-    configuration->setKwPeak(configurationMap.value("kwPeak").toFloat());
+    configuration->setWPeak(configurationMap.value("wPeak").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
