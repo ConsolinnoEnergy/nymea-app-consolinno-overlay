@@ -35,20 +35,8 @@ Page {
 
         let inputText = maxElectricalPower.text
         inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-        // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
-        // returns an int, but setHeatingConfiguration expects a string enum name.
-        // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
-        const optimizationModeMap = {
-          0: "OptimizationModePVSurplus",
-          1: "OptimizationModeDynamicPricing",
-          2: "OptimizationModeOff",
-        };
-
-        const currentValue = heatingConfiguration.optimizationMode;
-
         const newConfig = {
             "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
-            "optimizationEnabled":   heatingConfiguration.optimizationEnabled,
             "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
             "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
             "maxElectricalPower":    +inputText,
@@ -56,9 +44,7 @@ Page {
             "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
             "controllableLocalSystem": gridSupportControl.checked,
             "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
-            "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
-                                         ? optimizationModeMap[currentValue]
-                                         : "OptimizationModeOff"
+            "optimizationMode":      heatingConfiguration.optimizationMode
         };
 
         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)

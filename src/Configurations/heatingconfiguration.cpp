@@ -209,3 +209,17 @@ void HeatingConfiguration::setMeanSgr3(double meanSgr3)
     m_meanSgr3 = meanSgr3;
     emit meanSgr3Changed(m_meanSgr3);
 }
+
+uint HeatingConfiguration::sgReadyState() const
+{
+    return m_sgReadyState;
+}
+
+void HeatingConfiguration::setSgReadyState(uint sgReadyState)
+{
+    if (m_sgReadyState == sgReadyState)
+        return;
+
+    m_sgReadyState = sgReadyState;
+    emit sgReadyStateChanged(m_sgReadyState);
+}
