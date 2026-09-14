@@ -1,5 +1,7 @@
 #include "hemsmanager.h"
 
+#include <algorithm>
+
 #include <QMetaEnum>
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -205,7 +207,8 @@ qCritical() << "setHeatingElementConfiguration" << data;
         QVariantMap dummyConfig;
         dummyConfig.insert("heatingRodThingId", heatingRodThingId);
         dummyConfig.insert("maxElectricalPower", 0);
-        dummyConfig.insert("optimizationEnabled", false);
+        dummyConfig.insert("operatingMode", "NoControl");
+        dummyConfig.insert("optimizationStrategies", QVariantList());
         dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingElementConfiguration(dummyConfig);
@@ -226,6 +229,16 @@ qCritical() << "setHeatingElementConfiguration" << data;
                 //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
+    }
+
+    // The UI exposes one switch while the backend represents PV optimization
+    // through an operating mode and a list of optimization strategies.
+    const bool optimizationEnabled = config.take("optimizationEnabled").toBool();
+    config.insert("operatingMode", optimizationEnabled ? "StrategyControlled" : "NoControl");
+    if (optimizationEnabled) {
+        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+    } else {
+        config.remove("optimizationStrategies");
     }
 
     QVariantMap params;
@@ -567,7 +580,9 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
         qCDebug(dcHems()) << "Adding a dummy Switch config" << switchThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("switchThingId", switchThingId);
-        dummyConfig.insert("optimizationMode", SwitchConfiguration::OptimizationModeNoControl);
+        dummyConfig.insert("operatingMode", "NoControl");
+        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("manualEnabled", false);
         dummyConfig.insert("maxElectricalPower", 0.0);
         dummyConfig.insert("pvSurplusThreshold", 500.0);
         dummyConfig.insert("durationMinAfterTurnOn", 15.0);
@@ -577,19 +592,36 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
         configuration = m_switchConfigurations->getSwitchConfiguration(switchThingId);
     }
 
-    // Build config map from MetaObject, overriding with caller-supplied values.
-    // For enum properties, convert int values to their string key names as required by the JSON RPC API.
+    // Keep the UI's legacy optimizationMode and translate it to the backend's
+    // operating mode, strategy list, and manual control flag.
     const QMetaObject *metaObj = configuration->metaObject();
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
         QMetaProperty prop = metaObj->property(i);
         QVariant value = data.contains(prop.name()) ? data.value(prop.name()) : prop.read(configuration);
-        if (prop.isEnumType()) {
-            QMetaEnum metaEnum = prop.enumerator();
-            config.insert(prop.name(), QString(metaEnum.valueToKey(value.toInt())));
-        } else {
-            config.insert(prop.name(), value);
-        }
+        config.insert(prop.name(), value);
+    }
+
+    const auto optimizationMode = static_cast<SwitchConfiguration::OptimizationMode>(config.take("optimizationMode").toInt());
+    config.insert("optimizationStrategies", QVariantList());
+    switch (optimizationMode) {
+    case SwitchConfiguration::OptimizationModePvSurplus:
+        config.insert("operatingMode", "StrategyControlled");
+        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        config.remove("manualEnabled");
+        break;
+    case SwitchConfiguration::OptimizationModeManualOn:
+        config.insert("operatingMode", "Manual");
+        config.insert("manualEnabled", true);
+        break;
+    case SwitchConfiguration::OptimizationModeManualOff:
+        config.insert("operatingMode", "Manual");
+        config.insert("manualEnabled", false);
+        break;
+    case SwitchConfiguration::OptimizationModeNoControl:
+        config.insert("operatingMode", "NoControl");
+        config.remove("manualEnabled");
+        break;
     }
 
     QVariantMap params;
@@ -1445,7 +1477,12 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
     }
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
+    const QVariantList optimizationStrategies = strategiesValue.toList();
+    const bool pvOptimized = strategiesValue.toString() == "PvOptimized" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
+        return strategy.toString() == "PvOptimized";
+    });
+    configuration->setOptimizationEnabled(configurationMap.value("operatingMode").toString() == "StrategyControlled" && pvOptimized);
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
@@ -1470,11 +1507,21 @@ void HemsManager::addOrUpdateSwitchConfiguration(const QVariantMap &configuratio
         configuration->setSwitchThingId(switchUuid);
     }
 
-    QString modeString = configurationMap.value("optimizationMode").toString();
-    const QMetaObject metaObj = SwitchConfiguration::staticMetaObject;
-    QMetaEnum modeEnum = metaObj.enumerator(metaObj.indexOfEnumerator("OptimizationMode"));
-    int mode = modeEnum.keyToValue(modeString.toUtf8().constData());
-    configuration->setOptimizationMode(static_cast<SwitchConfiguration::OptimizationMode>(mode));
+    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
+    const QVariantList optimizationStrategies = strategiesValue.toList();
+    const bool pvOptimized = strategiesValue.toString() == "PvOptimized" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
+        return strategy.toString() == "PvOptimized";
+    });
+    const QString operatingMode = configurationMap.value("operatingMode").toString();
+    SwitchConfiguration::OptimizationMode optimizationMode = SwitchConfiguration::OptimizationModeNoControl;
+    if (operatingMode == "StrategyControlled" && pvOptimized) {
+        optimizationMode = SwitchConfiguration::OptimizationModePvSurplus;
+    } else if (operatingMode == "Manual") {
+        optimizationMode = configurationMap.value("manualEnabled").toBool()
+            ? SwitchConfiguration::OptimizationModeManualOn
+            : SwitchConfiguration::OptimizationModeManualOff;
+    }
+    configuration->setOptimizationMode(optimizationMode);
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
