@@ -399,8 +399,9 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         QVariantMap dummyConfig;
         dummyConfig.insert("uniqueIdentifier", QUuid::createUuid());
         dummyConfig.insert("evChargerThingId", evChargerThingId);
-        dummyConfig.insert("optimizationEnabled", false);
-        dummyConfig.insert("optimizationMode", 0);
+        dummyConfig.insert("operatingMode", "Manual");
+        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("insufficientPowerBehavior", "ChargeWithMinimumCurrent");
         dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
         dummyConfig.insert("targetPercentage", 100);
@@ -428,6 +429,31 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
                 qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
             }
+    }
+
+    const int optimizationMode = config.take("optimizationMode").toInt();
+    config.remove("optimizationEnabled");
+    config.insert("optimizationStrategies", QVariantList());
+    config.remove("insufficientPowerBehavior");
+
+    if (optimizationMode == 9) {
+        config.insert("operatingMode", "NoControl");
+    } else if (optimizationMode >= 5000 && optimizationMode < 6000) {
+        config.insert("operatingMode", "StrategyControlled");
+        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized"), QStringLiteral("TimeControlled")});
+        config.insert("insufficientPowerBehavior", "PauseCharging");
+    } else if (optimizationMode >= 4000 && optimizationMode < 5000) {
+        config.insert("operatingMode", "StrategyControlled");
+        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized"), QStringLiteral("DynamicTariff")});
+        config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
+    } else if (optimizationMode >= 2000 && optimizationMode < 4000) {
+        config.insert("operatingMode", "StrategyControlled");
+        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
+    } else if (optimizationMode >= 1000 && optimizationMode < 2000) {
+        config.insert("operatingMode", "Systemic");
+    } else {
+        config.insert("operatingMode", "Manual");
     }
 
     QVariantMap params;
@@ -544,7 +570,8 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("avoidZeroFeedInActive", false);
         dummyConfig.insert("avoidZeroFeedInEnabled", false);
-        dummyConfig.insert("optimizationEnabled", true);
+        dummyConfig.insert("operatingMode", "StrategyControlled");
+        dummyConfig.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
         dummyConfig.insert("priceThreshold", 0);
         dummyConfig.insert("dischargePriceThreshold", 0);
         dummyConfig.insert("relativePriceEnabled", false);
@@ -569,6 +596,14 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
             config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
         }
     }
+
+    const bool dynamicTariffEnabled = config.take("optimizationEnabled").toBool();
+    config.insert("operatingMode", "StrategyControlled");
+    QVariantList optimizationStrategies{QStringLiteral("PvOptimized")};
+    if (dynamicTariffEnabled) {
+        optimizationStrategies.append(QStringLiteral("DynamicTariff"));
+    }
+    config.insert("optimizationStrategies", optimizationStrategies);
 
     // QList<int> does not serialize to JSON via the meta-object system, convert explicitly
     if (!data.contains("targetSocPvSurplus")) {
@@ -1321,7 +1356,12 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
         configuration->setBatteryThingId(batteryUuid);
     }
 
-    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
+    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
+    const QVariantList optimizationStrategies = strategiesValue.toList();
+    const bool dynamicTariffEnabled = strategiesValue.toString() == "DynamicTariff" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
+        return strategy.toString() == "DynamicTariff";
+    });
+    configuration->setOptimizationEnabled(dynamicTariffEnabled);
     configuration->setAvoidZeroFeedInEnabled(configurationMap.value("avoidZeroFeedInEnabled").toBool());
     configuration->setAvoidZeroFeedInActive(configurationMap.value("avoidZeroFeedInActive").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
@@ -1390,8 +1430,29 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         configuration->setEvChargerThingId(evChargerUuid);
     }
 
-    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
-    configuration->setOptimizationMode(configurationMap.value("optimizationMode").toInt());
+    const QString operatingMode = configurationMap.value("operatingMode").toString();
+    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
+    const QVariantList optimizationStrategies = strategiesValue.toList();
+    const auto hasStrategy = [&strategiesValue, &optimizationStrategies](const QString &strategy) {
+        return strategiesValue.toString() == strategy || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [&strategy](const QVariant &value) {
+            return value.toString() == strategy;
+        });
+    };
+    const bool pauseCharging = configurationMap.value("insufficientPowerBehavior").toString() == "PauseCharging";
+    int optimizationMode = 0;
+    if (operatingMode == "NoControl") {
+        optimizationMode = 9;
+    } else if (operatingMode == "Systemic") {
+        optimizationMode = 1000;
+    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("TimeControlled"))) {
+        optimizationMode = 5000 + (pauseCharging ? 200 : 0);
+    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("DynamicTariff"))) {
+        optimizationMode = 4000 + (pauseCharging ? 200 : 0);
+    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("PvOptimized"))) {
+        optimizationMode = 3000 + (pauseCharging ? 200 : 0);
+    }
+    configuration->setOptimizationEnabled(operatingMode != "NoControl");
+    configuration->setOptimizationMode(optimizationMode);
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
