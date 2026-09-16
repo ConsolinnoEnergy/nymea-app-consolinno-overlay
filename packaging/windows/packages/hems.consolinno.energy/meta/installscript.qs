@@ -18,9 +18,13 @@ Component.prototype.createOperations = function()
 
     component.addOperation("Execute", "{0,3010,1638,5100}", "@TargetDir@/vc_redist.x64.exe", "/quiet", "/norestart");
     if (systemInfo.productType === "windows") {
-        component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/Consolinno energy.lnk",
+        // @ProductName@ resolves to <Name> from config.xml, which distribute_assets.sh
+        // already patches per whitelabel target. Using it here (instead of a hardcoded
+        // "Consolinno energy" string) keeps config.xml the single source of truth for the
+        // Start Menu shortcut's display name, so it stays in sync automatically.
+        component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/@ProductName@.lnk",
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
-            "description=Consolinno energy - The Leaflet frontend");
+            "description=@ProductName@");
 
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/ve", "/d", "URL:hems-con-desktop Protocol", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CLASSES_ROOT\\consolinno-energy", "/v", "URL Protocol", "/f");
