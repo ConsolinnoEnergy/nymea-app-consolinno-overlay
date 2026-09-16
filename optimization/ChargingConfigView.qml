@@ -351,6 +351,26 @@ GenericConfigPage {
         phaseCountNotification.visible = (desiredPhaseCount !== actualPhaseCount);
     }
 
+    ThingsProxy {
+        id: simulatedEvChargersProxy
+        engine: _engine
+        shownThingClassIds: ["{21a48e6d-6152-407a-a303-3b46e29bbb94}"]
+    }
+
+    function simulatedEvChargerIndex() {
+        console.warn("=== simulatedEvChargerIndex called with EV charger:", root.thing.name);
+        for (let i = 0; i < simulatedEvChargersProxy.count; ++i) {
+            const simulatedEvCharger = simulatedEvChargersProxy.get(i);
+            console.warn("   checking simulated EV charger", i, ":", simulatedEvCharger.name);
+            if (simulatedEvCharger.id === root.thing.id) {
+                console.warn("---> Found simulated EV charger at index", i);
+                return i;
+            }
+        }
+        console.warn("---> Did not find given simulated EV charger, returning 0");
+        return 0;
+    }
+
     Component.onCompleted: {
         checkPhaseCountTimer.start();
     }
@@ -422,14 +442,19 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Activate simulated car")
                             visible: !(isCarPluggedIn()) &&
-                                     (simulationEvProxy.count > 0)  &&
+                                     (simulationEvProxy.count > simulatedEvChargerIndex())  &&
                                      (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
 
                             onCheckedChanged: {
+                                const chargerIndex = simulatedEvChargerIndex();
+                                if (chargerIndex >= simulationEvProxy.count) {
+                                    console.warn("There are not enough simulated electric vehicles!");
+                                    return;
+                                }
                                 if (simulationSwitch.checked) {
-                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}]);
+                                    simulationEvProxy.get(chargerIndex).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}]);
                                 } else {
-                                    simulationEvProxy.get(0).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}]);
+                                    simulationEvProxy.get(chargerIndex).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}]);
                                 }
                             }
                         }
