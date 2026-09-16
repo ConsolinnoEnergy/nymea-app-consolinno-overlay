@@ -17,9 +17,13 @@ Component.prototype.createOperations = function()
     // return value 5100 means there's a newer version of the runtime already installed
 
     if (systemInfo.productType === "windows") {
-        component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/Consolinno energy.lnk",
+        // @ProductName@ resolves to <Name> from config.xml, which distribute_assets.sh
+        // already patches per whitelabel target. Using it here (instead of a hardcoded
+        // "Consolinno energy" string) keeps config.xml the single source of truth for the
+        // Start Menu shortcut's display name, so it stays in sync automatically.
+        component.addOperation("CreateShortcut", "@TargetDir@/consolinno-energy.exe", "@StartMenuDir@/@ProductName@.lnk",
             "workingDirectory=@TargetDir@", "iconPath=@TargetDir@/logo.ico",
-            "description=Consolinno energy - The Leaflet frontend");
+            "description=@ProductName@");
 
         // HKCU\Software\Classes is per-user and does not require admin rights
         component.addOperation("Execute", "reg", "add", "HKEY_CURRENT_USER\\Software\\Classes\\consolinno-energy", "/ve", "/d", "URL:hems-con-desktop Protocol", "/f");
