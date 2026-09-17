@@ -1,14 +1,27 @@
 #include "hemsmanager.h"
 
-#include <algorithm>
-
-#include <QMetaEnum>
 #include <QJsonDocument>
 #include <QJsonObject>
 
 #include "logging.h"
 
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems");
+
+namespace {
+constexpr int OptimizationStrategyPvOptimized = 1;
+constexpr int OptimizationStrategyDynamicTariff = 2;
+constexpr int OptimizationStrategyTimeControlled = 4;
+constexpr int OperatingModeSystemic = 0;
+constexpr int OperatingModeExternalSchedule = 1;
+constexpr int OperatingModeStrategyControlled = 2;
+constexpr int OperatingModeManual = 3;
+constexpr int OperatingModeNoControl = 4;
+
+bool hasOptimizationStrategy(const QVariant &value, int strategy)
+{
+    return (value.toInt() & strategy) != 0;
+}
+}
 
 HemsManager::HemsManager(QObject *parent) : QObject(parent)
 {
@@ -207,8 +220,8 @@ qCritical() << "setHeatingElementConfiguration" << data;
         QVariantMap dummyConfig;
         dummyConfig.insert("heatingRodThingId", heatingRodThingId);
         dummyConfig.insert("maxElectricalPower", 0);
-        dummyConfig.insert("operatingMode", "NoControl");
-        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("operatingMode", OperatingModeNoControl);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingElementConfiguration(dummyConfig);
@@ -232,14 +245,10 @@ qCritical() << "setHeatingElementConfiguration" << data;
     }
 
     // The UI exposes one switch while the backend represents PV optimization
-    // through an operating mode and a list of optimization strategies.
+    // through an operating mode and a bitmask of optimization strategies.
     const bool optimizationEnabled = config.take("optimizationEnabled").toBool();
-    config.insert("operatingMode", optimizationEnabled ? "StrategyControlled" : "NoControl");
-    if (optimizationEnabled) {
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
-    } else {
-        config.remove("optimizationStrategies");
-    }
+    config.insert("operatingMode", optimizationEnabled ? OperatingModeStrategyControlled : OperatingModeNoControl);
+    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
 
     QVariantMap params;
     params.insert("heatingRodConfiguration", config);
@@ -259,8 +268,8 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         qCDebug(dcHems()) << "Adding a dummy Config" << heatPumpThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("heatPumpThingId", heatPumpThingId);
-        dummyConfig.insert("operatingMode", "NoControl");
-        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("operatingMode", OperatingModeNoControl);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         dummyConfig.insert("floorHeatingArea", 0);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("maxThermalEnergy",  0);
@@ -314,24 +323,20 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     // backend's operating mode and optimization strategies.
     config.remove("optimizationEnabled");
     const QVariant legacyOptimizationMode = config.take("optimizationMode");
-    int optimizationMode = legacyOptimizationMode.toInt();
-    if (legacyOptimizationMode.type() == QVariant::String) {
-        optimizationMode = QMetaEnum::fromType<HeatingConfiguration::HPOptimizationMode>()
-                               .keyToValue(legacyOptimizationMode.toString().toUtf8().constData());
-    }
+    const int optimizationMode = legacyOptimizationMode.toInt();
 
-    config.insert("optimizationStrategies", QVariantList());
+    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     switch (static_cast<HeatingConfiguration::HPOptimizationMode>(optimizationMode)) {
     case HeatingConfiguration::OptimizationModePVSurplus:
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         break;
     case HeatingConfiguration::OptimizationModeDynamicPricing:
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("DynamicTariff")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyDynamicTariff);
         break;
     case HeatingConfiguration::OptimizationModeOff:
-        config.insert("operatingMode", "NoControl");
+        config.insert("operatingMode", OperatingModeNoControl);
         break;
     }
 
@@ -399,8 +404,8 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         QVariantMap dummyConfig;
         dummyConfig.insert("uniqueIdentifier", QUuid::createUuid());
         dummyConfig.insert("evChargerThingId", evChargerThingId);
-        dummyConfig.insert("operatingMode", "Manual");
-        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("operatingMode", OperatingModeManual);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         dummyConfig.insert("insufficientPowerBehavior", "ChargeWithMinimumCurrent");
         dummyConfig.insert("carThingId", "{00000000-0000-0000-0000-000000000000}");
         dummyConfig.insert("endTime", "0:00:00");
@@ -433,27 +438,27 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     const int optimizationMode = config.take("optimizationMode").toInt();
     config.remove("optimizationEnabled");
-    config.insert("optimizationStrategies", QVariantList());
+    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     config.remove("insufficientPowerBehavior");
 
     if (optimizationMode == 9) {
-        config.insert("operatingMode", "NoControl");
+        config.insert("operatingMode", OperatingModeNoControl);
     } else if (optimizationMode >= 5000 && optimizationMode < 6000) {
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized"), QStringLiteral("TimeControlled")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized | OptimizationStrategyTimeControlled);
         config.insert("insufficientPowerBehavior", "PauseCharging");
     } else if (optimizationMode >= 4000 && optimizationMode < 5000) {
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized"), QStringLiteral("DynamicTariff")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized | OptimizationStrategyDynamicTariff);
         config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
     } else if (optimizationMode >= 2000 && optimizationMode < 4000) {
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
     } else if (optimizationMode >= 1000 && optimizationMode < 2000) {
-        config.insert("operatingMode", "Systemic");
+        config.insert("operatingMode", OperatingModeSystemic);
     } else {
-        config.insert("operatingMode", "Manual");
+        config.insert("operatingMode", OperatingModeManual);
     }
 
     QVariantMap params;
@@ -570,8 +575,8 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
         dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("avoidZeroFeedInActive", false);
         dummyConfig.insert("avoidZeroFeedInEnabled", false);
-        dummyConfig.insert("operatingMode", "StrategyControlled");
-        dummyConfig.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        dummyConfig.insert("operatingMode", OperatingModeStrategyControlled);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         dummyConfig.insert("priceThreshold", 0);
         dummyConfig.insert("dischargePriceThreshold", 0);
         dummyConfig.insert("relativePriceEnabled", false);
@@ -598,10 +603,10 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     }
 
     const bool dynamicTariffEnabled = config.take("optimizationEnabled").toBool();
-    config.insert("operatingMode", "StrategyControlled");
-    QVariantList optimizationStrategies{QStringLiteral("PvOptimized")};
+    config.insert("operatingMode", OperatingModeStrategyControlled);
+    int optimizationStrategies = OptimizationStrategyPvOptimized;
     if (dynamicTariffEnabled) {
-        optimizationStrategies.append(QStringLiteral("DynamicTariff"));
+        optimizationStrategies |= OptimizationStrategyDynamicTariff;
     }
     config.insert("optimizationStrategies", optimizationStrategies);
 
@@ -628,8 +633,8 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
         qCDebug(dcHems()) << "Adding a dummy Switch config" << switchThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("switchThingId", switchThingId);
-        dummyConfig.insert("operatingMode", "NoControl");
-        dummyConfig.insert("optimizationStrategies", QVariantList());
+        dummyConfig.insert("operatingMode", OperatingModeNoControl);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         dummyConfig.insert("manualEnabled", false);
         dummyConfig.insert("maxElectricalPower", 0.0);
         dummyConfig.insert("pvSurplusThreshold", 500.0);
@@ -651,23 +656,23 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
     }
 
     const auto optimizationMode = static_cast<SwitchConfiguration::OptimizationMode>(config.take("optimizationMode").toInt());
-    config.insert("optimizationStrategies", QVariantList());
+    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     switch (optimizationMode) {
     case SwitchConfiguration::OptimizationModePvSurplus:
-        config.insert("operatingMode", "StrategyControlled");
-        config.insert("optimizationStrategies", QVariantList{QStringLiteral("PvOptimized")});
+        config.insert("operatingMode", OperatingModeStrategyControlled);
+        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
         config.remove("manualEnabled");
         break;
     case SwitchConfiguration::OptimizationModeManualOn:
-        config.insert("operatingMode", "Manual");
+        config.insert("operatingMode", OperatingModeManual);
         config.insert("manualEnabled", true);
         break;
     case SwitchConfiguration::OptimizationModeManualOff:
-        config.insert("operatingMode", "Manual");
+        config.insert("operatingMode", OperatingModeManual);
         config.insert("manualEnabled", false);
         break;
     case SwitchConfiguration::OptimizationModeNoControl:
-        config.insert("operatingMode", "NoControl");
+        config.insert("operatingMode", OperatingModeNoControl);
         config.remove("manualEnabled");
         break;
     }
@@ -1284,14 +1289,14 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setHeatMeterThingId(configurationMap.value("heatMeterThingId").toUuid());
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
-    const QVariantList optimizationStrategies = configurationMap.value("optimizationStrategies").toList();
-    const QString operatingMode = configurationMap.value("operatingMode").toString();
+        const QVariant optimizationStrategies = configurationMap.value("optimizationStrategies");
+    const int operatingMode = configurationMap.value("operatingMode").toInt();
     HeatingConfiguration::HPOptimizationMode optimizationMode = HeatingConfiguration::OptimizationModeOff;
-    if (operatingMode == "StrategyControlled"
-            && optimizationStrategies.contains(QStringLiteral("PvOptimized"))) {
+    if (operatingMode == OperatingModeStrategyControlled
+            && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyPvOptimized)) {
         optimizationMode = HeatingConfiguration::OptimizationModePVSurplus;
-    } else if (operatingMode == "StrategyControlled"
-            && optimizationStrategies.contains(QStringLiteral("DynamicTariff"))) {
+    } else if (operatingMode == OperatingModeStrategyControlled
+            && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyDynamicTariff)) {
         optimizationMode = HeatingConfiguration::OptimizationModeDynamicPricing;
     }
     configuration->setOptimizationEnabled(optimizationMode != HeatingConfiguration::OptimizationModeOff);
@@ -1356,11 +1361,8 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
         configuration->setBatteryThingId(batteryUuid);
     }
 
-    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
-    const QVariantList optimizationStrategies = strategiesValue.toList();
-    const bool dynamicTariffEnabled = strategiesValue.toString() == "DynamicTariff" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
-        return strategy.toString() == "DynamicTariff";
-    });
+    const bool dynamicTariffEnabled = hasOptimizationStrategy(
+        configurationMap.value("optimizationStrategies"), OptimizationStrategyDynamicTariff);
     configuration->setOptimizationEnabled(dynamicTariffEnabled);
     configuration->setAvoidZeroFeedInEnabled(configurationMap.value("avoidZeroFeedInEnabled").toBool());
     configuration->setAvoidZeroFeedInActive(configurationMap.value("avoidZeroFeedInActive").toBool());
@@ -1430,28 +1432,22 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         configuration->setEvChargerThingId(evChargerUuid);
     }
 
-    const QString operatingMode = configurationMap.value("operatingMode").toString();
-    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
-    const QVariantList optimizationStrategies = strategiesValue.toList();
-    const auto hasStrategy = [&strategiesValue, &optimizationStrategies](const QString &strategy) {
-        return strategiesValue.toString() == strategy || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [&strategy](const QVariant &value) {
-            return value.toString() == strategy;
-        });
-    };
+    const int operatingMode = configurationMap.value("operatingMode").toInt();
+    const QVariant optimizationStrategies = configurationMap.value("optimizationStrategies");
     const bool pauseCharging = configurationMap.value("insufficientPowerBehavior").toString() == "PauseCharging";
     int optimizationMode = 0;
-    if (operatingMode == "NoControl") {
+    if (operatingMode == OperatingModeNoControl) {
         optimizationMode = 9;
-    } else if (operatingMode == "Systemic") {
+    } else if (operatingMode == OperatingModeSystemic) {
         optimizationMode = 1000;
-    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("TimeControlled"))) {
+    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyTimeControlled)) {
         optimizationMode = 5000 + (pauseCharging ? 200 : 0);
-    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("DynamicTariff"))) {
+    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyDynamicTariff)) {
         optimizationMode = 4000 + (pauseCharging ? 200 : 0);
-    } else if (operatingMode == "StrategyControlled" && hasStrategy(QStringLiteral("PvOptimized"))) {
+    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyPvOptimized)) {
         optimizationMode = 3000 + (pauseCharging ? 200 : 0);
     }
-    configuration->setOptimizationEnabled(operatingMode != "NoControl");
+    configuration->setOptimizationEnabled(operatingMode != OperatingModeNoControl);
     configuration->setOptimizationMode(optimizationMode);
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
@@ -1553,12 +1549,9 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
     }
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
-    const QVariantList optimizationStrategies = strategiesValue.toList();
-    const bool pvOptimized = strategiesValue.toString() == "PvOptimized" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
-        return strategy.toString() == "PvOptimized";
-    });
-    configuration->setOptimizationEnabled(configurationMap.value("operatingMode").toString() == "StrategyControlled" && pvOptimized);
+    const bool pvOptimized = hasOptimizationStrategy(
+        configurationMap.value("optimizationStrategies"), OptimizationStrategyPvOptimized);
+    configuration->setOptimizationEnabled(configurationMap.value("operatingMode").toInt() == OperatingModeStrategyControlled && pvOptimized);
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
@@ -1583,16 +1576,13 @@ void HemsManager::addOrUpdateSwitchConfiguration(const QVariantMap &configuratio
         configuration->setSwitchThingId(switchUuid);
     }
 
-    const QVariant strategiesValue = configurationMap.value("optimizationStrategies");
-    const QVariantList optimizationStrategies = strategiesValue.toList();
-    const bool pvOptimized = strategiesValue.toString() == "PvOptimized" || std::any_of(optimizationStrategies.cbegin(), optimizationStrategies.cend(), [](const QVariant &strategy) {
-        return strategy.toString() == "PvOptimized";
-    });
-    const QString operatingMode = configurationMap.value("operatingMode").toString();
+    const bool pvOptimized = hasOptimizationStrategy(
+        configurationMap.value("optimizationStrategies"), OptimizationStrategyPvOptimized);
+    const int operatingMode = configurationMap.value("operatingMode").toInt();
     SwitchConfiguration::OptimizationMode optimizationMode = SwitchConfiguration::OptimizationModeNoControl;
-    if (operatingMode == "StrategyControlled" && pvOptimized) {
+    if (operatingMode == OperatingModeStrategyControlled && pvOptimized) {
         optimizationMode = SwitchConfiguration::OptimizationModePvSurplus;
-    } else if (operatingMode == "Manual") {
+    } else if (operatingMode == OperatingModeManual) {
         optimizationMode = configurationMap.value("manualEnabled").toBool()
             ? SwitchConfiguration::OptimizationModeManualOn
             : SwitchConfiguration::OptimizationModeManualOff;
