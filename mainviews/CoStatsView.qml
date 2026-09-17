@@ -719,6 +719,49 @@ MainViewBase {
         // this cumulative counter.
         readonly property bool otherConsumptionEnabled: false
 
+        // Consumer Thing type -> its own dedicated {color, borderColor} -
+        // first match wins, checked in "assignConsumerColors" below. A
+        // consumer whose interfaces match none of these (or is a *repeat*
+        // of an already-colored type, e.g. a second wallbox) falls back to
+        // the rotating "Additional_consumer" color/border-color palette
+        // in Style.colors instead. "evcharger" is the interface backing
+        // wallbox Things (mirrors the equivalent, already-established
+        // type-color mapping in the legacy ConsolinnoConsumerStats.qml).
+        readonly property var consumerTypeColors: ({
+            "evcharger": { color: Style.colors.components_Statistics_Things_and_states_Wallbox,
+                            borderColor: Style.colors.components_Statistics_Things_and_states_Wallbox_border },
+            "heatpump": { color: Style.colors.components_Statistics_Things_and_states_Heat_pump,
+                            borderColor: Style.colors.components_Statistics_Things_and_states_Heat_pump_border },
+            "heatingrod": { color: Style.colors.components_Statistics_Things_and_states_Heating_rod,
+                            borderColor: Style.colors.components_Statistics_Things_and_states_Heating_rod_border }
+        })
+
+        // Returns one {color, borderColor} object per entry in "things"
+        // (same order/length): the *first* consumer of each recognized
+        // type in "consumerTypeColors" gets that type's dedicated colors;
+        // every other consumer (including any additional Thing of an
+        // already-used type, and any unrecognized type) gets the next
+        // pair from the rotating "Additional_consumer" color/border-color
+        // palette in Style.colors.
+        function assignConsumerColors(things) {
+            var seenTypes = {}
+            var genericIndex = 0
+            var additionalColors = Style.colors.components_Statistics_Things_and_states_Additional_consumer_colors
+            var additionalBorderColors = Style.colors.components_Statistics_Things_and_states_Additional_consumer_border_colors
+            return things.map(function (thing) {
+                var interfaces = thing && thing.thingClass ? thing.thingClass.interfaces : []
+                for (var type in d.consumerTypeColors) {
+                    if (interfaces.indexOf(type) >= 0 && !seenTypes[type]) {
+                        seenTypes[type] = true
+                        return d.consumerTypeColors[type]
+                    }
+                }
+                var index = genericIndex % additionalColors.length
+                genericIndex++
+                return { color: additionalColors[index], borderColor: additionalBorderColors[index] }
+            })
+        }
+
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
         // shared across all periods/tabs (toggling "Netzbezug" off is
@@ -950,19 +993,24 @@ MainViewBase {
             // One series per discovered consumer Thing, backed directly by
             // its own ThingPowerLogs instance (see
             // "consumerConsumptionLogs" near the top of the file).
+            var items = []
             for (var i = 0; i < consumerConsumptionLogs.count; i++) {
                 var item = consumerConsumptionLogs.consumerAt(i)
-                if (!item || !item.thing) {
-                    continue
+                if (item && item.thing) {
+                    items.push(item)
                 }
+            }
+            var colors = d.assignConsumerColors(items.map(function (item) { return item.thing }))
+            for (var j = 0; j < items.length; j++) {
+                var consumerItem = items[j]
                 series.push({
-                    name: item.thing.name,
-                    key: item.thing.id,
-                    color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
-                    borderColor: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
-                    visible: d.isSeriesVisible(item.thing.id),
+                    name: consumerItem.thing.name,
+                    key: consumerItem.thing.id,
+                    color: colors[j].color,
+                    borderColor: colors[j].borderColor,
+                    visible: d.isSeriesVisible(consumerItem.thing.id),
                     axis: "left",
-                    model: item.logs,
+                    model: consumerItem.logs,
                     valueFunction: function (entry) { return entry.currentPower / 1000 }
                 })
             }
@@ -1156,12 +1204,14 @@ MainViewBase {
         }
 
         function computeConsumptionConsumerStackSeries(provider) {
-            var series = provider.consumerSeries().map(function (entry, i) {
+            var consumerEntries = provider.consumerSeries()
+            var colors = d.assignConsumerColors(consumerEntries.map(function (entry) { return entry.thing }))
+            var series = consumerEntries.map(function (entry, i) {
                 return {
                     name: entry.thing.name,
                     key: entry.thing.id,
-                    color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
-                    borderColor: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
+                    color: colors[i].color,
+                    borderColor: colors[i].borderColor,
                     visible: d.isSeriesVisible(entry.thing.id),
                     values: entry.values
                 }
