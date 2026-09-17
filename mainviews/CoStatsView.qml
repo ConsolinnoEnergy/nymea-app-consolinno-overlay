@@ -1004,7 +1004,7 @@ MainViewBase {
         // ~5 years"), since only one of Month/Year is ever visible at a
         // time and both derive this purely from the current reference
         // date/minDate.
-        readonly property var yoyCategories: d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate)
+        readonly property var yoyCategories: d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
         readonly property var yoyBarCategoryRanges: d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
         readonly property var yoyEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(yoyEnergyLogs)
         readonly property var yoyEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(yoyEnergyLogs)
@@ -1156,13 +1156,22 @@ MainViewBase {
 
         // Last 5 years up to and including the year of "referenceDate",
         // clamped to not go below "minDate"'s year (the same lower bound
-        // CoPeriodSelector itself enforces for navigation).
-        function yearOverYearCategories(referenceDate, minDate) {
+        // CoPeriodSelector itself enforces for navigation). In the Month
+        // view (activeSampleRate === SampleRate1Month) each category also
+        // carries the short month name of "referenceDate" (e.g. "Sep 2026")
+        // since the comparison there is month-to-month, not year-to-year -
+        // a bare year would be ambiguous/misleading. See
+        // "yearOverYearCategoryRanges" below for how those categories map
+        // to the ranges actually being compared.
+        function yearOverYearCategories(referenceDate, minDate, activeSampleRate) {
             var endYear = referenceDate.getFullYear()
             var startYear = Math.max(minDate.getFullYear(), endYear - 4)
+            var monthPrefix = activeSampleRate === EnergyLogs.SampleRate1Month
+                    ? Qt.locale().standaloneMonthName(referenceDate.getMonth(), Locale.ShortFormat) + " "
+                    : ""
             var result = []
             for (var year = startYear; year <= endYear; year++) {
-                result.push(String(year))
+                result.push(monthPrefix + String(year))
             }
             return result
         }
