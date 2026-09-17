@@ -33,7 +33,7 @@ Flow {
 
             text: modelData.name
             pillColor: modelData.color
-            pillAccentColor: modelData.color
+            pillAccentColor: modelData.borderColor
             checked: modelData.visible !== false
 
             onToggled: root.seriesVisibilityToggled(index, checked)

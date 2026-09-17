@@ -817,7 +817,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("Production"),
                     key: "Production",
-                    color: Configuration.inverterColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Inverter,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
                     visible: d.isSeriesVisible("Production"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -826,7 +827,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("To grid"),
                     key: "To grid",
-                    color: Configuration.rootMeterReturnColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
                     visible: d.isSeriesVisible("To grid"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -836,7 +838,8 @@ MainViewBase {
             series.push({
                 name: qsTr("Consumption"),
                 key: "Consumption",
-                color: Configuration.consumedColor,
+                color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
                 visible: d.isSeriesVisible("Consumption"),
                 axis: "left",
                 model: powerBalanceLogs,
@@ -846,7 +849,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("To battery"),
                     key: "To battery",
-                    color: Configuration.batteryChargeColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
                     visible: d.isSeriesVisible("To battery"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -855,7 +859,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("From battery"),
                     key: "From battery",
-                    color: Configuration.batteryDischargeColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
                     visible: d.isSeriesVisible("From battery"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -865,7 +870,8 @@ MainViewBase {
             series.push({
                 name: qsTr("From grid"),
                 key: "From grid",
-                color: Configuration.rootMeterAcquisitionColor,
+                color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
                 visible: d.isSeriesVisible("From grid"),
                 axis: "left",
                 model: powerBalanceLogs,
@@ -879,7 +885,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("Battery SoC"),
                     key: "Battery SoC",
-                    color: Configuration.batteriesColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Battery,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_border,
                     visible: false,
                     axis: "right",
                     model: d.emptyLogModel,
@@ -900,7 +907,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("Self-consumption"),
                     key: "Self-consumption",
-                    color: Configuration.inverterColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Inverter,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
                     visible: d.isSeriesVisible("Self-consumption"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -915,7 +923,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("From battery"),
                     key: "From battery",
-                    color: Configuration.batteryDischargeColor,
+                    color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
                     visible: d.isSeriesVisible("From battery"),
                     axis: "left",
                     model: powerBalanceLogs,
@@ -925,7 +934,8 @@ MainViewBase {
             series.push({
                 name: qsTr("From grid"),
                 key: "From grid",
-                color: Configuration.rootMeterAcquisitionColor,
+                color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
                 visible: d.isSeriesVisible("From grid"),
                 axis: "left",
                 model: powerBalanceLogs,
@@ -949,6 +959,7 @@ MainViewBase {
                     name: item.thing.name,
                     key: item.thing.id,
                     color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
+                    borderColor: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
                     visible: d.isSeriesVisible(item.thing.id),
                     axis: "left",
                     model: item.logs,
@@ -964,7 +975,8 @@ MainViewBase {
             series.push({
                 name: qsTr("Other consumption"),
                 key: "Other consumption",
-                color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
+                color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
                 visible: d.isSeriesVisible("Other consumption"),
                 axis: "left",
                 model: consumerConsumptionLogs.otherConsumption,
@@ -996,6 +1008,7 @@ MainViewBase {
                 name: name,
                 key: name,
                 color: color,
+                borderColor: color,
                 visible: d.isSeriesVisible(name),
                 axis: "left",
                 model: d.wrapAsLogModel(entries),
@@ -1079,24 +1092,66 @@ MainViewBase {
         function computeEnergyBalanceProductionSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: qsTr("Production"), key: "Production", color: Configuration.inverterColor, visible: d.isSeriesVisible("Production"), values: provider.totalProductionSeries() })
-                series.push({ name: qsTr("From grid"), key: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
+                series.push({
+                                name: qsTr("Production"),
+                                key: "Production",
+                                color: Style.colors.components_Statistics_Things_and_states_Inverter,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
+                                visible: d.isSeriesVisible("Production"),
+                                values: provider.totalProductionSeries()
+                            })
+                series.push({
+                                name: qsTr("From grid"),
+                                key: "From grid",
+                                color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
+                                visible: d.isSeriesVisible("From grid"),
+                                values: provider.totalAcquisitionSeries()
+                            })
             }
             return series
         }
 
         function computeEnergyBalanceConsumptionSeries(provider) {
-            var series = [{ name: qsTr("Consumption"), key: "Consumption", color: Configuration.consumedColor, visible: d.isSeriesVisible("Consumption"), values: provider.totalConsumptionSeries() }]
-            series.push({ name: qsTr("To grid"), key: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
+            var series = [{
+                              name: qsTr("Consumption"),
+                              key: "Consumption",
+                              color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                              borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
+                              visible: d.isSeriesVisible("Consumption"),
+                              values: provider.totalConsumptionSeries()
+                          }]
+            series.push({
+                            name: qsTr("To grid"),
+                            key: "To grid",
+                            color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
+                            borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
+                            visible: d.isSeriesVisible("To grid"),
+                            values: provider.totalReturnSeries()
+                        })
             return series
         }
 
         function computeConsumptionSourceStackSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: qsTr("Self-consumption"), key: "Self-consumption", color: Configuration.inverterColor, visible: d.isSeriesVisible("Self-consumption"), values: provider.selfConsumptionSeries() })
+                series.push({
+                                name: qsTr("Self-consumption"),
+                                key: "Self-consumption",
+                                color: Style.colors.components_Statistics_Things_and_states_Inverter,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
+                                visible: d.isSeriesVisible("Self-consumption"),
+                                values: provider.selfConsumptionSeries()
+                            })
             }
-            series.push({ name: qsTr("From grid"), key: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
+            series.push({
+                            name: qsTr("From grid"),
+                            key: "From grid",
+                            color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
+                            borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
+                            visible: d.isSeriesVisible("From grid"),
+                            values: provider.totalAcquisitionSeries()
+                        })
             return series
         }
 
@@ -1106,6 +1161,7 @@ MainViewBase {
                     name: entry.thing.name,
                     key: entry.thing.id,
                     color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
+                    borderColor: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
                     visible: d.isSeriesVisible(entry.thing.id),
                     values: entry.values
                 }
@@ -1114,7 +1170,8 @@ MainViewBase {
                 series.push({
                     name: qsTr("Other consumption"),
                     key: "Other consumption",
-                    color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
+                    color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
                     visible: d.isSeriesVisible("Other consumption"),
                     values: provider.otherConsumptionSeries()
                 })
