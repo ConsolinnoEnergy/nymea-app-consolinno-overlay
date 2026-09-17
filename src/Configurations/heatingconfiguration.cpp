@@ -217,8 +217,9 @@ uint HeatingConfiguration::sgReadyState() const
 
 void HeatingConfiguration::setSgReadyState(uint sgReadyState)
 {
-    if (m_sgReadyState == sgReadyState)
+    if (m_sgReadyState == sgReadyState) {
         return;
+    }
 
     m_sgReadyState = sgReadyState;
     emit sgReadyStateChanged(m_sgReadyState);
