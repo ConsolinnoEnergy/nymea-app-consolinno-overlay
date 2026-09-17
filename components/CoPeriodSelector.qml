@@ -136,9 +136,7 @@ Item {
             if (sampleRate === EnergyLogs.SampleRate1Week) {
                 var endDate = new Date(date)
                 endDate.setDate(endDate.getDate() + 6)
-                // Source string in English per project convention; translators
-                // provide the localized abbreviation (e.g. German "KW").
-                return qsTr("Week %1, %2 – %3").arg(isoWeekNumber(date))
+                return qsTr("CW %1, %2 – %3").arg(isoWeekNumber(date))
                                                 .arg(date.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
                                                 .arg(endDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
             } else if (sampleRate === EnergyLogs.SampleRate1Month) {

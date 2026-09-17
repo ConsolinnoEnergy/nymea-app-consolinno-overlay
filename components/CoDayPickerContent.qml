@@ -78,7 +78,7 @@ ColumnLayout {
     }
 
     Label {
-        text: root.selectedDate.toLocaleDateString(Qt.locale(), qsTr("d. MMMM yyyy"))
+        text: root.selectedDate.toLocaleDateString(Qt.locale(), qsTr("MMMM d, yyyy"))
         font: Style.newH2Font
         color: Style.colors.typography_Basic_Default
     }

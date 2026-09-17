@@ -38,7 +38,7 @@ ColumnLayout {
     }
 
     Label {
-        text: qsTr("Week %1, %2").arg(weekPicker.currentValue).arg(yearPicker.currentValue)
+        text: qsTr("CW %1, %2").arg(weekPicker.currentValue).arg(yearPicker.currentValue)
         font: Style.newH2Font
         color: Style.colors.typography_Basic_Default
     }
@@ -67,7 +67,7 @@ ColumnLayout {
             }
             // Source string in English per project convention; translators
             // provide the localized abbreviation (e.g. German "KW").
-            textForValue: function(value) { return qsTr("Week %1").arg(value) }
+            textForValue: function(value) { return qsTr("CW %1").arg(value) }
         }
 
         CoWheelPicker {
