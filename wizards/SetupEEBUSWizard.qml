@@ -542,7 +542,7 @@ Page {
 
                 if (isEvCharger && evChargerLimitProxy.count > 3) {
                     engine.thingManager.removeThing(gatewayThingId, ThingManager.RemovePolicyCascade)
-                    d2.errorText = qsTr("At the moment, %1 can only control up to 3 EV chargers. The device will be removed again.").arg(Configuration.deviceName)
+                    d2.errorText = qsTr("You have reached the maximum number of 3 EV chargers. The device will be removed again.")
                     d2.state = "limit_error"
                     return
                 }

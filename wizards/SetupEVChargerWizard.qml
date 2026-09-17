@@ -21,7 +21,7 @@ SetupWizardBase {
     integratedDevicesLabel: qsTr("Integrated wallbox")
     successMessage: qsTr("The following wallbox has been found and set up:")
     errorMessage: qsTr("An unexpected error happened during the setup. Please verify the wallbox is installed correctly and try again.")
-    limitPopupText: qsTr("At the moment, %1 can only control up to 3 EV chargers.").arg(Configuration.deviceName)
+    limitPopupText: qsTr("You have reached the maximum number of 3 EV chargers.")
     deviceLimit: 3
     supportsPairing: false
 
