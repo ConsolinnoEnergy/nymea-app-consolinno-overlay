@@ -309,7 +309,16 @@ Item {
     Timer {
         id: rangeSettleTimer
         interval: 200
-        onTriggered: root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+        onTriggered: {
+            root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+            // Re-render immediately for whatever is already cached in the
+            // new window (see seriesBinder.rebuildAll() doc comment) - if
+            // the fetch triggered above by visibleRangeChanged actually
+            // pulls in new data later on, the existing per-model
+            // entriesAddedIdx/entriesRemoved/countChanged connections
+            // rebuild the affected slot(s) again on top of this.
+            seriesBinder.rebuildAll()
+        }
     }
 
     FontMetrics {
@@ -492,6 +501,24 @@ Item {
                     s.append(t, fn(entry))
                 }
                 d.updateLeftAxisRange()
+            }
+
+            // Re-renders every fixed slot for the chart's current visible
+            // window. Needed in addition to the per-model
+            // entriesAddedIdx/entriesRemoved/countChanged triggers below:
+            // those only fire when the underlying EnergyLogs model actually
+            // receives new data. Panning/zooming to a window that's already
+            // fully covered by the model's existing cache (e.g. scrolling
+            // back into a range visited earlier in the session, then
+            // forward again) never touches the model at all, so without
+            // this, rebuild()'s windowed iteration (bounded by
+            // d.visibleStartTime/d.visibleWindowMs, see rebuild() above)
+            // would keep showing whatever window was rendered last instead
+            // of the new one. Called (debounced) from rangeSettleTimer.
+            function rebuildAll() {
+                for (var i = 0; i < d.maxSeriesCount; i++) {
+                    rebuild(i)
+                }
             }
 
             function updateSlotProperties(index) {
