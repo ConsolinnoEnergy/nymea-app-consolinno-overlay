@@ -705,6 +705,20 @@ MainViewBase {
         // array regardless of that entry's own "visible" value.
         readonly property bool batterySocEnabled: false
 
+        // "Other consumption" in the Week/Month/Year/YoY consumer-stack bar
+        // chart (computeConsumptionConsumerStackSeries below) is currently
+        // unreliable: it's computed as totalConsumption minus known
+        // consumers, but the backend's aggregated totalConsumption counter
+        // incorrectly folds battery charging energy into "consumption"
+        // (backend bug, reported separately) - and since there's no "To
+        // battery" category here to absorb it (see PeriodEnergyLogs.qml's
+        // file doc comment), all of that misattributed energy inflates
+        // this bucket instead. Disabled here until the backend fix lands;
+        // the Day view's own "Other consumption" (ConsumerConsumptionLogs.qml)
+        // is unaffected - it's computed from live/instantaneous power, not
+        // this cumulative counter.
+        readonly property bool otherConsumptionEnabled: false
+
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
         // shared across all periods/tabs (toggling "Netzbezug" off is
@@ -1064,12 +1078,14 @@ MainViewBase {
                     values: entry.values
                 }
             })
-            series.push({
-                name: qsTr("Other consumption"),
-                color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
-                visible: d.isSeriesVisible(qsTr("Other consumption")),
-                values: provider.otherConsumptionSeries()
-            })
+            if (d.otherConsumptionEnabled) {
+                series.push({
+                    name: qsTr("Other consumption"),
+                    color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
+                    visible: d.isSeriesVisible(qsTr("Other consumption")),
+                    values: provider.otherConsumptionSeries()
+                })
+            }
             return series
         }
 
