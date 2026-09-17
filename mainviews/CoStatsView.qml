@@ -694,6 +694,17 @@ MainViewBase {
         readonly property bool hasProducer: producers.count > 0
         readonly property bool hasBattery: batteries.count > 0
 
+        // The Battery SoC series/right axis are prepared in the data shape
+        // (see "computeEnergyBalanceLineSeries" below) so wiring them up
+        // once the backend can report state of charge is a drop-in change,
+        // not a redesign - but the backend can't provide this data yet, so
+        // keep the feature fully disabled for now. Guarding on this flag
+        // (rather than just leaving the series' own "visible: false") is
+        // what actually keeps its legend pill from appearing at all -
+        // CoStatsChartLegend renders one pill per entry in the "series"
+        // array regardless of that entry's own "visible" value.
+        readonly property bool batterySocEnabled: false
+
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
         // shared across all periods/tabs (toggling "Netzbezug" off is
@@ -831,13 +842,13 @@ MainViewBase {
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
             })
-            // Reserved Battery SoC slot: not rendered (percentAxisVisible
-            // is false above) and not assigned any real data yet, but
-            // already shaped correctly (axis: "right", 0-100 range) for
-            // later use.
-            if (d.hasBattery) {
+            // Reserved Battery SoC slot: fully disabled via
+            // "d.batterySocEnabled" (see its declaration for why) - not
+            // rendered, not assigned any real data yet, but already shaped
+            // correctly (axis: "right", 0-100 range) for later use.
+            if (d.batterySocEnabled && d.hasBattery) {
                 series.push({
-                    name: qsTr("Battery charge level"),
+                    name: qsTr("Battery SoC"),
                     color: Configuration.batteriesColor,
                     visible: false,
                     axis: "right",

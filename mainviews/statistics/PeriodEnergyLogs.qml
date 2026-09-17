@@ -179,7 +179,17 @@ Item {
             if (previousEntry) {
                 value -= previousEntry[field]
             }
-            return Math.max(0, value) / 1000
+            // NOT divided by 1000 here: unlike the Day view's instantaneous
+            // power fields (Watts, on PowerBalanceLogEntry.consumption/
+            // production/... - see computeEnergyBalanceLineSeries() in
+            // CoStatsView.qml), these "total*" cumulative counters are
+            // already reported in kWh by the backend (see
+            // EnergyManagerImpl - its own debug logging explicitly labels
+            // them "kWh"), matching the precedent in
+            // ConsolinnoPowerBalanceStats.qml/ConsolinnoConsumerStats.qml,
+            // which also don't divide them. Dividing again here made every
+            // Week/Month/Year/YoY bar-chart value 1000x too small.
+            return Math.max(0, value)
         })
     }
 
