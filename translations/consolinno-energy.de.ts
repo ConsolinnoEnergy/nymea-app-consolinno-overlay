@@ -1855,6 +1855,10 @@ Ihr %3 Team</translation>
     </message>
     <message>
         <location filename="../mainviews/CoStatsView.qml" line="304"/>
+        <location filename="../mainviews/CoStatsView.qml" line="885"/>
+        <location filename="../mainviews/CoStatsView.qml" line="887"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
         <source>Self-consumption</source>
         <translation>Eigenverbrauch</translation>
     </message>
@@ -1875,24 +1879,70 @@ Ihr %3 Team</translation>
     </message>
     <message>
         <location filename="../mainviews/CoStatsView.qml" line="389"/>
+        <location filename="../mainviews/CoStatsView.qml" line="826"/>
+        <location filename="../mainviews/CoStatsView.qml" line="828"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
         <source>Consumption</source>
         <translation>Verbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="840"/>
-        <source>Battery charge level</source>
-        <translation type="unfinished"></translation>
+        <location filename="../mainviews/CoStatsView.qml" line="809"/>
+        <location filename="../mainviews/CoStatsView.qml" line="811"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
+        <source>Production</source>
+        <translation>Produktion</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="920"/>
-        <location filename="../mainviews/CoStatsView.qml" line="922"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1057"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1059"/>
+        <location filename="../mainviews/CoStatsView.qml" line="817"/>
+        <location filename="../mainviews/CoStatsView.qml" line="819"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
+        <source>To grid</source>
+        <translation>Netzeinspeisung</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="835"/>
+        <location filename="../mainviews/CoStatsView.qml" line="837"/>
+        <source>To battery</source>
+        <translation>In Batterie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="843"/>
+        <location filename="../mainviews/CoStatsView.qml" line="845"/>
+        <location filename="../mainviews/CoStatsView.qml" line="899"/>
+        <location filename="../mainviews/CoStatsView.qml" line="901"/>
+        <source>From battery</source>
+        <translation>Von Batterie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="852"/>
+        <location filename="../mainviews/CoStatsView.qml" line="854"/>
+        <location filename="../mainviews/CoStatsView.qml" line="908"/>
+        <location filename="../mainviews/CoStatsView.qml" line="910"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
+        <source>From grid</source>
+        <translation>Netzbezug</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="865"/>
+        <source>Battery SoC</source>
+        <translation>Batterie SoC</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="945"/>
+        <location filename="../mainviews/CoStatsView.qml" line="947"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1092"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1094"/>
         <source>Other consumption</source>
         <translation>Sonstiger Verbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1106"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1142"/>
         <source>CW %1</source>
         <translation>KW %1</translation>
     </message>

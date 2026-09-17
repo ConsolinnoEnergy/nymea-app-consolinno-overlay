@@ -806,52 +806,52 @@ MainViewBase {
             // every valueFunction below divides by 1000.
             if (d.hasProducer) {
                 series.push({
-                    name: "Production",
+                    name: qsTr("Production"),
                     color: Configuration.inverterColor,
-                    visible: d.isSeriesVisible("Production"),
+                    visible: d.isSeriesVisible(qsTr("Production")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) / 1000 }
                 })
                 series.push({
-                    name: "To grid",
+                    name: qsTr("To grid"),
                     color: Configuration.rootMeterReturnColor,
-                    visible: d.isSeriesVisible("To grid"),
+                    visible: d.isSeriesVisible(qsTr("To grid")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
                 })
             }
             series.push({
-                name: "Consumption",
+                name: qsTr("Consumption"),
                 color: Configuration.consumedColor,
-                visible: d.isSeriesVisible("Consumption"),
+                visible: d.isSeriesVisible(qsTr("Consumption")),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return entry.consumption / 1000 }
             })
             if (d.hasBattery) {
                 series.push({
-                    name: "To battery",
+                    name: qsTr("To battery"),
                     color: Configuration.batteryChargeColor,
-                    visible: d.isSeriesVisible("To battery"),
+                    visible: d.isSeriesVisible(qsTr("To battery")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
                 })
                 series.push({
-                    name: "From battery",
+                    name: qsTr("From battery"),
                     color: Configuration.batteryDischargeColor,
-                    visible: d.isSeriesVisible("From battery"),
+                    visible: d.isSeriesVisible(qsTr("From battery")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
                 })
             }
             series.push({
-                name: "From grid",
+                name: qsTr("From grid"),
                 color: Configuration.rootMeterAcquisitionColor,
-                visible: d.isSeriesVisible("From grid"),
+                visible: d.isSeriesVisible(qsTr("From grid")),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
@@ -882,9 +882,9 @@ MainViewBase {
             // producer is present.
             if (d.hasProducer) {
                 series.push({
-                    name: "Self-consumption",
+                    name: qsTr("Self-consumption"),
                     color: Configuration.inverterColor,
-                    visible: d.isSeriesVisible("Self-consumption"),
+                    visible: d.isSeriesVisible(qsTr("Self-consumption")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) {
@@ -896,18 +896,18 @@ MainViewBase {
             }
             if (d.hasBattery) {
                 series.push({
-                    name: "From battery",
+                    name: qsTr("From battery"),
                     color: Configuration.batteryDischargeColor,
-                    visible: d.isSeriesVisible("From battery"),
+                    visible: d.isSeriesVisible(qsTr("From battery")),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
                 })
             }
             series.push({
-                name: "From grid",
+                name: qsTr("From grid"),
                 color: Configuration.rootMeterAcquisitionColor,
-                visible: d.isSeriesVisible("From grid"),
+                visible: d.isSeriesVisible(qsTr("From grid")),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
@@ -1057,24 +1057,24 @@ MainViewBase {
         function computeEnergyBalanceProductionSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: "Production", color: Configuration.inverterColor, visible: d.isSeriesVisible("Production"), values: provider.totalProductionSeries() })
-                series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
+                series.push({ name: qsTr("Production"), color: Configuration.inverterColor, visible: d.isSeriesVisible(qsTr("Production")), values: provider.totalProductionSeries() })
+                series.push({ name: qsTr("From grid"), color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible(qsTr("From grid")), values: provider.totalAcquisitionSeries() })
             }
             return series
         }
 
         function computeEnergyBalanceConsumptionSeries(provider) {
-            var series = [{ name: "Consumption", color: Configuration.consumedColor, visible: d.isSeriesVisible("Consumption"), values: provider.totalConsumptionSeries() }]
-            series.push({ name: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
+            var series = [{ name: qsTr("Consumption"), color: Configuration.consumedColor, visible: d.isSeriesVisible(qsTr("Consumption")), values: provider.totalConsumptionSeries() }]
+            series.push({ name: qsTr("To grid"), color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible(qsTr("To grid")), values: provider.totalReturnSeries() })
             return series
         }
 
         function computeConsumptionSourceStackSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: "Self-consumption", color: Configuration.inverterColor, visible: d.isSeriesVisible("Self-consumption"), values: provider.selfConsumptionSeries() })
+                series.push({ name: qsTr("Self-consumption"), color: Configuration.inverterColor, visible: d.isSeriesVisible(qsTr("Self-consumption")), values: provider.selfConsumptionSeries() })
             }
-            series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
+            series.push({ name: qsTr("From grid"), color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible(qsTr("From grid")), values: provider.totalAcquisitionSeries() })
             return series
         }
 
