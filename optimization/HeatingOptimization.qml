@@ -33,18 +33,11 @@ Page {
             return;
         }
 
-        let inputText = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         const newConfig = {
-            "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
-            "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
-            "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
             // The user enters kW; the backend expects maxElectricalPower in W.
-            "maxElectricalPower":    inputText,
-            "priceThreshold":        heatingConfiguration.priceThreshold,
-            "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
+            "maxElectricalPower": Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000,
             "controllableLocalSystem": gridSupportControl.checked,
-            "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
-            "optimizationMode":      heatingConfiguration.optimizationMode
+            "heatMeterThingId": meterModel.get(heatMeterCombo.currentIndex).thingId
         };
 
         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
