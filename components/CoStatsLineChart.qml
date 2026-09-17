@@ -560,7 +560,13 @@ Item {
                 }
 
                 Connections {
-                    target: slotBinding.desc ? slotBinding.desc.model : null
+                    // "undefined" instead of an explicit "null" fallback:
+                    // assigning a literal JS null to this QObject*-typed
+                    // "target" property triggers a benign but noisy "Unable
+                    // to assign QJSValue to QObject*" warning on every slot
+                    // without an active series (i.e. most of the 20 fixed
+                    // slots, most of the time) - undefined converts cleanly.
+                    target: slotBinding.desc ? slotBinding.desc.model : undefined
                     function onEntriesAddedIdx(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
                     function onEntriesRemoved(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
                     function onCountChanged() { seriesBinder.rebuild(slotBinding.seriesIndex) }
@@ -663,7 +669,16 @@ Item {
                     horizontalAlignment: Text.AlignLeft
                     font: Style.newExtraSmallFont
                     color: Style.colors.typography_Basic_Secondary
-                    text: NymeaUtils.floatToLocaleString(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1), 0) + "%"
+                    // Guarded against yAxisRight being null: unlike yAxisLeft,
+                    // this axis is never attached to any currently-visible
+                    // series (percentAxisVisible is always false for now, see
+                    // its declaration above) and has its own "visible" bound
+                    // to that same flag - QtCharts appears to tear down the
+                    // underlying axis object in that state, leaving this id
+                    // reference null and causing a "Cannot read property
+                    // 'max' of null" TypeError on startup. Pre-existing,
+                    // unrelated to the chart-rendering fixes above.
+                    text: yAxisRight ? (NymeaUtils.floatToLocaleString(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1), 0) + "%") : ""
                 }
             }
         }
