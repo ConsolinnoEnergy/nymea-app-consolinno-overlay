@@ -22,6 +22,16 @@ bool hasOptimizationStrategy(const QVariant &value, int strategy)
 {
     return (value.toInt() & strategy) != 0;
 }
+
+void logSetConfigurationResponse(const QString &configurationName, const QVariantMap &data)
+{
+    const QString error = data.value("hemsError").toString();
+    if (error.isEmpty()) {
+        qCDebug(dcHems()) << "Set" << configurationName << "configuration succeeded";
+    } else {
+        qCWarning(dcHems()) << "Setting" << configurationName << "configuration failed:" << error;
+    }
+}
 }
 
 HemsManager::HemsManager(QObject *parent) : QObject(parent)
@@ -212,7 +222,7 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
 
 int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, const QVariantMap &data)
 {
-qCritical() << "setHeatingElementConfiguration" << data;
+    qCDebug(dcHems()) << "setHeatingElementConfiguration" << data;
     HeatingElementConfiguration *configuration = m_heatingElementConfigurations->getHeatingElementConfiguration(heatingRodThingId);
     // if the configuration does not exist yet. Set up a dummy configuration
     // This ensures that if the Thing does not exist that the program wont crash
@@ -255,7 +265,7 @@ qCritical() << "setHeatingElementConfiguration" << data;
 
     QVariantMap params;
     params.insert("heatingRodConfiguration", config);
-    qCWarning(dcHems()) << "Set heatingelement configuration" << params;
+    qCDebug(dcHems()) << "Set heatingelement configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingRodConfiguration", params, this, "setHeatingElementConfigurationResponse");
 }
@@ -390,7 +400,7 @@ int HemsManager::setDynamicElectricPricingConfiguration(const QUuid &electricThi
 
     QVariantMap params;
     params.insert("dynamicElectricPricingConfiguration", config);
-    qCWarning(dcHems()) << "Set electric configuration" << params;
+    qCDebug(dcHems()) << "Set electric configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.setDynamicElectricPricingConfiguration", params, this, "setDynamicElectricPricingConfigurationResponse");
 }
@@ -467,7 +477,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
     QVariantMap params;
     params.insert("chargingConfiguration", config);
 
-    qCWarning(dcHems()) << "Set charging configuration" << params;
+    qCDebug(dcHems()) << "Set charging configuration" << params;
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetChargingConfiguration", params, this, "setChargingConfigurationResponse");
 }
 
@@ -563,7 +573,7 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
     QVariantMap params;
     params.insert("userConfiguration", userConfiguration);
 
-    qCWarning(dcHems())<< "sent userConfiguration" << params;
+    qCDebug(dcHems()) << "Set user configuration" << params;
     return  m_engine->jsonRpcClient()->sendCommand("Hems.SetUserConfiguration", params, this, "setUserConfigurationResponse");
 }
 
@@ -573,7 +583,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     // if the configuration does not exist yet. Set up a dummy configuration
     // This ensures that if the Thing does not exist that the program wont crash
     if (!configuration){
-        qCWarning(dcHems()) << "Adding a dummy Config" << batteryThingId;
+        qCDebug(dcHems()) << "Adding a dummy Config" << batteryThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("batteryThingId", batteryThingId);
         dummyConfig.insert("avoidZeroFeedInActive", false);
@@ -622,7 +632,7 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
 
     QVariantMap params;
     params.insert("batteryConfiguration", config);
-    qCWarning(dcHems()) << "Set Battery configuration" << params;
+    qCDebug(dcHems()) << "Set battery configuration" << params;
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetBatteryConfiguration", params, this, "setBatteryConfigurationResponse");
 }
@@ -942,25 +952,25 @@ void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap
 
 void HemsManager::setHeatingConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set heating configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("heating"), data);
     emit setHeatingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::setDynamicElectricPricingConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set electric configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("dynamic electric pricing"), data);
     emit setDynamicElectricPricingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::setBatteryConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set battery configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("battery"), data);
     emit setBatteryConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::setSwitchConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set switch configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("switch"), data);
     emit setSwitchConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
@@ -1233,14 +1243,14 @@ void HemsManager::initJsonRpcCommunication()
 
 void HemsManager::setPvConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set pv configuration response" << data.value("pvError").toString();
+    logSetConfigurationResponse(QStringLiteral("PV"), data);
     emit setPvConfigurationReply(commandId, data.value("hemsError").toString());
 
 }
 
 void HemsManager::setHeatingElementConfigurationResponse(int commandId, const QVariantMap &data)
 {
-    qCDebug(dcHems()) << "Set HeatingElement configuration response" << data.value("heatingElementError").toString();
+    logSetConfigurationResponse(QStringLiteral("heating element"), data);
     emit setHeatingElementConfigurationReply(commandId, data.value("hemsError").toString());
 
 }
@@ -1248,7 +1258,7 @@ void HemsManager::setHeatingElementConfigurationResponse(int commandId, const QV
 void HemsManager::setChargingConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
-    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("charging"), data);
     emit setChargingConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
@@ -1256,7 +1266,7 @@ void HemsManager::setChargingConfigurationResponse(int commandId, const QVariant
 void HemsManager::setChargingSessionConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
-    qCDebug(dcHems()) << "Set charging configuration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("charging session"), data);
     emit setChargingSessionConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
@@ -1270,7 +1280,7 @@ void HemsManager::setConEMSStateResponse(int commandId, const QVariantMap &data)
 void HemsManager::setUserConfigurationResponse(int commandId, const QVariantMap &data)
 {
 
-    qCDebug(dcHems()) << "Set UserConfiguration response" << data.value("hemsError").toString();
+    logSetConfigurationResponse(QStringLiteral("user"), data);
     emit setUserConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
