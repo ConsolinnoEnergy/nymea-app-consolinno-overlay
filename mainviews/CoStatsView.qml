@@ -867,38 +867,8 @@ MainViewBase {
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) / 1000 }
                 })
-                series.push({
-                    name: qsTr("To grid"),
-                    key: "To grid",
-                    color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
-                    borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
-                    visible: d.isSeriesVisible("To grid"),
-                    axis: "left",
-                    model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
-                })
             }
-            series.push({
-                name: qsTr("Consumption"),
-                key: "Consumption",
-                color: Style.colors.components_Statistics_Things_and_states_Consumption,
-                borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                visible: d.isSeriesVisible("Consumption"),
-                axis: "left",
-                model: powerBalanceLogs,
-                valueFunction: function (entry) { return entry.consumption / 1000 }
-            })
             if (d.hasBattery) {
-                series.push({
-                    name: qsTr("To battery"),
-                    key: "To battery",
-                    color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
-                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
-                    visible: d.isSeriesVisible("To battery"),
-                    axis: "left",
-                    model: powerBalanceLogs,
-                    valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
-                })
                 series.push({
                     name: qsTr("From battery"),
                     key: "From battery",
@@ -920,6 +890,40 @@ MainViewBase {
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
             })
+            series.push({
+                name: qsTr("Consumption"),
+                key: "Consumption",
+                color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
+                visible: d.isSeriesVisible("Consumption"),
+                axis: "left",
+                model: powerBalanceLogs,
+                valueFunction: function (entry) { return entry.consumption / 1000 }
+            })
+            if (d.hasBattery) {
+                series.push({
+                    name: qsTr("To battery"),
+                    key: "To battery",
+                    color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
+                    visible: d.isSeriesVisible("To battery"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
+                })
+            }
+            if (d.hasProducer) {
+                series.push({
+                    name: qsTr("To grid"),
+                    key: "To grid",
+                    color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
+                    borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
+                    visible: d.isSeriesVisible("To grid"),
+                    axis: "left",
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
+                })
+            }
             // Reserved Battery SoC slot: fully disabled via
             // "d.batterySocEnabled" (see its declaration for why) - not
             // rendered, not assigned any real data yet, but already shaped
