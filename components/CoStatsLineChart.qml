@@ -305,20 +305,13 @@ Item {
 
     // Debounce visibleRangeChanged so pan/zoom gestures don't flood
     // listeners (e.g. a page that triggers a data (re)fetch on this
-    // signal).
+    // signal). Re-rendering the already-cached data for the settled window
+    // itself does NOT wait for this timer - see the "onVisibleStartTimeChanged
+    // / onVisibleWindowMsChanged" Connections below.
     Timer {
         id: rangeSettleTimer
         interval: 200
-        onTriggered: {
-            root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
-            // Re-render immediately for whatever is already cached in the
-            // new window (see seriesBinder.rebuildAll() doc comment) - if
-            // the fetch triggered above by visibleRangeChanged actually
-            // pulls in new data later on, the existing per-model
-            // entriesAddedIdx/entriesRemoved/countChanged connections
-            // rebuild the affected slot(s) again on top of this.
-            seriesBinder.rebuildAll()
-        }
+        onTriggered: root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
     }
 
     FontMetrics {
@@ -328,8 +321,8 @@ Item {
 
     Connections {
         target: d
-        function onVisibleStartTimeChanged() { d.updateDayBoundaries() }
-        function onVisibleWindowMsChanged() { d.updateDayBoundaries() }
+        function onVisibleStartTimeChanged() { d.updateDayBoundaries(); seriesBinder.rebuildAll() }
+        function onVisibleWindowMsChanged() { d.updateDayBoundaries(); seriesBinder.rebuildAll() }
     }
 
     Item {
@@ -514,7 +507,15 @@ Item {
             // this, rebuild()'s windowed iteration (bounded by
             // d.visibleStartTime/d.visibleWindowMs, see rebuild() above)
             // would keep showing whatever window was rendered last instead
-            // of the new one. Called (debounced) from rangeSettleTimer.
+            // of the new one.
+            //
+            // Called directly (unthrottled) on every
+            // visibleStartTime/visibleWindowMs change - not debounced like
+            // the data-fetch trigger in rangeSettleTimer - so the line keeps
+            // up continuously while panning/zooming instead of only
+            // catching up once the gesture settles. This stays cheap
+            // because rebuild() itself is already bounded to the visible
+            // window rather than the (much larger) cached range.
             function rebuildAll() {
                 for (var i = 0; i < d.maxSeriesCount; i++) {
                     rebuild(i)
