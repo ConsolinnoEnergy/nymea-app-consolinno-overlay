@@ -441,7 +441,7 @@ MainViewBase {
                                     // bindings keep evaluating even while an
                                     // Item's "visible" is false, so without
                                     // this guard "series" would still read
-                                    // (and re-read on every hiddenSeriesNames
+                                    // (and re-read on every hiddenSeriesKeys
                                     // change) d.energyBalanceLineSeries/
                                     // d.consumptionLineSeries, and
                                     // CoStatsLineChart would still run its
@@ -511,7 +511,7 @@ MainViewBase {
                                 // arrays, so toggling either legend group is
                                 // automatically reflected in the chart - both
                                 // ultimately read the same shared
-                                // "hiddenSeriesNames" visibility state.
+                                // "hiddenSeriesKeys" visibility state.
                                 ColumnLayout {
                                     Layout.fillWidth: true
                                     visible: d.activeChartTab === 1
@@ -724,25 +724,34 @@ MainViewBase {
         // shared across all periods/tabs (toggling "Netzbezug" off is
         // remembered regardless of which period/tab it was toggled from -
         // simpler than per-view toggle state and arguably the more
-        // intuitive behavior anyway). Looked up by "name" rather than index
+        // intuitive behavior anyway). Looked up by "key" rather than index
         // since the same series can appear at different indices in
-        // different generated arrays.
-        property var hiddenSeriesNames: []
+        // different generated arrays. Every series explicitly sets its own
+        // "key", separate from its (translated, display-only) "name": a
+        // fixed untranslated string (e.g. "Production") for the fixed,
+        // always-unique series, but the backing Thing's id for
+        // per-consumer series - Thing *names* are user-editable and not
+        // guaranteed unique, so two consumers with the same name would
+        // otherwise share one toggle-visibility entry and incorrectly
+        // hide/show together. See "computeConsumptionConsumerLineSeries"/
+        // "computeConsumptionConsumerStackSeries" for where "key" is set
+        // to the Thing id.
+        property var hiddenSeriesKeys: []
 
-        function isSeriesVisible(name) { return d.hiddenSeriesNames.indexOf(name) === -1 }
+        function isSeriesVisible(key) { return d.hiddenSeriesKeys.indexOf(key) === -1 }
 
         // "seriesArray"/"index" identify which pill was tapped; resolved to
-        // a stable name before updating "hiddenSeriesNames" so the toggle
+        // a stable key before updating "hiddenSeriesKeys" so the toggle
         // state doesn't depend on any particular array's current indexing.
         function toggleSeriesVisibility(seriesArray, index, visible) {
-            var name = seriesArray[index].name
-            var currentIndex = d.hiddenSeriesNames.indexOf(name)
+            var key = seriesArray[index].key
+            var currentIndex = d.hiddenSeriesKeys.indexOf(key)
             if (visible && currentIndex !== -1) {
-                var updated = d.hiddenSeriesNames.slice()
+                var updated = d.hiddenSeriesKeys.slice()
                 updated.splice(currentIndex, 1)
-                d.hiddenSeriesNames = updated
+                d.hiddenSeriesKeys = updated
             } else if (!visible && currentIndex === -1) {
-                d.hiddenSeriesNames = d.hiddenSeriesNames.concat([name])
+                d.hiddenSeriesKeys = d.hiddenSeriesKeys.concat([key])
             }
         }
 
@@ -807,16 +816,18 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                     name: qsTr("Production"),
+                    key: "Production",
                     color: Configuration.inverterColor,
-                    visible: d.isSeriesVisible(qsTr("Production")),
+                    visible: d.isSeriesVisible("Production"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) / 1000 }
                 })
                 series.push({
                     name: qsTr("To grid"),
+                    key: "To grid",
                     color: Configuration.rootMeterReturnColor,
-                    visible: d.isSeriesVisible(qsTr("To grid")),
+                    visible: d.isSeriesVisible("To grid"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
@@ -824,8 +835,9 @@ MainViewBase {
             }
             series.push({
                 name: qsTr("Consumption"),
+                key: "Consumption",
                 color: Configuration.consumedColor,
-                visible: d.isSeriesVisible(qsTr("Consumption")),
+                visible: d.isSeriesVisible("Consumption"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return entry.consumption / 1000 }
@@ -833,16 +845,18 @@ MainViewBase {
             if (d.hasBattery) {
                 series.push({
                     name: qsTr("To battery"),
+                    key: "To battery",
                     color: Configuration.batteryChargeColor,
-                    visible: d.isSeriesVisible(qsTr("To battery")),
+                    visible: d.isSeriesVisible("To battery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
                 })
                 series.push({
                     name: qsTr("From battery"),
+                    key: "From battery",
                     color: Configuration.batteryDischargeColor,
-                    visible: d.isSeriesVisible(qsTr("From battery")),
+                    visible: d.isSeriesVisible("From battery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
@@ -850,8 +864,9 @@ MainViewBase {
             }
             series.push({
                 name: qsTr("From grid"),
+                key: "From grid",
                 color: Configuration.rootMeterAcquisitionColor,
-                visible: d.isSeriesVisible(qsTr("From grid")),
+                visible: d.isSeriesVisible("From grid"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
@@ -863,6 +878,7 @@ MainViewBase {
             if (d.batterySocEnabled && d.hasBattery) {
                 series.push({
                     name: qsTr("Battery SoC"),
+                    key: "Battery SoC",
                     color: Configuration.batteriesColor,
                     visible: false,
                     axis: "right",
@@ -883,8 +899,9 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                     name: qsTr("Self-consumption"),
+                    key: "Self-consumption",
                     color: Configuration.inverterColor,
-                    visible: d.isSeriesVisible(qsTr("Self-consumption")),
+                    visible: d.isSeriesVisible("Self-consumption"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) {
@@ -897,8 +914,9 @@ MainViewBase {
             if (d.hasBattery) {
                 series.push({
                     name: qsTr("From battery"),
+                    key: "From battery",
                     color: Configuration.batteryDischargeColor,
-                    visible: d.isSeriesVisible(qsTr("From battery")),
+                    visible: d.isSeriesVisible("From battery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
@@ -906,8 +924,9 @@ MainViewBase {
             }
             series.push({
                 name: qsTr("From grid"),
+                key: "From grid",
                 color: Configuration.rootMeterAcquisitionColor,
-                visible: d.isSeriesVisible(qsTr("From grid")),
+                visible: d.isSeriesVisible("From grid"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
@@ -928,8 +947,9 @@ MainViewBase {
                 }
                 series.push({
                     name: item.thing.name,
+                    key: item.thing.id,
                     color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
-                    visible: d.isSeriesVisible(item.thing.name),
+                    visible: d.isSeriesVisible(item.thing.id),
                     axis: "left",
                     model: item.logs,
                     valueFunction: function (entry) { return entry.currentPower / 1000 }
@@ -943,8 +963,9 @@ MainViewBase {
             // (see ConsumerConsumptionLogs.qml - "otherConsumption").
             series.push({
                 name: qsTr("Other consumption"),
+                key: "Other consumption",
                 color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
-                visible: d.isSeriesVisible(qsTr("Other consumption")),
+                visible: d.isSeriesVisible("Other consumption"),
                 axis: "left",
                 model: consumerConsumptionLogs.otherConsumption,
                 valueFunction: function (entry) { return entry.consumption / 1000 }
@@ -973,6 +994,7 @@ MainViewBase {
             }
             return {
                 name: name,
+                key: name,
                 color: color,
                 visible: d.isSeriesVisible(name),
                 axis: "left",
@@ -1057,24 +1079,24 @@ MainViewBase {
         function computeEnergyBalanceProductionSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: qsTr("Production"), color: Configuration.inverterColor, visible: d.isSeriesVisible(qsTr("Production")), values: provider.totalProductionSeries() })
-                series.push({ name: qsTr("From grid"), color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible(qsTr("From grid")), values: provider.totalAcquisitionSeries() })
+                series.push({ name: qsTr("Production"), key: "Production", color: Configuration.inverterColor, visible: d.isSeriesVisible("Production"), values: provider.totalProductionSeries() })
+                series.push({ name: qsTr("From grid"), key: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
             }
             return series
         }
 
         function computeEnergyBalanceConsumptionSeries(provider) {
-            var series = [{ name: qsTr("Consumption"), color: Configuration.consumedColor, visible: d.isSeriesVisible(qsTr("Consumption")), values: provider.totalConsumptionSeries() }]
-            series.push({ name: qsTr("To grid"), color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible(qsTr("To grid")), values: provider.totalReturnSeries() })
+            var series = [{ name: qsTr("Consumption"), key: "Consumption", color: Configuration.consumedColor, visible: d.isSeriesVisible("Consumption"), values: provider.totalConsumptionSeries() }]
+            series.push({ name: qsTr("To grid"), key: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
             return series
         }
 
         function computeConsumptionSourceStackSeries(provider) {
             var series = []
             if (d.hasProducer) {
-                series.push({ name: qsTr("Self-consumption"), color: Configuration.inverterColor, visible: d.isSeriesVisible(qsTr("Self-consumption")), values: provider.selfConsumptionSeries() })
+                series.push({ name: qsTr("Self-consumption"), key: "Self-consumption", color: Configuration.inverterColor, visible: d.isSeriesVisible("Self-consumption"), values: provider.selfConsumptionSeries() })
             }
-            series.push({ name: qsTr("From grid"), color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible(qsTr("From grid")), values: provider.totalAcquisitionSeries() })
+            series.push({ name: qsTr("From grid"), key: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
             return series
         }
 
@@ -1082,16 +1104,18 @@ MainViewBase {
             var series = provider.consumerSeries().map(function (entry, i) {
                 return {
                     name: entry.thing.name,
+                    key: entry.thing.id,
                     color: Configuration.consumerColors[i % (Configuration.consumerColors.length - 1)],
-                    visible: d.isSeriesVisible(entry.thing.name),
+                    visible: d.isSeriesVisible(entry.thing.id),
                     values: entry.values
                 }
             })
             if (d.otherConsumptionEnabled) {
                 series.push({
                     name: qsTr("Other consumption"),
+                    key: "Other consumption",
                     color: Configuration.consumerColors[Configuration.consumerColors.length - 1],
-                    visible: d.isSeriesVisible(qsTr("Other consumption")),
+                    visible: d.isSeriesVisible("Other consumption"),
                     values: provider.otherConsumptionSeries()
                 })
             }
