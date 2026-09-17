@@ -1103,7 +1103,7 @@ MainViewBase {
             cursor.setDate(cursor.getDate() - ((cursor.getDay() + 6) % 7)) // back up to that week's Monday
             var result = []
             while (cursor <= last) {
-                result.push(qsTr("CW%1").arg(DateUtils.isoWeekNumber(cursor)))
+                result.push(qsTr("CW %1").arg(DateUtils.isoWeekNumber(cursor)))
                 cursor.setDate(cursor.getDate() + 7)
             }
             return result
