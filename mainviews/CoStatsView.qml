@@ -1045,18 +1045,27 @@ MainViewBase {
         // see PeriodEnergyLogs.qml's file doc comment for why (no
         // cumulative battery energy counter is reliably available at these
         // aggregated sample rates).
+        // Despite their names (kept as-is since they back the
+        // "*EnergyBalanceProductionSeries"/"*EnergyBalanceConsumptionSeries"
+        // properties/bar-chart-stack bindings above), these two functions
+        // are actually the chart's two energy-balance sides - sources (left
+        // bar: what energy came in - Production + From grid) vs. sinks
+        // (right bar: what energy went out - Consumption + To grid) - not
+        // "everything about production" vs. "everything about
+        // consumption". "From grid"/"To grid" therefore belong on the
+        // *opposite* function from what their own name might suggest.
         function computeEnergyBalanceProductionSeries(provider) {
             var series = []
             if (d.hasProducer) {
                 series.push({ name: "Production", color: Configuration.inverterColor, visible: d.isSeriesVisible("Production"), values: provider.totalProductionSeries() })
-                series.push({ name: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
+                series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
             }
             return series
         }
 
         function computeEnergyBalanceConsumptionSeries(provider) {
             var series = [{ name: "Consumption", color: Configuration.consumedColor, visible: d.isSeriesVisible("Consumption"), values: provider.totalConsumptionSeries() }]
-            series.push({ name: "From grid", color: Configuration.rootMeterAcquisitionColor, visible: d.isSeriesVisible("From grid"), values: provider.totalAcquisitionSeries() })
+            series.push({ name: "To grid", color: Configuration.rootMeterReturnColor, visible: d.isSeriesVisible("To grid"), values: provider.totalReturnSeries() })
             return series
         }
 
