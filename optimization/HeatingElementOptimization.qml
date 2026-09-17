@@ -20,7 +20,7 @@ Page {
         if (calledFromAssistant) {
             return true;
         } else {
-            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingElementConfiguration.maxElectricalPower) > 0.000001 ||
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000 - heatingElementConfiguration.maxElectricalPower) > 0.000001 ||
                     gridSupportControl.checked !== heatingElementConfiguration.controllableLocalSystem;
         }
     }
@@ -31,10 +31,10 @@ Page {
             return;
         }
 
-        let inputText = maxElectricalPower.text
-        inputText.includes(",") === true ? inputText = inputText.replace(",", ".") : inputText
+        let inputText = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
-            "maxElectricalPower": parseFloat(inputText),
+            // The user enters kW; the backend expects maxElectricalPower in W.
+            "maxElectricalPower": inputText,
             "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
             "controllableLocalSystem": gridSupportControl.checked
         })
@@ -115,16 +115,16 @@ Page {
                         Layout.fillWidth: true
                         labelText: qsTr("Maximal electrical power")
                         compact: true
-                        unit: qsTr("W")
+                        unit: qsTr("kW")
                         helpText:
-                            qsTr("The value must not be below %1.")
+                            qsTr("The value must not be below %1 kW.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+heatingElementConfiguration.maxElectricalPower).toLocaleString()
+                        textField.text: (heatingElementConfiguration.maxElectricalPower / 1000).toLocaleString(Qt.locale())
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
-                            bottom: 500
+                            bottom: 0.5
                         }
                     }
 

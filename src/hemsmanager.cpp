@@ -182,7 +182,7 @@ int HemsManager::setPvConfiguration(const QUuid &pvThingId, const QVariantMap &d
         if(data.contains(metaObj->property(i).name()))
             {
                 //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()));
             }else{
                 //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
                 config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
