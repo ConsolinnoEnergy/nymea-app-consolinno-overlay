@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea
 
 // CoChartTooltip
@@ -35,6 +36,13 @@ Popup {
 
     // Horizontal gap between "anchorRect" and the tooltip.
     readonly property int anchorGap: Style.smallMargins
+
+    // Item to sample for the blurred background (see "background" below) -
+    // typically the caller's own root Item, i.e. whatever page content this
+    // tooltip is shown over. Must NOT be an ancestor of Overlay.overlay
+    // itself (e.g. Overlay.overlay), or the blur would try to capture this
+    // very popup, which is a child of Overlay.overlay.
+    property Item blurSourceItem: null
 
     signal dismissRequested()
 
@@ -109,9 +117,58 @@ Popup {
 
     padding: Style.smallMargins
 
-    background: Rectangle {
-        color: Style.colors.components_Statistics_Tooltip_background
-        radius: Style.cornerRadius
+    // Frosted-glass background: the popup can appear anywhere over the
+    // chart/page, so - like CoHeader.qml elsewhere in this app - a live
+    // snapshot of whatever is currently behind it (taken from
+    // "blurSourceItem", the caller's own page content - see its doc comment
+    // above) is blurred and covered with the semi-transparent tooltip
+    // background color/token (already given some alpha in Style.qml) for
+    // tinting. The whole thing is masked to rounded corners as one unit via
+    // "layer"/OpacityMask, since neither the blur nor a plain "radius" on
+    // the tint alone would otherwise clip the (rectangular) blurred image
+    // to match the tint's rounded shape.
+    background: Item {
+        id: bg
+
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: Rectangle {
+                width: bg.width
+                height: bg.height
+                radius: Style.cornerRadius
+            }
+        }
+
+        ShaderEffectSource {
+            id: blurSource
+            anchors.fill: parent
+            sourceItem: root.blurSourceItem
+            // Map this Item's own bounds (local 0,0 - width,height) into
+            // "blurSourceItem"'s coordinate space, so the sampled area
+            // always matches wherever the popup ends up being placed -
+            // regardless of "blurSourceItem"'s own position/coordinate
+            // system (unlike "x/y" above, this doesn't need to go via
+            // Overlay.overlay/root.parent at all). Note: this must be done
+            // via "bg" (a real Item), not "root" - "root" is the Popup
+            // itself, which (unlike its background/contentItem) is a plain
+            // QObject with no "mapToItem".
+            sourceRect: root.blurSourceItem
+                        ? bg.mapToItem(root.blurSourceItem, 0, 0, bg.width, bg.height)
+                        : Qt.rect(0, 0, 0, 0)
+            visible: false
+            live: true
+        }
+
+        FastBlur {
+            anchors.fill: parent
+            source: blurSource
+            radius: 32
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            color: Style.colors.components_Statistics_Tooltip_background
+        }
     }
 
     contentItem: ColumnLayout {

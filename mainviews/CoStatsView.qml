@@ -699,6 +699,7 @@ MainViewBase {
     // repositions/refills this same popup). See CoChartTooltip.qml.
     CoChartTooltip {
         id: chartTooltip
+        blurSourceItem: root
     }
 
     QtObject {
