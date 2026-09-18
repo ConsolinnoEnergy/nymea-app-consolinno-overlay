@@ -60,14 +60,14 @@ void PvConfiguration::setAlignment(const int alignment)
     m_alignment = alignment;
 }
 
-float PvConfiguration::kwPeak() const
+double PvConfiguration::wPeak() const
 {
-    return m_kwPeak;
+    return m_wPeak;
 }
 
-void PvConfiguration::setKwPeak(const float kwPeak)
+void PvConfiguration::setWPeak(const double wPeak)
 {
-    m_kwPeak = kwPeak;
+    m_wPeak = wPeak;
 }
 
 bool PvConfiguration::controllableLocalSystem() const

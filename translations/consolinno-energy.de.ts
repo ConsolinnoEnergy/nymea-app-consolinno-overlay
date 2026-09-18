@@ -641,366 +641,376 @@
         <translation>kein Auto ausgewählt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="484"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="515"/>
         <source>PV only</source>
         <translation>PV-Überschuss</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="653"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="684"/>
         <source>Initialising</source>
         <translation>Initialisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="655"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="686"/>
         <source>Running</source>
         <translation>Aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="657"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="688"/>
         <source>Finished</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="659"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="690"/>
         <source>Interrupted</source>
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1368"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1376"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1414"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1422"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation>Ladevorgang in der vorgegeben Zeit nicht möglich, verringern sie das Ladeziel oder verlängern sie die Zeitvorgabe.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1089"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1106"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1135"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1152"/>
         <source>Select/Add Car</source>
         <translation>hinzufügen/wähle Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1459"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1505"/>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1460"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1506"/>
         <source>Pause charging</source>
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="920"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="966"/>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0 % ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="924"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1956"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="970"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="2002"/>
         <source>Please select a car</source>
         <translation>Bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="934"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="980"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="417"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="443"/>
         <source>Activate simulated car</source>
         <translation>Auto Simulation aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="505"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="536"/>
         <source>Car</source>
         <translation>Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="459"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1124"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="490"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1170"/>
         <source>Charging mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="597"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1358"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="628"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1404"/>
         <source>Ending time</source>
         <translation>Zielzeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="606"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1311"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="637"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1357"/>
         <source>Target charge</source>
         <translation>Ladeziel</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="632"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="666"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="663"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="697"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="661"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="692"/>
         <source>Pending</source>
         <translation>Pausiert</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="663"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="694"/>
         <source>Failed</source>
         <translation>Fehlgeschlagen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="690"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1285"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="721"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1331"/>
         <source>Battery level</source>
         <translation>Batteriestand</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="707"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="738"/>
         <source>Battery charge</source>
         <translation>Batterieinhalt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="751"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="782"/>
         <source>Energy charged</source>
         <translation>Geladene Energie</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="765"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="796"/>
         <source>Time elapsed</source>
         <translation>Vergangene Zeit</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="476"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1133"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="507"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1179"/>
         <source>Charge always</source>
         <translation>Immer laden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="480"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1135"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="511"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1181"/>
         <source>Next trip</source>
         <translation>Nächste Fahrt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="488"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1134"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="519"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1180"/>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="534"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="565"/>
         <source>Minimal current</source>
         <translation>Minimalstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="643"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="674"/>
         <source>Charging deactivated. Please choose a charging mode.</source>
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1046"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1074"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1092"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1120"/>
         <source>Configure charging mode</source>
         <translation>Lademodus konfigurieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="733"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="764"/>
         <source>Target charging current</source>
         <translation>Ladestrom (Soll)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="742"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="773"/>
         <source>Actual charging current</source>
         <translation>Ladestrom (Ist)</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="724"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="755"/>
         <source>Charging power</source>
         <translation>Ladeleistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="492"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1136"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="523"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1182"/>
         <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="545"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="576"/>
         <source>Price limit</source>
         <translation>Preisgrenze</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="527"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="536"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1454"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="558"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="567"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1500"/>
         <source>Pausing</source>
         <translation>Pausieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1607"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1653"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1884"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1930"/>
         <source>No prices available, yet</source>
         <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1903"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1949"/>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="571"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="602"/>
         <source>Current Price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="579"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="610"/>
         <source>Below price limit</source>
         <translation>Preisgrenze unterschritten</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="528"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="559"/>
         <source>Low solar availability</source>
         <translation>Bei wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="496"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1137"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="527"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1183"/>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="67"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="972"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1018"/>
         <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="68"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="973"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1019"/>
         <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="69"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="974"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1020"/>
         <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="70"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="975"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1021"/>
         <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="71"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="976"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1022"/>
         <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="72"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="977"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1023"/>
         <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="73"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="978"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1024"/>
         <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="385"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="411"/>
         <source>Phase setting could not be applied</source>
         <translation>Phasenanzahl konnte nicht übernommen werden</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="386"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="412"/>
         <source>The selected %1‑phase configuration could not be applied. Charging will proceed in %2‑phase mode.</source>
         <translation>Die gewählte %1‑phasige Einstellung konnte nicht übernommen werden. Der Ladevorgang erfolgt %2‑phasig.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="615"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="774"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="646"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="805"/>
         <source>Phase count</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="395"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="421"/>
         <source>Vehicle</source>
         <translation>Fahrzeug</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="406"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="432"/>
         <source>Car plugged in</source>
         <translation>Auto eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="407"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="433"/>
         <source>Car not plugged in</source>
         <translation>Auto nicht eingesteckt</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="437"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="468"/>
         <source>Charging settings</source>
         <translation>Ladeeinstellungen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="794"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="825"/>
         <source>Cancel charging</source>
         <translation>Laden abbrechen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1086"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="872"/>
+        <source>Note</source>
+        <translation>Hinweis</translation>
+    </message>
+    <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="873"/>
+        <source>When operating multiple EV chargers simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.</source>
+        <translation>Beim gleichzeitigen Betrieb mehrerer Wallboxen erfolgt derzeit keine automatische Lastverteilung. Die Einhaltung der für deinen Netzanschluss genehmigten Gesamtladeleistung liegt in deiner Verantwortung.</translation>
+    </message>
+    <message>
+        <location filename="../optimization/ChargingConfigView.qml" line="1132"/>
         <source>Selected car</source>
         <translation>Ausgewähltes Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1230"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1276"/>
         <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
         <translation>Bei überschrittener Preisgrenze wird PV‑Überschuss nach Gerätepriorität genutzt.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1237"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1283"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1257"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1303"/>
         <source>Number of phases</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1453"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1499"/>
         <source>Low solar avalaibility</source>
         <translation>Bei zu wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1472"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1518"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1483"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1529"/>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1494"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1540"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1495"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1541"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="833"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="878"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -4992,7 +5002,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="220"/>
         <source>EEBUS Pairing Data</source>
-        <translation type="unfinished"></translation>
+        <translation>EEBUS Pairing-Daten</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="300"/>
@@ -6229,7 +6239,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="70"/>
         <source>Note: After changing the priorization, it may take up to 5 minutes for the system to apply and implement the new priority order.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis: Nach Änderungen der Priorisierung kann es bis zu 5 Minuten dauern, bis die neue Reihenfolge vom System übernommen und umgesetzt wird.</translation>
     </message>
     <message>
         <location filename="../info/PVPrioritiesInfo.qml" line="59"/>
@@ -6455,14 +6465,14 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="545"/>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases. The device will be removed again.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="551"/>
         <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="545"/>
+        <source>You have reached the maximum number of 3 EV chargers. The device will be removed again.</source>
+        <translation>Du hast die maximale Anzahl von 3 Wallboxen erreicht. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="688"/>
@@ -6499,8 +6509,8 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="24"/>
-        <source>At the moment, %1 can only control one EV charger. Support for multiple EV chargers is planned for future releases.</source>
-        <translation>Derzeit kann %1 nur eine EV-Ladestation steuern. Die Unterstützung für mehrere EV-Ladestationen ist für zukünftige Versionen geplant.</translation>
+        <source>You have reached the maximum number of 3 EV chargers.</source>
+        <translation>Du hast die maximale Anzahl von 3 Wallboxen erreicht.</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>

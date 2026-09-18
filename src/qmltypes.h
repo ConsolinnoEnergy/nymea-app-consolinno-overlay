@@ -28,8 +28,6 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<ConEMSState>(uri, versionMajor, versionMinor, "ConEMSState", "Get it from HemsManager");
     qmlRegisterUncreatableType<UserConfiguration>(uri, versionMajor, versionMinor, "UserConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<UserConfigurations>(uri, versionMajor, versionMinor, "UserConfigurations", "Get it from HemsManager");
-    qmlRegisterUncreatableType<ChargingOptimizationConfiguration>(uri, versionMajor, versionMinor, "ChargingOptimizationConfiguration", "Get it from HemsManager");
-    qmlRegisterUncreatableType<ChargingOptimizationConfigurations>(uri, versionMajor, versionMinor, "ChargingOptimizationConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<HeatingElementConfiguration>(uri, versionMajor, versionMinor, "HeatingElementConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<HeatingElementConfigurations>(uri, versionMajor, versionMinor, "HeatingElementConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<BatteryConfiguration>(uri, versionMajor, versionMinor, "BatteryConfiguration", "Get it from HemsManager");

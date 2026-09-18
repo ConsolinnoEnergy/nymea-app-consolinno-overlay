@@ -10,15 +10,15 @@ class BatteryConfiguration : public QObject
     Q_OBJECT
     Q_PROPERTY(QUuid batteryThingId READ batteryThingId CONSTANT)
     Q_PROPERTY(bool optimizationEnabled READ optimizationEnabled WRITE setOptimizationEnabled NOTIFY optimizationEnabledChanged)
-    Q_PROPERTY(float priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
-    Q_PROPERTY(float dischargePriceThreshold READ dischargePriceThreshold WRITE setDischargePriceThreshold NOTIFY dischargePriceThresholdChanged)
+    Q_PROPERTY(double priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
+    Q_PROPERTY(double dischargePriceThreshold READ dischargePriceThreshold WRITE setDischargePriceThreshold NOTIFY dischargePriceThresholdChanged)
     Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled NOTIFY relativePriceEnabledChanged)
     Q_PROPERTY(bool chargeOnce READ chargeOnce WRITE setChargeOnce NOTIFY chargeOnceChanged)
     Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
-    Q_PROPERTY(float maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
+    Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(QList<int> targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
     Q_PROPERTY(int maxSoC READ maxSoC WRITE setMaxSoC NOTIFY maxSoCChanged)
     Q_PROPERTY(int minSoC READ minSoC WRITE setMinSoC NOTIFY minSoCChanged)
@@ -55,11 +55,11 @@ public:
     bool optimizationEnabled() const;
     void setOptimizationEnabled(bool optimizationEnabled);
 
-    float priceThreshold() const;
-    void setPriceThreshold(float priceThreshold);
+    double priceThreshold() const;
+    void setPriceThreshold(double priceThreshold);
 
-    float dischargePriceThreshold() const;
-    void setDischargePriceThreshold(float dischargePriceThreshold);
+    double dischargePriceThreshold() const;
+    void setDischargePriceThreshold(double dischargePriceThreshold);
 
     bool relativePriceEnabled() const;
     void setRelativePriceEnabled(bool relativePriceEnabled);
@@ -79,8 +79,8 @@ public:
     int blockBatteryOnGridConsumption() const;
     void setBlockBatteryOnGridConsumption(int blockBatteryOnGridConsumption);
 
-    float maxElectricalPower() const;
-    void setMaxElectricalPower(float maxElectricalPower);
+    double maxElectricalPower() const;
+    void setMaxElectricalPower(double maxElectricalPower);
 
     QList<int> targetSocPvSurplus() const;
     void setTargetSocPvSurplus(const QList<int> &targetSocPvSurplus);
@@ -105,15 +105,15 @@ public:
 
 signals:
     void optimizationEnabledChanged(bool optimizationEnabled);
-    void priceThresholdChanged(float priceThreshold);
-    void dischargePriceThresholdChanged(float dischargePriceThreshold);
+    void priceThresholdChanged(double priceThreshold);
+    void dischargePriceThresholdChanged(double dischargePriceThreshold);
     void avoidZeroFeedInActiveChanged(bool avoidZeroFeedInActive);
     void avoidZeroFeedInEnabledChanged(bool avoidZeroFeedInEnabled);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void chargeOnceChanged(bool chargeOnce);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void blockBatteryOnGridConsumptionChanged(int blockBatteryOnGridConsumption);
-    void maxElectricalPowerChanged(float maxElectricalPower);
+    void maxElectricalPowerChanged(double maxElectricalPower);
     void targetSocPvSurplusChanged(const QList<int> &targetSocPvSurplus);
     void maxSoCChanged(int maxSoC);
     void minSoCChanged(int minSoC);
@@ -125,15 +125,15 @@ signals:
 private:
     QUuid m_batteryThingId;
     bool m_optimizationEnabled = true;
-    float m_priceThreshold = 0;
-    float m_dischargePriceThreshold = 0;
+    double m_priceThreshold = 0;
+    double m_dischargePriceThreshold = 0;
     bool m_relativePriceEnabled = false;
     bool m_chargeOnce = false;
     bool m_controllableLocalSystem = false;
     bool m_avoidZeroFeedInEnabled = false;
     bool m_avoidZeroFeedInActive = false;
     int m_blockBatteryOnGridConsumption = EvCharger;
-    float m_maxElectricalPower = 0.0;
+    double m_maxElectricalPower = 0.0;
     QList<int> m_targetSocPvSurplus = {80};
     int m_maxSoC = 95;  // %
     int m_minSoC = 5;   // %

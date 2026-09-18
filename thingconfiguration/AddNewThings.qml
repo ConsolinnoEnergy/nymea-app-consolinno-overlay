@@ -242,7 +242,7 @@ Page {
 
                         function refresh(){
                             var thingsListId = [];
-                            if (evCharger.count === 1) {
+                            if (evCharger.count >= 3) {
                                 for (let i = 0; i < thingClassesProxyEvCharger.count; i++) {
                                     thingsListId[thingsListId.length] = thingClassesProxyEvCharger.get(i).id.toString();
                                 }

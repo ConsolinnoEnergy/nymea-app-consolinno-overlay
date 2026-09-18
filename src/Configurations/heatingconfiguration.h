@@ -23,6 +23,7 @@ class HeatingConfiguration : public QObject
     Q_PROPERTY(uint durationMinDwell READ durationMinDwell WRITE setDurationMinDwell NOTIFY durationMinDwellChanged)
     Q_PROPERTY(double meanSgr2 READ meanSgr2 WRITE setMeanSgr2 NOTIFY meanSgr2Changed)
     Q_PROPERTY(double meanSgr3 READ meanSgr3 WRITE setMeanSgr3 NOTIFY meanSgr3Changed)
+    Q_PROPERTY(uint sgReadyState READ sgReadyState WRITE setSgReadyState NOTIFY sgReadyStateChanged)
 
 public:
     explicit HeatingConfiguration(QObject *parent = nullptr);
@@ -87,6 +88,9 @@ public:
     double meanSgr3() const;
     void setMeanSgr3(double meanSgr3);
 
+    uint sgReadyState() const;
+    void setSgReadyState(uint sgReadyState);
+
 signals:
     void maxThermalEnergyChanged(const double maxThermalEnergy);
     void maxElectricalPowerChanged(const double maxElectricalPower);
@@ -100,6 +104,7 @@ signals:
     void durationMinDwellChanged(uint durationMinDwell);
     void meanSgr2Changed(double meanSgr2);
     void meanSgr3Changed(double meanSgr3);
+    void sgReadyStateChanged(uint sgReadyState);
     void priceThresholdChanged(double priceThreshold);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
     void optimizationModeChanged(HeatingConfiguration::HPOptimizationMode optimizationMode);
@@ -122,6 +127,7 @@ private:
     uint m_durationMinDwell = 600;
     double m_meanSgr2 = 500.0;
     double m_meanSgr3 = 1500.0;
+    uint m_sgReadyState = 1;
 
 };
 

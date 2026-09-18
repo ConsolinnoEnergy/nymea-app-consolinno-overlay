@@ -30,8 +30,8 @@ QVariant PvConfigurations::data(const QModelIndex &index, int role) const
         return m_list.at(index.row())->roofPitch();
     case RoleAlignment:
         return m_list.at(index.row())->alignment();
-    case RoleKwPeak:
-        return m_list.at(index.row())->kwPeak();
+    case RoleWPeak:
+        return m_list.at(index.row())->wPeak();
 
     }
 
@@ -47,7 +47,7 @@ QHash<int, QByteArray> PvConfigurations::roleNames() const
     roles.insert(RoleLongitude, "longitude");
     roles.insert(RoleRoofPitch, "roofPitch");
     roles.insert(RoleAlignment, "alignment");
-    roles.insert(RoleKwPeak, "kwPeak");
+    roles.insert(RoleWPeak, "wPeak");
     return roles;
 }
 
@@ -103,9 +103,9 @@ void PvConfigurations::addConfiguration(PvConfiguration *pvConfiguration)
         emit dataChanged(idx, idx, {RoleAlignment});
     });
 
-    connect(pvConfiguration, &PvConfiguration::kwPeakChanged, this, [=](){
+    connect(pvConfiguration, &PvConfiguration::wPeakChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(pvConfiguration));
-        emit dataChanged(idx, idx, {RoleKwPeak});
+        emit dataChanged(idx, idx, {RoleWPeak});
     });
 
 

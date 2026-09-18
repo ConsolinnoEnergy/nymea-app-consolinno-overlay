@@ -19,7 +19,7 @@ public:
      RoleLongitude,
      RoleRoofPitch,
      RoleAlignment,
-     RoleKwPeak
+    RoleWPeak
     };
     Q_ENUM(Role);
 
