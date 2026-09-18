@@ -24,7 +24,7 @@ Page {
                     Math.abs(Number.fromLocaleString(Qt.locale(), longitudeInput.text) - pvConfiguration.longitude) > 0.000001 ||
                     Number.fromLocaleString(Qt.locale(), roofpitchInput.text) !== pvConfiguration.roofPitch ||
                     alignment.currentValue !== pvConfiguration.alignment ||
-                    Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) - pvConfiguration.kwPeak) > 0.000001 ||
+                    Math.abs(Number.fromLocaleString(Qt.locale(), peakPowerInput.text) * 1000 - pvConfiguration.wPeak) > 0.000001 ||
                     (gridSupportControl.visible && gridSupportControl.checked !== pvConfiguration.controllableLocalSystem);
         }
     }
@@ -53,9 +53,10 @@ Page {
                                                                             latitudeInput.text),
                                                             "roofPitch": roofpitchInput.text,
                                                             "alignment": alignment.comboBox.currentValue,
-                                                            "kwPeak": Number.fromLocaleString(
-                                                                          Qt.locale(),
-                                                                          peakPowerInput.text),
+                                                            // The user enters kW; the backend expects wPeak in W.
+                                                            "wPeak": Number.fromLocaleString(
+                                                                         Qt.locale(),
+                                                                         peakPowerInput.text) * 1000,
                                                             "controllableLocalSystem": gridSupportControl.checked
                                                         });
             if (calledFromAssistant) {
@@ -248,7 +249,7 @@ Page {
                         .arg(NymeaUtils.floatToLocaleString(peakPowerValidator.bottom))
                         .arg(NymeaUtils.floatToLocaleString(peakPowerValidator.top))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: pvConfiguration.kwPeak.toLocaleString(Qt.locale())
+                        textField.text: (pvConfiguration.wPeak / 1000).toLocaleString(Qt.locale())
                         textField.validator: DoubleValidator {
                             id: peakPowerValidator
                             bottom: 1

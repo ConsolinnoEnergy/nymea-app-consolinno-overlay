@@ -11,7 +11,7 @@ Page {
     bottomPadding: 0
     property int navigationFooterHeight: 0
     property Thing thing
-    property ChargingOptimizationConfiguration chargingOptimizationConfiguration: hemsManager.chargingOptimizationConfigurations.getChargingOptimizationConfiguration(thing.id)
+    property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property bool calledFromAssistant: false
     signal done()
 
@@ -19,15 +19,15 @@ Page {
         if (calledFromAssistant) {
             return true;
         } else {
-            return gridSupportControl.checked != chargingOptimizationConfiguration.controllableLocalSystem;
+            return gridSupportControl.checked != chargingConfiguration.controllableLocalSystem;
         }
     }
 
     function applyChanges() {
-        hemsManager.setChargingOptimizationConfiguration(chargingOptimizationConfiguration.evChargerThingId,
-                                                         {
-                                                             controllableLocalSystem: gridSupportControl.checked
-                                                         });
+        hemsManager.setChargingConfiguration(chargingConfiguration.evChargerThingId,
+                                             {
+                                                 controllableLocalSystem: gridSupportControl.checked
+                                             });
         if (!calledFromAssistant) {
             pageStack.pop();
         }
@@ -53,7 +53,7 @@ Page {
 
     Connections {
         target: hemsManager
-        onSetChargingOptimizationConfigurationReply: function(commandId, error) {
+        onSetChargingConfigurationReply: function(commandId, error) {
             if (commandId == d.pendingCallId) {
                 d.pendingCallId = -1
 
@@ -109,7 +109,7 @@ Page {
                         helpText: qsTr("If the device must be controlled according to §14a, then this setting must be enabled.")
 
                         Component.onCompleted: {
-                            checked = chargingOptimizationConfiguration.controllableLocalSystem;
+                            checked = chargingConfiguration.controllableLocalSystem;
                         }
                     }
                 }

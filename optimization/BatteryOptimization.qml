@@ -21,7 +21,7 @@ Page {
         if (calledFromAssistant) {
             return true;
         } else {
-            return (maxElectricalPower.visible && Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - batteryConfiguration.maxElectricalPower) > 0.000001) ||
+            return (maxElectricalPower.visible && Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000 - batteryConfiguration.maxElectricalPower) > 0.000001) ||
                     gridSupportControl.checked !== batteryConfiguration.controllableLocalSystem ||
                     (zeroCompensationControl.visible && zeroCompensationControl.checked !== batteryConfiguration.avoidZeroFeedInEnabled) ||
                     (blockEVChargingFromBatteryControl.visible && blockEVChargingFromBatteryControl.checked !== Boolean(batteryConfiguration.blockBatteryOnGridConsumption & BatteryConfiguration.EvCharger)) ||
@@ -50,7 +50,7 @@ Page {
             blockBatteryOnGridConsumption: blockBatteryOnGridConsumption
         };
         if (maxElectricalPower.visible) {
-            // Backend expects value in W.
+            // The user enters kW; the backend expects maxElectricalPower in W.
             config.maxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         }
         if (hemsControlledBattery.visible) {
@@ -144,10 +144,10 @@ Page {
                         compact: true
                         unit: qsTr("kW")
                         helpText:
-                            qsTr("The value must not be below %1.")
+                            qsTr("The value must not be below %1 kW.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+batteryConfiguration.maxElectricalPower / 1000).toLocaleString()
+                        textField.text: (batteryConfiguration.maxElectricalPower / 1000).toLocaleString(Qt.locale())
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator

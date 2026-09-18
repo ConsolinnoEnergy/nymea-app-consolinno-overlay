@@ -12,7 +12,7 @@ class PvConfiguration : public QObject
     Q_PROPERTY(double latitude READ latitude WRITE setLatitude NOTIFY latitudeChanged)
     Q_PROPERTY(double roofPitch READ roofPitch WRITE setRoofPitch NOTIFY roofPitchChanged )
     Q_PROPERTY(double alignment READ alignment WRITE setAlignment NOTIFY alignmentChanged)
-    Q_PROPERTY(double kwPeak READ kwPeak  WRITE setKwPeak NOTIFY kwPeakChanged)
+    Q_PROPERTY(double wPeak READ wPeak WRITE setWPeak NOTIFY wPeakChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
@@ -33,8 +33,8 @@ public:
     int alignment() const;
     void setAlignment(const int alignment);
 
-    float kwPeak() const;
-    void setKwPeak(const float kwPeak);
+    double wPeak() const;
+    void setWPeak(const double wPeak);
 
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(bool controllableLocalSystem);
@@ -44,7 +44,7 @@ signals:
     void latitudeChanged(const int latitude);
     void roofPitchChanged(const int roofPitch);
     void alignmentChanged(const int alignment);
-    void kwPeakChanged(const float kwPeak);
+    void wPeakChanged(const double wPeak);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
 
 
@@ -54,7 +54,7 @@ private:
     double m_latitude = 0;
     int m_roofPitch = 0;
     int m_alignment = 0;
-    float m_kwPeak = 0;
+    double m_wPeak = 0;
     bool m_controllableLocalSystem = false;
 
 };

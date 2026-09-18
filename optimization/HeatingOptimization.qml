@@ -21,7 +21,7 @@ Page {
         if (calledFromAssistant) {
             return true;
         } else {
-            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - heatingConfiguration.maxElectricalPower) > 0.000001 ||
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000 - heatingConfiguration.maxElectricalPower) > 0.000001 ||
                     gridSupportControl.checked !== heatingConfiguration.controllableLocalSystem ||
                     (heatMeterCombo.visible && meterModel.get(heatMeterCombo.currentIndex).thingId !== heatingConfiguration.heatMeterThingId.toString());
         }
@@ -33,32 +33,11 @@ Page {
             return;
         }
 
-        let inputText = maxElectricalPower.text
-        inputText.includes(",") === true ? inputText = inputText.replace(",",".") : inputText
-        // TODO: enum mapping is still a workaround - heatingConfiguration.optimizationMode
-        // returns an int, but setHeatingConfiguration expects a string enum name.
-        // Fix properly by handling the mapping in C++ (HemsManager or HeatingConfiguration).
-        const optimizationModeMap = {
-          0: "OptimizationModePVSurplus",
-          1: "OptimizationModeDynamicPricing",
-          2: "OptimizationModeOff",
-        };
-
-        const currentValue = heatingConfiguration.optimizationMode;
-
         const newConfig = {
-            "heatPumpThingId":       heatingConfiguration.heatPumpThingId,
-            "optimizationEnabled":   heatingConfiguration.optimizationEnabled,
-            "floorHeatingArea":      heatingConfiguration.floorHeatingArea,
-            "maxThermalEnergy":      heatingConfiguration.maxThermalEnergy,
-            "maxElectricalPower":    +inputText,
-            "priceThreshold":        heatingConfiguration.priceThreshold,
-            "relativePriceEnabled":  heatingConfiguration.relativePriceEnabled,
+            // The user enters kW; the backend expects maxElectricalPower in W.
+            "maxElectricalPower": Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000,
             "controllableLocalSystem": gridSupportControl.checked,
-            "heatMeterThingId":      meterModel.get(heatMeterCombo.currentIndex).thingId,
-            "optimizationMode":      optimizationModeMap.hasOwnProperty(currentValue)
-                                         ? optimizationModeMap[currentValue]
-                                         : "OptimizationModeOff"
+            "heatMeterThingId": meterModel.get(heatMeterCombo.currentIndex).thingId
         };
 
         d.pendingCallId = hemsManager.setHeatingConfiguration(heatingConfiguration.heatPumpThingId, newConfig)
@@ -178,10 +157,10 @@ Page {
                         compact: true
                         unit: qsTr("kW")
                         helpText:
-                            qsTr("The value must not be below %1.")
+                            qsTr("The value must not be below %1 kW.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+heatingConfiguration.maxElectricalPower).toLocaleString()
+                        textField.text: (heatingConfiguration.maxElectricalPower / 1000).toLocaleString(Qt.locale())
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator

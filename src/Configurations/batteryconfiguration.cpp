@@ -58,22 +58,22 @@ void BatteryConfiguration::setAvoidZeroFeedInEnabled(bool avoidZeroFeedInEnabled
 }
 
 
-float BatteryConfiguration::priceThreshold() const {
+double BatteryConfiguration::priceThreshold() const {
     return m_priceThreshold;
 }
 
-void BatteryConfiguration::setPriceThreshold(float priceThreshold) {
+void BatteryConfiguration::setPriceThreshold(double priceThreshold) {
 
     m_priceThreshold = priceThreshold;
     emit priceThresholdChanged(m_priceThreshold);
 }
 
 
-float BatteryConfiguration::dischargePriceThreshold() const {
+double BatteryConfiguration::dischargePriceThreshold() const {
     return m_dischargePriceThreshold;
 }
 
-void BatteryConfiguration::setDischargePriceThreshold(float dischargePriceThreshold) {
+void BatteryConfiguration::setDischargePriceThreshold(double dischargePriceThreshold) {
     m_dischargePriceThreshold = dischargePriceThreshold;
     emit dischargePriceThresholdChanged(m_dischargePriceThreshold);
 }
@@ -128,12 +128,12 @@ void BatteryConfiguration::setBlockBatteryOnGridConsumption(int blockBatteryOnGr
     emit blockBatteryOnGridConsumptionChanged(blockBatteryOnGridConsumption);
 }
 
-float BatteryConfiguration::maxElectricalPower() const
+double BatteryConfiguration::maxElectricalPower() const
 {
     return m_maxElectricalPower;
 }
 
-void BatteryConfiguration::setMaxElectricalPower(float maxElectricalPower)
+void BatteryConfiguration::setMaxElectricalPower(double maxElectricalPower)
 {
     if (m_maxElectricalPower == maxElectricalPower)
         return;

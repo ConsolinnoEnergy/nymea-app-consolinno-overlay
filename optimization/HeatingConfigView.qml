@@ -89,7 +89,7 @@ GenericConfigPage {
     function saveSettings() {
         var newConfig = JSON.parse(JSON.stringify(heatingconfig));
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
-        newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).enumname;
+        newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).value;
         newConfig.relativePriceEnabled = true;
         if (minPVSurplusPower.visible) {
             newConfig.pvSurplusThreshold = parseInt(minPVSurplusPower.text);

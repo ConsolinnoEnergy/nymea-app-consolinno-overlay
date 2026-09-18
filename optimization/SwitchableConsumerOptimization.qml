@@ -20,7 +20,7 @@ Page {
         if (calledFromAssistant) {
             return true;
         } else {
-            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) - switchConfiguration.maxElectricalPower) > 0.000001;
+            return Math.abs(Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000 - switchConfiguration.maxElectricalPower) > 0.000001;
             // #TODO CLS toggle starting with version 2.2.
             // gridSupportControl.checked !== switchConfiguration.controllableLocalSystem
         }
@@ -32,7 +32,6 @@ Page {
             return;
         }
 
-        // Backend expects value in W.
         let parsedMaxElectricalPower = Number.fromLocaleString(Qt.locale(), maxElectricalPower.text) * 1000;
         // #TODO CLS toggle only starting with version 2.2
         d.pendingCallId = hemsManager.setSwitchConfiguration(
@@ -122,10 +121,10 @@ Page {
                         compact: true
                         unit: qsTr("kW")
                         helpText:
-                            qsTr("The value must not be below %1.")
+                            qsTr("The value must not be below %1 kW.")
                         .arg(NymeaUtils.floatToLocaleString(maxElectricalPowerValidator.bottom))
                         feedbackText: qsTr("The value is outside the valid range.")
-                        textField.text: (+switchConfiguration.maxElectricalPower / 1000).toLocaleString()
+                        textField.text: (switchConfiguration.maxElectricalPower / 1000).toLocaleString(Qt.locale())
                         textField.maximumLength: 10
                         textField.validator: DoubleValidator  {
                             id: maxElectricalPowerValidator
