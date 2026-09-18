@@ -53,6 +53,15 @@ Item {
     property bool percentAxisVisible: false
     property bool loading: false
 
+    // Timestamp (epoch ms) currently "pinned" by an open tooltip, in
+    // milliseconds - drives the vertical highlight line/intersection
+    // circles below (see "d.selectedXPixel()"/"d.selectedPoints()").
+    // -1 means "no selection". Set internally by the tap MouseArea below;
+    // the caller resets it back to -1 once the shared tooltip closes or a
+    // different chart's tooltip opens instead - mirrors
+    // "selectedCategoryIndex" on CoStatsBarChart.
+    property double selectedTimestampMs: -1
+
     readonly property date visibleDay: new Date(d.visibleStartTime + d.visibleWindowMs / 2)
 
     // Bounding box of the plot area (excluding axis labels/margins), in this
@@ -152,6 +161,65 @@ Item {
 
         function clamp(value, min, max) {
             return Math.max(min, Math.min(max, value))
+        }
+
+        // Pixel x-position (in this Item's own coordinate space) of
+        // "root.selectedTimestampMs", or -1 if nothing is selected/the
+        // chart has no plot area yet. Uses the same time-fraction math as
+        // the tap MouseArea below (in reverse), so the highlight always
+        // lines up exactly with what a click at that pixel would report.
+        function selectedXPixel() {
+            if (root.selectedTimestampMs < 0)
+                return -1
+            var plotArea = chartView.plotArea
+            if (plotArea.width <= 0)
+                return -1
+            var fraction = d.clamp((root.selectedTimestampMs - d.visibleStartTime) / d.visibleWindowMs, 0, 1)
+            return plotArea.x + fraction * plotArea.width
+        }
+
+        // One {x, y, color, borderColor} entry per visible series that has
+        // a sample near "root.selectedTimestampMs", in this Item's own
+        // coordinate space - used to draw the intersection circles at the
+        // selected timestamp (see below). Mirrors CoStatsView's
+        // "d.showLineChartTooltip" value lookup (same nearest-neighbour
+        // "model.indexOf"/"valueFunction" shape) since it needs the same
+        // per-series values, just converted to pixels instead of text.
+        function selectedPoints() {
+            var xPixel = d.selectedXPixel()
+            if (xPixel < 0)
+                return []
+            var points = []
+            for (var i = 0; i < root.series.length; i++) {
+                var desc = root.series[i]
+                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction)
+                    continue
+                var model = desc.model
+                if (typeof model.indexOf !== "function")
+                    continue
+                var idx = model.indexOf(new Date(root.selectedTimestampMs))
+                if (idx < 0)
+                    continue
+                var entry = model.get(idx)
+                if (!entry)
+                    continue
+                var value = desc.valueFunction(entry)
+                if (value === undefined || value === null)
+                    continue
+                var axis = desc.axis === "right" ? yAxisRight : yAxisLeft
+                var range = axis.max - axis.min
+                if (range <= 0)
+                    continue
+                var yFraction = d.clamp((value - axis.min) / range, 0, 1)
+                var plotArea = chartView.plotArea
+                points.push({
+                    x: xPixel,
+                    y: plotArea.y + plotArea.height * (1 - yFraction),
+                    color: desc.color,
+                    borderColor: desc.borderColor ? desc.borderColor : desc.color
+                })
+            }
+            return points
         }
 
         // "Nice numbers" axis calculation: rounds the per-label step up to
@@ -806,7 +874,40 @@ Item {
                 var fraction = d.clamp((mouse.x - plotArea.x) / plotArea.width, 0, 1)
                 var timestamp = new Date(d.visibleStartTime + fraction * d.visibleWindowMs)
                 var anchorRect = Qt.rect(mouse.x - 1, plotArea.y, 2, plotArea.height)
+                root.selectedTimestampMs = timestamp.getTime()
                 root.pointSelected(timestamp, anchorRect)
+            }
+        }
+
+        // -- Highlight the selected timestamp (see "selectedTimestampMs"
+        // above) while its tooltip is open: a vertical line at that x, plus
+        // a small circle per visible series where it crosses that line -
+        // same size/style as the color swatches in the tooltip's own
+        // content (CoChartTooltip.qml) so the two are visually tied
+        // together.
+        Rectangle {
+            x: d.selectedXPixel()
+            y: chartView.plotArea.y
+            width: 1
+            height: chartView.plotArea.height
+            color: Style.colors.components_Statistics_Tooltip_line
+            visible: d.selectedXPixel() >= 0
+        }
+
+        Repeater {
+            model: d.selectedPoints()
+
+            delegate: Rectangle {
+                required property var modelData
+
+                x: modelData.x - width / 2
+                y: modelData.y - height / 2
+                width: 12
+                height: 12
+                radius: width / 2
+                color: modelData.color
+                border.color: modelData.borderColor
+                border.width: 1
             }
         }
     } // chartContainer

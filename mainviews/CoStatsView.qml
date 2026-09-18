@@ -709,7 +709,14 @@ MainViewBase {
         // Undim whichever bar chart is currently dimmed (see
         // "d.currentDimmedBarChart"/"d.setDimmedBarChart" below) once the
         // tooltip closes for any reason (close button, tap-outside, scroll).
-        onDismissRequested: d.setDimmedBarChart(null)
+        // Also clears the day line chart's selected-timestamp highlight
+        // (vertical line + intersection circles - see
+        // CoStatsLineChart.qml's "selectedTimestampMs") for the same
+        // reason.
+        onDismissRequested: {
+            d.setDimmedBarChart(null)
+            dayLineChart.selectedTimestampMs = -1
+        }
     }
 
     QtObject {
@@ -1471,6 +1478,11 @@ MainViewBase {
                 entries = entries.concat(d.barTooltipEntries(stacks[s].series, categoryIndex))
             }
             d.setDimmedBarChart(chart)
+            // A bar chart's tooltip opening means the shared tooltip is no
+            // longer showing the line chart's selected timestamp - clear
+            // its highlight too (see CoStatsLineChart.qml's
+            // "selectedTimestampMs").
+            dayLineChart.selectedTimestampMs = -1
             var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
             var plotArea = chart.plotArea
             var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
