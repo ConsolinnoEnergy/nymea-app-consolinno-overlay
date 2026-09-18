@@ -12,7 +12,8 @@ import NymeaApp.Utils
 // automatically based on the data magnitude), and category labels on the
 // x-axis. Unlike CoStatsLineChart, this chart has no pinch-zoom or pan/drag
 // gesture support - the visible data is entirely determined by "categories"
-// and "stacks".
+// and "stacks". Tapping/clicking a category's bars emits "categorySelected"
+// (see below), for a caller-driven tooltip.
 //
 // The chart itself does not fetch or aggregate any data - the caller is
 // expected to already have one aggregated value per category per series
@@ -47,6 +48,21 @@ Item {
     property var categories: []
     property var stacks: []
     property bool loading: false
+
+    // Bounding box of the plot area (excluding axis labels/margins), in this
+    // Item's own coordinate space - exposed so a caller reacting to
+    // "categorySelected" below can vertically center a tooltip on the chart
+    // (chartView fills chartContainer, which fills this root Item with no
+    // offset, so chartView.plotArea is already valid in root's coordinates
+    // without any extra mapping).
+    readonly property alias plotArea: chartView.plotArea
+
+    // Emitted when the user taps/clicks a category's bars. "anchorRect" is
+    // the tapped category's full slot (both stacks, since QtCharts groups
+    // them together within one category slot) - x-range covering that one
+    // category, full plot height - in this Item's own coordinate space (see
+    // "plotArea" above).
+    signal categorySelected(int index, rect anchorRect)
 
     // ── Private state & helpers ──────────────────────────────────────────
     QtObject {
@@ -445,6 +461,39 @@ Item {
             font: Style.newExtraSmallFontBold
             color: Style.colors.typography_Basic_Secondary
             text: d.unitLabel()
+        }
+
+        // -- Tap-to-select a category (for the caller's tooltip; see
+        // "categorySelected" above). Ignores taps outside the plot area
+        // (e.g. on the axis labels). Snaps to the nearest category by
+        // treating each real category + its trailing gap slot (see
+        // "expandedCategories") as one combined slot of width
+        // "slotWidth * 2" and rounding the tap position to the nearest
+        // whole slot - this also sensibly assigns taps that land in the
+        // (mostly empty) gap to whichever neighboring category is closer.
+        //
+        // A MouseArea is used here (instead of a TapHandler) because
+        // QtCharts' ChartView unconditionally grabs all mouse buttons for
+        // its own (unused here) pressed/released/clicked signals. Being a
+        // sibling declared after "chartView", this MouseArea is hit-tested
+        // first and takes the click before ChartView ever sees it; a
+        // TapHandler hosted on "chartContainer" (the parent) is always
+        // hit-tested after ChartView and would never receive the click.
+        MouseArea {
+            anchors.fill: parent
+            onClicked: (mouse) => {
+                var plotArea = chartView.plotArea
+                if (root.categories.length === 0 || plotArea.width <= 0)
+                    return
+                if (mouse.x < plotArea.x || mouse.x > plotArea.x + plotArea.width
+                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height)
+                    return
+                var slotWidth = plotArea.width / d.expandedSlotCount
+                var index = Math.round((mouse.x - plotArea.x) / (slotWidth * 2))
+                index = Math.max(0, Math.min(index, root.categories.length - 1))
+                var anchorRect = Qt.rect(plotArea.x + slotWidth * index * 2, plotArea.y, slotWidth, plotArea.height)
+                root.categorySelected(index, anchorRect)
+            }
         }
     } // chartContainer
 

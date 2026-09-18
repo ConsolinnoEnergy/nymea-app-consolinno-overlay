@@ -55,7 +55,22 @@ Item {
 
     readonly property date visibleDay: new Date(d.visibleStartTime + d.visibleWindowMs / 2)
 
+    // Bounding box of the plot area (excluding axis labels/margins), in this
+    // Item's own coordinate space - see the identical property on
+    // CoStatsBarChart for why no extra coordinate mapping is needed.
+    readonly property alias plotArea: chartView.plotArea
+
     signal visibleRangeChanged(date startTime, date endTime)
+
+    // Emitted when the user taps/clicks a point on the chart (for the
+    // caller's tooltip). "timestamp" is the tapped x position converted back
+    // to a time via the current visible window (not snapped to any actual
+    // data sample - the caller is expected to look up the nearest sample
+    // per series itself, the same way it already extracts values via each
+    // series' own "model"/"valueFunction"). "anchorRect" is a thin vertical
+    // slice at the tapped x position, spanning the full plot height, in
+    // this Item's own coordinate space (see "plotArea" above).
+    signal pointSelected(date timestamp, rect anchorRect)
 
     // Sets the visible x-axis window to the given size (clamped to
     // [d.minWindowMs, d.maxWindowMs]) while keeping the current center time,
@@ -763,6 +778,35 @@ Item {
                 d.visibleWindowMs = newWindow
                 d.visibleStartTime = timeAtPivot - pivotFraction * newWindow
                 rangeSettleTimer.restart()
+            }
+        }
+
+        // -- Tap-to-select a point (for the caller's tooltip; see
+        // "pointSelected" above). A MouseArea is used here (instead of a
+        // TapHandler) because QtCharts' ChartView unconditionally grabs all
+        // mouse buttons for its own (unused here) pressed/released/clicked
+        // signals. Being a sibling declared after "chartView", this
+        // MouseArea is hit-tested first and takes the click before
+        // ChartView (or the PinchHandler/DragHandler/WheelHandler above,
+        // which are hosted on "chartContainer" and are only ever able to
+        // grab by stealing once a gesture exceeds their movement/pinch
+        // threshold) ever sees it - so a plain click that never moves
+        // simply results in "onClicked" firing here, while an actual
+        // pan/pinch/wheel gesture is unaffected. Ignores clicks outside the
+        // plot area (e.g. on the axis labels).
+        MouseArea {
+            anchors.fill: parent
+            onClicked: (mouse) => {
+                var plotArea = chartView.plotArea
+                if (plotArea.width <= 0)
+                    return
+                if (mouse.x < plotArea.x || mouse.x > plotArea.x + plotArea.width
+                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height)
+                    return
+                var fraction = d.clamp((mouse.x - plotArea.x) / plotArea.width, 0, 1)
+                var timestamp = new Date(d.visibleStartTime + fraction * d.visibleWindowMs)
+                var anchorRect = Qt.rect(mouse.x - 1, plotArea.y, 2, plotArea.height)
+                root.pointSelected(timestamp, anchorRect)
             }
         }
     } // chartContainer

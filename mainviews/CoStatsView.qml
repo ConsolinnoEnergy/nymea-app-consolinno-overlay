@@ -4,6 +4,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea
+import NymeaApp.Utils
 
 import "../components"
 import "../utils/DateUtils.js" as DateUtils
@@ -451,6 +452,8 @@ MainViewBase {
                                             ? (d.activeChartTab === 0 ? d.energyBalanceLineSeries : d.consumptionLineSeries)
                                             : []
 
+                                    onPointSelected: (timestamp, anchorRect) => d.showLineChartTooltip(dayLineChart, series, timestamp, anchorRect)
+
                                     // Fetches (or re-fetches) power-balance data and
                                     // per-consumer power data for exactly the range
                                     // currently visible in the chart, whenever it
@@ -550,6 +553,7 @@ MainViewBase {
                                 visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Week
 
                                 CoStatsBarChart {
+                                    id: weekBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -566,6 +570,7 @@ MainViewBase {
                                                : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }])
                                             : []
                                     loading: weekEnergyLogs.fetchingData
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, index, anchorRect)
                                 }
 
 
@@ -584,6 +589,7 @@ MainViewBase {
                                 visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
 
                                 CoStatsBarChart {
+                                    id: monthBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -594,9 +600,11 @@ MainViewBase {
                                                : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }])
                                             : []
                                     loading: monthEnergyLogs.fetchingData
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthBarChart, categories, stacks, index, anchorRect)
                                 }
 
                                 CoStatsBarChart {
+                                    id: monthYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -607,6 +615,7 @@ MainViewBase {
                                                : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthYoyBarChart, categories, stacks, index, anchorRect)
                                 }
 
                                 ChartLegendSection {
@@ -624,6 +633,7 @@ MainViewBase {
                                 visible: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
 
                                 CoStatsBarChart {
+                                    id: yearBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -634,9 +644,11 @@ MainViewBase {
                                                : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }])
                                             : []
                                     loading: yearEnergyLogs.fetchingData
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearBarChart, categories, stacks, index, anchorRect)
                                 }
 
                                 CoStatsBarChart {
+                                    id: yearYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: 300
 
@@ -647,6 +659,7 @@ MainViewBase {
                                                : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearYoyBarChart, categories, stacks, index, anchorRect)
                                 }
 
                                 ChartLegendSection {
@@ -681,6 +694,13 @@ MainViewBase {
     // are still evaluated - a plain imperative "recompute on demand"
     // function tied to a signal handler would risk a stale/wrong-shaped
     // read on whichever section is currently invisible).
+    // Single tooltip instance shared by every chart on this page (only one
+    // can ever be open at a time - opening a new one via "showAt" just
+    // repositions/refills this same popup). See CoChartTooltip.qml.
+    CoChartTooltip {
+        id: chartTooltip
+    }
+
     QtObject {
         id: d
 
@@ -1372,6 +1392,88 @@ MainViewBase {
                 }
             }
             return result
+        }
+
+        // ---- Chart tooltip wiring (see the shared "chartTooltip" instance
+        // above and CoChartTooltip.qml) ----
+
+        // One entry per visible series carrying a non-zero value at
+        // "categoryIndex", built from a CoStatsBarChart-shaped series array
+        // (see CoStatsBarChart.qml's "stacks"/"series" doc comment) -
+        // "name"/"color"/"borderColor" are read straight off the series
+        // descriptor, only "valueText" needs formatting here.
+        function barTooltipEntries(series, categoryIndex) {
+            var entries = []
+            for (var i = 0; i < series.length; i++) {
+                var desc = series[i]
+                if (!desc || desc.visible === false || !desc.values)
+                    continue
+                var value = desc.values[categoryIndex]
+                if (!value)
+                    continue
+                entries.push({
+                    name: desc.name,
+                    color: desc.color,
+                    borderColor: desc.borderColor ? desc.borderColor : desc.color,
+                    valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + qsTr("kWh")
+                })
+            }
+            return entries
+        }
+
+        // Called from a CoStatsBarChart's "onCategorySelected". "chart" is
+        // that specific chart instance (needed to map its local
+        // "anchorRect"/"plotArea" into Overlay.overlay's coordinate space -
+        // every period tab has its own chart instance); "categories"/
+        // "stacks" are the same arrays currently bound to that chart's
+        // "categories"/"stacks" properties.
+        function showBarChartTooltip(chart, categories, stacks, categoryIndex, anchorRect) {
+            var entries = []
+            for (var s = 0; s < stacks.length; s++) {
+                entries = entries.concat(d.barTooltipEntries(stacks[s].series, categoryIndex))
+            }
+            var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
+            var plotArea = chart.plotArea
+            var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
+            chartTooltip.showAt(mappedAnchor, mappedChart, categories[categoryIndex], entries)
+        }
+
+        // Called from CoStatsLineChart's "onPointSelected". "series" is the
+        // same array currently bound to the chart's "series" property;
+        // unlike the bar-chart case above, each entry's value isn't
+        // precomputed per category - the nearest sample to "timestamp" is
+        // looked up per series via its own "model"/"valueFunction" (the
+        // same shape CoStatsLineChart itself uses internally to render the
+        // lines - see its file doc comment).
+        function showLineChartTooltip(chart, series, timestamp, anchorRect) {
+            var entries = []
+            for (var i = 0; i < series.length; i++) {
+                var desc = series[i]
+                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction)
+                    continue
+                var model = desc.model
+                if (typeof model.indexOf !== "function")
+                    continue
+                var idx = model.indexOf(timestamp)
+                if (idx < 0)
+                    continue
+                var entry = model.get(idx)
+                if (!entry)
+                    continue
+                var value = desc.valueFunction(entry)
+                if (value === undefined || value === null)
+                    continue
+                entries.push({
+                    name: desc.name,
+                    color: desc.color,
+                    borderColor: desc.borderColor ? desc.borderColor : desc.color,
+                    valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
+                })
+            }
+            var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
+            var plotArea = chart.plotArea
+            var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
+            chartTooltip.showAt(mappedAnchor, mappedChart, Qt.formatDateTime(timestamp, "dd.MM.yyyy hh:mm"), entries)
         }
     }
 }
