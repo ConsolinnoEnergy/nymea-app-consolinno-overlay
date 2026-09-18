@@ -240,6 +240,12 @@ MainViewBase {
         anchors.margins: app.margins / 2
         contentHeight: contentColumn.height
 
+        // The chart tooltip's position is only computed once, when it's
+        // opened (see CoChartTooltip.qml/"showAt") - it doesn't track the
+        // chart's position as the page scrolls, so just close it instead of
+        // letting it drift out of place.
+        onContentYChanged: chartTooltip.close()
+
         ColumnLayout {
             id: contentColumn
             width: parent.width
