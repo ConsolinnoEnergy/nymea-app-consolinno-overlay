@@ -347,5 +347,6 @@
         <file>components/CoStatsLineChart.qml</file>
         <file>components/CoStatsChartLegend.qml</file>
         <file>components/CoStatsBarChart.qml</file>
+        <file>components/CoChartTooltip.qml</file>
     </qresource>
 </RCC>
