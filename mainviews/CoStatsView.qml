@@ -706,12 +706,43 @@ MainViewBase {
     CoChartTooltip {
         id: chartTooltip
         blurSourceItem: root
+        // Undim whichever bar chart is currently dimmed (see
+        // "d.currentDimmedBarChart"/"d.setDimmedBarChart" below) once the
+        // tooltip closes for any reason (close button, tap-outside, scroll).
+        onDismissRequested: d.setDimmedBarChart(null)
     }
 
     QtObject {
         id: d
 
         property int activeChartTab: 0 // 0 = Energiebilanz, 1 = Verbrauch
+
+        // Whichever CoStatsBarChart currently has a category "pinned"/dimmed
+        // for the open tooltip (see CoStatsBarChart.qml's
+        // "selectedCategoryIndex"), or null if none. Tracked here (rather
+        // than e.g. always clearing every bar chart instance) since only
+        // one can ever be dimmed at a time, and clearing all 5 instances on
+        // every selection/dismissal would be needlessly wasteful.
+        property var currentDimmedBarChart: null
+
+        // Dims "chart"'s currently-tapped category (already set on "chart"
+        // itself by its own MouseArea, see CoStatsBarChart.qml) and
+        // undims whichever *other* chart was previously dimmed, if any.
+        // Pass "null" to just undim the current one (e.g. on tooltip
+        // dismissal, or when a CoStatsLineChart's tooltip opens instead).
+        function setDimmedBarChart(chart) {
+            if (d.currentDimmedBarChart && d.currentDimmedBarChart !== chart) {
+                d.currentDimmedBarChart.selectedCategoryIndex = -1
+            }
+            if (!chart) {
+                if (d.currentDimmedBarChart) {
+                    d.currentDimmedBarChart.selectedCategoryIndex = -1
+                }
+                d.currentDimmedBarChart = null
+            } else {
+                d.currentDimmedBarChart = chart
+            }
+        }
 
         // ---- "Which Thing types are present" flags ----
         // Backed by the "producers"/"batteries" ThingsProxy instances
@@ -1439,6 +1470,7 @@ MainViewBase {
             for (var s = 0; s < stacks.length; s++) {
                 entries = entries.concat(d.barTooltipEntries(stacks[s].series, categoryIndex))
             }
+            d.setDimmedBarChart(chart)
             var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
             var plotArea = chart.plotArea
             var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
@@ -1477,6 +1509,11 @@ MainViewBase {
                     valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
                 })
             }
+            // The line chart has no dimming/pinning concept of its own, but
+            // opening its tooltip should still undim a bar chart if one was
+            // dimmed (e.g. the day-tab was reached by tapping "back" while a
+            // bar-chart tab's tooltip was still open elsewhere).
+            d.setDimmedBarChart(null)
             var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
             var plotArea = chart.plotArea
             var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)

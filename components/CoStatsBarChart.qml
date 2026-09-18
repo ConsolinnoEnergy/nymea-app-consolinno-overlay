@@ -49,6 +49,15 @@ Item {
     property var stacks: []
     property bool loading: false
 
+    // Index of the category currently "pinned" by an open tooltip (see
+    // "categorySelected" below) - every other category is dimmed (see the
+    // overlay Rectangles near the end of this file) so the selected one
+    // stands out. -1 means no dimming (nothing selected/tooltip closed).
+    // Set internally as soon as a category is tapped; the caller
+    // (CoStatsView.qml) is responsible for resetting it back to -1 once its
+    // tooltip closes (this chart has no way of knowing that on its own).
+    property int selectedCategoryIndex: -1
+
     // Bounding box of the plot area (excluding axis labels/margins), in this
     // Item's own coordinate space - exposed so a caller reacting to
     // "categorySelected" below can vertically center a tooltip on the chart
@@ -124,6 +133,19 @@ Item {
         // be unique - QtCharts mishandles duplicate (e.g. repeated "")
         // category labels, corrupting the axis-to-value index mapping.
         readonly property int expandedSlotCount: root.categories.length > 0 ? root.categories.length * 2 - 1 : 0
+
+        // Pixel bounds of "root.selectedCategoryIndex"'s slot within the
+        // plot area - same formula as the MouseArea's "anchorRect"
+        // computation below, reused here for the dimming overlays. Callers
+        // must guard "root.selectedCategoryIndex >= 0" themselves.
+        function selectedSlotLeft() {
+            var slotWidth = chartView.plotArea.width / d.expandedSlotCount
+            return chartView.plotArea.x + slotWidth * root.selectedCategoryIndex * 2
+        }
+        function selectedSlotRight() {
+            var slotWidth = chartView.plotArea.width / d.expandedSlotCount
+            return d.selectedSlotLeft() + slotWidth
+        }
 
         function expandedCategories() {
             var result = []
@@ -492,8 +514,40 @@ Item {
                 var index = Math.round((mouse.x - plotArea.x) / (slotWidth * 2))
                 index = Math.max(0, Math.min(index, root.categories.length - 1))
                 var anchorRect = Qt.rect(plotArea.x + slotWidth * index * 2, plotArea.y, slotWidth, plotArea.height)
+                root.selectedCategoryIndex = index
                 root.categorySelected(index, anchorRect)
             }
+        }
+
+        // -- Dim every category other than "selectedCategoryIndex" (see its
+        // doc comment above) while a tooltip is open, so the selected one
+        // stands out. Two overlays (left of/right of the selected slot)
+        // rather than one-per-category, since only a single contiguous
+        // range ever needs dimming at a time. Rectangles (not setting
+        // acceptedMouseButtons) don't intercept clicks, so they can safely
+        // sit on top of the MouseArea above without blocking it.
+        Rectangle {
+            x: chartView.plotArea.x
+            y: chartView.plotArea.y
+            width: root.selectedCategoryIndex >= 0
+                   ? d.selectedSlotLeft() - chartView.plotArea.x
+                   : 0
+            height: chartView.plotArea.height
+            color: "white"
+            opacity: 1 - Style.numbers.components_Disabled_opacity
+            visible: width > 0
+        }
+
+        Rectangle {
+            x: root.selectedCategoryIndex >= 0 ? d.selectedSlotRight() : chartView.plotArea.x + chartView.plotArea.width
+            y: chartView.plotArea.y
+            width: root.selectedCategoryIndex >= 0
+                   ? (chartView.plotArea.x + chartView.plotArea.width) - d.selectedSlotRight()
+                   : 0
+            height: chartView.plotArea.height
+            color: "white"
+            opacity: 1 - Style.numbers.components_Disabled_opacity
+            visible: width > 0
         }
     } // chartContainer
 
