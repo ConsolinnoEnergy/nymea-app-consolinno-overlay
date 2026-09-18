@@ -1477,6 +1477,16 @@ MainViewBase {
             for (var s = 0; s < stacks.length; s++) {
                 entries = entries.concat(d.barTooltipEntries(stacks[s].series, categoryIndex))
             }
+            // Nothing to show (e.g. clicked a future/empty category with no
+            // recorded values yet) - bail out instead of opening an empty
+            // tooltip. Also reset the chart's own dimming state (set by its
+            // MouseArea before emitting this signal), since we never call
+            // "chartTooltip.showAt" to trigger the usual dismiss-driven
+            // reset.
+            if (entries.length === 0) {
+                chart.selectedCategoryIndex = -1
+                return
+            }
             d.setDimmedBarChart(chart)
             // A bar chart's tooltip opening means the shared tooltip is no
             // longer showing the line chart's selected timestamp - clear
@@ -1520,6 +1530,17 @@ MainViewBase {
                     borderColor: desc.borderColor ? desc.borderColor : desc.color,
                     valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
                 })
+            }
+            // Nothing to show (e.g. clicked a gap where no series has a
+            // sample near "timestamp", such as before the first/after the
+            // last data point of the day) - bail out instead of opening an
+            // empty tooltip. Also reset the chart's own highlight state
+            // (set by its MouseArea before emitting this signal), since we
+            // never call "chartTooltip.showAt" to trigger the usual
+            // dismiss-driven reset.
+            if (entries.length === 0) {
+                chart.selectedTimestampMs = -1
+                return
             }
             // The line chart has no dimming/pinning concept of its own, but
             // opening its tooltip should still undim a bar chart if one was
