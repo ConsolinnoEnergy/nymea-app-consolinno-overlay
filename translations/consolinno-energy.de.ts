@@ -1669,6 +1669,14 @@ Ihr %3 Team</translation>
     </message>
 </context>
 <context>
+    <name>CoDayPickerContent</name>
+    <message>
+        <location filename="../components/CoDayPickerContent.qml" line="81"/>
+        <source>MMMM d, yyyy</source>
+        <translation>d. MMMM yyyy</translation>
+    </message>
+</context>
+<context>
     <name>CoKpiStats</name>
     <message>
         <location filename="../mainviews/energy/CoKpiStats.qml" line="121"/>
@@ -1750,6 +1758,206 @@ Ihr %3 Team</translation>
     </message>
 </context>
 <context>
+    <name>CoPeriodPickerOverlay</name>
+    <message>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="15"/>
+        <source>Choose week</source>
+        <translation>Woche auswählen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="17"/>
+        <source>Choose month</source>
+        <translation>Monat auswählen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="19"/>
+        <source>Choose year</source>
+        <translation>Jahr auswählen</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="20"/>
+        <source>Choose day</source>
+        <translation>Datum auswählen</translation>
+    </message>
+</context>
+<context>
+    <name>CoPeriodSelector</name>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="139"/>
+        <source>CW %1, %2 – %3</source>
+        <translation>KW %1, %2 - %3</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="220"/>
+        <source>Day</source>
+        <translation>Tag</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="232"/>
+        <source>Week</source>
+        <translation>Woche</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="243"/>
+        <source>Month</source>
+        <translation>Monat</translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="254"/>
+        <source>Year</source>
+        <translation>Jahr</translation>
+    </message>
+</context>
+<context>
+    <name>CoStatsBarChart</name>
+    <message>
+        <location filename="../components/CoStatsBarChart.qml" line="193"/>
+        <source>MWh</source>
+        <translation>MWh</translation>
+    </message>
+    <message>
+        <location filename="../components/CoStatsBarChart.qml" line="193"/>
+        <source>kWh</source>
+        <translation>kWh</translation>
+    </message>
+</context>
+<context>
+    <name>CoStatsLineChart</name>
+    <message>
+        <location filename="../components/CoStatsLineChart.qml" line="629"/>
+        <source>kW</source>
+        <translation>kW</translation>
+    </message>
+</context>
+<context>
+    <name>CoStatsView</name>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="72"/>
+        <location filename="../mainviews/CoStatsView.qml" line="522"/>
+        <source>Sources</source>
+        <translation>Quellen</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="84"/>
+        <location filename="../mainviews/CoStatsView.qml" line="534"/>
+        <source>Consumers</source>
+        <translation>Verbraucher</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="256"/>
+        <source>History</source>
+        <translation>Historie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="266"/>
+        <source>Time period</source>
+        <translation>Zeitraum</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="282"/>
+        <source>Metrics</source>
+        <translation>Kennzahlen</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="298"/>
+        <source>Self-sufficiency</source>
+        <translation>Autarkie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="304"/>
+        <location filename="../mainviews/CoStatsView.qml" line="885"/>
+        <location filename="../mainviews/CoStatsView.qml" line="887"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
+        <source>Self-consumption</source>
+        <translation>Eigenverbrauch</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="310"/>
+        <source>Feed-in</source>
+        <translation>Einspeisung</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="316"/>
+        <source>Grid import</source>
+        <translation>Netzbezug</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="383"/>
+        <source>Energy balance</source>
+        <translation>Energiebilanz</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="389"/>
+        <location filename="../mainviews/CoStatsView.qml" line="826"/>
+        <location filename="../mainviews/CoStatsView.qml" line="828"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
+        <source>Consumption</source>
+        <translation>Verbrauch</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="809"/>
+        <location filename="../mainviews/CoStatsView.qml" line="811"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
+        <source>Production</source>
+        <translation>Produktion</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="817"/>
+        <location filename="../mainviews/CoStatsView.qml" line="819"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
+        <source>To grid</source>
+        <translation>Netzeinspeisung</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="835"/>
+        <location filename="../mainviews/CoStatsView.qml" line="837"/>
+        <source>To battery</source>
+        <translation>In Batterie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="843"/>
+        <location filename="../mainviews/CoStatsView.qml" line="845"/>
+        <location filename="../mainviews/CoStatsView.qml" line="899"/>
+        <location filename="../mainviews/CoStatsView.qml" line="901"/>
+        <source>From battery</source>
+        <translation>Von Batterie</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="852"/>
+        <location filename="../mainviews/CoStatsView.qml" line="854"/>
+        <location filename="../mainviews/CoStatsView.qml" line="908"/>
+        <location filename="../mainviews/CoStatsView.qml" line="910"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
+        <source>From grid</source>
+        <translation>Netzbezug</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="865"/>
+        <source>Battery SoC</source>
+        <translation>Batterie SoC</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="945"/>
+        <location filename="../mainviews/CoStatsView.qml" line="947"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1092"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1094"/>
+        <source>Other consumption</source>
+        <translation>Sonstiger Verbrauch</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="1142"/>
+        <source>CW %1</source>
+        <translation>KW %1</translation>
+    </message>
+</context>
+<context>
     <name>CoThirdPartyLicensesPage</name>
     <message>
         <location filename="../components/CoThirdPartyLicensesPage.qml" line="9"/>
@@ -1768,6 +1976,19 @@ Ihr %3 Team</translation>
     </message>
 </context>
 <context>
+    <name>CoWeekPickerContent</name>
+    <message>
+        <location filename="../components/CoWeekPickerContent.qml" line="41"/>
+        <source>CW %1, %2</source>
+        <translation>KW %1, %2</translation>
+    </message>
+    <message>
+        <location filename="../components/CoWeekPickerContent.qml" line="70"/>
+        <source>CW %1</source>
+        <translation>KW %1</translation>
+    </message>
+</context>
+<context>
     <name>ConEMSState</name>
     <message>
         <location filename="../thingconfiguration/ConEMSState.qml" line="61"/>
@@ -1778,7 +1999,7 @@ Ihr %3 Team</translation>
 <context>
     <name>Configuration</name>
     <message>
-        <location filename="../Configuration.qml" line="157"/>
+        <location filename="../Configuration.qml" line="159"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
@@ -1791,6 +2012,11 @@ Ihr %3 Team</translation>
         <location filename="../Configuration.qml" line="138"/>
         <source>History</source>
         <translation>Historie</translation>
+    </message>
+    <message>
+        <location filename="../Configuration.qml" line="140"/>
+        <source>History old</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
