@@ -26,7 +26,7 @@ bool hasOptimizationStrategy(const QVariant &value, int strategy)
 void logSetConfigurationResponse(const QString &configurationName, const QVariantMap &data)
 {
     const QString error = data.value("hemsError").toString();
-    if (error.isEmpty()) {
+    if (error.isEmpty() || error == QStringLiteral("HemsErrorNoError")) {
         qCDebug(dcHems()) << "Set" << configurationName << "configuration succeeded";
     } else {
         qCWarning(dcHems()) << "Setting" << configurationName << "configuration failed:" << error;
@@ -358,7 +358,7 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     QVariantMap params;
     params.insert("heatingConfiguration", config);
     qCDebug(dcHems()) << "Set heating configuration" << params;
-    qCInfo(dcHems()) << "Set heating configuration" << QJsonDocument(QJsonObject::fromVariantMap(params)).toJson(QJsonDocument::Compact);
+    qCDebug(dcHems()) << "Set heating configuration" << QJsonDocument(QJsonObject::fromVariantMap(params)).toJson(QJsonDocument::Compact);
 
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHeatingConfiguration", params, this, "setHeatingConfigurationResponse");
 }
