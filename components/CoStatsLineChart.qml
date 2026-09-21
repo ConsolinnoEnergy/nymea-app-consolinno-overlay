@@ -677,7 +677,7 @@ Item {
                     x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     text: Qt.formatTime(new Date(modelData), "hh:mm")
                 }
             }
@@ -691,7 +691,7 @@ Item {
                     y: axisFontMetrics.height + 2
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     text: Qt.formatDate(new Date(modelData), "d. MMM yyyy")
                 }
             }
@@ -708,7 +708,7 @@ Item {
             height: axisFontMetrics.height
             horizontalAlignment: Text.AlignRight
             font: Style.newExtraSmallFontBold
-            color: Style.colors.typography_Basic_Secondary
+            color: Style.colors.typography_Basic_Default
             text: qsTr("kW")
         }
 
@@ -728,7 +728,7 @@ Item {
                     y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                     horizontalAlignment: Text.AlignRight
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     text: NymeaUtils.floatToLocaleString(yAxisLeft.max - index * (yAxisLeft.max - yAxisLeft.min) / (d.yLabelCount - 1), 1)
                 }
             }
@@ -752,7 +752,7 @@ Item {
                     y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                     horizontalAlignment: Text.AlignLeft
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     // Guarded against yAxisRight being null: unlike yAxisLeft,
                     // this axis is never attached to any currently-visible
                     // series (percentAxisVisible is always false for now, see

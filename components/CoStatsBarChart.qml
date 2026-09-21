@@ -438,7 +438,7 @@ Item {
                     x: width * (index * 2)
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     text: modelData
                 }
             }
@@ -462,7 +462,7 @@ Item {
                     y: parent.height / (d.yLabelCount - 1) * index - font.pixelSize / 2
                     horizontalAlignment: Text.AlignRight
                     font: Style.newExtraSmallFont
-                    color: Style.colors.typography_Basic_Secondary
+                    color: Style.colors.typography_Basic_Default
                     text: d.formatAxisValue(yAxis.max - index * (yAxis.max - yAxis.min) / (d.yLabelCount - 1))
                 }
             }
@@ -481,7 +481,7 @@ Item {
             height: axisFontMetrics.height
             horizontalAlignment: Text.AlignRight
             font: Style.newExtraSmallFontBold
-            color: Style.colors.typography_Basic_Secondary
+            color: Style.colors.typography_Basic_Default
             text: d.unitLabel()
         }
 
