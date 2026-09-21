@@ -47,6 +47,11 @@ Item {
             spacing: Style.margins
         }
 
+        Item {
+            id: spacer
+            Layout.fillWidth: true
+        }
+
         CoIconButton {
             width: 36
             height: 36
