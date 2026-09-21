@@ -13,7 +13,7 @@ Item {
     property alias labelText: label.text
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
-    implicitWidth: layout.implicitWidth
+    implicitWidth: 300
 
     Rectangle {
         id: background
@@ -37,6 +37,7 @@ Item {
             font: Style.newH3Font
             horizontalAlignment: Text.AlignHCenter
             color: Style.colors.typography_Basic_Default
+            elide: Text.ElideRight
         }
 
         RowLayout {
@@ -58,6 +59,7 @@ Item {
                 Layout.alignment: Qt.AlignCenter
                 font: Style.newSmallFont
                 color: Style.colors.typography_Basic_Default
+                elide: Text.ElideRight
             }
         }
     }
