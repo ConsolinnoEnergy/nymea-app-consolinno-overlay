@@ -237,7 +237,9 @@ MainViewBase {
     Flickable {
         id: flickable
         anchors.fill: parent
-        anchors.margins: app.margins / 2
+        anchors.margins: Style.margins
+        anchors.topMargin: root.topMargin
+        anchors.bottomMargin: root.bottomMargin + Style.margins
         contentHeight: contentColumn.height
 
         // The chart tooltip's position is only computed once, when it's
@@ -251,15 +253,9 @@ MainViewBase {
             width: parent.width
             spacing: Style.margins
 
-            Item {
-                Layout.fillWidth: true
-                Layout.preferredHeight: root.topMargin
-            }
-
             Label {
                 Layout.fillWidth: true
-                Layout.leftMargin: Style.margins
-                Layout.rightMargin: Style.margins
+                Layout.topMargin: Style.margins
                 text: qsTr("History")
                 font: Style.newH1Font
                 color: Style.colors.typography_Basic_Default
@@ -678,11 +674,6 @@ MainViewBase {
                         }
                     }
                 }
-            }
-
-            Item {
-                Layout.fillWidth: true
-                Layout.preferredHeight: root.bottomMargin
             }
         }
     }
