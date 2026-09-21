@@ -406,7 +406,6 @@ MainViewBase {
                         ColumnLayout {
                             id: chartContentLayout
                             anchors.fill: parent
-                            anchors.margins: Style.margins
                             spacing: Style.margins
 
                             // ---- Day: single line chart, one flat legend ----
