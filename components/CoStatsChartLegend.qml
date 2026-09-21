@@ -22,8 +22,6 @@ Flow {
 
     signal seriesVisibilityToggled(int index, bool visible)
 
-    spacing: 8
-
     Repeater {
         model: root.series
 
