@@ -474,27 +474,59 @@ Item {
                 visible: false
             }
 
+            // -- Border "underlay" slots (see "dataSeriesN" below): drawn
+            // first (rendered underneath, in QtCharts' declaration-order
+            // z-stacking - like all series in this file) at 3px, in each
+            // series' "borderColor", with the actual 1px-wide data line
+            // painted directly on top of it - faking the outlined-line look
+            // from Figma, which QtCharts' LineSeries has no native stroke/
+            // border support for. Kept as a fully separate, parallel set of
+            // fixed slots (rather than e.g. reusing "dataSeriesN" with some
+            // toggle) to keep "seriesBinder" simple: every function below
+            // just updates both of a pair's slots identically, give or take
+            // width/color.
+            LineSeries { id: dataBorderSeries0; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries1; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries2; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries3; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries4; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries5; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries6; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries7; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries8; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries9; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries10; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries11; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries12; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries13; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries14; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries15; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries16; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries17; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries18; axisX: xAxis; width: 3 }
+            LineSeries { id: dataBorderSeries19; axisX: xAxis; width: 3 }
+
             // -- Fixed data-series slots, bound to root.series[i] --
-            LineSeries { id: dataSeries0; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries1; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries2; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries3; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries4; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries5; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries6; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries7; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries8; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries9; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries10; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries11; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries12; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries13; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries14; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries15; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries16; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries17; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries18; axisX: xAxis; width: 2 }
-            LineSeries { id: dataSeries19; axisX: xAxis; width: 2 }
+            LineSeries { id: dataSeries0; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries1; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries2; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries3; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries4; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries5; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries6; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries7; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries8; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries9; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries10; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries11; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries12; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries13; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries14; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries15; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries16; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries17; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries18; axisX: xAxis; width: 1 }
+            LineSeries { id: dataSeries19; axisX: xAxis; width: 1 }
         }
 
         // Helper that binds one fixed LineSeries slot to root.series[index] and
@@ -528,11 +560,43 @@ Item {
                 return null
             }
 
+            // Counterpart to "slot()" above - the wider, "borderColor"-
+            // painted underlay slot for the same index (see its doc
+            // comment in the ChartView above).
+            function borderSlot(index) {
+                switch (index) {
+                case 0: return dataBorderSeries0
+                case 1: return dataBorderSeries1
+                case 2: return dataBorderSeries2
+                case 3: return dataBorderSeries3
+                case 4: return dataBorderSeries4
+                case 5: return dataBorderSeries5
+                case 6: return dataBorderSeries6
+                case 7: return dataBorderSeries7
+                case 8: return dataBorderSeries8
+                case 9: return dataBorderSeries9
+                case 10: return dataBorderSeries10
+                case 11: return dataBorderSeries11
+                case 12: return dataBorderSeries12
+                case 13: return dataBorderSeries13
+                case 14: return dataBorderSeries14
+                case 15: return dataBorderSeries15
+                case 16: return dataBorderSeries16
+                case 17: return dataBorderSeries17
+                case 18: return dataBorderSeries18
+                case 19: return dataBorderSeries19
+                }
+                return null
+            }
+
             function rebuild(index) {
                 var s = slot(index)
                 if (!s)
                     return
+                var b = borderSlot(index)
                 s.clear()
+                if (b)
+                    b.clear()
                 var desc = d.seriesDescriptor(index)
                 if (!desc || !desc.model) {
                     return
@@ -574,7 +638,10 @@ Item {
                     if (!entry)
                         continue
                     var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
-                    s.append(t, fn(entry))
+                    var v = fn(entry)
+                    s.append(t, v)
+                    if (b)
+                        b.append(t, v)
                 }
                 d.updateLeftAxisRange()
             }
@@ -609,10 +676,17 @@ Item {
                 var s = slot(index)
                 if (!s)
                     return
+                var b = borderSlot(index)
                 var desc = d.seriesDescriptor(index)
-                s.visible = desc ? desc.visible !== false : false
+                var visible = desc ? desc.visible !== false : false
+                s.visible = visible
                 s.color = desc && desc.color ? desc.color : "transparent"
                 s.axisY = desc && desc.axis === "right" ? yAxisRight : yAxisLeft
+                if (b) {
+                    b.visible = visible
+                    b.color = desc && desc.borderColor ? desc.borderColor : (desc && desc.color ? desc.color : "transparent")
+                    b.axisY = s.axisY
+                }
                 rebuild(index)
             }
         }
