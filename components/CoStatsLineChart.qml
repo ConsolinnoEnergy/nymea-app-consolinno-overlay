@@ -461,7 +461,7 @@ Item {
                 id: dayBoundarySeries0
                 axisX: xAxis
                 axisY: yAxisLeft
-                color: Style.colors.typography_Basic_Divider
+                color: Style.colors.components_Statistics_Grid
                 width: 1
                 visible: false
             }
@@ -469,7 +469,7 @@ Item {
                 id: dayBoundarySeries1
                 axisX: xAxis
                 axisY: yAxisLeft
-                color: Style.colors.typography_Basic_Divider
+                color: Style.colors.components_Statistics_Grid
                 width: 1
                 visible: false
             }
