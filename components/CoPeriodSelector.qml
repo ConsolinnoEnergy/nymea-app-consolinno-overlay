@@ -302,13 +302,33 @@ Item {
                 // and width again within the same cycle.
                 property real currentLabelWidth: 0
 
+                // Also plain (not live bindings) - see "currentLabelWidth"
+                // above for the same reasoning. "preferredHighlightBegin"
+                // binding directly on "width" (see the removed version
+                // below) triggered a genuine "Binding loop detected for
+                // property 'preferredHighlightBegin'" warning in practice:
+                // StrictlyEnforceRange repositions the view/currentItem
+                // whenever the highlight range changes, which - just like
+                // "currentItem.width" above - feeds back into this same
+                // recalculation within the same evaluation cycle. Updated
+                // imperatively alongside "currentLabelWidth" in
+                // updateCurrentLabelWidth()/onWidthChanged below instead.
+                property real highlightBegin: 0
+                property real highlightEnd: 0
+
+                function updateHighlightRange() {
+                    highlightBegin = (width - currentLabelWidth) / 2
+                    highlightEnd = highlightBegin + currentLabelWidth
+                }
+
                 function updateCurrentLabelWidth() {
                     currentLabelMetrics.text = d.formatPeriod(d.periodStart(d.selectedInstant, root.sampleRate), root.sampleRate)
                     currentLabelWidth = currentLabelMetrics.width + Style.margins
+                    updateHighlightRange()
                 }
 
-                preferredHighlightBegin: (width - currentLabelWidth) / 2
-                preferredHighlightEnd: preferredHighlightBegin + currentLabelWidth
+                preferredHighlightBegin: highlightBegin
+                preferredHighlightEnd: highlightEnd
                 clip: true
 
                 // Set declaratively (not in Component.onCompleted): assigning
@@ -324,6 +344,12 @@ Item {
                 Component.onCompleted: updateCurrentLabelWidth()
 
                 onWidthChanged: {
+                    // Now that "highlightBegin"/"highlightEnd" are plain
+                    // properties (not live bindings on "width" - see their
+                    // doc comment above), they need to be recomputed
+                    // explicitly whenever "width" actually changes.
+                    updateHighlightRange()
+
                     // Component.onCompleted (and even Qt.callLater from
                     // there) can still fire while this view's width is still
                     // 0, since the surrounding Layout only assigns the final
