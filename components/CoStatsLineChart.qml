@@ -804,11 +804,28 @@ Item {
             minimumPointCount: 1
             maximumPointCount: 1
 
+            // Hot zone half-width (see file doc comment on
+            // "selectedTimestampMs"): a drag starting within this many
+            // pixels of the selected timestamp's highlight line moves that
+            // timestamp instead of panning the visible window.
+            readonly property real hotZoneHalfWidth: 24 // 48px touch-friendly
+
             property real startStartTime
+            property real startTimestampMs
+            // Decided once, at the start of each gesture (see
+            // "onActiveChanged" below) from where the gesture began -
+            // "centroid.pressPosition" (not "translation", which is relative
+            // and would only tell us how far we've moved, not where we
+            // started) - and kept for the rest of that gesture even if the
+            // pointer later leaves the hot zone while dragging.
+            property bool draggingTooltip: false
 
             onActiveChanged: {
                 if (active) {
+                    draggingTooltip = root.selectedTimestampMs >= 0
+                            && Math.abs(centroid.pressPosition.x - d.selectedXPixel()) <= hotZoneHalfWidth
                     startStartTime = d.visibleStartTime
+                    startTimestampMs = root.selectedTimestampMs
                 } else {
                     rangeSettleTimer.restart()
                 }
@@ -817,8 +834,16 @@ Item {
             onTranslationChanged: {
                 if (!active)
                     return
-                var deltaMs = -(translation.x / chartView.plotArea.width) * d.visibleWindowMs
-                d.visibleStartTime = startStartTime + deltaMs
+                if (draggingTooltip) {
+                    var deltaTimestampMs = (translation.x / chartView.plotArea.width) * d.visibleWindowMs
+                    var newTimestampMs = d.clamp(startTimestampMs + deltaTimestampMs, d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
+                    root.selectedTimestampMs = newTimestampMs
+                    var xPixel = d.selectedXPixel()
+                    root.pointSelected(new Date(newTimestampMs), Qt.rect(xPixel - 1, chartView.plotArea.y, 2, chartView.plotArea.height))
+                } else {
+                    var deltaPanMs = -(translation.x / chartView.plotArea.width) * d.visibleWindowMs
+                    d.visibleStartTime = startStartTime + deltaPanMs
+                }
             }
         }
 
@@ -878,6 +903,7 @@ Item {
                 root.pointSelected(timestamp, anchorRect)
             }
         }
+
 
         // -- Highlight the selected timestamp (see "selectedTimestampMs"
         // above) while its tooltip is open: a vertical line at that x, plus

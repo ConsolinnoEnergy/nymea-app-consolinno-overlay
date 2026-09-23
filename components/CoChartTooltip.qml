@@ -139,6 +139,29 @@ Popup {
             }
         }
 
+        // Swallow every press within the popup's bounds: Popup's own
+        // background/contentItem are plain Rectangle/Layout items with no
+        // input handling of their own, so without this, a press here
+        // Swallow every press within the popup's bounds: Popup's own
+        // background/contentItem are plain Rectangle/Layout items with no
+        // input handling of their own, so without this, a press here
+        // (anywhere not already covered by e.g. the close icon's
+        // TapHandler below) would otherwise fall straight through to
+        // whatever chart is behind this (non-modal) popup - letting a
+        // click-and-drag on the tooltip itself pan/select on that chart
+        // underneath while the tooltip stays open and visually "stuck".
+        // "preventStealing" is required here: without it, MouseArea
+        // willingly cedes its grab to e.g. the chart's own pan DragHandler
+        // once the drag exceeds its threshold (the same mechanism that
+        // normally lets a Flickable pan through a plain MouseArea overlay)
+        // - which is exactly the unwanted passthrough this MouseArea exists
+        // to prevent.
+        MouseArea {
+            anchors.fill: parent
+            preventStealing: true
+            onPressed: {}
+        }
+
         ShaderEffectSource {
             id: blurSource
             anchors.fill: parent
