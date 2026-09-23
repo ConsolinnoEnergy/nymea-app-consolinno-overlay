@@ -37,6 +37,22 @@ Popup {
     // Horizontal gap between "anchorRect" and the tooltip.
     readonly property int anchorGap: Style.smallMargins
 
+    // Caps the popup's width so it can never grow wide enough to cover its
+    // own "anchorRect" (e.g. the line chart's selected-timestamp highlight
+    // line - see CoStatsLineChart.qml) - without this, a long series/device
+    // name (Repeater entry below) would let the popup's natural
+    // (implicit) width grow arbitrarily, which the "x" positioning below
+    // can't compensate for. Series names are elided (see the Text's
+    // "elide: Text.ElideRight" below) to fit within this width instead.
+    //
+    // Half the window width (minus the anchor gap) is the worst case that
+    // still guarantees "anchorRect" stays uncovered: if it sits exactly in
+    // the middle of the window, only half the window is available on
+    // whichever side the tooltip ends up on. Guarded against
+    // "Overlay.overlay" being null the same way "x"/"y" below are (see
+    // their doc comment).
+    readonly property real maxContentWidth: Overlay.overlay ? (Overlay.overlay.width / 2 - anchorGap) : 0
+
     // Item to sample for the blurred background (see "background" below) -
     // typically the caller's own root Item, i.e. whatever page content this
     // tooltip is shown over. Must NOT be an ancestor of Overlay.overlay
@@ -70,6 +86,13 @@ Popup {
     modal: false
     focus: false
     closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
+
+    // Cap the popup's actual width at "maxContentWidth" (see its doc
+    // comment above) - "implicitWidth" still reflects the *unconstrained*
+    // natural size (driven by contentItem's ColumnLayout), so this only
+    // ever shrinks the popup, never grows it beyond what its content
+    // actually needs.
+    width: Math.min(implicitWidth, maxContentWidth)
 
     onClosed: root.dismissRequested()
 
