@@ -617,7 +617,10 @@ Item {
                 return null
             }
 
-            function rebuild(index) {
+            function rebuild(index, updateAxis) {
+                if (updateAxis === undefined) {
+                    updateAxis = true
+                }
                 var s = slot(index)
                 if (!s) {
                     return
@@ -675,7 +678,9 @@ Item {
                         b.append(t, v)
                     }
                 }
-                d.updateLeftAxisRange()
+                if (updateAxis) {
+                    d.updateLeftAxisRange()
+                }
             }
 
             // Re-renders every fixed slot for the chart's current visible
@@ -698,10 +703,20 @@ Item {
             // catching up once the gesture settles. This stays cheap
             // because rebuild() itself is already bounded to the visible
             // window rather than the (much larger) cached range.
+            //
+            // Each rebuild(i, false) call skips its own axis-range update
+            // (see rebuild()'s "updateAxis" parameter) - d.maxLeftValue()
+            // scans every occupied series' *entire* cached model, so
+            // calling it once per slot here (up to d.maxSeriesCount times)
+            // would turn every drag/pinch frame into O(series count
+            // squared) work. Recomputing it once after the loop instead
+            // keeps this at the same O(series count) cost as the rest of
+            // this function.
             function rebuildAll() {
                 for (var i = 0; i < d.maxSeriesCount; i++) {
-                    rebuild(i)
+                    rebuild(i, false)
                 }
+                d.updateLeftAxisRange()
             }
 
             function updateSlotProperties(index) {
