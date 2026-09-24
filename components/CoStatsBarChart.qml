@@ -557,7 +557,7 @@ Item {
                    ? d.selectedSlotLeft() - chartView.plotArea.x
                    : 0
             height: chartView.plotArea.height
-            color: "white"
+            color: Style.colors.typography_Background_Default
             opacity: 1 - Style.numbers.components_Disabled_opacity
             visible: width > 0
         }
@@ -569,7 +569,7 @@ Item {
                    ? (chartView.plotArea.x + chartView.plotArea.width) - d.selectedSlotRight()
                    : 0
             height: chartView.plotArea.height
-            color: "white"
+            color: Style.colors.typography_Background_Default
             opacity: 1 - Style.numbers.components_Disabled_opacity
             visible: width > 0
         }
