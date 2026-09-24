@@ -932,6 +932,17 @@ Item {
             minimumPointCount: 1
             maximumPointCount: 1
 
+            // Only horizontal drags (pan/tooltip-move, both driven purely
+            // by translation.x - see onTranslationChanged below) activate
+            // this handler; a predominantly-vertical drag is left alone so
+            // it falls through to the page's own Flickable (CoStatsView.qml)
+            // instead. Without this, DragHandler activates - and takes the
+            // exclusive touch grab - on a drag in *any* direction as long
+            // as it exceeds the drag threshold, which stole every vertical
+            // swipe that happened to start on the chart before the
+            // Flickable ever got a chance to recognize it as a scroll.
+            yAxis.enabled: false
+
             // Hot zone half-width (see file doc comment on
             // "selectedTimestampMs"): a drag starting within this many
             // pixels of the selected timestamp's highlight line moves that
