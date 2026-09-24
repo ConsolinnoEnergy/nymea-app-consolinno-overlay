@@ -20,7 +20,19 @@ ColumnLayout {
     // picker's granularity is a single year wheel.
     property date minDate: new Date(2017, 0, 1)
     readonly property int minYear: minDate.getFullYear()
-    readonly property int maxYear: new Date().getFullYear()
+    readonly property int maxYear: { dateRefreshTimer.tick; return new Date().getFullYear() }
+
+    // "tick" above establishes a reactive dependency so "maxYear" doesn't
+    // freeze at whatever year this component was created in - see
+    // CoDayPickerContent.qml's identical Timer for the full explanation.
+    Timer {
+        id: dateRefreshTimer
+        property int tick: 0
+        interval: 60000
+        running: true
+        repeat: true
+        onTriggered: tick++
+    }
 
     readonly property date resultDate: new Date(yearPicker.currentValue, 0, 1)
 

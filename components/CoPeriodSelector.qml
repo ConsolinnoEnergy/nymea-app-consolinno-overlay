@@ -62,6 +62,23 @@ Item {
     onMinDateChanged: root.setReferenceDate(d.selectedInstant)
 
     // ── Private state & date-math helpers ───────────────────────────────────
+    // Ticks periodically so "d.todayStart" below doesn't freeze at whatever
+    // moment this component was created (it otherwise only re-evaluates
+    // when "root.sampleRate" changes, not when the calendar day actually
+    // advances) - see CoDayPickerContent.qml's identical Timer for the full
+    // explanation. Without this, staying on this page across midnight
+    // would leave "today" (and thus the future-navigation limit) stuck on
+    // the previous day. Declared here (rather than inside "d") since
+    // QtObject has no default property to parent a Timer under.
+    Timer {
+        id: dateRefreshTimer
+        property int tick: 0
+        interval: 60000
+        running: true
+        repeat: true
+        onTriggered: tick++
+    }
+
     QtObject {
         id: d
 
@@ -80,7 +97,7 @@ Item {
         // programmatically (sampleRate change, setReferenceDate(), recentering).
         property bool updatingListView: false
 
-        readonly property date todayStart: periodStart(new Date(), root.sampleRate)
+        readonly property date todayStart: { dateRefreshTimer.tick; return periodStart(new Date(), root.sampleRate) }
         readonly property date minDateStart: periodStart(root.minDate, root.sampleRate)
         readonly property int selectedOffset: periodsBetween(todayStart, periodStart(selectedInstant, root.sampleRate), root.sampleRate)
         readonly property int minOffset: periodsBetween(todayStart, minDateStart, root.sampleRate)

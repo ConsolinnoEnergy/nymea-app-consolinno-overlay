@@ -37,7 +37,7 @@ ColumnLayout {
     // further down (isTooEarly).
     property date minDate: new Date(2017, 0, 1)
     readonly property int minYear: minDate.getFullYear()
-    readonly property int maxYear: new Date().getFullYear()
+    readonly property int maxYear: { dateRefreshTimer.tick; return new Date().getFullYear() }
 
     readonly property date minDateStart: {
         var result = new Date(root.minDate)
@@ -46,9 +46,28 @@ ColumnLayout {
     }
 
     readonly property date todayStart: {
+        dateRefreshTimer.tick
         var result = new Date()
         result.setHours(0, 0, 0, 0)
         return result
+    }
+
+    // "maxYear"/"todayStart" above read "tick" purely to establish a
+    // reactive dependency: a QML binding only re-evaluates when a QML
+    // property it reads changes, and "new Date()" itself is not such a
+    // property, so without this, both would be computed once at creation
+    // and never again for as long as this component stays alive (it is a
+    // permanent StackLayout child of CoPeriodPickerOverlay, not recreated
+    // per open) - e.g. "today" would stay pinned to whatever day the app
+    // was started on, wrongly greying out the real today once the app has
+    // been running past midnight.
+    Timer {
+        id: dateRefreshTimer
+        property int tick: 0
+        interval: 60000
+        running: true
+        repeat: true
+        onTriggered: tick++
     }
 
     function resetToSelection() {
