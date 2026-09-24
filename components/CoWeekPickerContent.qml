@@ -45,8 +45,23 @@ ColumnLayout {
     }
 
     function resetToSelection() {
+        d.restoringSelection = true
         yearPicker.selectValue(DateUtils.isoWeekYear(root.selectedDate))
         weekPicker.selectValue(DateUtils.isoWeekNumber(root.selectedDate))
+        // Clear the guard one event-loop turn later, i.e. after
+        // yearPicker.onCurrentValueChanged's own Qt.callLater fixup below
+        // (queued first, during the selectValue() call above) has had a
+        // chance to run and see the guard still set.
+        Qt.callLater(function() { d.restoringSelection = false })
+    }
+
+    QtObject {
+        id: d
+        // Set for one event-loop turn while resetToSelection() is
+        // reassigning both wheels, so yearPicker.onCurrentValueChanged's
+        // deferred week-restore fixup (below) doesn't clobber the week
+        // resetToSelection() just set with the stale pre-reset week.
+        property bool restoringSelection: false
     }
 
     Label {
@@ -103,9 +118,20 @@ ColumnLayout {
                 // reapply it via Qt.callLater once the new values array (and
                 // the reset it caused) have settled, clamping to the new
                 // year's week count (week 53 doesn't exist in every year).
+                //
+                // Skipped while resetToSelection() is in progress
+                // ("d.restoringSelection"): that function already sets both
+                // wheels to their final, correct values synchronously right
+                // after triggering this handler, so re-applying "oldWeek"
+                // (the stale, pre-reset week) here would overwrite that
+                // correct value on the next event-loop turn.
                 var oldWeek = weekPicker.currentValue
                 var newYear = currentValue
+                var wasRestoring = d.restoringSelection
                 Qt.callLater(function() {
+                    if (wasRestoring) {
+                        return
+                    }
                     var maxWeek = DateUtils.isoWeeksInYear(newYear)
                     weekPicker.selectValueImmediate(Math.min(oldWeek, maxWeek))
                 })
