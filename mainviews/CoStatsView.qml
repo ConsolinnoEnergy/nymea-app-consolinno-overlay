@@ -23,12 +23,6 @@ import "statistics"
 //     rate (1 line chart for Day, 1 bar chart for Week, 2 bar charts for
 //     Month/Year - a sub-period breakdown plus a year-over-year comparison)
 //     and a legend below it.
-//
-// All chart data (Day line chart, Week/Month/Year bar charts, Metrics KPI
-// cards) is wired to real backend data (Energy.GetPowerBalanceLogs,
-// Energy.GetThingPowerLogs/dynamic Thing discovery via ThingsProxy,
-// Energy.GetEnergyKPIs). See DetailedGraphsPage.qml and its "energy/"
-// subcomponents for the equivalent real-data patterns this is based on.
 
 MainViewBase {
     id: root
