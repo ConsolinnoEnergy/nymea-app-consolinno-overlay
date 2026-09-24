@@ -7,9 +7,9 @@ import Nymea
 // Simplified variant of CoTabButton for headline-style tab switchers (e.g.
 // the "Energiebilanz"/"Verbrauch" chart tab switcher): no pill background,
 // no border, no hover/press feedback - just a text label whose font grows
-// and whose color changes when selected. Meant to be used inside a CoTabBar
-// with a transparent background (see CoTabBar's "backgroundColor" property)
-// and left-aligned rather than evenly stretched across the available width.
+// and whose color changes when selected. Meant to be used inside a 
+// CoHeadlineTabBar and left-aligned rather than evenly stretched across the 
+// available width.
 Button {
     id: tabButton
 
