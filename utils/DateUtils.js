@@ -8,10 +8,18 @@ function isSameDay(a, b) {
         && a.getDate() === b.getDate()
 }
 
+// Midnight of the Monday (ISO 8601, Monday-based weeks) of the week
+// containing 'date'.
+function startOfIsoWeek(date) {
+    var result = new Date(date)
+    result.setHours(0, 0, 0, 0)
+    var dayNumber = (result.getDay() + 6) % 7 // JS getDay() is Sunday-based, shift to Monday-based
+    result.setDate(result.getDate() - dayNumber)
+    return result
+}
+
 // ISO 8601 week number (Monday-based weeks, week 1 contains the year's first
-// Thursday). Kept in sync with the (private) copy in CoPeriodSelector.qml -
-// duplicated rather than shared since that one lives inside a QtObject not
-// meant for external reuse.
+// Thursday).
 function isoWeekNumber(date) {
     var target = new Date(date)
     target.setHours(0, 0, 0, 0)

@@ -3,6 +3,8 @@ import QtQuick.Controls
 import QtQuick.Layouts
 import Nymea
 
+import "../utils/DateUtils.js" as DateUtils
+
 // Calendar-style day picker: a month header with prev/next navigation, a
 // localized weekday row and a grid of day cells (today and the selected day
 // highlighted), built on top of Qt Quick Controls' MonthGrid/DayOfWeekRow.
@@ -53,10 +55,6 @@ ColumnLayout {
         displayMonth = selectedDate.getMonth()
         displayYear = selectedDate.getFullYear()
         monthPickerOpen = false
-    }
-
-    function isSameDay(a, b) {
-        return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
     }
 
     function goToPreviousMonth() {
@@ -218,7 +216,7 @@ ColumnLayout {
             height: width
 
             readonly property bool isCurrentMonth: model.month === grid.month
-            readonly property bool isSelected: isCurrentMonth && root.isSameDay(model.date, root.selectedDate)
+            readonly property bool isSelected: isCurrentMonth && DateUtils.isSameDay(model.date, root.selectedDate)
             readonly property bool isFuture: model.date > root.todayStart
             readonly property bool isTooEarly: model.date < root.minDateStart
 

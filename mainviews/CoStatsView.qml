@@ -1240,8 +1240,7 @@ MainViewBase {
         function isoWeeksInMonthCategories(referenceDate) {
             var first = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1)
             var last = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0)
-            var cursor = new Date(first)
-            cursor.setDate(cursor.getDate() - ((cursor.getDay() + 6) % 7)) // back up to that week's Monday
+            var cursor = DateUtils.startOfIsoWeek(first)
             var result = []
             while (cursor <= last) {
                 result.push(qsTr("CW %1").arg(DateUtils.isoWeekNumber(cursor)))
@@ -1256,8 +1255,7 @@ MainViewBase {
         function monthCategoryRanges(referenceDate) {
             var first = new Date(referenceDate.getFullYear(), referenceDate.getMonth(), 1)
             var last = new Date(referenceDate.getFullYear(), referenceDate.getMonth() + 1, 0)
-            var cursor = new Date(first)
-            cursor.setDate(cursor.getDate() - ((cursor.getDay() + 6) % 7))
+            var cursor = DateUtils.startOfIsoWeek(first)
             var result = []
             while (cursor <= last) {
                 var next = new Date(cursor)

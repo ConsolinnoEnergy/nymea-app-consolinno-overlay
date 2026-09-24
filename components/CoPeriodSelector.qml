@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Nymea
 import "../mainviews/energy"
 import "../components"
+import "../utils/DateUtils.js" as DateUtils
 
 // Period selector control: 4 tab buttons (Day/Week/Month/Year) on top, below
 // a horizontal, swipeable ListView showing the currently selected period,
@@ -89,12 +90,12 @@ Item {
         // Normalizes 'date' to the start of the period (day/week/month/year)
         // that contains it. Weeks start on Monday (ISO 8601).
         function periodStart(date, sampleRate) {
+            if (sampleRate === EnergyLogs.SampleRate1Week) {
+                return DateUtils.startOfIsoWeek(date)
+            }
             var result = new Date(date)
             result.setHours(0, 0, 0, 0)
-            if (sampleRate === EnergyLogs.SampleRate1Week) {
-                var dayOfWeek = (result.getDay() + 6) % 7 // JS getDay() is Sunday-based, shift to Monday-based
-                result.setDate(result.getDate() - dayOfWeek)
-            } else if (sampleRate === EnergyLogs.SampleRate1Month) {
+            if (sampleRate === EnergyLogs.SampleRate1Month) {
                 result.setDate(1)
             } else if (sampleRate === EnergyLogs.SampleRate1Year) {
                 result.setMonth(0, 1)
@@ -120,23 +121,11 @@ Item {
             return Math.round((toDate.getTime() - fromDate.getTime()) / 86400000)
         }
 
-        // ISO 8601 week number (Monday-based weeks, week 1 contains the year's first Thursday).
-        function isoWeekNumber(date) {
-            var target = new Date(date)
-            target.setHours(0, 0, 0, 0)
-            var dayNumber = (target.getDay() + 6) % 7
-            target.setDate(target.getDate() - dayNumber + 3) // nearest Thursday
-            var firstThursday = new Date(target.getFullYear(), 0, 4)
-            var firstDayNumber = (firstThursday.getDay() + 6) % 7
-            firstThursday.setDate(firstThursday.getDate() - firstDayNumber + 3)
-            return 1 + Math.round((target.getTime() - firstThursday.getTime()) / (7 * 86400000))
-        }
-
         function formatPeriod(date, sampleRate) {
             if (sampleRate === EnergyLogs.SampleRate1Week) {
                 var endDate = new Date(date)
                 endDate.setDate(endDate.getDate() + 6)
-                return qsTr("CW %1, %2 – %3").arg(isoWeekNumber(date))
+                return qsTr("CW %1, %2 – %3").arg(DateUtils.isoWeekNumber(date))
                                                 .arg(date.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
                                                 .arg(endDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
             } else if (sampleRate === EnergyLogs.SampleRate1Month) {
