@@ -410,6 +410,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/BatteryOptimization.qml" line="147"/>
+        <source>The value must not be below %1 kW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/BatteryOptimization.qml" line="149"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
@@ -437,11 +442,6 @@
     <message>
         <location filename="../optimization/BatteryOptimization.qml" line="236"/>
         <source>Minimum SoC</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/BatteryOptimization.qml" line="147"/>
-        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1660,7 +1660,7 @@ Your %3 Team</source>
 <context>
     <name>CoDayPickerContent</name>
     <message>
-        <location filename="../components/CoDayPickerContent.qml" line="81"/>
+        <location filename="../components/CoDayPickerContent.qml" line="98"/>
         <source>MMMM d, yyyy</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1754,17 +1754,17 @@ Your %3 Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodPickerOverlay.qml" line="17"/>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="18"/>
         <source>Choose month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodPickerOverlay.qml" line="19"/>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="21"/>
         <source>Choose year</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodPickerOverlay.qml" line="20"/>
+        <location filename="../components/CoPeriodPickerOverlay.qml" line="23"/>
         <source>Choose day</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1772,27 +1772,27 @@ Your %3 Team</source>
 <context>
     <name>CoPeriodSelector</name>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="139"/>
+        <location filename="../components/CoPeriodSelector.qml" line="143"/>
         <source>CW %1, %2 – %3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="220"/>
+        <location filename="../components/CoPeriodSelector.qml" line="224"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="232"/>
+        <location filename="../components/CoPeriodSelector.qml" line="236"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="243"/>
+        <location filename="../components/CoPeriodSelector.qml" line="247"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="254"/>
+        <location filename="../components/CoPeriodSelector.qml" line="258"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1800,12 +1800,12 @@ Your %3 Team</source>
 <context>
     <name>CoStatsBarChart</name>
     <message>
-        <location filename="../components/CoStatsBarChart.qml" line="193"/>
+        <location filename="../components/CoStatsBarChart.qml" line="240"/>
         <source>MWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoStatsBarChart.qml" line="193"/>
+        <location filename="../components/CoStatsBarChart.qml" line="240"/>
         <source>kWh</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1813,7 +1813,7 @@ Your %3 Team</source>
 <context>
     <name>CoStatsLineChart</name>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="629"/>
+        <location filename="../components/CoStatsLineChart.qml" line="839"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1821,127 +1821,118 @@ Your %3 Team</source>
 <context>
     <name>CoStatsView</name>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="72"/>
-        <location filename="../mainviews/CoStatsView.qml" line="522"/>
+        <location filename="../mainviews/CoStatsView.qml" line="65"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="84"/>
-        <location filename="../mainviews/CoStatsView.qml" line="534"/>
+        <location filename="../mainviews/CoStatsView.qml" line="77"/>
         <source>Consumers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="256"/>
+        <location filename="../mainviews/CoStatsView.qml" line="252"/>
         <source>History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="266"/>
+        <location filename="../mainviews/CoStatsView.qml" line="262"/>
         <source>Time period</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="282"/>
+        <location filename="../mainviews/CoStatsView.qml" line="278"/>
         <source>Metrics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="298"/>
+        <location filename="../mainviews/CoStatsView.qml" line="294"/>
         <source>Self-sufficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="304"/>
-        <location filename="../mainviews/CoStatsView.qml" line="885"/>
-        <location filename="../mainviews/CoStatsView.qml" line="887"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1075"/>
+        <location filename="../mainviews/CoStatsView.qml" line="300"/>
+        <location filename="../mainviews/CoStatsView.qml" line="955"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1162"/>
         <source>Self-consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="310"/>
+        <location filename="../mainviews/CoStatsView.qml" line="306"/>
         <source>Feed-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="316"/>
+        <location filename="../mainviews/CoStatsView.qml" line="312"/>
         <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="383"/>
+        <location filename="../mainviews/CoStatsView.qml" line="379"/>
         <source>Energy balance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../mainviews/CoStatsView.qml" line="389"/>
-        <location filename="../mainviews/CoStatsView.qml" line="826"/>
-        <location filename="../mainviews/CoStatsView.qml" line="828"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1067"/>
+        <location filename="../mainviews/CoStatsView.qml" line="894"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1140"/>
         <source>Consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="809"/>
-        <location filename="../mainviews/CoStatsView.qml" line="811"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1060"/>
+        <location filename="../mainviews/CoStatsView.qml" line="861"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1119"/>
         <source>Production</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="817"/>
-        <location filename="../mainviews/CoStatsView.qml" line="819"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1068"/>
+        <location filename="../mainviews/CoStatsView.qml" line="917"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1148"/>
         <source>To grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="835"/>
-        <location filename="../mainviews/CoStatsView.qml" line="837"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1369"/>
+        <source>kWh</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="1442"/>
+        <source>kW</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="905"/>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="843"/>
-        <location filename="../mainviews/CoStatsView.qml" line="845"/>
-        <location filename="../mainviews/CoStatsView.qml" line="899"/>
-        <location filename="../mainviews/CoStatsView.qml" line="901"/>
+        <location filename="../mainviews/CoStatsView.qml" line="873"/>
+        <location filename="../mainviews/CoStatsView.qml" line="971"/>
         <source>From battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="852"/>
-        <location filename="../mainviews/CoStatsView.qml" line="854"/>
-        <location filename="../mainviews/CoStatsView.qml" line="908"/>
-        <location filename="../mainviews/CoStatsView.qml" line="910"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1061"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1077"/>
+        <location filename="../mainviews/CoStatsView.qml" line="884"/>
+        <location filename="../mainviews/CoStatsView.qml" line="982"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1127"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1171"/>
         <source>From grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="865"/>
+        <location filename="../mainviews/CoStatsView.qml" line="933"/>
         <source>Battery SoC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="945"/>
-        <location filename="../mainviews/CoStatsView.qml" line="947"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1092"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1094"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1028"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1196"/>
         <source>Other consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1142"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1247"/>
         <source>CW %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1967,12 +1958,12 @@ Your %3 Team</source>
 <context>
     <name>CoWeekPickerContent</name>
     <message>
-        <location filename="../components/CoWeekPickerContent.qml" line="41"/>
+        <location filename="../components/CoWeekPickerContent.qml" line="68"/>
         <source>CW %1, %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoWeekPickerContent.qml" line="70"/>
+        <location filename="../components/CoWeekPickerContent.qml" line="98"/>
         <source>CW %1</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5576,6 +5567,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../optimization/HeatingElementOptimization.qml" line="120"/>
+        <source>The value must not be below %1 kW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../optimization/HeatingElementOptimization.qml" line="122"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
@@ -5590,77 +5586,72 @@ Would you like to continue anyway?</source>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../optimization/HeatingElementOptimization.qml" line="120"/>
-        <source>The value must not be below %1.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="122"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="101"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="125"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="104"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="177"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="156"/>
         <source>Maximal electrical power</source>
         <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="179"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="158"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="195"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="160"/>
+        <source>The value must not be below %1 kW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingOptimization.qml" line="174"/>
         <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="196"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="175"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="224"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="203"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="73"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="52"/>
         <source>No meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="210"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="189"/>
         <source>Electricity meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="101"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="80"/>
         <source>Heating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="183"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="162"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="224"/>
+        <location filename="../optimization/HeatingOptimization.qml" line="203"/>
         <source>Apply changes</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingOptimization.qml" line="181"/>
-        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6048,130 +6039,130 @@ Would you like to continue anyway?</source>
 <context>
     <name>PVOptimization</name>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="97"/>
+        <location filename="../optimization/PVOptimization.qml" line="98"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="101"/>
+        <location filename="../optimization/PVOptimization.qml" line="102"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="157"/>
+        <location filename="../optimization/PVOptimization.qml" line="158"/>
         <source>Latitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="178"/>
+        <location filename="../optimization/PVOptimization.qml" line="179"/>
         <source>Longitude</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="199"/>
+        <location filename="../optimization/PVOptimization.qml" line="200"/>
         <source>Roof pitch</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="216"/>
+        <location filename="../optimization/PVOptimization.qml" line="217"/>
         <source>Alignment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="243"/>
+        <location filename="../optimization/PVOptimization.qml" line="244"/>
         <source>Peak power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="245"/>
+        <location filename="../optimization/PVOptimization.qml" line="246"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="289"/>
+        <location filename="../optimization/PVOptimization.qml" line="290"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="76"/>
+        <location filename="../optimization/PVOptimization.qml" line="77"/>
         <source>PV configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="229"/>
+        <location filename="../optimization/PVOptimization.qml" line="230"/>
         <source>north</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="230"/>
+        <location filename="../optimization/PVOptimization.qml" line="231"/>
         <source>northeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="231"/>
+        <location filename="../optimization/PVOptimization.qml" line="232"/>
         <source>east</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="232"/>
+        <location filename="../optimization/PVOptimization.qml" line="233"/>
         <source>southeast</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="233"/>
+        <location filename="../optimization/PVOptimization.qml" line="234"/>
         <source>south</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="234"/>
+        <location filename="../optimization/PVOptimization.qml" line="235"/>
         <source>southwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="236"/>
+        <location filename="../optimization/PVOptimization.qml" line="237"/>
         <source>northwest</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="235"/>
+        <location filename="../optimization/PVOptimization.qml" line="236"/>
         <source>west</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="266"/>
+        <location filename="../optimization/PVOptimization.qml" line="267"/>
         <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="267"/>
+        <location filename="../optimization/PVOptimization.qml" line="268"/>
         <source>If the device must be controlled in accordance with § 9, this setting must be enabled.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="159"/>
-        <location filename="../optimization/PVOptimization.qml" line="180"/>
-        <location filename="../optimization/PVOptimization.qml" line="201"/>
+        <location filename="../optimization/PVOptimization.qml" line="160"/>
+        <location filename="../optimization/PVOptimization.qml" line="181"/>
+        <location filename="../optimization/PVOptimization.qml" line="202"/>
         <source>°</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="164"/>
-        <location filename="../optimization/PVOptimization.qml" line="185"/>
-        <location filename="../optimization/PVOptimization.qml" line="203"/>
-        <location filename="../optimization/PVOptimization.qml" line="250"/>
+        <location filename="../optimization/PVOptimization.qml" line="165"/>
+        <location filename="../optimization/PVOptimization.qml" line="186"/>
+        <location filename="../optimization/PVOptimization.qml" line="204"/>
+        <location filename="../optimization/PVOptimization.qml" line="251"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="289"/>
+        <location filename="../optimization/PVOptimization.qml" line="290"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/PVOptimization.qml" line="161"/>
-        <location filename="../optimization/PVOptimization.qml" line="182"/>
-        <location filename="../optimization/PVOptimization.qml" line="202"/>
-        <location filename="../optimization/PVOptimization.qml" line="247"/>
+        <location filename="../optimization/PVOptimization.qml" line="162"/>
+        <location filename="../optimization/PVOptimization.qml" line="183"/>
+        <location filename="../optimization/PVOptimization.qml" line="203"/>
+        <location filename="../optimization/PVOptimization.qml" line="248"/>
         <source>The value must be between %1 and %2.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6515,22 +6506,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="575"/>
-        <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="40"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="499"/>
-        <source>Setup energy meter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="549"/>
-        <source>The following energy meter has been found and set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="225"/>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="491"/>
         <source>Next</source>
@@ -6563,6 +6538,17 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="40"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="499"/>
+        <source>Setup energy meter or hybrid inverter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="139"/>
+        <source>Add energy meter or hybrid inverter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
@@ -6578,6 +6564,16 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="556"/>
+        <source>The following energy meter or hybrid inverter has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="584"/>
+        <source>An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="304"/>
         <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
@@ -6585,11 +6581,6 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../wizards/SetupEnergyMeterWizard.qml" line="355"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="139"/>
-        <source>Add energy meter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -7102,58 +7093,58 @@ Would you like to continue anyway?</source>
 <context>
     <name>SwitchableConsumerOptimization</name>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="78"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="77"/>
         <source>Some attributes are outside of the allowed range: Configurations were not saved.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="81"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="80"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="121"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="120"/>
         <source>Maximal electrical power</source>
         <translation type="unfinished">Maximal electrical power</translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="123"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="122"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="127"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="124"/>
+        <source>The value must not be below %1 kW.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="126"/>
         <source>The value is outside the valid range.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="140"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="139"/>
         <source>Grid-supportive-control</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="141"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="140"/>
         <source>If the device must be controlled in accordance with § 14a, this setting must be enabled and the nominal power must correspond to the registered power.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="167"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="166"/>
         <source>Apply changes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="167"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="166"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="57"/>
+        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="56"/>
         <source>Switchable consumers</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/SwitchableConsumerOptimization.qml" line="125"/>
-        <source>The value must not be below %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
