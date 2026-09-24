@@ -215,6 +215,15 @@ Item {
                     continue
                 }
                 var axis = desc.axis === "right" ? yAxisRight : yAxisLeft
+                if (!axis) {
+                    // yAxisRight is null whenever percentAxisVisible is
+                    // false (QtCharts tears down the underlying axis object
+                    // in that state - see yRightLabelsLayout's guard below
+                    // for the same issue). Dereferencing it unconditionally
+                    // would throw once a right-axis series is enabled while
+                    // percentAxisVisible is still false.
+                    continue
+                }
                 var range = axis.max - axis.min
                 if (range <= 0) {
                     continue
