@@ -359,15 +359,17 @@ Item {
                     // contentX 0 (or worse) instead of centered. Re-run the
                     // positioning (deferred, since delegate geometry also
                     // needs to have settled) as soon as we get a real width.
-                    if (width > 0)
+                    if (width > 0) {
                         Qt.callLater(function() {
                             positionViewAtIndex(currentIndex, ListView.Center)
                         })
+                    }
                 }
 
                 onCurrentIndexChanged: {
-                    if (d.updatingListView)
+                    if (d.updatingListView) {
                         return
+                    }
 
                     var newOffset = d.windowAnchorOffset + currentIndex
                     if (newOffset > 0) {

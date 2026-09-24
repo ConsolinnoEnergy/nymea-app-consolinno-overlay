@@ -385,12 +385,20 @@ MainViewBase {
                             id: energyBalanceTabButton
                             text: qsTr("Energy balance")
                             checked: true
-                            onCheckedChanged: if (checked) d.activeChartTab = 0
+                            onCheckedChanged: {
+                                if (checked) {
+                                    d.activeChartTab = 0
+                                }
+                            }
                         }
                         CoHeadlineTabButton {
                             id: consumptionTabButton
                             text: qsTr("Consumption")
-                            onCheckedChanged: if (checked) d.activeChartTab = 1
+                            onCheckedChanged: {
+                                if (checked) {
+                                    d.activeChartTab = 1
+                                }
+                            }
                         }
                     }
 
@@ -1441,11 +1449,13 @@ MainViewBase {
             var entries = []
             for (var i = 0; i < series.length; i++) {
                 var desc = series[i]
-                if (!desc || desc.visible === false || !desc.values)
+                if (!desc || desc.visible === false || !desc.values) {
                     continue
+                }
                 var value = desc.values[categoryIndex]
-                if (!value)
+                if (!value) {
                     continue
+                }
                 entries.push({
                     name: desc.name,
                     color: desc.color,
@@ -1500,20 +1510,25 @@ MainViewBase {
             var entries = []
             for (var i = 0; i < series.length; i++) {
                 var desc = series[i]
-                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction)
+                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction) {
                     continue
+                }
                 var model = desc.model
-                if (typeof model.indexOf !== "function")
+                if (typeof model.indexOf !== "function") {
                     continue
+                }
                 var idx = model.indexOf(timestamp)
-                if (idx < 0)
+                if (idx < 0) {
                     continue
+                }
                 var entry = model.get(idx)
-                if (!entry)
+                if (!entry) {
                     continue
+                }
                 var value = desc.valueFunction(entry)
-                if (value === undefined || value === null)
+                if (value === undefined || value === null) {
                     continue
+                }
                 entries.push({
                     name: desc.name,
                     color: desc.color,

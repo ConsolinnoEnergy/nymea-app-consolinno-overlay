@@ -72,10 +72,12 @@ Item {
         var from = root.categoryRanges[0].from
         var to = root.categoryRanges[0].to
         for (var i = 1; i < root.categoryRanges.length; i++) {
-            if (root.categoryRanges[i].from < from)
+            if (root.categoryRanges[i].from < from) {
                 from = root.categoryRanges[i].from
-            if (root.categoryRanges[i].to > to)
+            }
+            if (root.categoryRanges[i].to > to) {
                 to = root.categoryRanges[i].to
+            }
         }
 
         root._rangeStart = from

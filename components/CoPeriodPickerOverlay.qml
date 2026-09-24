@@ -11,12 +11,15 @@ CoOverlay {
     id: root
 
     title: {
-        if (root.sampleRate === EnergyLogs.SampleRate1Week)
+        if (root.sampleRate === EnergyLogs.SampleRate1Week) {
             return qsTr("Choose week")
-        if (root.sampleRate === EnergyLogs.SampleRate1Month)
+        }
+        if (root.sampleRate === EnergyLogs.SampleRate1Month) {
             return qsTr("Choose month")
-        if (root.sampleRate === EnergyLogs.SampleRate1Year)
+        }
+        if (root.sampleRate === EnergyLogs.SampleRate1Year) {
             return qsTr("Choose year")
+        }
         return qsTr("Choose day")
     }
 

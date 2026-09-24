@@ -152,16 +152,19 @@ Item {
             const totalCount = total && total.count !== undefined ? total.count : 0
             for (let i = 0; i < totalCount; i++) {
                 const entry = total.get(i)
-                if (!entry)
+                if (!entry) {
                     continue
+                }
                 let knownConsumption = 0
                 for (let j = 0; j < consumerPowerLogsRepeater.count; j++) {
                     const item = consumerPowerLogsRepeater.itemAt(j)
-                    if (!item)
+                    if (!item) {
                         continue
+                    }
                     const consumerEntry = item.logs.find(entry.timestamp)
-                    if (consumerEntry)
+                    if (consumerEntry) {
                         knownConsumption += consumerEntry.currentPower
+                    }
                 }
                 newEntries.push({
                     timestamp: entry.timestamp,
@@ -169,10 +172,12 @@ Item {
                 })
             }
             _entries = newEntries
-            if (oldCount > 0)
+            if (oldCount > 0) {
                 entriesRemoved(0, oldCount)
-            if (newEntries.length > 0)
+            }
+            if (newEntries.length > 0) {
                 entriesAddedIdx(0, newEntries.length)
+            }
         }
     }
 }

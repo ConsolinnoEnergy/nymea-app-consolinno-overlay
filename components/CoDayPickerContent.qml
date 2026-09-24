@@ -143,8 +143,9 @@ ColumnLayout {
             id: monthWheel
             values: {
                 var result = []
-                for (var m = 0; m < 12; m++)
+                for (var m = 0; m < 12; m++) {
                     result.push(m)
+                }
                 return result
             }
             // Locale.standaloneMonthName() is 0-based (0-11, matching JS
@@ -157,20 +158,29 @@ ColumnLayout {
             // currentValue is itself a binding derived from currentIndex, and
             // reading it from an onCurrentIndexChanged handler observes a
             // stale (one-step-behind) value due to signal handler ordering.
-            onCurrentValueChanged: if (currentValue !== undefined) root.displayMonth = currentValue
+            onCurrentValueChanged: {
+                if (currentValue !== undefined) {
+                    root.displayMonth = currentValue
+                }
+            }
         }
 
         CoWheelPicker {
             id: yearWheel
             values: {
                 var result = []
-                for (var y = root.minYear; y <= root.maxYear; y++)
+                for (var y = root.minYear; y <= root.maxYear; y++) {
                     result.push(y)
+                }
                 return result
             }
             // See monthWheel's onCurrentValueChanged above for why this
             // can't be onCurrentIndexChanged.
-            onCurrentValueChanged: if (currentValue !== undefined) root.displayYear = currentValue
+            onCurrentValueChanged: {
+                if (currentValue !== undefined) {
+                    root.displayYear = currentValue
+                }
+            }
         }
     }
 

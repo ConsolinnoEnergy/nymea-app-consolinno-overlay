@@ -113,8 +113,9 @@ Popup {
     // "Overlay.overlay.width" directly) keeps the dependency on the
     // attached property alone until it's actually safe to dereference.
     x: {
-        if (!Overlay.overlay)
+        if (!Overlay.overlay) {
             return 0
+        }
         var rightX = d.anchorRect.x + d.anchorRect.width + anchorGap
         var leftX = d.anchorRect.x - anchorGap - width
         var x
@@ -132,8 +133,9 @@ Popup {
     // stay fully within the window. See the "x" binding above for why
     // "Overlay.overlay" is null-checked before being dereferenced.
     y: {
-        if (!Overlay.overlay)
+        if (!Overlay.overlay) {
             return 0
+        }
         var y = d.chartRect.y + (d.chartRect.height - height) / 2
         return Math.max(0, Math.min(y, Overlay.overlay.height - height))
     }

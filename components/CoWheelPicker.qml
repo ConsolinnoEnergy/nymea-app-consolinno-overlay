@@ -51,8 +51,9 @@ Tumbler {
     // was rebuilt).
     function selectValue(value) {
         var index = values.indexOf(value)
-        if (index >= 0)
+        if (index >= 0) {
             currentIndex = index
+        }
     }
 
     // Like selectValue(), but jumps to the position instantly without the
@@ -62,8 +63,9 @@ Tumbler {
     // like a settled/snapped selection would, without animating there.
     function selectValueImmediate(value) {
         var index = values.indexOf(value)
-        if (index >= 0)
+        if (index >= 0) {
             positionViewAtIndex(index, Tumbler.SnapPosition)
+        }
     }
 
     model: values

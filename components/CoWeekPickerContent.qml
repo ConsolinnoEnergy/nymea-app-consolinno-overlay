@@ -61,8 +61,9 @@ ColumnLayout {
             values: {
                 var count = DateUtils.isoWeeksInYear(yearPicker.currentValue || root.selectedDate.getFullYear())
                 var result = []
-                for (var w = 1; w <= count; w++)
+                for (var w = 1; w <= count; w++) {
                     result.push(w)
+                }
                 return result
             }
             // Source string in English per project convention; translators
@@ -74,8 +75,9 @@ ColumnLayout {
             id: yearPicker
             values: {
                 var result = []
-                for (var y = root.minYear; y <= root.maxYear; y++)
+                for (var y = root.minYear; y <= root.maxYear; y++) {
                     result.push(y)
+                }
                 return result
             }
             onCurrentValueChanged: {

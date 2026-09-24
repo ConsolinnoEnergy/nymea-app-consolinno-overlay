@@ -169,11 +169,13 @@ Item {
         // the tap MouseArea below (in reverse), so the highlight always
         // lines up exactly with what a click at that pixel would report.
         function selectedXPixel() {
-            if (root.selectedTimestampMs < 0)
+            if (root.selectedTimestampMs < 0) {
                 return -1
+            }
             var plotArea = chartView.plotArea
-            if (plotArea.width <= 0)
+            if (plotArea.width <= 0) {
                 return -1
+            }
             var fraction = d.clamp((root.selectedTimestampMs - d.visibleStartTime) / d.visibleWindowMs, 0, 1)
             return plotArea.x + fraction * plotArea.width
         }
@@ -187,29 +189,36 @@ Item {
         // per-series values, just converted to pixels instead of text.
         function selectedPoints() {
             var xPixel = d.selectedXPixel()
-            if (xPixel < 0)
+            if (xPixel < 0) {
                 return []
+            }
             var points = []
             for (var i = 0; i < root.series.length; i++) {
                 var desc = root.series[i]
-                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction)
+                if (!desc || desc.visible === false || !desc.model || !desc.valueFunction) {
                     continue
+                }
                 var model = desc.model
-                if (typeof model.indexOf !== "function")
+                if (typeof model.indexOf !== "function") {
                     continue
+                }
                 var idx = model.indexOf(new Date(root.selectedTimestampMs))
-                if (idx < 0)
+                if (idx < 0) {
                     continue
+                }
                 var entry = model.get(idx)
-                if (!entry)
+                if (!entry) {
                     continue
+                }
                 var value = desc.valueFunction(entry)
-                if (value === undefined || value === null)
+                if (value === undefined || value === null) {
                     continue
+                }
                 var axis = desc.axis === "right" ? yAxisRight : yAxisLeft
                 var range = axis.max - axis.min
-                if (range <= 0)
+                if (range <= 0) {
                     continue
+                }
                 var yFraction = d.clamp((value - axis.min) / range, 0, 1)
                 var plotArea = chartView.plotArea
                 points.push({
@@ -227,15 +236,17 @@ Item {
         // evenly spaced labels are as round as possible while never
         // clipping the data.
         function niceStep(rawStep) {
-            if (rawStep <= 0)
+            if (rawStep <= 0) {
                 return 1
+            }
             var exponent = Math.floor(Math.log(rawStep) / Math.LN10)
             var base = Math.pow(10, exponent)
             var fraction = rawStep / base
             var niceFractions = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]
             for (var i = 0; i < niceFractions.length; i++) {
-                if (fraction <= niceFractions[i] + 1e-9)
+                if (fraction <= niceFractions[i] + 1e-9) {
                     return niceFractions[i] * base
+                }
             }
             return 10 * base
         }
@@ -250,17 +261,20 @@ Item {
             var max = 0
             for (var i = 0; i < root.series.length; i++) {
                 var desc = root.series[i]
-                if (!desc || desc.axis === "right" || !desc.model)
+                if (!desc || desc.axis === "right" || !desc.model) {
                     continue
+                }
                 var model = desc.model
                 var count = model.count !== undefined ? model.count : 0
                 for (var j = 0; j < count; j++) {
                     var entry = model.get(j)
-                    if (!entry)
+                    if (!entry) {
                         continue
+                    }
                     var v = desc.valueFunction(entry)
-                    if (v > max)
+                    if (v > max) {
                         max = v
+                    }
                 }
             }
             return max
@@ -269,8 +283,9 @@ Item {
         function updateLeftAxisRange() {
             var intervals = d.yLabelCount - 1
             var maxValue = d.maxLeftValue()
-            if (maxValue <= 0)
+            if (maxValue <= 0) {
                 maxValue = intervals
+            }
             var step = d.niceStep(maxValue / intervals)
             yAxisLeft.max = step * intervals
         }
@@ -308,8 +323,9 @@ Item {
             var result = []
             var dt = new Date(startMs)
             dt.setHours(0, 0, 0, 0)
-            if (dt.getTime() < startMs)
+            if (dt.getTime() < startMs) {
                 dt.setDate(dt.getDate() + 1)
+            }
             while (dt.getTime() <= endMs) {
                 result.push(dt.getTime())
                 dt.setDate(dt.getDate() + 1)
@@ -321,8 +337,9 @@ Item {
             var result = []
             var dt = new Date(startMs)
             dt.setHours(12, 0, 0, 0)
-            if (dt.getTime() < startMs)
+            if (dt.getTime() < startMs) {
                 dt.setDate(dt.getDate() + 1)
+            }
             while (dt.getTime() <= endMs) {
                 result.push(dt.getTime())
                 dt.setDate(dt.getDate() + 1)
@@ -343,10 +360,11 @@ Item {
             var target = windowHours / 4
             var step = candidates[0]
             for (var i = 0; i < candidates.length; i++) {
-                if (candidates[i] <= target)
+                if (candidates[i] <= target) {
                     step = candidates[i]
-                else
+                } else {
                     break
+                }
             }
             return step
         }
@@ -358,8 +376,9 @@ Item {
             var dt = new Date(startMs)
             dt.setHours(0, 0, 0, 0)
             var t = dt.getTime()
-            while (t < startMs)
+            while (t < startMs) {
                 t += stepMs
+            }
             var result = []
             while (t <= endMs) {
                 result.push(t)
@@ -591,12 +610,14 @@ Item {
 
             function rebuild(index) {
                 var s = slot(index)
-                if (!s)
+                if (!s) {
                     return
+                }
                 var b = borderSlot(index)
                 s.clear()
-                if (b)
+                if (b) {
                     b.clear()
+                }
                 var desc = d.seriesDescriptor(index)
                 if (!desc || !desc.model) {
                     return
@@ -635,13 +656,15 @@ Item {
                 }
                 for (var i = startIndex; i < endIndex; i++) {
                     var entry = model.get(i)
-                    if (!entry)
+                    if (!entry) {
                         continue
+                    }
                     var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
                     var v = fn(entry)
                     s.append(t, v)
-                    if (b)
+                    if (b) {
                         b.append(t, v)
+                    }
                 }
                 d.updateLeftAxisRange()
             }
@@ -674,8 +697,9 @@ Item {
 
             function updateSlotProperties(index) {
                 var s = slot(index)
-                if (!s)
+                if (!s) {
                     return
+                }
                 var b = borderSlot(index)
                 var desc = d.seriesDescriptor(index)
                 var visible = desc ? desc.visible !== false : false
@@ -863,8 +887,9 @@ Item {
             }
 
             onScaleChanged: {
-                if (!active)
+                if (!active) {
                     return
+                }
                 var newWindow = d.clamp(startWindowMs / scale, d.minWindowMs, d.maxWindowMs)
                 var timeAtPivot = startStartTime + pivotFraction * startWindowMs
                 d.visibleWindowMs = newWindow
@@ -906,8 +931,9 @@ Item {
             }
 
             onTranslationChanged: {
-                if (!active)
+                if (!active) {
                     return
+                }
                 if (draggingTooltip) {
                     var deltaTimestampMs = (translation.x / chartView.plotArea.width) * d.visibleWindowMs
                     var newTimestampMs = d.clamp(startTimestampMs + deltaTimestampMs, d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
@@ -965,11 +991,13 @@ Item {
             anchors.fill: parent
             onClicked: (mouse) => {
                 var plotArea = chartView.plotArea
-                if (plotArea.width <= 0)
+                if (plotArea.width <= 0) {
                     return
+                }
                 if (mouse.x < plotArea.x || mouse.x > plotArea.x + plotArea.width
-                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height)
+                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height) {
                     return
+                }
                 var fraction = d.clamp((mouse.x - plotArea.x) / plotArea.width, 0, 1)
                 var timestamp = new Date(d.visibleStartTime + fraction * d.visibleWindowMs)
                 var anchorRect = Qt.rect(mouse.x - 1, plotArea.y, 2, plotArea.height)

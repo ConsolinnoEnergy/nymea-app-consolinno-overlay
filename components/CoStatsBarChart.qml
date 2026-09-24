@@ -151,8 +151,9 @@ Item {
             var result = []
             for (var c = 0; c < root.categories.length; c++) {
                 result.push(root.categories[c])
-                if (c < root.categories.length - 1)
+                if (c < root.categories.length - 1) {
                     result.push("__coStatsBarChartGap" + c + "__")
+                }
             }
             return result
         }
@@ -163,8 +164,9 @@ Item {
 
         function seriesDescriptor(stackIndex, seriesIndex) {
             var stack = d.stackAt(stackIndex)
-            if (!stack || !stack.series || seriesIndex >= stack.series.length)
+            if (!stack || !stack.series || seriesIndex >= stack.series.length) {
                 return null
+            }
             return stack.series[seriesIndex]
         }
 
@@ -173,15 +175,17 @@ Item {
         // evenly spaced labels are as round as possible while never
         // clipping the data.
         function niceStep(rawStep) {
-            if (rawStep <= 0)
+            if (rawStep <= 0) {
                 return 1
+            }
             var exponent = Math.floor(Math.log(rawStep) / Math.LN10)
             var base = Math.pow(10, exponent)
             var fraction = rawStep / base
             var niceFractions = [1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]
             for (var i = 0; i < niceFractions.length; i++) {
-                if (fraction <= niceFractions[i] + 1e-9)
+                if (fraction <= niceFractions[i] + 1e-9) {
                     return niceFractions[i] * base
+                }
             }
             return 10 * base
         }
@@ -196,20 +200,24 @@ Item {
             var max = 0
             for (var s = 0; s < root.stacks.length; s++) {
                 var stack = root.stacks[s]
-                if (!stack || !stack.series)
+                if (!stack || !stack.series) {
                     continue
+                }
                 for (var c = 0; c < root.categories.length; c++) {
                     var sum = 0
                     for (var i = 0; i < stack.series.length; i++) {
                         var desc = stack.series[i]
-                        if (!desc || !desc.values)
+                        if (!desc || !desc.values) {
                             continue
+                        }
                         var v = desc.values[c]
-                        if (v)
+                        if (v) {
                             sum += v
+                        }
                     }
-                    if (sum > max)
+                    if (sum > max) {
                         max = sum
+                    }
                 }
             }
             return max
@@ -218,8 +226,9 @@ Item {
         function updateAxisRange() {
             var intervals = d.yLabelCount - 1
             var maxValue = d.maxStackedValue()
-            if (maxValue <= 0)
+            if (maxValue <= 0) {
                 maxValue = intervals
+            }
             var step = d.niceStep(maxValue / intervals)
             yAxis.max = step * intervals
             unitUsesMWh = yAxis.max >= d.mWhThreshold
@@ -244,20 +253,23 @@ Item {
                 var v = 0
                 if (desc && desc.visible !== false && desc.values) {
                     var raw = desc.values[c]
-                    if (raw)
+                    if (raw) {
                         v = raw
+                    }
                 }
                 result.push(v)
-                if (c < count - 1)
+                if (c < count - 1) {
                     result.push(0)
+                }
             }
             return result
         }
 
         function hasVisibleValue(stackIndex, seriesIndex, categoryIndex) {
             var desc = d.seriesDescriptor(stackIndex, seriesIndex)
-            if (!desc || desc.visible === false || !desc.values)
+            if (!desc || desc.visible === false || !desc.values) {
                 return false
+            }
             var v = desc.values[categoryIndex]
             return !!v && v > 0
         }
@@ -268,11 +280,13 @@ Item {
         // on top of it for this category - otherwise it would just add a
         // stray sliver of empty space above the topmost visible segment.
         function gapValueForCategory(stackIndex, seriesIndex, categoryIndex) {
-            if (!d.hasVisibleValue(stackIndex, seriesIndex, categoryIndex))
+            if (!d.hasVisibleValue(stackIndex, seriesIndex, categoryIndex)) {
                 return 0
+            }
             for (var j = seriesIndex + 1; j < d.maxSeriesPerStack; j++) {
-                if (d.hasVisibleValue(stackIndex, j, categoryIndex))
+                if (d.hasVisibleValue(stackIndex, j, categoryIndex)) {
                     return d.segmentGapValue
+                }
             }
             return 0
         }
@@ -282,8 +296,9 @@ Item {
             var result = []
             for (var c = 0; c < count; c++) {
                 result.push(d.gapValueForCategory(stackIndex, seriesIndex, c))
-                if (c < count - 1)
+                if (c < count - 1) {
                     result.push(0)
+                }
             }
             return result
         }
@@ -310,11 +325,13 @@ Item {
 
         function rebuildStack(stackIndex) {
             var sets = stackIndex === 0 ? chartView.barSets0 : chartView.barSets1
-            for (var i = 0; i < sets.length; i++)
+            for (var i = 0; i < sets.length; i++) {
                 d.updateBarSet(sets[i], stackIndex, i)
+            }
             var gaps = stackIndex === 0 ? chartView.gapSets0 : chartView.gapSets1
-            for (var i = 0; i < gaps.length; i++)
+            for (var i = 0; i < gaps.length; i++) {
                 d.updateGapSet(gaps[i], stackIndex, i)
+            }
             d.updateAxisRange()
         }
     }
@@ -505,11 +522,13 @@ Item {
             anchors.fill: parent
             onClicked: (mouse) => {
                 var plotArea = chartView.plotArea
-                if (root.categories.length === 0 || plotArea.width <= 0)
+                if (root.categories.length === 0 || plotArea.width <= 0) {
                     return
+                }
                 if (mouse.x < plotArea.x || mouse.x > plotArea.x + plotArea.width
-                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height)
+                        || mouse.y < plotArea.y || mouse.y > plotArea.y + plotArea.height) {
                     return
+                }
                 var slotWidth = plotArea.width / d.expandedSlotCount
                 var index = Math.round((mouse.x - plotArea.x) / (slotWidth * 2))
                 index = Math.max(0, Math.min(index, root.categories.length - 1))

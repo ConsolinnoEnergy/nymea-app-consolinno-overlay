@@ -51,8 +51,9 @@ ColumnLayout {
             id: monthPicker
             values: {
                 var result = []
-                for (var m = 0; m < 12; m++)
+                for (var m = 0; m < 12; m++) {
                     result.push(m)
+                }
                 return result
             }
             // QLocale month names are 0-based in QML (Locale.standaloneMonthName
@@ -65,8 +66,9 @@ ColumnLayout {
             id: yearPicker
             values: {
                 var result = []
-                for (var y = root.minYear; y <= root.maxYear; y++)
+                for (var y = root.minYear; y <= root.maxYear; y++) {
                     result.push(y)
+                }
                 return result
             }
         }

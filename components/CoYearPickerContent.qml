@@ -39,8 +39,9 @@ ColumnLayout {
         Layout.alignment: Qt.AlignCenter
         values: {
             var result = []
-            for (var y = root.minYear; y <= root.maxYear; y++)
+            for (var y = root.minYear; y <= root.maxYear; y++) {
                 result.push(y)
+            }
             return result
         }
     }
