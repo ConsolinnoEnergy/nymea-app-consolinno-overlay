@@ -13,6 +13,7 @@ Item {
 
     height: 42
     width: 42
+    opacity: enabled ? 1 : Style.numbers.components_Disabled_opacity
 
     Rectangle {
         id: background
@@ -48,6 +49,7 @@ Item {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
+        enabled: root.enabled
         hoverEnabled: true
         onClicked: parent.clicked()
         onPressAndHold: parent.pressAndHold()
