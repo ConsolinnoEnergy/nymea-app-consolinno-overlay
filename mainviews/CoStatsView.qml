@@ -24,14 +24,11 @@ import "statistics"
 //     Month/Year - a sub-period breakdown plus a year-over-year comparison)
 //     and a legend below it.
 //
-// IMPORTANT: this is currently a UI skeleton for the Chart card. Its
-// series below are still generated locally by "d.*" dummy-data functions
-// (clearly marked with TODO comments) so the page layout can be reviewed
-// before the real backend wiring (Energy.GetPowerBalanceLogs,
-// Energy.GetThingPowerLogs, dynamic Thing discovery via ThingsProxy) is
-// implemented in a follow-up. See DetailedGraphsPage.qml and its "energy/"
-// subcomponents for the equivalent real-data patterns this will eventually
-// be based on.
+// All chart data (Day line chart, Week/Month/Year bar charts, Metrics KPI
+// cards) is wired to real backend data (Energy.GetPowerBalanceLogs,
+// Energy.GetThingPowerLogs/dynamic Thing discovery via ThingsProxy,
+// Energy.GetEnergyKPIs). See DetailedGraphsPage.qml and its "energy/"
+// subcomponents for the equivalent real-data patterns this is based on.
 
 MainViewBase {
     id: root
@@ -517,7 +514,7 @@ MainViewBase {
                                 // legend, built directly here (rather than
                                 // extending CoStatsChartLegend with a "grouped"
                                 // mode) - just two Label+CoStatsChartLegend pairs,
-                                // each bound to its own dummy series array.
+                                // each bound to its own series array.
                                 // "consumptionLineSeries" (passed to the chart
                                 // above) is simply the concatenation of both
                                 // arrays, so toggling either legend group is
@@ -685,19 +682,18 @@ MainViewBase {
         }
     }
 
-    // ---- Dummy data & helpers --------------------------------------------
+    // ---- Chart data & helpers --------------------------------------------
     //
-    // Everything below stands in for real backend wiring and is meant to be
-    // replaced wholesale once that is implemented. All "*Series"/"*Categories"
-    // properties are plain reactive bindings (readonly property var: <expr>)
-    // depending only on "periodSelector"'s current state and the toggle
-    // state below - this guarantees every chart/legend always sees
-    // internally-consistent, correctly-shaped data no matter which one is
-    // currently visible (all of them stay bound/instantiated in the
-    // background even while hidden via "visible: false", so their bindings
-    // are still evaluated - a plain imperative "recompute on demand"
-    // function tied to a signal handler would risk a stale/wrong-shaped
-    // read on whichever section is currently invisible).
+    // All "*Series"/"*Categories" properties are plain reactive bindings
+    // (readonly property var: <expr>) depending only on "periodSelector"'s
+    // current state and the toggle state below - this guarantees every
+    // chart/legend always sees internally-consistent, correctly-shaped
+    // data no matter which one is currently visible (all of them stay
+    // bound/instantiated in the background even while hidden via
+    // "visible: false", so their bindings are still evaluated - a plain
+    // imperative "recompute on demand" function tied to a signal handler
+    // would risk a stale/wrong-shaped read on whichever section is
+    // currently invisible).
     // Single tooltip instance shared by every chart on this page (only one
     // can ever be open at a time - opening a new one via "showAt" just
     // repositions/refills this same popup). See CoChartTooltip.qml.
@@ -859,20 +855,6 @@ MainViewBase {
             } else if (!visible && currentIndex === -1) {
                 d.hiddenSeriesKeys = d.hiddenSeriesKeys.concat([key])
             }
-        }
-
-        // Deterministic pseudo-random value in [min, max), seeded by an
-        // arbitrary string. Used instead of Math.random() so the dummy
-        // charts don't visibly jump/flicker on every re-render (e.g. when
-        // toggling a legend pill re-evaluates unrelated bindings) - the
-        // same category+series combination always produces the same value.
-        function pseudoRandom(seed, min, max) {
-            var hash = 0
-            for (var i = 0; i < seed.length; i++) {
-                hash = (hash * 31 + seed.charCodeAt(i)) % 1000000007
-            }
-            var frac = Math.abs(Math.sin(hash))
-            return min + frac * (max - min)
         }
 
         // ---- KPI values ----
@@ -1102,35 +1084,6 @@ MainViewBase {
 
         readonly property var consumptionLineSeries: d.consumptionSourceLineSeries.concat(d.consumptionConsumerLineSeries)
 
-        // Generates a single dummy line-chart series entry: a sine-wave
-        // shaped, 15-minute-resolution "log" for the 24h window around
-        // "referenceDate", wrapped in a plain object that mimics the shape
-        // CoStatsLineChart expects from a real EnergyLogs-derived model
-        // (count/get(index); entriesAddedIdx/entriesRemoved are not needed
-        // here since the dummy data never changes after creation).
-        function dummyLineSeriesFor(name, color, referenceDate, min, max, phaseOffset) {
-            var entries = []
-            var dayStart = new Date(referenceDate)
-            dayStart.setHours(0, 0, 0, 0)
-            var stepMs = 15 * 60000
-            var phase = d.pseudoRandom(name + "|" + (phaseOffset || 0), 0, Math.PI * 2)
-            for (var t = 0; t <= 24 * 3600000; t += stepMs) {
-                var hourOfDay = t / 3600000
-                var value = Math.max(0, Math.sin((hourOfDay / 24) * Math.PI * 2 - Math.PI / 2 + phase)) * (max - min) + min
-                entries.push({ timestamp: new Date(dayStart.getTime() + t), value: value })
-            }
-            return {
-                name: name,
-                key: name,
-                color: color,
-                borderColor: color,
-                visible: d.isSeriesVisible(name),
-                axis: "left",
-                model: d.wrapAsLogModel(entries),
-                valueFunction: function (entry) { return entry.value }
-            }
-        }
-
         // Wraps a plain array of {timestamp, value} entries into the
         // minimal object shape CoStatsLineChart expects from a model.
         function wrapAsLogModel(entries) {
@@ -1142,9 +1095,9 @@ MainViewBase {
         readonly property var emptyLogModel: d.wrapAsLogModel([])
 
         // ==== Week/Month/Year (bar-chart shape) ====
-        // Segment semantics/whether these truly sum additively will need
-        // confirming once wired to real Energy.GetPowerBalanceLogs fields -
-        // for now, dummy values are simply stacked for layout purposes.
+        // Values below are real backend data, provided per-category by the
+        // PeriodEnergyLogs instances (weekEnergyLogs/monthEnergyLogs/
+        // yearEnergyLogs/yoyEnergyLogs) and simply stacked for the chart.
         //
         // Week/Month/Year/year-over-year each get their own dedicated set
         // of category+series properties below (rather than one shared set)
