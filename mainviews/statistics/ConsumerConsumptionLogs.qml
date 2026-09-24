@@ -7,7 +7,7 @@ import Nymea
 
 // ConsumerConsumptionLogs
 //
-// Encapsulates everything needed to back the Statistik page's Verbrauch/
+// Encapsulates everything needed to back the Statistics page's Consumption/
 // Consumers tab:
 //   - Consumer Thing discovery via ThingsProxy (root meter and manually-
 //     hidden consumers excluded), mirroring the equivalent

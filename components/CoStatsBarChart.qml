@@ -24,8 +24,8 @@ import NymeaApp.Utils
 // aligning them onto a common category axis is page-specific logic that
 // does not belong in a reusable chart component.
 //
-// categories: array of strings, x-axis labels (e.g. ["Mo", "Di", ...] or
-//   ["KW18", "KW19", ...]). Both stacks share this same x-axis.
+// categories: array of strings, x-axis labels (e.g. ["Mon", "Tue", ...] or
+//   ["CW18", "CW19", ...]). Both stacks share this same x-axis.
 //
 // stacks: array of exactly 2 objects, each with:
 //   - series: array of objects, each with:
@@ -378,8 +378,8 @@ Item {
                 lineVisible: false
             }
 
-            // -- Stack 0 (e.g. "sources") - fixed data-series slots, bound
-            // to root.stacks[0].series[i], interleaved with transparent
+            // -- Stack 0 (e.g. "sources") - fixed data-series slots, updated
+            // from root.stacks[0].series[i], interleaved with transparent
             // "segment gap" spacer BarSets (see d.segmentGapValue) --
             StackedBarSeries {
                 id: barSeries0
@@ -404,8 +404,8 @@ Item {
                 BarSet { id: barSet0_7 }
             }
 
-            // -- Stack 1 (e.g. "consumers") - fixed data-series slots, bound
-            // to root.stacks[1].series[i], interleaved with transparent
+            // -- Stack 1 (e.g. "consumers") - fixed data-series slots, updated
+            // from root.stacks[1].series[i], interleaved with transparent
             // "segment gap" spacer BarSets (see d.segmentGapValue) --
             StackedBarSeries {
                 id: barSeries1

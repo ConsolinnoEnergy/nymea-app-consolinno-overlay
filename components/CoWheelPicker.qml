@@ -22,7 +22,7 @@ Tumbler {
     // numbers). Each is passed through textForValue() to produce its label.
     property var values: []
     // Formats a single entry of 'values' into display text. Defaults to a
-    // plain string conversion; override for custom formatting (e.g. "KW 20").
+    // plain string conversion; override for custom formatting (e.g. "CW 20").
     property var textForValue: function(value) { return value.toString() }
 
     // Height of a single row, and how many rows are visible at once -

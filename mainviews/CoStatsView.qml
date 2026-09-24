@@ -18,7 +18,7 @@ import "statistics"
 //   - "Metrics" card: 4 CoStatsKPICard instances, always reflecting the
 //     currently selected period (wired to a real Energy.GetEnergyKPIs call
 //     via CoStatsMetricsProvider)
-//   - Chart card: a simple 2-item tab switcher (Energiebilanz/Verbrauch)
+//   - Chart card: a simple 2-item tab switcher (Energy balance/Consumption)
 //     followed by a chart area whose shape depends on the selected sample
 //     rate (1 line chart for Day, 1 bar chart for Week, 2 bar charts for
 //     Month/Year - a sub-period breakdown plus a year-over-year comparison)
@@ -28,9 +28,9 @@ MainViewBase {
     id: root
 
     // Reusable legend block shared by every chart section (Day/Week/Month/
-    // Year): a single flat legend for the Energiebilanz tab (no "Quellen"/
-    // "Verbraucher" split in that design) plus a "Quellen"/"Verbraucher"
-    // grouped legend for the Verbrauch tab, built directly here rather than
+    // Year): a single flat legend for the Energy balance tab (no "Sources"/
+    // "Consumers" split in that design) plus a "Sources"/"Consumers"
+    // grouped legend for the Consumption tab, built directly here rather than
     // teaching CoStatsChartLegend a "grouped" mode. Factored out as an
     // inline component since this exact block would otherwise be
     // duplicated identically for Day/Week/Month/Year.
@@ -95,7 +95,7 @@ MainViewBase {
         engine: _engine
     }
 
-    // ---- Real backend data sources for the Chart card (Day/Energiebilanz) ----
+    // ---- Real backend data sources for the Chart card (Day/Energy balance) ----
     // Producer/battery detection: which optional series to even show/compute
     // (e.g. no point rendering "Production"/"To battery" lines if the
     // installation has neither). Mirrors the equivalent ThingsProxy
@@ -111,9 +111,10 @@ MainViewBase {
         shownInterfaces: ["energystorage"]
     }
 
-    // Backs the Day view's line chart (both the Energiebilanz and Verbrauch/
-    // Sources tabs - they share the same underlying power-balance samples,
-    // just extract different fields via "valueFunction"). "startTime"/
+    // Backs the Day view's line chart (both the Energy balance and
+    // Consumption/Sources tabs - they share the same underlying
+    // power-balance samples, just extract different fields via
+    // "valueFunction"). "startTime"/
     // "endTime" are kept in sync with the chart's own visible window via
     // "onVisibleRangeChanged" below, so panning/zooming re-fetches exactly
     // the range that's actually on screen (plus whatever margin the chart
@@ -124,7 +125,7 @@ MainViewBase {
         sampleRate: EnergyLogs.SampleRate15Mins
     }
 
-    // Backs the Verbrauch/Consumers tab: consumer Thing discovery, per-
+    // Backs the Consumption/Consumers tab: consumer Thing discovery, per-
     // consumer power logs, and the derived "Other consumption" catch-all
     // bucket - see ConsumerConsumptionLogs.qml for details.
     ConsumerConsumptionLogs {
@@ -350,9 +351,9 @@ MainViewBase {
                     // feedback - just the selected tab's text growing/using
                     // the headline color, per Figma. The Figma design shows
                     // a swipeable 4-tab carousel with chevron navigation
-                    // (Energiebilanz/Verbrauch/Photovoltaik/Batterie), but
-                    // per product decision only Energiebilanz/Verbrauch are
-                    // implemented for now - the other two tabs are
+                    // (Energy balance/Consumption/Photovoltaic/Battery), but
+                    // per product decision only Energy balance/Consumption
+                    // are implemented for now - the other two tabs are
                     // intentionally omitted, not just hidden. With only two
                     // tabs, "previous"/"next" simply means "the other one";
                     // each chevron is only enabled while it would actually
@@ -429,7 +430,7 @@ MainViewBase {
                                     percentAxisVisible: false
 
                                     // Also true while per-consumer power logs are
-                                    // being (re)fetched for the Verbrauch/Consumers
+                                    // being (re)fetched for the Consumption/Consumers
                                     // tab - both sources share this one chart/loading
                                     // indicator.
                                     loading: powerBalanceLogs.fetchingData || consumerConsumptionLogs.fetchingData
@@ -670,7 +671,7 @@ MainViewBase {
     QtObject {
         id: d
 
-        property int activeChartTab: 0 // 0 = Energiebilanz, 1 = Verbrauch
+        property int activeChartTab: 0 // 0 = Energy balance, 1 = Consumption
 
         // Whichever CoStatsBarChart currently has a category "pinned"/dimmed
         // for the open tooltip (see CoStatsBarChart.qml's
@@ -777,7 +778,7 @@ MainViewBase {
 
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
-        // shared across all periods/tabs (toggling "Netzbezug" off is
+        // shared across all periods/tabs (toggling "From grid" off is
         // remembered regardless of which period/tab it was toggled from -
         // simpler than per-view toggle state and arguably the more
         // intuitive behavior anyway). Looked up by "key" rather than index
@@ -1017,12 +1018,12 @@ MainViewBase {
                     valueFunction: function (entry) { return entry.currentPower / 1000 }
                 })
             }
-            // "Sonstiger Verbrauch"/"Other consumption" is not an optional
-            // Thing-backed series like the ones above - it is always
-            // present as an explicit catch-all bucket (total consumption
-            // minus the sum of all known consumers at the same instant),
-            // computed and kept up to date by "consumerConsumptionLogs"
-            // (see ConsumerConsumptionLogs.qml - "otherConsumption").
+            // "Other consumption" is not an optional Thing-backed series
+            // like the ones above - it is always present as an explicit
+            // catch-all bucket (total consumption minus the sum of all
+            // known consumers at the same instant), computed and kept up
+            // to date by "consumerConsumptionLogs" (see
+            // ConsumerConsumptionLogs.qml - "otherConsumption").
             series.push({
                 name: qsTr("Other consumption"),
                 key: "Other consumption",

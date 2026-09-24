@@ -18,8 +18,8 @@ ColumnLayout {
     // Earliest selectable date, passed down from CoPeriodPickerOverlay (which
     // in turn gets it from CoPeriodSelector's settable "minDate" property;
     // defaults to 2017-01-01 since there is currently no backend signal for
-    // "data available since"). Only the year is used here, since the week
-    // picker's granularity is year-level (a single year wheel).
+    // "data available since"). Only the year is used here to bound the year
+    // wheel's range.
     property date minDate: new Date(2017, 0, 1)
     readonly property int minYear: minDate.getFullYear()
     readonly property int maxYear: new Date().getFullYear()
@@ -67,7 +67,7 @@ ColumnLayout {
                 return result
             }
             // Source string in English per project convention; translators
-            // provide the localized abbreviation (e.g. German "KW").
+            // provide the localized abbreviation.
             textForValue: function(value) { return qsTr("CW %1").arg(value) }
         }
 

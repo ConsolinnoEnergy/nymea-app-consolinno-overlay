@@ -67,9 +67,7 @@ Item {
 
         // Only the calendar position of this instant matters; it gets
         // re-normalized to a period start via periodStart() for whichever
-        // sampleRate is currently active. This is what allows switching
-        // between Day/Week/Month/Year to keep the same "position" instead
-        // of resetting back to today.
+        // sampleRate is currently active.
         property date selectedInstant: new Date()
 
         // Absolute offset (in units of root.sampleRate, relative to today's
@@ -405,7 +403,7 @@ Item {
 
                     // Each delegate is sized to its own label content, since
                     // different sample rates (and even different months,
-                    // e.g. "Mai" vs "September") produce very differently
+                    // e.g. "May" vs "September") produce very differently
                     // sized labels. A shared fixed width would either clip
                     // longer labels or add excessive spacing around shorter
                     // ones.

@@ -6,7 +6,7 @@ import Nymea
 // CoHeadlineTabBar
 //
 // Variant of CoTabBar for headline-style tab switchers (e.g. the
-// "Energiebilanz"/"Verbrauch" chart tab switcher, using CoHeadlineTabButton
+// "Energy balance"/"Consumption" chart tab switcher, using CoHeadlineTabButton
 // children): fully transparent background (no pill), tab buttons packed to
 // the left with a fixed spacing, plus a fixed pair of prev/next chevron
 // buttons on the right (mirroring the Figma design's carousel navigation,

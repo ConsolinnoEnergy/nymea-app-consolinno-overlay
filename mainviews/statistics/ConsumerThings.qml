@@ -5,7 +5,7 @@ import Nymea
 
 // ConsumerThings
 //
-// Consumer Thing discovery for the Statistik page's Verbrauch/Consumers
+// Consumer Thing discovery for the Statistics page's Consumption/Consumers
 // tab: root meter and manually-hidden consumers excluded, mirroring the
 // equivalent "energyManager"/"consumers" setup in DetailedGraphsPage.qml.
 // Shared between the Day line-chart data provider (ConsumerConsumptionLogs.qml)

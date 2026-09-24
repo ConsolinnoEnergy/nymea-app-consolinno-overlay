@@ -8,7 +8,7 @@ import Nymea
 // PeriodEnergyLogs
 //
 // Backs a single Week/Month/Year/year-over-year bar-chart section of the
-// Statistik page's Chart card. The backend natively aggregates and stores
+// Statistics page's Chart card. The backend natively aggregates and stores
 // samples at "sampleRate" (Week/Month/Year - see EnergyLogger::addConfig in
 // nymea-experience-plugin-energy); this component fetches PowerBalanceLogs
 // and per-consumer ThingPowerLogs at that rate and exposes, per category,
@@ -23,9 +23,9 @@ import Nymea
 // calendar month across the last 5 years" year-over-year comparison uses N
 // disjoint one-month ranges, one per year, all fetched in a single
 // request (covering the earliest "from" to the latest "to" across all
-// ranges) and picked out individually afterwards via find() - exact
-// timestamp match, since the backend's sample timestamps are always
-// calendar-aligned (Monday-based weeks, 1st-of-month, 1st-of-January).
+// ranges) and picked out individually afterwards via find() (a
+// nearest-neighbour lookup - see deltaSeries()'s doc comment for why that
+// matters).
 //
 // The most recent, still-ongoing category (whose "to" boundary lies in the
 // future - e.g. "this week" while the week isn't over yet) has no log entry
@@ -137,7 +137,9 @@ Item {
     // "totalConsumption") on "model" at range.to, minus the same field at
     // range.from. Falls back to "liveValue()" - a function returning the
     // current running total - for the single still-ongoing category (see
-    // file doc comment above). Returned in kWh (the backend delivers Wh).
+    // file doc comment above). Returned in kWh - the backend's cumulative
+    // "total*" counters are already reported in that unit (see the note
+    // near the end of this function).
     //
     // Two things this guards against, mirroring the equivalent logic in
     // ConsolinnoPowerBalanceStats.qml/ConsolinnoConsumerStats.qml:
