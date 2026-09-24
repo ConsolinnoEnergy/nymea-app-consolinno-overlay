@@ -395,7 +395,7 @@ MainViewBase {
                         }
                     }
 
-                    // White rounded rectangle: background for just the chart +
+                    // Rounded rectangle: background for just the chart +
                     // legend area (as opposed to chartSectionBackground above,
                     // which also underlies the tab switcher).
                     Rectangle {

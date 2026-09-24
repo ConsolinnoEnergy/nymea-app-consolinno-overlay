@@ -352,6 +352,11 @@ Item {
         ChartView {
             id: chartView
             anchors.fill: parent
+            // Qt Charts renders its own opaque background (per the current
+            // theme) as a separate graphics item - it does not pick up the
+            // color of any surrounding QML Rectangle, so it must be set
+            // explicitly here to track the app's light/dark style.
+            backgroundColor: Style.colors.typography_Background_Default
             legend.visible: false
             antialiasing: true
             margins.top: d.topAxisReserve
