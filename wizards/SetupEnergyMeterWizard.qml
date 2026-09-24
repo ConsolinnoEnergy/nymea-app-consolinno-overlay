@@ -504,11 +504,18 @@ Page {
 
             property int pendingCallId: -1
             property int thingError: Thing.ThingErrorNoError
+            property string message: ""
 
             property Thing thing: null
 
             Component.onCompleted: {
-                pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+                // thingDescriptor is only set when this page is entered directly from the
+                // discovery flow. When it is pushed as a result of an already completed
+                // addThingReply (thingError/thing/message already provided), there is nothing
+                // left to do here.
+                if (thingDescriptor) {
+                    pendingCallId = engine.thingManager.addDiscoveredThing(thingDescriptor.thingClassId, thingDescriptor.id, thingDescriptor.name, {})
+                }
             }
 
             Connections {
@@ -572,7 +579,9 @@ Page {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.")
+                    text: setupEnergyMeterPage.message.length > 0
+                          ? setupEnergyMeterPage.message
+                          : qsTr("An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
