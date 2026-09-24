@@ -197,9 +197,23 @@ Popup {
             // via "bg" (a real Item), not "root" - "root" is the Popup
             // itself, which (unlike its background/contentItem) is a plain
             // QObject with no "mapToItem".
-            sourceRect: root.blurSourceItem
+            //
+            // "root.x"/"root.y" are read here only to establish a
+            // dependency: mapToItem() is a plain invokable function, so
+            // reading properties *inside* it (bg's on-screen position,
+            // which follows the popup's x/y) does not register as a
+            // binding dependency the way directly reading a property in
+            // this expression does - without this, moving the popup (e.g.
+            // tapping a different point on the chart) would leave this
+            // binding stuck at whatever sourceRect was last computed,
+            // freezing the blurred background in place.
+            sourceRect: {
+                root.x
+                root.y
+                return root.blurSourceItem
                         ? bg.mapToItem(root.blurSourceItem, 0, 0, bg.width, bg.height)
                         : Qt.rect(0, 0, 0, 0)
+            }
             visible: false
             live: true
         }
