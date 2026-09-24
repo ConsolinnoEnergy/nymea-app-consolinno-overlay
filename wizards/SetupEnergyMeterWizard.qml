@@ -37,7 +37,7 @@ Page {
         anchors { left: parent.left; right: parent.right; top: parent.top }
         z: 1
         blurSource: internalPageStack
-        text: qsTr("Setup energy meter")
+        text: qsTr("Setup energy meter or hybrid inverter")
         onBackPressed: pageStack.pop()
     }
 
@@ -130,13 +130,13 @@ Page {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Style.margins
-        anchors.topMargin: header.height
+        anchors.topMargin: header.height + Style.margins
         spacing: Style.margins
 
         CoFrostyCard {
             Layout.fillWidth: true
             contentTopMargin: 8
-            headerText: qsTr("Add energy meter")
+            headerText: qsTr("Add energy meter or hybrid inverter")
 
             ColumnLayout {
                 anchors.left: parent.left
@@ -496,7 +496,7 @@ Page {
             }
 
             header: CoHeader {
-                text: qsTr("Setup energy meter")
+                text: qsTr("Setup energy meter or hybrid inverter")
                 onBackPressed: pageStack.pop()
             }
 
@@ -546,7 +546,7 @@ Page {
                     Label {
                         Layout.fillWidth: true
                         wrapMode: Text.WordWrap
-                        text: qsTr("The following energy meter has been found and set up:")
+                        text: qsTr("The following energy meter or hybrid inverter has been found and set up:")
                         horizontalAlignment: Text.AlignHCenter
                     }
 
@@ -572,7 +572,7 @@ Page {
                     Layout.fillWidth: true
                     Layout.margins: Style.margins
                     wrapMode: Text.WordWrap
-                    text: qsTr("An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.")
+                    text: qsTr("An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.")
                     visible: setupEnergyMeterPage.thingError != Thing.ThingErrorNoError
                 }
 
