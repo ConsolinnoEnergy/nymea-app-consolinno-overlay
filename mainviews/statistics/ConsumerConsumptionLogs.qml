@@ -145,6 +145,46 @@ Item {
             return _entries[index]
         }
 
+        // Nearest-neighbour lookup by timestamp, mirroring
+        // EnergyLogs::indexOf() (see nymea-app/libnymea-app/energy/
+        // energylogs.cpp) so this model satisfies the same contract real
+        // EnergyLogs-derived models do - required by consumers like
+        // CoStatsView's showLineChartTooltip(), which needs indexOf() to
+        // look up the sample nearest a tapped timestamp. "_entries" is
+        // always timestamp-ascending, since rebuild() below appends them
+        // in the (already sorted) order of "totalConsumptionLogs".
+        function indexOf(timestamp) {
+            if (_entries.length === 0) {
+                return -1
+            }
+            var target = timestamp instanceof Date ? timestamp.getTime() : timestamp
+            var firstTs = _entries[0].timestamp instanceof Date ? _entries[0].timestamp.getTime() : _entries[0].timestamp
+            var lastTs = _entries[_entries.length - 1].timestamp instanceof Date ? _entries[_entries.length - 1].timestamp.getTime() : _entries[_entries.length - 1].timestamp
+            if (target < firstTs || target > lastTs) {
+                return -1
+            }
+            var low = 0
+            var high = _entries.length - 1
+            while (low <= high) {
+                var mid = low + Math.floor((high - low) / 2)
+                var midTs = _entries[mid].timestamp instanceof Date ? _entries[mid].timestamp.getTime() : _entries[mid].timestamp
+                if (midTs < target) {
+                    low = mid + 1
+                } else if (midTs > target) {
+                    high = mid - 1
+                } else {
+                    return mid
+                }
+            }
+            var previousIndex = low - 1
+            var nextIndex = low
+            var previousTs = _entries[previousIndex].timestamp instanceof Date ? _entries[previousIndex].timestamp.getTime() : _entries[previousIndex].timestamp
+            var nextTs = _entries[nextIndex].timestamp instanceof Date ? _entries[nextIndex].timestamp.getTime() : _entries[nextIndex].timestamp
+            var diffToPrevious = Math.abs(target - previousTs)
+            var diffToNext = Math.abs(target - nextTs)
+            return diffToPrevious <= diffToNext ? previousIndex : nextIndex
+        }
+
         function rebuild() {
             const total = root.totalConsumptionLogs
             const oldCount = _entries.length
