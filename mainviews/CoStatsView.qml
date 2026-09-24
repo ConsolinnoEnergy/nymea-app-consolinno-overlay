@@ -27,12 +27,13 @@ import "statistics"
 MainViewBase {
     id: root
 
-    // Reusable legend block for the bar-chart views (Week/Month/Year): a single
-    // flat legend for the Energiebilanz tab (no "Quellen"/"Verbraucher" split in
-    // that design) plus a "Quellen"/"Verbraucher" grouped legend for the
-    // Verbrauch tab, built directly here rather than teaching CoStatsChartLegend
-    // a "grouped" mode. Factored out as an inline component since this exact
-    // block is otherwise duplicated identically for Week/Month/Year.
+    // Reusable legend block shared by every chart section (Day/Week/Month/
+    // Year): a single flat legend for the Energiebilanz tab (no "Quellen"/
+    // "Verbraucher" split in that design) plus a "Quellen"/"Verbraucher"
+    // grouped legend for the Verbrauch tab, built directly here rather than
+    // teaching CoStatsChartLegend a "grouped" mode. Factored out as an
+    // inline component since this exact block would otherwise be
+    // duplicated identically for Day/Week/Month/Year.
     component ChartLegendSection: ColumnLayout {
         id: legendSection
 
@@ -497,52 +498,11 @@ MainViewBase {
                                     }
                                 }
 
-                                CoStatsChartLegend {
-                                    Layout.fillWidth: true
-                                    visible: d.activeChartTab === 0
-                                    series: d.energyBalanceLineSeries
-                                    onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.energyBalanceLineSeries, index, visible)
-                                }
-
-                                // Verbrauch: "Quellen"/"Verbraucher" grouped
-                                // legend, built directly here (rather than
-                                // extending CoStatsChartLegend with a "grouped"
-                                // mode) - just two Label+CoStatsChartLegend pairs,
-                                // each bound to its own series array.
-                                // "consumptionLineSeries" (passed to the chart
-                                // above) is simply the concatenation of both
-                                // arrays, so toggling either legend group is
-                                // automatically reflected in the chart - both
-                                // ultimately read the same shared
-                                // "hiddenSeriesKeys" visibility state.
-                                ColumnLayout {
-                                    Layout.fillWidth: true
-                                    visible: d.activeChartTab === 1
-                                    spacing: Style.smallMargins
-
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: qsTr("Sources")
-                                        font: Style.newSmallFontBold
-                                        color: Style.colors.typography_Basic_Default
-                                    }
-                                    CoStatsChartLegend {
-                                        Layout.fillWidth: true
-                                        series: d.consumptionSourceLineSeries
-                                        onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.consumptionSourceLineSeries, index, visible)
-                                    }
-
-                                    Label {
-                                        Layout.fillWidth: true
-                                        text: qsTr("Consumers")
-                                        font: Style.newSmallFontBold
-                                        color: Style.colors.typography_Basic_Default
-                                    }
-                                    CoStatsChartLegend {
-                                        Layout.fillWidth: true
-                                        series: d.consumptionConsumerLineSeries
-                                        onSeriesVisibilityToggled: (index, visible) => d.toggleSeriesVisibility(d.consumptionConsumerLineSeries, index, visible)
-                                    }
+                                ChartLegendSection {
+                                    dataSource: d
+                                    energyBalanceSeries: d.energyBalanceLineSeries
+                                    sourceSeries: d.consumptionSourceLineSeries
+                                    consumerSeries: d.consumptionConsumerLineSeries
                                 }
                             }
 
