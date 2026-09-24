@@ -13,9 +13,9 @@ import "../components"
 //   parent views (e.g. a chart below) can bind directly to them.
 // - setReferenceDate(date) allows setting the period from the outside (e.g.
 //   when the user instead scrolls/zooms the chart itself).
-// - Switching between Day/Week/Month/Year keeps the last selected position
-//   and only re-interprets it for the new granularity (e.g. "May 2025" ->
-//   the week containing May 1st), instead of jumping back to today.
+// - Switching between Day/Week/Month/Year via the tab buttons always jumps
+//   back to today (see resetToToday()), rather than keeping the last
+//   selected position and re-interpreting it for the new granularity.
 // - Navigation into the future is limited to the current period ("today").
 // - Navigation into the past is limited to "minDate" (defaults to
 //   2017-01-01; overridable once the backend can report how far back data
