@@ -167,12 +167,9 @@ Popup {
         // Swallow every press within the popup's bounds: Popup's own
         // background/contentItem are plain Rectangle/Layout items with no
         // input handling of their own, so without this, a press here
-        // Swallow every press within the popup's bounds: Popup's own
-        // background/contentItem are plain Rectangle/Layout items with no
-        // input handling of their own, so without this, a press here
         // (anywhere not already covered by e.g. the close icon's
         // TapHandler below) would otherwise fall straight through to
-        // whatever chart is behind this (non-modal) popup - letting a
+        // whatever chart is behind this popup - letting a
         // click-and-drag on the tooltip itself pan/select on that chart
         // underneath while the tooltip stays open and visually "stuck".
         // "preventStealing" is required here: without it, MouseArea
