@@ -190,7 +190,12 @@ Item {
             if ((energyMetersProxy.count === 0 && !energyMeterWizardSkipped)
                     || (energyMetersProxy.count === 0 && !manualWizardSettings.energymeter)) {
                 var page = pushPage("/ui/wizards/SetupEnergyMeterWizard.qml")
-                page.done.connect(function (skip, abort) {
+                page.done.connect(function (skip, abort, back) {
+                    if (back) {
+                        manualWizardSettings.modBusDone = false
+                        pageStack.pop()
+                        return
+                    }
                     if (abort) {
                         exitWizard()
                         return

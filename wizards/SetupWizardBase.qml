@@ -27,6 +27,8 @@ Page {
     property string limitPopupText: ""
     property int deviceLimit: 1  // 0 means unlimited
     property bool supportsPairing: false  // SolarInverter needs pairing support
+    property bool skipAllowed: true  // Set to false for mandatory steps (e.g. EnergyMeter) to hide the "Next" (skip) button
+    property bool showConfiguredDevices: true  // Set to false to hide the "already configured devices" list card
 
     // Optional: custom success handler (e.g., SolarInverter pushes PVOptimization)
     property var onSuccessHandler: null
@@ -44,6 +46,7 @@ Page {
             CoNavbarButton {
                 Layout.fillWidth: true
                 text: qsTr("Next")
+                visible: root.skipAllowed
                 onClicked: root.done(true, false, false)
             }
 
@@ -216,6 +219,7 @@ Page {
                 Layout.fillWidth: true
                 contentTopMargin: Style.smallMargins
                 headerText: root.integratedDevicesLabel
+                visible: root.showConfiguredDevices
 
                 ColumnLayout {
                     anchors.left: parent.left
