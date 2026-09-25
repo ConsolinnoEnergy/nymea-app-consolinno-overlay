@@ -425,6 +425,13 @@ GenericConfigPage {
                             from: 0
                             to: maxTotalRuntimeStepper.value
                             stepSize: 1
+                            clickable: true
+                            editable: false
+
+                            // #TODO use in functions below
+                            readonly property int currentHours: Math.floor(value / 4)
+                            readonly property int currentMinutes: (value % 4) * 15
+
                             feedbackText: {
                                 var v = maxTotalRuntimeStepper.value;
                                 var h = Math.floor(v / 4);
@@ -445,6 +452,28 @@ GenericConfigPage {
                             spinbox.validator: RegularExpressionValidator {
                                 regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
+
+                            onClicked:{
+                                minRuntimePicker.setCurrentTime(currentHours, currentMinutes) // #TODO does not work the first time
+                                minRuntimePicker.open()
+                            }
+
+                            CoTimePickerOverlay {
+                                id: minRuntimePicker
+                                title: qsTr("Minimum demand duration")
+                                // #TODO wording/translation for description
+                                description: qsTr("Set the minimum amount of time the device should run after it is activated.")
+                                onTimeChosen: function (hours, minutes) {
+                                    const newValue = (hours * 60 + minutes) / 15
+                                    if (newValue < minRuntimeStepper.from) {
+                                        minRuntimeStepper.value = minRuntimeStepper.from
+                                    } else if (newValue > minRuntimeStepper.to) {
+                                        minRuntimeStepper.value = minRuntimeStepper.to
+                                    } else {
+                                        minRuntimeStepper.value = newValue
+                                    }
+                                }
+                            }
                         }
 
                         CoInputStepper {
@@ -458,6 +487,13 @@ GenericConfigPage {
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
                             stepSize: 1
+                            clickable: true
+                            editable: false
+
+                            // #TODO use in functions below
+                            readonly property int currentHours: Math.floor(value / 4)
+                            readonly property int currentMinutes: (value % 4) * 15
+
                             feedbackText: {
                                 var v = minRuntimeStepper.value;
                                 var h = Math.floor(v / 4);
@@ -477,6 +513,28 @@ GenericConfigPage {
                             }
                             spinbox.validator: RegularExpressionValidator {
                                 regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
+                            }
+
+                            onClicked:{
+                                maxTotalRuntimePicker.setCurrentTime(currentHours, currentMinutes) // #TODO does not work the first time
+                                maxTotalRuntimePicker.open()
+                            }
+
+                            CoTimePickerOverlay {
+                                id: maxTotalRuntimePicker
+                                title: qsTr("Maximum demand duration")
+                                // #TODO wording/translation for description
+                                description: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
+                                onTimeChosen: function (hours, minutes) {
+                                    const newValue = (hours * 60 + minutes) / 15
+                                    if (newValue < maxTotalRuntimeStepper.from) {
+                                        maxTotalRuntimeStepper.value = maxTotalRuntimeStepper.from
+                                    } else if (newValue > maxTotalRuntimeStepper.to) {
+                                        maxTotalRuntimeStepper.value = maxTotalRuntimeStepper.to
+                                    } else {
+                                        maxTotalRuntimeStepper.value = newValue
+                                    }
+                                }
                             }
                         }
                     }

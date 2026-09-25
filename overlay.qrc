@@ -349,5 +349,6 @@
         <file>components/CoStatsChartLegend.qml</file>
         <file>components/CoStatsBarChart.qml</file>
         <file>components/CoChartTooltip.qml</file>
+        <file>components/CoTimePickerOverlay.qml</file>
     </qresource>
 </RCC>

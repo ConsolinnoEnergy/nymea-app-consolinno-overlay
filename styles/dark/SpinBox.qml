@@ -32,6 +32,8 @@ T.SpinBox {
     readonly property alias acceptableInput: spinBoxInput.acceptableInput
     property bool hasError: false
 
+    signal clicked()
+
     onActiveFocusChanged: {
         if (!activeFocus) {
             control.hasError = !acceptableInput;
@@ -60,6 +62,12 @@ T.SpinBox {
             if (control.hasError) {
                 control.hasError = !acceptableInput;
             }
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            enabled: !control.editable
+            onClicked: control.clicked()
         }
     }
 

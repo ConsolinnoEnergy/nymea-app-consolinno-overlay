@@ -21,6 +21,7 @@ Item {
 
     property alias acceptableInput: spinbox.acceptableInput
     property alias editable: spinbox.editable
+    property bool clickable: false
     property alias spinbox: spinbox
 
     property alias labelText: label.text
@@ -35,6 +36,7 @@ Item {
     readonly property int _scale: floatingPoint ? Math.pow(10, decimals) : 1
 
     signal valueModified(real value)
+    signal clicked()
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
     implicitWidth: layout.implicitWidth + layout.anchors.leftMargin + layout.anchors.rightMargin
@@ -112,6 +114,12 @@ Item {
                 onValueModified: {
                     root.value = spinbox.value / root._scale;
                     root.valueModified(root.value);
+                }
+
+                onClicked: {
+                    if (root.clickable) {
+                        root.clicked()
+                    }
                 }
 
                 IntValidator {
