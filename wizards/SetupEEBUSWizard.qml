@@ -199,18 +199,18 @@ Page {
             CoFrostyCard {
                 Layout.fillWidth: true
                 contentTopMargin: Style.margins
-                headerText: qsTr("Add EEBUS Device")
+                headerText: qsTr("Add EEBUS device")
 
                 ColumnLayout {
                     anchors.left: parent.left
                     anchors.right: parent.right
-                    anchors.rightMargin: Style.margins
-                    anchors.leftMargin: Style.margins
                     spacing: 0
 
-                    Button {
+                    CoCard {
                         Layout.fillWidth: true
-                        text: qsTr("Search in network")
+                        text: qsTr("EEBUS devices in network")
+                        showChildrenIndicator: true
+                        interactive: true
                         onClicked: {
                             var thingClass = engine.thingManager.thingClasses.getThingClass(root.eebusGatewayThingClassId);
                             discovery.discoverThings(root.eebusGatewayThingClassId);
@@ -247,12 +247,9 @@ Page {
 
             headerText: qsTr("Discover EEBUS Devices")
             onBackPressed: {
+                pageStack.pop(root, StackView.Immediate)
                 if (root.directToDiscovery) {
-                    // Pop discovery page and signal the caller to close the wizard.
-                    pageStack.pop(root, StackView.Immediate)
                     root.done(false, false, true)
-                } else {
-                    pageStack.pop()
                 }
             }
 

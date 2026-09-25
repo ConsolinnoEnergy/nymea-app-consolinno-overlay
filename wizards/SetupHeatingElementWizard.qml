@@ -17,7 +17,7 @@ SetupWizardBase {
     shownInterfaces: ["heatingrod"]
     deviceIcon: "/icons/water_heater.svg"
     emptyListText: qsTr("There is no heating element set up yet.")
-    addDeviceLabel: qsTr("Add heating element: ")
+    addDeviceLabel: qsTr("Add heating element")
     integratedDevicesLabel: qsTr("Integrated heating elements")
     successMessage: qsTr("The following heating element has been found and set up:")
     errorMessage: qsTr("An unexpected error happened during the setup. Please verify the heating element is installed correctly and try again.")

@@ -1501,6 +1501,14 @@
     </message>
 </context>
 <context>
+    <name>CoChooserPopup</name>
+    <message>
+        <location filename="../components/CoChooserPopup.qml" line="42"/>
+        <source>Search</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="322"/>
@@ -1738,11 +1746,6 @@ Your %3 Team</source>
     <message>
         <location filename="../delegates/CoParamDelegate.qml" line="182"/>
         <source>Choose %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../delegates/CoParamDelegate.qml" line="200"/>
-        <source>Search</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6332,7 +6335,7 @@ Would you like to continue anyway?</source>
     <name>SetupEEBUSWizard</name>
     <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="64"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="728"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="725"/>
         <source>EEBUS Devices</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6347,16 +6350,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="202"/>
-        <source>Add EEBUS Device</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="213"/>
-        <source>Search in network</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="43"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
@@ -6367,27 +6360,37 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="202"/>
+        <source>Add EEBUS device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="211"/>
+        <source>EEBUS devices in network</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="248"/>
         <source>Discover EEBUS Devices</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="265"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="262"/>
         <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="299"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="296"/>
         <source>Searching for devices...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="307"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="304"/>
         <source>Too bad...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="316"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="313"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6397,65 +6400,65 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="368"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="365"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="378"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="375"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="389"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="386"/>
         <source>Please change name if necessary.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="401"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="398"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="343"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="452"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="494"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="713"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="340"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="449"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="491"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="710"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="647"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="644"/>
         <source>The EEBUS device has been successfully set up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="743"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="740"/>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="551"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="548"/>
         <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="545"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="542"/>
         <source>You have reached the maximum number of 3 EV chargers. The device will be removed again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="688"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="685"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="512"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="509"/>
         <source>EEBUS Device</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="632"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="629"/>
         <source>Setting up EEBUS device...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6464,17 +6467,32 @@ Would you like to continue anyway?</source>
     <name>SetupEVChargerWizard</name>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="15"/>
-        <source>Setup wallbox</source>
+        <source>Setup EV charger</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="19"/>
-        <source>There is no wallbox set up yet.</source>
+        <source>There is no EV charger set up yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="20"/>
-        <source>Add wallboxes:</source>
+        <source>Add EV charger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>
+        <source>Integrated EV chargers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="22"/>
+        <source>The following EV charger has been found and set up:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="23"/>
+        <source>An unexpected error happened during the setup. Please verify the EV charger is installed correctly and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6482,130 +6500,27 @@ Would you like to continue anyway?</source>
         <source>You have reached the maximum number of 3 EV chargers.</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>
-        <source>Integrated wallbox</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="22"/>
-        <source>The following wallbox has been found and set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="23"/>
-        <source>An unexpected error happened during the setup. Please verify the wallbox is installed correctly and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="149"/>
-        <source>Please select your model:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="225"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="491"/>
-        <source>Next</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="242"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="296"/>
-        <source>Discover %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="251"/>
-        <source>Discovery options</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="338"/>
-        <source>Searching for things...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="346"/>
-        <source>Too bad...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="288"/>
-        <source>Search again</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="40"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="499"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="15"/>
         <source>Setup energy meter or hybrid inverter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="139"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="18"/>
         <source>Add energy meter or hybrid inverter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
-        <source>Reconfigure %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
-        <source>Set up %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="439"/>
-        <source>Thing parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="556"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="19"/>
         <source>The following energy meter or hybrid inverter has been found and set up:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="584"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="20"/>
         <source>An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="304"/>
-        <source>The following devices were found:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="355"/>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="161"/>
-        <source>Add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="24"/>
-        <source>Cancel</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="411"/>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="427"/>
-        <source>Please change name if necessary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="381"/>
-        <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6619,6 +6534,11 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../wizards/SetupHeatPumpWizard.qml" line="15"/>
         <source>Setup heat pump</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupHeatPumpWizard.qml" line="20"/>
+        <source>Add heat pump</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6637,11 +6557,6 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupHeatPumpWizard.qml" line="20"/>
-        <source>Add heat pumps:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupHeatPumpWizard.qml" line="24"/>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation type="unfinished"></translation>
@@ -6655,6 +6570,11 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../wizards/SetupHeatingElementWizard.qml" line="20"/>
+        <source>Add heating element</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupHeatingElementWizard.qml" line="21"/>
         <source>Integrated heating elements</source>
         <translation type="unfinished"></translation>
@@ -6662,11 +6582,6 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../wizards/SetupHeatingElementWizard.qml" line="19"/>
         <source>There is no heating element set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupHeatingElementWizard.qml" line="20"/>
-        <source>Add heating element: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -6688,6 +6603,21 @@ Would you like to continue anyway?</source>
 <context>
     <name>SetupSolarInverterWizard</name>
     <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="19"/>
+        <source>There is no solar inverter set up yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="20"/>
+        <source>Add solar inverter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="21"/>
+        <source>Integrated solar inverters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupSolarInverterWizard.qml" line="23"/>
         <source>An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.</source>
         <translation type="unfinished"></translation>
@@ -6698,167 +6628,153 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="19"/>
-        <source>There is no inverter set up yet.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="20"/>
-        <source>Add solar Inverter: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupSolarInverterWizard.qml" line="22"/>
         <source>The following solar inverter has been found and set up:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="21"/>
-        <source>Integrated solar inverter</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>SetupWizardBase</name>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="285"/>
-        <source>Please select your model:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="299"/>
-        <source>Add</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="46"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="377"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="642"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="48"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="397"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="662"/>
         <source>Next</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="52"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="55"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="393"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="446"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="288"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="299"/>
+        <source>Available models</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="298"/>
+        <source>Please select your model</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="413"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="466"/>
         <source>Discover %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="402"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="422"/>
         <source>Discovery options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="454"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="474"/>
         <source>The following devices were found:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="488"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="508"/>
         <source>Searching for things...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="496"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="516"/>
         <source>Too bad...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="505"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="525"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="438"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="458"/>
         <source>Search again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="734"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="821"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="573"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="754"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
         <source>Reconfigure %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="573"/>
         <source>Set up %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="563"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="583"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="579"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="599"/>
         <source>Please change name if necessary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="591"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="611"/>
         <source>Thing parameters</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="533"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="726"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="746"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="743"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="763"/>
         <source>Login required</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="759"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="760"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="779"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="780"/>
         <source>Username</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="854"/>
         <source>Uh oh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="863"/>
         <source>Something went wrong setting up this thing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="797"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="817"/>
         <source>Retry</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="805"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="825"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="854"/>
         <source>“%1” added!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="863"/>
         <source>All done. You can now start using “%1”.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="867"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="887"/>
         <source>OAuth Authentication</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="876"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="896"/>
         <source>Please complete authentication in your browser</source>
         <translation type="unfinished"></translation>
     </message>

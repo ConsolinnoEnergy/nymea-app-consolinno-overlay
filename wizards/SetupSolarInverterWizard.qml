@@ -16,9 +16,9 @@ SetupWizardBase {
     filterInterface: "solarinverter"
     shownInterfaces: ["solarinverter"]
     deviceIcon: "/icons/solar_power.svg"
-    emptyListText: qsTr("There is no inverter set up yet.")
-    addDeviceLabel: qsTr("Add solar Inverter: ")
-    integratedDevicesLabel: qsTr("Integrated solar inverter")
+    emptyListText: qsTr("There is no solar inverter set up yet.")
+    addDeviceLabel: qsTr("Add solar inverter")
+    integratedDevicesLabel: qsTr("Integrated solar inverters")
     successMessage: qsTr("The following solar inverter has been found and set up:")
     errorMessage: qsTr("An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.")
     limitPopupText: ""  // No limit for solar inverters

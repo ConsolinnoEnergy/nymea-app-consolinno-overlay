@@ -283,30 +283,46 @@ Page {
                     anchors.right: parent.right
                     spacing: 0
 
-                    CoComboBox {
-                        id: thingClassComboBox
+                    CoCard {
                         Layout.fillWidth: true
-                        labelText: qsTr("Please select your model:")
-                        textRole: "displayName"
-                        valueRole: "id"
+                        text: qsTr("Available models")
+                        showChildrenIndicator: true
+                        interactive: true
+                        onClicked: {
+                            thingClassChooser.open();
+                        }
+                    }
+
+                    CoChooserPopup {
+                        id: thingClassChooser
+                        title: qsTr("Please select your model")
+                        listHeaderText: qsTr("Available models")
+
                         model: ThingClassesProxy {
                             engine: _engine
                             filterInterface: root.filterInterface
                             includeProvidedInterfaces: true
+                            filterString: thingClassChooser.filterText
                         }
-                    }
 
-                    Button {
-                        Layout.fillWidth: true
-                        Layout.leftMargin: Style.margins
-                        Layout.rightMargin: Style.margins
-                        text: qsTr("Add")
-                        onClicked: {
+                        delegate: CoCard {
+                            width: parent ? parent.width : 0
+                            text: model.displayName
+                            showChildrenIndicator: true
+                            interactive: true
+
+                            onClicked: {
+                                thingClassChooser.selection = model.id;
+                                thingClassChooser.accept();
+                            }
+                        }
+
+                        onAccepted: {
                             if (root.deviceLimit > 0 && deviceRepeater.model.count >= root.deviceLimit) {
                                 deviceLimitPopup.open();
                                 return;
                             }
-                            internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassComboBox.currentValue});
+                            internalPageStack.push(creatingMethodDecider, {thingClassId: thingClassChooser.selection});
                         }
                     }
                 }

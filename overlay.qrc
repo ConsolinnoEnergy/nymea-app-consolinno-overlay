@@ -299,6 +299,7 @@
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>components/CoPowerThingInfoCard.qml</file>
         <file>components/CoCard.qml</file>
+        <file>components/CoChooserPopup.qml</file>
         <file>components/CoNotification.qml</file>
         <file>components/CoNotConnectedNotification.qml</file>
         <file>components/CoIconButton.qml</file>

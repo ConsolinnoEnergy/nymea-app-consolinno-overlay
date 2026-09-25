@@ -177,58 +177,23 @@ ItemDelegate {
                 }
             }
 
-            CoOverlay {
+            CoChooserPopup {
                 id: chooserPopup
                 title: qsTr("Choose %1").arg(root.paramType.displayName)
-                hasAcceptButton: false
+                listHeaderText: root.paramType.displayName
 
-                property string selection: ""
+                property var baseModel: root.paramType.allowedValues
+                model: filterText.length > 0 ?
+                           baseModel.filter(v => v.toLowerCase().includes(filterText.toLowerCase())) :
+                           baseModel
 
-                onAboutToShow: {
-                    filterInput.textField.clear();
-                    filterInput.textField.forceActiveFocus();
-                }
+                delegate: CoCard {
+                    width: parent ? parent.width : 0
+                    text: modelData
 
-                ColumnLayout {
-                    anchors.fill: parent
-                    anchors.margins: 0
-                    spacing: 0
-
-                    CoInputField {
-                        id: filterInput
-                        Layout.fillWidth: true
-                        labelText: qsTr("Search")
-                    }
-
-                    CoFrostyCard {
-                        id: selectionGroup
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        Layout.margins: Style.margins
-                        contentTopMargin: 8
-                        headerText: root.paramType.displayName
-
-                        ListView {
-                            id: selectionView
-                            anchors.right: parent.right
-                            anchors.left: parent.left
-                            property var baseModel: root.paramType.allowedValues
-                            model: filterInput.textField.displayText.length > 0 ?
-                                       baseModel.filter(v => v.toLowerCase().includes(filterInput.textField.displayText.toLowerCase())) :
-                                       baseModel
-                            implicitHeight: selectionGroup.height - 50
-                            clip: true
-
-                            delegate: CoCard {
-                                width: parent ? parent.width : 0
-                                text: modelData
-
-                                onClicked: {
-                                    chooserPopup.selection = text;
-                                    chooserPopup.accept();
-                                }
-                            }
-                        }
+                    onClicked: {
+                        chooserPopup.selection = text;
+                        chooserPopup.accept();
                     }
                 }
             }

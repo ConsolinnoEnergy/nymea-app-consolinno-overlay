@@ -17,7 +17,7 @@ SetupWizardBase {
     shownInterfaces: ["heatpump", "smartgridheatpump", "simpleheatpump", "pvsurplusheatpump"]
     deviceIcon: "/icons/heat_pump.svg"
     emptyListText: qsTr("There is no heat pump set up yet.")
-    addDeviceLabel: qsTr("Add heat pumps:")
+    addDeviceLabel: qsTr("Add heat pump")
     integratedDevicesLabel: qsTr("Integrated heat pumps")
     successMessage: qsTr("The following heat pump has been found and set up:")
     errorMessage: qsTr("An unexpected error happened during the setup. Please verify the heat pump is installed correctly and try again.")

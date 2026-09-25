@@ -444,10 +444,6 @@
         <source>Minimum SoC</source>
         <translation>Minimaler SoC</translation>
     </message>
-    <message>
-        <source>The value must not be below %1.</source>
-        <translation type="vanished">Der Wert darf nicht unter %1 liegen.</translation>
-    </message>
 </context>
 <context>
     <name>BlackoutProtectionView</name>
@@ -1507,6 +1503,14 @@
     </message>
 </context>
 <context>
+    <name>CoChooserPopup</name>
+    <message>
+        <location filename="../components/CoChooserPopup.qml" line="42"/>
+        <source>Search</source>
+        <translation>Suche</translation>
+    </message>
+</context>
+<context>
     <name>CoDashboardView</name>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="322"/>
@@ -1754,11 +1758,6 @@ Ihr %3 Team</translation>
         <location filename="../delegates/CoParamDelegate.qml" line="182"/>
         <source>Choose %1</source>
         <translation>%1 auswählen</translation>
-    </message>
-    <message>
-        <location filename="../delegates/CoParamDelegate.qml" line="200"/>
-        <source>Search</source>
-        <translation>Suche</translation>
     </message>
 </context>
 <context>
@@ -5610,10 +5609,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
-    <message>
-        <source>The value must not be below %1.</source>
-        <translation type="vanished">Der Wert darf nicht unter %1 liegen.</translation>
-    </message>
 </context>
 <context>
     <name>HeatingOptimization</name>
@@ -5681,10 +5676,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../optimization/HeatingOptimization.qml" line="203"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
-    </message>
-    <message>
-        <source>The value must not be below %1.</source>
-        <translation type="vanished">Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>
@@ -6365,7 +6356,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <name>SetupEEBUSWizard</name>
     <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="64"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="728"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="725"/>
         <source>EEBUS Devices</source>
         <translation>EEBUS-Geräte</translation>
     </message>
@@ -6380,16 +6371,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Noch keine EEBUS-Geräte eingerichtet.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="202"/>
-        <source>Add EEBUS Device</source>
-        <translation>EEBUS-Gerät Hinzufügen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="213"/>
-        <source>Search in network</source>
-        <translation>Im Netzwerk suchen</translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="43"/>
         <source>Next</source>
         <translation>Weiter</translation>
@@ -6400,27 +6381,37 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Abbrechen</translation>
     </message>
     <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="202"/>
+        <source>Add EEBUS device</source>
+        <translation>EEBUS-Gerät Hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="211"/>
+        <source>EEBUS devices in network</source>
+        <translation>EEBUS-Geräte im Netzwerk</translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupEEBUSWizard.qml" line="248"/>
         <source>Discover EEBUS Devices</source>
         <translation>EEBUS-Geräte einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="265"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="262"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="299"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="296"/>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="307"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="304"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="316"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="313"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation>Es wurde kein EEBUS-Gerät im Netzwerk gefunden. Bitte stellen Sie sicher, dass das Gerät eingeschaltet und mit demselben Netzwerk verbunden ist.</translation>
     </message>
@@ -6430,65 +6421,65 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="368"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="365"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="378"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="375"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="389"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="386"/>
         <source>Please change name if necessary.</source>
         <translation>Wenn notwendig, bitte den Namen ändern.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="401"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="398"/>
         <source>Thing parameters</source>
         <translation>Geräteparameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="343"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="452"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="494"/>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="713"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="340"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="449"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="491"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="710"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="647"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="644"/>
         <source>The EEBUS device has been successfully set up:</source>
         <translation>Das folgende EEBUS-Gerät wurde erfolgreich eingerichtet:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="743"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="740"/>
         <source>An error occurred while setting up the EEBUS device. Please try again.</source>
         <translation>Beim Einrichten des EEBUS-Geräts ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="551"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="548"/>
         <source>At the moment, %1 can only control one heat pump. Support for multiple heat pumps is planned for future releases. The device will be removed again.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="545"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="542"/>
         <source>You have reached the maximum number of 3 EV chargers. The device will be removed again.</source>
         <translation>Du hast die maximale Anzahl von 3 Wallboxen erreicht. Das Gerät wird wieder entfernt.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="688"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="685"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="512"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="509"/>
         <source>EEBUS Device</source>
         <translation>EEBUS Gerät</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEEBUSWizard.qml" line="632"/>
+        <location filename="../wizards/SetupEEBUSWizard.qml" line="629"/>
         <source>Setting up EEBUS device...</source>
         <translation>EEBUS Gerät wird eingerichtet...</translation>
     </message>
@@ -6497,165 +6488,61 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     <name>SetupEVChargerWizard</name>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="15"/>
-        <source>Setup wallbox</source>
+        <source>Setup EV charger</source>
         <translation>Wallbox einrichten</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="19"/>
-        <source>There is no wallbox set up yet.</source>
+        <source>There is no EV charger set up yet.</source>
         <translation>Bis jetzt ist keine Wallbox eingerichtet.</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="20"/>
-        <source>Add wallboxes:</source>
-        <translation>Füge Wallboxen hinzu:</translation>
+        <source>Add EV charger</source>
+        <translation>Wallbox hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>
+        <source>Integrated EV chargers</source>
+        <translation>Eingerichtete Wallboxen</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="22"/>
+        <source>The following EV charger has been found and set up:</source>
+        <translation>Die folgende Wallbox wurde gefunden und eingerichtet:</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupEVChargerWizard.qml" line="23"/>
+        <source>An unexpected error happened during the setup. Please verify the EV charger is installed correctly and try again.</source>
+        <translation>Bei der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob die Wallbox korrekt installiert ist, und versuchen Sie es erneut.</translation>
     </message>
     <message>
         <location filename="../wizards/SetupEVChargerWizard.qml" line="24"/>
         <source>You have reached the maximum number of 3 EV chargers.</source>
         <translation>Du hast die maximale Anzahl von 3 Wallboxen erreicht.</translation>
     </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="21"/>
-        <source>Integrated wallbox</source>
-        <translation>Eingerichtete Wallboxen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="22"/>
-        <source>The following wallbox has been found and set up:</source>
-        <translation>Die folgende Wallbox wurde gefunden und eingerichtet:</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEVChargerWizard.qml" line="23"/>
-        <source>An unexpected error happened during the setup. Please verify the wallbox is installed correctly and try again.</source>
-        <translation>Bei der Einrichtung ist ein unerwarteter Fehler aufgetreten. Bitte überprüfen Sie, ob die Wallbox korrekt installiert ist, und versuchen Sie es erneut.</translation>
-    </message>
 </context>
 <context>
     <name>SetupEnergyMeterWizard</name>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="149"/>
-        <source>Please select your model:</source>
-        <translation>Bitte Modell auswählen:</translation>
-    </message>
-    <message>
-        <source>An unexpected error happened during the setup. Please verify the energy meter is installed correctly and try again.</source>
-        <translation type="vanished">Ein unerwarteter Fehler ist aufgetreten. Bitte Stromzähler überprüfen und erneut versuchen.</translation>
-    </message>
-    <message>
-        <source>Setup energy meter</source>
-        <translation type="vanished">Stromzähler einrichten</translation>
-    </message>
-    <message>
-        <source>The following energy meter has been found and set up:</source>
-        <translation type="vanished">Der folgende Stromzähler wurde gefunden und eingerichtet</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="225"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="491"/>
-        <source>Next</source>
-        <translation>Weiter</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="242"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="296"/>
-        <source>Discover %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="251"/>
-        <source>Discovery options</source>
-        <translation>Suchparameter</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="338"/>
-        <source>Searching for things...</source>
-        <translation>Suche Geräte</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="346"/>
-        <source>Too bad...</source>
-        <translation>Schade!</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="288"/>
-        <source>Search again</source>
-        <translation>Erneut suchen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="40"/>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="499"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="15"/>
         <source>Setup energy meter or hybrid inverter</source>
         <translation>Stromzähler oder Hybrid-Wechselrichter einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="139"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="18"/>
         <source>Add energy meter or hybrid inverter</source>
         <translation>Stromzähler oder Hybrid-Wechselrichter hinzufügen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
-        <source>Reconfigure %1</source>
-        <translation>Konfiguriere %1</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="401"/>
-        <source>Set up %1</source>
-        <translation>%1 einrichten</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="439"/>
-        <source>Thing parameters</source>
-        <translation>Gerät parameter</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="556"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="19"/>
         <source>The following energy meter or hybrid inverter has been found and set up:</source>
         <translation>Der folgende Stromzähler oder Hybrid-Wechselrichter wurde gefunden und eingerichtet:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="584"/>
+        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="20"/>
         <source>An unexpected error happened during the setup. Please verify the energy meter or hybrid inverter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Stromzähler oder Hybrid-Wechselrichter überprüfen und erneut versuchen.</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="304"/>
-        <source>The following devices were found:</source>
-        <translation>Folgende Geräte wurden gefunden:</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="355"/>
-        <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
-        <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
-    </message>
-    <message>
-        <source>Add energy meter</source>
-        <translation type="vanished">Stromzähler hinzufügen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="161"/>
-        <source>Add</source>
-        <translation>Hinzufügen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="24"/>
-        <source>Cancel</source>
-        <translation>Abbrechen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="411"/>
-        <source>Name</source>
-        <translation>Name</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="427"/>
-        <source>Please change name if necessary</source>
-        <translation>Wenn notwendig, bitte den Namen ändern</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupEnergyMeterWizard.qml" line="381"/>
-        <source>OK</source>
-        <translation>OK</translation>
     </message>
 </context>
 <context>
@@ -6669,6 +6556,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <location filename="../wizards/SetupHeatPumpWizard.qml" line="15"/>
         <source>Setup heat pump</source>
         <translation>Wärmepumpe einrichten</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupHeatPumpWizard.qml" line="20"/>
+        <source>Add heat pump</source>
+        <translation>Wärmepumpe hinzufügen</translation>
     </message>
     <message>
         <location filename="../wizards/SetupHeatPumpWizard.qml" line="21"/>
@@ -6686,11 +6578,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Bis jetzt ist keine Wärmepumpe eingerichtet.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupHeatPumpWizard.qml" line="20"/>
-        <source>Add heat pumps:</source>
-        <translation>Füge Wärmepumpen hinzu: </translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupHeatPumpWizard.qml" line="24"/>
         <source>At the moment, %1 can only control one heatpump. Support for multiple heatpumps is planned for future releases.</source>
         <translation>Derzeit kann %1 nur eine Wärmepumpe steuern. Die Unterstützung für mehrere Wärmepumpen ist für zukünftige Versionen geplant.</translation>
@@ -6704,6 +6591,11 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Heizstab einrichten</translation>
     </message>
     <message>
+        <location filename="../wizards/SetupHeatingElementWizard.qml" line="20"/>
+        <source>Add heating element</source>
+        <translation>Heizstab hinzufügen</translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupHeatingElementWizard.qml" line="21"/>
         <source>Integrated heating elements</source>
         <translation>Eingerichtete Heizstäbe</translation>
@@ -6712,11 +6604,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <location filename="../wizards/SetupHeatingElementWizard.qml" line="19"/>
         <source>There is no heating element set up yet.</source>
         <translation>Bis jetzt sind keine Heizstäbe eingerichtet.</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupHeatingElementWizard.qml" line="20"/>
-        <source>Add heating element: </source>
-        <translation>Füge Heizstab hinzu: </translation>
     </message>
     <message>
         <location filename="../wizards/SetupHeatingElementWizard.qml" line="22"/>
@@ -6737,6 +6624,21 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
 <context>
     <name>SetupSolarInverterWizard</name>
     <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="19"/>
+        <source>There is no solar inverter set up yet.</source>
+        <translation>Bis jetzt ist kein Wechselrichter eingerichtet.</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="20"/>
+        <source>Add solar inverter</source>
+        <translation>Wechselrichter hinzufügen</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupSolarInverterWizard.qml" line="21"/>
+        <source>Integrated solar inverters</source>
+        <translation>Eingerichtete Wechselrichter</translation>
+    </message>
+    <message>
         <location filename="../wizards/SetupSolarInverterWizard.qml" line="23"/>
         <source>An unexpected error happened during the setup. Please verify the solar inverter is installed correctly and try again.</source>
         <translation>Ein unerwarteter Fehler ist aufgetreten. Bitte Solarwechselrichter überprüfen und erneut versuchen.</translation>
@@ -6747,167 +6649,153 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Wechselrichter einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="19"/>
-        <source>There is no inverter set up yet.</source>
-        <translation>Bis jetzt ist kein Wechselrichter eingerichtet</translation>
-    </message>
-    <message>
         <location filename="../wizards/SetupSolarInverterWizard.qml" line="22"/>
         <source>The following solar inverter has been found and set up:</source>
         <translation>Der folgende Wechselrichter wurde gefunden und eingerichtet:</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="20"/>
-        <source>Add solar Inverter: </source>
-        <translation>Füge Wechselrichter hinzu: </translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupSolarInverterWizard.qml" line="21"/>
-        <source>Integrated solar inverter</source>
-        <translation>Eingerichtete Wechselrichter</translation>
     </message>
 </context>
 <context>
     <name>SetupWizardBase</name>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="285"/>
-        <source>Please select your model:</source>
-        <translation>Bitte Modell auswählen:</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="299"/>
-        <source>Add</source>
-        <translation>Hinzufügen</translation>
-    </message>
-    <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="46"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="377"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="642"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="48"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="397"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="662"/>
         <source>Next</source>
         <translation>Weiter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="52"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="55"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="393"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="446"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="288"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="299"/>
+        <source>Available models</source>
+        <translation>Verfügbare Modelle</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="298"/>
+        <source>Please select your model</source>
+        <translation>Bitte Modell auswählen</translation>
+    </message>
+    <message>
+        <location filename="../wizards/SetupWizardBase.qml" line="413"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="466"/>
         <source>Discover %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="402"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="422"/>
         <source>Discovery options</source>
         <translation>Suchparameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="454"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="474"/>
         <source>The following devices were found:</source>
         <translation>Folgende Geräte wurden gefunden:</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="488"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="508"/>
         <source>Searching for things...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="496"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="516"/>
         <source>Too bad...</source>
         <translation>Schade!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="505"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="525"/>
         <source>No device was found. Please check if you have selected the correct type and if the device is connected to the correct port and go to &apos;Search again&apos;.</source>
         <translation>Es wurde kein Gerät gefunden. Überprüfen Sie bitte, ob Sie den korrekten Typ ausgewählt haben und ob das Gerät mit dem richtigen Anschluss verbunden ist und gehen auf &apos;erneut suchen&apos;.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="438"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="458"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="734"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="821"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="573"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="754"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="841"/>
         <source>Reconfigure %1</source>
         <translation>%1 neu einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="573"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="563"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="583"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="579"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="599"/>
         <source>Please change name if necessary</source>
         <translation>Wenn notwendig, bitte den Namen ändern</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="591"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="611"/>
         <source>Thing parameters</source>
         <translation>Gerät parameter</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="533"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="726"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="553"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="746"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="743"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="763"/>
         <source>Login required</source>
         <translation>Anmeldung erforderlich</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="759"/>
-        <location filename="../wizards/SetupWizardBase.qml" line="760"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="779"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="780"/>
         <source>Username</source>
         <translation>Benutzername</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="854"/>
         <source>Uh oh</source>
         <translation>Uh oh</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="863"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="797"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="817"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="805"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="825"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="834"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="854"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="843"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="863"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="867"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="887"/>
         <source>OAuth Authentication</source>
         <translation>OAuth-Authentifizierung</translation>
     </message>
     <message>
-        <location filename="../wizards/SetupWizardBase.qml" line="876"/>
+        <location filename="../wizards/SetupWizardBase.qml" line="896"/>
         <source>Please complete authentication in your browser</source>
         <translation>Bitte führen Sie die Authentifizierung in Ihrem Browser durch</translation>
     </message>
@@ -7195,10 +7083,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <location filename="../optimization/SwitchableConsumerOptimization.qml" line="56"/>
         <source>Switchable consumers</source>
         <translation>Schaltbare Verbraucher</translation>
-    </message>
-    <message>
-        <source>The value must not be below %1.</source>
-        <translation type="vanished">Der Wert darf nicht unter %1 liegen.</translation>
     </message>
 </context>
 <context>
