@@ -105,7 +105,7 @@
         <translation>Gerät hinzufügen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/AddNewThings.qml" line="205"/>
+        <location filename="../thingconfiguration/AddNewThings.qml" line="206"/>
         <source>Search</source>
         <translation>Suche</translation>
     </message>
@@ -537,8 +537,8 @@
     </message>
     <message>
         <location filename="../info/BlockEVChargingFromBatteryInfo.qml" line="36"/>
-        <source>Charging the electric car from the battery is blocked.</source>
-        <translation>Das Laden des Fahrzeugs aus der Batterie wird gesperrt.</translation>
+        <source>Charging the vehicle from the battery is blocked, except in “Solar only” and “Next trip” modes.</source>
+        <translation>Das Laden des Fahrzeugs aus der Batterie wird gesperrt, außer in den Modi „Nur Solarstrom“ und „Nächste Fahrt“.</translation>
     </message>
 </context>
 <context>
@@ -3742,223 +3742,228 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
 <context>
     <name>ConsolinnoSettingsPage</name>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="126"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="134"/>
         <source>System settings</source>
         <translation>Systemeinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="136"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="144"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="146"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="154"/>
         <source>User settings</source>
         <translation>Benutzereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="157"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="165"/>
         <source>Networking</source>
         <translation>Netzwerk</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="168"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="176"/>
         <source>Connection settings</source>
         <translation>Verbindungseinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="300"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="308"/>
         <source>MQTT broker</source>
         <translation>MQTT Broker</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="258"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="266"/>
         <source>Web server</source>
         <translation>Web Server</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="272"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="280"/>
         <source>ZigBee</source>
         <translation>ZigBee</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="286"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="294"/>
         <source>Z-Wave</source>
         <translation>Z-Wave</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="190"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="198"/>
         <source>Modbus RTU</source>
         <translation>Modbus RTU</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="201"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="209"/>
         <source>Plugins</source>
         <translation>Plugins</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="313"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="321"/>
         <source>Developer tools</source>
         <translation>Entwicklerwerkzeuge</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="212"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="220"/>
         <source>Log viewer</source>
         <translation>Systemprotokoll</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="227"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="235"/>
         <source>About %1</source>
         <translation>Über %1</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="36"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="44"/>
         <source>Configuration</source>
         <translation>Konfiguration</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="47"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="36"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../ConsolinnoSettingsPage.qml" line="55"/>
         <source>Optimization configuration</source>
         <translation>Optimierungskonfiguration</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="56"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="64"/>
         <source>Comissioning</source>
         <translation>Inbetriebnahme</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="57"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="65"/>
         <source>Install devices and set up the system. For installers only.</source>
         <translation>Installiere Geräte und richte das System ein. Nur für Installateure.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="65"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="73"/>
         <source>Development</source>
         <translation>Development</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="75"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="83"/>
         <source>Dynamic electricity tariff</source>
         <translation>Dynamischer Stromtarif</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="76"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="84"/>
         <source>Set up a dynamic electicity tariff for the system to operate with.</source>
         <translation>Richte einen dynamischen Stromtarif ein, mit dem das System arbeiten soll.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="84"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="92"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="85"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="93"/>
         <source>Configure grid support capabilities through relays or EEBUS. For installers only.</source>
         <translation>Konfiguriere netzdienliche Funktionen über Relais oder EEBUS. Nur für Installateure.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="96"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="104"/>
         <source>App settings</source>
         <translation>App-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="105"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="113"/>
         <source>Look &amp; feel</source>
         <translation>Aussehen &amp; Verhalten</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="114"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="122"/>
         <source>Developer options</source>
         <translation>Entwicklereinstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="239"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="247"/>
         <source>Developer settings</source>
         <translation>Developer-Einstellungen</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="48"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="56"/>
         <source>Optimize devices and system behavior.</source>
         <translation>Optimiere Geräte und Systemverhalten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="115"/>
-        <location filename="../ConsolinnoSettingsPage.qml" line="314"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="123"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="322"/>
         <source>Access tools for debugging and error reporting.</source>
         <translation>Greife auf Werkzeuge und Fehleranalyse-Werkzeuge zu.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="137"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="145"/>
         <source>Change system name and time zone.</source>
         <translation>Ändere Systemname und Zeitzone.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="147"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="155"/>
         <source>Configure who can log in.</source>
         <translation>Konfiguriere, wer sich verbinden darf.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="169"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="177"/>
         <source>Configure how applications can connect to this system.</source>
         <translation>Verwalte, wie sich Anwendungen zu diesem System verbinden können.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="191"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="199"/>
         <source>Configure Modbus RTU master interfaces.</source>
         <translation>Modbus-RTU-Master-Schnittstellen einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="202"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="210"/>
         <source>List and cofigure installed plugins.</source>
         <translation>Installierte Plugins auflisten und einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="213"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="221"/>
         <source>View system log.</source>
         <translation>Systemprotokoll anzeigen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="228"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="236"/>
         <source>Find server UUID, versions and license information.</source>
         <translation>Finde Server-UUID, Versionen und Lizenzinformationen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="259"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="267"/>
         <source>Configure the web server.</source>
         <translation>Konfiguriere den Webserver.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="273"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="281"/>
         <source>Configure ZigBee networks.</source>
         <translation>ZigBee-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="287"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="295"/>
         <source>Configure Z-Wave networks.</source>
         <translation>Z-Wave-Netzwerke einrichten.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="301"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="309"/>
         <source>Configure the MQTT broker.</source>
         <translation>Konfiguriere den MQTT Broker.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="106"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="114"/>
         <source>Customize the app’s look and behavior.</source>
         <translation>Aussehen und Verhalten der App anpassen.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="158"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="166"/>
         <source>Configure the system’s network connection.</source>
         <translation>Richte das Netzwerk dieses Systems ein.</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="179"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="187"/>
         <source>Consolinno cloud services</source>
         <translation>Consolinno Cloud-Dienste</translation>
     </message>
     <message>
-        <location filename="../ConsolinnoSettingsPage.qml" line="180"/>
+        <location filename="../ConsolinnoSettingsPage.qml" line="188"/>
         <source>Manage cloud connection and data sharing preferences.</source>
         <translation>Cloud-Verbindung und Datenfreigabe-Einstellungen verwalten.</translation>
     </message>

@@ -33,7 +33,7 @@ Page {
                 Layout.topMargin: 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("Charging the electric car from the battery is blocked.")
+                text: qsTr("Charging the vehicle from the battery is blocked, except in \“Solar only\” and \“Next trip\” modes.")
             }
 
         }
