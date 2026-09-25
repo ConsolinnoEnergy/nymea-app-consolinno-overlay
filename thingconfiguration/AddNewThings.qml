@@ -109,6 +109,7 @@ Page {
         function navigateBack(thingPage){
             thingPage.done.connect(function() {
                 pageStack.pop(root);
+                pageStack.pop();
             })
         }
     }
