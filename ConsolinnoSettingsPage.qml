@@ -23,12 +23,20 @@ MainViewBase {
                 left: parent.left;
                 top: parent.top;
                 right: parent.right;
-                topMargin: root.topMargin + Style.smallMargins
+                topMargin: root.topMargin
                 bottomMargin: Style.smallMargins
                 leftMargin: Style.margins
                 rightMargin: Style.margins
             }
             spacing: Style.margins
+
+            Label {
+                Layout.fillWidth: true
+                Layout.topMargin: Style.margins
+                text: qsTr("Settings")
+                font: Style.newH1Font
+                color: Style.colors.typography_Basic_Default
+            }
 
             CoFrostyCard {
                 Layout.fillWidth: true
