@@ -342,7 +342,6 @@ Page {
             Component {
                 id: continueWithNullParameterComponent
                 NymeaDialog {
-                    headerIcon: "/icons/question.svg"
                     title: qsTr("Incomplete Price Information")
                     text: qsTr(
 "At least one of your values for levies or grid fees is set to 0. \
