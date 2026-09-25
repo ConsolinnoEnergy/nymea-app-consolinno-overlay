@@ -866,6 +866,7 @@ GenericConfigPage {
 
                     CoNotification {
                         Layout.fillWidth: true
+                        Layout.margins: Style.extraExtraSmallMargins
                         type: CoNotification.Type.Neutral
                         actionType: CoNotification.ActionType.Collapsible
                         visible: evChargerProxy.count > 1
