@@ -8,13 +8,15 @@ Dialog {
     id: root
 
     property bool hasAcceptButton: true
+    // Gap to the upper screen border.
+    property int topGap: Style.margins
 
     modal: true
     closePolicy: Popup.NoAutoClose
 
     parent: Overlay.overlay
     x: 0
-    y: 0 // #TODO is 0 good or do we need an offset?
+    y: topGap
     width: parent.width
     height: parent.height - y + bg.radius
 
@@ -30,7 +32,7 @@ Dialog {
         NumberAnimation {
             property: "y"
             from: parent.height
-            to: 0 // #TODO is 0 good or do we need an offset?
+            to: topGap
             duration: 300
             easing.type: Easing.OutCubic
         }
@@ -39,7 +41,7 @@ Dialog {
     exit: Transition {
         NumberAnimation {
             property: "y"
-            from: 0 // #TODO is 0 good or do we need an offset?
+            from: topGap
             to: parent.height
             duration: 300
             easing.type: Easing.InCubic
