@@ -324,16 +324,16 @@ GenericConfigPage {
                                 regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
 
-                            onClicked:{
-                                minRuntimePicker.setCurrentTime(currentHours, currentMinutes)
-                                minRuntimePicker.open()
-                            }
+                            onClicked: minRuntimePicker.open()
 
                             CoTimePickerOverlay {
                                 id: minRuntimePicker
                                 title: qsTr("Minimum runtime")
                                 // #TODO wording/translation for description
                                 description: qsTr("Set the minimum amount of time the device should run after it is activated.")
+                                initialHours: minRuntimeStepper.currentHours
+                                initialMinutes: minRuntimeStepper.currentMinutes
+
                                 onTimeChosen: function (hours, minutes) {
                                     const newValue = (hours * 60 + minutes) / 15
                                     if (newValue < minRuntimeStepper.from) {
@@ -385,16 +385,15 @@ GenericConfigPage {
                                 regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
                             }
 
-                            onClicked:{
-                                maxTotalRuntimePicker.setCurrentTime(currentHours, currentMinutes)
-                                maxTotalRuntimePicker.open()
-                            }
+                            onClicked: maxTotalRuntimePicker.open()
 
                             CoTimePickerOverlay {
                                 id: maxTotalRuntimePicker
                                 title: qsTr("Maximum runtime")
                                 // #TODO wording/translation for description
                                 description: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
+                                initialHours: maxTotalRuntimeStepper.currentHours
+                                initialMinutes: maxTotalRuntimeStepper.currentMinutes
                                 onTimeChosen: function (hours, minutes) {
                                     const newValue = (hours * 60 + minutes) / 15
                                     if (newValue < maxTotalRuntimeStepper.from) {

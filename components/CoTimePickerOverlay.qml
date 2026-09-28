@@ -7,13 +7,10 @@ CoOverlay {
     id: root
 
     property alias description: descriptionLabel.text
+    property int initialHours: 0
+    property int initialMinutes: 0
 
     signal timeChosen(int hours, int minutes)
-
-    function setCurrentTime(hours, minutes) {
-        hoursPicker.selectValueImmediate(hours);
-        minutesPicker.selectValueImmediate(minutes);
-    }
 
     onAccepted: {
         root.timeChosen(hoursPicker.currentValue, minutesPicker.currentValue)
@@ -58,6 +55,13 @@ CoOverlay {
                         }
                         return result
                     }
+
+                    currentIndex: {
+                        const ind = values.indexOf(root.initialHours)
+                        return ind >= 0 ? ind : 0
+                    }
+
+
                     onCurrentValueChanged: {
                         if (currentValue === 24) {
                             minutesPicker.selectValue(0)
@@ -88,6 +92,11 @@ CoOverlay {
                         } else {
                             return value.toString()
                         }
+                    }
+
+                    currentIndex: {
+                        const ind = values.indexOf(root.initialMinutes)
+                        return ind >= 0 ? ind : 0
                     }
 
                     onCurrentValueChanged: {
