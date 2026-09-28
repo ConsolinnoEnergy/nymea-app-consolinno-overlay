@@ -10,8 +10,8 @@ CoNotification {
     type: CoNotification.Type.Danger
     clickable: true
     messageTextFormat: Text.StyledText
-    title: qsTr("Connection to \“Thing\” interrupted")
-    message: qsTr("If the problem persists, try restarting the device. For more information, see the <u>log.</u>")
+    title: qsTr("Connection to device lost")
+    message: qsTr("If the problem persists, try restarting the device. For more information see the <u>log</u>.")
     onClicked: {
         let pageUrl = "../devicepages/ConsolinnoDeviceLogPage.qml";
         let signalStateType = root.thing.thingClass.stateTypes.findByName("signalStrength");

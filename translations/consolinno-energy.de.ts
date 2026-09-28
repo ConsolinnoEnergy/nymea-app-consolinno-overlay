@@ -666,40 +666,40 @@
         <translation>Unterbrochen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1414"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1422"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1415"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1423"/>
         <source>In the currently selected timeframe the charging process is not possible. Please reduce the target charge or increase the end time</source>
         <translation>Ladevorgang in der vorgegeben Zeit nicht möglich, verringern sie das Ladeziel oder verlängern sie die Zeitvorgabe.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1135"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1152"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1136"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1153"/>
         <source>Select/Add Car</source>
         <translation>hinzufügen/wähle Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1505"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1506"/>
         <source>Charge with minimum current</source>
         <translation>Laden mit minimaler Leistung</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1506"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1507"/>
         <source>Pause charging</source>
         <translation>Pausieren des Ladevorgangs</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="966"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="967"/>
         <source>Please select a battery level greater than 0%.</source>
         <translation>Bitte wählen Sie ein Batteriestand, der größer als 0 % ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="970"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="2002"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="971"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="2003"/>
         <source>Please select a car</source>
         <translation>Bitte wählen Sie ein Auto aus</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="980"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="981"/>
         <source>Unknown error</source>
         <translation>Unbekannter Fehler</translation>
     </message>
@@ -715,19 +715,19 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="490"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1170"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1171"/>
         <source>Charging mode</source>
         <translation>Lademodus</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="628"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1404"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1405"/>
         <source>Ending time</source>
         <translation>Zielzeit</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="637"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1357"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1358"/>
         <source>Target charge</source>
         <translation>Ladeziel</translation>
     </message>
@@ -749,7 +749,7 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="721"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1331"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1332"/>
         <source>Battery level</source>
         <translation>Batteriestand</translation>
     </message>
@@ -770,19 +770,19 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="507"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1179"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1180"/>
         <source>Charge always</source>
         <translation>Immer laden</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="511"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1181"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1182"/>
         <source>Next trip</source>
         <translation>Nächste Fahrt</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="519"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1180"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1181"/>
         <source>Solar only</source>
         <translation>Nur Solarstrom</translation>
     </message>
@@ -797,8 +797,8 @@
         <translation>Laden deaktiviert. Bitte wählen Sie einen Lademodus.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1092"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1120"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1093"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1121"/>
         <source>Configure charging mode</source>
         <translation>Lademodus konfigurieren</translation>
     </message>
@@ -819,7 +819,7 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="523"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1182"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1183"/>
         <source>Dynamic pricing</source>
         <translation>Dynamischer Tarif</translation>
     </message>
@@ -831,22 +831,22 @@
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="558"/>
         <location filename="../optimization/ChargingConfigView.qml" line="567"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1500"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1501"/>
         <source>Pausing</source>
         <translation>Pausieren</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1653"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1654"/>
         <source>No data available</source>
         <translation>Keine Daten verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1930"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1931"/>
         <source>No prices available, yet</source>
         <translation>Noch keine Preise verfügbar</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1949"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1950"/>
         <source>ct/kWh</source>
         <translation>ct/kWh</translation>
     </message>
@@ -867,49 +867,49 @@
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="527"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1183"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1184"/>
         <source>Time controlled</source>
         <translation>Zeitgesteuertes Laden</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="67"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1018"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1019"/>
         <source>Monday</source>
         <translation>Montag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="68"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1019"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1020"/>
         <source>Tuesday</source>
         <translation>Dienstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="69"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1020"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1021"/>
         <source>Wednesday</source>
         <translation>Mittwoch</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="70"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1021"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1022"/>
         <source>Thursday</source>
         <translation>Donnerstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="71"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1022"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1023"/>
         <source>Friday</source>
         <translation>Freitag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="72"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1023"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1024"/>
         <source>Saturday</source>
         <translation>Samstag</translation>
     </message>
     <message>
         <location filename="../optimization/ChargingConfigView.qml" line="73"/>
-        <location filename="../optimization/ChargingConfigView.qml" line="1024"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1025"/>
         <source>Sunday</source>
         <translation>Sonntag</translation>
     </message>
@@ -955,62 +955,62 @@
         <translation>Laden abbrechen</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="872"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="873"/>
         <source>Note</source>
         <translation>Hinweis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="873"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="874"/>
         <source>When operating multiple EV chargers simultaneously, automatic load balancing is currently not available. Ensuring compliance with the total charging capacity approved for your grid connection is your responsibility.</source>
         <translation>Beim gleichzeitigen Betrieb mehrerer Wallboxen erfolgt derzeit keine automatische Lastverteilung. Die Einhaltung der für deinen Netzanschluss genehmigten Gesamtladeleistung liegt in deiner Verantwortung.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1132"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1133"/>
         <source>Selected car</source>
         <translation>Ausgewähltes Auto</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1276"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1277"/>
         <source>If the price limit is exceeded, PV surplus power is used according to device priority.</source>
         <translation>Bei überschrittener Preisgrenze wird PV‑Überschuss nach Gerätepriorität genutzt.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1283"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1284"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1303"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1304"/>
         <source>Number of phases</source>
         <translation>Phasenanzahl</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1499"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1500"/>
         <source>Low solar avalaibility</source>
         <translation>Bei zu wenig Solarstrom</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1518"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1519"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1529"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1530"/>
         <source>Current price</source>
         <translation>Aktueller Preis</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1540"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1541"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="1541"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="1542"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/ChargingConfigView.qml" line="878"/>
+        <location filename="../optimization/ChargingConfigView.qml" line="879"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
@@ -1743,13 +1743,13 @@ Ihr %3 Team</translation>
     <name>CoNotConnectedNotification</name>
     <message>
         <location filename="../components/CoNotConnectedNotification.qml" line="13"/>
-        <source>Connection to “Thing” interrupted</source>
-        <translation>Verbindung zu „Thing“ unterbrochen</translation>
+        <source>Connection to device lost</source>
+        <translation>Verbindung zu Gerät unterbrochen</translation>
     </message>
     <message>
         <location filename="../components/CoNotConnectedNotification.qml" line="14"/>
-        <source>If the problem persists, try restarting the device. For more information, see the &lt;u&gt;log.&lt;/u&gt;</source>
-        <translation>Sollte das Problem länger bestehen, versuche, das Gerät neu zu starten. Weitere Informationen findest du im &lt;u&gt;Protokoll.&lt;/u&gt;</translation>
+        <source>If the problem persists, try restarting the device. For more information see the &lt;u&gt;log&lt;/u&gt;.</source>
+        <translation>Sollte das Problem länger bestehen, versuche, das Gerät neu zu starten. Weitere Informationen findest du im &lt;u&gt;Protokoll&lt;/u&gt;.</translation>
     </message>
 </context>
 <context>
@@ -1970,6 +1970,27 @@ Ihr %3 Team</translation>
     </message>
 </context>
 <context>
+    <name>CoTimePickerOverlay</name>
+    <message>
+        <location filename="../components/CoTimePickerOverlay.qml" line="45"/>
+        <source>Hours</source>
+        <translation>Stunden</translation>
+    </message>
+    <message>
+        <location filename="../components/CoTimePickerOverlay.qml" line="81"/>
+        <source>Minutes</source>
+        <translation>Minuten</translation>
+    </message>
+</context>
+<context>
+    <name>CoTimeStepper</name>
+    <message>
+        <location filename="../components/CoTimeStepper.qml" line="12"/>
+        <source>hh:mm</source>
+        <translation>hh:mm</translation>
+    </message>
+</context>
+<context>
     <name>CoWeekPickerContent</name>
     <message>
         <location filename="../components/CoWeekPickerContent.qml" line="68"/>
@@ -2182,77 +2203,72 @@ Ihr %3 Team</translation>
 <context>
     <name>ConsolinnoConfigureThingPage</name>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="96"/>
-        <source>Thing is not connected!</source>
-        <translation>&quot;Thing&quot; ist nicht verbunden!</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="122"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="92"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="126"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="96"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="131"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="101"/>
         <source>Reconfigure</source>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="197"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="172"/>
         <source>Information</source>
         <translation>Informationen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="208"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="183"/>
         <source>Vendor</source>
         <translation>Hersteller</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="215"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="190"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="223"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="198"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="226"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="201"/>
         <source>ID copied to clipboard</source>
         <translation>ID in die Zwischenablage kopiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="232"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="207"/>
         <source>Thing class</source>
         <translation>&quot;Thing&quot; Klasse</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="233"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="208"/>
         <source>View the type definition for this thing</source>
         <translation>Genaue Typendefinition dieses &quot;Things&quot; anzeigen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="245"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="220"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="281"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="256"/>
         <source>Input/Output Connections</source>
         <translation>Verbindungen der Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="317"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="292"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="352"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="327"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -2262,49 +2278,44 @@ Ihr %3 Team</translation>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="398"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="373"/>
         <source>Remove thing?</source>
         <translation>&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="399"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="374"/>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="439"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="414"/>
         <source>Connect Inputs/Outputs</source>
         <translation>Verbundene Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="449"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="424"/>
         <source>Connect &quot;%1&quot; to:</source>
         <translation>Verbinde &quot;%1&quot; zu:</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="530"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="505"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="553"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="528"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="559"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="534"/>
         <source>Disconnect</source>
         <translation>Trennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="576"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="551"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
-    </message>
-    <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="97"/>
-        <source>Further information in &lt;u&gt;Protocol.&lt;/u&gt;</source>
-        <translation>Weitere Informationen im &lt;u&gt;Protokoll.&lt;/u&gt;</translation>
     </message>
 </context>
 <context>
@@ -4622,12 +4633,12 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Inbetriebnahme-Assistent</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="226"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="229"/>
         <source>There are no things set up yet.</source>
         <translation>Bis jetzt sind keine Things eingerichtet</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/DeviceOverview.qml" line="227"/>
+        <location filename="../thingconfiguration/DeviceOverview.qml" line="230"/>
         <source>In order for your %1 system to be useful, go ahead and add some things.</source>
         <translation>Damit ihr %1 System effizient arbeiten kann, fügen Sie bitte Things hinzu.</translation>
     </message>
@@ -4760,13 +4771,13 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     <name>EpexDayAheadSetup</name>
     <message>
         <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="156"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="368"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
         <source>Reconfigure %1</source>
         <translation>%1 neu einrichten</translation>
     </message>
     <message>
         <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="157"/>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="368"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="367"/>
         <source>Set up %1</source>
         <translation>%1 einrichten</translation>
     </message>
@@ -4776,42 +4787,42 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Werte auf Standard zurücksetzen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
         <source>“%1” reconfigured!</source>
         <translation>„%1“ neu eingerichtet!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="389"/>
         <source>“%1” added!</source>
         <translation>„%1“ hinzugefügt!</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="391"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="390"/>
         <source>Uh oh</source>
         <translation>Oh oh</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="401"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="400"/>
         <source>All done. You can now start using “%1”.</source>
         <translation>Sie können „%1“ nun benutzen.</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="402"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="401"/>
         <source>Something went wrong setting up this thing...</source>
         <translation>Etwas ist schiefgelaufen...</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="434"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="433"/>
         <source>Ok</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="346"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="345"/>
         <source>Incomplete Price Information</source>
         <translation>Unvollständige Preisangaben</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="347"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="346"/>
         <source>At least one of your values for levies or grid fees is set to 0. As a result, the total price shown will not be complete. Please note that the actual final price may be higher.
 
 Would you like to continue anyway?</source>
@@ -4825,7 +4836,7 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="422"/>
+        <location filename="../thingconfiguration/EpexDayAheadSetup.qml" line="421"/>
         <source>Retry</source>
         <translation>Erneut versuchen</translation>
     </message>
@@ -5376,6 +5387,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="421"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="425"/>
         <source>Minimum demand duration</source>
         <translation>Minimale Anforderungsdauer</translation>
     </message>
@@ -5385,23 +5397,18 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>Gibt an, wie lange eine Anforderung für erhöhten Betrieb mindestens bestehen bleibt.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="423"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="456"/>
-        <source>hh:mm</source>
-        <translation>hh:mm</translation>
-    </message>
-    <message>
         <location filename="../optimization/HeatingConfigView.qml" line="433"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="454"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="445"/>
         <source>Maximum demand duration</source>
         <translation>Maximale Anforderungsdauer</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="466"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="453"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>
@@ -5411,12 +5418,22 @@ Möchten Sie trotzdem fortfahren?</translation>
         <translation>„PV-Überschuss“</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="455"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="427"/>
+        <source>Set the minimum amount of time the device should run after it is activated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="442"/>
         <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
         <translation>Begrenzt die tägliche Dauer, für die das %1 einen erhöhten Betrieb anfordern kann.</translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="489"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="447"/>
+        <source>Set the maximum daily runtime after which the device should automatically turn off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="463"/>
         <source>&quot;Dynamic pricing&quot;</source>
         <translation>„Dynamischer Tarif“</translation>
     </message>
@@ -6939,6 +6956,7 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
     </message>
     <message>
         <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="292"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="296"/>
         <source>Minimum runtime</source>
         <translation>Mindestlaufzeit</translation>
     </message>
@@ -6948,12 +6966,18 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Läuft nach der Aktivierung mindestens so lange.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="324"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="298"/>
+        <source>Set the minimum amount of time the device should run after it is activated.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="310"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="314"/>
         <source>Maximum runtime</source>
         <translation>Maximale Laufzeit</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="325"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="311"/>
         <source>Limits the daily runtime and automatically switches the device off.</source>
         <translation>Begrenzt die tägliche Laufzeit und schaltet das Gerät automatisch aus.</translation>
     </message>
@@ -6963,18 +6987,17 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="294"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="326"/>
-        <source>hh:mm</source>
-        <translation>hh:mm</translation>
-    </message>
-    <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="304"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="303"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation>Wert muss zwischen 00:00 und %1 liegen.</translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="336"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="316"/>
+        <source>Set the maximum daily runtime after which the device should automatically turn off.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="321"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation>Wert muss zwischen %1 und 24:00 liegen.</translation>
     </message>

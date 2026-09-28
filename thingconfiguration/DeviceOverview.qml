@@ -195,6 +195,9 @@ Page {
                                     text: thing.name
                                     iconLeft: UiUtils.interfacesToIcon(thing.thingClass.interfaces)
                                     showChildrenIndicator: true
+                                    status: !ThingUtils.isConnected(thing) ?
+                                                CoCard.StatusType.Danger :
+                                                CoCard.StatusType.NoStatus
 
                                     // FIXME: This isn't entirely correct... we should have a way to know if a particular thing is in fact autocreated
                                     // This check might be wrong for thingClasses with multiple create methods...

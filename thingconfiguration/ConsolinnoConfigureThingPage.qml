@@ -82,36 +82,6 @@ SettingsPageBase {
     headerMenuButtonVisible: true
     onMenuPressed: deviceMenu.open()
 
-    CoNotification {
-        id: notification
-        Layout.rightMargin: Style.margins
-        Layout.leftMargin: Style.margins
-        Layout.fillWidth: true
-
-        readonly property State connectedState: root.thing ? root.thing.stateByName("connected") : null
-
-        visible: connectedState ? connectedState.value === false : false
-        type: CoNotification.Type.Warning
-
-        title: qsTr("Thing is not connected!")
-        message: qsTr("Further information in <u>Protocol.</u>")
-        clickable: true
-        onClicked: {
-            let pageUrl = "../devicepages/ConsolinnoDeviceLogPage.qml";
-            let signalStateType = root.thing.thingClass.stateTypes.findByName("signalStrength");
-            let connectedStateType = root.thing.thingClass.stateTypes.findByName("connected");
-            let stateTypes = [];
-            if (signalStateType) {
-                stateTypes.push(signalStateType.id);
-            }
-            if (connectedStateType) {
-                stateTypes.push(connectedStateType.id);
-            }
-            pageStack.push(pageUrl, { thing: root.thing, filterTypeIds: stateTypes });
-        }
-
-    }
-
     Menu {
         id: deviceMenu
         width: implicitWidth
@@ -191,198 +161,203 @@ SettingsPageBase {
         Layout.margins: Style.margins
         spacing: Style.margins
 
+        CoNotConnectedNotification {
+            Layout.fillWidth: true
+            thing: root.thing
+        }
+
         CoFrostyCard {
-                    id: informationGroup
+            id: informationGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Information")
+            contentTopMargin: Style.smallMargins
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoCard {
                     Layout.fillWidth: true
-                    headerText: qsTr("Information")
-                    contentTopMargin: Style.smallMargins
+                    text: engine.thingManager.vendors.getVendor(root.thing.thingClass.vendorId).displayName
+                    labelText: qsTr("Vendor")
+                    interactive: false
+                }
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+                CoCard {
+                    Layout.fillWidth: true
+                    text: root.thing.thingClass.displayName
+                    labelText: qsTr("Type")
+                    interactive: false
+                }
 
-                        CoCard {
-                            Layout.fillWidth: true
-                            text: engine.thingManager.vendors.getVendor(root.thing.thingClass.vendorId).displayName
-                            labelText: qsTr("Vendor")
-                            interactive: false
-                        }
-
-                        CoCard {
-                            Layout.fillWidth: true
-                            text: root.thing.thingClass.displayName
-                            labelText: qsTr("Type")
-                            interactive: false
-                        }
-
-                        CoCard {
-                            Layout.fillWidth: true
-                            property string thingId: root.thing.id.toString().replace(/[{}]/g, "")
-                            text: thingId
-                            labelText: qsTr("ID")
-                            onClicked: {
-                                PlatformHelper.toClipBoard(thingId);
-                                ToolTip.show(qsTr("ID copied to clipboard"), 1000);
-                            }
-                        }
-
-                        CoCard {
-                            Layout.fillWidth: true
-                            text: qsTr("Thing class")
-                            labelText: qsTr("View the type definition for this thing")
-                            showChildrenIndicator: true
-                            onClicked: {
-                                pageStack.push(Qt.resolvedUrl("ConsolinnoThingClassDetailsPage.qml"), { thing: root.thing })
-                            }
-                        }
+                CoCard {
+                    Layout.fillWidth: true
+                    property string thingId: root.thing.id.toString().replace(/[{}]/g, "")
+                    text: thingId
+                    labelText: qsTr("ID")
+                    onClicked: {
+                        PlatformHelper.toClipBoard(thingId);
+                        ToolTip.show(qsTr("ID copied to clipboard"), 1000);
                     }
                 }
 
-                CoFrostyCard {
-                    id: parametersGroup
+                CoCard {
                     Layout.fillWidth: true
-                    headerText: qsTr("Parameters")
-                    contentTopMargin: Style.smallMargins
-                    visible: root.thing.params.count > 0
+                    text: qsTr("Thing class")
+                    labelText: qsTr("View the type definition for this thing")
+                    showChildrenIndicator: true
+                    onClicked: {
+                        pageStack.push(Qt.resolvedUrl("ConsolinnoThingClassDetailsPage.qml"), { thing: root.thing })
+                    }
+                }
+            }
+        }
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+        CoFrostyCard {
+            id: parametersGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Parameters")
+            contentTopMargin: Style.smallMargins
+            visible: root.thing.params.count > 0
 
-                        Repeater {
-                            model: root.thing.params
-                            delegate: CoParamDelegate {
-                                Layout.fillWidth: true
-                                paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
-                                param: root.thing.params.get(index)
-                                writable: false
-                                visible: {
-                                    if (!root.isEpexDayAheadThing) return true;
-                                    var paramId = model.id.toString();
-                                    if (paramId === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
-                                        // "Grid operator" parameter - show when variable grid fees enabled
-                                        return epexState.variableGridFees;
-                                    } else if (paramId === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
-                                        // "Added grid fee" parameter - show when variable grid fees disabled
-                                        return !epexState.variableGridFees;
-                                    }
-                                    return true;
-                                }
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                Repeater {
+                    model: root.thing.params
+                    delegate: CoParamDelegate {
+                        Layout.fillWidth: true
+                        paramType: root.thing.thingClass.paramTypes.getParamType(model.id)
+                        param: root.thing.params.get(index)
+                        writable: false
+                        visible: {
+                            if (!root.isEpexDayAheadThing) return true;
+                            var paramId = model.id.toString();
+                            if (paramId === "{f4b1b3b2-4c1c-4b1a-8f1a-9c2b2a1a1b1b}") {
+                                // "Grid operator" parameter - show when variable grid fees enabled
+                                return epexState.variableGridFees;
+                            } else if (paramId === "{9d80154a-4205-47cb-a69f-d151a836639b}") {
+                                // "Added grid fee" parameter - show when variable grid fees disabled
+                                return !epexState.variableGridFees;
                             }
+                            return true;
                         }
                     }
                 }
+            }
+        }
 
-                CoFrostyCard {
-                    id: ioConnectionsGroup
-                    Layout.fillWidth: true
-                    headerText: qsTr("Input/Output Connections")
-                    contentTopMargin: Style.smallMargins
-                    visible: ioModel.count > 0
+        CoFrostyCard {
+            id: ioConnectionsGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Input/Output Connections")
+            contentTopMargin: Style.smallMargins
+            visible: ioModel.count > 0
 
-                    StateTypesProxy {
-                        id: ioModel
-                        stateTypes: root.thing.thingClass.stateTypes
-                        digitalInputs: true
-                        digitalOutputs: true
-                        analogInputs: true
-                        analogOutputs: true
-                    }
+            StateTypesProxy {
+                id: ioModel
+                stateTypes: root.thing.thingClass.stateTypes
+                digitalInputs: true
+                digitalOutputs: true
+                analogInputs: true
+                analogOutputs: true
+            }
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
 
-                        Repeater {
-                            model: ioModel
-                            delegate: CoCard {
-                                Layout.fillWidth: true
+                Repeater {
+                    model: ioModel
+                    delegate: CoCard {
+                        Layout.fillWidth: true
 
-                                iconLeft: "/icons/io-connections.svg"
-                                text: model.displayName
-                                showChildrenIndicator: true
-                                labelText: {
-                                    if (ioStateType.ioType == Types.IOTypeDigitalInput || ioStateType.ioType == Types.IOTypeAnalogInput) {
-                                        if (inputConnectionWatcher.ioConnection) {
-                                            return "%1: %2".arg(inputConnectionWatcher.outputThing.name).arg(inputConnectionWatcher.outputStateType.displayName)
-                                        }
-                                    } else {
-                                        if (outputConnectionWatcher.ioConnection) {
-                                            return "%1: %2".arg(outputConnectionWatcher.inputThing.name).arg(outputConnectionWatcher.inputStateType.displayName)
-                                        }
-                                    }
-                                    return qsTr("Not connected")
+                        iconLeft: "/icons/io-connections.svg"
+                        text: model.displayName
+                        showChildrenIndicator: true
+                        labelText: {
+                            if (ioStateType.ioType == Types.IOTypeDigitalInput || ioStateType.ioType == Types.IOTypeAnalogInput) {
+                                if (inputConnectionWatcher.ioConnection) {
+                                    return "%1: %2".arg(inputConnectionWatcher.outputThing.name).arg(inputConnectionWatcher.outputStateType.displayName)
                                 }
-
-
-                                property StateType ioStateType: ioModel.get(index)
-
-                                IOInputConnectionWatcher {
-                                    id: inputConnectionWatcher
-                                    ioConnections: engine.thingManager.ioConnections
-                                    inputThingId: root.thing.id
-                                    inputStateTypeId: ioStateType.id
-                                    property Thing outputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.outputThingId) : null
-                                    property StateType outputStateType: ioConnection ? outputThing.thingClass.stateTypes.getStateType(ioConnection.outputStateTypeId) : null
-                                }
-                                IOOutputConnectionWatcher {
-                                    id: outputConnectionWatcher
-                                    ioConnections: engine.thingManager.ioConnections
-                                    outputThingId: root.thing.id
-                                    outputStateTypeId: ioStateType.id
-                                    property Thing inputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.inputThingId) : null
-                                    property StateType inputStateType: ioConnection ? inputThing.thingClass.stateTypes.getStateType(ioConnection.inputStateTypeId) : null
-                                }
-
-                                onClicked: {
-                                    var popup = ioConnectionsDialogComponent.createObject(app, {ioStateType: ioStateType, inputWatcher: inputConnectionWatcher, outputWatcher: outputConnectionWatcher})
-                                    popup.open()
+                            } else {
+                                if (outputConnectionWatcher.ioConnection) {
+                                    return "%1: %2".arg(outputConnectionWatcher.inputThing.name).arg(outputConnectionWatcher.inputStateType.displayName)
                                 }
                             }
+                            return qsTr("Not connected")
+                        }
+
+
+                        property StateType ioStateType: ioModel.get(index)
+
+                        IOInputConnectionWatcher {
+                            id: inputConnectionWatcher
+                            ioConnections: engine.thingManager.ioConnections
+                            inputThingId: root.thing.id
+                            inputStateTypeId: ioStateType.id
+                            property Thing outputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.outputThingId) : null
+                            property StateType outputStateType: ioConnection ? outputThing.thingClass.stateTypes.getStateType(ioConnection.outputStateTypeId) : null
+                        }
+                        IOOutputConnectionWatcher {
+                            id: outputConnectionWatcher
+                            ioConnections: engine.thingManager.ioConnections
+                            outputThingId: root.thing.id
+                            outputStateTypeId: ioStateType.id
+                            property Thing inputThing: ioConnection ? engine.thingManager.things.getThing(ioConnection.inputThingId) : null
+                            property StateType inputStateType: ioConnection ? inputThing.thingClass.stateTypes.getStateType(ioConnection.inputStateTypeId) : null
+                        }
+
+                        onClicked: {
+                            var popup = ioConnectionsDialogComponent.createObject(app, {ioStateType: ioStateType, inputWatcher: inputConnectionWatcher, outputWatcher: outputConnectionWatcher})
+                            popup.open()
                         }
                     }
                 }
+            }
+        }
 
-                CoFrostyCard {
-                    id: settingsGroup
-                    Layout.fillWidth: true
-                    headerText: qsTr("Settings")
-                    contentTopMargin: Style.smallMargins
-                    visible: root.thing.thingClass.settingsTypes.count > 0
+        CoFrostyCard {
+            id: settingsGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Settings")
+            contentTopMargin: Style.smallMargins
+            visible: root.thing.thingClass.settingsTypes.count > 0
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
 
-                        Repeater {
-                            id: settingsRepeater
-                            model: root.thing.settings
-                            delegate: CoParamDelegate {
-                                Layout.fillWidth: true
-                                paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
-                                value: root.thing.settings.get(index).value
-                                writable: true
-                                // Hide electric vehicle's phase count setting.
-                                visible: paramType.id.toString() !== "{6ee1534a-f2c7-4819-8cd5-728dc63a31ba}"
-                                onDirtyChanged: settingsRepeater.checkDirty()
-                            }
-                            function checkDirty() {
-                                for (var i = 0; i < settingsRepeater.count; i++) {
-                                    if (settingsRepeater.itemAt(i).dirty) {
-                                        dirty = true;
-                                        return;
-                                    }
-                                }
-                                dirty = false;
-                            }
-                            property bool dirty: false
-                        }
+                Repeater {
+                    id: settingsRepeater
+                    model: root.thing.settings
+                    delegate: CoParamDelegate {
+                        Layout.fillWidth: true
+                        paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
+                        value: root.thing.settings.get(index).value
+                        writable: true
+                        // Hide electric vehicle's phase count setting.
+                        visible: paramType.id.toString() !== "{6ee1534a-f2c7-4819-8cd5-728dc63a31ba}"
+                        onDirtyChanged: settingsRepeater.checkDirty()
                     }
+                    function checkDirty() {
+                        for (var i = 0; i < settingsRepeater.count; i++) {
+                            if (settingsRepeater.itemAt(i).dirty) {
+                                dirty = true;
+                                return;
+                            }
+                        }
+                        dirty = false;
+                    }
+                    property bool dirty: false
                 }
+            }
+        }
     }
 
 
@@ -449,15 +424,15 @@ SettingsPageBase {
                 text: qsTr("Connect \"%1\" to:").arg(ioConnectionDialog.ioStateType.displayName)
                 wrapMode: Text.WordWrap
             }
-//            Label { text: "\n" } // Fake in some spacing
+            //            Label { text: "\n" } // Fake in some spacing
 
             GridLayout {
                 columns: (ioConnectionDialog.width / 400) * 2
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: qsTr("Thing")
-//                }
+                //                Label {
+                //                    Layout.fillWidth: true
+                //                    text: qsTr("Thing")
+                //                }
 
                 ComboBox {
                     id: ioThingComboBox
@@ -488,10 +463,10 @@ SettingsPageBase {
                     }
                 }
 
-//                Label {
-//                    Layout.fillWidth: true
-//                    text: (ioConnectionDialog.ioStateType.ioType == Types.IOTypeDigitalInput || ioConnectionDialog.ioStateType.ioType == Types.IOTypeAnalogInput) ? qsTr("Output") : qsTr("Input")
-//                }
+                //                Label {
+                //                    Layout.fillWidth: true
+                //                    text: (ioConnectionDialog.ioStateType.ioType == Types.IOTypeDigitalInput || ioConnectionDialog.ioStateType.ioType == Types.IOTypeAnalogInput) ? qsTr("Output") : qsTr("Input")
+                //                }
 
                 ComboBox {
                     id: ioStateComboBox
@@ -506,7 +481,7 @@ SettingsPageBase {
                     textRole: "displayName"
                     Layout.fillWidth: true
                     onCountChanged: {
-//                        print("loading for:", ioConnectionDialog.inputWatcher.ioConnection.outputStateTypeId)
+                        //                        print("loading for:", ioConnectionDialog.inputWatcher.ioConnection.outputStateTypeId)
                         for (var i = 0; i < connectableStateTypes.count; i++) {
                             print("checking:", connectableStateTypes.get(i).id)
                             if (ioConnectionDialog.ioStateType.ioType == Types.IOTypeDigitalInput || ioConnectionDialog.ioStateType.ioType == Types.IOTypeAnalogInput) {
@@ -536,7 +511,7 @@ SettingsPageBase {
                         checked: ioConnectionDialog.isInput ? ioConnectionDialog.inputWatcher.ioConnection.inverted : ioConnectionDialog.outputWatcher.ioConnection.inverted
                     }
                 }
-                }
+            }
 
 
             GridLayout {
