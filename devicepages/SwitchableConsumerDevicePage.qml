@@ -286,124 +286,39 @@ GenericConfigPage {
                             }
                         }
 
-                        CoInputStepper {
+                        CoTimeStepper {
                             id: minRuntimeStepper
                             Layout.fillWidth: true
                             labelText: qsTr("Minimum runtime")
                             helpText: qsTr("Runs at least this long after activation.")
-                            unit: qsTr("hh:mm")
-                            compact: true
                             from: 0
                             to: maxTotalRuntimeStepper.value
-                            stepSize: 1
-                            clickable: true
-                            editable: false
-
-                            // #TODO use in functions below
-                            readonly property int currentHours: Math.floor(value / 4)
-                            readonly property int currentMinutes: (value % 4) * 15
-
+                            overlayTitle: qsTr("Minimum runtime")
+                            // #TODO wording/translation for description
+                            overlayDescription: qsTr("Set the minimum amount of time the device should run after it is activated.")
                             feedbackText: {
-                                var v = maxTotalRuntimeStepper.value;
-                                var h = Math.floor(v / 4);
-                                var m = (v % 4) * 15;
+                                const h = currentHours
+                                const m = currentMinutes
                                 var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                                 return qsTr("Value must be between 00:00 and %1.").arg(formatted);
                             }
-                            spinbox.textFromValue: function(value, locale) {
-                                var h = Math.floor(value / 4);
-                                var m = (value % 4) * 15;
-                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
-                            }
-                            spinbox.valueFromText: function(text, locale) {
-                                var parts = text.split(":");
-                                if (parts.length !== 2) return 0;
-                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
-                            }
-                            spinbox.validator: RegularExpressionValidator {
-                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
-                            }
-
-                            onClicked: minRuntimePicker.open()
-
-                            CoTimePickerOverlay {
-                                id: minRuntimePicker
-                                title: qsTr("Minimum runtime")
-                                // #TODO wording/translation for description
-                                description: qsTr("Set the minimum amount of time the device should run after it is activated.")
-                                initialHours: minRuntimeStepper.currentHours
-                                initialMinutes: minRuntimeStepper.currentMinutes
-
-                                onTimeChosen: function (hours, minutes) {
-                                    const newValue = (hours * 60 + minutes) / 15
-                                    if (newValue < minRuntimeStepper.from) {
-                                        minRuntimeStepper.value = minRuntimeStepper.from
-                                    } else if (newValue > minRuntimeStepper.to) {
-                                        minRuntimeStepper.value = minRuntimeStepper.to
-                                    } else {
-                                        minRuntimeStepper.value = newValue
-                                    }
-                                }
-                            }
                         }
 
-                        CoInputStepper {
+                        CoTimeStepper {
                             id: maxTotalRuntimeStepper
                             Layout.fillWidth: true
                             labelText: qsTr("Maximum runtime")
                             helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
-                            unit: qsTr("hh:mm")
-                            compact: true
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
-                            stepSize: 1
-                            clickable: true
-                            editable: false
-
-                            // #TODO use in functions below
-                            readonly property int currentHours: Math.floor(value / 4)
-                            readonly property int currentMinutes: (value % 4) * 15
-
+                            overlayTitle: qsTr("Maximum runtime")
+                            // #TODO wording/translation for description
+                            overlayDescription: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
                             feedbackText: {
-                                var v = minRuntimeStepper.value;
-                                var h = Math.floor(v / 4);
-                                var m = (v % 4) * 15;
+                                const h = currentHours
+                                const m = currentMinutes
                                 var formatted = (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
                                 return qsTr("Value must be between %1 and 24:00.").arg(formatted);
-                            }
-                            spinbox.textFromValue: function(value, locale) {
-                                var h = Math.floor(value / 4);
-                                var m = (value % 4) * 15;
-                                return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m;
-                            }
-                            spinbox.valueFromText: function(text, locale) {
-                                var parts = text.split(":");
-                                if (parts.length !== 2) return 0;
-                                return (parseInt(parts[0]) || 0) * 4 + Math.round((parseInt(parts[1]) || 0) / 15);
-                            }
-                            spinbox.validator: RegularExpressionValidator {
-                                regularExpression: /^([0-1][0-9]|2[0-4]):(00|15|30|45)$/
-                            }
-
-                            onClicked: maxTotalRuntimePicker.open()
-
-                            CoTimePickerOverlay {
-                                id: maxTotalRuntimePicker
-                                title: qsTr("Maximum runtime")
-                                // #TODO wording/translation for description
-                                description: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
-                                initialHours: maxTotalRuntimeStepper.currentHours
-                                initialMinutes: maxTotalRuntimeStepper.currentMinutes
-                                onTimeChosen: function (hours, minutes) {
-                                    const newValue = (hours * 60 + minutes) / 15
-                                    if (newValue < maxTotalRuntimeStepper.from) {
-                                        maxTotalRuntimeStepper.value = maxTotalRuntimeStepper.from
-                                    } else if (newValue > maxTotalRuntimeStepper.to) {
-                                        maxTotalRuntimeStepper.value = maxTotalRuntimeStepper.to
-                                    } else {
-                                        maxTotalRuntimeStepper.value = newValue
-                                    }
-                                }
                             }
                         }
                     }
