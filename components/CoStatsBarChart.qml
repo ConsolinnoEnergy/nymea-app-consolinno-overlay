@@ -348,6 +348,7 @@ Item {
     Item {
         id: chartContainer
         anchors.fill: parent
+        opacity: root.loading ? Style.numbers.components_Disabled_opacity : 1
 
         ChartView {
             id: chartView
@@ -575,16 +576,10 @@ Item {
         }
     } // chartContainer
 
-    // -- Busy overlay: dim the chart and show a spinner while loading --
-    Rectangle {
-        anchors.fill: parent
-        color: Style.colors.typography_Background_Overlay
-        visible: root.loading
-    }
-
-    ActivityIndicator {
+    BusyIndicator {
         anchors.centerIn: parent
         running: root.loading
         visible: root.loading
+        Material.accent: Style.colors.brand_Basic_Accent
     }
 }
