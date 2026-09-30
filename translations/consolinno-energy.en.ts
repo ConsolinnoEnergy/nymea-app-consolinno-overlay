@@ -1962,12 +1962,12 @@ Your %3 Team</source>
     <name>CoTimePickerOverlay</name>
     <message>
         <location filename="../components/CoTimePickerOverlay.qml" line="45"/>
-        <source>Hours</source>
+        <source>h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../components/CoTimePickerOverlay.qml" line="81"/>
-        <source>Minutes</source>
+        <source>min</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5367,7 +5367,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../optimization/HeatingConfigView.qml" line="421"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="425"/>
         <source>Minimum demand duration</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5377,18 +5376,27 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="433"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="426"/>
+        <source>Specify how long a request for increased operation must remain active.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="432"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
-        <location filename="../optimization/HeatingConfigView.qml" line="445"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="440"/>
         <source>Maximum demand duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="453"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="445"/>
+        <source>Set the maximum daily duration for which %1 can request an increased operating mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/HeatingConfigView.qml" line="451"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5398,22 +5406,12 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="427"/>
-        <source>Set the minimum amount of time the device should run after it is activated.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="442"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="441"/>
         <source>Limits the daily duration for which the %1 can request an increased operating mode.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="447"/>
-        <source>Set the maximum daily runtime after which the device should automatically turn off.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../optimization/HeatingConfigView.qml" line="463"/>
+        <location filename="../optimization/HeatingConfigView.qml" line="461"/>
         <source>&quot;Dynamic pricing&quot;</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6935,7 +6933,6 @@ Would you like to continue anyway?</source>
     </message>
     <message>
         <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="292"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="296"/>
         <source>Minimum runtime</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6945,18 +6942,17 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="298"/>
-        <source>Set the minimum amount of time the device should run after it is activated.</source>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="314"/>
+        <source>Limit the maximum daily runtime after which the device will be switched off automatically.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="310"/>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="314"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="309"/>
         <source>Maximum runtime</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="311"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="310"/>
         <source>Limits the daily runtime and automatically switches the device off.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6966,17 +6962,17 @@ Would you like to continue anyway?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="303"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="297"/>
+        <source>Specify how long the device must remain active after being switched on.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="302"/>
         <source>Value must be between 00:00 and %1.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="316"/>
-        <source>Set the maximum daily runtime after which the device should automatically turn off.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="321"/>
+        <location filename="../devicepages/SwitchableConsumerDevicePage.qml" line="319"/>
         <source>Value must be between %1 and 24:00.</source>
         <translation type="unfinished"></translation>
     </message>

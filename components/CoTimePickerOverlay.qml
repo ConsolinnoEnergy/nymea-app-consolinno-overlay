@@ -42,7 +42,7 @@ CoOverlay {
                 Label {
                     Layout.alignment: Qt.AlignCenter
                     font: Style.newExtraSmallFontBold
-                    text: qsTr("Hours")
+                    text: qsTr("h")
                 }
 
                 CoWheelPicker {
@@ -78,7 +78,7 @@ CoOverlay {
                 Label {
                     Layout.alignment: Qt.AlignCenter
                     font: Style.newExtraSmallFontBold
-                    text: qsTr("Minutes")
+                    text: qsTr("min")
                 }
 
                 CoWheelPicker {

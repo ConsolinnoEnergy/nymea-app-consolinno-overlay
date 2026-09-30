@@ -422,9 +422,8 @@ GenericConfigPage {
                             helpText: qsTr("Specifies how long a request for increased operating mode must remain active at minimum.")
                             from: 0
                             to: maxTotalRuntimeStepper.value
-                            overlayTitle: qsTr("Minimum demand duration")
-                            // #TODO wording/translation for description
-                            overlayDescription: qsTr("Set the minimum amount of time the device should run after it is activated.")
+                            overlayTitle: labelText
+                            overlayDescription: qsTr("Specify how long a request for increased operation must remain active.")
 
                             feedbackText: {
                                 const h = currentHours
@@ -442,9 +441,8 @@ GenericConfigPage {
                             helpText: qsTr("Limits the daily duration for which the %1 can request an increased operating mode.").arg(Configuration.deviceName)
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
-                            overlayTitle: qsTr("Maximum demand duration")
-                            // #TODO wording/translation for description
-                            overlayDescription: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
+                            overlayTitle: labelText
+                            overlayDescription: qsTr("Set the maximum daily duration for which %1 can request an increased operating mode.").arg(Configuration.deviceName)
 
                             feedbackText: {
                                 const h = currentHours

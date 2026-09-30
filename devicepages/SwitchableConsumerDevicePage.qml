@@ -293,9 +293,8 @@ GenericConfigPage {
                             helpText: qsTr("Runs at least this long after activation.")
                             from: 0
                             to: maxTotalRuntimeStepper.value
-                            overlayTitle: qsTr("Minimum runtime")
-                            // #TODO wording/translation for description
-                            overlayDescription: qsTr("Set the minimum amount of time the device should run after it is activated.")
+                            overlayTitle: labelText
+                            overlayDescription: qsTr("Specify how long the device must remain active after being switched on.")
                             feedbackText: {
                                 const h = currentHours
                                 const m = currentMinutes
@@ -311,9 +310,8 @@ GenericConfigPage {
                             helpText: qsTr("Limits the daily runtime and automatically switches the device off.")
                             from: minRuntimeStepper.value
                             to: 96 // 24 h * 4 quarter-hours
-                            overlayTitle: qsTr("Maximum runtime")
-                            // #TODO wording/translation for description
-                            overlayDescription: qsTr("Set the maximum daily runtime after which the device should automatically turn off.")
+                            overlayTitle: labelText
+                            overlayDescription: qsTr("Limit the maximum daily runtime after which the device will be switched off automatically.")
                             feedbackText: {
                                 const h = currentHours
                                 const m = currentMinutes
