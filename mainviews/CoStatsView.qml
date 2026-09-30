@@ -46,6 +46,9 @@ MainViewBase {
         required property var consumerSeries
 
         Layout.fillWidth: true
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        Layout.bottomMargin: Style.margins
         spacing: Style.margins
 
         CoStatsChartLegend {
@@ -63,8 +66,8 @@ MainViewBase {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Sources")
-                font: Style.newSmallFontBold
-                color: Style.colors.typography_Basic_Default
+                font: Style.newH5Font
+                color: Style.colors.typography_Headlines_H3
             }
             CoStatsChartLegend {
                 Layout.fillWidth: true
@@ -75,8 +78,8 @@ MainViewBase {
             Label {
                 Layout.fillWidth: true
                 text: qsTr("Consumers")
-                font: Style.newSmallFontBold
-                color: Style.colors.typography_Basic_Default
+                font: Style.newH5Font
+                color: Style.colors.typography_Headlines_H3
             }
             CoStatsChartLegend {
                 Layout.fillWidth: true
