@@ -434,7 +434,7 @@ Item {
                         anchors.centerIn: parent
                         text: d.formatPeriod(periodDate, root.sampleRate)
                         font: Style.newSmallFont
-                        color: Style.foregroundColor
+                        color: Style.colors.typography_Basic_Default
                     }
 
                     MouseArea {
