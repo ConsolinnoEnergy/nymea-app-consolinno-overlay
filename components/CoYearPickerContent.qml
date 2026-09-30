@@ -37,7 +37,7 @@ ColumnLayout {
     readonly property date resultDate: new Date(yearPicker.currentValue, 0, 1)
 
     function resetToSelection() {
-        yearPicker.selectValue(root.selectedDate.getFullYear())
+        yearPicker.selectValueImmediate(root.selectedDate.getFullYear())
     }
 
     Label {

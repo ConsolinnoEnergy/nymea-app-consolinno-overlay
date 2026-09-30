@@ -46,8 +46,8 @@ ColumnLayout {
 
     function resetToSelection() {
         d.restoringSelection = true
-        yearPicker.selectValue(DateUtils.isoWeekYear(root.selectedDate))
-        weekPicker.selectValue(DateUtils.isoWeekNumber(root.selectedDate))
+        yearPicker.selectValueImmediate(DateUtils.isoWeekYear(root.selectedDate))
+        weekPicker.selectValueImmediate(DateUtils.isoWeekNumber(root.selectedDate))
         // Clear the guard one event-loop turn later, i.e. after
         // yearPicker.onCurrentValueChanged's own Qt.callLater fixup below
         // (queued first, during the selectValue() call above) has had a

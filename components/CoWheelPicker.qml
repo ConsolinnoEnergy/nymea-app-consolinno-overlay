@@ -61,10 +61,24 @@ Tumbler {
     // doesn't exist on Tumbler/PathView, and silently resolves to
     // undefined/0, causing an incorrect jump) positions the view exactly
     // like a settled/snapped selection would, without animating there.
+    //
+    // Called twice - once now, once again a tick later via Qt.callLater() -
+    // to work around a Qt bug: since 'wrap' is false, Tumbler's view is
+    // ListView-based (not PathView-based), and ListView.positionViewAtIndex()
+    // falls back to an *estimated* position (based on the not-yet-measured
+    // average delegate size) when the target index has never been rendered
+    // before, landing on the wrong index the very first time it's called on
+    // a given Tumbler instance. By the second call, the first call's delegate
+    // creation has given the view an accurate size measurement, so it lands
+    // correctly. Once a Tumbler has done this once, later calls are already
+    // correct on the first try, making the repeat a cheap no-op then.
     function selectValueImmediate(value) {
         var index = values.indexOf(value)
         if (index >= 0) {
             positionViewAtIndex(index, Tumbler.SnapPosition)
+            Qt.callLater(function() {
+                positionViewAtIndex(index, Tumbler.SnapPosition)
+            })
         }
     }
 
