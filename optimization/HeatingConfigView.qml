@@ -221,7 +221,7 @@ GenericConfigPage {
                         visible: root.totalConsumptionState !== null
                         icon: Qt.resolvedUrl("qrc:/icons/electric_bolt.svg")
                         labelText: qsTr("Total consumption")
-                        valueText: UiUtils.energyDisplayValue(root.totalConsumptionState) + " kWh"
+                        valueText: UiUtils.energyDisplayValueWithUnit(+root.totalConsumptionState.value)
                     }
 
                     CoKPICard {

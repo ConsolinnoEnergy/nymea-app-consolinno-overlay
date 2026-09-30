@@ -7,10 +7,12 @@ import NymeaApp.Utils
 Item {
     id: root
 
-    function energyDisplayValue(energyState) {
-        return energyState ?
-                    NymeaUtils.floatToLocaleString((+energyState.value), 2) :
-                    "-";
+    function energyDisplayValueWithUnit(energyValue) {
+        const value = energyValue >= 100000 ?
+                    NymeaUtils.floatToLocaleString(energyValue / 1000, 2) :
+                    NymeaUtils.floatToLocaleString(energyValue, 1);
+        const unit = energyValue >= 100000 ? "MWh" : "kWh";
+        return value + " " + unit;
     }
 
     function powerDisplayValue(powerValue) {

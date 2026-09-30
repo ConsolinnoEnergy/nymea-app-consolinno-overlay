@@ -79,7 +79,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, totalFeedInCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/output_circle.svg")
                         labelText: qsTr("Total grid import")
-                        valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
+                        valueText: UiUtils.energyDisplayValueWithUnit(+root.totalConsumption.value)
                     }
 
                     CoKPICard {
@@ -89,7 +89,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, totalConsumptionCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/input_circle.svg")
                         labelText: qsTr("Total grid feed-in")
-                        valueText: UiUtils.energyDisplayValue(root.totalFeedIn) + " kWh"
+                        valueText: UiUtils.energyDisplayValueWithUnit(+root.totalFeedIn.value)
                     }
                 }
             }

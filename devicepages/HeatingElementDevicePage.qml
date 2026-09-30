@@ -151,7 +151,7 @@ GenericConfigPage {
                         Layout.preferredHeight: Math.max(implicitHeight, temperatureCard.implicitHeight)
                         icon: Qt.resolvedUrl("qrc:/icons/functions.svg")
                         labelText: qsTr("Total consumption")
-                        valueText: UiUtils.energyDisplayValue(root.totalConsumption) + " kWh"
+                        valueText: UiUtils.energyDisplayValueWithUnit(+root.totalConsumption.value)
                     }
                 }
 

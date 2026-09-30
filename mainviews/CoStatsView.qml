@@ -831,8 +831,8 @@ MainViewBase {
             return {
                 selfSufficiencyText: Math.round(kpiProvider.selfSufficiencyRate) + " %",
                 selfConsumptionText: Math.round(kpiProvider.selfConsumptionRate) + " %",
-                feedInText: kpiProvider.totalReturn.toFixed(1) + " kWh",
-                gridConsumptionText: kpiProvider.totalAcquisition.toFixed(1) + " kWh"
+                feedInText: UiUtils.energyDisplayValueWithUnit(kpiProvider.totalReturn),
+                gridConsumptionText: UiUtils.energyDisplayValueWithUnit(kpiProvider.totalAcquisition)
             }
         }
 
