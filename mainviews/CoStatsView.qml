@@ -418,7 +418,7 @@ MainViewBase {
                                 CoStatsLineChart {
                                     id: dayLineChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
                                     selectedDay: periodSelector.referenceDate
                                     // Right axis is only meaningful once a Battery
@@ -516,7 +516,7 @@ MainViewBase {
                                 CoStatsBarChart {
                                     id: weekBarChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
                                     categories: d.weekCategories
                                     // Guarded by sampleRate (see the
@@ -552,7 +552,7 @@ MainViewBase {
                                 CoStatsBarChart {
                                     id: monthBarChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
                                     categories: d.monthCategories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
@@ -567,7 +567,7 @@ MainViewBase {
                                 CoStatsBarChart {
                                     id: monthYoyBarChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
                                     categories: d.yoyCategories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
@@ -596,7 +596,7 @@ MainViewBase {
                                 CoStatsBarChart {
                                     id: yearBarChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
                                     categories: d.yearCategories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
@@ -611,7 +611,7 @@ MainViewBase {
                                 CoStatsBarChart {
                                     id: yearYoyBarChart
                                     Layout.fillWidth: true
-                                    Layout.preferredHeight: 300
+                                    Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
                                     categories: d.yoyCategories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
