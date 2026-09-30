@@ -815,7 +815,8 @@ Item {
 
                 delegate: Label {
                     required property var modelData
-                    x: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
+                    readonly property real properX: xLabelsLayout.width * ((modelData - d.visibleStartTime) / d.visibleWindowMs) - width / 2
+                    x: Math.min(Math.max(properX, 0), parent.width - width)
                     y: axisFontMetrics.height + 2
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.newExtraSmallFont
