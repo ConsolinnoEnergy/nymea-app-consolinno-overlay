@@ -6,6 +6,7 @@ import Nymea
 Item {
     id: root
     property alias icon: icon.name
+    property alias iconSize: icon.size
     property bool isChecked: false
 
     signal clicked()

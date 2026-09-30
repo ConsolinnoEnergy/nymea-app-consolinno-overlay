@@ -449,6 +449,7 @@ Item {
             CoIconButton {
                 width: 36
                 height: 36
+                iconSize: 20
                 enabled: d.selectedOffset > d.minOffset
                 icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
                 onClicked: listView.decrementCurrentIndex()
@@ -457,6 +458,7 @@ Item {
             CoIconButton {
                 width: 36
                 height: 36
+                iconSize: 20
                 enabled: d.selectedOffset < 0
                 icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
                 onClicked: listView.incrementCurrentIndex()
