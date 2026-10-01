@@ -432,7 +432,7 @@ Item {
                     Label {
                         id: label
                         anchors.centerIn: parent
-                        text: d.formatPeriod(periodDate, root.sampleRate)
+                        text: isFuture ? "" : d.formatPeriod(periodDate, root.sampleRate)
                         font: Style.newSmallFont
                         color: Style.colors.typography_Basic_Default
                     }
