@@ -412,6 +412,54 @@ Item {
                 }
             }
         }
+
+        // Set while a pan/pinch gesture (or anything else rapidly touching
+        // visibleStartTime/visibleWindowMs) has produced a newer value than
+        // the one "rebuildThrottleTimer" last rendered - see
+        // "requestRebuild()" below.
+        property bool rebuildPending: false
+
+        // Leading+trailing throttle around "updateDayBoundaries()" +
+        // "seriesBinder.rebuildAll()": without this, every single
+        // visibleStartTime/visibleWindowMs change during a drag/pinch
+        // gesture (potentially once per pixel/frame) triggered a full
+        // series clear()+append() and day-boundary rebuild, which caused
+        // janky pan/zoom on lower-end hardware (see onVisibleStartTimeChanged/
+        // onVisibleWindowMsChanged below). The first change in a burst is
+        // still applied immediately (so the chart doesn't feel laggy to
+        // start reacting), but any further changes within
+        // "rebuildThrottleTimer.interval" are coalesced into a single
+        // trailing update once that interval elapses - capping the rebuild
+        // rate to roughly that timer's frequency instead of the gesture's
+        // raw event rate. This does NOT affect the ChartView axes
+        // themselves (bound directly to visibleStartTime/visibleWindowMs,
+        // see their min/max below) - those stay perfectly live every frame;
+        // only the comparatively expensive series/day-boundary rebuilds are
+        // throttled.
+        function requestRebuild() {
+            if (rebuildThrottleTimer.running) {
+                d.rebuildPending = true
+                return
+            }
+            d.updateDayBoundaries()
+            seriesBinder.rebuildAll()
+            rebuildThrottleTimer.start()
+        }
+    }
+
+    // See "requestRebuild()" above. ~60fps cap (16ms) on the rebuild rate.
+    Timer {
+        id: rebuildThrottleTimer
+        interval: 16
+        repeat: false
+        onTriggered: {
+            if (d.rebuildPending) {
+                d.rebuildPending = false
+                d.updateDayBoundaries()
+                seriesBinder.rebuildAll()
+                rebuildThrottleTimer.start()
+            }
+        }
     }
 
     // Debounce visibleRangeChanged so pan/zoom gestures don't flood
@@ -432,8 +480,8 @@ Item {
 
     Connections {
         target: d
-        function onVisibleStartTimeChanged() { d.updateDayBoundaries(); seriesBinder.rebuildAll() }
-        function onVisibleWindowMsChanged() { d.updateDayBoundaries(); seriesBinder.rebuildAll() }
+        function onVisibleStartTimeChanged() { d.requestRebuild() }
+        function onVisibleWindowMsChanged() { d.requestRebuild() }
     }
 
     Item {
