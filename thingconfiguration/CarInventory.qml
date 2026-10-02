@@ -13,13 +13,10 @@ Page{
     bottomPadding: 0
     property int navigationFooterHeight: 0
 
-    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
-
-    // Car to preselect when opening this page. Defaults to the app-wide
-    // "last selected car" so existing callers keep working unchanged, but
-    // callers that track a car per-context (e.g. per wallbox) should pass
-    // their own value in explicitly.
-    property var preSelectedCarId: userconfig.lastSelectedCar
+    // Car to preselect when opening this page. No car is preselected by
+    // default; callers that track a car per-context (e.g. per wallbox)
+    // should pass their own value in explicitly.
+    property var preSelectedCarId: null
 
     signal done(var selectedCar)
     signal back()
