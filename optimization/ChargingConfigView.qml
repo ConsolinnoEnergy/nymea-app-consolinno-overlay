@@ -534,7 +534,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: "—" )  : "—")
                             labelText: qsTr("Car")
-                            visible:  chargingIsAnyOf([pv_optimized])
+                            visible: chargingConfiguration.optimizationEnabled
                             interactive: false
                         }
 
