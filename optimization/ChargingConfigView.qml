@@ -357,16 +357,12 @@ GenericConfigPage {
     }
 
     function simulatedEvChargerIndex() {
-        console.warn("=== simulatedEvChargerIndex called with EV charger:", root.thing.name);
         for (let i = 0; i < simulatedEvChargersProxy.count; ++i) {
             const simulatedEvCharger = simulatedEvChargersProxy.get(i);
-            console.warn("   checking simulated EV charger", i, ":", simulatedEvCharger.name);
             if (simulatedEvCharger.id === root.thing.id) {
-                console.warn("---> Found simulated EV charger at index", i);
                 return i;
             }
         }
-        console.warn("---> Did not find given simulated EV charger, returning 0");
         return 0;
     }
 
