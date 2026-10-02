@@ -1128,15 +1128,38 @@ GenericConfigPage {
                             CoCard {
                                 id: selectVehicleCard
 
-                                property var selectedVehicle: evProxy.getThing(userconfig.lastSelectedCar)
+                                // Simulated wallboxes are hard-wired to the simulated car
+                                // sharing the same index (see simulationSwitch above), so
+                                // the car selection must not be changeable in that case.
+                                readonly property bool isSimulatedWallbox: thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}"
+                                readonly property var simulatedVehicle: {
+                                    if (!isSimulatedWallbox) {
+                                        return null;
+                                    }
+                                    const chargerIndex = simulatedEvChargerIndex();
+                                    return chargerIndex < simulationEvProxy.count ? simulationEvProxy.get(chargerIndex) : null;
+                                }
+
+                                property var selectedVehicle: isSimulatedWallbox ?
+                                                                   simulatedVehicle :
+                                                                   evProxy.getThing(userconfig.lastSelectedCar)
                                 Layout.fillWidth: true
                                 labelText: qsTr("Selected car")
-                                text: evProxy.getThing(userconfig.lastSelectedCar) ?
-                                          evProxy.getThing(userconfig.lastSelectedCar).name :
-                                          qsTr("Select/Add Car")
-                                showChildrenIndicator: true
+                                text: {
+                                    if (isSimulatedWallbox) {
+                                        return simulatedVehicle ? simulatedVehicle.name : qsTr("No simulated car assigned");
+                                    }
+                                    return evProxy.getThing(userconfig.lastSelectedCar) ?
+                                                evProxy.getThing(userconfig.lastSelectedCar).name :
+                                                qsTr("Select/Add Car");
+                                }
+                                showChildrenIndicator: !isSimulatedWallbox
+                                interactive: !isSimulatedWallbox
 
                                 onClicked: {
+                                    if (isSimulatedWallbox) {
+                                        return;
+                                    }
                                     var page = pageStack.push("../thingconfiguration/CarInventory.qml");
                                     page.done.connect(function(selectedCar) {
                                         footer.visible = false;
