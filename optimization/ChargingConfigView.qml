@@ -877,6 +877,26 @@ GenericConfigPage {
                 }
             }
 
+            // Returns true if the given car is already assigned to a different
+            // wallbox whose car is currently plugged in there. The same car must
+            // not be used to charge at two wallboxes at the same time.
+            function isCarPluggedInAtOtherWallbox(carId) {
+                for (let i = 0; i < evChargerProxy.count; i++) {
+                    const otherThing = evChargerProxy.get(i);
+                    if (otherThing.id === thing.id) {
+                        continue;
+                    }
+                    const otherConfig = hemsManager.chargingConfigurations.getChargingConfiguration(otherThing.id);
+                    if (!otherConfig || otherConfig.carThingId !== carId) {
+                        continue;
+                    }
+                    if (otherThing.stateByName("pluggedIn").value === true) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
             function applyChanges() {
                 footer.text = "";
                 footer.visible = false;
@@ -917,10 +937,14 @@ GenericConfigPage {
                     }
                 }
 
+                const carUsedAtOtherWallbox = selectVehicleCard.selectedVehicle &&
+                        isCarPluggedInAtOtherWallbox(selectVehicleCard.selectedVehicle.id);
+
                 if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) &&
                         (endTimeSlider.value >= 30) &&
                         selectVehicleCard.selectedVehicle &&
-                        batteryLevelSlider.value !== 0) {
+                        batteryLevelSlider.value !== 0 &&
+                        !carUsedAtOtherWallbox) {
                     if (selectVehicleCard.selectedVehicle.stateByName("batteryLevel").value) {
                         selectVehicleCard.selectedVehicle.executeAction("batteryLevel",
                                                               [{
@@ -964,6 +988,11 @@ GenericConfigPage {
                     }
                     if (!selectVehicleCard.selectedVehicle) {
                         footer.text = qsTr("Please select a car");
+                        footer.visible = true;
+                        anyKnownError = true;
+                    }
+                    if (carUsedAtOtherWallbox) {
+                        footer.text = qsTr("The selected car is already being used at another EV charger.");
                         footer.visible = true;
                         anyKnownError = true;
                     }
