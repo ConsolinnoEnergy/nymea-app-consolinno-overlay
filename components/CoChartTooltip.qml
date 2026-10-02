@@ -246,6 +246,7 @@ Popup {
             Item { Layout.fillWidth: true }
 
             ColorIcon {
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 name: Qt.resolvedUrl("qrc:/icons/close.svg")
                 color: Style.colors.typography_Basic_Default
                 size: 16
