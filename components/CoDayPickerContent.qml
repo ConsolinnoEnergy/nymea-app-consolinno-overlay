@@ -95,7 +95,7 @@ ColumnLayout {
     }
 
     Label {
-        text: root.selectedDate.toLocaleDateString(Qt.locale(), qsTr("MMMM d, yyyy"))
+        text: root.selectedDate.toLocaleDateString(Qt.locale(), qsTr("d MMMM yyyy"))
         font: Style.newH2Font
         color: Style.colors.typography_Basic_Default
     }
@@ -206,8 +206,8 @@ ColumnLayout {
     // previous open.
     onMonthPickerOpenChanged: {
         if (monthPickerOpen) {
-            monthWheel.selectValue(displayMonth)
-            yearWheel.selectValue(displayYear)
+            monthWheel.selectValueImmediate(displayMonth)
+            yearWheel.selectValueImmediate(displayYear)
         }
     }
 

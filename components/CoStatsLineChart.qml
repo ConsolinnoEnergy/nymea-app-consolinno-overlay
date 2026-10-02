@@ -821,7 +821,14 @@ Item {
                     horizontalAlignment: Text.AlignHCenter
                     font: Style.newExtraSmallFont
                     color: Style.colors.typography_Basic_Default
-                    text: Qt.formatDate(new Date(modelData), "d. MMM yyyy")
+                    text: {
+                        const date = new Date(modelData)
+                        return date.toLocaleDateString(Qt.locale(), qsTr("d")) +
+                                " " +
+                                Qt.locale().standaloneMonthName(date.getMonth(), Locale.ShortFormat) +
+                                " " +
+                                date.getFullYear()
+                    }
                 }
             }
         }

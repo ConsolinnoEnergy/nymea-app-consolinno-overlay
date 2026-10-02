@@ -1669,7 +1669,7 @@ Your %3 Team</source>
     <name>CoDayPickerContent</name>
     <message>
         <location filename="../components/CoDayPickerContent.qml" line="98"/>
-        <source>MMMM d, yyyy</source>
+        <source>d MMMM yyyy</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1775,27 +1775,34 @@ Your %3 Team</source>
 <context>
     <name>CoPeriodSelector</name>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="143"/>
-        <source>CW %1, %2 – %3</source>
+        <location filename="../components/CoPeriodSelector.qml" line="144"/>
+        <location filename="../components/CoPeriodSelector.qml" line="147"/>
+        <location filename="../components/CoPeriodSelector.qml" line="159"/>
+        <source>d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="224"/>
+        <location filename="../components/CoPeriodSelector.qml" line="150"/>
+        <source>W%1, %2 – %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../components/CoPeriodSelector.qml" line="232"/>
         <source>Day</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="236"/>
+        <location filename="../components/CoPeriodSelector.qml" line="244"/>
         <source>Week</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="247"/>
+        <location filename="../components/CoPeriodSelector.qml" line="255"/>
         <source>Month</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoPeriodSelector.qml" line="258"/>
+        <location filename="../components/CoPeriodSelector.qml" line="266"/>
         <source>Year</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1816,7 +1823,12 @@ Your %3 Team</source>
 <context>
     <name>CoStatsLineChart</name>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="839"/>
+        <location filename="../components/CoStatsLineChart.qml" line="826"/>
+        <source>d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../components/CoStatsLineChart.qml" line="848"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1824,119 +1836,133 @@ Your %3 Team</source>
 <context>
     <name>CoStatsView</name>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="65"/>
+        <location filename="../mainviews/CoStatsView.qml" line="68"/>
         <source>Sources</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="77"/>
+        <location filename="../mainviews/CoStatsView.qml" line="80"/>
         <source>Consumers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="252"/>
+        <location filename="../mainviews/CoStatsView.qml" line="255"/>
         <source>History</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="262"/>
+        <location filename="../mainviews/CoStatsView.qml" line="265"/>
         <source>Time period</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="278"/>
+        <location filename="../mainviews/CoStatsView.qml" line="281"/>
         <source>Metrics</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="294"/>
+        <location filename="../mainviews/CoStatsView.qml" line="297"/>
         <source>Self-sufficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="300"/>
-        <location filename="../mainviews/CoStatsView.qml" line="955"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1162"/>
+        <location filename="../mainviews/CoStatsView.qml" line="303"/>
+        <location filename="../mainviews/CoStatsView.qml" line="958"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1165"/>
         <source>Self-consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="306"/>
+        <location filename="../mainviews/CoStatsView.qml" line="309"/>
         <source>Feed-in</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="312"/>
+        <location filename="../mainviews/CoStatsView.qml" line="315"/>
         <source>Grid import</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="379"/>
+        <location filename="../mainviews/CoStatsView.qml" line="382"/>
         <source>Energy balance</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="389"/>
-        <location filename="../mainviews/CoStatsView.qml" line="894"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1140"/>
+        <location filename="../mainviews/CoStatsView.qml" line="392"/>
+        <location filename="../mainviews/CoStatsView.qml" line="897"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1143"/>
         <source>Consumption</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="861"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1119"/>
+        <location filename="../mainviews/CoStatsView.qml" line="864"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1122"/>
         <source>Production</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="917"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1148"/>
+        <location filename="../mainviews/CoStatsView.qml" line="920"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1151"/>
         <source>To grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1369"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1250"/>
+        <source>W%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="1372"/>
         <source>kWh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1442"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1477"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="905"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1416"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1423"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1426"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1499"/>
+        <source>d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="1502"/>
+        <source></source>
+        <comment>Placeholder for German &quot;Uhr&quot;</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoStatsView.qml" line="908"/>
         <source>To battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="873"/>
-        <location filename="../mainviews/CoStatsView.qml" line="971"/>
+        <location filename="../mainviews/CoStatsView.qml" line="876"/>
+        <location filename="../mainviews/CoStatsView.qml" line="974"/>
         <source>From battery</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="884"/>
-        <location filename="../mainviews/CoStatsView.qml" line="982"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1127"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1171"/>
+        <location filename="../mainviews/CoStatsView.qml" line="887"/>
+        <location filename="../mainviews/CoStatsView.qml" line="985"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1130"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1174"/>
         <source>From grid</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="933"/>
+        <location filename="../mainviews/CoStatsView.qml" line="936"/>
         <source>Battery SoC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1028"/>
-        <location filename="../mainviews/CoStatsView.qml" line="1196"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1031"/>
+        <location filename="../mainviews/CoStatsView.qml" line="1199"/>
         <source>Other consumption</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../mainviews/CoStatsView.qml" line="1247"/>
-        <source>CW %1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1983,12 +2009,18 @@ Your %3 Team</source>
     <name>CoWeekPickerContent</name>
     <message>
         <location filename="../components/CoWeekPickerContent.qml" line="68"/>
-        <source>CW %1, %2</source>
+        <source>W%1, %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoWeekPickerContent.qml" line="98"/>
-        <source>CW %1</source>
+        <location filename="../components/CoWeekPickerContent.qml" line="78"/>
+        <location filename="../components/CoWeekPickerContent.qml" line="81"/>
+        <source>d</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../components/CoWeekPickerContent.qml" line="108"/>
+        <source>W%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

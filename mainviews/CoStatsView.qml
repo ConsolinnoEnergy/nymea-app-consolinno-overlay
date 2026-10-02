@@ -534,7 +534,7 @@ MainViewBase {
                                                : [{ series: d.weekConsumptionSourceSeries }, { series: d.weekConsumptionConsumerSeries }])
                                             : []
                                     loading: weekEnergyLogs.fetchingData
-                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, index, anchorRect)
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, d.weekBarCategoryRanges, index, anchorRect)
                                 }
 
 
@@ -564,7 +564,7 @@ MainViewBase {
                                                : [{ series: d.monthConsumptionSourceSeries }, { series: d.monthConsumptionConsumerSeries }])
                                             : []
                                     loading: monthEnergyLogs.fetchingData
-                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthBarChart, categories, stacks, index, anchorRect)
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthBarChart, categories, stacks, d.monthBarCategoryRanges, index, anchorRect)
                                 }
 
                                 CoStatsBarChart {
@@ -579,7 +579,7 @@ MainViewBase {
                                                : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
-                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthYoyBarChart, categories, stacks, index, anchorRect)
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
                                 }
 
                                 ChartLegendSection {
@@ -608,7 +608,7 @@ MainViewBase {
                                                : [{ series: d.yearConsumptionSourceSeries }, { series: d.yearConsumptionConsumerSeries }])
                                             : []
                                     loading: yearEnergyLogs.fetchingData
-                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearBarChart, categories, stacks, index, anchorRect)
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearBarChart, categories, stacks, d.yearBarCategoryRanges, index, anchorRect)
                                 }
 
                                 CoStatsBarChart {
@@ -623,7 +623,7 @@ MainViewBase {
                                                : [{ series: d.yoyConsumptionSourceSeries }, { series: d.yoyConsumptionConsumerSeries }])
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
-                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearYoyBarChart, categories, stacks, index, anchorRect)
+                                    onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
                                 }
 
                                 ChartLegendSection {
@@ -1218,7 +1218,7 @@ MainViewBase {
             var day = new Date(mondayDate)
             for (var i = 0; i < 7; i++) {
                 var isoDay = ((day.getDay() + 6) % 7) + 1 // 1 (Mon) .. 7 (Sun)
-                result.push(Qt.locale().dayName(isoDay, Locale.ShortFormat))
+                result.push(Qt.locale().standaloneDayName(isoDay, Locale.ShortFormat))
                 day.setDate(day.getDate() + 1)
             }
             return result
@@ -1247,7 +1247,7 @@ MainViewBase {
             var cursor = DateUtils.startOfIsoWeek(first)
             var result = []
             while (cursor <= last) {
-                result.push(qsTr("CW %1").arg(DateUtils.isoWeekNumber(cursor)))
+                result.push(qsTr("W%1").arg(DateUtils.isoWeekNumber(cursor)))
                 cursor.setDate(cursor.getDate() + 7)
             }
             return result
@@ -1380,8 +1380,11 @@ MainViewBase {
         // "anchorRect"/"plotArea" into Overlay.overlay's coordinate space -
         // every period tab has its own chart instance); "categories"/
         // "stacks" are the same arrays currently bound to that chart's
-        // "categories"/"stacks" properties.
-        function showBarChartTooltip(chart, categories, stacks, categoryIndex, anchorRect) {
+        // "categories"/"stacks" properties. "ranges" is the matching
+        // "*BarCategoryRanges" array (1:1 with "categories", see e.g.
+        // "weekCategoryRanges"'s doc comment) - used to show the
+        // category's underlying date(s) alongside its label.
+        function showBarChartTooltip(chart, categories, stacks, ranges, categoryIndex, anchorRect) {
             var entries = []
             for (var s = 0; s < stacks.length; s++) {
                 entries = entries.concat(d.barTooltipEntries(stacks[s].series, categoryIndex))
@@ -1405,7 +1408,36 @@ MainViewBase {
             var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
             var plotArea = chart.plotArea
             var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
-            chartTooltip.showAt(mappedAnchor, mappedChart, categories[categoryIndex], entries)
+            let labelStr = ""
+            const fromDate = ranges[categoryIndex].from
+            const toDate = ranges[categoryIndex].to
+            if (chart === weekBarChart) {
+                const dayStr = Qt.locale().standaloneDayName(fromDate.getDay(), Locale.LongFormat)
+                const dateStr = fromDate.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                              Qt.locale().standaloneMonthName(fromDate.getMonth(), Locale.ShortFormat) + " " +
+                              fromDate.getFullYear().toString()
+                labelStr = dayStr + "\n" + dateStr
+            }
+            else if (chart === monthBarChart) {
+                const isSameYear = fromDate.getFullYear() === toDate.getFullYear()
+                const fromDateStr = fromDate.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                                  Qt.locale().standaloneMonthName(fromDate.getMonth(), Locale.ShortFormat) +
+                                  (isSameYear ? "" : (" " + fromDate.getFullYear().toString()))
+                const toDateStr = toDate.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                                Qt.locale().standaloneMonthName(toDate.getMonth(), Locale.ShortFormat) + " " +
+                                toDate.getFullYear().toString()
+                labelStr = categories[categoryIndex] + "\n" + fromDateStr + " – " + toDateStr
+            }
+            else if (chart === monthYoyBarChart) {
+                labelStr = fromDate.toLocaleDateString(Qt.locale(), "MMMM yyyy")
+            }
+            else if (chart === yearBarChart) {
+                labelStr = fromDate.toLocaleDateString(Qt.locale(), "MMMM yyyy")
+            }
+            else if (chart === yearYoyBarChart) {
+                labelStr = fromDate.getFullYear().toString()
+            }
+            chartTooltip.showAt(mappedAnchor, mappedChart, labelStr, entries)
         }
 
         // Called from CoStatsLineChart's "onPointSelected". "series" is the
@@ -1464,7 +1496,11 @@ MainViewBase {
             var mappedAnchor = chart.mapToItem(Overlay.overlay, anchorRect.x, anchorRect.y, anchorRect.width, anchorRect.height)
             var plotArea = chart.plotArea
             var mappedChart = chart.mapToItem(Overlay.overlay, plotArea.x, plotArea.y, plotArea.width, plotArea.height)
-            chartTooltip.showAt(mappedAnchor, mappedChart, Qt.formatDateTime(timestamp, "dd.MM.yyyy hh:mm"), entries)
+            const dateStr = timestamp.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                          Qt.locale().standaloneMonthName(timestamp.getMonth(), Locale.ShortFormat) + " " +
+                          timestamp.getFullYear().toString()
+            const timeStr = timestamp.toLocaleTimeString(Qt.locale(), "hh:mm") + qsTr("", "Placeholder for German \"Uhr\"")
+            chartTooltip.showAt(mappedAnchor, mappedChart, dateStr + "\n" + timeStr, entries)
         }
     }
 }

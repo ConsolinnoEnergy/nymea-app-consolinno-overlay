@@ -140,17 +140,25 @@ Item {
             if (sampleRate === EnergyLogs.SampleRate1Week) {
                 var endDate = new Date(date)
                 endDate.setDate(endDate.getDate() + 6)
-                return qsTr("CW %1, %2 – %3").arg(DateUtils.isoWeekNumber(date))
-                                                .arg(date.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
-                                                .arg(endDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat))
+                const isSameYear = date.getFullYear() === endDate.getFullYear()
+                const startDateStr = date.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                                Qt.locale().standaloneMonthName(date.getMonth(), Locale.ShortFormat) +
+                                   (isSameYear ? "" : (" " + date.getFullYear().toString()))
+                const endDateStr = endDate.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                                 Qt.locale().standaloneMonthName(endDate.getMonth(), Locale.ShortFormat) + " " +
+                                 endDate.getFullYear().toString()
+                return qsTr("W%1, %2 – %3").arg(DateUtils.isoWeekNumber(date))
+                                                .arg(startDateStr)
+                                                .arg(endDateStr)
             } else if (sampleRate === EnergyLogs.SampleRate1Month) {
-                return date.toLocaleDateString(Qt.locale(), "MMMM yyyy")
+                return Qt.locale().standaloneMonthName(date.getMonth(), Locale.ShortFormat) + " " +
+                        date.getFullYear().toString()
             } else if (sampleRate === EnergyLogs.SampleRate1Year) {
                 return date.getFullYear().toString()
             }
-            // Locale-aware full date (day/month order follows Qt.locale()),
-            // matching StatsBase.dayLongLabel's approach.
-            return date.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+            return date.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                    Qt.locale().standaloneMonthName(date.getMonth(), Locale.ShortFormat) + " " +
+                    date.getFullYear().toString()
         }
 
         // Jumps the selection back to "today" - used when the sampleRate

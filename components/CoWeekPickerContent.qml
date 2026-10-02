@@ -65,14 +65,24 @@ ColumnLayout {
     }
 
     Label {
-        text: qsTr("CW %1, %2").arg(weekPicker.currentValue).arg(yearPicker.currentValue)
+        text: qsTr("W%1, %2").arg(weekPicker.currentValue).arg(yearPicker.currentValue)
         font: Style.newH2Font
         color: Style.colors.typography_Basic_Default
     }
 
     Label {
-        text: root.resultDate.toLocaleDateString(Qt.locale(), Locale.ShortFormat) + " – "
-              + root.resultWeekEnd.toLocaleDateString(Qt.locale(), Locale.ShortFormat)
+        text: {
+            const date = root.resultDate
+            const endDate = root.resultWeekEnd
+            const isSameYear = date.getFullYear() === endDate.getFullYear()
+            const startDateStr = date.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                            Qt.locale().standaloneMonthName(date.getMonth(), Locale.ShortFormat) +
+                               (isSameYear ? "" : (" " + date.getFullYear().toString()))
+            const endDateStr = endDate.toLocaleDateString(Qt.locale(), qsTr("d")) + " " +
+                             Qt.locale().standaloneMonthName(endDate.getMonth(), Locale.ShortFormat) + " " +
+                             endDate.getFullYear().toString()
+            return startDateStr + " – " + endDateStr
+        }
         font: Style.newSmallFont
         color: Style.colors.typography_Basic_Default
     }
@@ -95,7 +105,7 @@ ColumnLayout {
             }
             // Source string in English per project convention; translators
             // provide the localized abbreviation.
-            textForValue: function(value) { return qsTr("CW %1").arg(value) }
+            textForValue: function(value) { return qsTr("W%1").arg(value) }
         }
 
         CoWheelPicker {
