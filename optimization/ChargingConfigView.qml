@@ -22,7 +22,6 @@ GenericConfigPage {
 
     property ChargingConfiguration chargingConfiguration: hemsManager.chargingConfigurations.getChargingConfiguration(thing.id)
     property ChargingSessionConfiguration chargingSessionConfiguration: hemsManager.chargingSessionConfigurations.getChargingSessionConfiguration(thing.id)
-    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
     property Thing carThing
     property Thing thing
     property var pageSelectedCar: carThing ? carThing.name : qsTr("no car selected")
@@ -1139,19 +1138,20 @@ GenericConfigPage {
                                     const chargerIndex = simulatedEvChargerIndex();
                                     return chargerIndex < simulationEvProxy.count ? simulationEvProxy.get(chargerIndex) : null;
                                 }
+                                // Car that was last applied for this specific wallbox. Kept
+                                // per-thing in ChargingConfiguration.carThingId (as opposed to
+                                // the app-wide userconfig.lastSelectedCar), so it stays correct
+                                // when multiple wallboxes are configured.
+                                readonly property var configuredVehicle: evProxy.getThing(chargingConfiguration.carThingId)
 
-                                property var selectedVehicle: isSimulatedWallbox ?
-                                                                   simulatedVehicle :
-                                                                   evProxy.getThing(userconfig.lastSelectedCar)
+                                property var selectedVehicle: isSimulatedWallbox ? simulatedVehicle : configuredVehicle
                                 Layout.fillWidth: true
                                 labelText: qsTr("Selected car")
                                 text: {
                                     if (isSimulatedWallbox) {
                                         return simulatedVehicle ? simulatedVehicle.name : qsTr("No simulated car assigned");
                                     }
-                                    return evProxy.getThing(userconfig.lastSelectedCar) ?
-                                                evProxy.getThing(userconfig.lastSelectedCar).name :
-                                                qsTr("Select/Add Car");
+                                    return configuredVehicle ? configuredVehicle.name : qsTr("Select/Add Car");
                                 }
                                 showChildrenIndicator: !isSimulatedWallbox
                                 interactive: !isSimulatedWallbox
@@ -1160,10 +1160,11 @@ GenericConfigPage {
                                     if (isSimulatedWallbox) {
                                         return;
                                     }
-                                    var page = pageStack.push("../thingconfiguration/CarInventory.qml");
+                                    var page = pageStack.push("../thingconfiguration/CarInventory.qml", {
+                                        preSelectedCarId: selectedVehicle ? selectedVehicle.id : null
+                                    });
                                     page.done.connect(function(selectedCar) {
                                         footer.visible = false;
-                                        hemsManager.setUserConfiguration({ lastSelectedCar: selectedCar.id });
                                         selectVehicleCard.text = selectedCar.name;
                                         selectedVehicle = selectedCar;
                                         batteryLevelSlider.value = 0;
@@ -1171,12 +1172,8 @@ GenericConfigPage {
 
                                     page.back.connect(function() {
                                         pageStack.pop();
-                                        selectVehicleCard.text = evProxy.getThing(userconfig.lastSelectedCar) ?
-                                                    evProxy.getThing(userconfig.lastSelectedCar).name :
-                                                    qsTr("Select/Add Car");
-                                        if (!(evProxy.getThing(userconfig.lastSelectedCar))){
-                                            selectedVehicle = null;
-                                        }
+                                        selectVehicleCard.text = configuredVehicle ? configuredVehicle.name : qsTr("Select/Add Car");
+                                        selectedVehicle = configuredVehicle;
                                     });
                                 }
 

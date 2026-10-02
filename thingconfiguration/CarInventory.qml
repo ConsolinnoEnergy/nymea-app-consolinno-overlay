@@ -15,6 +15,12 @@ Page{
 
     property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
 
+    // Car to preselect when opening this page. Defaults to the app-wide
+    // "last selected car" so existing callers keep working unchanged, but
+    // callers that track a car per-context (e.g. per wallbox) should pass
+    // their own value in explicitly.
+    property var preSelectedCarId: userconfig.lastSelectedCar
+
     signal done(var selectedCar)
     signal back()
 
@@ -120,7 +126,7 @@ Page{
                             Layout.fillWidth: true
                             text: evProxy.get(index) ? evProxy.get(index).name : ""
                             iconRight: Qt.resolvedUrl("/icons/edit.svg")
-                            checked: evProxy.get(index).id === userconfig.lastSelectedCar
+                            checked: evProxy.get(index).id === preSelectedCarId
 
                             onClicked: {
                                 pageStack.push(carData, { thing: evProxy.get(index) });
@@ -183,9 +189,14 @@ Page{
 
             onClicked: {
                 const checkedIndex = optimizerRepeater.checkedIndex();
-                let carThing = evProxy.getThing(root.userconfig.lastSelectedCar);
+                let carThing = null;
                 if (checkedIndex === -1) {
                     console.error("No car selected!");
+                    // Fallback to the preselected car, if any (can legitimately
+                    // be null, e.g. when nothing has been configured yet).
+                    if (root.preSelectedCarId) {
+                        carThing = evProxy.getThing(root.preSelectedCarId);
+                    }
                 } else {
                     carThing = evProxy.get(checkedIndex);
                 }
