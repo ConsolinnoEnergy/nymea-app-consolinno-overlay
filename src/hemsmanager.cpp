@@ -10,6 +10,7 @@
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems");
 
 namespace {
+constexpr int OptimizationStrategyNoStrategy = 0;
 constexpr int OptimizationStrategyPvOptimized = 1;
 constexpr int OptimizationStrategyDynamicTariff = 2;
 constexpr int OptimizationStrategyTimeControlled = 4;
@@ -451,11 +452,11 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     const int optimizationMode = config.take("optimizationMode").toInt();
     config.remove("optimizationEnabled");
-    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     config.remove("insufficientPowerBehavior");
 
     if (optimizationMode == 9) {
         config.insert("operatingMode", OperatingModeNoControl);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
     } else if (optimizationMode >= 5000 && optimizationMode < 6000) {
         config.insert("operatingMode", OperatingModeStrategyControlled);
         config.insert("optimizationStrategies", OptimizationStrategyPvOptimized | OptimizationStrategyTimeControlled);
@@ -470,8 +471,10 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
     } else if (optimizationMode >= 1000 && optimizationMode < 2000) {
         config.insert("operatingMode", OperatingModeSystemic);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
     } else {
         config.insert("operatingMode", OperatingModeManual);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
     }
 
     QVariantMap params;
