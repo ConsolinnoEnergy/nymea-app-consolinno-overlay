@@ -51,21 +51,28 @@ Item {
             id: spacer
             Layout.fillWidth: true
         }
+    }
 
-        CoIconButton {
-            width: 36
-            height: 36
-            enabled: root.previousEnabled
-            icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
-            onClicked: root.previousClicked()
-        }
+    CoIconButton {
+        id: leftButton
+        anchors.right: rightButton.left
+        anchors.rightMargin: Style.smallMargins
+        anchors.verticalCenter: parent.verticalCenter
+        width: 36
+        height: 36
+        enabled: root.previousEnabled
+        icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
+        onClicked: root.previousClicked()
+    }
 
-        CoIconButton {
-            width: 36
-            height: 36
-            enabled: root.nextEnabled
-            icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
-            onClicked: root.nextClicked()
-        }
+    CoIconButton {
+        id: rightButton
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        width: 36
+        height: 36
+        enabled: root.nextEnabled
+        icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
+        onClicked: root.nextClicked()
     }
 }
