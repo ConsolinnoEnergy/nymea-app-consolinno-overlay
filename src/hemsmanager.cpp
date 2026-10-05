@@ -262,7 +262,9 @@ int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, 
     config.insert("operatingMode", optimizationEnabled
                   ? OperatingModeStrategyControlled
                   : OperatingModeNoControl);
-    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
+    config.insert("optimizationStrategies", optimizationEnabled
+                  ? OptimizationStrategyPvOptimized
+                  : OptimizationStrategyNoStrategy);
 
     QVariantMap params;
     params.insert("heatingRodConfiguration", config);
@@ -339,7 +341,6 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
     const QVariant legacyOptimizationMode = config.take("optimizationMode");
     const int optimizationMode = legacyOptimizationMode.toInt();
 
-    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     switch (static_cast<HeatingConfiguration::HPOptimizationMode>(optimizationMode)) {
     case HeatingConfiguration::OptimizationModePVSurplus:
         config.insert("operatingMode", OperatingModeStrategyControlled);
@@ -351,6 +352,13 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
         break;
     case HeatingConfiguration::OptimizationModeOff:
         config.insert("operatingMode", OperatingModeNoControl);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
+        break;
+    default:
+        qCWarning(dcHems()) << "Unknown legacy heating optimizationMode" << optimizationMode
+                            << "- falling back to NoControl";
+        config.insert("operatingMode", OperatingModeNoControl);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
         break;
     }
 
@@ -670,7 +678,6 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
     }
 
     const auto optimizationMode = static_cast<SwitchConfiguration::OptimizationMode>(config.take("optimizationMode").toInt());
-    config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
     switch (optimizationMode) {
     case SwitchConfiguration::OptimizationModePvSurplus:
         config.insert("operatingMode", OperatingModeStrategyControlled);
@@ -679,14 +686,24 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
         break;
     case SwitchConfiguration::OptimizationModeManualOn:
         config.insert("operatingMode", OperatingModeManual);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
         config.insert("manualEnabled", true);
         break;
     case SwitchConfiguration::OptimizationModeManualOff:
         config.insert("operatingMode", OperatingModeManual);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
         config.insert("manualEnabled", false);
         break;
     case SwitchConfiguration::OptimizationModeNoControl:
         config.insert("operatingMode", OperatingModeNoControl);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
+        config.remove("manualEnabled");
+        break;
+    default:
+        qCWarning(dcHems()) << "Unknown legacy switch optimizationMode" << static_cast<int>(optimizationMode)
+                            << "- falling back to NoControl";
+        config.insert("operatingMode", OperatingModeNoControl);
+        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
         config.remove("manualEnabled");
         break;
     }
