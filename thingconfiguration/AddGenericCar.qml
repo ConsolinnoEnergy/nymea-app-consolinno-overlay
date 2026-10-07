@@ -26,13 +26,12 @@ Page {
 
     QtObject {
         id: d
-        property var name: ""
-        property var params: []
+        property string name: ""
         property var settings: []
 
 
         function pairThing() {
-            engine.thingManager.addThing(root.thingClass.id, d.name, params);
+            engine.thingManager.addThing(root.thingClass.id, d.name, []);
         }
     }
 

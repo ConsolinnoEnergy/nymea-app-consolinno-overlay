@@ -66,9 +66,8 @@ Page{
 
     QtObject {
         id: d
-        property var name: ""
+        property string name: ""
         property var settings: []
-        property var attr: []
 
         function updateThing(thing) {
             for (var j = 0; j < d.settings.length; j++) {
