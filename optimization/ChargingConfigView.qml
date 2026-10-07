@@ -106,7 +106,7 @@ GenericConfigPage {
         if (phaseCount === 0 | power === null){
             return " – "
         }
-        return power.value/(230*phaseCount)
+        return return Math.round(power.value / (230 * phaseCount) * 10) / 10
     }
 
     function getUserVisibleChargingPower(){
