@@ -189,6 +189,7 @@
         <file>mainviews/DetailedGraphsPage.qml</file>
         <file>optimization/ChargingConfigView.qml</file>
         <file>thingconfiguration/AddGenericCar.qml</file>
+        <file>thingconfiguration/CarSettingsForm.qml</file>
         <file>components/HeatpumpPriceWidget.qml</file>
         <file>components/InfoButton.qml</file>
         <file>info/TargetChargeInfo.qml</file>

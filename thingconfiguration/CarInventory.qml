@@ -287,24 +287,10 @@ Page{
                     CoNavbarButton {
                         Layout.fillWidth: true
                         text: qsTr("Apply changes")
-                        enabled: {
-                            if (nameInput.text === "") {
-                                return false;
-                            }
-                            return true;
-                        }
+                        enabled: carSettingsForm.isValid
                         onClicked: {
-                            var settings = [];
-                            var capacitySetting = {};
-                            capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
-                            capacitySetting.value = capacityInput.value
-                            settings.push(capacitySetting);
-                            var minChargingCurrentSetting = {};
-                            minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
-                            minChargingCurrentSetting.value = minChargingCurrentInput.value;
-                            settings.push(minChargingCurrentSetting);
-                            d.name = nameInput.text;
-                            d.settings = settings;
+                            d.name = carSettingsForm.name;
+                            d.settings = carSettingsForm.settings();
                             d.updateThing(thingDetailPage.thing);
                         }
                     }
@@ -333,39 +319,9 @@ Page{
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Setup car")
 
-                    ColumnLayout {
-                        anchors.left: parent.left
-                        anchors.right: parent.right
-                        spacing: 0
-
-                        CoInputField {
-                            id: nameInput
-                            Layout.fillWidth: true
-                            labelText: qsTr("Name")
-                            text: thing ? thing.name : ""
-                        }
-
-                        CoInputStepper {
-                            id: capacityInput
-                            from: 0
-                            to: 2147483647 // Workaround for "no upper limit"
-                            labelText: qsTr("Capacity")
-                            value: thing ? thing.stateByName("capacity").value : 0
-                            infoUrl: "Capacity.qml"
-                            unit: "kWh"
-                        }
-
-                        CoSlider {
-                            id: minChargingCurrentInput
-                            Layout.fillWidth: true
-                            labelText: qsTr("Minimum charging current")
-                            infoUrl: "MinimumChargingCurrent.qml"
-                            from: 6
-                            to: 16
-                            stepSize: 1
-                            value: thing ? thing.stateByName("minChargingCurrent").value : 6
-                            valueText: value + " A"
-                        }
+                    CarSettingsForm {
+                        id: carSettingsForm
+                        thing: thingDetailPage.thing
                     }
                 }
 
