@@ -54,20 +54,15 @@ Page{
     }
 
 
-    ThingClassesProxy{
-        id: thingClassesProxy
-        engine: _engine
-        filterInterface: "electricvehicle"
-        includeProvidedInterfaces: true
-        groupByInterface: true
-    }
-
-
 
     QtObject {
         id: d
         property string name: ""
         property var settings: []
+
+        // ClassId of "Generic electric car" - the only thing class "Add
+        // vehicle" is allowed to create.
+        readonly property string genericElectricCarClassId: "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}"
 
         function updateThing(thing) {
             for (var j = 0; j < d.settings.length; j++) {
@@ -160,19 +155,19 @@ Page{
                         text: qsTr("Add vehicle")
 
                         onClicked: {
-                            for (var i = 0; i < thingClassesProxy.count; i++) {
-                                if (thingClassesProxy.get(i).id.toString() === "{dbe0a9ff-94ba-4a94-ae52-51da3f05c717}" ||
-                                        thingClassesProxy.get(i).id.toString() === "{0d6151d6-e013-47ab-a8c1-9c516a2c8664}"  ) {
-                                    var page = pageStack.push("../thingconfiguration/AddGenericCar.qml",
-                                                              { thingClass: thingClassesProxy.get(i) });
-                                    page.done.connect(function() {
-                                        pageStack.pop();
-                                    });
-                                    page.aborted.connect(function() {
-                                        pageStack.pop();
-                                    });
-                                }
+                            var genericCarClass = engine.thingManager.thingClasses.getThingClass(d.genericElectricCarClassId);
+                            if (!genericCarClass) {
+                                console.warn("Generic electric car thing class not found.");
+                                return;
                             }
+                            var page = pageStack.push("../thingconfiguration/AddGenericCar.qml",
+                                                      { thingClass: genericCarClass });
+                            page.done.connect(function() {
+                                pageStack.pop();
+                            });
+                            page.aborted.connect(function() {
+                                pageStack.pop();
+                            });
                         }
                     }
                 }

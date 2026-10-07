@@ -6,8 +6,8 @@ import "../components"
 
 // Shared "Setup car" form used by both AddGenericCar.qml (adding a new car)
 // and CarInventory.qml's carData page (editing an existing car). Bundles the
-// input fields together with the settings paramTypeId mapping needed to
-// persist them via ThingManager.setThingSettings().
+// input fields together with the lookup needed to build the settings array
+// for ThingManager.setThingSettings().
 ColumnLayout {
     id: root
     anchors.left: parent.left
@@ -18,19 +18,41 @@ ColumnLayout {
     // new car.
     property Thing thing: null
 
+    // Thing class the settings paramTypeIds are looked up on. Defaults to
+    // the thing's class, but must be set explicitly when adding a new car
+    // (no thing exists yet at that point).
+    property ThingClass thingClass: thing ? thing.thingClass : null
+
     readonly property string name: nameInput.text
     readonly property bool isValid: nameInput.text !== ""
 
-    readonly property string _capacityParamTypeId: "57f36386-dd71-4ab0-8d2f-8c74a391f90d"
-    readonly property string _minChargingCurrentParamTypeId: "0c55516d-4285-4d02-8926-1dae03649e18"
+    QtObject {
+        id: d
+
+        function settingParamTypeId(settingName) {
+            if (!root.thingClass || !root.thingClass.settingsTypes) {
+                return null;
+            }
+            var paramType = root.thingClass.settingsTypes.findByName(settingName);
+            return paramType ? paramType.id : null;
+        }
+    }
 
     // Returns the settings array ready to be passed to
-    // ThingManager.setThingSettings().
+    // ThingManager.setThingSettings(). Settings that don't exist on
+    // thingClass (yet) are omitted instead of being sent with an invalid
+    // paramTypeId.
     function settings() {
-        return [
-            { paramTypeId: _capacityParamTypeId, value: capacityInput.value },
-            { paramTypeId: _minChargingCurrentParamTypeId, value: minChargingCurrentInput.value }
-        ];
+        var result = [];
+        var capacityParamTypeId = d.settingParamTypeId("capacity");
+        if (capacityParamTypeId) {
+            result.push({ paramTypeId: capacityParamTypeId, value: capacityInput.value });
+        }
+        var minChargingCurrentParamTypeId = d.settingParamTypeId("minChargingCurrent");
+        if (minChargingCurrentParamTypeId) {
+            result.push({ paramTypeId: minChargingCurrentParamTypeId, value: minChargingCurrentInput.value });
+        }
+        return result;
     }
 
     CoInputField {

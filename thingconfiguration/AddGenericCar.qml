@@ -119,6 +119,7 @@ Page {
                     CarSettingsForm {
                         id: carSettingsForm
                         thing: root.thing
+                        thingClass: root.thingClass
                     }
                 }
 
