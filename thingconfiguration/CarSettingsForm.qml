@@ -52,8 +52,17 @@ ColumnLayout {
         if (minChargingCurrentParamTypeId) {
             result.push({ paramTypeId: minChargingCurrentParamTypeId, value: minChargingCurrentInput.value });
         }
+        var phaseCountParamTypeId = d.settingParamTypeId("phaseCount");
+        if (phaseCountParamTypeId) {
+            result.push({ paramTypeId: phaseCountParamTypeId, value: phaseCountInput.currentValue });
+        }
         return result;
     }
+
+    readonly property var phaseCountOptions: [
+        { text: "1", value: 1 },
+        { text: "3", value: 3 }
+    ]
 
     CoInputField {
         id: nameInput
@@ -82,5 +91,23 @@ ColumnLayout {
         stepSize: 1
         value: thing ? thing.stateByName("minChargingCurrent").value : 6
         valueText: value + " A"
+    }
+
+    CoComboBox {
+        id: phaseCountInput
+        Layout.fillWidth: true
+        labelText: qsTr("Maximum phase count")
+        model: root.phaseCountOptions
+        textRole: "text"
+        valueRole: "value"
+        currentIndex: {
+            var currentValue = thing ? thing.stateByName("phaseCount").value : 3;
+            for (var i = 0; i < root.phaseCountOptions.length; i++) {
+                if (root.phaseCountOptions[i].value === currentValue) {
+                    return i;
+                }
+            }
+            return 1;
+        }
     }
 }
