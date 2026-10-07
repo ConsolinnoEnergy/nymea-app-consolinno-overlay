@@ -341,8 +341,6 @@ SettingsPageBase {
                         paramType: root.thing.thingClass.settingsTypes.getParamType(model.id)
                         value: root.thing.settings.get(index).value
                         writable: true
-                        // Hide electric vehicle's phase count setting.
-                        visible: paramType.id.toString() !== "{6ee1534a-f2c7-4819-8cd5-728dc63a31ba}"
                         onDirtyChanged: settingsRepeater.checkDirty()
                     }
                     function checkDirty() {
