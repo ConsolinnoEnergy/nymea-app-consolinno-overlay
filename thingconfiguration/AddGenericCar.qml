@@ -28,7 +28,6 @@ Page {
         id: d
         property var name: ""
         property var params: []
-        property var states: []
         property var settings: []
 
 
@@ -51,10 +50,6 @@ Page {
         }
 
         onThingAdded: function(thing) {
-            for(var i = 0; i < d.states.length; i++) {
-                thing.executeAction( d.states[i].name, [{ paramName: d.states[i].name , value: d.states[i].value }]);
-            }
-
             for (var j = 0; j < d.settings.length; j++) {
                 engine.thingManager.setThingSettings(thing.id,
                                                      [{ paramTypeId: d.settings[j].paramTypeId , value: d.settings[j].value }]);
@@ -111,7 +106,6 @@ Page {
                         return true;
                     }
                     onClicked: {
-                        var states = [];
                         var settings = [];
                         var capacitySetting = {};
                         capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
@@ -121,13 +115,8 @@ Page {
                         minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
                         minChargingCurrentSetting.value = minChargingCurrentInput.value;
                         settings.push(minChargingCurrentSetting);
-                        var maxChargingLimitState = {};
-                        maxChargingLimitState.name = "batteryLevelLimit";
-                        maxChargingLimitState.value = maxChargingLimitInput.value;
-                        states.push(maxChargingLimitState);
                         d.name = nameInput.text;
                         d.settings = settings;
-                        d.states = states;
                         d.pairThing();
                     }
                 }
@@ -178,18 +167,6 @@ Page {
                             stepSize: 1
                             value: thing ?  thing.stateByName("minChargingCurrent").value : 6
                             valueText: value + " A"
-                        }
-
-                        CoSlider {
-                            id: maxChargingLimitInput
-                            Layout.fillWidth: true
-                            labelText: qsTr("Maximum charging limit")
-                            infoUrl: "MaximumAllowedChargingLimit.qml"
-                            from: 0
-                            to: 100
-                            stepSize: 1
-                            value: thing ? thing.stateByName("batteryLevelLimit").value : 100
-                            valueText: value + " %"
                         }
                     }
                 }
