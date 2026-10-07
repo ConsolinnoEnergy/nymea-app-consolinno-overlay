@@ -17,8 +17,16 @@ T.RadioButton {
                              implicitContentHeight + topPadding + bottomPadding,
                              implicitIndicatorHeight + topPadding + bottomPadding)
 
-    padding: 6
-    spacing: 6
+    padding: Style.margins
+    spacing: Style.margins
+
+    background: Rectangle {
+        color: control.pressed ?
+                   Style.colors.typography_States_Pressed :
+                   control.hovered && control.enabled ?
+                       Style.colors.typography_States_Hover :
+                       "transparent"
+    }
 
     // keep in sync with RadioDelegate.qml (shared RadioIndicator.qml was removed for performance reasons)
     indicator: Rectangle {

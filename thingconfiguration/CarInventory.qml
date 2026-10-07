@@ -128,7 +128,7 @@ Page{
                             iconRight: Qt.resolvedUrl("/icons/edit.svg")
                             checked: evProxy.get(index).id === preSelectedCarId
 
-                            onClicked: {
+                            onRightButtonClicked: {
                                 pageStack.push(carData, { thing: evProxy.get(index) });
                             }
 
