@@ -13,7 +13,7 @@ GenericConfigPage {
     readonly property State totalConsumption: root.thing.stateByName("totalEnergyConsumed")
 
     title: root.thing.name
-    headerOptionsVisible: false
+    headerOptionsVisible: true
 
     content: [
         Flickable {
