@@ -36,45 +36,64 @@ import "../components"
 
 SettingsPageBase {
     id: root
-    title: qsTr("Connection settings")
+    headerText: qsTr("Connection settings")
 
-    SettingsPageSectionHeader {
-        text: qsTr("Remote connection")
-    }
-    Label {
+    CoFrostyCard {
         Layout.fillWidth: true
+        Layout.topMargin: Style.margins
         Layout.leftMargin: Style.margins
         Layout.rightMargin: Style.margins
-        text: qsTr("Enabling the remote connection will allow connecting to this %1 system from anywhere.").arg(Configuration.systemName)
-        wrapMode: Text.WordWrap
-    }
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("General")
 
-    SwitchDelegate {
-        Layout.fillWidth: true
-        text: checked ? qsTr("Enabled") : qsTr("Disabled")
-        checked: engine.nymeaConfiguration.tunnelProxyServerConfigurations.count > 0
-        onClicked: {
-            if (!checked) {
-                for (var i = 0; i < engine.nymeaConfiguration.tunnelProxyServerConfigurations.count; i++) {
-                    var config = engine.nymeaConfiguration.tunnelProxyServerConfigurations.get(i);
-                    engine.nymeaConfiguration.deleteTunnelProxyServerConfiguration(config.id)
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
+
+            CoSwitch {
+                id: remoteConnectionSwitch
+                Layout.fillWidth: true
+                text: qsTr("Remote connection")
+                helpText: qsTr("Enabling the remote connection will allow connecting to this %1 from anywhere.").arg(Configuration.deviceName)
+                checked: engine.nymeaConfiguration.tunnelProxyServerConfigurations.count > 0
+
+                onToggled: {
+                    if (!checked) {
+                        for (let i = 0; i < engine.nymeaConfiguration.tunnelProxyServerConfigurations.count; i++) {
+                            let config = engine.nymeaConfiguration.tunnelProxyServerConfigurations.get(i)
+                            engine.nymeaConfiguration.deleteTunnelProxyServerConfiguration(config.id)
+                        }
+                    } else {
+                        let config = engine.nymeaConfiguration.createTunnelProxyServerConfiguration(Configuration.defaultTunnelProxyUrl, 2213, true, true, false);
+                        engine.nymeaConfiguration.setTunnelProxyServerConfiguration(config)
+                    }
                 }
-            } else {
-                var config = engine.nymeaConfiguration.createTunnelProxyServerConfiguration(Configuration.defaultTunnelProxyUrl, 2213, true, true, false);
-                engine.nymeaConfiguration.setTunnelProxyServerConfiguration(config)
             }
         }
     }
 
-    SettingsPageSectionHeader {
-        visible: settings.showHiddenOptions
-        text: qsTr("Advanced")
-    }
-
-    NymeaItemDelegate {
-        visible: settings.showHiddenOptions
+    CoFrostyCard {
         Layout.fillWidth: true
-        text: qsTr("Connection interfaces")
-        onClicked: pageStack.push("AdvancedConnectionInterfacesPage.qml")
+        Layout.topMargin: Style.margins
+        Layout.leftMargin: Style.margins
+        Layout.rightMargin: Style.margins
+        contentTopMargin: Style.smallMargins
+        headerText: qsTr("Advanced")
+        visible: settings.showHiddenOptions
+
+        ColumnLayout {
+            anchors.left: parent.left
+            anchors.right: parent.right
+            spacing: 0
+
+            CoCard {
+                Layout.fillWidth: true
+                text: qsTr("Connection interfaces")
+                interactive: true
+                showChildrenIndicator: true
+                onClicked: pageStack.push("AdvancedConnectionInterfacesPage.qml")
+            }
+        }
     }
 }
