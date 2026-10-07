@@ -60,6 +60,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         width: 36
         height: 36
+        iconSize: 20
         enabled: root.previousEnabled
         icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
         onClicked: root.previousClicked()
@@ -71,6 +72,7 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         width: 36
         height: 36
+        iconSize: 20
         enabled: root.nextEnabled
         icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
         onClicked: root.nextClicked()
