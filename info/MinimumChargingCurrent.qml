@@ -48,7 +48,6 @@ Page {
         }
         infofooter: [
             {headline: qsTr("Target charge"), Link: "TargetChargeInfo"},
-            {headline: qsTr("Maximum allowed charging limit"), Link: "MaximumAllowedChargingLimit"},
 
         ]
 

@@ -197,7 +197,6 @@
         <file>info/BatteryLevel.qml</file>
         <file>info/Capacity.qml</file>
         <file>info/MinimumChargingCurrent.qml</file>
-        <file>info/MaximumAllowedChargingLimit.qml</file>
         <file>info/InfoTextInterface.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
         <file>optimization/HeatingDetailView.qml</file>

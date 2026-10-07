@@ -51,11 +51,6 @@ Page {
 
 
         }
-        infofooter:
-            [
-                 {headline: qsTr("Maximum charging limit"), Link: "MaximumAllowedChargingLimit"},
-
-            ]
 
     }
 }
