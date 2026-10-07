@@ -1178,16 +1178,14 @@ GenericConfigPage {
                                     }
                                     return configuredVehicle ? configuredVehicle.name : qsTr("Select/Add Car");
                                 }
-                                showChildrenIndicator: !isSimulatedWallbox
-                                interactive: !isSimulatedWallbox
+                                showChildrenIndicator: true
+                                interactive: true
 
                                 onClicked: {
-                                    if (isSimulatedWallbox) {
-                                        return;
-                                    }
                                     var page = pageStack.push("../thingconfiguration/CarInventory.qml", {
-                                        preSelectedCarId: selectedVehicle ? selectedVehicle.id : null
-                                    });
+                                                                  preSelectedCarId: selectedVehicle ? selectedVehicle.id : null,
+                                                                  directToVehicle: isSimulatedWallbox
+                                                              });
                                     page.done.connect(function(selectedCar) {
                                         footer.visible = false;
                                         selectVehicleCard.text = selectedCar.name;
