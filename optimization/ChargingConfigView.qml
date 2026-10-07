@@ -913,12 +913,6 @@ GenericConfigPage {
                                                          });
                 }
 
-                // if simple PV excess mode is used set the batteryLevel to 1
-                if(isAnyOfModesSelected([simple_pv_excess, no_optimization, dyn_pricing, time_controlled])) {
-                    batteryLevelSlider.value = 1;
-                    targetPercentageSlider.value = 100;
-                }
-
                 // Set the endTime to maximum value for all modes except pv_optimized
                 if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
                     endTimeSlider.value = 24 * 60;
@@ -945,7 +939,8 @@ GenericConfigPage {
                         selectVehicleCard.selectedVehicle &&
                         batteryLevelSlider.value !== 0 &&
                         !carUsedAtOtherWallbox) {
-                    if (selectVehicleCard.selectedVehicle.stateByName("batteryLevel").value) {
+                    if (isAnyOfModesSelected([pv_optimized]) &&
+                            selectVehicleCard.selectedVehicle.stateByName("batteryLevel").value) {
                         selectVehicleCard.selectedVehicle.executeAction("batteryLevel",
                                                               [{
                                                                    paramName: "batteryLevel",
@@ -966,11 +961,14 @@ GenericConfigPage {
                         optimizationEnabled: true,
                         carThingId: selectVehicleCard.selectedVehicle.id,
                         endTime: endTimeSlider.endTime.getHours() + ":" +  endTimeSlider.endTime.getMinutes() + ":00",
-                        targetPercentage: targetPercentageSlider.value,
                         optimizationMode: optimizationMode,
                         priceThreshold: currentValue,
                         desiredPhaseCount: desiredPhaseCount
                     };
+
+                    if (isAnyOfModesSelected([pv_optimized])) {
+                        configData.targetPercentage = targetPercentageSlider.value;
+                    }
 
                     // Add charging schedule if time controlled mode
                     if(isAnyOfModesSelected([time_controlled])) {
