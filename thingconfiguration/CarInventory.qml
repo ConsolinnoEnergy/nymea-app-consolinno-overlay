@@ -291,17 +291,13 @@ Page{
                             if (nameInput.text === "") {
                                 return false;
                             }
-                            let capacity = parseInt(capacityInput.text);
-                            if (isNaN(capacity)) {
-                                return false;
-                            }
                             return true;
                         }
                         onClicked: {
                             var settings = [];
                             var capacitySetting = {};
                             capacitySetting.paramTypeId = "57f36386-dd71-4ab0-8d2f-8c74a391f90d";
-                            capacitySetting.value = parseInt(capacityInput.text);
+                            capacitySetting.value = capacityInput.value
                             settings.push(capacitySetting);
                             var minChargingCurrentSetting = {};
                             minChargingCurrentSetting.paramTypeId = "0c55516d-4285-4d02-8926-1dae03649e18";
@@ -349,13 +345,13 @@ Page{
                             text: thing ? thing.name : ""
                         }
 
-                        // #TODO use CoInputStepper when ready
-                        CoInputField {
+                        CoInputStepper {
                             id: capacityInput
-                            Layout.fillWidth: true
+                            from: 0
+                            to: 2147483647 // Workaround for "no upper limit"
                             labelText: qsTr("Capacity")
+                            value: thing ? thing.stateByName("capacity").value : 0
                             infoUrl: "Capacity.qml"
-                            text: thing ? thing.stateByName("capacity").value : 0
                             unit: "kWh"
                         }
 
