@@ -324,6 +324,14 @@ Item {
             dt.setHours(0, 0, 0, 0)
             d.visibleStartTime = dt.getTime()
             d.visibleWindowMs = d.maxWindowMs
+            // Needed explicitly here: unlike the old direct Repeater
+            // bindings (always eager-evaluated on creation), the cached
+            // "xTickTimestamps"/"dayNoonTimestamps" (see their doc comment)
+            // are only refreshed reactively on a "visibleStartTime"/
+            // "visibleWindowMs" *change* - which doesn't fire on this very
+            // first call, since both properties' initializers already
+            // match the values assigned above.
+            d.updateAxisLabels()
             d.updateLeftAxisRange()
             rangeSettleTimer.restart()
         }
@@ -413,6 +421,25 @@ Item {
             }
         }
 
+        // Cached x-axis label tick positions, refreshed (together with the
+        // day-noon labels below) only by "requestRebuild()"'s throttle - see
+        // its doc comment. The two label Repeaters bind their "model" to
+        // these instead of calling "xTicksInRange()"/"dayNoonsInRange()"
+        // directly: a direct binding re-evaluates (and returns a brand new
+        // array) on every single visibleStartTime/visibleWindowMs change,
+        // which QML's Repeater treats as a brand new model - destroying and
+        // recreating every Label delegate (including the comparatively
+        // expensive toLocaleDateString()/standaloneMonthName() calls in the
+        // day-noon delegate) at the gesture's raw event rate instead of the
+        // throttled rate.
+        property var xTickTimestamps: []
+        property var dayNoonTimestamps: []
+
+        function updateAxisLabels() {
+            d.xTickTimestamps = d.xTicksInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs, d.niceHourStep(d.visibleWindowMs / d.hourMs))
+            d.dayNoonTimestamps = d.dayNoonsInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
+        }
+
         // Set while a pan/pinch gesture (or anything else rapidly touching
         // visibleStartTime/visibleWindowMs) has produced a newer value than
         // the one "rebuildThrottleTimer" last rendered - see
@@ -420,28 +447,29 @@ Item {
         property bool rebuildPending: false
 
         // Leading+trailing throttle around "updateDayBoundaries()" +
-        // "seriesBinder.rebuildAll()": without this, every single
-        // visibleStartTime/visibleWindowMs change during a drag/pinch
-        // gesture (potentially once per pixel/frame) triggered a full
-        // series clear()+append() and day-boundary rebuild, which caused
-        // janky pan/zoom on lower-end hardware (see onVisibleStartTimeChanged/
-        // onVisibleWindowMsChanged below). The first change in a burst is
-        // still applied immediately (so the chart doesn't feel laggy to
-        // start reacting), but any further changes within
-        // "rebuildThrottleTimer.interval" are coalesced into a single
-        // trailing update once that interval elapses - capping the rebuild
-        // rate to roughly that timer's frequency instead of the gesture's
-        // raw event rate. This does NOT affect the ChartView axes
-        // themselves (bound directly to visibleStartTime/visibleWindowMs,
-        // see their min/max below) - those stay perfectly live every frame;
-        // only the comparatively expensive series/day-boundary rebuilds are
-        // throttled.
+        // "seriesBinder.rebuildAll()" + "updateAxisLabels()": without this,
+        // every single visibleStartTime/visibleWindowMs change during a
+        // drag/pinch gesture (potentially once per pixel/frame) triggered a
+        // full series clear()+append(), day-boundary rebuild and axis-label
+        // Repeater rebuild, which caused janky pan/zoom on lower-end
+        // hardware (see onVisibleStartTimeChanged/onVisibleWindowMsChanged
+        // below). The first change in a burst is still applied immediately
+        // (so the chart doesn't feel laggy to start reacting), but any
+        // further changes within "rebuildThrottleTimer.interval" are
+        // coalesced into a single trailing update once that interval
+        // elapses - capping the rebuild rate to roughly that timer's
+        // frequency instead of the gesture's raw event rate. This does NOT
+        // affect the ChartView axes themselves (bound directly to
+        // visibleStartTime/visibleWindowMs, see their min/max below) -
+        // those stay perfectly live every frame; only the comparatively
+        // expensive series/day-boundary/axis-label rebuilds are throttled.
         function requestRebuild() {
             if (rebuildThrottleTimer.running) {
                 d.rebuildPending = true
                 return
             }
             d.updateDayBoundaries()
+            d.updateAxisLabels()
             seriesBinder.rebuildAll()
             rebuildThrottleTimer.start()
         }
@@ -456,6 +484,7 @@ Item {
             if (d.rebuildPending) {
                 d.rebuildPending = false
                 d.updateDayBoundaries()
+                d.updateAxisLabels()
                 seriesBinder.rebuildAll()
                 rebuildThrottleTimer.start()
             }
@@ -846,7 +875,7 @@ Item {
             height: d.xLabelsHeight
 
             Repeater {
-                model: d.xTicksInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs, d.niceHourStep(d.visibleWindowMs / d.hourMs))
+                model: d.xTickTimestamps
 
                 delegate: Label {
                     required property var modelData
@@ -859,7 +888,7 @@ Item {
             }
 
             Repeater {
-                model: d.dayNoonsInRange(d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
+                model: d.dayNoonTimestamps
 
                 delegate: Label {
                     required property var modelData
