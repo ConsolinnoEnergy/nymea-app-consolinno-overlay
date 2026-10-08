@@ -1102,10 +1102,24 @@ MainViewBase {
         // yearEnergyLogs/yoyEnergyLogs) - each already holds real backend
         // data for exactly the category ranges of the section it backs.
         //
-        // "To battery"/"From battery" are deliberately not included here -
-        // see PeriodEnergyLogs.qml's file doc comment for why (no
-        // cumulative battery energy counter is reliably available at these
-        // aggregated sample rates).
+        // "To battery"/"From battery" are gated on "provider.
+        // hasBatteryEnergyCounters" (not "d.hasBattery"): not every real
+        // battery Thing class reports the cumulative energy counters these
+        // need - see PeriodEnergyLogs.qml's file doc comment. Independent
+        // of "d.hasProducer", mirroring the Day view's
+        // "computeEnergyBalanceLineSeries" - a battery can be present (and
+        // charged from the grid) without any producer at all.
+        //
+        // Known caveat: "Consumption" (provider.totalConsumptionSeries())
+        // is the backend's aggregated totalConsumption counter, which has
+        // a known bug where battery charging energy is folded into it
+        // (see commit 790bdb36 / ESUI-1642) - so once "To battery" is
+        // shown here too, that charging energy is effectively counted
+        // twice (once mis-attributed inside "Consumption", once correctly
+        // as "To battery"). Pre-existing, backend-side issue, out of scope
+        // here - tracked separately from "d.otherConsumptionEnabled"'s own
+        // note on the same root cause.
+        //
         // Despite their names (kept as-is since they back the
         // "*EnergyBalanceProductionSeries"/"*EnergyBalanceConsumptionSeries"
         // properties/bar-chart-stack bindings above), these two functions
@@ -1126,6 +1140,18 @@ MainViewBase {
                                 visible: d.isSeriesVisible("Production"),
                                 values: provider.totalProductionSeries()
                             })
+            }
+            if (provider.hasBatteryEnergyCounters) {
+                series.push({
+                                name: qsTr("From battery"),
+                                key: "From battery",
+                                color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
+                                visible: d.isSeriesVisible("From battery"),
+                                values: provider.fromBatterySeries()
+                            })
+            }
+            if (d.hasProducer) {
                 series.push({
                                 name: qsTr("From grid"),
                                 key: "From grid",
@@ -1147,17 +1173,34 @@ MainViewBase {
                               visible: d.isSeriesVisible("Consumption"),
                               values: provider.totalConsumptionSeries()
                           }]
-            series.push({
-                            name: qsTr("To grid"),
-                            key: "To grid",
-                            color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
-                            borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
-                            visible: d.isSeriesVisible("To grid"),
-                            values: provider.totalReturnSeries()
-                        })
+            if (provider.hasBatteryEnergyCounters) {
+                series.push({
+                                name: qsTr("To battery"),
+                                key: "To battery",
+                                color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
+                                visible: d.isSeriesVisible("To battery"),
+                                values: provider.toBatterySeries()
+                            })
+            }
+            if (d.hasProducer) {
+                series.push({
+                                name: qsTr("To grid"),
+                                key: "To grid",
+                                color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
+                                visible: d.isSeriesVisible("To grid"),
+                                values: provider.totalReturnSeries()
+                            })
+            }
             return series
         }
 
+
+        // "Self-consumption" here is now net of battery usage too, see
+        // PeriodEnergyLogs.qml's "selfConsumptionSeries" - it already
+        // subtracts "From battery" so it isn't double-counted between the
+        // two series.
         function computeConsumptionSourceStackSeries(provider) {
             var series = []
             if (d.hasProducer) {
@@ -1168,6 +1211,16 @@ MainViewBase {
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
                                 visible: d.isSeriesVisible("Self-consumption"),
                                 values: provider.selfConsumptionSeries()
+                            })
+            }
+            if (provider.hasBatteryEnergyCounters) {
+                series.push({
+                                name: qsTr("From battery"),
+                                key: "From battery",
+                                color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
+                                borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
+                                visible: d.isSeriesVisible("From battery"),
+                                values: provider.fromBatterySeries()
                             })
             }
             series.push({
