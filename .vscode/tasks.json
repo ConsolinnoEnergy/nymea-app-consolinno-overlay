@@ -1,0 +1,21 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build Qt6 app (local overlay)",
+			"type": "shell",
+			"command": "cmake",
+			"args": [
+				"--build",
+				"/home/moritz/Gitlab/nymea-app-qt6/build-local",
+				"--parallel",
+				"4"
+			],
+			"isBackground": false,
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		}
+	]
+}
