@@ -1,5 +1,6 @@
 // #TODO copyright notice
 
+import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
@@ -671,6 +672,19 @@ MainViewBase {
         }
     }
 
+    // Persists the legend pill checked state (see "d.hiddenSeriesKeys"
+    // below) across app restarts.
+    // "category" is the connected host's uuid, same per-connection scoping
+    // used for other persisted settings (e.g. "mainViewSettings"'s
+    // "filterList"/"sortOrder" in MainPage.qml, or "DashboardView.qml"'s
+    // "dashboardConfig") - so hidden/shown series are remembered separately
+    // per nymea box rather than shared across all connections.
+    Settings {
+        id: legendVisibilitySettings
+        category: _engine.jsonRpcClient.currentHost.uuid
+        property string hiddenSeriesKeysJson: "[]"
+    }
+
     QtObject {
         id: d
 
@@ -781,21 +795,29 @@ MainViewBase {
 
         // ---- Legend visibility toggle state ----
         // Set of series names currently hidden via a legend pill tap,
-        // shared across all periods/tabs (toggling "From grid" off is
-        // remembered regardless of which period/tab it was toggled from -
-        // simpler than per-view toggle state and arguably the more
-        // intuitive behavior anyway). Looked up by "key" rather than index
-        // since the same series can appear at different indices in
-        // different generated arrays. Every series explicitly sets its own
-        // "key", separate from its (translated, display-only) "name": a
-        // fixed untranslated string (e.g. "Production") for the fixed,
-        // always-unique series, but the backing Thing's id for
-        // per-consumer series - Thing *names* are user-editable and not
-        // guaranteed unique, so two consumers with the same name would
-        // otherwise share one toggle-visibility entry and incorrectly
-        // hide/show together. See "computeConsumptionConsumerLineSeries"/
+        // shared across all periods *within* the same chart tab (toggling
+        // "From grid" off in Week stays off in Month/Year/YoY, since it's
+        // the same conceptual series just over a different time range -
+        // simpler than per-period toggle state and arguably the more
+        // intuitive behavior anyway). Deliberately NOT shared *across*
+        // tabs (energy balance vs. consumption): every fixed, always-unique
+        // series key uses a camelCase "<tab>:<name>" format
+        // ("energybalance:..." for the energy balance functions,
+        // "consumption:..." for the consumption ones) even where two tabs
+        // happen to show a same-looking series (e.g. "From battery"/
+        // "From grid" appear both as "energybalance:fromBattery"/
+        // "energybalance:fromGrid" and as "consumption:fromBattery"/
+        // "consumption:fromGrid") - so toggling one tab's pill doesn't
+        // affect the other. Every series explicitly sets its own "key",
+        // separate from its (translated, display-only) "name": the
+        // "<tab>:<name>" string above for the fixed, always-unique series,
+        // but the backing Thing's id (explicitly stringified - see below)
+        // for per-consumer series. See
+        // "computeConsumptionConsumerLineSeries"/
         // "computeConsumptionConsumerStackSeries" for where "key" is set
-        // to the Thing id.
+        // to the Thing id. Persisted across app restarts via
+        // "legendVisibilitySettings" below (initialized from it on startup,
+        // written back to it on every change).
         property var hiddenSeriesKeys: []
 
         function isSeriesVisible(key) { return d.hiddenSeriesKeys.indexOf(key) === -1 }
@@ -813,6 +835,27 @@ MainViewBase {
             } else if (!visible && currentIndex === -1) {
                 d.hiddenSeriesKeys = d.hiddenSeriesKeys.concat([key])
             }
+        }
+
+        // Loads the persisted "hiddenSeriesKeys" once on startup. Done here
+        // (rather than as the property's default value expression) since
+        // "legendVisibilitySettings" must have already read its value off
+        // disk first, which isn't guaranteed until the component is fully
+        // constructed.
+        Component.onCompleted: {
+            try {
+                d.hiddenSeriesKeys = JSON.parse(legendVisibilitySettings.hiddenSeriesKeysJson)
+            } catch (e) {
+                d.hiddenSeriesKeys = []
+            }
+        }
+
+        // Writes every "hiddenSeriesKeys" change straight back to disk -
+        // simpler than only persisting on app shutdown, and this is toggled
+        // rarely enough (manual legend pill taps) that the extra disk
+        // writes are negligible.
+        onHiddenSeriesKeysChanged: {
+            legendVisibilitySettings.hiddenSeriesKeysJson = JSON.stringify(d.hiddenSeriesKeys)
         }
 
         // ---- KPI values ----
@@ -862,10 +905,10 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                     name: qsTr("Production"),
-                    key: "Production",
+                    key: "energybalance:production",
                     color: Style.colors.components_Statistics_Things_and_states_Inverter,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
-                    visible: d.isSeriesVisible("Production"),
+                    visible: d.isSeriesVisible("energybalance:production"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.production)) / 1000 }
@@ -874,10 +917,10 @@ MainViewBase {
             if (d.hasBattery) {
                 series.push({
                     name: qsTr("From battery"),
-                    key: "From battery",
+                    key: "energybalance:fromBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
-                    visible: d.isSeriesVisible("From battery"),
+                    visible: d.isSeriesVisible("energybalance:fromBattery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
@@ -885,20 +928,20 @@ MainViewBase {
             }
             series.push({
                 name: qsTr("From grid"),
-                key: "From grid",
+                key: "energybalance:fromGrid",
                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
-                visible: d.isSeriesVisible("From grid"),
+                visible: d.isSeriesVisible("energybalance:fromGrid"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
             })
             series.push({
                 name: qsTr("Consumption"),
-                key: "Consumption",
+                key: "energybalance:consumption",
                 color: Style.colors.components_Statistics_Things_and_states_Consumption,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                visible: d.isSeriesVisible("Consumption"),
+                visible: d.isSeriesVisible("energybalance:consumption"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return entry.consumption / 1000 }
@@ -906,10 +949,10 @@ MainViewBase {
             if (d.hasBattery) {
                 series.push({
                     name: qsTr("To battery"),
-                    key: "To battery",
+                    key: "energybalance:toBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
-                    visible: d.isSeriesVisible("To battery"),
+                    visible: d.isSeriesVisible("energybalance:toBattery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, entry.storage) / 1000 }
@@ -918,10 +961,10 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                     name: qsTr("To grid"),
-                    key: "To grid",
+                    key: "energybalance:toGrid",
                     color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
-                    visible: d.isSeriesVisible("To grid"),
+                    visible: d.isSeriesVisible("energybalance:toGrid"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
@@ -934,7 +977,7 @@ MainViewBase {
             if (d.batterySocEnabled && d.hasBattery) {
                 series.push({
                     name: qsTr("Battery SoC"),
-                    key: "Battery SoC",
+                    key: "energybalance:batterySoC",
                     color: Style.colors.components_Statistics_Things_and_states_Battery,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_border,
                     visible: false,
@@ -956,10 +999,10 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                     name: qsTr("Self-consumption"),
-                    key: "Self-consumption",
+                    key: "consumption:selfConsumption",
                     color: Style.colors.components_Statistics_Things_and_states_Inverter,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
-                    visible: d.isSeriesVisible("Self-consumption"),
+                    visible: d.isSeriesVisible("consumption:selfConsumption"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) {
@@ -972,10 +1015,10 @@ MainViewBase {
             if (d.hasBattery) {
                 series.push({
                     name: qsTr("From battery"),
-                    key: "From battery",
+                    key: "consumption:fromBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
-                    visible: d.isSeriesVisible("From battery"),
+                    visible: d.isSeriesVisible("consumption:fromBattery"),
                     axis: "left",
                     model: powerBalanceLogs,
                     valueFunction: function (entry) { return Math.abs(Math.min(0, entry.storage)) / 1000 }
@@ -983,10 +1026,10 @@ MainViewBase {
             }
             series.push({
                 name: qsTr("From grid"),
-                key: "From grid",
+                key: "consumption:fromGrid",
                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
-                visible: d.isSeriesVisible("From grid"),
+                visible: d.isSeriesVisible("consumption:fromGrid"),
                 axis: "left",
                 model: powerBalanceLogs,
                 valueFunction: function (entry) { return Math.max(0, entry.acquisition) / 1000 }
@@ -1012,10 +1055,16 @@ MainViewBase {
                 var consumerItem = items[j]
                 series.push({
                     name: consumerItem.thing.name,
-                    key: consumerItem.thing.id,
+                    // "thing.id" is a QUuid, not a plain JS string - must be
+                    // explicitly stringified, otherwise JSON.stringify()
+                    // (see "legendVisibilitySettings" persistence above)
+                    // doesn't serialize it into a comparable value, so a
+                    // hidden Thing-keyed series silently reappears after
+                    // every app restart.
+                    key: consumerItem.thing.id.toString(),
                     color: colors[j].color,
                     borderColor: colors[j].borderColor,
-                    visible: d.isSeriesVisible(consumerItem.thing.id),
+                    visible: d.isSeriesVisible(consumerItem.thing.id.toString()),
                     axis: "left",
                     model: consumerItem.logs,
                     valueFunction: function (entry) { return entry.currentPower / 1000 }
@@ -1029,10 +1078,10 @@ MainViewBase {
             // ConsumerConsumptionLogs.qml - "otherConsumption").
             series.push({
                 name: qsTr("Other consumption"),
-                key: "Other consumption",
+                key: "consumption:otherConsumption",
                 color: Style.colors.components_Statistics_Things_and_states_Consumption,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                visible: d.isSeriesVisible("Other consumption"),
+                visible: d.isSeriesVisible("consumption:otherConsumption"),
                 axis: "left",
                 model: consumerConsumptionLogs.otherConsumption,
                 valueFunction: function (entry) { return entry.consumption / 1000 }
@@ -1134,30 +1183,30 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                                 name: qsTr("Production"),
-                                key: "Production",
+                                key: "energybalance:production",
                                 color: Style.colors.components_Statistics_Things_and_states_Inverter,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
-                                visible: d.isSeriesVisible("Production"),
+                                visible: d.isSeriesVisible("energybalance:production"),
                                 values: provider.totalProductionSeries()
                             })
             }
             if (provider.hasBatteryEnergyCounters) {
                 series.push({
                                 name: qsTr("From battery"),
-                                key: "From battery",
+                                key: "energybalance:fromBattery",
                                 color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
-                                visible: d.isSeriesVisible("From battery"),
+                                visible: d.isSeriesVisible("energybalance:fromBattery"),
                                 values: provider.fromBatterySeries()
                             })
             }
             if (d.hasProducer) {
                 series.push({
                                 name: qsTr("From grid"),
-                                key: "From grid",
+                                key: "energybalance:fromGrid",
                                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
-                                visible: d.isSeriesVisible("From grid"),
+                                visible: d.isSeriesVisible("energybalance:fromGrid"),
                                 values: provider.totalAcquisitionSeries()
                             })
             }
@@ -1167,29 +1216,29 @@ MainViewBase {
         function computeEnergyBalanceConsumptionSeries(provider) {
             var series = [{
                               name: qsTr("Consumption"),
-                              key: "Consumption",
+                              key: "energybalance:consumption",
                               color: Style.colors.components_Statistics_Things_and_states_Consumption,
                               borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                              visible: d.isSeriesVisible("Consumption"),
+                              visible: d.isSeriesVisible("energybalance:consumption"),
                               values: provider.totalConsumptionSeries()
                           }]
             if (provider.hasBatteryEnergyCounters) {
                 series.push({
                                 name: qsTr("To battery"),
-                                key: "To battery",
+                                key: "energybalance:toBattery",
                                 color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
-                                visible: d.isSeriesVisible("To battery"),
+                                visible: d.isSeriesVisible("energybalance:toBattery"),
                                 values: provider.toBatterySeries()
                             })
             }
             if (d.hasProducer) {
                 series.push({
                                 name: qsTr("To grid"),
-                                key: "To grid",
+                                key: "energybalance:toGrid",
                                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
-                                visible: d.isSeriesVisible("To grid"),
+                                visible: d.isSeriesVisible("energybalance:toGrid"),
                                 values: provider.totalReturnSeries()
                             })
             }
@@ -1206,29 +1255,29 @@ MainViewBase {
             if (d.hasProducer) {
                 series.push({
                                 name: qsTr("Self-consumption"),
-                                key: "Self-consumption",
+                                key: "consumption:selfConsumption",
                                 color: Style.colors.components_Statistics_Things_and_states_Inverter,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
-                                visible: d.isSeriesVisible("Self-consumption"),
+                                visible: d.isSeriesVisible("consumption:selfConsumption"),
                                 values: provider.selfConsumptionSeries()
                             })
             }
             if (provider.hasBatteryEnergyCounters) {
                 series.push({
                                 name: qsTr("From battery"),
-                                key: "From battery",
+                                key: "consumption:fromBattery",
                                 color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                                 borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
-                                visible: d.isSeriesVisible("From battery"),
+                                visible: d.isSeriesVisible("consumption:fromBattery"),
                                 values: provider.fromBatterySeries()
                             })
             }
             series.push({
                             name: qsTr("From grid"),
-                            key: "From grid",
+                            key: "consumption:fromGrid",
                             color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                             borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
-                            visible: d.isSeriesVisible("From grid"),
+                            visible: d.isSeriesVisible("consumption:fromGrid"),
                             values: provider.totalAcquisitionSeries()
                         })
             return series
@@ -1240,20 +1289,22 @@ MainViewBase {
             var series = consumerEntries.map(function (entry, i) {
                 return {
                     name: entry.thing.name,
-                    key: entry.thing.id,
+                    // See "computeConsumptionConsumerLineSeries" above for
+                    // why "thing.id" must be explicitly stringified here.
+                    key: entry.thing.id.toString(),
                     color: colors[i].color,
                     borderColor: colors[i].borderColor,
-                    visible: d.isSeriesVisible(entry.thing.id),
+                    visible: d.isSeriesVisible(entry.thing.id.toString()),
                     values: entry.values
                 }
             })
             if (d.otherConsumptionEnabled) {
                 series.push({
                     name: qsTr("Other consumption"),
-                    key: "Other consumption",
+                    key: "consumption:otherConsumption",
                     color: Style.colors.components_Statistics_Things_and_states_Consumption,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                    visible: d.isSeriesVisible("Other consumption"),
+                    visible: d.isSeriesVisible("consumption:otherConsumption"),
                     values: provider.otherConsumptionSeries()
                 })
             }
