@@ -190,7 +190,7 @@ Page {
                         textField.validator: IntValidator {
                             id: currentInputValidator
                             bottom: 16
-                            top: 100
+                            top: 125
                         }
                         textField.onTextChanged: {
                             if (visible && textField.acceptableInput) {
