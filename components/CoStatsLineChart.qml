@@ -163,6 +163,60 @@ Item {
             return Math.max(min, Math.min(max, value))
         }
 
+        // Timestamp (epoch ms) of the most recent sample actually available
+        // right now, across every distinct model referenced by "root.series"
+        // - i.e. the real right-hand data boundary, as opposed to
+        // "d.visibleStartTime + d.visibleWindowMs" (the visible *window*,
+        // which for "today" extends well past "now" into not-yet-recorded
+        // future time). Returns -1 if no series has any data yet (e.g.
+        // still loading), in which case callers should fall back to the
+        // full visible window instead of clamping to nothing.
+        //
+        // Takes the *minimum* across models rather than the max: several
+        // series can be backed by different models (e.g. one per consumer
+        // Thing in the Consumption tab), and if one of them lags slightly
+        // behind the others, clamping to the single earliest common cutoff
+        // guarantees every currently visible series still has a sample at
+        // the clamped timestamp - exactly the bug this avoids (see
+        // "selectedPoints()" above, which drops a series entirely once
+        // "model.indexOf()" can't find a sample close enough).
+        function latestAvailableTimestampMs() {
+            var latest = -1
+            var seenModels = []
+            for (var i = 0; i < root.series.length; i++) {
+                var desc = root.series[i]
+                if (!desc || desc.visible === false || !desc.model) {
+                    continue
+                }
+                var model = desc.model
+                if (seenModels.indexOf(model) !== -1) {
+                    continue
+                }
+                seenModels.push(model)
+                if (typeof model.count !== "number" || model.count <= 0) {
+                    continue
+                }
+                var lastEntry = model.get(model.count - 1)
+                if (!lastEntry || !lastEntry.timestamp) {
+                    continue
+                }
+                var ts = lastEntry.timestamp.getTime()
+                if (latest < 0 || ts < latest) {
+                    latest = ts
+                }
+            }
+            return latest
+        }
+
+        // Upper bound for "root.selectedTimestampMs": the smaller of the
+        // visible window's own end and the real data boundary above - see
+        // "latestAvailableTimestampMs()".
+        function selectedTimestampMaxMs() {
+            var windowEnd = d.visibleStartTime + d.visibleWindowMs
+            var dataEnd = d.latestAvailableTimestampMs()
+            return dataEnd < 0 ? windowEnd : Math.min(windowEnd, dataEnd)
+        }
+
         // Pixel x-position (in this Item's own coordinate space) of
         // "root.selectedTimestampMs", or -1 if nothing is selected/the
         // chart has no plot area yet. Uses the same time-fraction math as
@@ -1062,7 +1116,7 @@ Item {
                 }
                 if (draggingTooltip) {
                     var deltaTimestampMs = (translation.x / chartView.plotArea.width) * d.visibleWindowMs
-                    var newTimestampMs = d.clamp(startTimestampMs + deltaTimestampMs, d.visibleStartTime, d.visibleStartTime + d.visibleWindowMs)
+                    var newTimestampMs = d.clamp(startTimestampMs + deltaTimestampMs, d.visibleStartTime, d.selectedTimestampMaxMs())
                     root.selectedTimestampMs = newTimestampMs
                     var xPixel = d.selectedXPixel()
                     root.pointSelected(new Date(newTimestampMs), Qt.rect(xPixel - 1, chartView.plotArea.y, 2, chartView.plotArea.height))
