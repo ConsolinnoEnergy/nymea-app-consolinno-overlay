@@ -549,7 +549,25 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
-                                    categories: d.weekCategories
+                                    // Self-referencing fallback (not just
+                                    // "d.weekCategories" unconditionally):
+                                    // "d.weekCategories" recomputes on every
+                                    // "periodSelector.referenceDate" change,
+                                    // which also happens continuously while
+                                    // panning the Day-view line chart across
+                                    // day boundaries - with an unconditional
+                                    // binding this hidden chart would still
+                                    // take the "categories" update and run a
+                                    // full rebuildStack() for every one of
+                                    // those, despite never being visible.
+                                    // Reading "categories" itself in the
+                                    // untaken branch means this binding only
+                                    // depends on "d.weekCategories" while the
+                                    // Week tab is actually active; otherwise
+                                    // it just keeps its last value (a no-op
+                                    // re-assignment, so onCategoriesChanged
+                                    // doesn't fire).
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategories : categories
                                     // Guarded by sampleRate (see the
                                     // day-view "series" binding above for
                                     // the full rationale) so a legend-pill
@@ -585,7 +603,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    categories: d.monthCategories
+                                    // See weekBarChart's "categories"
+                                    // comment above for why this isn't
+                                    // just an unconditional "d.monthCategories".
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.monthCategories : categories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
@@ -600,7 +621,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    categories: d.yoyCategories
+                                    // See weekBarChart's "categories"
+                                    // comment above for why this isn't
+                                    // just an unconditional "d.yoyCategories".
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.yoyCategories : categories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -629,7 +653,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    categories: d.yearCategories
+                                    // See weekBarChart's "categories"
+                                    // comment above for why this isn't
+                                    // just an unconditional "d.yearCategories".
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yearCategories : categories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
@@ -644,7 +671,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    categories: d.yoyCategories
+                                    // See weekBarChart's "categories"
+                                    // comment above for why this isn't
+                                    // just an unconditional "d.yoyCategories".
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yoyCategories : categories
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
