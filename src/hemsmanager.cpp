@@ -134,6 +134,11 @@ int HemsManager::setRemoteConnectionEnabled(bool enabled)
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetRemoteConnectionEnabled", params, this, "setRemoteConnectionEnabledResponse");
 }
 
+bool HemsManager::remoteConnectionEndpointsAvailable() const
+{
+    return m_remoteConnectionEndpointsAvailable;
+}
+
 HeatingConfigurations *HemsManager::heatingConfigurations() const
 {
     return m_heatingConfigurations;
@@ -875,6 +880,23 @@ void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap
 void HemsManager::getRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data)
 {
     Q_UNUSED(commandId);
+
+    // Detect whether the core system's energy plugin provides the remote
+    // connection endpoints at all. Old plugins (without the endpoints) get an
+    // error reply from the server for the unknown method; the JsonRpcClient
+    // forwards error replies to the response callback with empty params. In
+    // that case fall back to the legacy variant (app edits the tunnel proxy
+    // configuration directly).
+    if (!data.contains("remoteConnectionEnabled")) {
+        if (m_remoteConnectionEndpointsAvailable) {
+            qCDebug(dcHems()) << "Hems.GetRemoteConnectionEnabled not available on this core system."
+                              << "Falling back to legacy remote connection handling.";
+            m_remoteConnectionEndpointsAvailable = false;
+            emit remoteConnectionEndpointsAvailableChanged(m_remoteConnectionEndpointsAvailable);
+        }
+        return;
+    }
+
     bool enabled = data.value("remoteConnectionEnabled").toBool();
     qCDebug(dcHems()) << "Remote connection enabled:" << enabled;
     if (m_remoteConnectionEnabled != enabled) {

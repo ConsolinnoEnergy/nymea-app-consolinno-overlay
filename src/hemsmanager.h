@@ -32,6 +32,7 @@ class HemsManager : public QObject
     Q_PROPERTY(HemsUseCases availableUseCases READ availableUseCases NOTIFY availableUseCasesChanged)
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
     Q_PROPERTY(bool remoteConnectionEnabled READ remoteConnectionEnabled NOTIFY remoteConnectionEnabledChanged)
+    Q_PROPERTY(bool remoteConnectionEndpointsAvailable READ remoteConnectionEndpointsAvailable NOTIFY remoteConnectionEndpointsAvailableChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
     Q_PROPERTY(DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations READ dynamicElectricPricingConfigurations CONSTANT)
     Q_PROPERTY(BatteryConfigurations *batteryConfigurations READ batteryConfigurations CONSTANT)
@@ -84,6 +85,15 @@ public:
     bool remoteConnectionEnabled() const;
     Q_INVOKABLE int setRemoteConnectionEnabled(bool enabled);
 
+    // True if the core system's energy plugin provides the
+    // Hems.Get/SetRemoteConnectionEnabled endpoints (and the
+    // Hems.RemoteConnectionEnabledChanged notification). Determined at
+    // runtime: an old plugin answers Hems.GetRemoteConnectionEnabled with an
+    // error, which the JsonRpcClient forwards as an empty response. If false,
+    // the app falls back to the legacy variant (editing the tunnel proxy
+    // configuration directly from the app).
+    bool remoteConnectionEndpointsAvailable() const;
+
     HeatingConfigurations *heatingConfigurations() const;
     ChargingConfigurations *chargingConfigurations() const;
     PvConfigurations *pvConfigurations() const;
@@ -129,6 +139,7 @@ signals:
     void availableUseCasesChanged(HemsUseCases availableUseCases);
     void housholdPhaseLimitChanged(uint housholdPhaseLimit);
     void remoteConnectionEnabledChanged(bool remoteConnectionEnabled);
+    void remoteConnectionEndpointsAvailableChanged(bool remoteConnectionEndpointsAvailable);
 
     void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
@@ -211,6 +222,7 @@ private:
     HemsUseCases m_availableUseCases;
     uint m_housholdPhaseLimit = 25;
     bool m_remoteConnectionEnabled = true;
+    bool m_remoteConnectionEndpointsAvailable = true;
 
     HeatingConfigurations *m_heatingConfigurations = nullptr;
     ChargingConfigurations *m_chargingConfigurations = nullptr;
