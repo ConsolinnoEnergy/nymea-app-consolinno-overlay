@@ -11,7 +11,7 @@ import "../utils/DateUtils.js" as DateUtils
 // A multi-line chart for the statistics page. Shows a left kW y-axis (auto
 // scaled to "nice" round numbers with 5 labels) and an optional right
 // percentage y-axis (fixed 0-100%, 5 labels). The visible x-axis window can
-// be zoomed (pinch) between 6h and 24h and panned (drag). Vertical light-grey
+// be zoomed (pinch) between 3h and 24h and panned (drag). Vertical light-grey
 // lines mark day boundaries that fall within the visible window.
 //
 // The chart itself does not fetch any data. Each entry in "series" references
@@ -101,9 +101,34 @@ Item {
         id: d
 
         readonly property int maxSeriesCount: 20
+
+        // Highest slot index actually populated by the previous
+        // "rebuildAll()" call (see there) - lets that function skip the
+        // fixed 20 slots entirely once "root.series" is shorter (the
+        // common case; see its own comment), while still clearing any
+        // now-unused slots left over from a previous, longer "root.series"
+        // array (e.g. switching tabs).
+        property int lastSeriesCount: 0
+
+        // Per-slot cache of what's currently rendered in that slot's
+        // LineSeries pair, used by rebuild() to incrementally update
+        // (rather than clear()+fully re-append) when the new visible
+        // window overlaps the previously rendered one - see rebuild()'s
+        // own comment. Each entry is either undefined/null (no valid cached
+        // state - forces a full rebuild) or { model, lowIdx, highIdx,
+        // count }: "model" is the exact model reference last rendered (an
+        // incremental update is only valid against the *same* model
+        // instance), "lowIdx"/"highIdx" is the model index range [lowIdx,
+        // highIdx) last rendered, and "count" is the series' actual point
+        // count right after that render - compared against
+        // (highIdx - lowIdx) to detect whether any index in that range was
+        // skipped (model.get() returning a falsy entry), which would
+        // invalidate the 1:1 index-to-series-position mapping the
+        // incremental path depends on.
+        property var slotRenderState: []
         readonly property real hourMs: 3600000
         readonly property real dayMs: 24 * hourMs
-        readonly property real minWindowMs: 6 * hourMs
+        readonly property real minWindowMs: 3 * hourMs
         readonly property real maxWindowMs: 24 * hourMs
         readonly property int yLabelCount: 5
 
@@ -128,6 +153,21 @@ Item {
             return dt.getTime()
         }
         property real visibleWindowMs: maxWindowMs
+
+        // Copy of the above two, but only updated once "rangeSettleTimer"
+        // fires (i.e. the same, debounced cadence the data-fetch trigger
+        // uses - see rangeSettleTimer below), not on every live drag/pinch
+        // frame. Used by "maxLeftValue()"'s y-axis range scan instead of
+        // the live values above: that scan is deliberately windowed for
+        // performance (see its own comment), but if it tracked the live,
+        // continuously-shifting visible window directly, the y-axis would
+        // visibly rescale on every single pan/zoom frame instead of
+        // staying stable while scrolling through already-loaded data -
+        // which is exactly the kind of jitter "maxLeftValue()" already
+        // avoids for legend-pill toggles (see its "ignores desc.visible"
+        // comment) and should equally avoid here.
+        property real settledStartTime: visibleStartTime
+        property real settledWindowMs: visibleWindowMs
 
         // Reserved ChartView margins, sized via FontMetrics for the custom
         // axis label overlays below. ChartView's own plotArea auto-sizing
@@ -329,7 +369,34 @@ Item {
                 }
                 var model = desc.model
                 var count = model.count !== undefined ? model.count : 0
-                for (var j = 0; j < count; j++) {
+
+                // Windowed similarly to rebuild() (see its comment): without
+                // this, every rebuild re-scanned the model's *entire* cache -
+                // up to ~20x the visible window, see EnergyLogs::trimCache()
+                // - instead of just what's on screen. That cost grows
+                // unbounded with cache size as a session goes on (more
+                // days/zoom levels visited), causing increasingly long pan/
+                // zoom stalls over time.
+                //
+                // Uses the *settled* window (d.settledStartTime/Ms), not the
+                // live d.visibleStartTime/d.visibleWindowMs rebuild() itself
+                // uses: unlike the series' actual plotted points, the y-axis
+                // range is deliberately stabilized against the live drag
+                // position too (see "ignores desc.visible" above) - using
+                // the live, continuously-shifting window here would rescale
+                // the axis on every single pan/zoom frame instead of only
+                // once a gesture settles.
+                var startIndex = 0
+                var endIndex = count
+                if (typeof model.indexOf === "function") {
+                    var rangeStart = d.settledStartTime
+                    var rangeEnd = d.settledStartTime + d.settledWindowMs
+                    var lowIdx = model.indexOf(new Date(rangeStart))
+                    var highIdx = model.indexOf(new Date(rangeEnd))
+                    startIndex = lowIdx >= 0 ? Math.max(0, lowIdx - 1) : 0
+                    endIndex = highIdx >= 0 ? Math.min(count, highIdx + 2) : count
+                }
+                for (var j = startIndex; j < endIndex; j++) {
                     var entry = model.get(j)
                     if (!entry) {
                         continue
@@ -553,7 +620,11 @@ Item {
     Timer {
         id: rangeSettleTimer
         interval: 200
-        onTriggered: root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+        onTriggered: {
+            d.settledStartTime = d.visibleStartTime
+            d.settledWindowMs = d.visibleWindowMs
+            root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+        }
     }
 
     FontMetrics {
@@ -763,12 +834,16 @@ Item {
                     return
                 }
                 var b = borderSlot(index)
-                s.clear()
-                if (b) {
-                    b.clear()
-                }
                 var desc = d.seriesDescriptor(index)
                 if (!desc || !desc.model) {
+                    s.clear()
+                    if (b) {
+                        b.clear()
+                    }
+                    d.slotRenderState[index] = null
+                    if (updateAxis) {
+                        d.updateLeftAxisRange()
+                    }
                     return
                 }
                 var model = desc.model
@@ -803,22 +878,122 @@ Item {
                     startIndex = lowIdx >= 0 ? Math.max(0, lowIdx - 1) : 0
                     endIndex = highIdx >= 0 ? Math.min(count, highIdx + 2) : count
                 }
-                for (var i = startIndex; i < endIndex; i++) {
-                    var entry = model.get(i)
-                    if (!entry) {
-                        continue
-                    }
-                    var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
-                    var v = fn(entry)
-                    s.append(t, v)
+
+                // Every pan/zoom frame re-renders this slot via rebuildAll(),
+                // and the new window very often overlaps the previously
+                // rendered one substantially (e.g. a drag only shifts it by
+                // a few pixels/entries). Previously this always did a full
+                // clear() + re-append() of every visible point regardless,
+                // which dominated this chart's cost on every single
+                // throttled frame. Diff against the last rendered range instead and only
+                // remove/insert/append the entries that actually scrolled
+                // out of/into view - falling back to the full rebuild below
+                // whenever that's not safely possible (different model,
+                // no cached state yet, no overlap with the new window, or
+                // the previous render's point count doesn't match its index
+                // range - see slotRenderState's own doc comment for why
+                // that last check matters).
+                var prevState = d.slotRenderState[index]
+                var canIncrement = !!prevState
+                        && prevState.model === model
+                        && prevState.count === (prevState.highIdx - prevState.lowIdx)
+                        && startIndex < prevState.highIdx && endIndex > prevState.lowIdx
+
+                if (canIncrement) {
+                    seriesBinder.incrementalRebuildSlot(s, b, model, fn, prevState.lowIdx, prevState.highIdx, startIndex, endIndex)
+                } else {
+                    s.clear()
                     if (b) {
-                        b.append(t, v)
+                        b.clear()
+                    }
+                    for (var i = startIndex; i < endIndex; i++) {
+                        var entry = model.get(i)
+                        if (!entry) {
+                            continue
+                        }
+                        var t = entry.timestamp instanceof Date ? entry.timestamp.getTime() : entry.timestamp
+                        var v = fn(entry)
+                        s.append(t, v)
+                        if (b) {
+                            b.append(t, v)
+                        }
                     }
                 }
+
+                d.slotRenderState[index] = { model: model, lowIdx: startIndex, highIdx: endIndex, count: s.count }
                 if (updateAxis) {
                     d.updateLeftAxisRange()
                 }
             }
+
+            // Incrementally updates an already-rendered slot by diffing its
+            // previously rendered model-index window [prevLow, prevHigh)
+            // against the new one [newLow, newHigh), instead of clear()+
+            // fully re-appending every point (see rebuild()'s own comment
+            // for when this is/isn't safe to call). Assumes "s"/"b"
+            // currently hold exactly one point per model index in
+            // [prevLow, prevHigh), in the same order.
+            function incrementalRebuildSlot(s, b, model, fn, prevLow, prevHigh, newLow, newHigh) {
+                var overlapStart = Math.max(prevLow, newLow)
+                var overlapEnd = Math.min(prevHigh, newHigh)
+
+                // Drop points that scrolled out of view at the front (model
+                // indices below "overlapStart") - these sit at the start of
+                // the series, at positions [0, frontRemoveCount).
+                var frontRemoveCount = overlapStart - prevLow
+                if (frontRemoveCount > 0) {
+                    s.removePoints(0, frontRemoveCount)
+                    if (b) {
+                        b.removePoints(0, frontRemoveCount)
+                    }
+                }
+                // Drop points that scrolled out of view at the back (model
+                // indices at/above "overlapEnd") - these now sit at the end
+                // of the already front-trimmed series.
+                var backRemoveCount = prevHigh - overlapEnd
+                if (backRemoveCount > 0) {
+                    var tailStart = s.count - backRemoveCount
+                    s.removePoints(tailStart, backRemoveCount)
+                    if (b) {
+                        b.removePoints(tailStart, backRemoveCount)
+                    }
+                }
+
+                // Insert newly-visible points before the current front, in
+                // chronological order - inserting at a steadily increasing
+                // position (rather than always at 0) keeps them in order:
+                // each insert only pushes the *already-inserted* new points
+                // (and the untouched old ones after them) back by one.
+                var insertPos = 0
+                for (var i = newLow; i < overlapStart; i++) {
+                    var frontEntry = model.get(i)
+                    if (!frontEntry) {
+                        continue
+                    }
+                    var ft = frontEntry.timestamp instanceof Date ? frontEntry.timestamp.getTime() : frontEntry.timestamp
+                    var fv = fn(frontEntry)
+                    s.insert(insertPos, ft, fv)
+                    if (b) {
+                        b.insert(insertPos, ft, fv)
+                    }
+                    insertPos++
+                }
+
+                // Append newly-visible points after the current back.
+                for (var j = overlapEnd; j < newHigh; j++) {
+                    var backEntry = model.get(j)
+                    if (!backEntry) {
+                        continue
+                    }
+                    var bt = backEntry.timestamp instanceof Date ? backEntry.timestamp.getTime() : backEntry.timestamp
+                    var bv = fn(backEntry)
+                    s.append(bt, bv)
+                    if (b) {
+                        b.append(bt, bv)
+                    }
+                }
+            }
+
 
             // Re-renders every fixed slot for the chart's current visible
             // window. Needed in addition to the per-model
@@ -842,17 +1017,40 @@ Item {
             // window rather than the (much larger) cached range.
             //
             // Each rebuild(i, false) call skips its own axis-range update
-            // (see rebuild()'s "updateAxis" parameter) - d.maxLeftValue()
-            // scans every occupied series' *entire* cached model, so
-            // calling it once per slot here (up to d.maxSeriesCount times)
-            // would turn every drag/pinch frame into O(series count
-            // squared) work. Recomputing it once after the loop instead
-            // keeps this at the same O(series count) cost as the rest of
-            // this function.
+            // (see rebuild()'s "updateAxis" parameter) - recomputing it
+            // once after the loop instead keeps axis-range work at the
+            // same O(series count) cost as the rest of this function,
+            // instead of O(series count squared).
             function rebuildAll() {
-                for (var i = 0; i < d.maxSeriesCount; i++) {
+                // "root.series" is almost always far shorter than the fixed
+                // d.maxSeriesCount (20) slots reserved in the ChartView
+                // above (e.g. a handful of energy-balance/consumption
+                // series, not 20) - looping to the full 20 regardless of
+                // how many are actually in use wasted a switch-case lookup
+                // + two LineSeries.clear() calls per unused slot on every
+                // single throttled pan/zoom frame. Clamping to the actual
+                // count removes that dead work in the common case.
+                var count = Math.min(d.maxSeriesCount, root.series.length)
+                for (var i = 0; i < count; i++) {
                     rebuild(i, false)
                 }
+                // Slots between the current and previous series count are
+                // stale (still showing data from a longer "root.series"
+                // array used before, e.g. before switching tabs) and need
+                // clearing exactly once - not every call, since
+                // "d.lastSeriesCount" collapses down to "count" right after.
+                for (var j = count; j < d.lastSeriesCount; j++) {
+                    var staleSlot = slot(j)
+                    var staleBorderSlot = borderSlot(j)
+                    if (staleSlot) {
+                        staleSlot.clear()
+                    }
+                    if (staleBorderSlot) {
+                        staleBorderSlot.clear()
+                    }
+                    d.slotRenderState[j] = null
+                }
+                d.lastSeriesCount = count
                 d.updateLeftAxisRange()
             }
 
@@ -910,9 +1108,29 @@ Item {
                     // "Unable to assign QJSValue to QObject*" warning this
                     // produces instead is harmless and pre-existing.
                     target: slotBinding.desc ? slotBinding.desc.model : null
-                    function onEntriesAddedIdx(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
-                    function onEntriesRemoved(index, count) { seriesBinder.rebuild(slotBinding.seriesIndex) }
-                    function onCountChanged() { seriesBinder.rebuild(slotBinding.seriesIndex) }
+
+                    // Explicitly invalidate the cached render state before
+                    // each full rebuild() here (rather than relying on
+                    // rebuild()'s own "same model instance" check): these
+                    // events mean the model's *indices* may have shifted
+                    // (e.g. entriesAddedIdx(0, ...) for a prepended older
+                    // page of data, or entriesRemoved(0, ...) from
+                    // EnergyLogs::trimCache()'s front-trim) even though the
+                    // model *instance* is unchanged - so the previously
+                    // cached [lowIdx, highIdx) no longer refers to the same
+                    // entries and must not be used for an incremental diff.
+                    function onEntriesAddedIdx(index, count) {
+                        d.slotRenderState[slotBinding.seriesIndex] = null
+                        seriesBinder.rebuild(slotBinding.seriesIndex)
+                    }
+                    function onEntriesRemoved(index, count) {
+                        d.slotRenderState[slotBinding.seriesIndex] = null
+                        seriesBinder.rebuild(slotBinding.seriesIndex)
+                    }
+                    function onCountChanged() {
+                        d.slotRenderState[slotBinding.seriesIndex] = null
+                        seriesBinder.rebuild(slotBinding.seriesIndex)
+                    }
                 }
             }
         }
@@ -1034,7 +1252,7 @@ Item {
             }
         }
 
-        // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
+        // -- Pinch (zoom, 3h..24h clamp) and drag (pan) gesture handling --
         PinchHandler {
             id: pinchHandler
             target: null

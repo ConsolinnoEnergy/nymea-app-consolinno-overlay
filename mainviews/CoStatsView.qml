@@ -99,6 +99,22 @@ MainViewBase {
         engine: _engine
     }
 
+    // Ticks periodically so "d.dayTabMinDate()" doesn't freeze at whatever
+    // moment this page was loaded - without this, staying on the page for
+    // longer than an hour would leave the Day tab's earliest navigable date
+    // stuck in the past by that much (mirrors CoPeriodSelector.qml's own
+    // identical "dateRefreshTimer" for its "today" boundary). Declared here
+    // (rather than inside "d") since QtObject has no default property to
+    // parent a Timer under.
+    Timer {
+        id: dayTabMinDateRefreshTimer
+        property int tick: 0
+        interval: 60000
+        running: true
+        repeat: true
+        onTriggered: tick++
+    }
+
     // ---- Real backend data sources for the Chart card (Day/Energy balance) ----
     // Producer/battery detection: which optional series to even show/compute
     // (e.g. no point rendering "Production"/"To battery" lines if the
@@ -141,29 +157,29 @@ MainViewBase {
     // Backs the Week/Month/Year/year-over-year bar charts - one instance
     // per section, since each fetches a different sampleRate and a
     // different set of category ranges (see PeriodEnergyLogs.qml).
+    // "categoryRanges" is NOT bound here (see fetchBarLogs() below): it's
+    // assigned imperatively, right before fetchLogs() is called, rather
+    // than kept continuously reactive to "periodSelector.referenceDate" -
+    // see fetchBarLogs()'s doc comment for why.
     PeriodEnergyLogs {
         id: weekEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Day
-        categoryRanges: d.weekBarCategoryRanges
     }
     PeriodEnergyLogs {
         id: monthEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Week
-        categoryRanges: d.monthBarCategoryRanges
     }
     PeriodEnergyLogs {
         id: yearEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Month
-        categoryRanges: d.yearBarCategoryRanges
     }
     PeriodEnergyLogs {
         id: yoyEnergyLogs
         engine: _engine
         sampleRate: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? EnergyLogs.SampleRate1Month : EnergyLogs.SampleRate1Year
-        categoryRanges: d.yoyBarCategoryRanges
     }
 
     // Fetches KPIs for the period currently selected in "periodSelector".
@@ -195,17 +211,30 @@ MainViewBase {
     // unconditionally on every single navigation/tab switch, quadrupling
     // the number of backend round trips regardless of which tab was
     // actually visible.
+    //
+    // "categoryRanges" is computed here directly via the "d.xxxCategoryRanges()"
+    // functions, NOT read from the "d.weekBarCategoryRanges"-style readonly
+    // properties below: those are gated by sampleRate for their own,
+    // display-only purpose (see their doc comment), and reading them here
+    // instead would make this fetch depend on binding-evaluation order
+    // relative to that gating - risking a silently skipped fetch, since
+    // "fetchLogs()" no-ops on an empty "categoryRanges" with no retry.
     function fetchBarLogs() {
         if (!root.visible || !_engine || !_engine.jsonRpcClient || !_engine.jsonRpcClient.connected) {
             return
         }
         if (periodSelector.sampleRate === EnergyLogs.SampleRate1Week) {
+            weekEnergyLogs.categoryRanges = d.weekCategoryRanges(periodSelector.referenceDate)
             weekEnergyLogs.fetchLogs()
         } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Month) {
+            monthEnergyLogs.categoryRanges = d.monthCategoryRanges(periodSelector.referenceDate)
             monthEnergyLogs.fetchLogs()
+            yoyEnergyLogs.categoryRanges = d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
             yoyEnergyLogs.fetchLogs()
         } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Year) {
+            yearEnergyLogs.categoryRanges = d.yearCategoryRanges(periodSelector.referenceDate)
             yearEnergyLogs.fetchLogs()
+            yoyEnergyLogs.categoryRanges = d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
             yoyEnergyLogs.fetchLogs()
         }
     }
@@ -271,6 +300,14 @@ MainViewBase {
                     anchors.right: parent.right
                     anchors.leftMargin: Style.margins
                     anchors.rightMargin: Style.margins
+
+                    // Day tab can't navigate further back than the line
+                    // chart's coarsest (hourly) tier retention - no finer
+                    // data exists before that (see "d.dayTabMinDate()").
+                    // Week/Month/Year keep the component's own default
+                    // (2017-01-01) - those bar charts don't tier sample
+                    // rates.
+                    minDate: sampleRate === EnergyLogs.SampleRate1Day ? d.dayTabMinDate() : new Date(2017, 0, 1)
                 }
             }
 
@@ -469,10 +506,13 @@ MainViewBase {
                                     // covers both the initial fetch (fires once on
                                     // Component.onCompleted) and subsequent ones.
                                     onVisibleRangeChanged: function (startTime, endTime) {
+                                        var rate = d.sampleRateForWindow(startTime.getTime(), endTime.getTime() - startTime.getTime())
+                                        powerBalanceLogs.sampleRate = rate
                                         powerBalanceLogs.startTime = startTime
                                         powerBalanceLogs.endTime = endTime
                                         powerBalanceLogs.fetchLogs()
 
+                                        consumerConsumptionLogs.sampleRate = rate
                                         consumerConsumptionLogs.startTime = startTime
                                         consumerConsumptionLogs.endTime = endTime
                                         consumerConsumptionLogs.fetchLogs()
@@ -522,7 +562,9 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
-                                    categories: d.weekCategories
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see its doc
+                                    // comment for why.
                                     // Guarded by sampleRate (see the
                                     // day-view "series" binding above for
                                     // the full rationale) so a legend-pill
@@ -536,6 +578,22 @@ MainViewBase {
                                             : []
                                     loading: weekEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, d.weekBarCategoryRanges, index, anchorRect)
+                                }
+
+                                // Using a "Binding"+"when" instead of a direct
+                                // "categories: d.weekCategories" binding above
+                                // avoids recomputing/applying this hidden
+                                // chart's data on every Day-view pan step (see
+                                // "d.weekCategories"'s own doc comment) - it
+                                // only applies while the Week tab is active,
+                                // falling back to CoStatsBarChart's own default
+                                // otherwise instead of a self-referencing
+                                // binding (which caused a binding loop).
+                                Binding {
+                                    target: weekBarChart
+                                    property: "categories"
+                                    value: d.weekCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Week
                                 }
 
 
@@ -558,7 +616,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    categories: d.monthCategories
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
@@ -568,12 +629,22 @@ MainViewBase {
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthBarChart, categories, stacks, d.monthBarCategoryRanges, index, anchorRect)
                                 }
 
+                                Binding {
+                                    target: monthBarChart
+                                    property: "categories"
+                                    value: d.monthCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
+                                }
+
                                 CoStatsBarChart {
                                     id: monthYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    categories: d.yoyCategories
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -581,6 +652,13 @@ MainViewBase {
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
+                                }
+
+                                Binding {
+                                    target: monthYoyBarChart
+                                    property: "categories"
+                                    value: d.yoyCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                 }
 
                                 ChartLegendSection {
@@ -602,7 +680,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    categories: d.yearCategories
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
@@ -612,12 +693,22 @@ MainViewBase {
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearBarChart, categories, stacks, d.yearBarCategoryRanges, index, anchorRect)
                                 }
 
+                                Binding {
+                                    target: yearBarChart
+                                    property: "categories"
+                                    value: d.yearCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
+                                }
+
                                 CoStatsBarChart {
                                     id: yearYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    categories: d.yoyCategories
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -625,6 +716,13 @@ MainViewBase {
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
+                                }
+
+                                Binding {
+                                    target: yearYoyBarChart
+                                    property: "categories"
+                                    value: d.yoyCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                 }
 
                                 ChartLegendSection {
@@ -689,6 +787,54 @@ MainViewBase {
         id: d
 
         property int activeChartTab: 0 // 0 = Energy balance, 1 = Consumption
+
+        // Picks the finest sample rate the backend still has data for, for
+        // the Day view's line chart (powerBalanceLogs/consumerConsumptionLogs).
+        // The backend keeps 1-minute samples for 7 days, 15-minute samples
+        // for 168 days (~6 months) and hourly samples for 365 days (~1
+        // year), with no automatic fallback for a resolution that's no
+        // longer available for a requested range - requesting a rate that's
+        // too fine for part of the window would silently return no data for
+        // that part instead of degrading gracefully. A single rate is
+        // therefore chosen for the whole visible window, based on its
+        // oldest edge ("startTimeMs").
+        //
+        // 1-minute resolution is additionally gated on the visible window
+        // actually being narrow enough to make sense of that much data at
+        // once: the chart's minimum zoom is 3h (see
+        // CoStatsLineChart.qml's "minWindowMs"), so in practice this just
+        // distinguishes "zoomed all the way in" from anything wider - the
+        // small 5-minute buffer only exists to absorb floating-point/
+        // rounding slack right at that boundary, not to define a second,
+        // independent tier. Any wider window (up to the chart's 24h
+        // maximum) falls through to the existing age-based 15-minute/
+        // hourly choice, same as before 1-minute support existed.
+        function sampleRateForWindow(startTimeMs, windowMs) {
+            var minuteMs = 60000
+            var narrowEnoughFor1Min = windowMs <= (3 * 3600000 + 5 * minuteMs)
+            var ageMs = Date.now() - startTimeMs
+            var sevenDaysMs = 7 * 24 * 3600000
+            var sixMonthsMs = 168 * 24 * 3600000 // backend's exact 15-min retention window
+            if (narrowEnoughFor1Min && ageMs <= sevenDaysMs) {
+                return EnergyLogs.SampleRate1Min
+            }
+            if (ageMs <= sixMonthsMs) {
+                return EnergyLogs.SampleRate15Mins
+            }
+            return EnergyLogs.SampleRate1Hour
+        }
+
+        // Earliest selectable instant for the Day tab's period selector -
+        // matches the line chart's coarsest (hourly) tier retention (see
+        // "sampleRateForWindow" above), since no finer resolution exists
+        // before that and panning further back would just show an empty
+        // chart. Week/Month/Year tabs keep CoPeriodSelector's own default
+        // minDate (2017-01-01) - those bar charts don't tier sample rates.
+        function dayTabMinDate() {
+            dayTabMinDateRefreshTimer.tick
+            return new Date(Date.now() - 365 * 24 * 3600000)
+        }
+
 
         // Whichever CoStatsBarChart currently has a category "pinned"/dimmed
         // for the open tooltip (see CoStatsBarChart.qml's
@@ -1113,22 +1259,33 @@ MainViewBase {
         // to data shaped for a *different* category count, which
         // CoStatsBarChart cannot render.
 
-        readonly property var weekCategories: d.weekdayCategories(periodSelector.referenceDate)
-        readonly property var weekBarCategoryRanges: d.weekCategoryRanges(periodSelector.referenceDate)
+        // Gated by sampleRate, same as "stacks:"/"series:" above: otherwise
+        // these would recompute on every Day-view pan step even while this
+        // tab is hidden. Safe to fall back to "[]" while inactive - the
+        // only readers (the "categories" Bindings below and the tooltip
+        // handlers) are themselves only active while this tab is showing,
+        // and fetchBarLogs() assigns "categoryRanges" imperatively rather
+        // than reading these properties (see its own doc comment).
+        readonly property var weekCategories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekdayCategories(periodSelector.referenceDate) : []
+        readonly property var weekBarCategoryRanges: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategoryRanges(periodSelector.referenceDate) : []
         readonly property var weekEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(weekEnergyLogs)
         readonly property var weekEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(weekEnergyLogs)
         readonly property var weekConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(weekEnergyLogs)
         readonly property var weekConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(weekEnergyLogs)
 
-        readonly property var monthCategories: d.isoWeeksInMonthCategories(periodSelector.referenceDate)
-        readonly property var monthBarCategoryRanges: d.monthCategoryRanges(periodSelector.referenceDate)
+        // See weekCategories/weekBarCategoryRanges above for why these are
+        // gated this way.
+        readonly property var monthCategories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.isoWeeksInMonthCategories(periodSelector.referenceDate) : []
+        readonly property var monthBarCategoryRanges: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.monthCategoryRanges(periodSelector.referenceDate) : []
         readonly property var monthEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(monthEnergyLogs)
         readonly property var monthEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(monthEnergyLogs)
         readonly property var monthConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(monthEnergyLogs)
         readonly property var monthConsumptionConsumerSeries: d.computeConsumptionConsumerStackSeries(monthEnergyLogs)
 
-        readonly property var yearCategories: d.monthsInYearCategories(periodSelector.referenceDate)
-        readonly property var yearBarCategoryRanges: d.yearCategoryRanges(periodSelector.referenceDate)
+        // See weekCategories/weekBarCategoryRanges above for why these are
+        // gated this way.
+        readonly property var yearCategories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.monthsInYearCategories(periodSelector.referenceDate) : []
+        readonly property var yearBarCategoryRanges: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yearCategoryRanges(periodSelector.referenceDate) : []
         readonly property var yearEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(yearEnergyLogs)
         readonly property var yearEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(yearEnergyLogs)
         readonly property var yearConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(yearEnergyLogs)
@@ -1138,9 +1295,12 @@ MainViewBase {
         // Year views (both compare "the same sub-period across the last
         // ~5 years"), since only one of Month/Year is ever visible at a
         // time and both derive this purely from the current reference
-        // date/minDate.
-        readonly property var yoyCategories: d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
-        readonly property var yoyBarCategoryRanges: d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate)
+        // date/minDate. Gated by sampleRate the same way as
+        // weekCategories/weekBarCategoryRanges above (active whenever
+        // either Month or Year is the active tab, since this section is
+        // shown in both).
+        readonly property var yoyCategories: (periodSelector.sampleRate === EnergyLogs.SampleRate1Month || periodSelector.sampleRate === EnergyLogs.SampleRate1Year) ? d.yearOverYearCategories(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate) : []
+        readonly property var yoyBarCategoryRanges: (periodSelector.sampleRate === EnergyLogs.SampleRate1Month || periodSelector.sampleRate === EnergyLogs.SampleRate1Year) ? d.yearOverYearCategoryRanges(periodSelector.referenceDate, periodSelector.minDate, periodSelector.sampleRate) : []
         readonly property var yoyEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(yoyEnergyLogs)
         readonly property var yoyEnergyBalanceConsumptionSeries: d.computeEnergyBalanceConsumptionSeries(yoyEnergyLogs)
         readonly property var yoyConsumptionSourceSeries: d.computeConsumptionSourceStackSeries(yoyEnergyLogs)

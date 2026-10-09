@@ -171,23 +171,67 @@ Item {
         // switching resolution anyway.
         function resetToToday() {
             selectedInstant = new Date()
-            syncListViewFromSelection()
+            // sampleRate just changed (this is only ever called right
+            // after it), so every delegate's label/width changed at once -
+            // always needs the full recenter + relayout, see
+            // syncListViewFromSelection()'s "forceFullRelayout" doc.
+            syncListViewFromSelection(true)
         }
 
         // Repositions the ListView's currentIndex to reflect d.selectedInstant,
         // re-centering the window around it if necessary. Used whenever the
         // selection changes programmatically (as opposed to interactive
         // swiping, which is handled by listView.onCurrentIndexChanged).
-        function syncListViewFromSelection() {
+        //
+        // "forceFullRelayout" must be true whenever every delegate's
+        // label (and thus width) can have changed at once - i.e. a
+        // sampleRate switch (day-format -> week-format text etc., see
+        // resetToToday()). Defaults to false for the common case of this
+        // being called from setReferenceDate() (e.g. the chart below was
+        // panned/zoomed by the user): sampleRate didn't change there, so
+        // most calls just need to move the highlighted item by one or two
+        // positions within the already-loaded window - this path fires on
+        // every single calendar-day crossing while panning the Day-view
+        // chart, so avoiding a full window recenter + relayout here
+        // matters for performance.
+        function syncListViewFromSelection(forceFullRelayout) {
+            if (forceFullRelayout === undefined) {
+                forceFullRelayout = false
+            }
+
+            // Where selectedOffset would land within the CURRENT window
+            // (i.e. without recentering) - the same quantity the
+            // interactive-swipe path (onCurrentIndexChanged below) checks
+            // against recenterMargin to decide whether a recenter is
+            // actually necessary.
+            var targetIndex = selectedOffset - windowAnchorOffset
+            var needsRecenter = forceFullRelayout
+                    || targetIndex < root.recenterMargin
+                    || targetIndex > root.windowSize - 1 - root.recenterMargin
+
             updatingListView = true
-            windowAnchorOffset = selectedOffset - windowCenterIndex
-            listView.currentIndex = windowCenterIndex
+            if (needsRecenter) {
+                windowAnchorOffset = selectedOffset - windowCenterIndex
+                listView.currentIndex = windowCenterIndex
+            } else {
+                listView.currentIndex = targetIndex
+            }
             updatingListView = false
             listView.updateCurrentLabelWidth()
 
+            if (!needsRecenter) {
+                // Window didn't move and no delegate's label/width
+                // changed - the cheap path, just moving which item is
+                // highlighted within the already-correctly-laid-out
+                // window needs no relayout at all.
+                return
+            }
+
             // Switching sampleRate changes the label (and thus width) of
-            // EVERY delegate at once (day-format -> week-format text etc).
-            // ListView caches each delegate's x position and does not
+            // EVERY delegate at once (day-format -> week-format text etc),
+            // and recentering the window changes every visible delegate's
+            // periodOffset (and therefore label/width) at once too. Either
+            // way, ListView caches each delegate's x position and does not
             // automatically re-flow neighboring, currently-off-viewport
             // items when their widths change this way in bulk - even
             // forceLayout() alone is not sufficient. Only forceLayout()
