@@ -1808,11 +1808,14 @@ MainViewBase {
                 if (value === undefined || value === null) {
                     continue
                 }
+                // Battery SoC (right axis, %) is shown rounded to whole
+                // numbers; all other (left axis, kW) series keep 2 decimals.
+                var decimals = desc.axis === "right" ? 0 : 2
                 entries.push({
                     name: desc.name,
                     color: desc.color,
                     borderColor: desc.borderColor ? desc.borderColor : desc.color,
-                    valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
+                    valueText: NymeaUtils.floatToLocaleString(value, decimals) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
                 })
             }
             // Nothing to show (e.g. clicked a gap where no series has a
