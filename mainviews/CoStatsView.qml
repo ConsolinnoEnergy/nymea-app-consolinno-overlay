@@ -549,35 +549,9 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
-                                    // Self-referencing fallback (not just
-                                    // "d.weekCategories" unconditionally):
-                                    // "d.weekCategories" recomputes on every
-                                    // "periodSelector.referenceDate" change,
-                                    // which also happens continuously while
-                                    // panning the Day-view line chart across
-                                    // day boundaries - with an unconditional
-                                    // binding this hidden chart would still
-                                    // take the "categories" update and run a
-                                    // full rebuildStack() for every one of
-                                    // those, despite never being visible.
-                                    // Reading "categories" itself in the
-                                    // untaken branch means this binding only
-                                    // depends on "d.weekCategories" while the
-                                    // Week tab is actually active; otherwise
-                                    // it just keeps its last value (a no-op
-                                    // re-assignment, so onCategoriesChanged
-                                    // doesn't fire). "|| []" guards the very
-                                    // first evaluation: this binding (not
-                                    // the component's own "property var
-                                    // categories: []" default) is what runs
-                                    // first, so if the Week tab isn't active
-                                    // yet at that point, self-reading
-                                    // "categories" returns undefined rather
-                                    // than that declared default - without
-                                    // the fallback, CoStatsBarChart's
-                                    // "categories.length" accesses threw
-                                    // TypeErrors on startup.
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategories : (categories || [])
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see its doc
+                                    // comment for why.
                                     // Guarded by sampleRate (see the
                                     // day-view "series" binding above for
                                     // the full rationale) so a legend-pill
@@ -591,6 +565,39 @@ MainViewBase {
                                             : []
                                     loading: weekEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, d.weekBarCategoryRanges, index, anchorRect)
+                                }
+
+                                // "d.weekCategories" recomputes on every
+                                // "periodSelector.referenceDate" change,
+                                // which also happens continuously while
+                                // panning the Day-view line chart across day
+                                // boundaries - a direct "categories:
+                                // d.weekCategories" binding above would make
+                                // this hidden chart (see its "visible"
+                                // above) take that update and run a full
+                                // rebuildStack() for every one of those,
+                                // despite never being shown. A plain
+                                // "Binding" with "when" only applies (and
+                                // depends on) "d.weekCategories" while the
+                                // Week tab is actually active; while
+                                // inactive it restores "categories" to the
+                                // component's own declared default
+                                // ("property var categories: []" in
+                                // CoStatsBarChart.qml) instead, rather than
+                                // reading back its own value like a direct
+                                // self-referencing property binding would -
+                                // which both logged "Binding loop detected"
+                                // warnings AND evaluated to undefined on the
+                                // very first pass (before any value had ever
+                                // been assigned), since that self-reference
+                                // is itself the first binding ever installed
+                                // on "categories", with nothing yet having
+                                // written an actual value to fall back to.
+                                Binding {
+                                    target: weekBarChart
+                                    property: "categories"
+                                    value: d.weekCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Week
                                 }
 
 
@@ -613,10 +620,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    // See weekBarChart's "categories"
-                                    // comment above for why this isn't
-                                    // just an unconditional "d.monthCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.monthCategories : (categories || [])
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
@@ -626,15 +633,22 @@ MainViewBase {
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthBarChart, categories, stacks, d.monthBarCategoryRanges, index, anchorRect)
                                 }
 
+                                Binding {
+                                    target: monthBarChart
+                                    property: "categories"
+                                    value: d.monthCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
+                                }
+
                                 CoStatsBarChart {
                                     id: monthYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    // See weekBarChart's "categories"
-                                    // comment above for why this isn't
-                                    // just an unconditional "d.yoyCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.yoyCategories : (categories || [])
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -642,6 +656,13 @@ MainViewBase {
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(monthYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
+                                }
+
+                                Binding {
+                                    target: monthYoyBarChart
+                                    property: "categories"
+                                    value: d.yoyCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                 }
 
                                 ChartLegendSection {
@@ -663,10 +684,10 @@ MainViewBase {
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_small
 
-                                    // See weekBarChart's "categories"
-                                    // comment above for why this isn't
-                                    // just an unconditional "d.yearCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yearCategories : (categories || [])
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
@@ -676,15 +697,22 @@ MainViewBase {
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearBarChart, categories, stacks, d.yearBarCategoryRanges, index, anchorRect)
                                 }
 
+                                Binding {
+                                    target: yearBarChart
+                                    property: "categories"
+                                    value: d.yearCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
+                                }
+
                                 CoStatsBarChart {
                                     id: yearYoyBarChart
                                     Layout.fillWidth: true
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_extra_small
 
-                                    // See weekBarChart's "categories"
-                                    // comment above for why this isn't
-                                    // just an unconditional "d.yoyCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yoyCategories : (categories || [])
+                                    // "categories" is NOT set here directly
+                                    // (see the Binding below) - see
+                                    // weekBarChart's "categories" Binding
+                                    // comment above for why.
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -692,6 +720,13 @@ MainViewBase {
                                             : []
                                     loading: yoyEnergyLogs.fetchingData
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(yearYoyBarChart, categories, stacks, d.yoyBarCategoryRanges, index, anchorRect)
+                                }
+
+                                Binding {
+                                    target: yearYoyBarChart
+                                    property: "categories"
+                                    value: d.yoyCategories
+                                    when: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                 }
 
                                 ChartLegendSection {
