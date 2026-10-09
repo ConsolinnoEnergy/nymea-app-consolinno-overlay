@@ -566,8 +566,18 @@ MainViewBase {
                                     // Week tab is actually active; otherwise
                                     // it just keeps its last value (a no-op
                                     // re-assignment, so onCategoriesChanged
-                                    // doesn't fire).
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategories : categories
+                                    // doesn't fire). "|| []" guards the very
+                                    // first evaluation: this binding (not
+                                    // the component's own "property var
+                                    // categories: []" default) is what runs
+                                    // first, so if the Week tab isn't active
+                                    // yet at that point, self-reading
+                                    // "categories" returns undefined rather
+                                    // than that declared default - without
+                                    // the fallback, CoStatsBarChart's
+                                    // "categories.length" accesses threw
+                                    // TypeErrors on startup.
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategories : (categories || [])
                                     // Guarded by sampleRate (see the
                                     // day-view "series" binding above for
                                     // the full rationale) so a legend-pill
@@ -606,7 +616,7 @@ MainViewBase {
                                     // See weekBarChart's "categories"
                                     // comment above for why this isn't
                                     // just an unconditional "d.monthCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.monthCategories : categories
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.monthCategories : (categories || [])
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.monthEnergyBalanceProductionSeries }, { series: d.monthEnergyBalanceConsumptionSeries }]
@@ -624,7 +634,7 @@ MainViewBase {
                                     // See weekBarChart's "categories"
                                     // comment above for why this isn't
                                     // just an unconditional "d.yoyCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.yoyCategories : categories
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? d.yoyCategories : (categories || [])
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Month
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
@@ -656,7 +666,7 @@ MainViewBase {
                                     // See weekBarChart's "categories"
                                     // comment above for why this isn't
                                     // just an unconditional "d.yearCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yearCategories : categories
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yearCategories : (categories || [])
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yearEnergyBalanceProductionSeries }, { series: d.yearEnergyBalanceConsumptionSeries }]
@@ -674,7 +684,7 @@ MainViewBase {
                                     // See weekBarChart's "categories"
                                     // comment above for why this isn't
                                     // just an unconditional "d.yoyCategories".
-                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yoyCategories : categories
+                                    categories: periodSelector.sampleRate === EnergyLogs.SampleRate1Year ? d.yoyCategories : (categories || [])
                                     stacks: periodSelector.sampleRate === EnergyLogs.SampleRate1Year
                                             ? (d.activeChartTab === 0
                                                ? [{ series: d.yoyEnergyBalanceProductionSeries }, { series: d.yoyEnergyBalanceConsumptionSeries }]
