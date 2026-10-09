@@ -474,13 +474,11 @@ MainViewBase {
                                     Layout.preferredHeight: Style.numbers.components_Statistics_Chart_height_default
 
                                     selectedDay: periodSelector.referenceDate
-                                    // Right axis is only meaningful once a Battery
-                                    // SoC series is actually populated (see the
-                                    // reserved, always-invisible entry appended in
-                                    // "computeEnergyBalanceLineSeries" below) -
-                                    // kept false for now since the backend cannot
-                                    // provide this data yet.
-                                    percentAxisVisible: false
+                                    // Right axis is only meaningful once the
+                                    // Battery SoC series (see
+                                    // "computeEnergyBalanceLineSeries" below) is
+                                    // actually populated - see "d.hasBatterySoc".
+                                    percentAxisVisible: d.hasBatterySoc
 
                                     // Also true while per-consumer power logs are
                                     // being (re)fetched for the Consumption/Consumers
@@ -760,7 +758,7 @@ MainViewBase {
                                 Layout.leftMargin: Style.largeMargins
                                 Layout.rightMargin: Style.largeMargins
                                 Layout.bottomMargin: Style.margins
-                                visible: periodSelector.sampleRate !== EnergyLogs.SampleRate1Day && d.hasPartialBatteryEnergySupport
+                                visible: periodSelector.sampleRate !== EnergyLogs.SampleRate1Day && d.hasPartialBatteryEnergySupport && d.hasVisibleBatteryEnergySeries
                                 text: batteryEnergySupportText()
                                 textFormat: Text.RichText
                                 wrapMode: Text.WordWrap
@@ -920,6 +918,30 @@ MainViewBase {
         readonly property bool hasProducer: producers.count > 0
         readonly property bool hasBattery: batteries.count > 0
 
+        // Whether the Day view's Battery SoC series (right axis, see
+        // "computeEnergyBalanceLineSeries" below) should be shown: true if
+        // a battery currently exists ("hasBattery" - every known
+        // energystorage Thing class reports both "batteryLevel" and
+        // "capacity", so presence alone is a reliable signal, no separate
+        // capability check needed like "batteriesWithEnergyCounters"
+        // above), OR if the currently visible day's powerBalanceLogs still
+        // carry non-zero historical SoC values from a battery that has
+        // since been deleted (the backend keeps accumulating
+        // "stateOfCharge" the same way it does "totalToStorage"/
+        // "totalFromStorage" - see PeriodEnergyLogs.qml's file doc
+        // comment). "stateOfCharge" alone can't be checked via "!== 0"
+        // without "hasBattery": the backend reports exactly 0 both for a
+        // genuinely empty battery and for "no capacity data at all" (see
+        // EnergyManagerImpl::updatePowerBalance()), so the two checks
+        // cover different situations rather than being redundant. Known
+        // caveat, same tradeoff already accepted for "hasBatteryEnergyCounters"
+        // in PeriodEnergyLogs.qml: a deleted battery whose last real SoC
+        // happened to be exactly 0% hides this series for that day.
+        readonly property bool hasBatterySoc: {
+            powerBalanceLogs.count // establish a binding dependency, see deltaSeries() in PeriodEnergyLogs.qml
+            return d.hasBattery || powerBalanceLogs.entries().some(function (e) { return e.stateOfCharge !== 0 })
+        }
+
         // True only for the "some, but not all" case: whether to warn that
         // the Week/Month/Year/YoY "From/To battery" bars don't cover every
         // battery in the installation (see "batteryEnergySupportLabel" and
@@ -928,16 +950,23 @@ MainViewBase {
         // see "provider.hasBatteryEnergyCounters") nor when all of them do.
         readonly property bool hasPartialBatteryEnergySupport: batteriesWithEnergyCounters.count > 0 && batteriesWithEnergyCounters.count < batteries.count
 
-        // The Battery SoC series/right axis are prepared in the data shape
-        // (see "computeEnergyBalanceLineSeries" below) so wiring them up
-        // once the backend can report state of charge is a drop-in change,
-        // not a redesign - but the backend can't provide this data yet, so
-        // keep the feature fully disabled for now. Guarding on this flag
-        // (rather than just leaving the series' own "visible: false") is
-        // what actually keeps its legend pill from appearing at all -
-        // CoStatsChartLegend renders one pill per entry in the "series"
-        // array regardless of that entry's own "visible" value.
-        readonly property bool batterySocEnabled: false
+        // Whether at least one of the currently active tab's bar charts
+        // actually shows a "From/To battery" series (see "provider.
+        // hasBatteryEnergyCounters" on the "computeEnergyBalance*Series"
+        // functions below) - used to suppress "batteryEnergySupportLabel"
+        // when there's no battery series on screen to annotate (Month/Year
+        // show two bar charts at once - the sub-period one and the
+        // year-over-year one - so either can make the label relevant).
+        readonly property bool hasVisibleBatteryEnergySeries: {
+            if (periodSelector.sampleRate === EnergyLogs.SampleRate1Week) {
+                return weekEnergyLogs.hasBatteryEnergyCounters
+            } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Month) {
+                return monthEnergyLogs.hasBatteryEnergyCounters || yoyEnergyLogs.hasBatteryEnergyCounters
+            } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Year) {
+                return yearEnergyLogs.hasBatteryEnergyCounters || yoyEnergyLogs.hasBatteryEnergyCounters
+            }
+            return false
+        }
 
         // "Other consumption" in the Week/Month/Year/YoY consumer-stack bar
         // chart (computeConsumptionConsumerStackSeries below) is currently
@@ -1173,20 +1202,18 @@ MainViewBase {
                     valueFunction: function (entry) { return Math.max(0, -entry.acquisition) / 1000 }
                 })
             }
-            // Reserved Battery SoC slot: fully disabled via
-            // "d.batterySocEnabled" (see its declaration for why) - not
-            // rendered, not assigned any real data yet, but already shaped
-            // correctly (axis: "right", 0-100 range) for later use.
-            if (d.batterySocEnabled && d.hasBattery) {
+            // Battery SoC: right axis, 0-100 range - see "d.hasBatterySoc"
+            // for when this is actually shown.
+            if (d.hasBatterySoc) {
                 series.push({
                     name: qsTr("Battery SoC"),
                     key: "energybalance:batterySoC",
                     color: Style.colors.components_Statistics_Things_and_states_Battery,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_border,
-                    visible: false,
+                    visible: d.isSeriesVisible("energybalance:batterySoC"),
                     axis: "right",
-                    model: d.emptyLogModel,
-                    valueFunction: function (entry) { return entry.value }
+                    model: powerBalanceLogs,
+                    valueFunction: function (entry) { return entry.stateOfCharge }
                 })
             }
             return series
@@ -1293,16 +1320,6 @@ MainViewBase {
         }
 
         readonly property var consumptionLineSeries: d.consumptionSourceLineSeries.concat(d.consumptionConsumerLineSeries)
-
-        // Wraps a plain array of {timestamp, value} entries into the
-        // minimal object shape CoStatsLineChart expects from a model.
-        function wrapAsLogModel(entries) {
-            return {
-                count: entries.length,
-                get: function (index) { return entries[index] }
-            }
-        }
-        readonly property var emptyLogModel: d.wrapAsLogModel([])
 
         // ==== Week/Month/Year (bar-chart shape) ====
         // Values below are real backend data, provided per-category by the
@@ -1791,11 +1808,14 @@ MainViewBase {
                 if (value === undefined || value === null) {
                     continue
                 }
+                // Battery SoC (right axis, %) is shown rounded to whole
+                // numbers; all other (left axis, kW) series keep 2 decimals.
+                var decimals = desc.axis === "right" ? 0 : 2
                 entries.push({
                     name: desc.name,
                     color: desc.color,
                     borderColor: desc.borderColor ? desc.borderColor : desc.color,
-                    valueText: NymeaUtils.floatToLocaleString(value, 2) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
+                    valueText: NymeaUtils.floatToLocaleString(value, decimals) + " " + (desc.axis === "right" ? "%" : qsTr("kW"))
                 })
             }
             // Nothing to show (e.g. clicked a gap where no series has a

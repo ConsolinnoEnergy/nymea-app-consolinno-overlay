@@ -195,8 +195,40 @@ Item {
         readonly property real bottomAxisReserve: xLabelsHeight + Style.margins
         readonly property real topAxisReserve: Style.margins + axisFontMetrics.height + Style.extraSmallMargins * 2
 
+        // Returns every root.series descriptor *except* the (at most one)
+        // right-axis one - this is the list the "dataSeriesN"/
+        // "dataBorderSeriesN" fixed-slot pool below is indexed against.
+        // The right-axis descriptor (currently always Battery SoC, if any)
+        // is deliberately excluded and handled through its own dedicated,
+        // never-reassigned series instead - see "batterySocSeries"'s
+        // declaration in the ChartView above for why.
+        function leftAxisDescriptors() {
+            var result = []
+            for (var i = 0; i < root.series.length; i++) {
+                var desc = root.series[i]
+                if (desc && desc.axis !== "right") {
+                    result.push(desc)
+                }
+            }
+            return result
+        }
+
+        // The single right-axis descriptor in root.series, if any (there is
+        // currently never more than one - see "batterySocSeries"'s
+        // declaration in the ChartView above).
+        function rightAxisDescriptor() {
+            for (var i = 0; i < root.series.length; i++) {
+                var desc = root.series[i]
+                if (desc && desc.axis === "right") {
+                    return desc
+                }
+            }
+            return null
+        }
+
         function seriesDescriptor(index) {
-            return index < root.series.length ? root.series[index] : null
+            var list = d.leftAxisDescriptors()
+            return index < list.length ? list[index] : null
         }
 
         function clamp(value, min, max) {
@@ -310,12 +342,11 @@ Item {
                 }
                 var axis = desc.axis === "right" ? yAxisRight : yAxisLeft
                 if (!axis) {
-                    // yAxisRight is null whenever percentAxisVisible is
-                    // false (QtCharts tears down the underlying axis object
-                    // in that state - see yRightLabelsLayout's guard below
-                    // for the same issue). Dereferencing it unconditionally
-                    // would throw once a right-axis series is enabled while
-                    // percentAxisVisible is still false.
+                    // Defensive only: yAxisRight's own "visible" is now kept
+                    // permanently true specifically to avoid it ever
+                    // becoming null (see its declaration above for why) -
+                    // this guard is just cheap insurance against that
+                    // changing again in the future.
                     continue
                 }
                 var range = axis.max - axis.min
@@ -678,7 +709,26 @@ Item {
                 gridVisible: false
                 lineVisible: false
                 minorGridVisible: false
-                visible: root.percentAxisVisible
+                // Always "visible" (deliberately NOT bound to
+                // root.percentAxisVisible) - this axis already draws nothing
+                // of its own (labels/grid/line are all disabled above; the
+                // actual right-axis appearance is the separate
+                // "yRightLabelsLayout" Repeater and "d.rightAxisReserve"
+                // margin further below, both independently keyed off
+                // root.percentAxisVisible), so toggling *this* property adds
+                // no visual benefit. It used to be bound to
+                // root.percentAxisVisible, but that hit a known QtCharts QML
+                // bug: once a ValueAxis's own "visible" is toggled
+                // false -> true, the underlying axis object can remain
+                // permanently detached ("null" from QML's point of view,
+                // see the now-mostly-historical guards below) instead of
+                // reappearing - which is exactly what caused the right axis
+                // to never actually render once Battery SoC data made
+                // percentAxisVisible true, plus "Trying to set axisY to
+                // null." warnings whenever a series bound to this axis had
+                // its own visibility toggled. Keeping this permanently true
+                // avoids the bug entirely.
+                visible: true
             }
 
             DateTimeAxis {
@@ -763,6 +813,28 @@ Item {
             LineSeries { id: dataSeries17; axisX: xAxis; width: 1 }
             LineSeries { id: dataSeries18; axisX: xAxis; width: 1 }
             LineSeries { id: dataSeries19; axisX: xAxis; width: 1 }
+
+            // -- Dedicated right-axis series (currently always Battery SoC,
+            // if any - see "d.rightAxisDescriptor()" below) --
+            //
+            // Deliberately NOT part of the "dataSeriesN"/"dataBorderSeriesN"
+            // pool above: those slots are reused across tabs for whatever
+            // descriptor ends up at their index in "root.series", which
+            // meant a slot could switch between axisY: yAxisLeft (e.g. on
+            // the Consumption tab) and axisY: yAxisRight (on the Energy
+            // Balance tab) depending on which tab/descriptor currently
+            // occupies it. Reassigning an already-attached series to a
+            // *different* axis at runtime is a known QtCharts QML
+            // limitation - the series keeps rendering against its old
+            // axis's range even though the "axisY" property itself updates
+            // correctly (this is exactly what caused the Battery SoC line
+            // to render flat-clipped at the left axis' max). Since there is
+            // only ever at most one right-axis series in this app, it gets
+            // its own reserved slot instead, with "axisY: yAxisRight"
+            // statically declared once and never reassigned - avoiding the
+            // bug entirely rather than working around it.
+            LineSeries { id: batterySocSeries; axisX: xAxis; axisY: yAxisRight; width: 1 }
+            LineSeries { id: batterySocBorderSeries; axisX: xAxis; axisY: yAxisRight; width: 3 }
         }
 
         // Helper that binds one fixed LineSeries slot to root.series[index] and
@@ -826,21 +898,36 @@ Item {
             }
 
             function rebuild(index, updateAxis) {
+                rebuildSeries(slot(index), borderSlot(index), d.seriesDescriptor(index), index, updateAxis)
+            }
+
+            // Same as rebuild(), but for the dedicated right-axis series
+            // (see "batterySocSeries"'s declaration in the ChartView above)
+            // instead of one of the by-index "dataSeriesN" slots. Uses
+            // "d.maxSeriesCount" (one past the last real index, 0..19) as
+            // its own reserved "slotRenderState"/cache key so it can never
+            // collide with an actual indexed slot's cached render state.
+            function rebuildRightAxisSeries(updateAxis) {
+                rebuildSeries(batterySocSeries, batterySocBorderSeries, d.rightAxisDescriptor(), d.maxSeriesCount, updateAxis)
+            }
+
+            // Core of rebuild()/rebuildRightAxisSeries() above: renders
+            // "desc" (if any) into the given main/border series pair,
+            // caching its render state under "cacheKey" for the next call's
+            // incremental-diff decision (see "canIncrement" below).
+            function rebuildSeries(s, b, desc, cacheKey, updateAxis) {
                 if (updateAxis === undefined) {
                     updateAxis = true
                 }
-                var s = slot(index)
                 if (!s) {
                     return
                 }
-                var b = borderSlot(index)
-                var desc = d.seriesDescriptor(index)
                 if (!desc || !desc.model) {
                     s.clear()
                     if (b) {
                         b.clear()
                     }
-                    d.slotRenderState[index] = null
+                    d.slotRenderState[cacheKey] = null
                     if (updateAxis) {
                         d.updateLeftAxisRange()
                     }
@@ -893,7 +980,7 @@ Item {
                 // the previous render's point count doesn't match its index
                 // range - see slotRenderState's own doc comment for why
                 // that last check matters).
-                var prevState = d.slotRenderState[index]
+                var prevState = d.slotRenderState[cacheKey]
                 var canIncrement = !!prevState
                         && prevState.model === model
                         && prevState.count === (prevState.highIdx - prevState.lowIdx)
@@ -920,7 +1007,7 @@ Item {
                     }
                 }
 
-                d.slotRenderState[index] = { model: model, lowIdx: startIndex, highIdx: endIndex, count: s.count }
+                d.slotRenderState[cacheKey] = { model: model, lowIdx: startIndex, highIdx: endIndex, count: s.count }
                 if (updateAxis) {
                     d.updateLeftAxisRange()
                 }
@@ -1030,10 +1117,16 @@ Item {
                 // + two LineSeries.clear() calls per unused slot on every
                 // single throttled pan/zoom frame. Clamping to the actual
                 // count removes that dead work in the common case.
-                var count = Math.min(d.maxSeriesCount, root.series.length)
+                //
+                // Uses "leftAxisDescriptors()", not "root.series.length"
+                // directly: the (at most one) right-axis descriptor isn't
+                // one of these by-index slots (see "batterySocSeries" in
+                // the ChartView above) and must not consume/shift one.
+                var count = Math.min(d.maxSeriesCount, d.leftAxisDescriptors().length)
                 for (var i = 0; i < count; i++) {
                     rebuild(i, false)
                 }
+                rebuildRightAxisSeries(false)
                 // Slots between the current and previous series count are
                 // stale (still showing data from a longer "root.series"
                 // array used before, e.g. before switching tabs) and need
@@ -1064,13 +1157,37 @@ Item {
                 var visible = desc ? desc.visible !== false : false
                 s.visible = visible
                 s.color = desc && desc.color ? desc.color : "transparent"
-                s.axisY = desc && desc.axis === "right" ? yAxisRight : yAxisLeft
+                // "leftAxisDescriptors()" (which "seriesDescriptor()" above
+                // is indexed against) already excludes the right-axis
+                // descriptor, so every slot handled here is always
+                // axisY: yAxisLeft - no runtime axis switching needed (see
+                // "batterySocSeries"'s declaration in the ChartView above).
+                s.axisY = yAxisLeft
                 if (b) {
                     b.visible = visible
                     b.color = desc && desc.borderColor ? desc.borderColor : (desc && desc.color ? desc.color : "transparent")
-                    b.axisY = s.axisY
+                    b.axisY = yAxisLeft
                 }
                 rebuild(index)
+            }
+
+            // Counterpart to updateSlotProperties() above, for the one
+            // dedicated right-axis series (see "batterySocSeries"'s
+            // declaration in the ChartView above). Never touches "axisY" -
+            // it's statically bound to yAxisRight in QML and must stay that
+            // way.
+            function updateRightAxisSeriesProperties() {
+                var s = batterySocSeries
+                var b = batterySocBorderSeries
+                var desc = d.rightAxisDescriptor()
+                var visible = desc ? desc.visible !== false : false
+                s.visible = visible
+                s.color = desc && desc.color ? desc.color : "transparent"
+                if (b) {
+                    b.visible = visible
+                    b.color = desc && desc.borderColor ? desc.borderColor : (desc && desc.color ? desc.color : "transparent")
+                }
+                rebuildRightAxisSeries(true)
             }
         }
 
@@ -1131,6 +1248,44 @@ Item {
                         d.slotRenderState[slotBinding.seriesIndex] = null
                         seriesBinder.rebuild(slotBinding.seriesIndex)
                     }
+                }
+            }
+        }
+
+        // Counterpart to the per-slot Repeater above, for the one dedicated
+        // right-axis series (see "batterySocSeries"'s declaration in the
+        // ChartView above) - not part of the Repeater's by-index pool since
+        // it isn't one of the "d.maxSeriesCount" generic slots.
+        Item {
+            id: rightAxisSlotBinding
+            visible: false
+            readonly property var desc: d.rightAxisDescriptor()
+
+            Component.onCompleted: seriesBinder.updateRightAxisSeriesProperties()
+
+            Connections {
+                target: root
+                function onSeriesChanged() {
+                    seriesBinder.updateRightAxisSeriesProperties()
+                }
+            }
+
+            Connections {
+                // See the equivalent Connections block in the Repeater
+                // above for why "null" (not "undefined") is used here.
+                target: rightAxisSlotBinding.desc ? rightAxisSlotBinding.desc.model : null
+
+                function onEntriesAddedIdx(index, count) {
+                    d.slotRenderState[d.maxSeriesCount] = null
+                    seriesBinder.rebuildRightAxisSeries(true)
+                }
+                function onEntriesRemoved(index, count) {
+                    d.slotRenderState[d.maxSeriesCount] = null
+                    seriesBinder.rebuildRightAxisSeries(true)
+                }
+                function onCountChanged() {
+                    d.slotRenderState[d.maxSeriesCount] = null
+                    seriesBinder.rebuildRightAxisSeries(true)
                 }
             }
         }
@@ -1238,15 +1393,10 @@ Item {
                     horizontalAlignment: Text.AlignLeft
                     font: Style.newExtraSmallFont
                     color: Style.colors.typography_Basic_Default
-                    // Guarded against yAxisRight being null: unlike yAxisLeft,
-                    // this axis is never attached to any currently-visible
-                    // series (percentAxisVisible is always false for now, see
-                    // its declaration above) and has its own "visible" bound
-                    // to that same flag - QtCharts appears to tear down the
-                    // underlying axis object in that state, leaving this id
-                    // reference null and causing a "Cannot read property
-                    // 'max' of null" TypeError on startup. Pre-existing,
-                    // unrelated to the chart-rendering fixes above.
+                    // Defensive only: yAxisRight's own "visible" is kept
+                    // permanently true (see its declaration above), so it
+                    // should never actually be null here anymore - this
+                    // guard is just cheap insurance.
                     text: yAxisRight ? (NymeaUtils.floatToLocaleString(yAxisRight.max - index * (yAxisRight.max - yAxisRight.min) / (d.yLabelCount - 1), 0) + "%") : ""
                 }
             }

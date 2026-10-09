@@ -37,20 +37,16 @@ import Nymea
 // Battery charge/discharge energy: the backend's per-sample "storage"
 // field on PowerBalanceLogs is only an *average power* value, which can't
 // be split into charging vs. discharging within one category - so it's
-// not used here. Instead, this mirrors the per-consumer approach above:
-// energystorage's optional totalEnergyProduced/totalEnergyConsumed states
-// are surfaced generically via ThingPowerLogs just like any consumer, and
-// summed across every battery Thing that actually implements them (see
-// "batteryThings" below - filtered via ThingsProxy's "requiredStateName",
-// not "stateFilter", since these are continuous values with no fixed
-// expected value to match against). Checked against ~/sandbox/thing_classes.json:
-// of 63 real energystorage Thing classes, every one either implements both
-// states or neither - never just one - so a single "requiredStateName"
-// check reliably stands in for both. Roughly 40% of them implement neither;
-// if none of the installation's batteries do, "toBatterySeries"/
-// "fromBatterySeries" simply return all-zero series and the caller (see
-// "hasBatteryEnergyCounters") omits the series entirely rather than
-// showing a misleading all-zero bar.
+// not used here. Instead, "totalToStorage"/"totalFromStorage" are read
+// directly off PowerBalanceLogs, the same way as totalConsumption/
+// totalProduction/totalAcquisition/totalReturn ("toBatterySeries"/
+// "fromBatterySeries" below) - the backend aggregates these across every
+// currently-existing energystorage Thing server-side and keeps
+// accumulating them even once a battery Thing is later deleted, so unlike
+// a per-Thing sum here, history isn't lost when the installation's
+// battery setup changes. "hasBatteryEnergyCounters" below reflects
+// whether that aggregated series actually carries any battery activity
+// for the currently viewed categories.
 Item {
     id: root
 
@@ -96,26 +92,11 @@ Item {
         consumerPowerLogsLoader.startTime = from
         consumerPowerLogsLoader.endTime = to
         consumerPowerLogsLoader.fetchLogs()
-
-        batteryPowerLogsLoader.startTime = from
-        batteryPowerLogsLoader.endTime = to
-        batteryPowerLogsLoader.fetchLogs()
     }
 
     ConsumerThings {
         id: consumerThings
         engine: root.engine
-    }
-
-    // Battery Things that actually report cumulative charge/discharge
-    // energy - see the file doc comment above for why "requiredStateName"
-    // (existence check) rather than "stateFilter" (value-equality check) is
-    // used here.
-    ThingsProxy {
-        id: batteryThings
-        engine: root.engine
-        shownInterfaces: ["energystorage"]
-        requiredStateName: "totalEnergyConsumed"
     }
 
     PowerBalanceLogs {
@@ -152,36 +133,17 @@ Item {
         onCountChanged: root.fetchLogs()
     }
 
-    ThingPowerLogsLoader {
-        id: batteryPowerLogsLoader
-        engine: root.engine
-        sampleRate: root.sampleRate
+    // Whether the backend's aggregated battery totals (see file doc
+    // comment above) actually carry any activity for the currently viewed
+    // categories - callers use this to decide whether to show "To
+    // battery"/"From battery" series at all, rather than show a
+    // misleading all-zero bar for installations without any battery
+    // history.
+    readonly property bool hasBatteryEnergyCounters: {
+        var to = root.toBatterySeries()
+        var from = root.fromBatterySeries()
+        return to.some(function (v) { return v > 0 }) || from.some(function (v) { return v > 0 })
     }
-    Repeater {
-        id: batteryPowerLogsRepeater
-        model: batteryThings
-        delegate: Item {
-            id: batteryDelegate
-            required property int index
-            readonly property Thing thing: batteryThings.get(batteryDelegate.index)
-            readonly property ThingPowerLogs logs: ThingPowerLogs {
-                engine: root.engine
-                thingId: batteryDelegate.thing ? batteryDelegate.thing.id : ""
-                sampleRate: root.sampleRate
-                loader: batteryPowerLogsLoader
-                startTime: root._rangeStart
-                endTime: root._rangeEnd
-            }
-        }
-        // Same reasoning as "consumerPowerLogsRepeater" above.
-        onCountChanged: root.fetchLogs()
-    }
-
-    // Whether at least one battery Thing actually reports cumulative
-    // charge/discharge energy - callers use this to decide whether to show
-    // "To battery"/"From battery" series at all (see this file's doc
-    // comment above).
-    readonly property bool hasBatteryEnergyCounters: batteryPowerLogsRepeater.count > 0
 
     // ---- Generic per-category delta computation ----
 
@@ -263,40 +225,14 @@ Item {
         return root.deltaSeries(powerBalanceLogs, "totalReturn", function () { return root.energyManager.totalReturn })
     }
 
-    // Sum of charge/discharge energy across every battery Thing that
-    // reports it (see "batteryThings"/"hasBatteryEnergyCounters" above).
-    // "totalConsumption" on an energystorage Thing is "Total energy to
-    // storage" (charging) per energystorage.json; "totalProduction" is
-    // "Total energy from storage" (discharging).
+    // Read directly off the backend's aggregated "totalToStorage"/
+    // "totalFromStorage" counters (see file doc comment above) - no longer
+    // a per-Thing sum.
     function toBatterySeries() {
-        var result = new Array(root.categoryRanges.length).fill(0)
-        for (var i = 0; i < batteryPowerLogsRepeater.count; i++) {
-            var item = batteryPowerLogsRepeater.itemAt(i)
-            if (!item || !item.thing) {
-                continue
-            }
-            var values = root.deltaSeries(item.logs, "totalConsumption", function () {
-                var live = item.logs.liveEntry()
-                return live ? live.totalConsumption : undefined
-            })
-            result = result.map(function (sum, j) { return sum + values[j] })
-        }
-        return result
+        return root.deltaSeries(powerBalanceLogs, "totalToStorage", function () { return root.energyManager.totalToStorage })
     }
     function fromBatterySeries() {
-        var result = new Array(root.categoryRanges.length).fill(0)
-        for (var i = 0; i < batteryPowerLogsRepeater.count; i++) {
-            var item = batteryPowerLogsRepeater.itemAt(i)
-            if (!item || !item.thing) {
-                continue
-            }
-            var values = root.deltaSeries(item.logs, "totalProduction", function () {
-                var live = item.logs.liveEntry()
-                return live ? live.totalProduction : undefined
-            })
-            result = result.map(function (sum, j) { return sum + values[j] })
-        }
-        return result
+        return root.deltaSeries(powerBalanceLogs, "totalFromStorage", function () { return root.energyManager.totalFromStorage })
     }
 
     // Consumption covered by own production (whether used directly or via
