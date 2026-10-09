@@ -897,6 +897,15 @@ void HemsManager::getRemoteConnectionEnabledResponse(int commandId, const QVaria
         return;
     }
 
+    // Re-detection on (re)connect: a previous connection may have been to an old
+    // core system without the endpoints. If this connection provides them, flip
+    // the flag back so the new endpoints are used again.
+    if (!m_remoteConnectionEndpointsAvailable) {
+        qCDebug(dcHems()) << "Hems remote connection endpoints now available on this core system.";
+        m_remoteConnectionEndpointsAvailable = true;
+        emit remoteConnectionEndpointsAvailableChanged(m_remoteConnectionEndpointsAvailable);
+    }
+
     bool enabled = data.value("remoteConnectionEnabled").toBool();
     qCDebug(dcHems()) << "Remote connection enabled:" << enabled;
     if (m_remoteConnectionEnabled != enabled) {
