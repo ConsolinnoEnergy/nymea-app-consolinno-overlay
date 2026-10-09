@@ -49,7 +49,6 @@ MainViewBase {
         Layout.fillWidth: true
         Layout.leftMargin: Style.margins
         Layout.rightMargin: Style.margins
-        Layout.bottomMargin: Style.margins
         spacing: Style.margins
 
         CoStatsChartLegend {
@@ -129,6 +128,19 @@ MainViewBase {
         id: batteries
         engine: _engine
         shownInterfaces: ["energystorage"]
+    }
+    // Subset of "batteries" that also report the cumulative
+    // totalEnergyConsumed/totalEnergyProduced counters the Week/Month/
+    // Year/YoY bar charts' "From/To battery" series are summed from (see
+    // PeriodEnergyLogs.qml's file doc comment - not every energystorage
+    // Thing class implements them). Compared against "batteries" by
+    // "d.hasPartialBatteryEnergySupport" to tell installations where every
+    // battery is included from ones where some are silently missing.
+    ThingsProxy {
+        id: batteriesWithEnergyCounters
+        engine: _engine
+        shownInterfaces: ["energystorage"]
+        requiredStateName: "totalEnergyConsumed"
     }
 
     // Backs the Day view's line chart (both the Energy balance and
@@ -545,6 +557,7 @@ MainViewBase {
 
                                 ChartLegendSection {
                                     dataSource: d
+                                    Layout.bottomMargin: batteryEnergySupportLabel.visible ? 0 : Style.margins
                                     energyBalanceSeries: d.energyBalanceLineSeries
                                     sourceSeries: d.consumptionSourceLineSeries
                                     consumerSeries: d.consumptionConsumerLineSeries
@@ -599,6 +612,7 @@ MainViewBase {
 
                                 ChartLegendSection {
                                     dataSource: d
+                                    Layout.bottomMargin: batteryEnergySupportLabel.visible ? 0 : Style.margins
                                     energyBalanceSeries: d.weekEnergyBalanceProductionSeries.concat(d.weekEnergyBalanceConsumptionSeries)
                                     sourceSeries: d.weekConsumptionSourceSeries
                                     consumerSeries: d.weekConsumptionConsumerSeries
@@ -663,6 +677,7 @@ MainViewBase {
 
                                 ChartLegendSection {
                                     dataSource: d
+                                    Layout.bottomMargin: batteryEnergySupportLabel.visible ? 0 : Style.margins
                                     energyBalanceSeries: d.monthEnergyBalanceProductionSeries.concat(d.monthEnergyBalanceConsumptionSeries)
                                     sourceSeries: d.monthConsumptionSourceSeries
                                     consumerSeries: d.monthConsumptionConsumerSeries
@@ -727,9 +742,43 @@ MainViewBase {
 
                                 ChartLegendSection {
                                     dataSource: d
+                                    Layout.bottomMargin: batteryEnergySupportLabel.visible ? 0 : Style.margins
                                     energyBalanceSeries: d.yearEnergyBalanceProductionSeries.concat(d.yearEnergyBalanceConsumptionSeries)
                                     sourceSeries: d.yearConsumptionSourceSeries
                                     consumerSeries: d.yearConsumptionConsumerSeries
+                                }
+                            }
+
+                            // Only relevant to the Week/Month/Year/YoY bar
+                            // charts (see "d.hasPartialBatteryEnergySupport")
+                            // - the Day view's battery line uses "d.hasBattery"
+                            // instead, which already covers every battery
+                            // regardless of counter support.
+                            Label {
+                                id: batteryEnergySupportLabel
+                                Layout.fillWidth: true
+                                Layout.leftMargin: Style.largeMargins
+                                Layout.rightMargin: Style.largeMargins
+                                Layout.bottomMargin: Style.margins
+                                visible: periodSelector.sampleRate !== EnergyLogs.SampleRate1Day && d.hasPartialBatteryEnergySupport
+                                text: batteryEnergySupportText()
+                                textFormat: Text.RichText
+                                wrapMode: Text.WordWrap
+                                font: Style.newExtraSmallFont
+                                color: Style.colors.typography_Basic_Default
+
+                                // Names exactly the batteries included in
+                                // "From/To battery" (see
+                                // "d.hasPartialBatteryEnergySupport" above).
+                                function batteryEnergySupportText() {
+                                    var names = []
+                                    for (var i = 0; i < batteriesWithEnergyCounters.count; i++) {
+                                        names.push(batteriesWithEnergyCounters.get(i).name)
+                                    }
+                                    var namesList = names.length <= 1 ?
+                                                ("<b>" + names.join("") + "</b>") :
+                                                ("<b>" + names.slice(0, -1).join(", ") + "</b>" + qsTr(" and ") + "<b>" + names[names.length - 1] + "</b>")
+                                    return qsTr("<b>Battery in</b> and <b>Battery out</b> only include %1<b>.</b>").arg(namesList)
                                 }
                             }
                         }
@@ -870,6 +919,14 @@ MainViewBase {
         // corresponding series/legend entries, it is not zero-filled.
         readonly property bool hasProducer: producers.count > 0
         readonly property bool hasBattery: batteries.count > 0
+
+        // True only for the "some, but not all" case: whether to warn that
+        // the Week/Month/Year/YoY "From/To battery" bars don't cover every
+        // battery in the installation (see "batteryEnergySupportLabel" and
+        // "batteriesWithEnergyCounters" above). Not shown when no battery
+        // reports the counters at all (the series is hidden entirely then,
+        // see "provider.hasBatteryEnergyCounters") nor when all of them do.
+        readonly property bool hasPartialBatteryEnergySupport: batteriesWithEnergyCounters.count > 0 && batteriesWithEnergyCounters.count < batteries.count
 
         // The Battery SoC series/right axis are prepared in the data shape
         // (see "computeEnergyBalanceLineSeries" below) so wiring them up
