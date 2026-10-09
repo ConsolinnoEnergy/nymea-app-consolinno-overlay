@@ -129,6 +129,21 @@ Item {
         }
         property real visibleWindowMs: maxWindowMs
 
+        // Copy of the above two, but only updated once "rangeSettleTimer"
+        // fires (i.e. the same, debounced cadence the data-fetch trigger
+        // uses - see rangeSettleTimer below), not on every live drag/pinch
+        // frame. Used by "maxLeftValue()"'s y-axis range scan instead of
+        // the live values above: that scan is deliberately windowed for
+        // performance (see its own comment), but if it tracked the live,
+        // continuously-shifting visible window directly, the y-axis would
+        // visibly rescale on every single pan/zoom frame instead of
+        // staying stable while scrolling through already-loaded data -
+        // which is exactly the kind of jitter "maxLeftValue()" already
+        // avoids for legend-pill toggles (see its "ignores desc.visible"
+        // comment) and should equally avoid here.
+        property real settledStartTime: visibleStartTime
+        property real settledWindowMs: visibleWindowMs
+
         // Reserved ChartView margins, sized via FontMetrics for the custom
         // axis label overlays below. ChartView's own plotArea auto-sizing
         // (with labelsVisible: false on all axes) is not reliable across
@@ -329,7 +344,34 @@ Item {
                 }
                 var model = desc.model
                 var count = model.count !== undefined ? model.count : 0
-                for (var j = 0; j < count; j++) {
+
+                // Windowed similarly to rebuild() (see its comment): without
+                // this, every rebuild re-scanned the model's *entire* cache -
+                // up to ~20x the visible window, see EnergyLogs::trimCache()
+                // - instead of just what's on screen. That cost grows
+                // unbounded with cache size as a session goes on (more
+                // days/zoom levels visited), causing increasingly long pan/
+                // zoom stalls over time.
+                //
+                // Uses the *settled* window (d.settledStartTime/Ms), not the
+                // live d.visibleStartTime/d.visibleWindowMs rebuild() itself
+                // uses: unlike the series' actual plotted points, the y-axis
+                // range is deliberately stabilized against the live drag
+                // position too (see "ignores desc.visible" above) - using
+                // the live, continuously-shifting window here would rescale
+                // the axis on every single pan/zoom frame instead of only
+                // once a gesture settles.
+                var startIndex = 0
+                var endIndex = count
+                if (typeof model.indexOf === "function") {
+                    var rangeStart = d.settledStartTime
+                    var rangeEnd = d.settledStartTime + d.settledWindowMs
+                    var lowIdx = model.indexOf(new Date(rangeStart))
+                    var highIdx = model.indexOf(new Date(rangeEnd))
+                    startIndex = lowIdx >= 0 ? Math.max(0, lowIdx - 1) : 0
+                    endIndex = highIdx >= 0 ? Math.min(count, highIdx + 2) : count
+                }
+                for (var j = startIndex; j < endIndex; j++) {
                     var entry = model.get(j)
                     if (!entry) {
                         continue
@@ -553,7 +595,11 @@ Item {
     Timer {
         id: rangeSettleTimer
         interval: 200
-        onTriggered: root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+        onTriggered: {
+            d.settledStartTime = d.visibleStartTime
+            d.settledWindowMs = d.visibleWindowMs
+            root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
+        }
     }
 
     FontMetrics {
