@@ -46,6 +46,13 @@ Item {
     property date startTime
     property date endTime
 
+    // Forwarded to the internal loader and every per-consumer ThingPowerLogs
+    // instance below - kept in sync with "totalConsumptionLogs"'s own
+    // sampleRate by the caller (CoStatsView.qml), since "otherConsumption"
+    // below matches entries up by timestamp and that only makes sense if
+    // both sides were sampled at the same rate.
+    property int sampleRate: EnergyLogs.SampleRate15Mins
+
     readonly property bool fetchingData: consumerPowerLogsLoader.fetchingData
     readonly property int count: consumerPowerLogsRepeater.count
     readonly property alias otherConsumption: otherConsumptionModel
@@ -70,7 +77,7 @@ Item {
     ThingPowerLogsLoader {
         id: consumerPowerLogsLoader
         engine: root.engine
-        sampleRate: EnergyLogs.SampleRate15Mins
+        sampleRate: root.sampleRate
     }
     Repeater {
         id: consumerPowerLogsRepeater
@@ -82,7 +89,7 @@ Item {
             readonly property ThingPowerLogs logs: ThingPowerLogs {
                 engine: root.engine
                 thingId: consumerDelegate.thing ? consumerDelegate.thing.id : ""
-                sampleRate: EnergyLogs.SampleRate15Mins
+                sampleRate: root.sampleRate
                 loader: consumerPowerLogsLoader
                 // Without these, EnergyLogs::trimCache() (which relies on
                 // this instance's own startTime/endTime, not the shared

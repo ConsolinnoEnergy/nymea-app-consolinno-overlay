@@ -99,6 +99,22 @@ MainViewBase {
         engine: _engine
     }
 
+    // Ticks periodically so "d.dayTabMinDate()" doesn't freeze at whatever
+    // moment this page was loaded - without this, staying on the page for
+    // longer than an hour would leave the Day tab's earliest navigable date
+    // stuck in the past by that much (mirrors CoPeriodSelector.qml's own
+    // identical "dateRefreshTimer" for its "today" boundary). Declared here
+    // (rather than inside "d") since QtObject has no default property to
+    // parent a Timer under.
+    Timer {
+        id: dayTabMinDateRefreshTimer
+        property int tick: 0
+        interval: 60000
+        running: true
+        repeat: true
+        onTriggered: tick++
+    }
+
     // ---- Real backend data sources for the Chart card (Day/Energy balance) ----
     // Producer/battery detection: which optional series to even show/compute
     // (e.g. no point rendering "Production"/"To battery" lines if the
@@ -271,6 +287,14 @@ MainViewBase {
                     anchors.right: parent.right
                     anchors.leftMargin: Style.margins
                     anchors.rightMargin: Style.margins
+
+                    // Day tab can't navigate further back than the line
+                    // chart's coarsest (hourly) tier retention - no finer
+                    // data exists before that (see "d.dayTabMinDate()").
+                    // Week/Month/Year keep the component's own default
+                    // (2017-01-01) - those bar charts don't tier sample
+                    // rates.
+                    minDate: sampleRate === EnergyLogs.SampleRate1Day ? d.dayTabMinDate() : new Date(2017, 0, 1)
                 }
             }
 
@@ -469,10 +493,13 @@ MainViewBase {
                                     // covers both the initial fetch (fires once on
                                     // Component.onCompleted) and subsequent ones.
                                     onVisibleRangeChanged: function (startTime, endTime) {
+                                        var rate = d.sampleRateForWindow(startTime.getTime(), endTime.getTime() - startTime.getTime())
+                                        powerBalanceLogs.sampleRate = rate
                                         powerBalanceLogs.startTime = startTime
                                         powerBalanceLogs.endTime = endTime
                                         powerBalanceLogs.fetchLogs()
 
+                                        consumerConsumptionLogs.sampleRate = rate
                                         consumerConsumptionLogs.startTime = startTime
                                         consumerConsumptionLogs.endTime = endTime
                                         consumerConsumptionLogs.fetchLogs()
@@ -689,6 +716,54 @@ MainViewBase {
         id: d
 
         property int activeChartTab: 0 // 0 = Energy balance, 1 = Consumption
+
+        // Picks the finest sample rate the backend still has data for, for
+        // the Day view's line chart (powerBalanceLogs/consumerConsumptionLogs).
+        // The backend keeps 1-minute samples for 7 days, 15-minute samples
+        // for 168 days (~6 months) and hourly samples for 365 days (~1
+        // year), with no automatic fallback for a resolution that's no
+        // longer available for a requested range - requesting a rate that's
+        // too fine for part of the window would silently return no data for
+        // that part instead of degrading gracefully. A single rate is
+        // therefore chosen for the whole visible window, based on its
+        // oldest edge ("startTimeMs").
+        //
+        // 1-minute resolution is additionally gated on the visible window
+        // actually being narrow enough to make sense of that much data at
+        // once: the chart's minimum zoom is 3h (see
+        // CoStatsLineChart.qml's "minWindowMs"), so in practice this just
+        // distinguishes "zoomed all the way in" from anything wider - the
+        // small 5-minute buffer only exists to absorb floating-point/
+        // rounding slack right at that boundary, not to define a second,
+        // independent tier. Any wider window (up to the chart's 24h
+        // maximum) falls through to the existing age-based 15-minute/
+        // hourly choice, same as before 1-minute support existed.
+        function sampleRateForWindow(startTimeMs, windowMs) {
+            var minuteMs = 60000
+            var narrowEnoughFor1Min = windowMs <= (3 * 3600000 + 5 * minuteMs)
+            var ageMs = Date.now() - startTimeMs
+            var sevenDaysMs = 7 * 24 * 3600000
+            var sixMonthsMs = 168 * 24 * 3600000 // backend's exact 15-min retention window
+            if (narrowEnoughFor1Min && ageMs <= sevenDaysMs) {
+                return EnergyLogs.SampleRate1Min
+            }
+            if (ageMs <= sixMonthsMs) {
+                return EnergyLogs.SampleRate15Mins
+            }
+            return EnergyLogs.SampleRate1Hour
+        }
+
+        // Earliest selectable instant for the Day tab's period selector -
+        // matches the line chart's coarsest (hourly) tier retention (see
+        // "sampleRateForWindow" above), since no finer resolution exists
+        // before that and panning further back would just show an empty
+        // chart. Week/Month/Year tabs keep CoPeriodSelector's own default
+        // minDate (2017-01-01) - those bar charts don't tier sample rates.
+        function dayTabMinDate() {
+            dayTabMinDateRefreshTimer.tick
+            return new Date(Date.now() - 365 * 24 * 3600000)
+        }
+
 
         // Whichever CoStatsBarChart currently has a category "pinned"/dimmed
         // for the open tooltip (see CoStatsBarChart.qml's

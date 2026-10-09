@@ -11,7 +11,7 @@ import "../utils/DateUtils.js" as DateUtils
 // A multi-line chart for the statistics page. Shows a left kW y-axis (auto
 // scaled to "nice" round numbers with 5 labels) and an optional right
 // percentage y-axis (fixed 0-100%, 5 labels). The visible x-axis window can
-// be zoomed (pinch) between 6h and 24h and panned (drag). Vertical light-grey
+// be zoomed (pinch) between 3h and 24h and panned (drag). Vertical light-grey
 // lines mark day boundaries that fall within the visible window.
 //
 // The chart itself does not fetch any data. Each entry in "series" references
@@ -103,7 +103,7 @@ Item {
         readonly property int maxSeriesCount: 20
         readonly property real hourMs: 3600000
         readonly property real dayMs: 24 * hourMs
-        readonly property real minWindowMs: 6 * hourMs
+        readonly property real minWindowMs: 3 * hourMs
         readonly property real maxWindowMs: 24 * hourMs
         readonly property int yLabelCount: 5
 
@@ -1034,7 +1034,7 @@ Item {
             }
         }
 
-        // -- Pinch (zoom, 6h..24h clamp) and drag (pan) gesture handling --
+        // -- Pinch (zoom, 3h..24h clamp) and drag (pan) gesture handling --
         PinchHandler {
             id: pinchHandler
             target: null
