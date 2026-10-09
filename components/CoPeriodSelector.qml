@@ -190,10 +190,10 @@ Item {
         // being called from setReferenceDate() (e.g. the chart below was
         // panned/zoomed by the user): sampleRate didn't change there, so
         // most calls just need to move the highlighted item by one or two
-        // positions within the already-loaded window - profiling showed
-        // this path firing on every single calendar-day crossing while
-        // panning the Day-view chart, previously paying for a full
-        // window recenter + relayout (~105ms) on every one of those.
+        // positions within the already-loaded window - this path fires on
+        // every single calendar-day crossing while panning the Day-view
+        // chart, so avoiding a full window recenter + relayout here
+        // matters for performance.
         function syncListViewFromSelection(forceFullRelayout) {
             if (forceFullRelayout === undefined) {
                 forceFullRelayout = false

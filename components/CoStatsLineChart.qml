@@ -885,9 +885,7 @@ Item {
                 // a few pixels/entries). Previously this always did a full
                 // clear() + re-append() of every visible point regardless,
                 // which dominated this chart's cost on every single
-                // throttled frame (see profiler/reports/
-                // profile-report-consolinno-energy-2026-10-09-113351.md).
-                // Diff against the last rendered range instead and only
+                // throttled frame. Diff against the last rendered range instead and only
                 // remove/insert/append the entries that actually scrolled
                 // out of/into view - falling back to the full rebuild below
                 // whenever that's not safely possible (different model,

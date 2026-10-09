@@ -212,18 +212,13 @@ MainViewBase {
     // the number of backend round trips regardless of which tab was
     // actually visible.
     //
-    // "categoryRanges" is assigned here directly from the "d.xxxCategoryRanges()"
-    // functions - NOT from the "d.weekBarCategoryRanges"-style readonly
-    // properties below (those exist purely for the chart's own display/
-    // tooltip use and are themselves gated by sampleRate, see their doc
-    // comment) - precisely so this assignment never races against that
-    // gating: if it instead read "d.weekBarCategoryRanges", whether this
-    // sees the freshly-recomputed value or a stale, still-inactive-tab
-    // "[]" depends on binding evaluation order relative to this function
-    // running (both react to the same "sampleRate"/"referenceDate"
-    // change), which QML does not guarantee - and "fetchLogs()" silently
-    // no-ops on an empty "categoryRanges" with nothing to ever retry it.
-    // Calling the range functions directly here sidesteps that entirely.
+    // "categoryRanges" is computed here directly via the "d.xxxCategoryRanges()"
+    // functions, NOT read from the "d.weekBarCategoryRanges"-style readonly
+    // properties below: those are gated by sampleRate for their own,
+    // display-only purpose (see their doc comment), and reading them here
+    // instead would make this fetch depend on binding-evaluation order
+    // relative to that gating - risking a silently skipped fetch, since
+    // "fetchLogs()" no-ops on an empty "categoryRanges" with no retry.
     function fetchBarLogs() {
         if (!root.visible || !_engine || !_engine.jsonRpcClient || !_engine.jsonRpcClient.connected) {
             return
@@ -585,32 +580,15 @@ MainViewBase {
                                     onCategorySelected: (index, anchorRect) => d.showBarChartTooltip(weekBarChart, categories, stacks, d.weekBarCategoryRanges, index, anchorRect)
                                 }
 
-                                // "d.weekCategories" recomputes on every
-                                // "periodSelector.referenceDate" change,
-                                // which also happens continuously while
-                                // panning the Day-view line chart across day
-                                // boundaries - a direct "categories:
-                                // d.weekCategories" binding above would make
-                                // this hidden chart (see its "visible"
-                                // above) take that update and run a full
-                                // rebuildStack() for every one of those,
-                                // despite never being shown. A plain
-                                // "Binding" with "when" only applies (and
-                                // depends on) "d.weekCategories" while the
-                                // Week tab is actually active; while
-                                // inactive it restores "categories" to the
-                                // component's own declared default
-                                // ("property var categories: []" in
-                                // CoStatsBarChart.qml) instead, rather than
-                                // reading back its own value like a direct
-                                // self-referencing property binding would -
-                                // which both logged "Binding loop detected"
-                                // warnings AND evaluated to undefined on the
-                                // very first pass (before any value had ever
-                                // been assigned), since that self-reference
-                                // is itself the first binding ever installed
-                                // on "categories", with nothing yet having
-                                // written an actual value to fall back to.
+                                // Using a "Binding"+"when" instead of a direct
+                                // "categories: d.weekCategories" binding above
+                                // avoids recomputing/applying this hidden
+                                // chart's data on every Day-view pan step (see
+                                // "d.weekCategories"'s own doc comment) - it
+                                // only applies while the Week tab is active,
+                                // falling back to CoStatsBarChart's own default
+                                // otherwise instead of a self-referencing
+                                // binding (which caused a binding loop).
                                 Binding {
                                     target: weekBarChart
                                     property: "categories"
@@ -1281,20 +1259,13 @@ MainViewBase {
         // to data shaped for a *different* category count, which
         // CoStatsBarChart cannot render.
 
-        // Gated by sampleRate (just like "stacks:"/"series:" above and the
-        // Week/Month/Year/YoY "categories" Binding elements further down),
-        // rather than computed unconditionally: "periodSelector.
-        // referenceDate" changes on every Day-view pan step too, and
-        // without this guard these would redo their computation on every
-        // single one of those, despite this tab never being active during
-        // Day-view panning. "[]" (a plain literal, not a self-reference) is
-        // a safe placeholder while inactive - nothing depends on these two
-        // while this tab is hidden: the "categories" Binding elements
-        // further down are themselves gated the same way, the tooltip
-        // handlers that read "weekBarCategoryRanges" only fire while this
-        // tab is actually showing, and the "categoryRanges:" backend-fetch
-        // assignment below is done imperatively in fetchBarLogs() instead
-        // of reactively, specifically so it never depends on this value.
+        // Gated by sampleRate, same as "stacks:"/"series:" above: otherwise
+        // these would recompute on every Day-view pan step even while this
+        // tab is hidden. Safe to fall back to "[]" while inactive - the
+        // only readers (the "categories" Bindings below and the tooltip
+        // handlers) are themselves only active while this tab is showing,
+        // and fetchBarLogs() assigns "categoryRanges" imperatively rather
+        // than reading these properties (see its own doc comment).
         readonly property var weekCategories: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekdayCategories(periodSelector.referenceDate) : []
         readonly property var weekBarCategoryRanges: periodSelector.sampleRate === EnergyLogs.SampleRate1Week ? d.weekCategoryRanges(periodSelector.referenceDate) : []
         readonly property var weekEnergyBalanceProductionSeries: d.computeEnergyBalanceProductionSeries(weekEnergyLogs)
