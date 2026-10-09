@@ -101,6 +101,14 @@ Item {
         id: d
 
         readonly property int maxSeriesCount: 20
+
+        // Highest slot index actually populated by the previous
+        // "rebuildAll()" call (see there) - lets that function skip the
+        // fixed 20 slots entirely once "root.series" is shorter (the
+        // common case; see its own comment), while still clearing any
+        // now-unused slots left over from a previous, longer "root.series"
+        // array (e.g. switching tabs).
+        property int lastSeriesCount: 0
         readonly property real hourMs: 3600000
         readonly property real dayMs: 24 * hourMs
         readonly property real minWindowMs: 3 * hourMs
@@ -888,17 +896,39 @@ Item {
             // window rather than the (much larger) cached range.
             //
             // Each rebuild(i, false) call skips its own axis-range update
-            // (see rebuild()'s "updateAxis" parameter) - d.maxLeftValue()
-            // scans every occupied series' *entire* cached model, so
-            // calling it once per slot here (up to d.maxSeriesCount times)
-            // would turn every drag/pinch frame into O(series count
-            // squared) work. Recomputing it once after the loop instead
-            // keeps this at the same O(series count) cost as the rest of
-            // this function.
+            // (see rebuild()'s "updateAxis" parameter) - recomputing it
+            // once after the loop instead keeps axis-range work at the
+            // same O(series count) cost as the rest of this function,
+            // instead of O(series count squared).
             function rebuildAll() {
-                for (var i = 0; i < d.maxSeriesCount; i++) {
+                // "root.series" is almost always far shorter than the fixed
+                // d.maxSeriesCount (20) slots reserved in the ChartView
+                // above (e.g. a handful of energy-balance/consumption
+                // series, not 20) - looping to the full 20 regardless of
+                // how many are actually in use wasted a switch-case lookup
+                // + two LineSeries.clear() calls per unused slot on every
+                // single throttled pan/zoom frame. Clamping to the actual
+                // count removes that dead work in the common case.
+                var count = Math.min(d.maxSeriesCount, root.series.length)
+                for (var i = 0; i < count; i++) {
                     rebuild(i, false)
                 }
+                // Slots between the current and previous series count are
+                // stale (still showing data from a longer "root.series"
+                // array used before, e.g. before switching tabs) and need
+                // clearing exactly once - not every call, since
+                // "d.lastSeriesCount" collapses down to "count" right after.
+                for (var j = count; j < d.lastSeriesCount; j++) {
+                    var staleSlot = slot(j)
+                    var staleBorderSlot = borderSlot(j)
+                    if (staleSlot) {
+                        staleSlot.clear()
+                    }
+                    if (staleBorderSlot) {
+                        staleBorderSlot.clear()
+                    }
+                }
+                d.lastSeriesCount = count
                 d.updateLeftAxisRange()
             }
 
