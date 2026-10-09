@@ -38,6 +38,29 @@ SettingsPageBase {
     id: root
     headerText: qsTr("Connection settings")
 
+    QtObject {
+        id: d
+        property int pendingCallId: -1
+    }
+
+    Connections {
+        target: hemsManager
+        onSetRemoteConnectionEnabledReply: function(commandId, error) {
+            if (commandId !== d.pendingCallId) {
+                return;
+            }
+            d.pendingCallId = -1;
+            if (error === "HemsErrorNoError") {
+                return;
+            }
+            var props = {};
+            props.errorCode = error;
+            var comp = Qt.createComponent("../components/ErrorDialog.qml");
+            var popup = comp.createObject(app, props);
+            popup.open();
+        }
+    }
+
     CoFrostyCard {
         Layout.fillWidth: true
         Layout.topMargin: Style.margins
@@ -56,18 +79,15 @@ SettingsPageBase {
                 Layout.fillWidth: true
                 text: qsTr("Remote connection")
                 helpText: qsTr("Enabling the remote connection will allow connecting to this %1 from anywhere.").arg(Configuration.deviceName)
-                checked: engine.nymeaConfiguration.tunnelProxyServerConfigurations.count > 0
+                checked: hemsManager ? hemsManager.remoteConnectionEnabled : true
+                enabled: hemsManager && hemsManager.available
 
                 onToggled: {
-                    if (!checked) {
-                        for (let i = 0; i < engine.nymeaConfiguration.tunnelProxyServerConfigurations.count; i++) {
-                            let config = engine.nymeaConfiguration.tunnelProxyServerConfigurations.get(i)
-                            engine.nymeaConfiguration.deleteTunnelProxyServerConfiguration(config.id)
-                        }
-                    } else {
-                        let config = engine.nymeaConfiguration.createTunnelProxyServerConfiguration(Configuration.defaultTunnelProxyUrl, 2213, true, true, false);
-                        engine.nymeaConfiguration.setTunnelProxyServerConfiguration(config)
-                    }
+                    // The remote connection is managed by the energy engine on the core
+                    // system (persisted in consolinno.conf and enforced on the tunnel
+                    // proxy configuration there). Do not touch the local nymea
+                    // configuration here.
+                    d.pendingCallId = hemsManager.setRemoteConnectionEnabled(checked)
                 }
             }
         }
