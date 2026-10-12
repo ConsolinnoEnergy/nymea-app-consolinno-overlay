@@ -113,10 +113,10 @@ ColumnLayout {
         stepSize: 1
         value: {
             if (!thing) {
-                return 32;
+                return 16;
             }
             var state = thing.stateByName("maxChargingCurrent");
-            return state ? state.value : 32;
+            return state ? state.value : 16;
         }
         valueText: value + " A"
 
