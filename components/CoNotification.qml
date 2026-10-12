@@ -165,10 +165,13 @@ Item {
 
             Item {
                 Layout.fillWidth: true
-                Layout.preferredHeight: root.collapsed ? 0 : messageText.implicitHeight + 20
+                // Animate only the collapse progress, not the height itself, so that
+                // initial text wrapping/layout changes do not get animated.
+                property real collapseProgress: root.collapsed ? 1 : 0
+                Layout.preferredHeight: (messageText.implicitHeight + 20) * (1 - collapseProgress)
                 clip: true
 
-                Behavior on Layout.preferredHeight {
+                Behavior on collapseProgress {
                     NumberAnimation { duration: 300; easing.type: Easing.InOutQuad }
                 }
 
