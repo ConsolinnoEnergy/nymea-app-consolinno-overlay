@@ -31,6 +31,8 @@ class HemsManager : public QObject
     Q_PROPERTY(bool available READ available NOTIFY availableChanged)
     Q_PROPERTY(HemsUseCases availableUseCases READ availableUseCases NOTIFY availableUseCasesChanged)
     Q_PROPERTY(uint housholdPhaseLimit READ housholdPhaseLimit NOTIFY housholdPhaseLimitChanged)
+    Q_PROPERTY(bool remoteConnectionEnabled READ remoteConnectionEnabled NOTIFY remoteConnectionEnabledChanged)
+    Q_PROPERTY(bool remoteConnectionEndpointsAvailable READ remoteConnectionEndpointsAvailable NOTIFY remoteConnectionEndpointsAvailableChanged)
     Q_PROPERTY(HeatingConfigurations *heatingConfigurations READ heatingConfigurations CONSTANT)
     Q_PROPERTY(DynamicElectricPricingConfigurations *dynamicElectricPricingConfigurations READ dynamicElectricPricingConfigurations CONSTANT)
     Q_PROPERTY(BatteryConfigurations *batteryConfigurations READ batteryConfigurations CONSTANT)
@@ -80,6 +82,18 @@ public:
     uint housholdPhaseLimit() const;
     Q_INVOKABLE int setHousholdPhaseLimit(uint housholdPhaseLimit);
 
+    bool remoteConnectionEnabled() const;
+    Q_INVOKABLE int setRemoteConnectionEnabled(bool enabled);
+
+    // True if the core system's energy plugin provides the
+    // Hems.Get/SetRemoteConnectionEnabled endpoints (and the
+    // Hems.RemoteConnectionEnabledChanged notification). Determined at
+    // runtime: an old plugin answers Hems.GetRemoteConnectionEnabled with an
+    // error, which the JsonRpcClient forwards as an empty response. If false,
+    // the app falls back to the legacy variant (editing the tunnel proxy
+    // configuration directly from the app).
+    bool remoteConnectionEndpointsAvailable() const;
+
     HeatingConfigurations *heatingConfigurations() const;
     ChargingConfigurations *chargingConfigurations() const;
     PvConfigurations *pvConfigurations() const;
@@ -124,6 +138,8 @@ signals:
 
     void availableUseCasesChanged(HemsUseCases availableUseCases);
     void housholdPhaseLimitChanged(uint housholdPhaseLimit);
+    void remoteConnectionEnabledChanged(bool remoteConnectionEnabled);
+    void remoteConnectionEndpointsAvailableChanged(bool remoteConnectionEndpointsAvailable);
 
     void chargingSessionConfigurationChanged(ChargingSessionConfiguration *configuration);
     void chargingConfigurationChanged(ChargingConfiguration *configuration);
@@ -137,6 +153,7 @@ signals:
     void switchConfigurationChanged(SwitchConfiguration *configuration);
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
+    void setRemoteConnectionEnabledReply(int commandId, const QString &error);
 
     void setPvConfigurationReply(int commandId, const QString &error);
     void setHeatingConfigurationReply(int commandId, const QString &error);
@@ -162,6 +179,7 @@ private slots:
 
     Q_INVOKABLE void getAvailableUseCasesResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void getHeatingConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getChargingConfigurationsResponse(int commandId, const QVariantMap &data);
@@ -178,6 +196,7 @@ private slots:
     Q_INVOKABLE void getDevConfigPvSurplusResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setPvConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setHeatingConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setChargingConfigurationResponse(int commandId, const QVariantMap &data);
@@ -202,6 +221,8 @@ private:
 
     HemsUseCases m_availableUseCases;
     uint m_housholdPhaseLimit = 25;
+    bool m_remoteConnectionEnabled = true;
+    bool m_remoteConnectionEndpointsAvailable = true;
 
     HeatingConfigurations *m_heatingConfigurations = nullptr;
     ChargingConfigurations *m_chargingConfigurations = nullptr;

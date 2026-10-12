@@ -122,6 +122,23 @@ int HemsManager::setHousholdPhaseLimit(uint housholdPhaseLimit)
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetHousholdPhaseLimit", params, this, "setHousholdPhaseLimitResponse");
 }
 
+bool HemsManager::remoteConnectionEnabled() const
+{
+    return m_remoteConnectionEnabled;
+}
+
+int HemsManager::setRemoteConnectionEnabled(bool enabled)
+{
+    QVariantMap params;
+    params.insert("enabled", enabled);
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetRemoteConnectionEnabled", params, this, "setRemoteConnectionEnabledResponse");
+}
+
+bool HemsManager::remoteConnectionEndpointsAvailable() const
+{
+    return m_remoteConnectionEndpointsAvailable;
+}
+
 HeatingConfigurations *HemsManager::heatingConfigurations() const
 {
     return m_heatingConfigurations;
@@ -730,6 +747,12 @@ void HemsManager::notificationReceived(const QVariantMap &data)
             m_housholdPhaseLimit = phaseLimit;
             emit housholdPhaseLimitChanged(m_housholdPhaseLimit);
         }
+    } else if (notification == "Hems.RemoteConnectionEnabledChanged") {
+        bool enabled = params.value("remoteConnectionEnabled").toBool();
+        if (m_remoteConnectionEnabled != enabled) {
+            m_remoteConnectionEnabled = enabled;
+            emit remoteConnectionEnabledChanged(m_remoteConnectionEnabled);
+        }
     } else if (notification == "Hems.PluggedInChanged") {
         qCDebug(dcHems()) << "the PluggedInEventTriggered";
 
@@ -854,6 +877,43 @@ void HemsManager::getHousholdPhaseLimitResponse(int commandId, const QVariantMap
     }
 }
 
+void HemsManager::getRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+
+    // Detect whether the core system's energy plugin provides the remote
+    // connection endpoints at all. Old plugins (without the endpoints) get an
+    // error reply from the server for the unknown method; the JsonRpcClient
+    // forwards error replies to the response callback with empty params. In
+    // that case fall back to the legacy variant (app edits the tunnel proxy
+    // configuration directly).
+    if (!data.contains("remoteConnectionEnabled")) {
+        if (m_remoteConnectionEndpointsAvailable) {
+            qCDebug(dcHems()) << "Hems.GetRemoteConnectionEnabled not available on this core system."
+                              << "Falling back to legacy remote connection handling.";
+            m_remoteConnectionEndpointsAvailable = false;
+            emit remoteConnectionEndpointsAvailableChanged(m_remoteConnectionEndpointsAvailable);
+        }
+        return;
+    }
+
+    // Re-detection on (re)connect: a previous connection may have been to an old
+    // core system without the endpoints. If this connection provides them, flip
+    // the flag back so the new endpoints are used again.
+    if (!m_remoteConnectionEndpointsAvailable) {
+        qCDebug(dcHems()) << "Hems remote connection endpoints now available on this core system.";
+        m_remoteConnectionEndpointsAvailable = true;
+        emit remoteConnectionEndpointsAvailableChanged(m_remoteConnectionEndpointsAvailable);
+    }
+
+    bool enabled = data.value("remoteConnectionEnabled").toBool();
+    qCDebug(dcHems()) << "Remote connection enabled:" << enabled;
+    if (m_remoteConnectionEnabled != enabled) {
+        m_remoteConnectionEnabled = enabled;
+        emit remoteConnectionEnabledChanged(m_remoteConnectionEnabled);
+    }
+}
+
 void HemsManager::getHeatingConfigurationsResponse(int commandId, const QVariantMap &data)
 {
 
@@ -968,6 +1028,12 @@ void HemsManager::setHousholdPhaseLimitResponse(int commandId, const QVariantMap
 {
     qCDebug(dcHems()) << "Set houshold phase limit response" << data.value("hemsError").toString();
     emit setHousholdPhaseLimitReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data)
+{
+    qCDebug(dcHems()) << "Set remote connection enabled response" << data.value("hemsError").toString();
+    emit setRemoteConnectionEnabledReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::setHeatingConfigurationResponse(int commandId, const QVariantMap &data)
@@ -1213,6 +1279,10 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getHousholdPhaseLimitResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetRemoteConnectionEnabled",
+                                           QVariantMap(),
+                                           this,
+                                           "getRemoteConnectionEnabledResponse");
     m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingConfigurations",
                                            QVariantMap(),
                                            this,
