@@ -37,6 +37,7 @@ import "../components"
 SettingsPageBase {
     id: root
     headerText: qsTr("Connection settings")
+    busy: d.pendingCallId !== -1
 
     QtObject {
         id: d
