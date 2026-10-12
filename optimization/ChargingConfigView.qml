@@ -974,10 +974,14 @@ GenericConfigPage {
                 const carUsedAtOtherWallbox = selectVehicleCard.selectedVehicle &&
                         isCarPluggedInAtOtherWallbox(selectVehicleCard.selectedVehicle.id);
 
+                // The battery level slider is only relevant (and visible) for
+                // the "Next trip" (pv_optimized) charging mode.
+                const batteryLevelOk = !isAnyOfModesSelected([pv_optimized]) || batteryLevelSlider.value !== 0;
+
                 if ((endTimeSlider.value >= endTimeSlider.maximumChargingthreshhold) &&
                         (endTimeSlider.value >= 30) &&
                         selectVehicleCard.selectedVehicle &&
-                        batteryLevelSlider.value !== 0 &&
+                        batteryLevelOk &&
                         !carUsedAtOtherWallbox) {
                     if (isAnyOfModesSelected([pv_optimized]) &&
                             selectVehicleCard.selectedVehicle.stateByName("batteryLevel").value) {
@@ -1020,7 +1024,7 @@ GenericConfigPage {
                     pageStack.pop();
                 } else {
                     let anyKnownError = false;
-                    if(batteryLevelSlider.value === 0) {
+                    if(isAnyOfModesSelected([pv_optimized]) && batteryLevelSlider.value === 0) {
                         batteryLevelSlider.feedbackText = qsTr("Please select a battery level greater than 0%.");
                         anyKnownError = true;
                     }
