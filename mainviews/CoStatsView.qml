@@ -760,7 +760,7 @@ MainViewBase {
                                 Layout.leftMargin: Style.largeMargins
                                 Layout.rightMargin: Style.largeMargins
                                 Layout.bottomMargin: Style.margins
-                                visible: periodSelector.sampleRate !== EnergyLogs.SampleRate1Day && d.hasPartialBatteryEnergySupport
+                                visible: periodSelector.sampleRate !== EnergyLogs.SampleRate1Day && d.hasPartialBatteryEnergySupport && d.hasVisibleBatteryEnergySeries
                                 text: batteryEnergySupportText()
                                 textFormat: Text.RichText
                                 wrapMode: Text.WordWrap
@@ -927,6 +927,24 @@ MainViewBase {
         // reports the counters at all (the series is hidden entirely then,
         // see "provider.hasBatteryEnergyCounters") nor when all of them do.
         readonly property bool hasPartialBatteryEnergySupport: batteriesWithEnergyCounters.count > 0 && batteriesWithEnergyCounters.count < batteries.count
+
+        // Whether at least one of the currently active tab's bar charts
+        // actually shows a "From/To battery" series (see "provider.
+        // hasBatteryEnergyCounters" on the "computeEnergyBalance*Series"
+        // functions below) - used to suppress "batteryEnergySupportLabel"
+        // when there's no battery series on screen to annotate (Month/Year
+        // show two bar charts at once - the sub-period one and the
+        // year-over-year one - so either can make the label relevant).
+        readonly property bool hasVisibleBatteryEnergySeries: {
+            if (periodSelector.sampleRate === EnergyLogs.SampleRate1Week) {
+                return weekEnergyLogs.hasBatteryEnergyCounters
+            } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Month) {
+                return monthEnergyLogs.hasBatteryEnergyCounters || yoyEnergyLogs.hasBatteryEnergyCounters
+            } else if (periodSelector.sampleRate === EnergyLogs.SampleRate1Year) {
+                return yearEnergyLogs.hasBatteryEnergyCounters || yoyEnergyLogs.hasBatteryEnergyCounters
+            }
+            return false
+        }
 
         // The Battery SoC series/right axis are prepared in the data shape
         // (see "computeEnergyBalanceLineSeries" below) so wiring them up
