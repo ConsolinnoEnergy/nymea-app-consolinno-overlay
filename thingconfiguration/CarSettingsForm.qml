@@ -52,6 +52,10 @@ ColumnLayout {
         if (minChargingCurrentParamTypeId) {
             result.push({ paramTypeId: minChargingCurrentParamTypeId, value: minChargingCurrentInput.value });
         }
+        var maxChargingCurrentParamTypeId = d.settingParamTypeId("maxChargingCurrent");
+        if (maxChargingCurrentParamTypeId) {
+            result.push({ paramTypeId: maxChargingCurrentParamTypeId, value: maxChargingCurrentInput.value });
+        }
         var phaseCountParamTypeId = d.settingParamTypeId("phaseCount");
         if (phaseCountParamTypeId) {
             result.push({ paramTypeId: phaseCountParamTypeId, value: phaseCountInput.currentValue });
@@ -91,6 +95,37 @@ ColumnLayout {
         stepSize: 1
         value: thing ? thing.stateByName("minChargingCurrent").value : 6
         valueText: value + " A"
+
+        // Minimum must never exceed the maximum charging current.
+        onValueChanged: {
+            if (value > maxChargingCurrentInput.value) {
+                maxChargingCurrentInput.value = value;
+            }
+        }
+    }
+
+    CoSlider {
+        id: maxChargingCurrentInput
+        Layout.fillWidth: true
+        labelText: qsTr("Maximum charging current")
+        from: 6
+        to: 32
+        stepSize: 1
+        value: {
+            if (!thing) {
+                return 32;
+            }
+            var state = thing.stateByName("maxChargingCurrent");
+            return state ? state.value : 32;
+        }
+        valueText: value + " A"
+
+        // Maximum must never be lower than the minimum charging current.
+        onValueChanged: {
+            if (value < minChargingCurrentInput.value) {
+                minChargingCurrentInput.value = value;
+            }
+        }
     }
 
     CoComboBox {
