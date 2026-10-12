@@ -133,9 +133,14 @@ MainViewBase {
     // totalEnergyConsumed/totalEnergyProduced counters the Week/Month/
     // Year/YoY bar charts' "From/To battery" series are summed from (see
     // PeriodEnergyLogs.qml's file doc comment - not every energystorage
-    // Thing class implements them). Compared against "batteries" by
-    // "d.hasPartialBatteryEnergySupport" to tell installations where every
-    // battery is included from ones where some are silently missing.
+    // Thing class implements them). Used two ways: compared against
+    // "batteries" by "d.hasPartialBatteryEnergySupport" to tell
+    // installations where every battery is included from ones where some
+    // are silently missing, and its "count > 0" is bound onto every
+    // PeriodEnergyLogs instance's "hasBatteryWithEnergyCounters" below so
+    // a counter-capable battery that simply hasn't charged/discharged yet
+    // in the currently viewed category still shows its (all-zero) series
+    // instead of being hidden entirely.
     ThingsProxy {
         id: batteriesWithEnergyCounters
         engine: _engine
@@ -177,21 +182,25 @@ MainViewBase {
         id: weekEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Day
+        hasBatteryWithEnergyCounters: batteriesWithEnergyCounters.count > 0
     }
     PeriodEnergyLogs {
         id: monthEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Week
+        hasBatteryWithEnergyCounters: batteriesWithEnergyCounters.count > 0
     }
     PeriodEnergyLogs {
         id: yearEnergyLogs
         engine: _engine
         sampleRate: EnergyLogs.SampleRate1Month
+        hasBatteryWithEnergyCounters: batteriesWithEnergyCounters.count > 0
     }
     PeriodEnergyLogs {
         id: yoyEnergyLogs
         engine: _engine
         sampleRate: periodSelector.sampleRate === EnergyLogs.SampleRate1Month ? EnergyLogs.SampleRate1Month : EnergyLogs.SampleRate1Year
+        hasBatteryWithEnergyCounters: batteriesWithEnergyCounters.count > 0
     }
 
     // Fetches KPIs for the period currently selected in "periodSelector".

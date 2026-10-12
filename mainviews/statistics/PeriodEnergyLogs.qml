@@ -46,13 +46,30 @@ import Nymea
 // a per-Thing sum here, history isn't lost when the installation's
 // battery setup changes. "hasBatteryEnergyCounters" below reflects
 // whether that aggregated series actually carries any battery activity
-// for the currently viewed categories.
+// for the currently viewed categories, OR whether a battery Thing
+// currently exists that is capable of reporting them at all (see
+// "hasBatteryWithEnergyCounters" below) - without that second check, a
+// freshly started category (e.g. Monday morning, start of the week) with
+// a real, counter-capable battery that simply hasn't charged/discharged
+// yet would wrongly look like "no battery energy support" and hide the
+// series, exactly like "d.hasBattery" already does for "d.hasBatterySoc"
+// in CoStatsView.qml.
 Item {
     id: root
 
     property Engine engine
     property int sampleRate: EnergyLogs.SampleRate1Week
     property var categoryRanges: []
+
+    // Whether at least one currently-existing battery Thing reports the
+    // cumulative totalEnergyConsumed/totalEnergyProduced counters (see
+    // file doc comment above) - bound by the caller to
+    // "batteriesWithEnergyCounters.count > 0" (CoStatsView.qml). Kept as a
+    // plain external input rather than looked up here, since this
+    // component has no ThingsProxy of its own and every caller already
+    // has to maintain exactly that ThingsProxy anyway (for
+    // "hasPartialBatteryEnergySupport").
+    property bool hasBatteryWithEnergyCounters: false
 
     readonly property bool fetchingData: powerBalanceLogs.fetchingData || consumerPowerLogsLoader.fetchingData
     readonly property alias energyManager: consumerThings.energyManager
@@ -140,6 +157,9 @@ Item {
     // misleading all-zero bar for installations without any battery
     // history.
     readonly property bool hasBatteryEnergyCounters: {
+        if (root.hasBatteryWithEnergyCounters) {
+            return true
+        }
         var to = root.toBatterySeries()
         var from = root.fromBatterySeries()
         return to.some(function (v) { return v > 0 }) || from.some(function (v) { return v > 0 })
