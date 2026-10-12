@@ -179,6 +179,59 @@ GenericConfigPage {
     QtObject {
         id: internal
         property int pendingCallId: -1
+
+        // Mirrors the backend's simulated car <-> wallbox assignment
+        // (IntegrationPluginEnergySimulation::handlePluggedInAction(),
+        // nymea-plugins-simulation): both lists are sorted by thing id
+        // (plain, non-locale-aware string compare, matching Qt's
+        // QString::operator<), then matched up by index. The Nth simulated
+        // wallbox (by id) is always paired with the Nth simulated car (by
+        // id).
+        function sortedById(things) {
+            var result = things.slice();
+            result.sort(function(left, right) {
+                var leftId = left.id.toString();
+                var rightId = right.id.toString();
+                if (leftId < rightId) return -1;
+                if (leftId > rightId) return 1;
+                return 0;
+            });
+            return result;
+        }
+
+        function simulatedWallboxes() {
+            var result = [];
+            for (var i = 0; i < simulatedEvChargersProxy.count; ++i) {
+                result.push(simulatedEvChargersProxy.get(i));
+            }
+            return internal.sortedById(result);
+        }
+
+        function simulatedCars() {
+            var result = [];
+            for (var i = 0; i < simulationEvProxy.count; ++i) {
+                result.push(simulationEvProxy.get(i));
+            }
+            return internal.sortedById(result);
+        }
+
+        // Returns the simulated car paired with the given simulated wallbox
+        // thing, or null if there is none (e.g. not enough simulated cars).
+        function simulatedCarForWallbox(wallboxThing) {
+            var wallboxes = internal.simulatedWallboxes();
+            var wallboxIndex = -1;
+            for (var i = 0; i < wallboxes.length; ++i) {
+                if (wallboxes[i].id.toString() === wallboxThing.id.toString()) {
+                    wallboxIndex = i;
+                    break;
+                }
+            }
+            if (wallboxIndex < 0) {
+                return null;
+            }
+            var cars = internal.simulatedCars();
+            return wallboxIndex < cars.length ? cars[wallboxIndex] : null;
+        }
     }
 
     title: root.thing.name
@@ -356,16 +409,6 @@ GenericConfigPage {
         shownThingClassIds: ["{21a48e6d-6152-407a-a303-3b46e29bbb94}"]
     }
 
-    function simulatedEvChargerIndex() {
-        for (let i = 0; i < simulatedEvChargersProxy.count; ++i) {
-            const simulatedEvCharger = simulatedEvChargersProxy.get(i);
-            if (simulatedEvCharger.id === root.thing.id) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
     Component.onCompleted: {
         checkPhaseCountTimer.start();
     }
@@ -436,21 +479,18 @@ GenericConfigPage {
                             id: simulationSwitch
                             Layout.fillWidth: true
                             text: qsTr("Activate simulated car")
+                            readonly property bool isSimulatedWallbox: thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}"
+                            readonly property var simulatedCar: isSimulatedWallbox ? internal.simulatedCarForWallbox(thing) : null
                             visible: !(isCarPluggedIn()) &&
-                                     (simulationEvProxy.count > simulatedEvChargerIndex())  &&
-                                     (thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}")
+                                     isSimulatedWallbox &&
+                                     simulatedCar !== null
 
                             onCheckedChanged: {
-                                const chargerIndex = simulatedEvChargerIndex();
-                                if (chargerIndex >= simulationEvProxy.count) {
-                                    console.warn("There are not enough simulated electric vehicles!");
+                                if (!simulatedCar) {
+                                    console.warn("No simulated car assigned to this simulated wallbox!");
                                     return;
                                 }
-                                if (simulationSwitch.checked) {
-                                    simulationEvProxy.get(chargerIndex).executeAction("pluggedIn", [{paramName: "pluggedIn", value: true}]);
-                                } else {
-                                    simulationEvProxy.get(chargerIndex).executeAction("pluggedIn", [{paramName: "pluggedIn", value: false}]);
-                                }
+                                simulatedCar.executeAction("pluggedIn", [{paramName: "pluggedIn", value: simulationSwitch.checked}]);
                             }
                         }
                     }
@@ -1151,16 +1191,11 @@ GenericConfigPage {
                                 id: selectVehicleCard
 
                                 // Simulated wallboxes are hard-wired to the simulated car
-                                // sharing the same index (see simulationSwitch above), so
-                                // the car selection must not be changeable in that case.
+                                // matched up by thing id (see internal.simulatedCarForWallbox
+                                // above), so the car selection must not be changeable in that
+                                // case.
                                 readonly property bool isSimulatedWallbox: thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}"
-                                readonly property var simulatedVehicle: {
-                                    if (!isSimulatedWallbox) {
-                                        return null;
-                                    }
-                                    const chargerIndex = simulatedEvChargerIndex();
-                                    return chargerIndex < simulationEvProxy.count ? simulationEvProxy.get(chargerIndex) : null;
-                                }
+                                readonly property var simulatedVehicle: isSimulatedWallbox ? internal.simulatedCarForWallbox(thing) : null
                                 // Car that was last applied for this specific wallbox. Kept
                                 // per-thing in ChargingConfiguration.carThingId (as opposed to
                                 // the app-wide userconfig.lastSelectedCar), so it stays correct
