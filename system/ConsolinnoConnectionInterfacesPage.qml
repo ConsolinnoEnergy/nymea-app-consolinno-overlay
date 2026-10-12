@@ -57,7 +57,7 @@ SettingsPageBase {
 
     Connections {
         target: hemsManager
-        onSetRemoteConnectionEnabledReply: function(commandId, error) {
+        function onSetRemoteConnectionEnabledReply(commandId, error) {
             if (commandId !== d.pendingCallId) {
                 return;
             }
