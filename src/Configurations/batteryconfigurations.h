@@ -13,7 +13,8 @@ class BatteryConfigurations : public QAbstractListModel
 public:
     enum Role{
         RoleBatteryThingId,
-        RoleOptimizationEnabled,
+        RoleOperatingMode,
+        RoleOptimizationStrategies,
         RolePriceThreshold,
         RoleRelativePriceEnabled,
         RoleDischargePriceThreshold,

@@ -15,18 +15,32 @@ void BatteryConfiguration::setBatteryThingId(const QUuid &batteryThingId)
     m_batteryThingId = batteryThingId;
 }
 
-bool BatteryConfiguration::optimizationEnabled() const
+ControlConfig::OperatingMode BatteryConfiguration::operatingMode() const
 {
-    return m_optimizationEnabled;
+    return m_operatingMode;
 }
 
-void BatteryConfiguration::setOptimizationEnabled(bool optimizationEnabled)
+void BatteryConfiguration::setOperatingMode(ControlConfig::OperatingMode operatingMode)
 {
-    if (m_optimizationEnabled == optimizationEnabled)
+    if (m_operatingMode == operatingMode)
         return;
 
-    m_optimizationEnabled = optimizationEnabled;
-    emit optimizationEnabledChanged(m_optimizationEnabled);
+    m_operatingMode = operatingMode;
+    emit operatingModeChanged(m_operatingMode);
+}
+
+int BatteryConfiguration::optimizationStrategies() const
+{
+    return m_optimizationStrategies;
+}
+
+void BatteryConfiguration::setOptimizationStrategies(int optimizationStrategies)
+{
+    if (m_optimizationStrategies == optimizationStrategies)
+        return;
+
+    m_optimizationStrategies = optimizationStrategies;
+    emit optimizationStrategiesChanged(m_optimizationStrategies);
 }
 
 bool BatteryConfiguration::avoidZeroFeedInActive() const

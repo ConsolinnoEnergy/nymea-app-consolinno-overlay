@@ -5,27 +5,30 @@
 #include <QUuid>
 #include <QObject>
 
+#include "controlconfigurationenums.h"
+
 class BatteryConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid batteryThingId READ batteryThingId CONSTANT)
-    Q_PROPERTY(bool optimizationEnabled READ optimizationEnabled WRITE setOptimizationEnabled NOTIFY optimizationEnabledChanged)
+    Q_PROPERTY(ControlConfig::OperatingMode operatingMode READ operatingMode WRITE setOperatingMode NOTIFY operatingModeChanged)
+    Q_PROPERTY(int optimizationStrategies READ optimizationStrategies WRITE setOptimizationStrategies NOTIFY optimizationStrategiesChanged)
+    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(double priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
-    Q_PROPERTY(double dischargePriceThreshold READ dischargePriceThreshold WRITE setDischargePriceThreshold NOTIFY dischargePriceThresholdChanged)
     Q_PROPERTY(bool relativePriceEnabled READ relativePriceEnabled WRITE setRelativePriceEnabled NOTIFY relativePriceEnabledChanged)
     Q_PROPERTY(bool chargeOnce READ chargeOnce WRITE setChargeOnce NOTIFY chargeOnceChanged)
-    Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
     Q_PROPERTY(bool avoidZeroFeedInEnabled READ avoidZeroFeedInEnabled WRITE setAvoidZeroFeedInEnabled NOTIFY avoidZeroFeedInEnabledChanged)
-    Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
+    Q_PROPERTY(bool avoidZeroFeedInActive READ avoidZeroFeedInActive WRITE setAvoidZeroFeedInActive NOTIFY avoidZeroFeedInActiveChanged)
+    Q_PROPERTY(double dischargePriceThreshold READ dischargePriceThreshold WRITE setDischargePriceThreshold NOTIFY dischargePriceThresholdChanged)
     Q_PROPERTY(int blockBatteryOnGridConsumption READ blockBatteryOnGridConsumption WRITE setBlockBatteryOnGridConsumption NOTIFY blockBatteryOnGridConsumptionChanged)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(QList<int> targetSocPvSurplus READ targetSocPvSurplus WRITE setTargetSocPvSurplus NOTIFY targetSocPvSurplusChanged)
+    Q_PROPERTY(double batteryPowerMargin READ batteryPowerMargin WRITE setBatteryPowerMargin NOTIFY batteryPowerMarginChanged)
+    Q_PROPERTY(double batteryPowerRateLimit READ batteryPowerRateLimit WRITE setBatteryPowerRateLimit NOTIFY batteryPowerRateLimitChanged)
+    Q_PROPERTY(bool fullymanagableBattery READ fullymanagableBattery WRITE setFullymanagableBattery NOTIFY fullymanagableBatteryChanged)
     Q_PROPERTY(int maxSoC READ maxSoC WRITE setMaxSoC NOTIFY maxSoCChanged)
     Q_PROPERTY(int minSoC READ minSoC WRITE setMinSoC NOTIFY minSoCChanged)
     Q_PROPERTY(int taperSoC READ taperSoC WRITE setTaperSoC NOTIFY taperSoCChanged)
-    Q_PROPERTY(bool fullymanagableBattery READ fullymanagableBattery WRITE setFullymanagableBattery NOTIFY fullymanagableBatteryChanged)
-    Q_PROPERTY(double batteryPowerMargin READ batteryPowerMargin WRITE setBatteryPowerMargin NOTIFY batteryPowerMarginChanged)
-    Q_PROPERTY(double batteryPowerRateLimit READ batteryPowerRateLimit WRITE setBatteryPowerRateLimit NOTIFY batteryPowerRateLimitChanged)
 
 public:
 
@@ -52,8 +55,11 @@ public:
     QUuid batteryThingId() const;
     void setBatteryThingId(const QUuid &batteryThingId);
 
-    bool optimizationEnabled() const;
-    void setOptimizationEnabled(bool optimizationEnabled);
+    ControlConfig::OperatingMode operatingMode() const;
+    void setOperatingMode(ControlConfig::OperatingMode operatingMode);
+
+    int optimizationStrategies() const;
+    void setOptimizationStrategies(int optimizationStrategies);
 
     double priceThreshold() const;
     void setPriceThreshold(double priceThreshold);
@@ -104,7 +110,8 @@ public:
     void setBatteryPowerRateLimit(double batteryPowerRateLimit);
 
 signals:
-    void optimizationEnabledChanged(bool optimizationEnabled);
+    void operatingModeChanged(ControlConfig::OperatingMode operatingMode);
+    void optimizationStrategiesChanged(int optimizationStrategies);
     void priceThresholdChanged(double priceThreshold);
     void dischargePriceThresholdChanged(double dischargePriceThreshold);
     void avoidZeroFeedInActiveChanged(bool avoidZeroFeedInActive);
@@ -124,7 +131,8 @@ signals:
 
 private:
     QUuid m_batteryThingId;
-    bool m_optimizationEnabled = true;
+    ControlConfig::OperatingMode m_operatingMode = ControlConfig::StrategyControlled;
+    int m_optimizationStrategies = ControlConfig::PvOptimized;
     double m_priceThreshold = 0;
     double m_dischargePriceThreshold = 0;
     bool m_relativePriceEnabled = false;

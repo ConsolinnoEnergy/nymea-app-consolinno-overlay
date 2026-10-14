@@ -77,7 +77,7 @@ GenericConfigPage {
 
         onBatteryConfigurationChanged: function(config) {
             if (config.batteryThingId !== thing.id) { return; }
-            tariffControlledChargingToggle.checked = config.optimizationEnabled;
+            tariffControlledChargingToggle.checked = (config.optimizationStrategies & ControlConfig.DynamicTariff) !== 0;
             chargeOnceToggle.checked = config.chargeOnce;
             relChargingThreshold = config.priceThreshold;
             relDischargeBlockedThreshold = config.dischargePriceThreshold;
@@ -114,7 +114,8 @@ GenericConfigPage {
         let targetSocPvSurplus = pvPrioGroup.visible ? [ Math.round(pvPrioSlider.value) ] : batteryConfiguration.targetSocPvSurplus;
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
-                                                                  "optimizationEnabled": tariffControlledChargingToggle.checked,
+                                                                  "operatingMode": ControlConfig.StrategyControlled,
+                                                                  "optimizationStrategies": ControlConfig.PvOptimized | (tariffControlledChargingToggle.checked ? ControlConfig.DynamicTariff : 0),
                                                                   "priceThreshold": relChargingThreshold,
                                                                   "dischargePriceThreshold": relDischargeBlockedThreshold,
                                                                   "relativePriceEnabled": true,
@@ -128,7 +129,7 @@ GenericConfigPage {
         root.applyEnabled = batteryConfiguration.priceThreshold !== relChargingThreshold ||
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
-                batteryConfiguration.optimizationEnabled !== tariffControlledChargingToggle.checked ||
+                ((batteryConfiguration.optimizationStrategies & ControlConfig.DynamicTariff) !== 0) !== tariffControlledChargingToggle.checked ||
                 (pvPrioGroup.visible &&
                  (batteryConfiguration.targetSocPvSurplus.length === 0 ||
                   batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value)));
@@ -293,7 +294,7 @@ GenericConfigPage {
                             infoUrl: "TariffGuidedChargingInfo.qml"
 
                             Component.onCompleted: {
-                                checked = root.batteryConfiguration.optimizationEnabled;
+                                checked = (root.batteryConfiguration.optimizationStrategies & ControlConfig.DynamicTariff) !== 0;
                             }
                             onCheckedChanged: {
                                 if(!tariffControlledChargingToggle.checked){

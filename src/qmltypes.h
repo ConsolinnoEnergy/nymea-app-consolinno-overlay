@@ -8,6 +8,7 @@
 #include "Configurations/userconfigurations.h"
 #include "Configurations/cloudconfiguration.h"
 #include "Configurations/devconfigpvsurplus.h"
+#include "Configurations/controlconfigurationenums.h"
 
 
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
@@ -37,4 +38,5 @@ void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterUncreatableType<SwitchConfigurations>(uri, versionMajor, versionMinor, "SwitchConfigurations", "Get it from HemsManager");
     qmlRegisterUncreatableType<CloudConfiguration>(uri, versionMajor, versionMinor, "CloudConfiguration", "Get it from HemsManager");
     qmlRegisterUncreatableType<DevConfigPvSurplus>(uri, versionMajor, versionMinor, "DevConfigPvSurplus", "Get it from HemsManager");
+    qmlRegisterUncreatableMetaObject(ControlConfig::staticMetaObject, uri, versionMajor, versionMinor, "ControlConfig", "Access enums only");
 }

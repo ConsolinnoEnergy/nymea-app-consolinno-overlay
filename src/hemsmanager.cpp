@@ -5,6 +5,7 @@
 #include <QMetaEnum>
 #include <QMetaProperty>
 
+#include "Configurations/controlconfigurationenums.h"
 #include "logging.h"
 
 NYMEA_LOGGING_CATEGORY(dcHems, "Hems");
@@ -22,6 +23,26 @@ const QString OperatingModeNoControl = QStringLiteral("NoControl");
 bool hasOptimizationStrategy(const QVariant &value, int strategy)
 {
     return (value.toInt() & strategy) != 0;
+}
+
+// operatingMode is a Q_ENUM on the backend and therefore transmitted over
+// JSON-RPC as its enum key name (e.g. "StrategyControlled"), not as an integer.
+QString operatingModeToString(ControlConfig::OperatingMode operatingMode)
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<ControlConfig::OperatingMode>();
+    return QString::fromLatin1(metaEnum.valueToKey(operatingMode));
+}
+
+ControlConfig::OperatingMode operatingModeFromString(const QString &operatingMode, ControlConfig::OperatingMode fallback = ControlConfig::NoControl)
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<ControlConfig::OperatingMode>();
+    bool ok = false;
+    const int value = metaEnum.keyToValue(operatingMode.toUtf8().constData(), &ok);
+    if (!ok) {
+        qCWarning(dcHems()) << "Unknown operatingMode received:" << operatingMode << "- falling back to" << operatingModeToString(fallback);
+        return fallback;
+    }
+    return static_cast<ControlConfig::OperatingMode>(value);
 }
 
 void logSetConfigurationResponse(const QString &configurationName, const QVariantMap &data)
@@ -635,19 +656,18 @@ int HemsManager::setBatteryConfiguration(const QUuid &batteryThingId, const QVar
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name()))
-        {
-            config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-        }else{
-            config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-        }
-    }
+        const QMetaProperty prop = metaObj->property(i);
+        const char *name = prop.name();
+        QVariant value = data.contains(name) ? data.value(name) : prop.read(configuration);
 
-    const bool dynamicTariffEnabled = config.take("optimizationEnabled").toBool();
-    config.insert("operatingMode", OperatingModeStrategyControlled);
-    config.insert("optimizationStrategies", dynamicTariffEnabled
-                  ? OptimizationStrategyPvOptimized | OptimizationStrategyDynamicTariff
-                  : OptimizationStrategyPvOptimized);
+        // operatingMode is transmitted over JSON-RPC as its enum key name
+        // (e.g. "StrategyControlled"), not as an integer, so convert explicitly.
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
+        }
+
+        config.insert(name, value);
+    }
 
     // QList<int> does not serialize to JSON via the meta-object system, convert explicitly
     if (!data.contains("targetSocPvSurplus")) {
@@ -1462,9 +1482,8 @@ void HemsManager::addOrUpdateBatteryConfiguration(const QVariantMap &configurati
         configuration->setBatteryThingId(batteryUuid);
     }
 
-    const bool dynamicTariffEnabled = hasOptimizationStrategy(
-        configurationMap.value("optimizationStrategies"), OptimizationStrategyDynamicTariff);
-    configuration->setOptimizationEnabled(dynamicTariffEnabled);
+    configuration->setOperatingMode(operatingModeFromString(configurationMap.value("operatingMode").toString()));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
     configuration->setAvoidZeroFeedInEnabled(configurationMap.value("avoidZeroFeedInEnabled").toBool());
     configuration->setAvoidZeroFeedInActive(configurationMap.value("avoidZeroFeedInActive").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());

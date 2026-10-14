@@ -18,8 +18,10 @@ QVariant BatteryConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleBatteryThingId:
         return m_list.at(index.row())->batteryThingId();
-    case RoleOptimizationEnabled:
-        return m_list.at(index.row())->optimizationEnabled();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
     case RolePriceThreshold:
         return m_list.at(index.row())->priceThreshold();
     case RoleDischargePriceThreshold:
@@ -55,7 +57,8 @@ QHash<int, QByteArray> BatteryConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleBatteryThingId, "batteryThingId");
-    roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
     roles.insert(RolePriceThreshold, "priceThreshold");
     roles.insert(RoleDischargePriceThreshold, "dischargePriceThreshold");
     roles.insert(RoleRelativePriceEnabled, "relativePriceEnabled");
@@ -100,9 +103,14 @@ void BatteryConfigurations::addConfiguration(BatteryConfiguration *batteryConfig
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(batteryConfiguration);
 
-    connect(batteryConfiguration, &BatteryConfiguration::optimizationEnabledChanged, this, [=](){
+    connect(batteryConfiguration, &BatteryConfiguration::operatingModeChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+        emit dataChanged(idx, idx, {RoleOperatingMode});
+    });
+
+    connect(batteryConfiguration, &BatteryConfiguration::optimizationStrategiesChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(batteryConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
     });
 
     connect(batteryConfiguration, &BatteryConfiguration::priceThresholdChanged, this, [=](){
