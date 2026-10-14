@@ -978,17 +978,6 @@ MainViewBase {
             return false
         }
 
-        // "Other consumption" in the Week/Month/Year/YoY consumer-stack bar
-        // chart (computeConsumptionConsumerStackSeries below) is now read
-        // directly off the backend's aggregated "totalUnknownConsumption"
-        // counter (see PeriodEnergyLogs.qml's "otherConsumptionSeries"),
-        // which the backend computes from real per-Thing data rather than
-        // a residual subtraction from "totalConsumption" - sidestepping
-        // the previous double-counting issue where battery charging energy
-        // got folded into "consumption" and inflated this bucket (no "To
-        // battery" category existed here to absorb it; see
-        // PeriodEnergyLogs.qml's file doc comment).
-        readonly property bool otherConsumptionEnabled: true
 
         // Consumer Thing type -> its own dedicated {color, borderColor} -
         // first match wins, checked in "assignConsumerColors" below. A
@@ -1407,7 +1396,8 @@ MainViewBase {
         // which would have double-counted that energy once "To battery"
         // is also shown here. That's since been fixed backend-side
         // (totalConsumption now explicitly subtracts totalToStorage) -
-        // see "otherConsumptionEnabled" above for the same root cause.
+        // same root cause as "Other consumption" in
+        // computeConsumptionConsumerStackSeries() below.
         //
         // Despite their names (kept as-is since they back the
         // "*EnergyBalanceProductionSeries"/"*EnergyBalanceConsumptionSeries"
@@ -1538,16 +1528,17 @@ MainViewBase {
                     values: entry.values
                 }
             })
-            if (d.otherConsumptionEnabled) {
-                series.push({
-                    name: qsTr("Other consumption"),
-                    key: "consumption:otherConsumption",
-                    color: Style.colors.components_Statistics_Things_and_states_Consumption,
-                    borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
-                    visible: d.isSeriesVisible("consumption:otherConsumption"),
-                    values: provider.otherConsumptionSeries()
-                })
-            }
+            // "Other consumption" catch-all bucket, read directly off the
+            // backend's aggregated "totalUnknownConsumption" counter (see
+            // PeriodEnergyLogs.qml's "otherConsumptionSeries").
+            series.push({
+                name: qsTr("Other consumption"),
+                key: "consumption:otherConsumption",
+                color: Style.colors.components_Statistics_Things_and_states_Consumption,
+                borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
+                visible: d.isSeriesVisible("consumption:otherConsumption"),
+                values: provider.otherConsumptionSeries()
+            })
             return series
         }
 
