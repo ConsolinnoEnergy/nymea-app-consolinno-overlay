@@ -63,3 +63,54 @@ function isoWeeksInYear(isoYear) {
     }
     return (p(isoYear) === 4 || p(isoYear - 1) === 3) ? 53 : 52
 }
+
+// Parses "HH:mm" into minutes since midnight. Returns -1 for invalid input.
+function timeStringToMinutes(str) {
+    var match = /^(\d{1,2}):(\d{2})/.exec(str || "")
+    if (!match)
+        return -1
+    var h = parseInt(match[1])
+    var m = parseInt(match[2])
+    if (h > 23 || m > 59)
+        return -1
+    return h * 60 + m
+}
+
+function minutesToTimeString(total) {
+    var h = Math.floor(total / 60)
+    var m = total % 60
+    return (h < 10 ? "0" : "") + h + ":" + (m < 10 ? "0" : "") + m
+}
+
+var LAST_QUARTER_OF_DAY = 23 * 60 + 45
+
+// Rounds an "HH:mm" string down to the previous full quarter hour.
+// Invalid input is returned unchanged.
+function floorToQuarter(str) {
+    var total = timeStringToMinutes(str)
+    if (total < 0)
+        return str
+    return minutesToTimeString(Math.floor(total / 15) * 15)
+}
+
+// Rounds an "HH:mm" string up to the next full quarter hour, capped at 23:45.
+// Invalid input is returned unchanged.
+function ceilToQuarter(str) {
+    var total = timeStringToMinutes(str)
+    if (total < 0)
+        return str
+    return minutesToTimeString(Math.min(Math.ceil(total / 15) * 15, LAST_QUARTER_OF_DAY))
+}
+
+// Normalizes a schedule entry to quarter hours (start rounded down, end rounded
+// up). Returns {startTime, endTime} or null if the entry is invalid or empty
+// (invalid format, or start >= end after rounding).
+function normalizeQuarterRange(startStr, endStr) {
+    if (timeStringToMinutes(startStr) < 0 || timeStringToMinutes(endStr) < 0)
+        return null
+    var start = floorToQuarter(startStr)
+    var end = ceilToQuarter(endStr)
+    if (timeStringToMinutes(start) >= timeStringToMinutes(end))
+        return null
+    return { startTime: start, endTime: end }
+}

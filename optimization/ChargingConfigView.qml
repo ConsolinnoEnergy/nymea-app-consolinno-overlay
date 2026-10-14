@@ -13,6 +13,7 @@ import "../components"
 import "../delegates"
 import "../devicepages"
 import "../utils/DynPricingUtils.js" as DynPricingUtils
+import "../utils/DateUtils.js" as DateUtils
 
 GenericConfigPage {
     id: root
@@ -77,11 +78,12 @@ GenericConfigPage {
             for (var i = 0; i < schedule.length; i++) {
                 var entry = schedule[i]
                 if (entry.startTime && entry.endTime) {
-                    // Skip entries with no actual time set (00:00 - 00:00)
-                    if (entry.startTime === "00:00" && entry.endTime === "00:00") continue
+                    // Skip entries with no actual time set (00:00 - 00:00) or invalid ones
+                    var range = DateUtils.normalizeQuarterRange(entry.startTime, entry.endTime)
+                    if (!range) continue
                     var label = dayLabels[entry.day] || entry.day
                     scheduleOverviewModel.append({
-                        timeText: entry.startTime + "–" + entry.endTime + " Uhr",
+                        timeText: range.startTime + "–" + range.endTime + " Uhr",
                         dayText: label
                     })
                 }
@@ -963,10 +965,11 @@ GenericConfigPage {
                 if(isAnyOfModesSelected([time_controlled])) {
                     for (var i = 0; i < scheduleModel.count; i++) {
                         var entry = scheduleModel.get(i);
+                        var range = entry.hasEntry ? DateUtils.normalizeQuarterRange(entry.startTime, entry.endTime) : null;
                         chargingSchedule.push({
                                                   day: entry.dayKey,
-                                                  startTime: entry.hasEntry ? entry.startTime : "00:00",
-                                                  endTime: entry.hasEntry ? entry.endTime : "00:00"
+                                                  startTime: range ? range.startTime : "00:00",
+                                                  endTime: range ? range.endTime : "00:00"
                                               });
                     }
                 }
@@ -1116,11 +1119,12 @@ GenericConfigPage {
                         var entry = schedule.find(function(e) { return e.day === currentDay });
 
                         if (entry && entry.startTime && entry.endTime) {
-                            var hasTime = !(entry.startTime === "00:00" && entry.endTime === "00:00");
+                            // Legacy configs may contain arbitrary minutes: round to quarter hours
+                            var range = DateUtils.normalizeQuarterRange(entry.startTime, entry.endTime);
                             if (i < scheduleModel.count) {
-                                scheduleModel.setProperty(i, "startTime", entry.startTime);
-                                scheduleModel.setProperty(i, "endTime", entry.endTime);
-                                scheduleModel.setProperty(i, "hasEntry", hasTime);
+                                scheduleModel.setProperty(i, "startTime", range ? range.startTime : "");
+                                scheduleModel.setProperty(i, "endTime", range ? range.endTime : "");
+                                scheduleModel.setProperty(i, "hasEntry", range !== null);
                             }
                         }
                     }

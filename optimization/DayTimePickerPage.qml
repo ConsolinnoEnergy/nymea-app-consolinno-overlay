@@ -4,6 +4,7 @@ import QtQuick.Layouts
 import Nymea
 
 import "../components"
+import "../utils/DateUtils.js" as DateUtils
 
 Page {
     id: root
@@ -17,27 +18,18 @@ Page {
     signal timeSelected(string startTime, string endTime)
     signal entryRemoved()
 
-    // Parse initial times
-    property int initStartHour: {
-        if (initialStartTime && initialStartTime.indexOf(":") > 0)
-            return parseInt(initialStartTime.split(":")[0])
-        return 12
-    }
-    property int initStartMinute: {
-        if (initialStartTime && initialStartTime.indexOf(":") > 0)
-            return parseInt(initialStartTime.split(":")[1])
-        return 0
-    }
-    property int initEndHour: {
-        if (initialEndTime && initialEndTime.indexOf(":") > 0)
-            return parseInt(initialEndTime.split(":")[0])
-        return 12
-    }
-    property int initEndMinute: {
-        if (initialEndTime && initialEndTime.indexOf(":") > 0)
-            return parseInt(initialEndTime.split(":")[1])
-        return 0
-    }
+    readonly property var minuteValues: [0, 15, 30, 45]
+
+    // Initial times are rounded to full quarter hours (start down, end up)
+    readonly property string normalizedStart: initialStartTime && initialStartTime.indexOf(":") > 0
+                                              ? DateUtils.floorToQuarter(initialStartTime) : "12:00"
+    readonly property string normalizedEnd: initialEndTime && initialEndTime.indexOf(":") > 0
+                                            ? DateUtils.ceilToQuarter(initialEndTime) : "12:00"
+
+    property int initStartHour: parseInt(normalizedStart.split(":")[0])
+    property int initStartMinuteIndex: parseInt(normalizedStart.split(":")[1]) / 15
+    property int initEndHour: parseInt(normalizedEnd.split(":")[0])
+    property int initEndMinuteIndex: parseInt(normalizedEnd.split(":")[1]) / 15
 
     header: null
 
@@ -68,9 +60,9 @@ Page {
 
     function confirm() {
         var sh = startHourTumbler.currentIndex
-        var sm = startMinuteTumbler.currentIndex
+        var sm = root.minuteValues[startMinuteTumbler.currentIndex]
         var eh = endHourTumbler.currentIndex
-        var em = endMinuteTumbler.currentIndex
+        var em = root.minuteValues[endMinuteTumbler.currentIndex]
 
         var startTotal = sh * 60 + sm
         var endTotal = eh * 60 + em
@@ -141,7 +133,7 @@ Page {
                             Tumbler {
                                 id: startHourTumbler
                                 model: 24
-                                wrap: true
+                                wrap: false
                                 visibleItemCount: 3
                                 implicitWidth: 70
                                 implicitHeight: 120
@@ -159,12 +151,12 @@ Page {
 
                             Tumbler {
                                 id: startMinuteTumbler
-                                model: 60
-                                wrap: true
+                                model: root.minuteValues
+                                wrap: false
                                 visibleItemCount: 3
                                 implicitWidth: 70
                                 implicitHeight: 120
-                                currentIndex: root.initStartMinute
+                                currentIndex: root.initStartMinuteIndex
 
                                 delegate: Label {
                                     text: (modelData < 10 ? "0" : "") + modelData
@@ -226,7 +218,7 @@ Page {
                             Tumbler {
                                 id: endHourTumbler
                                 model: 24
-                                wrap: true
+                                wrap: false
                                 visibleItemCount: 3
                                 implicitWidth: 70
                                 implicitHeight: 120
@@ -244,12 +236,12 @@ Page {
 
                             Tumbler {
                                 id: endMinuteTumbler
-                                model: 60
-                                wrap: true
+                                model: root.minuteValues
+                                wrap: false
                                 visibleItemCount: 3
                                 implicitWidth: 70
                                 implicitHeight: 120
-                                currentIndex: root.initEndMinute
+                                currentIndex: root.initEndMinuteIndex
 
                                 delegate: Label {
                                     text: (modelData < 10 ? "0" : "") + modelData
