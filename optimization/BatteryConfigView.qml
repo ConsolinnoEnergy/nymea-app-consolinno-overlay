@@ -78,6 +78,7 @@ GenericConfigPage {
         onBatteryConfigurationChanged: function(config) {
             if (config.batteryThingId !== thing.id) { return; }
             tariffControlledChargingToggle.checked = (config.optimizationStrategies & ControlConfig.DynamicTariff) !== 0;
+            externalScheduleToggle.checked = config.operatingMode === ControlConfig.ExternalSchedule;
             chargeOnceToggle.checked = config.chargeOnce;
             relChargingThreshold = config.priceThreshold;
             relDischargeBlockedThreshold = config.dischargePriceThreshold;
@@ -112,10 +113,11 @@ GenericConfigPage {
 
     function saveSettings() {
         let targetSocPvSurplus = pvPrioGroup.visible ? [ Math.round(pvPrioSlider.value) ] : batteryConfiguration.targetSocPvSurplus;
+        let externalScheduleEnabled = externalScheduleGroup.visible && externalScheduleToggle.checked;
         d.pendingCallId = hemsManager.setBatteryConfiguration(thing.id,
                                                               {
-                                                                  "operatingMode": ControlConfig.StrategyControlled,
-                                                                  "optimizationStrategies": ControlConfig.PvOptimized | (tariffControlledChargingToggle.checked ? ControlConfig.DynamicTariff : 0),
+                                                                  "operatingMode": externalScheduleEnabled ? ControlConfig.ExternalSchedule : ControlConfig.StrategyControlled,
+                                                                  "optimizationStrategies": externalScheduleEnabled ? ControlConfig.NoStrategy : (ControlConfig.PvOptimized | (tariffControlledChargingToggle.checked ? ControlConfig.DynamicTariff : 0)),
                                                                   "priceThreshold": relChargingThreshold,
                                                                   "dischargePriceThreshold": relDischargeBlockedThreshold,
                                                                   "relativePriceEnabled": true,
@@ -130,6 +132,8 @@ GenericConfigPage {
                 batteryConfiguration.dischargePriceThreshold !== relDischargeBlockedThreshold ||
                 (chargeOnceToggle.enabled && batteryConfiguration.chargeOnce !== chargeOnceToggle.checked) ||
                 ((batteryConfiguration.optimizationStrategies & ControlConfig.DynamicTariff) !== 0) !== tariffControlledChargingToggle.checked ||
+                (externalScheduleGroup.visible &&
+                 (batteryConfiguration.operatingMode === ControlConfig.ExternalSchedule) !== externalScheduleToggle.checked) ||
                 (pvPrioGroup.visible &&
                  (batteryConfiguration.targetSocPvSurplus.length === 0 ||
                   batteryConfiguration.targetSocPvSurplus[0] !== Math.round(pvPrioSlider.value)));
@@ -231,11 +235,39 @@ GenericConfigPage {
                 }
 
                 CoFrostyCard {
+                    id: externalScheduleGroup
+                    Layout.fillWidth: true
+                    contentTopMargin: Style.smallMargins
+                    headerText: qsTr("External Schedule")
+                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+
+                    ColumnLayout {
+                        anchors.left: parent.left
+                        anchors.right: parent.right
+                        spacing: Style.smallMargins
+
+                        CoSwitch {
+                            id: externalScheduleToggle
+                            Layout.fillWidth: true
+                            text: qsTr("Enable external schedule")
+
+                            Component.onCompleted: {
+                                checked = root.batteryConfiguration.operatingMode === ControlConfig.ExternalSchedule
+                            }
+                            onCheckedChanged: {
+                                enableSave(this);
+                            }
+                        }
+                    }
+                }
+
+                CoFrostyCard {
                     id: pvPrioGroup
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("PV device prioritization")
                     visible: thing.thingClass.interfaces.indexOf("battery") >= 0
+                    enabled: !externalScheduleGroup.visible || !externalScheduleToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -280,6 +312,7 @@ GenericConfigPage {
                     headerText: qsTr("Charging from grid")
                     visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0 &&
                              dynamicPrice.count >= 1
+                    enabled: !externalScheduleGroup.visible || !externalScheduleToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -309,7 +342,6 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: qsTr("Activate instant charging")
                             enabled: tariffControlledChargingToggle.checked && !root.isZeroCompensation
-                            // #TODO show helpText when not enabled to explain why?
                             visible: tariffControlledChargingToggle.checked
                             infoUrl: "ActivateInstantChargingInfo.qml"
 
@@ -331,7 +363,8 @@ GenericConfigPage {
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Charging plan")
                     visible: tariffControlledChargingToggle.visible && tariffControlledChargingToggle.checked
-                    enabled: !chargeOnceToggle.checked
+                    enabled: (!externalScheduleGroup.visible || !externalScheduleToggle.checked) &&
+                             !chargeOnceToggle.checked
 
                     ColumnLayout {
                         anchors.left: parent.left
