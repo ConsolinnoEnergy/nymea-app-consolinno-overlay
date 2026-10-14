@@ -288,16 +288,15 @@ Item {
         return result
     }
 
-    // Total consumption minus the sum of all known consumers, per category
-    // - the "Other consumption" catch-all bucket (see
-    // ConsumerConsumptionLogs.qml's "otherConsumption" for the Day/line-
-    // chart equivalent of this same idea).
+    // Read directly off the backend's aggregated "totalUnknownConsumption"
+    // counter (analogous to "toBatterySeries"/"fromBatterySeries" above) -
+    // the backend computes this server-side as consumption not accounted
+    // for by any known smartmeterconsumer(-assignable) Thing, which
+    // sidesteps the double-counting this used to suffer from when computed
+    // client-side as "totalConsumption minus known consumers" (see
+    // ConsumerConsumptionLogs.qml's "unknownConsumption" for the
+    // Day/line-chart equivalent of this same idea).
     function otherConsumptionSeries() {
-        var total = root.totalConsumptionSeries()
-        var known = root.consumerSeries()
-        return total.map(function (value, i) {
-            var knownSum = known.reduce(function (sum, series) { return sum + series.values[i] }, 0)
-            return Math.max(0, value - knownSum)
-        })
+        return root.deltaSeries(powerBalanceLogs, "totalUnknownConsumption", function () { return root.energyManager.totalUnknownConsumption })
     }
 }

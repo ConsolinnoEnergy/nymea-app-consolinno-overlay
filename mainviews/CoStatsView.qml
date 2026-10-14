@@ -162,13 +162,14 @@ MainViewBase {
         sampleRate: EnergyLogs.SampleRate15Mins
     }
 
-    // Backs the Consumption/Consumers tab: consumer Thing discovery, per-
-    // consumer power logs, and the derived "Other consumption" catch-all
-    // bucket - see ConsumerConsumptionLogs.qml for details.
+    // Backs the Consumption/Consumers tab: consumer Thing discovery and
+    // per-consumer power logs - see ConsumerConsumptionLogs.qml for
+    // details. The "Other consumption" catch-all bucket is read directly
+    // off "powerBalanceLogs" (see computeConsumptionConsumerLineSeries()
+    // below), not computed here.
     ConsumerConsumptionLogs {
         id: consumerConsumptionLogs
         engine: _engine
-        totalConsumptionLogs: powerBalanceLogs
     }
 
     // Backs the Week/Month/Year/year-over-year bar charts - one instance
@@ -978,18 +979,16 @@ MainViewBase {
         }
 
         // "Other consumption" in the Week/Month/Year/YoY consumer-stack bar
-        // chart (computeConsumptionConsumerStackSeries below) is currently
-        // unreliable: it's computed as totalConsumption minus known
-        // consumers, but the backend's aggregated totalConsumption counter
-        // incorrectly folds battery charging energy into "consumption"
-        // (backend bug, reported separately) - and since there's no "To
-        // battery" category here to absorb it (see PeriodEnergyLogs.qml's
-        // file doc comment), all of that misattributed energy inflates
-        // this bucket instead. Disabled here until the backend fix lands;
-        // the Day view's own "Other consumption" (ConsumerConsumptionLogs.qml)
-        // is unaffected - it's computed from live/instantaneous power, not
-        // this cumulative counter.
-        readonly property bool otherConsumptionEnabled: false
+        // chart (computeConsumptionConsumerStackSeries below) is now read
+        // directly off the backend's aggregated "totalUnknownConsumption"
+        // counter (see PeriodEnergyLogs.qml's "otherConsumptionSeries"),
+        // which the backend computes from real per-Thing data rather than
+        // a residual subtraction from "totalConsumption" - sidestepping
+        // the previous double-counting issue where battery charging energy
+        // got folded into "consumption" and inflated this bucket (no "To
+        // battery" category existed here to absorb it; see
+        // PeriodEnergyLogs.qml's file doc comment).
+        readonly property bool otherConsumptionEnabled: true
 
         // Consumer Thing type -> its own dedicated {color, borderColor} -
         // first match wins, checked in "assignConsumerColors" below. A
@@ -1311,10 +1310,10 @@ MainViewBase {
             }
             // "Other consumption" is not an optional Thing-backed series
             // like the ones above - it is always present as an explicit
-            // catch-all bucket (total consumption minus the sum of all
-            // known consumers at the same instant), computed and kept up
-            // to date by "consumerConsumptionLogs" (see
-            // ConsumerConsumptionLogs.qml - "otherConsumption").
+            // catch-all bucket, read directly off the backend's
+            // "unknownConsumption" field on powerBalanceLogs (consumption
+            // not accounted for by any known smartmeterconsumer(-
+            // assignable) Thing, computed server-side).
             series.push({
                 name: qsTr("Other consumption"),
                 key: "consumption:otherConsumption",
@@ -1322,8 +1321,8 @@ MainViewBase {
                 borderColor: Style.colors.components_Statistics_Things_and_states_Consumption_border,
                 visible: d.isSeriesVisible("consumption:otherConsumption"),
                 axis: "left",
-                model: consumerConsumptionLogs.otherConsumption,
-                valueFunction: function (entry) { return entry.consumption / 1000 }
+                model: powerBalanceLogs,
+                valueFunction: function (entry) { return entry.unknownConsumption / 1000 }
             })
             return series
         }
@@ -1402,15 +1401,13 @@ MainViewBase {
         // "computeEnergyBalanceLineSeries" - a battery can be present (and
         // charged from the grid) without any producer at all.
         //
-        // Known caveat: "Consumption" (provider.totalConsumptionSeries())
-        // is the backend's aggregated totalConsumption counter, which has
-        // a known bug where battery charging energy is folded into it
-        // (see commit 790bdb36 / ESUI-1642) - so once "To battery" is
-        // shown here too, that charging energy is effectively counted
-        // twice (once mis-attributed inside "Consumption", once correctly
-        // as "To battery"). Pre-existing, backend-side issue, out of scope
-        // here - tracked separately from "d.otherConsumptionEnabled"'s own
-        // note on the same root cause.
+        // Note: "Consumption" (provider.totalConsumptionSeries()) used to
+        // have a known bug where battery charging energy got folded into
+        // the backend's aggregated totalConsumption counter (ESUI-1642),
+        // which would have double-counted that energy once "To battery"
+        // is also shown here. That's since been fixed backend-side
+        // (totalConsumption now explicitly subtracts totalToStorage) -
+        // see "otherConsumptionEnabled" above for the same root cause.
         //
         // Despite their names (kept as-is since they back the
         // "*EnergyBalanceProductionSeries"/"*EnergyBalanceConsumptionSeries"
