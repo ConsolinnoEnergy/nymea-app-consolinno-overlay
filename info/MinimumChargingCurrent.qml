@@ -15,7 +15,7 @@ Page {
     header: ConsolinnoHeader {
         id: header
         show_Image: true
-        text: qsTr("Minimum Charging Current ")
+        text: qsTr("Minimum Charging Current")
         backButtonVisible: true
         onBackPressed: stack.pop()
     }
@@ -23,35 +23,18 @@ Page {
     InfoTextInterface{
         navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
-        summaryText: qsTr("The minimum current defines the minimum charging current with which the vehicle must be charged.")
-        body: ColumnLayout{
-            Label{
-                Layout.fillWidth: true
-                text: qsTr("Charging interruptions: ")
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+        body: ColumnLayout {
+            Layout.fillWidth: true
 
-                font.bold: true
-                font.pixelSize: 17
-
-            }
-            Label{
+            Label {
                 Layout.fillWidth: true
-                leftPadding: app.margins +10
-                rightPadding: app.margins +10
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                Layout.topMargin: 10
                 wrapMode: Text.WordWrap
                 Layout.preferredWidth: app.width
-                text: qsTr("For some vehicles, the charging process is not continued again after a break or interruption. This can be the case in the charging mode 'PV-optimized charging' or 'solar power only' if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.")
-
+                text: qsTr("Enter the minimum charging current supported by your vehicle.")
             }
-
         }
-        infofooter: [
-            {headline: qsTr("Target charge"), Link: "TargetChargeInfo"},
-
-        ]
-
-
-
     }
 }

@@ -529,19 +529,9 @@
         <translation>Kapazität</translation>
     </message>
     <message>
-        <location filename="../info/Capacity.qml" line="29"/>
+        <location filename="../info/Capacity.qml" line="39"/>
         <source>Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.</source>
-        <translation>Bitte geben Sie die Batteriekapazität ihres Fahrzeugs ein. Sie finden diese in Ihrem Fahrzeugschein.</translation>
-    </message>
-    <message>
-        <location filename="../info/Capacity.qml" line="35"/>
-        <source>Charging Mode</source>
-        <translation>Lademodus</translation>
-    </message>
-    <message>
-        <location filename="../info/Capacity.qml" line="36"/>
-        <source>Battery Level</source>
-        <translation>Batteriezustand</translation>
+        <translation>Gib die Batteriekapazität deines Fahrzeugs an. Du findest diese in deinem Fahrzeugschein.</translation>
     </message>
 </context>
 <context>
@@ -616,7 +606,7 @@
         <translation>Maximaler Ladestrom</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarSettingsForm.qml" line="134"/>
+        <location filename="../thingconfiguration/CarSettingsForm.qml" line="135"/>
         <source>Maximum phase count</source>
         <translation>Maximale Phasenzahl</translation>
     </message>
@@ -5994,31 +5984,42 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
 </context>
 <context>
+    <name>MaximumChargingCurrent</name>
+    <message>
+        <location filename="../info/MaximumChargingCurrent.qml" line="18"/>
+        <source>Maximum Charging Current</source>
+        <translation>Maximaler Ladestrom</translation>
+    </message>
+    <message>
+        <location filename="../info/MaximumChargingCurrent.qml" line="36"/>
+        <source>Enter the maximum charging current supported by your vehicle. This setting is used to account for the vehicle’s available charging power in calculations.</source>
+        <translation>Gib den maximalen Ladestrom an, mit dem dein Fahrzeug geladen werden kann. Diese Einstellung wird verwendet, um die verfügbare Ladeleistung des Fahrzeugs bei Berechnungen zu berücksichtigen.</translation>
+    </message>
+</context>
+<context>
+    <name>MaximumPhaseCountInfo</name>
+    <message>
+        <location filename="../info/MaximumPhaseCountInfo.qml" line="18"/>
+        <source>Maximum Phase Count</source>
+        <translation>Maximale Phasenzahl</translation>
+    </message>
+    <message>
+        <location filename="../info/MaximumPhaseCountInfo.qml" line="36"/>
+        <source>Select the maximum number of phases your vehicle supports for charging. This setting helps calculate the required PV surplus correctly. If your vehicle can only charge on a single phase, select 1 phase.</source>
+        <translation>Gib an, mit wie vielen Phasen dein Fahrzeug laden kann. Diese Einstellung hilft dabei, den benötigten PV-Überschuss korrekt zu berechnen. Kann dein Fahrzeug nur einphasig laden, sollte hier 1 Phase ausgewählt werden.</translation>
+    </message>
+</context>
+<context>
     <name>MinimumChargingCurrent</name>
     <message>
         <location filename="../info/MinimumChargingCurrent.qml" line="18"/>
-        <source>Minimum Charging Current </source>
+        <source>Minimum Charging Current</source>
         <translation>Minimaler Ladestrom</translation>
     </message>
     <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="26"/>
-        <source>The minimum current defines the minimum charging current with which the vehicle must be charged.</source>
-        <translation>Der Mindeststrom legt fest mit welchem Ladestrom das Fahrzeug mindestens geladen werden muss.</translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="30"/>
-        <source>Charging interruptions: </source>
-        <translation>Ladeunterbrechungen: </translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="44"/>
-        <source>For some vehicles, the charging process is not continued again after a break or interruption. This can be the case in the charging mode &apos;PV-optimized charging&apos; or &apos;solar power only&apos; if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.</source>
-        <translation>Bei einigen Fahrzeugen wird der Ladevorgang nach einer Pause bzw. Unterbrechung nicht wieder fortgesetzt. Das kann im Lademodus &quot;PV-optimiertes Laden&quot; oder &quot;nur PV-Strom&quot; der Fall sein, wenn nicht ausreichend Solarstrom zur Verfügung steht. Die Einstellung eines Mindeststroms sorgt dafür, dass das Fahrzeug auch wenn kein Solarstrom zur Verfügung steht, mit dem Mindeststrom geladen wird, und es somit zu keiner Unterbrechung kommt. Der Mindestladestrom sollte möglichst gering gewählt werden.</translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="50"/>
-        <source>Target charge</source>
-        <translation>Ladeziel</translation>
+        <location filename="../info/MinimumChargingCurrent.qml" line="36"/>
+        <source>Enter the minimum charging current supported by your vehicle.</source>
+        <translation>Gib den minimalen Ladestrom an, den dein Fahrzeug unterstützt.</translation>
     </message>
 </context>
 <context>

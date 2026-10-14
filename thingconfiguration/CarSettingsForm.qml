@@ -108,6 +108,7 @@ ColumnLayout {
         id: maxChargingCurrentInput
         Layout.fillWidth: true
         labelText: qsTr("Maximum charging current")
+        infoUrl: "MaximumChargingCurrent.qml"
         from: 6
         to: 32
         stepSize: 1
@@ -132,6 +133,7 @@ ColumnLayout {
         id: phaseCountInput
         Layout.fillWidth: true
         labelText: qsTr("Maximum phase count")
+        infoUrl: "MaximumPhaseCountInfo.qml"
         model: root.phaseCountOptions
         textRole: "text"
         valueRole: "value"

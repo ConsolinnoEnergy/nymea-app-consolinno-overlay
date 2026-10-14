@@ -26,17 +26,18 @@ Page {
     InfoTextInterface{
         navigationFooterHeight: root.navigationFooterHeight
         anchors.fill: parent
-        summaryText: qsTr("Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.")
         body: ColumnLayout {
+            Layout.fillWidth: true
 
+            Label {
+                Layout.fillWidth: true
+                leftPadding: app.margins + 10
+                rightPadding: app.margins + 10
+                Layout.topMargin: 10
+                wrapMode: Text.WordWrap
+                Layout.preferredWidth: app.width
+                text: qsTr("Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.")
+            }
         }
-
-        infofooter: [
-            {headline: qsTr("Charging Mode"), Link: "ChargingModeInfo"},
-            {headline: qsTr("Battery Level"), Link: "BatteryLevel"},
-        ]
-
-
-
     }
 }

@@ -529,18 +529,8 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Capacity.qml" line="29"/>
+        <location filename="../info/Capacity.qml" line="39"/>
         <source>Please enter the battery capacity of your vehicle. You will find this in your vehicle registration document.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Capacity.qml" line="35"/>
-        <source>Charging Mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Capacity.qml" line="36"/>
-        <source>Battery Level</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -616,7 +606,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/CarSettingsForm.qml" line="134"/>
+        <location filename="../thingconfiguration/CarSettingsForm.qml" line="135"/>
         <source>Maximum phase count</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5974,30 +5964,41 @@ Would you like to continue anyway?</source>
     </message>
 </context>
 <context>
+    <name>MaximumChargingCurrent</name>
+    <message>
+        <location filename="../info/MaximumChargingCurrent.qml" line="18"/>
+        <source>Maximum Charging Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/MaximumChargingCurrent.qml" line="36"/>
+        <source>Enter the maximum charging current supported by your vehicle. This setting is used to account for the vehicle’s available charging power in calculations.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MaximumPhaseCountInfo</name>
+    <message>
+        <location filename="../info/MaximumPhaseCountInfo.qml" line="18"/>
+        <source>Maximum Phase Count</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/MaximumPhaseCountInfo.qml" line="36"/>
+        <source>Select the maximum number of phases your vehicle supports for charging. This setting helps calculate the required PV surplus correctly. If your vehicle can only charge on a single phase, select 1 phase.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MinimumChargingCurrent</name>
     <message>
         <location filename="../info/MinimumChargingCurrent.qml" line="18"/>
-        <source>Minimum Charging Current </source>
+        <source>Minimum Charging Current</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="26"/>
-        <source>The minimum current defines the minimum charging current with which the vehicle must be charged.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="30"/>
-        <source>Charging interruptions: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="44"/>
-        <source>For some vehicles, the charging process is not continued again after a break or interruption. This can be the case in the charging mode &apos;PV-optimized charging&apos; or &apos;solar power only&apos; if there is not enough solar power available. Setting a minimum current ensures that the vehicle is charged with the minimum current even if no solar power is available, and thus no interruption occurs. The minimum charging current should be selected as low as possible.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/MinimumChargingCurrent.qml" line="50"/>
-        <source>Target charge</source>
+        <location filename="../info/MinimumChargingCurrent.qml" line="36"/>
+        <source>Enter the minimum charging current supported by your vehicle.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
