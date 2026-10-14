@@ -236,6 +236,7 @@
         <file>devicepages/HeatingElementDevicePage.qml</file>
         <file>devicepages/SimpleConsumerDevicePage.qml</file>
         <file>devicepages/SwitchableConsumerDevicePage.qml</file>
+        <file>devicepages/WhiteGoodDevicePage.qml</file>
         <file>devicepages/RootMeterDevicePage.qml</file>
         <file>devicepages/InverterDevicePage.qml</file>
         <file>optimization/HeatingElementOptimization.qml</file>
@@ -297,6 +298,7 @@
         <file>components/CoFrostyCard.qml</file>
         <file>components/CoInfoCard.qml</file>
         <file>components/CoBatteryInfoCard.qml</file>
+        <file>components/CoWhiteGoodInfoCard.qml</file>
         <file>components/CoInfoCardContainer.qml</file>
         <file>info/ChargingPhaseSwitchingInfo.qml</file>
         <file>components/CoPowerThingInfoCard.qml</file>

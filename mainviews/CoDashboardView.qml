@@ -80,10 +80,16 @@ MainViewBase {
     }
 
     ThingsProxy {
+        id: whitegoodThings
+        engine: _engine
+        shownInterfaces: ["smartwhitegood"]
+    }
+
+    ThingsProxy {
         id: otherConsumerThings
         engine: _engine
         shownInterfaces: ["smartmeterconsumer"]
-        hiddenInterfaces: ["heatpump", "heatingrod", "evcharger"]
+        hiddenInterfaces: ["heatpump", "heatingrod", "evcharger", "smartwhitegood"]
     }
 
     ThingsProxy {
@@ -793,6 +799,7 @@ Your %3 Team")
                         }
 
                         CoFrostyCard {
+                            id: evChargerGroup
                             Layout.fillWidth: true
                             contentBottomMargin: 16
                             headerText: qsTr("Mobility")
@@ -843,6 +850,41 @@ Your %3 Team")
                         }
 
                         CoFrostyCard {
+                            id: whitegoodGroup
+                            Layout.fillWidth: true
+                            contentBottomMargin: 16
+                            headerText: qsTr("Home appliances")
+                            visible: whitegoodThings.count > 0
+
+                            CoInfoCardContainer {
+                                anchors.left: parent.left
+                                anchors.right: parent.right
+
+                                Repeater {
+                                    model: whitegoodThings
+
+                                    delegate: CoWhiteGoodInfoCard {
+                                        Layout.fillWidth: true
+                                        property Thing thing: whitegoodThings.get(index)
+                                        readonly property State operationStateState: thing ? thing.stateByName("operationState") : null
+                                        operationState: operationStateState ? operationStateState.value : ""
+                                        readonly property State startTimeState: thing ? thing.stateByName("suggestedStartTime") : null
+                                        startTime: UiUtils.unixTimeToTimeString(startTimeState ? startTimeState.value : 0)
+                                        readonly property State endTimeState: thing ? thing.stateByName("endTime") : null
+                                        endTime: UiUtils.unixTimeToTimeString(endTimeState ? endTimeState.value : 0)
+                                        icon: UiUtils.thingToIcon(thing)
+                                        // #TODO more indicators?
+                                        showErrorIndicator: !ThingUtils.isConnected(thing)
+                                        onClicked: {
+                                            pageStack.push("/ui/devicepages/WhiteGoodDevicePage.qml", { "thing": thing });
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        CoFrostyCard {
+                            id: otherConsumerGroup
                             Layout.fillWidth: true
                             contentBottomMargin: 16
                             headerText: qsTr("Other consumers")

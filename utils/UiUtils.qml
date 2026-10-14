@@ -34,6 +34,33 @@ Item {
         return Qt.resolvedUrl("qrc:/icons/battery/battery-" + batteryLevelForIcon + ".svg");
     }
 
+    // Time of day only (no date) of a UnixTime state value given in seconds.
+    function unixTimeToTimeString(seconds) {
+        if (!seconds) {
+            return "—";
+        }
+        const date = new Date(seconds * 1000);
+        if (Qt.locale().name.startsWith("en_")) {
+            return date.toLocaleTimeString(Qt.locale("en_US"), "h:mm AP");
+        }
+        return date.toLocaleTimeString(Qt.locale(), "HH:mm") + qsTr("", "Placeholder for German \"Uhr\"");
+    }
+
+    function durationMinutesToString(minutes) {
+        if (!minutes) {
+            return "—";
+        }
+        const hours = Math.floor(minutes / 60);
+        const mins = minutes % 60;
+        if (hours === 0) {
+            return qsTr("%1 min").arg(mins);
+        }
+        if (mins === 0) {
+            return qsTr("%1 h").arg(hours);
+        }
+        return qsTr("%1 h %2 min").arg(hours).arg(mins);
+    }
+
     function thingToIcon(thing) {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("battery") >= 0) {
@@ -70,6 +97,8 @@ Item {
         case "smartgridheatpump":
         case "simpleheatpump":
             return Qt.resolvedUrl("/icons/heat_pump.svg")
+        case "smartwhitegood":
+            return Qt.resolvedUrl("/icons/dishwasher.svg")
         case "gridsupport":
             return Qt.resolvedUrl("/icons/select-none.svg")
         case "light":
