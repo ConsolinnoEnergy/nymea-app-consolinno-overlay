@@ -35,6 +35,8 @@ Item {
 
     implicitHeight: layout.implicitHeight + layout.anchors.topMargin + layout.anchors.bottomMargin
 
+    opacity: enabled ? 1 : Style.numbers.components_Disabled_opacity
+
     Rectangle {
         id: background
         anchors.fill: parent
