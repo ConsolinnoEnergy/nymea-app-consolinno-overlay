@@ -1363,7 +1363,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="200"/>
-        <source>Licenses (Device)</source>
+        <source>Licences (Device)</source>
         <translation>Lizenzen (Gerät)</translation>
     </message>
     <message>
@@ -1378,7 +1378,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="222"/>
-        <source>Common Licenses</source>
+        <source>Common Licences</source>
         <translation>Allgemeine Lizenzen</translation>
     </message>
     <message>
@@ -1394,7 +1394,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="247"/>
-        <source>Licenses (App)</source>
+        <source>Licences (App)</source>
         <translation>Lizenzen (App)</translation>
     </message>
     <message>
@@ -2109,7 +2109,7 @@ Ihr %3 Team</translation>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="234"/>
-        <source>License Terms HEMS</source>
+        <source>Licence Terms HEMS</source>
         <translation>Lizenzbedingungen HEMS</translation>
     </message>
     <message>
@@ -3996,7 +3996,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="236"/>
-        <source>Find server UUID, versions and license information.</source>
+        <source>Find server UUID, versions and licence information.</source>
         <translation>Finde Server-UUID, Versionen und Lizenzinformationen.</translation>
     </message>
     <message>

@@ -233,7 +233,7 @@ MainViewBase {
                     CoCard {
                         Layout.fillWidth: true
                         text: qsTr("About %1").arg(Configuration.appName)
-                        helpText: qsTr("Find server UUID, versions and license information.")
+                        helpText: qsTr("Find server UUID, versions and licence information.")
                         iconLeft: "/icons/info.svg"
                         showChildrenIndicator: true
                         onClicked: pageStack.push(Qt.resolvedUrl("components/CoAboutPage.qml"))

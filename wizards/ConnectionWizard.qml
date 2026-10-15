@@ -231,7 +231,7 @@ ConsolinnoWizardPageBase {
                     id: licenseTermsCard
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    headerText: qsTr("License Terms HEMS")
+                    headerText: qsTr("Licence Terms HEMS")
                     contentTopMargin: Style.smallMargins
 
                     Flickable {

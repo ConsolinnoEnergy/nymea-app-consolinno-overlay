@@ -1363,7 +1363,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="200"/>
-        <source>Licenses (Device)</source>
+        <source>Licences (Device)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1378,7 +1378,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="222"/>
-        <source>Common Licenses</source>
+        <source>Common Licences</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1394,7 +1394,7 @@
     </message>
     <message>
         <location filename="../components/CoAboutPage.qml" line="247"/>
-        <source>Licenses (App)</source>
+        <source>Licences (App)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2098,7 +2098,7 @@ Your %3 Team</source>
     </message>
     <message>
         <location filename="../wizards/ConnectionWizard.qml" line="234"/>
-        <source>License Terms HEMS</source>
+        <source>Licence Terms HEMS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3979,7 +3979,7 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
     <message>
         <location filename="../ConsolinnoSettingsPage.qml" line="236"/>
-        <source>Find server UUID, versions and license information.</source>
+        <source>Find server UUID, versions and licence information.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

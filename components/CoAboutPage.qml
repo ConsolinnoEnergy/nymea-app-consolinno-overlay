@@ -197,7 +197,7 @@ SettingsPageBase {
         CoFrostyCard {
             id: deviceLicensesGroup
             Layout.fillWidth: true
-            headerText: qsTr("Licenses (Device)")
+            headerText: qsTr("Licences (Device)")
             contentTopMargin: Style.smallMargins
 
             ColumnLayout {
@@ -219,7 +219,7 @@ SettingsPageBase {
 
                 CoCard {
                     Layout.fillWidth: true
-                    text: qsTr("Common Licenses")
+                    text: qsTr("Common Licences")
                     helpText: qsTr("Only available on the local network")
                     iconLeft: Qt.resolvedUrl("/icons/deployed_code.svg")
                     showChildrenIndicator: true
@@ -244,7 +244,7 @@ SettingsPageBase {
         CoFrostyCard {
             id: appLicensesGroup
             Layout.fillWidth: true
-            headerText: qsTr("Licenses (App)")
+            headerText: qsTr("Licences (App)")
             contentTopMargin: Style.smallMargins
 
             ColumnLayout {
