@@ -9,6 +9,10 @@ Item {
     property alias iconSize: icon.size
     property bool isChecked: false
 
+    // MouseArea.containsMouse stays true after a touch release on iOS (no
+    // exit event), so hover is tracked via a mouse/stylus-only HoverHandler.
+    readonly property bool showHover: hoverHandler.hovered
+
     signal clicked()
     signal pressAndHold()
 
@@ -23,7 +27,7 @@ Item {
         color: {
             if (root.isChecked) {
                 return Style.colors.components_Forms_Buttons_Button_secondary_is_current;
-            } else if (mouseArea.containsMouse) {
+            } else if (root.showHover || mouseArea.pressed) {
                 return Style.colors.typography_States_Pressed;
             } else {
                 return "transparent";
@@ -35,7 +39,7 @@ Item {
             width: parent.width - 8
             height: parent.height - 8
             radius: width / 2
-            visible: !root.isChecked && mouseArea.containsMouse && !mouseArea.pressed
+            visible: !root.isChecked && root.showHover && !mouseArea.pressed
             color: Style.colors.typography_Background_Default
         }
     }
@@ -47,11 +51,16 @@ Item {
         color: root.isChecked ? Style.colors.typography_Basic_Default_inverted : Style.colors.brand_Basic_Icon
     }
 
+    HoverHandler {
+        id: hoverHandler
+        acceptedDevices: PointerDevice.Mouse | PointerDevice.Stylus
+        enabled: root.enabled
+    }
+
     MouseArea {
         id: mouseArea
         anchors.fill: parent
         enabled: root.enabled
-        hoverEnabled: true
         onClicked: parent.clicked()
         onPressAndHold: parent.pressAndHold()
     }
