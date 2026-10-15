@@ -867,13 +867,12 @@ Your %3 Team")
                                         Layout.fillWidth: true
                                         property Thing thing: whitegoodThings.get(index)
                                         readonly property State operationStateState: thing ? thing.stateByName("operationState") : null
-                                        operationState: operationStateState ? operationStateState.value : ""
+                                        operationState: UiUtils.whiteGoodOperationStateToString(operationStateState ? operationStateState.value : "")
                                         readonly property State startTimeState: thing ? thing.stateByName("suggestedStartTime") : null
                                         startTime: UiUtils.unixTimeToTimeString(startTimeState ? startTimeState.value : 0)
                                         readonly property State endTimeState: thing ? thing.stateByName("endTime") : null
                                         endTime: UiUtils.unixTimeToTimeString(endTimeState ? endTimeState.value : 0)
                                         icon: UiUtils.thingToIcon(thing)
-                                        // #TODO more indicators?
                                         showErrorIndicator: !ThingUtils.isConnected(thing)
                                         onClicked: {
                                             pageStack.push("/ui/devicepages/WhiteGoodDevicePage.qml", { "thing": thing });

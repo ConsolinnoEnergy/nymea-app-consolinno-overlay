@@ -7200,17 +7200,47 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../utils/UiUtils.qml" line="52"/>
+        <source>Inactive</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="54"/>
+        <source>Scheduled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../utils/UiUtils.qml" line="56"/>
+        <source>Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="58"/>
+        <source>Paused</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="60"/>
+        <source>Completed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="62"/>
+        <source>Invalid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="75"/>
         <source>%1 min</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="59"/>
+        <location filename="../utils/UiUtils.qml" line="78"/>
         <source>%1 h</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="61"/>
+        <location filename="../utils/UiUtils.qml" line="80"/>
         <source>%1 h %2 min</source>
         <translation type="unfinished"></translation>
     </message>
@@ -7256,32 +7286,32 @@ This means: The price limit corresponds to the current average price minus 10 %.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="103"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="118"/>
         <source>Selected program</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="112"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="127"/>
         <source>Estimated duration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="126"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="141"/>
         <source>Scheduled start time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="136"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="151"/>
         <source>Scheduled end time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="151"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="166"/>
         <source>Earliest start time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="161"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="176"/>
         <source>Latest end time</source>
         <translation type="unfinished"></translation>
     </message>

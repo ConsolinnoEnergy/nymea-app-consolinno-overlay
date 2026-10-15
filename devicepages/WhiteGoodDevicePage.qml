@@ -89,9 +89,24 @@ GenericConfigPage {
                         CoCard {
                             id: operationStateCard
                             Layout.fillWidth: true
-                            text: root.operationStateState ? root.operationStateState.value : ""
+                            text: UiUtils.whiteGoodOperationStateToString(root.operationStateState ? root.operationStateState.value : "")
                             labelText: qsTr("Current status")
-                            // #TODO indicator for state
+                            status: {
+                                switch (root.operationStateState ? root.operationStateState.value : "") {
+                                case "Scheduled":
+                                case "Paused":
+                                    return CoCard.StatusType.Warning;
+                                case "Running":
+                                    return CoCard.StatusType.Success;
+                                case "Completed":
+                                case "Inactive":
+                                    return CoCard.StatusType.Neutral;
+                                case "Invalid":
+                                    return CoCard.StatusType.Danger;
+                                default:
+                                    return CoCard.StatusType.NoStatus;
+                                }
+                            }
                             showChildrenIndicator: false
                             interactive: false
                         }

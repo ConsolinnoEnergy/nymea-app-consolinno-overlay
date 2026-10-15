@@ -46,6 +46,25 @@ Item {
         return date.toLocaleTimeString(Qt.locale(), "HH:mm") + qsTr("", "Placeholder for German \"Uhr\"");
     }
 
+    function whiteGoodOperationStateToString(operationState) {
+        switch (operationState) {
+        case "Inactive":
+            return qsTr("Inactive");
+        case "Scheduled":
+            return qsTr("Scheduled");
+        case "Running":
+            return qsTr("Running");
+        case "Paused":
+            return qsTr("Paused");
+        case "Completed":
+            return qsTr("Completed");
+        case "Invalid":
+            return qsTr("Invalid");
+        default:
+            return operationState;
+        }
+    }
+
     function durationMinutesToString(minutes) {
         if (!minutes) {
             return "—";

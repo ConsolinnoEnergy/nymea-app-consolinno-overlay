@@ -7224,17 +7224,47 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation> Uhr</translation>
     </message>
     <message>
+        <location filename="../utils/UiUtils.qml" line="52"/>
+        <source>Inactive</source>
+        <translation>Inaktiv</translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="54"/>
+        <source>Scheduled</source>
+        <translation>Geplant</translation>
+    </message>
+    <message>
         <location filename="../utils/UiUtils.qml" line="56"/>
+        <source>Running</source>
+        <translation>Läuft</translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="58"/>
+        <source>Paused</source>
+        <translation>Pausiert</translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="60"/>
+        <source>Completed</source>
+        <translation>Fertig</translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="62"/>
+        <source>Invalid</source>
+        <translation>Ungültig</translation>
+    </message>
+    <message>
+        <location filename="../utils/UiUtils.qml" line="75"/>
         <source>%1 min</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="59"/>
+        <location filename="../utils/UiUtils.qml" line="78"/>
         <source>%1 h</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="61"/>
+        <location filename="../utils/UiUtils.qml" line="80"/>
         <source>%1 h %2 min</source>
         <translation></translation>
     </message>
@@ -7280,32 +7310,32 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
         <translation>Aktueller Status</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="103"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="118"/>
         <source>Selected program</source>
         <translation>Eingestelltes Programm</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="112"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="127"/>
         <source>Estimated duration</source>
         <translation>Geschätzte Dauer</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="126"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="141"/>
         <source>Scheduled start time</source>
         <translation>Geplanter Startzeitpunkt</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="136"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="151"/>
         <source>Scheduled end time</source>
         <translation>Geplanter Endzeitpunkt</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="151"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="166"/>
         <source>Earliest start time</source>
         <translation>Frühestmöglicher Startzeitpunkt</translation>
     </message>
     <message>
-        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="161"/>
+        <location filename="../devicepages/WhiteGoodDevicePage.qml" line="176"/>
         <source>Latest end time</source>
         <translation>Letztmöglicher Endzeitpunkt</translation>
     </message>
