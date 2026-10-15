@@ -866,6 +866,7 @@ Your %3 Team")
                                     delegate: CoWhiteGoodInfoCard {
                                         Layout.fillWidth: true
                                         property Thing thing: whitegoodThings.get(index)
+                                        text: thing.name
                                         readonly property State operationStateState: thing ? thing.stateByName("operationState") : null
                                         operationState: UiUtils.whiteGoodOperationStateToString(operationStateState ? operationStateState.value : "")
                                         readonly property State startTimeState: thing ? thing.stateByName("suggestedStartTime") : null
