@@ -20,22 +20,26 @@ T.DialogButtonBox {
     topPadding: 0
     alignment: count === 1 ? Qt.AlignRight : undefined
 
-    delegate: Button {
-        width: flat ? undefined : control.availableWidth
-    }
+    // Accept before Reject, independent of the platform default (Gnome/Mac/KDE put Reject first)
+    buttonLayout: T.DialogButtonBox.WinLayout
 
+    delegate: Button {}
+
+    // The first button is the primary one (WinLayout puts Accept/Yes first). Every button gets an
+    // explicit size, otherwise the template assigns an equal share of the box width and
+    // the content height to it.
     contentItem: Column {
         spacing: control.spacing
         width: control.availableWidth
         Repeater {
             model: control.contentModel
             onItemAdded: (index, item) => {
-                item.flat = index !== 0
-                if (index !== 0) {
-                    item.x = Qt.binding(() => (control.availableWidth - item.width) / 2);
-                } else {
-                    item.width = Qt.binding(() => control.availableWidth);
-                }
+                item.flat = Qt.binding(() => item !== control.contentModel.get(0))
+                item.width = Qt.binding(() => item.flat
+                                        ? Math.min(item.implicitWidth, control.availableWidth)
+                                        : control.availableWidth)
+                item.height = Qt.binding(() => item.implicitHeight)
+                item.x = Qt.binding(() => (control.availableWidth - item.width) / 2)
             }
         }
     }
