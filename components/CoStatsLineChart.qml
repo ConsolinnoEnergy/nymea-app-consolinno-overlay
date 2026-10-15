@@ -115,10 +115,22 @@ Item {
         // (rather than clear()+fully re-append) when the new visible
         // window overlaps the previously rendered one - see rebuild()'s
         // own comment. Each entry is either undefined/null (no valid cached
-        // state - forces a full rebuild) or { model, lowIdx, highIdx,
-        // count }: "model" is the exact model reference last rendered (an
-        // incremental update is only valid against the *same* model
-        // instance), "lowIdx"/"highIdx" is the model index range [lowIdx,
+        // state - forces a full rebuild) or { model, key, lowIdx, highIdx,
+        // count }: "model" is the exact model reference last rendered and
+        // "key" is the series' own "key" string (e.g. "energybalance:
+        // production") - an incremental update is only valid against the
+        // *same* model instance AND the same series (not just the same
+        // slot index): "root.series" is reassigned wholesale on every tab
+        // switch (see "series:" binding in CoStatsView.qml), and multiple,
+        // completely different series across tabs legitimately share the
+        // same underlying "powerBalanceLogs" model at the same slot index
+        // (e.g. slot 0 is "Production" in the Energy balance tab but
+        // "Self-consumption" in the Consumption tab) - without also
+        // checking "key", switching tabs mid-way through an overlapping
+        // time window incremented the *previous* tab's already-rendered
+        // points under the *new* tab's valueFunction instead of fully
+        // recomputing them, silently mixing two unrelated series' values
+        // together. "lowIdx"/"highIdx" is the model index range [lowIdx,
         // highIdx) last rendered, and "count" is the series' actual point
         // count right after that render - compared against
         // (highIdx - lowIdx) to detect whether any index in that range was
@@ -935,6 +947,7 @@ Item {
                 }
                 var model = desc.model
                 var fn = desc.valueFunction
+                var key = desc.key
                 var count = model.count !== undefined ? model.count : 0
 
                 // Only append entries within the chart's currently visible
@@ -976,13 +989,16 @@ Item {
                 // remove/insert/append the entries that actually scrolled
                 // out of/into view - falling back to the full rebuild below
                 // whenever that's not safely possible (different model,
-                // no cached state yet, no overlap with the new window, or
-                // the previous render's point count doesn't match its index
+                // different series at this slot (see "slotRenderState"'s
+                // own doc comment for why "key" must match too), no cached
+                // state yet, no overlap with the new window, or the
+                // previous render's point count doesn't match its index
                 // range - see slotRenderState's own doc comment for why
                 // that last check matters).
                 var prevState = d.slotRenderState[cacheKey]
                 var canIncrement = !!prevState
                         && prevState.model === model
+                        && prevState.key === key
                         && prevState.count === (prevState.highIdx - prevState.lowIdx)
                         && startIndex < prevState.highIdx && endIndex > prevState.lowIdx
 
@@ -1007,7 +1023,7 @@ Item {
                     }
                 }
 
-                d.slotRenderState[cacheKey] = { model: model, lowIdx: startIndex, highIdx: endIndex, count: s.count }
+                d.slotRenderState[cacheKey] = { model: model, key: key, lowIdx: startIndex, highIdx: endIndex, count: s.count }
                 if (updateAxis) {
                     d.updateLeftAxisRange()
                 }
