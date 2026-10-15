@@ -666,6 +666,17 @@ Item {
         onTriggered: {
             d.settledStartTime = d.visibleStartTime
             d.settledWindowMs = d.visibleWindowMs
+            // maxLeftValue() (used by updateLeftAxisRange()) deliberately
+            // scans this *settled* window instead of the live one (see its
+            // own comment) - meaning any axis-range update computed before
+            // this point (e.g. the one triggered synchronously by
+            // resetToSelectedDay()/requestRebuild() while jumping to a
+            // different day) was computed against the *previous* settled
+            // window, not the one being navigated to. Without recomputing
+            // it here too, the axis silently keeps showing the old day's
+            // range (potentially clipping the new day's curve) until some
+            // unrelated future rebuild happens to recompute it correctly.
+            d.updateLeftAxisRange()
             root.visibleRangeChanged(new Date(d.visibleStartTime), new Date(d.visibleStartTime + d.visibleWindowMs))
         }
     }
