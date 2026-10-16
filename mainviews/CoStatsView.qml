@@ -4,6 +4,7 @@ import QtCore
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea
 import NymeaApp.Utils
 
@@ -286,6 +287,17 @@ MainViewBase {
         id: flickable
         anchors.fill: parent
         anchors.margins: Style.margins
+        // Deliberately NOT offset by "stickyHeaderBar"'s height: unlike a
+        // plain non-overlapping layout, this Flickable's content is meant
+        // to keep extending underneath that fixed bar as it scrolls (see
+        // "contentColumn"'s own top margin below for the gap shown while
+        // scrolled to the very top) - exactly mirroring how the app's own
+        // header overlaps the top of this same page (see CoHeader.qml).
+        // This is what "stickyHeaderBar"'s blur-background needs: it
+        // samples this Flickable's content at its own screen position (see
+        // "sourceRect" below), which only produces the intended "blurred,
+        // scrolled-away content" look if that content actually reaches
+        // underneath it.
         anchors.topMargin: root.topMargin
         anchors.bottomMargin: root.bottomMargin + Style.margins
         contentHeight: contentColumn.height
@@ -301,41 +313,16 @@ MainViewBase {
             width: parent.width
             spacing: Style.margins
 
-            Label {
-                Layout.fillWidth: true
-                Layout.topMargin: Style.margins
-                text: qsTr("History")
-                font: Style.newH1Font
-                color: Style.colors.typography_Basic_Default
-            }
-
-            // ---- "Time period" card ------------------------------------------------
-            CoFrostyCard {
-                Layout.fillWidth: true
-                contentBottomMargin: 16
-
-                headerText: qsTr("Time period")
-
-                CoPeriodSelector {
-                    id: periodSelector
-                    anchors.left: parent.left
-                    anchors.right: parent.right
-                    anchors.leftMargin: Style.margins
-                    anchors.rightMargin: Style.margins
-
-                    // Day tab can't navigate further back than the line
-                    // chart's coarsest (hourly) tier retention - no finer
-                    // data exists before that (see "d.dayTabMinDate()").
-                    // Week/Month/Year keep the component's own default
-                    // (2017-01-01) - those bar charts don't tier sample
-                    // rates.
-                    minDate: sampleRate === EnergyLogs.SampleRate1Day ? d.dayTabMinDate() : new Date(2017, 0, 1)
-                }
-            }
-
             // ---- "Metrics" card -------------------------------------------------
             CoFrostyCard {
                 Layout.fillWidth: true
+                // Pushes this (the first card) out from underneath
+                // "stickyHeaderBar" by that bar's own height, plus
+                // Style.margins of actual visible gap once scrolled all the
+                // way to the top - see "flickable"'s own comment above for
+                // why the bar's height isn't instead applied as part of
+                // this Flickable's topMargin.
+                Layout.topMargin: stickyHeaderBar.height + Style.margins
                 contentBottomMargin: 16
 
                 headerText: qsTr("Metrics")
@@ -793,6 +780,107 @@ MainViewBase {
                     }
                 }
             }
+        }
+    }
+
+    // ---- Fixed "History" title + period-selector bar ----------------------
+    //
+    // Reaches the true screen edges (no "flickable.anchors.margins" inset,
+    // same as the app's own header/navbar chrome) and overlaps the top of
+    // "flickable" (same screen position - see "flickable.anchors.topMargin"
+    // above), with "contentColumn" kept from actually starting underneath
+    // it via its own top margin instead (see the "Metrics" card's
+    // "Layout.topMargin" above). Declared after "flickable" so it paints on
+    // top (back-to-front declaration order), and reuses the exact same
+    // "sample the scrolled content, blur it" technique as CoHeader.qml's
+    // own "blurSource" (duplicated here rather than reused directly:
+    // CoHeader.qml is structured around a single back/title/menu row,
+    // which doesn't fit this bar's taller, two-row title+period-selector
+    // content).
+    Item {
+        id: stickyHeaderBar
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.topMargin: root.topMargin
+        height: stickyHeaderLayout.implicitHeight + stickyHeaderLayout.anchors.topMargin + stickyHeaderLayout.anchors.bottomMargin + bottomBorder.height
+        clip: true
+        z: 1
+
+        ShaderEffectSource {
+            id: stickyHeaderBlurSource
+            width: stickyHeaderBar.width
+            height: stickyHeaderBar.height - bottomBorder.height
+            sourceItem: flickable.contentItem
+            sourceRect: Qt.rect(0, flickable.contentY, width, height)
+            recursive: true
+            live: true
+            visible: false
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.bottomMargin: bottomBorder.height
+            color: Style.backgroundColor
+        }
+
+        FastBlur {
+            x: 0
+            y: 0
+            width: stickyHeaderBar.width
+            height: stickyHeaderBar.height - bottomBorder.height
+            source: stickyHeaderBlurSource
+            radius: 40
+            transparentBorder: false
+        }
+
+        Rectangle {
+            anchors.fill: parent
+            anchors.bottomMargin: bottomBorder.height
+            color: Style.colors.menu_Header_Footer_Background
+        }
+
+        ColumnLayout {
+            id: stickyHeaderLayout
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.top
+            anchors.leftMargin: Style.margins
+            anchors.rightMargin: Style.margins
+            anchors.topMargin: Style.smallMargins
+            anchors.bottomMargin: Style.margins
+            spacing: Style.smallMargins
+
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("History")
+                font: Style.newH1Font
+                color: Style.colors.typography_Basic_Default
+            }
+
+            CoPeriodSelector {
+                id: periodSelector
+                Layout.fillWidth: true
+
+                // Day tab can't navigate further back than the line
+                // chart's coarsest (hourly) tier retention - no finer
+                // data exists before that (see "d.dayTabMinDate()").
+                // Week/Month/Year keep the component's own default
+                // (2017-01-01) - those bar charts don't tier sample
+                // rates.
+                minDate: sampleRate === EnergyLogs.SampleRate1Day ? d.dayTabMinDate() : new Date(2017, 0, 1)
+            }
+        }
+
+        Rectangle {
+            id: bottomBorder
+            anchors {
+                right: parent.right
+                left: parent.left
+                bottom: parent.bottom
+            }
+            height: 1
+            color: Style.colors.menu_Header_Footer_Border
         }
     }
 

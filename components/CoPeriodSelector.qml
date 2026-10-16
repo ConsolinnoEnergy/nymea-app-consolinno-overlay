@@ -257,7 +257,7 @@ Item {
     ColumnLayout {
         id: layout
         anchors.fill: parent
-        spacing: Style.smallMargins
+        spacing: Style.extraExtraSmallMargins
 
         StatsBase {
             id: statsHelper
