@@ -346,6 +346,26 @@ Item {
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
 
+                // Qt's default highlightMoveVelocity (400px/s) alone makes
+                // the highlight-move animation take proportionally longer
+                // the farther currentIndex jumps - for a jump of several
+                // days via the chevron-navigation-together-with-big-steps
+                // case (still below largeJumpThreshold, so still animated)
+                // this can end up feeling sluggish. Setting
+                // highlightMoveDuration here does NOT switch to a
+                // fixed-duration animation (that would make it move at a
+                // constant time regardless of distance, i.e. unnaturally
+                // fast for big jumps and slow for single steps) - with
+                // BOTH properties set, Qt uses highlightMoveVelocity to
+                // compute the natural, distance-proportional duration and
+                // only CAPS it at highlightMoveDuration if that would be
+                // exceeded (see QSmoothedAnimation::recalc()). So single
+                // steps keep their natural quick speed, while the few-days
+                // jumps below largeJumpThreshold are capped to a brisk,
+                // constant-feeling duration instead of scaling up
+                // unbounded.
+                highlightMoveDuration: 500
+
                 TextMetrics {
                     id: currentLabelMetrics
                     font: Style.newSmallFontBold
