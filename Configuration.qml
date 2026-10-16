@@ -96,7 +96,7 @@ ConfigurationBase {
         ListElement { component: "Ubuntu font"; url: "https://design.ubuntu.com/font" }
         ListElement { component: "Oswald font"; url: "https://fonts.google.com/specimen/Oswald" }
         ListElement { component: "QTZeroConf"; url: "https://github.com/jbagg/QtZeroConf" }
-        ListElement { component: "Android OpenSSL"; url: "https://github.com/KDAB/android_openssl" }
+        ListElement { component: "Android OpenSSL"; url: "https://github.com/ConsolinnoEnergy/android_openssl" }
         ListElement { component: "Firebase"; url: "https://github.com/firebase/firebase-cpp-sdk" }
         ListElement { component: "OpenSSl"; url: "https://www.openssl.org/" }
         ListElement { component: "Nymea App"; url: "https://github.com/ConsolinnoEnergy/nymea-app" }
