@@ -1,6 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
+import Qt5Compat.GraphicalEffects
 import Nymea
 import "../mainviews/energy"
 import "../components"
@@ -417,6 +418,35 @@ Item {
                 preferredHighlightBegin: highlightBegin
                 preferredHighlightEnd: highlightEnd
                 clip: true
+
+                // Fades the two edges of the list into transparency, so
+                // the neighboring (non-current) period labels visually
+                // trail off instead of ending in a hard cut at the view's
+                // bounds. This can't be done with a plain color overlay
+                // (e.g. a gradient Rectangle fading to the surrounding
+                // card's background color) since that background is the
+                // frosted-glass blur of whatever scrolls underneath the
+                // sticky header, not a fixed color - an overlay would cut
+                // a visibly wrong flat patch through that blur. Masking
+                // the ListView's own alpha instead lets the blur underneath
+                // show through unchanged; only the labels themselves fade.
+                readonly property real edgeFadeWidth: Style.margins * 3
+                readonly property real edgeFadeFraction: width > 0 ? Math.min(0.5, edgeFadeWidth / width) : 0
+
+                layer.enabled: true
+                layer.effect: OpacityMask {
+                    maskSource: Rectangle {
+                        width: listView.width
+                        height: listView.height
+                        gradient: Gradient {
+                            orientation: Gradient.Horizontal
+                            GradientStop { position: 0.0; color: "transparent" }
+                            GradientStop { position: listView.edgeFadeFraction; color: "black" }
+                            GradientStop { position: 1.0 - listView.edgeFadeFraction; color: "black" }
+                            GradientStop { position: 1.0; color: "transparent" }
+                        }
+                    }
+                }
 
                 // Set declaratively (not in Component.onCompleted): assigning
                 // currentIndex imperatively after construction would run
