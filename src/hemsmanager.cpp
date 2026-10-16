@@ -594,7 +594,6 @@ int HemsManager::setUserConfiguration(const QVariantMap &data){
     if (!configuration){
         QVariantMap userConfig;
         userConfig.insert("userConfigID", "528b3820-1b6d-4f37-aea7-a99d21d42e72");
-        userConfig.insert("lastSelectedCar", "282d39a8-3537-4c22-a386-b31faeebbb55");
         userConfig.insert("defaultChargingMode", 2);
         userConfig.insert("installerName", "");
         userConfig.insert("installerEmail", "");
@@ -1760,7 +1759,6 @@ void HemsManager::addOrUpdateUserConfiguration(const QVariantMap &configurationM
         // I think I dont need that since the UUid is set default and should not be changed
         //configuration->set(evChargerUuid);
     }
-    configuration->setLastSelectedCar(configurationMap.value("lastSelectedCar").toUuid());
     configuration->setDefaultChargingMode(configurationMap.value("defaultChargingMode").toInt());
 
     configuration->setInstallerName(configurationMap.value("installerName").toString());

@@ -1206,8 +1206,8 @@ GenericConfigPage {
                                 readonly property var simulatedVehicle: isSimulatedWallbox ? internal.simulatedCarForWallbox(thing) : null
                                 // Car that was last applied for this specific wallbox. Kept
                                 // per-thing in ChargingConfiguration.carThingId (as opposed to
-                                // the app-wide userconfig.lastSelectedCar), so it stays correct
-                                // when multiple wallboxes are configured.
+                                // a former app-wide userconfig.lastSelectedCar, now removed),
+                                // so it stays correct when multiple wallboxes are configured.
                                 readonly property var configuredVehicle: evProxy.getThing(chargingConfiguration.carThingId)
 
                                 property var selectedVehicle: isSimulatedWallbox ? simulatedVehicle : configuredVehicle

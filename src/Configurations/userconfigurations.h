@@ -15,7 +15,6 @@ class UserConfigurations : public QAbstractListModel
 public:
     enum Role {
         RoleUserConfigID,
-        RoleLastSelectedCar,
         RoleDefaultChargingMode,
         RoleInstallerName,
         RoleInstallerEmail,

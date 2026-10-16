@@ -16,8 +16,6 @@ QVariant UserConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleUserConfigID:
         return m_list.at(index.row())->userConfigID();
-    case RoleLastSelectedCar:
-        return m_list.at(index.row())->lastSelectedCar();
     case RoleDefaultChargingMode:
         return m_list.at(index.row())->defaultChargingMode();
     case RoleInstallerName:
@@ -37,7 +35,6 @@ QHash<int, QByteArray> UserConfigurations::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(RoleUserConfigID, "userConfigId");
     roles.insert(RoleDefaultChargingMode, "defaultChargingMode");
-    roles.insert(RoleLastSelectedCar, "lastSelectedCar");
     roles.insert(RoleInstallerName, "installerName");
     roles.insert(RoleInstallerEmail, "installerEmail");
     roles.insert(RoleInstallerPhoneNr, "installerPhoneNr");
@@ -62,11 +59,6 @@ void UserConfigurations::addConfiguration(UserConfiguration *userconfiguration)
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(userconfiguration);
-
-    connect(userconfiguration, &UserConfiguration::lastSelectedCarChanged, this, [=](){
-        QModelIndex idx = index(m_list.indexOf(userconfiguration));
-        emit dataChanged(idx, idx, {RoleLastSelectedCar});
-    });
 
     connect(userconfiguration, &UserConfiguration::defaultChargingModeChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(userconfiguration));
