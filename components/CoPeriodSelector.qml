@@ -87,20 +87,26 @@ Item {
         // sampleRate is currently active.
         property date selectedInstant: new Date()
 
-        // Absolute offset (in units of root.sampleRate, relative to today's
-        // period) that ListView index 0 currently represents. Adjusted
-        // during recentering so the ListView model can stay a small,
-        // fixed-size window instead of an actually infinite model.
-        property int windowAnchorOffset: -windowCenterIndex
-
         // Guards against recursion while we reposition the ListView
-        // programmatically (sampleRate change, setReferenceDate(), recentering).
+        // programmatically (sampleRate change, setReferenceDate()).
         property bool updatingListView: false
 
         readonly property date todayStart: { dateRefreshTimer.tick; return periodStart(new Date(), root.sampleRate) }
         readonly property date minDateStart: periodStart(root.minDate, root.sampleRate)
         readonly property int selectedOffset: periodsBetween(todayStart, periodStart(selectedInstant, root.sampleRate), root.sampleRate)
+        // Both <= 0: "today" is offset 0, minDate is the earliest (most
+        // negative) offset.
         readonly property int minOffset: periodsBetween(todayStart, minDateStart, root.sampleRate)
+
+        // Total number of valid periods between minDate and today
+        // (inclusive of both ends) - the ListView model is sized to this
+        // exactly, so index 0 always means minDate and index
+        // "periodCount - 1" always means today. No window/recentering: a
+        // delegate's periodOffset (index + minOffset) is therefore a
+        // CONSTANT mapping that never needs to be reinterpreted, and the
+        // model itself prevents swiping/jumping past either boundary since
+        // there simply are no delegates beyond it.
+        readonly property int periodCount: 1 - minOffset
 
         // Normalizes 'date' to the start of the period (day/week/month/year)
         // that contains it. Weeks start on Monday (ISO 8601).
@@ -173,41 +179,47 @@ Item {
             selectedInstant = new Date()
             // sampleRate just changed (this is only ever called right
             // after it), so every delegate's label/width changed at once -
-            // always needs the full recenter + relayout, see
+            // always needs the full relayout, see
             // syncListViewFromSelection()'s "forceFullRelayout" doc.
             syncListViewFromSelection(true)
         }
 
-        // Repositions the ListView's currentIndex to reflect d.selectedInstant,
-        // re-centering the window around it if necessary. Used whenever the
-        // selection changes programmatically (as opposed to interactive
-        // swiping, which is handled by listView.onCurrentIndexChanged).
+        // Repositions the ListView's currentIndex to reflect
+        // d.selectedInstant. Used whenever the selection changes
+        // programmatically (as opposed to interactive swiping, which is
+        // handled by listView.onCurrentIndexChanged).
         //
-        // "forceFullRelayout" must be true whenever every delegate's
-        // label (and thus width) can have changed at once - i.e. a
-        // sampleRate switch (day-format -> week-format text etc., see
-        // resetToToday()). Defaults to false for the common case of this
-        // being called from setReferenceDate() (e.g. the chart below was
-        // panned/zoomed by the user): sampleRate didn't change there, so
-        // most calls just need to move the highlighted item by one or two
-        // positions within the already-loaded window - this path fires on
-        // every single calendar-day crossing while panning the Day-view
-        // chart, so avoiding a full window recenter + relayout here
-        // matters for performance.
+        // The model is sized to exactly span minDate..today (see
+        // "periodCount" above), so unlike a windowed model this never
+        // needs to reinterpret/recenter anything - "targetIndex" below is
+        // simply selectedOffset's fixed position in that range. What it
+        // still has to decide is HOW to get there:
+        //
+        // - "forceFullRelayout" must be true whenever every delegate's
+        //   label (and thus width) can have changed at once - i.e. a
+        //   sampleRate switch (day-format -> week-format text etc., see
+        //   resetToToday()).
+        // - Otherwise, a LARGE jump (e.g. the user picked a date years
+        //   away in the calendar picker) is also repositioned directly via
+        //   positionViewAtIndex() rather than through a plain currentIndex
+        //   assignment: with highlightMoveDuration-based animation, Qt
+        //   would otherwise visually scroll through every item in between
+        //   at a fixed pixel speed, which for a large index distance could
+        //   take a very long, confusing time.
+        // - A SMALL jump (the common case: this is also called from
+        //   setReferenceDate() e.g. when the chart below is panned/zoomed,
+        //   firing on every single calendar-day crossing) just moves
+        //   currentIndex directly - the cheap path, letting Qt's normal
+        //   highlight-tracking animate the one-or-few-item move, with no
+        //   relayout needed at all.
         function syncListViewFromSelection(forceFullRelayout) {
             if (forceFullRelayout === undefined) {
                 forceFullRelayout = false
             }
 
-            // Where selectedOffset would land within the CURRENT window
-            // (i.e. without recentering) - the same quantity the
-            // interactive-swipe path (onCurrentIndexChanged below) checks
-            // against recenterMargin to decide whether a recenter is
-            // actually necessary.
-            var targetIndex = selectedOffset - windowAnchorOffset
-            var needsRecenter = forceFullRelayout
-                    || targetIndex < root.recenterMargin
-                    || targetIndex > root.windowSize - 1 - root.recenterMargin
+            var targetIndex = selectedOffset - minOffset
+            var isLargeJump = forceFullRelayout
+                    || Math.abs(targetIndex - listView.currentIndex) > root.largeJumpThreshold
 
             updatingListView = true
             // Update the highlight range (derived from the new selection's
@@ -220,48 +232,38 @@ Item {
             // wrong period. (The interactive swipe path below already
             // updates the label first for the same reason.)
             listView.updateCurrentLabelWidth()
-            if (needsRecenter) {
-                windowAnchorOffset = selectedOffset - windowCenterIndex
-                listView.currentIndex = windowCenterIndex
-            } else {
-                listView.currentIndex = targetIndex
-            }
+            listView.currentIndex = targetIndex
             updatingListView = false
 
-            if (!needsRecenter) {
-                // Window didn't move and no delegate's label/width
-                // changed - the cheap path, just moving which item is
-                // highlighted within the already-correctly-laid-out
-                // window needs no relayout at all.
+            if (!isLargeJump) {
                 return
             }
 
-            // Switching sampleRate changes the label (and thus width) of
-            // EVERY delegate at once (day-format -> week-format text etc),
-            // and recentering the window changes every visible delegate's
-            // periodOffset (and therefore label/width) at once too. Either
-            // way, ListView caches each delegate's x position and does not
-            // automatically re-flow neighboring, currently-off-viewport
-            // items when their widths change this way in bulk - even
-            // forceLayout() alone is not sufficient. Only forceLayout()
-            // followed by re-centering via positionViewAtIndex() actually
-            // rebuilds the neighbor chain around the current item (this is
-            // effectively what happens implicitly when the window is
-            // resized, which is why resizing "fixes" it). Deferred until
-            // the width bindings have settled.
+            // Only a sampleRate switch actually needs forceLayout(): that
+            // changes the label/width of EVERY delegate at once, which
+            // ListView does not automatically re-flow for
+            // currently-off-viewport neighbors otherwise (even
+            // forceLayout() alone is not sufficient without the
+            // re-centering positionViewAtIndex() call that follows it). A
+            // plain large jump within the same sampleRate doesn't change
+            // any delegate's label/width - periodOffset is a constant
+            // per-index mapping now - so it only needs positionViewAtIndex()
+            // to jump the content position there directly, skipping Qt's
+            // slow, distance-proportional highlight animation. Deferred
+            // until the width bindings have settled.
             Qt.callLater(function() {
-                listView.forceLayout()
+                if (forceFullRelayout) {
+                    listView.forceLayout()
+                }
                 listView.positionViewAtIndex(listView.currentIndex, ListView.Center)
             })
         }
     }
 
-    // Size of the (fixed) ListView model window. Large enough that normal
-    // swiping/tapping rarely needs to trigger a recenter.
-    readonly property int windowSize: 41
-    readonly property int windowCenterIndex: (windowSize - 1) / 2
-    // How close to either edge of the window triggers a silent recenter.
-    readonly property int recenterMargin: 8
+    // Jumps larger than this (in index/period units) are repositioned
+    // directly via positionViewAtIndex() instead of animated, see
+    // syncListViewFromSelection() above.
+    readonly property int largeJumpThreshold: 10
 
     ColumnLayout {
         id: layout
@@ -340,7 +342,7 @@ Item {
                 // a circular binding that resolves to 0. Compute the height
                 // from the fonts used by the delegate instead.
                 Layout.preferredHeight: Math.max(Style.smallFont.pixelSize, Style.newSmallFontBold.pixelSize) + Style.smallMargins
-                model: root.windowSize
+                model: d.periodCount
                 snapMode: ListView.SnapOneItem
                 highlightRangeMode: ListView.StrictlyEnforceRange
 
@@ -401,10 +403,9 @@ Item {
                 // AFTER the ListView's own internal initial currentIndex(0)
                 // change already fired once the model becomes valid. Our
                 // onCurrentIndexChanged below would then wrongly treat that
-                // transient "0" as a real navigation and apply the recenter
-                // adjustment a second time, corrupting windowAnchorOffset.
-                // A declarative initial value avoids that spurious step.
-                currentIndex: root.windowCenterIndex
+                // transient "0" as a real navigation. A declarative initial
+                // value avoids that spurious step.
+                currentIndex: d.periodCount - 1
 
                 Component.onCompleted: updateCurrentLabelWidth()
 
@@ -436,47 +437,65 @@ Item {
                         return
                     }
 
-                    var newOffset = d.windowAnchorOffset + currentIndex
-                    if (newOffset > 0) {
-                        // Never allow scrolling past the current period into the future.
-                        d.updatingListView = true
-                        currentIndex -= newOffset
-                        d.updatingListView = false
-                        return
-                    }
-                    if (newOffset < d.minOffset) {
-                        // Never allow scrolling past root.minDate into the past.
-                        d.updatingListView = true
-                        currentIndex += d.minOffset - newOffset
-                        d.updatingListView = false
-                        return
-                    }
+                    // The model is sized to exactly span minDate..today
+                    // (see "periodCount"/"minOffset" above), so currentIndex
+                    // can never land outside that range in the first place
+                    // - no clamping or window-recentering needed here
+                    // anymore, every index's periodOffset is a constant
+                    // mapping.
+                    d.selectedInstant = d.addPeriods(d.todayStart, root.sampleRate, currentIndex + d.minOffset)
+                    updateCurrentLabelWidth()
+                }
 
-                    d.selectedInstant = d.addPeriods(d.todayStart, root.sampleRate, newOffset)
+                // Steps currentIndex by +/-1, used by the chevron buttons
+                // below instead of calling incrementCurrentIndex()/
+                // decrementCurrentIndex() directly. Those rely on Qt
+                // internally keeping its "move reason" as SetIndex through
+                // the next layout pass for the step to be animated - but a
+                // residual settle-animation from an earlier interactive
+                // swipe (flicking/moving still true at that point) makes
+                // that same layout pass silently overwrite it back to
+                // Mouse instead, so the step ends up jumping instantly
+                // with no visible transition at all. cancelFlick() alone
+                // does not reliably prevent this (it only cancels flick
+                // deceleration, not every kind of pending settle
+                // correction) - forcing a positionViewAtIndex() to the
+                // CURRENT index first guarantees the view is fully at
+                // rest (moving/flicking false, no pending correction)
+                // before the actual step, which is always safe to call
+                // here since the button and the view can never be
+                // interacted with by the same pointer at the same time -
+                // if the view is already at rest (the common case), this
+                // is a no-op with no visible effect.
+                function stepCurrentIndex(delta) {
+                    var newIndex = currentIndex + delta
+                    if (newIndex < 0 || newIndex >= count) {
+                        return
+                    }
+                    cancelFlick()
+                    positionViewAtIndex(currentIndex, ListView.Center)
+
+                    // Update the highlight range for the item we're about
+                    // to select BEFORE moving currentIndex, not after - for
+                    // the exact same reason as in syncListViewFromSelection()
+                    // above: with highlightRangeMode: StrictlyEnforceRange,
+                    // changing the highlight range can itself snap the view
+                    // to the new position instantly, which would silently
+                    // override the highlight-move animation Qt is about to
+                    // start for the currentIndex change right below. This
+                    // only becomes visible when the new label's width
+                    // actually differs from the current one (e.g. a
+                    // single-digit day turning into a double-digit one), so
+                    // it was easy to miss - most steps don't change the
+                    // label width and animated fine regardless.
+                    d.selectedInstant = d.addPeriods(d.todayStart, root.sampleRate, newIndex + d.minOffset)
                     updateCurrentLabelWidth()
 
-                    // Silently recenter the window if we're getting close to an edge,
-                    // without changing what's visually displayed (same dates, just
-                    // reindexed), so no animation/jump is visible to the user.
-                    if (currentIndex < root.recenterMargin || currentIndex > root.windowSize - 1 - root.recenterMargin) {
-                        d.updatingListView = true
-                        d.windowAnchorOffset += currentIndex - root.windowCenterIndex
-                        currentIndex = root.windowCenterIndex
-                        d.updatingListView = false
-                        // Reindexing changes every delegate's periodOffset (and
-                        // therefore label/width) at once - see the comment on
-                        // syncListViewFromSelection() for why both calls are
-                        // needed in that situation.
-                        Qt.callLater(function() {
-                            forceLayout()
-                            positionViewAtIndex(currentIndex, ListView.Center)
-                        })
-                    }
+                    currentIndex = newIndex
                 }
 
                 delegate: Item {
-                    readonly property int periodOffset: d.windowAnchorOffset + index
-                    readonly property bool isFuture: periodOffset > 0
+                    readonly property int periodOffset: index + d.minOffset
                     readonly property date periodDate: d.addPeriods(d.todayStart, root.sampleRate, periodOffset)
 
                     // Each delegate is sized to its own label content, since
@@ -493,14 +512,13 @@ Item {
                     Label {
                         id: label
                         anchors.centerIn: parent
-                        text: isFuture ? "" : d.formatPeriod(periodDate, root.sampleRate)
+                        text: d.formatPeriod(periodDate, root.sampleRate)
                         font: Style.newSmallFont
                         color: Style.colors.typography_Basic_Default
                     }
 
                     MouseArea {
                         anchors.fill: parent
-                        enabled: !isFuture
                         onClicked: pickerOverlay.open()
                     }
                 }
@@ -513,7 +531,7 @@ Item {
                 iconSize: 20
                 enabled: d.selectedOffset > d.minOffset
                 icon: Qt.resolvedUrl("qrc:/icons/chevron_backward.svg")
-                onClicked: listView.decrementCurrentIndex()
+                onClicked: listView.stepCurrentIndex(-1)
             }
 
             CoIconButton {
@@ -522,7 +540,7 @@ Item {
                 iconSize: 20
                 enabled: d.selectedOffset < 0
                 icon: Qt.resolvedUrl("qrc:/icons/chevron_forward.svg")
-                onClicked: listView.incrementCurrentIndex()
+                onClicked: listView.stepCurrentIndex(1)
             }
         }
     }
