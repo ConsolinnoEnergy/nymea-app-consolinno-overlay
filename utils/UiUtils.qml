@@ -117,6 +117,9 @@ Item {
         case "simpleheatpump":
             return Qt.resolvedUrl("/icons/heat_pump.svg")
         case "smartwhitegood":
+        case "smartdishwasher":
+        case "smartdryer":
+        case "smartwashingmachine":
             return Qt.resolvedUrl("/icons/dishwasher.svg")
         case "gridsupport":
             return Qt.resolvedUrl("/icons/select-none.svg")

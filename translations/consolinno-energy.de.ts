@@ -1837,12 +1837,12 @@ Ihr %3 Team</translation>
 <context>
     <name>CoStatsLineChart</name>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="1330"/>
+        <location filename="../components/CoStatsLineChart.qml" line="1357"/>
         <source>d</source>
         <translation>d.</translation>
     </message>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="1352"/>
+        <location filename="../components/CoStatsLineChart.qml" line="1379"/>
         <source>kW</source>
         <translation>kW</translation>
     </message>

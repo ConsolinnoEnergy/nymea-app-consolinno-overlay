@@ -1826,12 +1826,12 @@ Your %3 Team</source>
 <context>
     <name>CoStatsLineChart</name>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="1330"/>
+        <location filename="../components/CoStatsLineChart.qml" line="1357"/>
         <source>d</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoStatsLineChart.qml" line="1352"/>
+        <location filename="../components/CoStatsLineChart.qml" line="1379"/>
         <source>kW</source>
         <translation type="unfinished"></translation>
     </message>
