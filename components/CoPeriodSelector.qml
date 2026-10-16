@@ -210,6 +210,16 @@ Item {
                     || targetIndex > root.windowSize - 1 - root.recenterMargin
 
             updatingListView = true
+            // Update the highlight range (derived from the new selection's
+            // label width) BEFORE moving currentIndex, not after: with
+            // highlightRangeMode: StrictlyEnforceRange, changing the
+            // highlight range can itself nudge currentIndex to whatever
+            // item now falls inside it. Doing that *after* we already set
+            // currentIndex here would silently move it again - while
+            // "updatingListView" is already back to false - landing on the
+            // wrong period. (The interactive swipe path below already
+            // updates the label first for the same reason.)
+            listView.updateCurrentLabelWidth()
             if (needsRecenter) {
                 windowAnchorOffset = selectedOffset - windowCenterIndex
                 listView.currentIndex = windowCenterIndex
@@ -217,7 +227,6 @@ Item {
                 listView.currentIndex = targetIndex
             }
             updatingListView = false
-            listView.updateCurrentLabelWidth()
 
             if (!needsRecenter) {
                 // Window didn't move and no delegate's label/width
