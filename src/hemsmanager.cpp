@@ -363,34 +363,13 @@ int HemsManager::setHeatingConfiguration(const QUuid &heatPumpThingId, const QVa
             value = uuid;
         }
 
+        // operatingMode is transmitted over JSON-RPC as its enum key name
+        // (e.g. "StrategyControlled"), not as an integer, so convert explicitly.
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
+        }
+
         config.insert(name, value);
-    }
-
-    // Keep the UI's legacy optimization fields and translate them to the
-    // backend's operating mode and optimization strategies.
-    config.remove("optimizationEnabled");
-    const QVariant legacyOptimizationMode = config.take("optimizationMode");
-    const int optimizationMode = legacyOptimizationMode.toInt();
-
-    switch (static_cast<HeatingConfiguration::HPOptimizationMode>(optimizationMode)) {
-    case HeatingConfiguration::OptimizationModePVSurplus:
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
-        break;
-    case HeatingConfiguration::OptimizationModeDynamicPricing:
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyDynamicTariff);
-        break;
-    case HeatingConfiguration::OptimizationModeOff:
-        config.insert("operatingMode", OperatingModeNoControl);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        break;
-    default:
-        qCWarning(dcHems()) << "Unknown legacy heating optimizationMode" << optimizationMode
-                            << "- falling back to NoControl";
-        config.insert("operatingMode", OperatingModeNoControl);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        break;
     }
 
     qCDebug(dcHems()) << "heatMeterThingId in config:" << config.value("heatMeterThingId") << "Type:" << config.value("heatMeterThingId").typeName();
@@ -1379,18 +1358,8 @@ void HemsManager::addOrUpdateHeatingConfiguration(const QVariantMap &configurati
     configuration->setHeatMeterThingId(configurationMap.value("heatMeterThingId").toUuid());
     configuration->setFloorHeatingArea(configurationMap.value("floorHeatingArea").toDouble());
     configuration->setMaxThermalEnergy(configurationMap.value("maxThermalEnergy").toDouble());
-        const QVariant optimizationStrategies = configurationMap.value("optimizationStrategies");
-    const QString operatingMode = configurationMap.value("operatingMode").toString();
-    HeatingConfiguration::HPOptimizationMode optimizationMode = HeatingConfiguration::OptimizationModeOff;
-    if (operatingMode == OperatingModeStrategyControlled
-            && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyPvOptimized)) {
-        optimizationMode = HeatingConfiguration::OptimizationModePVSurplus;
-    } else if (operatingMode == OperatingModeStrategyControlled
-            && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyDynamicTariff)) {
-        optimizationMode = HeatingConfiguration::OptimizationModeDynamicPricing;
-    }
-    configuration->setOptimizationEnabled(optimizationMode != HeatingConfiguration::OptimizationModeOff);
-    configuration->setOptimizationMode(optimizationMode);
+    configuration->setOperatingMode(operatingModeFromString(configurationMap.value("operatingMode").toString()));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());

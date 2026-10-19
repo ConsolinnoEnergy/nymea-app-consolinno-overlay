@@ -64,7 +64,8 @@ Page {
         }
         if (ifaces.indexOf("smartgridheatpump") >= 0) {
             let config = hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id);
-            return config ? config.optimizationMode === HeatingConfiguration.OptimizationModePVSurplus : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
         if (ifaces.indexOf("battery") >= 0) {
             return true;

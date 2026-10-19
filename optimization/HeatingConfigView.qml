@@ -21,6 +21,18 @@ GenericConfigPage {
     readonly property State pvSurplusPowerState: thing.stateByName("actualPvSurplus")
     readonly property State sgReadyModeState: thing.stateByName("sgReadyMode")
 
+    // Checks whether a dropdown model item (operatingMode/optimizationStrategies)
+    // matches the heating configuration's current state. NoControl carries no
+    // strategy bits, so it is compared on operatingMode alone.
+    function heatingModeMatchesConfig(item) {
+        if (!root.heatingconfig) { return false; }
+        if (item.operatingMode === ControlConfig.NoControl) {
+            return root.heatingconfig.operatingMode === ControlConfig.NoControl;
+        }
+        return root.heatingconfig.operatingMode === item.operatingMode &&
+                (root.heatingconfig.optimizationStrategies & item.optimizationStrategies) !== 0;
+    }
+
     readonly property bool applyEnabled: {
         if (!root.heatingconfig) { return false; }
         if (minPVSurplusPower.visible && !minPVSurplusPower.acceptableInput) { return false; }
@@ -28,7 +40,7 @@ GenericConfigPage {
         if (maxTotalRuntimeStepper.visible && !maxTotalRuntimeStepper.acceptableInput) { return false; }
 
         if (optimizationModeDropdown.currentIndex >= 0 &&
-                filteredModel.get(optimizationModeDropdown.currentIndex).value !== root.heatingconfig.optimizationMode) { return true; }
+                !root.heatingModeMatchesConfig(filteredModel.get(optimizationModeDropdown.currentIndex))) { return true; }
         if (minPVSurplusPower.visible &&
                 parseInt(minPVSurplusPower.text) !== root.heatingconfig.pvSurplusThreshold) {
             return true;
@@ -89,7 +101,9 @@ GenericConfigPage {
     function saveSettings() {
         var newConfig = JSON.parse(JSON.stringify(heatingconfig));
         newConfig.priceThreshold = -heatpumpPriceWidget.currentRelativeValue;
-        newConfig.optimizationMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex).value;
+        var selectedMode = optimizationModeDropdown.model.get(optimizationModeDropdown.currentIndex);
+        newConfig.operatingMode = selectedMode.operatingMode;
+        newConfig.optimizationStrategies = selectedMode.optimizationStrategies;
         newConfig.relativePriceEnabled = true;
         if (minPVSurplusPower.visible) {
             newConfig.pvSurplusThreshold = parseInt(minPVSurplusPower.text);
@@ -288,9 +302,9 @@ GenericConfigPage {
 
                             // Base model that holds *all* possible options
                             property var fullModel: [
-                                { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0},
-                                { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1},
-                                { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2},
+                                { text: qsTr("PV Surplus"), enumname: "OptimizationModePVSurplus", value: 0, operatingMode: ControlConfig.StrategyControlled, optimizationStrategies: ControlConfig.PvOptimized },
+                                { text: qsTr("Dynamic Pricing"), enumname: "OptimizationModeDynamicPricing", value: 1, operatingMode: ControlConfig.StrategyControlled, optimizationStrategies: ControlConfig.DynamicTariff },
+                                { text: qsTr("Off"), enumname: "OptimizationModeOff", value: 2, operatingMode: ControlConfig.NoControl, optimizationStrategies: ControlConfig.NoStrategy },
                             ]
                             // Actual ComboBox model
                             model: ListModel { id: filteredModel }
@@ -300,7 +314,7 @@ GenericConfigPage {
                                     return -1;
                                 }
                                 for (let i = 0; i < filteredModel.count; ++i) {
-                                    if (filteredModel.get(i).enumname === root.heatingconfig.optimizationMode) {
+                                    if (root.heatingModeMatchesConfig(filteredModel.get(i))) {
                                         return i;
                                     }
                                 }
@@ -308,7 +322,6 @@ GenericConfigPage {
                             }
 
                             onCurrentIndexChanged: {
-                                console.info(root.heatingconfig.optimizationMode);
                                 console.debug("Optimization mode changed to:", currentIndex >= 0 ? comboBox.model.get(currentIndex).enumname : "none");
                             }
 
@@ -350,7 +363,7 @@ GenericConfigPage {
 
                                 // Set current index to match existing config
                                 for (let i = 0; i < filteredModel.count; ++i) {
-                                    if (filteredModel.get(i).value === root.heatingconfig.optimizationMode) {
+                                    if (root.heatingModeMatchesConfig(filteredModel.get(i))) {
                                         optimizationModeDropdown.currentIndex = i;
                                         return;
                                     }
