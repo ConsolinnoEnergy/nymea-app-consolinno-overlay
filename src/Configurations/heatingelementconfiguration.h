@@ -4,12 +4,15 @@
 #include <QUuid>
 #include <QObject>
 
+#include "controlconfigurationenums.h"
+
 class HeatingElementConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid heatingRodThingId READ heatingRodThingId CONSTANT)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
-    Q_PROPERTY(bool optimizationEnabled READ optimizationEnabled WRITE setOptimizationEnabled NOTIFY optimizationEnabledChanged)
+    Q_PROPERTY(ControlConfig::OperatingMode operatingMode READ operatingMode WRITE setOperatingMode NOTIFY operatingModeChanged)
+    Q_PROPERTY(int optimizationStrategies READ optimizationStrategies WRITE setOptimizationStrategies NOTIFY optimizationStrategiesChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
@@ -21,8 +24,11 @@ public:
     double maxElectricalPower() const;
     void setMaxElectricalPower(const double &maxElectricalPower);
 
-    bool optimizationEnabled() const;
-    void setOptimizationEnabled(const bool &optimizationEnabled);
+    ControlConfig::OperatingMode operatingMode() const;
+    void setOperatingMode(ControlConfig::OperatingMode operatingMode);
+
+    int optimizationStrategies() const;
+    void setOptimizationStrategies(int optimizationStrategies);
 
     bool controllableLocalSystem() const;
     void setControllableLocalSystem(const bool &controllableLocalSystem);
@@ -30,12 +36,14 @@ public:
 private:
     QUuid m_heatingRodThingId;
     double m_maxElectricalPower = 0;
-    bool m_optimizationEnabled = false;
+    ControlConfig::OperatingMode m_operatingMode = ControlConfig::NoControl;
+    int m_optimizationStrategies = ControlConfig::NoStrategy;
     bool m_controllableLocalSystem = false;
 
 signals:
     void maxElectricalPowerChanged(const double maxElectricalPower);
-    void optimizationEnabledChanged(const double optimizationEnabled);
+    void operatingModeChanged(ControlConfig::OperatingMode operatingMode);
+    void optimizationStrategiesChanged(int optimizationStrategies);
     void controllableLocalSystemChanged(const bool &controllableLocalSystem);
 
 };

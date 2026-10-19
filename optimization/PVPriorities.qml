@@ -56,7 +56,8 @@ Page {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("heatingrod") >= 0) {
             let config = hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thing.id);
-            return config ? config.optimizationEnabled : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
         if (ifaces.indexOf("pvsurplusheatpump") >= 0) {
             return true;

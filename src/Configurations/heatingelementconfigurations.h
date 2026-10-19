@@ -14,7 +14,8 @@ public:
     enum Role{
      RoleHeatingRodThingId,
      RoleMaxElectricalPower,
-     RoleOptimizationEnabled,
+     RoleOperatingMode,
+     RoleOptimizationStrategies,
      RoleControllableLocalSystemEnabled
     };
     Q_ENUM(Role);

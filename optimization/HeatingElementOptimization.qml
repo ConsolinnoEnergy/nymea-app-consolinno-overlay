@@ -35,7 +35,6 @@ Page {
         d.pendingCallId = hemsManager.setHeatingElementConfiguration(heatRodThing.id, {
             // The user enters kW; the backend expects maxElectricalPower in W.
             "maxElectricalPower": inputText,
-            "optimizationEnabled": heatingElementConfiguration ? heatingElementConfiguration.optimizationEnabled : true,
             "controllableLocalSystem": gridSupportControl.checked
         })
         if (!calledFromAssistant) {

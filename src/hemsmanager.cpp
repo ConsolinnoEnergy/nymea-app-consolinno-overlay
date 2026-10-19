@@ -271,7 +271,7 @@ int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, 
         dummyConfig.insert("heatingRodThingId", heatingRodThingId);
         dummyConfig.insert("maxElectricalPower", 0);
         dummyConfig.insert("operatingMode", OperatingModeNoControl);
-        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
         dummyConfig.insert("controllableLocalSystem", false);
 
         addOrUpdateHeatingElementConfiguration(dummyConfig);
@@ -284,25 +284,18 @@ int HemsManager::setHeatingElementConfiguration(const QUuid &heatingRodThingId, 
     // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name()))
-            {
-                //qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-            }else{
-                //qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-            }
-    }
+        const QMetaProperty prop = metaObj->property(i);
+        const char *name = prop.name();
+        QVariant value = data.contains(name) ? data.value(name) : prop.read(configuration);
 
-    // The UI exposes one switch while the backend represents PV optimization
-    // through an operating mode and a bitmask of optimization strategies.
-    const bool optimizationEnabled = config.take("optimizationEnabled").toBool();
-    config.insert("operatingMode", optimizationEnabled
-                  ? OperatingModeStrategyControlled
-                  : OperatingModeNoControl);
-    config.insert("optimizationStrategies", optimizationEnabled
-                  ? OptimizationStrategyPvOptimized
-                  : OptimizationStrategyNoStrategy);
+        // operatingMode is transmitted over JSON-RPC as its enum key name
+        // (e.g. "StrategyControlled"), not as an integer, so convert explicitly.
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
+        }
+
+        config.insert(name, value);
+    }
 
     QVariantMap params;
     params.insert("heatingRodConfiguration", config);
@@ -1668,9 +1661,8 @@ void HemsManager::addOrUpdateHeatingElementConfiguration(const QVariantMap &conf
     }
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
-    const bool pvOptimized = hasOptimizationStrategy(
-        configurationMap.value("optimizationStrategies"), OptimizationStrategyPvOptimized);
-    configuration->setOptimizationEnabled(configurationMap.value("operatingMode").toString() == OperatingModeStrategyControlled && pvOptimized);
+    configuration->setOperatingMode(operatingModeFromString(configurationMap.value("operatingMode").toString()));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
 
      if (newConfiguration){
