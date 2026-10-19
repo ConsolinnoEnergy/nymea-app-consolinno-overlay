@@ -78,7 +78,8 @@ Page {
         }
         if (ifaces.indexOf("powersocket") >= 0) {
             let config = hemsManager.switchConfigurations.getSwitchConfiguration(thing.id);
-            return config ? config.optimizationMode === SwitchConfiguration.OptimizationModePvSurplus : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
 
         return false;

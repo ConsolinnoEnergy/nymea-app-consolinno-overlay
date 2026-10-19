@@ -16,8 +16,12 @@ QVariant SwitchConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleSwitchThingId:
         return m_list.at(index.row())->switchThingId();
-    case RoleOptimizationMode:
-        return m_list.at(index.row())->optimizationMode();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
+    case RoleManualEnabled:
+        return m_list.at(index.row())->manualEnabled();
     case RoleMaxElectricalPower:
         return m_list.at(index.row())->maxElectricalPower();
     case RolePvSurplusThreshold:
@@ -37,7 +41,9 @@ QHash<int, QByteArray> SwitchConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleSwitchThingId, "switchThingId");
-    roles.insert(RoleOptimizationMode, "optimizationMode");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
+    roles.insert(RoleManualEnabled, "manualEnabled");
     roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
     roles.insert(RolePvSurplusThreshold, "pvSurplusThreshold");
     roles.insert(RoleDurationMinAfterTurnOn, "durationMinAfterTurnOn");
@@ -71,9 +77,19 @@ void SwitchConfigurations::addConfiguration(SwitchConfiguration *configuration)
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(configuration);
 
-    connect(configuration, &SwitchConfiguration::optimizationModeChanged, this, [=]() {
+    connect(configuration, &SwitchConfiguration::operatingModeChanged, this, [=]() {
         QModelIndex idx = index(m_list.indexOf(configuration));
-        emit dataChanged(idx, idx, {RoleOptimizationMode});
+        emit dataChanged(idx, idx, {RoleOperatingMode});
+    });
+
+    connect(configuration, &SwitchConfiguration::optimizationStrategiesChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(configuration));
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
+    });
+
+    connect(configuration, &SwitchConfiguration::manualEnabledChanged, this, [=]() {
+        QModelIndex idx = index(m_list.indexOf(configuration));
+        emit dataChanged(idx, idx, {RoleManualEnabled});
     });
 
     connect(configuration, &SwitchConfiguration::maxElectricalPowerChanged, this, [=]() {

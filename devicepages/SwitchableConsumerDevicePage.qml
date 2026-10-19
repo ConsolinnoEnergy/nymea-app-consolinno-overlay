@@ -18,11 +18,25 @@ GenericConfigPage {
     title: root.thing.name
     headerOptionsVisible: false
 
+    // Local combobox values (distinct from backend enum values):
+    // 0 = PV surplus, 1 = Always on (manual), 2 = Off (manual), 3 = No control
+    readonly property int currentConfigComboValue: {
+        if (!root.consumerConfig) { return 3; }
+        if (root.consumerConfig.operatingMode === ControlConfig.StrategyControlled
+                && (root.consumerConfig.optimizationStrategies & ControlConfig.PvOptimized) !== 0) {
+            return 0;
+        }
+        if (root.consumerConfig.operatingMode === ControlConfig.Manual) {
+            return root.consumerConfig.manualEnabled ? 1 : 2;
+        }
+        return 3;
+    }
+
     readonly property bool applyEnabled: {
         if (!root.consumerConfig) { return false; }
         if (pvSurplusGroup.visible && (!minRuntimeStepper.acceptableInput || !maxTotalRuntimeStepper.acceptableInput)) { return false; }
         if (pvSurplusGroup.visible && !minPVSurplusPower.acceptableInput) { return false; }
-        if (optimizationModeCombobox.currentValue !== root.consumerConfig.optimizationMode) { return true; }
+        if (optimizationModeCombobox.currentValue !== root.currentConfigComboValue) { return true; }
         if (pvSurplusGroup.visible && minRuntimeStepper.value * 900 !== root.consumerConfig.durationMinAfterTurnOn) { return true; }
         if (pvSurplusGroup.visible && maxTotalRuntimeStepper.value * 900 !== root.consumerConfig.durationMaxTotal) { return true; }
         if (pvSurplusGroup.visible && parseInt(minPVSurplusPower.text) !== root.consumerConfig.pvSurplusThreshold) { return true; }
@@ -30,14 +44,34 @@ GenericConfigPage {
     }
 
     function applyChanges() {
+        let props = {
+            durationMinAfterTurnOn: minRuntimeStepper.value * 900,
+            durationMaxTotal: maxTotalRuntimeStepper.value * 900,
+            pvSurplusThreshold: parseInt(minPVSurplusPower.text)
+        };
+        switch (optimizationModeCombobox.currentValue) {
+        case 0: // PV surplus
+            props.operatingMode = ControlConfig.StrategyControlled;
+            props.optimizationStrategies = ControlConfig.PvOptimized;
+            break;
+        case 1: // Always on
+            props.operatingMode = ControlConfig.Manual;
+            props.optimizationStrategies = ControlConfig.NoStrategy;
+            props.manualEnabled = true;
+            break;
+        case 2: // Off
+            props.operatingMode = ControlConfig.Manual;
+            props.optimizationStrategies = ControlConfig.NoStrategy;
+            props.manualEnabled = false;
+            break;
+        default: // No control
+            props.operatingMode = ControlConfig.NoControl;
+            props.optimizationStrategies = ControlConfig.NoStrategy;
+            break;
+        }
         d.pendingCallId = hemsManager.setSwitchConfiguration(
             root.consumerConfig.switchThingId,
-            {
-                optimizationMode: optimizationModeCombobox.currentValue,
-                durationMinAfterTurnOn: minRuntimeStepper.value * 900,
-                durationMaxTotal: maxTotalRuntimeStepper.value * 900,
-                pvSurplusThreshold: parseInt(minPVSurplusPower.text)
-            }
+            props
         );
     }
 
@@ -92,18 +126,19 @@ GenericConfigPage {
 
     ListModel {
         id: optimizationModesModel
-        ListElement{ name: qsTr("Always on"); value: 1 }   // SwitchConfiguration.OptimizationModeManualOn
-        ListElement{ name: qsTr("Off"); value: 2 }          // SwitchConfiguration.OptimizationModeManualOff
-        ListElement{ name: qsTr("No control"); value: 3 }   // SwitchConfiguration.OptimizationModeNoControl
+        // Local UI values (0-3), not the backend operatingMode enum.
+        ListElement{ name: qsTr("Always on"); value: 1 }   // manual on
+        ListElement{ name: qsTr("Off"); value: 2 }          // manual off
+        ListElement{ name: qsTr("No control"); value: 3 }   // no control
 
         Component.onCompleted: {
             if (d.pvSurplusModeAvailable) {
-                insert(0, { name: qsTr("PV surplus"), value: 0 }); // SwitchConfiguration.OptimizationModePvSurplus
+                insert(0, { name: qsTr("PV surplus"), value: 0 });
             }
             if (!root.consumerConfig) {
                 optimizationModeCombobox.currentIndex = 0;
             } else {
-                const ind = optimizationModeCombobox.comboBox.indexOfValue(root.consumerConfig.optimizationMode);
+                const ind = optimizationModeCombobox.comboBox.indexOfValue(root.currentConfigComboValue);
                 if (ind !== -1) {
                     optimizationModeCombobox.currentIndex = ind;
                 } else {
@@ -236,7 +271,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("\"PV Surplus\"")
-                    visible: optimizationModeCombobox.currentValue === 0 // SwitchConfiguration.OptimizationModePvSurplus
+                    visible: optimizationModeCombobox.currentValue === 0 // PV surplus (local UI value)
 
                     ColumnLayout {
                         anchors.left: parent.left

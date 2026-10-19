@@ -696,45 +696,22 @@ int HemsManager::setSwitchConfiguration(const QUuid &switchThingId, const QVaria
         configuration = m_switchConfigurations->getSwitchConfiguration(switchThingId);
     }
 
-    // Keep the UI's legacy optimizationMode and translate it to the backend's
-    // operating mode, strategy list, and manual control flag.
+    // Make a MetaObject of an configuration
     const QMetaObject *metaObj = configuration->metaObject();
+    // add the values from data which match with the MetaObject
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
-        QMetaProperty prop = metaObj->property(i);
-        QVariant value = data.contains(prop.name()) ? data.value(prop.name()) : prop.read(configuration);
-        config.insert(prop.name(), value);
-    }
+        const QMetaProperty prop = metaObj->property(i);
+        const char *name = prop.name();
+        QVariant value = data.contains(name) ? data.value(name) : prop.read(configuration);
 
-    const auto optimizationMode = static_cast<SwitchConfiguration::OptimizationMode>(config.take("optimizationMode").toInt());
-    switch (optimizationMode) {
-    case SwitchConfiguration::OptimizationModePvSurplus:
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
-        config.remove("manualEnabled");
-        break;
-    case SwitchConfiguration::OptimizationModeManualOn:
-        config.insert("operatingMode", OperatingModeManual);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        config.insert("manualEnabled", true);
-        break;
-    case SwitchConfiguration::OptimizationModeManualOff:
-        config.insert("operatingMode", OperatingModeManual);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        config.insert("manualEnabled", false);
-        break;
-    case SwitchConfiguration::OptimizationModeNoControl:
-        config.insert("operatingMode", OperatingModeNoControl);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        config.remove("manualEnabled");
-        break;
-    default:
-        qCWarning(dcHems()) << "Unknown legacy switch optimizationMode" << static_cast<int>(optimizationMode)
-                            << "- falling back to NoControl";
-        config.insert("operatingMode", OperatingModeNoControl);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-        config.remove("manualEnabled");
-        break;
+        // operatingMode is transmitted over JSON-RPC as its enum key name
+        // (e.g. "StrategyControlled"), not as an integer, so convert explicitly.
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
+        }
+
+        config.insert(name, value);
     }
 
     QVariantMap params;
@@ -1687,18 +1664,10 @@ void HemsManager::addOrUpdateSwitchConfiguration(const QVariantMap &configuratio
         configuration->setSwitchThingId(switchUuid);
     }
 
-    const bool pvOptimized = hasOptimizationStrategy(
-        configurationMap.value("optimizationStrategies"), OptimizationStrategyPvOptimized);
     const QString operatingMode = configurationMap.value("operatingMode").toString();
-    SwitchConfiguration::OptimizationMode optimizationMode = SwitchConfiguration::OptimizationModeNoControl;
-    if (operatingMode == OperatingModeStrategyControlled && pvOptimized) {
-        optimizationMode = SwitchConfiguration::OptimizationModePvSurplus;
-    } else if (operatingMode == OperatingModeManual) {
-        optimizationMode = configurationMap.value("manualEnabled").toBool()
-            ? SwitchConfiguration::OptimizationModeManualOn
-            : SwitchConfiguration::OptimizationModeManualOff;
-    }
-    configuration->setOptimizationMode(optimizationMode);
+    configuration->setOperatingMode(operatingModeFromString(operatingMode));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
+    configuration->setManualEnabled(configurationMap.value("manualEnabled").toBool());
 
     configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
     configuration->setPvSurplusThreshold(configurationMap.value("pvSurplusThreshold").toDouble());
