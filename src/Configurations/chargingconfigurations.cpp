@@ -17,10 +17,12 @@ QVariant ChargingConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleEvChargerThingId:
         return m_list.at(index.row())->evChargerThingId();
-    case RoleOptimizationEnabled:
-        return m_list.at(index.row())->optimizationEnabled();
-    case RoleOptimizationMode:
-        return m_list.at(index.row())->optimizationMode();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
+    case RoleInsufficientPowerBehavior:
+        return m_list.at(index.row())->insufficientPowerBehavior();
     case RoleCarThingId:
         return m_list.at(index.row())->carThingId();
     case RoleEndTime:
@@ -45,8 +47,9 @@ QHash<int, QByteArray> ChargingConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleEvChargerThingId, "evChargerThingId");
-    roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
-    roles.insert(RoleOptimizationMode, "optimizationMode");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
+    roles.insert(RoleInsufficientPowerBehavior, "insufficientPowerBehavior");
     roles.insert(RoleCarThingId, "carThingId");
     roles.insert(RoleEndTime, "endTime");
     roles.insert(RoleTargetPercentage, "targetPercentage");
@@ -76,14 +79,19 @@ void ChargingConfigurations::addConfiguration(ChargingConfiguration *chargingCon
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(chargingConfiguration);
 
-    connect(chargingConfiguration, &ChargingConfiguration::optimizationEnabledChanged, this, [=](){
+    connect(chargingConfiguration, &ChargingConfiguration::operatingModeChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+        emit dataChanged(idx, idx, {RoleOperatingMode});
     });
 
-    connect(chargingConfiguration, &ChargingConfiguration::optimizationModeChanged, this, [=](){
+    connect(chargingConfiguration, &ChargingConfiguration::optimizationStrategiesChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationMode});
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
+    });
+
+    connect(chargingConfiguration, &ChargingConfiguration::insufficientPowerBehaviorChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(chargingConfiguration));
+        emit dataChanged(idx, idx, {RoleInsufficientPowerBehavior});
     });
 
 

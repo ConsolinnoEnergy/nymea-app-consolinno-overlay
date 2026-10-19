@@ -14,8 +14,9 @@ class ChargingConfigurations : public QAbstractListModel
 public:
     enum Role {
         RoleEvChargerThingId,
-        RoleOptimizationEnabled,
-        RoleOptimizationMode,
+        RoleOperatingMode,
+        RoleOptimizationStrategies,
+        RoleInsufficientPowerBehavior,
         RoleCarThingId,
         RoleEndTime,
         RoleTargetPercentage,

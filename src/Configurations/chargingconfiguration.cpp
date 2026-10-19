@@ -20,18 +20,46 @@ void ChargingConfiguration::setEvChargerThingId(const QUuid &evChargerThingId)
     m_evChargerThingId = evChargerThingId;
 }
 
-bool ChargingConfiguration::optimizationEnabled() const
+ControlConfig::OperatingMode ChargingConfiguration::operatingMode() const
 {
-    return m_optimizationEnabled;
+    return m_operatingMode;
 }
 
-void ChargingConfiguration::setOptimizationEnabled(bool optimizationEnabled)
+void ChargingConfiguration::setOperatingMode(ControlConfig::OperatingMode operatingMode)
 {
-    if (m_optimizationEnabled == optimizationEnabled)
+    if (m_operatingMode == operatingMode)
         return;
 
-    m_optimizationEnabled = optimizationEnabled;
-    emit optimizationEnabledChanged(m_optimizationEnabled);
+    m_operatingMode = operatingMode;
+    emit operatingModeChanged(m_operatingMode);
+}
+
+int ChargingConfiguration::optimizationStrategies() const
+{
+    return m_optimizationStrategies;
+}
+
+void ChargingConfiguration::setOptimizationStrategies(int optimizationStrategies)
+{
+    if (m_optimizationStrategies == optimizationStrategies)
+        return;
+
+    m_optimizationStrategies = optimizationStrategies;
+    emit optimizationStrategiesChanged(m_optimizationStrategies);
+}
+
+ChargingConfiguration::InsufficientPowerBehavior ChargingConfiguration::insufficientPowerBehavior() const
+{
+    return m_insufficientPowerBehavior;
+}
+
+void ChargingConfiguration::setInsufficientPowerBehavior(InsufficientPowerBehavior insufficientPowerBehavior)
+{
+    if (m_insufficientPowerBehavior == insufficientPowerBehavior)
+        return;
+
+    m_insufficientPowerBehavior = insufficientPowerBehavior;
+    emit insufficientPowerBehaviorChanged(m_insufficientPowerBehavior);
 }
 
 QUuid ChargingConfiguration::carThingId() const
@@ -74,20 +102,6 @@ void ChargingConfiguration::setTargetPercentage(uint targetPercentage)
 
     m_targetPercentage = targetPercentage;
     emit targetPercentageChanged(m_targetPercentage);
-}
-
-int ChargingConfiguration::optimizationMode() const
-{
-    return m_optimizationMode;
-}
-
-void ChargingConfiguration::setOptimizationMode( int optimizationMode)
-{
-    if (m_optimizationMode == optimizationMode)
-        return;
-
-    m_optimizationMode = optimizationMode;
-    emit optimizationModeChanged(m_optimizationMode);
 }
 
 QUuid ChargingConfiguration::uniqueIdentifier() const

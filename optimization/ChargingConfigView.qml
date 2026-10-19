@@ -35,18 +35,21 @@ GenericConfigPage {
     property double highestPrice: 0
     property var prices: ({})
 
+    // pv_excess (PV_EXCESS) and simple_pv_excess (SIMPLE_PV_EXCESS) used to be
+    // distinct legacy charging modes, but the backend collapsed both into the
+    // same operatingMode/optimizationStrategies combination (StrategyControlled
+    // + PvOptimized). The app never offered PV_EXCESS as a selectable option
+    // either, so both concepts are merged into one here: simple_pv_excess.
     enum ChargingMode {
         NO_OPTIMIZATION = 0,
         PV_OPTIMIZED = 1,
-        PV_EXCESS = 2,
-        SIMPLE_PV_EXCESS = 3,
-        DYN_PRICING = 4,
-        TIME_CONTROLLED = 5
+        SIMPLE_PV_EXCESS = 2,
+        DYN_PRICING = 3,
+        TIME_CONTROLLED = 4
     }
 
     property int no_optimization: ChargingConfigView.ChargingMode.NO_OPTIMIZATION
     property int pv_optimized: ChargingConfigView.ChargingMode.PV_OPTIMIZED
-    property int pv_excess: ChargingConfigView.ChargingMode.PV_EXCESS
     property int simple_pv_excess: ChargingConfigView.ChargingMode.SIMPLE_PV_EXCESS
     property int dyn_pricing: ChargingConfigView.ChargingMode.DYN_PRICING
     property int time_controlled: ChargingConfigView.ChargingMode.TIME_CONTROLLED
@@ -146,6 +149,9 @@ GenericConfigPage {
         return exist
     }
 
+    // Maps an internal UI "mode key" (0, 1000, 3000, 4000 or 5000 - as used by
+    // comboBoxChargingMode.fullModel/dynamicModel and configModeKey() below)
+    // to the local ChargingMode enum.
     function getChargingMode(opti_mode){
 
         if (opti_mode < 1000) {
@@ -153,9 +159,6 @@ GenericConfigPage {
         }
         if (opti_mode >= 1000 && opti_mode < 2000) {
             return pv_optimized
-        }
-        if (opti_mode >= 2000 && opti_mode < 3000) {
-            return pv_excess
         }
         if (opti_mode >= 3000 && opti_mode < 4000) {
             return simple_pv_excess
@@ -168,14 +171,33 @@ GenericConfigPage {
         }
     }
 
-    function chargingIsAnyOf(modes)
-    {
-        return modes.includes(getChargingMode(chargingConfiguration.optimizationMode))
+    // Derives the same internal "mode key" that comboBoxChargingMode.fullModel
+    // uses (0, 1000, 3000, 4000, 5000) from an actual ChargingConfiguration's
+    // operatingMode/optimizationStrategies, so it can be fed into
+    // getChargingMode() just like the UI selection.
+    function configModeKey(configuration) {
+        if (configuration.operatingMode === ControlConfig.Systemic) {
+            return 1000;
+        }
+        if (configuration.operatingMode === ControlConfig.StrategyControlled) {
+            if (configuration.optimizationStrategies & ControlConfig.TimeControlled) {
+                return 5000;
+            }
+            if (configuration.optimizationStrategies & ControlConfig.DynamicTariff) {
+                return 4000;
+            }
+            if (configuration.optimizationStrategies & ControlConfig.PvOptimized) {
+                return 3000;
+            }
+        }
+        // Manual ("Charge always") and NoControl (cancelled charging) both
+        // fall into the same "no_optimization" bucket, as before.
+        return 0;
     }
 
-    // 1234 -> mode==1; option1==2; option2==3; option3==4
-    function getChargingModeOpts(opti_mode){
-        return([(opti_mode/100) % 10, (opti_mode/10) % 10, opti_mode % 10])
+    function chargingIsAnyOf(modes)
+    {
+        return modes.includes(getChargingMode(configModeKey(chargingConfiguration)))
     }
 
     QtObject {
@@ -265,7 +287,7 @@ GenericConfigPage {
 
                 }
                 // Running
-                if (chargingConfiguration.optimizationEnabled && (configuration.state == 2)){
+                if (chargingConfiguration.operatingMode !== ControlConfig.NoControl && (configuration.state == 2)){
                     console.info("Going into running mode...")
                     if (settings.showHiddenOptions)
                     {
@@ -279,7 +301,7 @@ GenericConfigPage {
                     }
                 }
                 // Pending
-                if (chargingConfiguration.optimizationEnabled && (configuration.state == 6)){
+                if (chargingConfiguration.operatingMode !== ControlConfig.NoControl && (configuration.state == 6)){
                     console.info("Going into pending mode...")
                     if (settings.showHiddenOptions)
                     {
@@ -308,7 +330,7 @@ GenericConfigPage {
         {
             console.info("Charging session configuration changed...")
             if (configuration.evChargerThingId === thing.id){
-                if (!configuration.optimizationEnabled){
+                if (configuration.operatingMode === ControlConfig.NoControl){
                     batteryLevelCard.visible = false
                     batteryEnergyCard.visible = false
                     maxChargingCurrentCard.visible = false
@@ -316,7 +338,7 @@ GenericConfigPage {
                     energyChargedCard.visible = false
                     initializing = false
                 }
-                else if(configuration.optimizationEnabled){
+                else if(configuration.operatingMode !== ControlConfig.NoControl){
                     if (chargingIsAnyOf([simple_pv_excess, no_optimization, dyn_pricing, time_controlled]))
                     {
                         initializing = chargingIsAnyOf([time_controlled]) ? false : true
@@ -507,8 +529,8 @@ GenericConfigPage {
                     Connections {
                         target: chargingConfiguration
                         function onChargingScheduleChanged() { parseScheduleForOverview() }
-                        function onOptimizationModeChanged() { parseScheduleForOverview() }
-                        function onOptimizationEnabledChanged() { parseScheduleForOverview() }
+                        function onOperatingModeChanged() { parseScheduleForOverview() }
+                        function onOptimizationStrategiesChanged() { parseScheduleForOverview() }
                     }
 
                     Component.onCompleted: {
@@ -523,10 +545,10 @@ GenericConfigPage {
                         CoCard {
                             id: chargingModeCard
                             Layout.fillWidth: true
-                            text: chargingConfiguration.optimizationEnabled ? selectMode(chargingConfiguration.optimizationMode) : "—"
+                            text: chargingConfiguration.operatingMode !== ControlConfig.NoControl ? selectMode() : "—"
                             labelText: qsTr("Charging mode")
-                            showChildrenIndicator: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
-                            interactive: isCarPluggedIn() && !chargingConfiguration.optimizationEnabled
+                            showChildrenIndicator: isCarPluggedIn() && chargingConfiguration.operatingMode === ControlConfig.NoControl
+                            interactive: isCarPluggedIn() && chargingConfiguration.operatingMode === ControlConfig.NoControl
 
                             onClicked: {
                                 if (isCarPluggedIn()) {
@@ -547,10 +569,6 @@ GenericConfigPage {
                                 {
                                     return qsTr("Next trip")
                                 }
-                                else if (chargingIsAnyOf([pv_excess]))
-                                {
-                                    return qsTr("PV only")
-                                }
                                 else if (chargingIsAnyOf([simple_pv_excess]))
                                 {
                                     return qsTr("Solar only")
@@ -569,9 +587,9 @@ GenericConfigPage {
                         CoCard {
                             id: selectedCarCard
                             Layout.fillWidth: true
-                            text: qsTr(isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? pageSelectedCar: "—" )  : "—")
+                            text: qsTr(isCarPluggedIn() ? (chargingConfiguration.operatingMode !== ControlConfig.NoControl ? pageSelectedCar: "—" )  : "—")
                             labelText: qsTr("Car")
-                            visible: chargingConfiguration.optimizationEnabled
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl
                             interactive: false
                         }
 
@@ -580,7 +598,7 @@ GenericConfigPage {
                             model: scheduleOverviewModel
                             delegate: CoCard {
                                 Layout.fillWidth: true
-                                visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.optimizationEnabled
+                                visible: chargingIsAnyOf([time_controlled]) && chargingConfiguration.operatingMode !== ControlConfig.NoControl
                                 text: model.timeText
                                 labelText: model.dayText
                                 interactive: false
@@ -598,9 +616,9 @@ GenericConfigPage {
                             interactive: false
 
                             function getText(){
-                                if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 0) {
+                                if (chargingConfiguration.insufficientPowerBehavior === ChargingConfiguration.ChargeWithMinimumCurrent) {
                                     return qsTr("Minimal current");
-                                } else if (getChargingModeOpts(chargingConfiguration.optimizationMode)[0] === 2) {
+                                } else if (chargingConfiguration.insufficientPowerBehavior === ChargingConfiguration.PauseCharging) {
                                     return qsTr("Pausing");
                                 }
                             }
@@ -661,16 +679,16 @@ GenericConfigPage {
                             property var date: (parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) < today.getHours()) | ((parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) === today.getHours()) & parseInt(chargingConfiguration.endTime[3] + chargingConfiguration.endTime[4]) >= today.getMinutes()) ? tomorrow : today
 
                             Layout.fillWidth: true
-                            text: isCarPluggedIn() ? (chargingConfiguration.optimizationEnabled ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : "—"  )   : "—"
+                            text: isCarPluggedIn() ? (chargingConfiguration.operatingMode !== ControlConfig.NoControl ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : "—"  )   : "—"
                             labelText: qsTr("Ending time")
-                            visible: !([pv_excess, simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(chargingConfiguration.optimizationMode)))
+                            visible: !([simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(configModeKey(chargingConfiguration))))
                             interactive: false
                         }
 
                         CoCard {
                             id: targetChargeCard
                             Layout.fillWidth: true
-                            text: isCarPluggedIn() ?(chargingConfiguration.optimizationEnabled ? chargingConfiguration.targetPercentage + " %" : "—" ) : "—"
+                            text: isCarPluggedIn() ?(chargingConfiguration.operatingMode !== ControlConfig.NoControl ? chargingConfiguration.targetPercentage + " %" : "—" ) : "—"
                             labelText: qsTr("Target charge")
                             visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
                             interactive: false
@@ -709,7 +727,7 @@ GenericConfigPage {
                             id: noLoadingCard
                             Layout.fillWidth: true
                             text: qsTr("Charging deactivated. Please choose a charging mode.")
-                            visible: !(chargingConfiguration.optimizationEnabled && isCarPluggedIn())
+                            visible: !(chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn())
                             interactive: false
                         }
 
@@ -732,7 +750,7 @@ GenericConfigPage {
                                 }
                             }
                             labelText: qsTr("Status")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn()
                             interactive: false
                             status: {
                                 if (initializing) {
@@ -761,7 +779,7 @@ GenericConfigPage {
                                 if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
                                     return false;
                                 }
-                                if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())) {
+                                if (!(chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn())) {
                                     return false;
                                 }
                                 return true
@@ -778,7 +796,7 @@ GenericConfigPage {
                                 if (chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization])) {
                                     return false;
                                 }
-                                if (!(chargingConfiguration.optimizationEnabled && isCarPluggedIn())) {
+                                if (!(chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn())) {
                                     return false;
                                 }
                                 return true;
@@ -790,7 +808,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: initializing ? 0 : getUserVisibleChargingPower()
                             labelText: qsTr("Charging power")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn()
                             interactive: false
                         }
 
@@ -799,7 +817,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: (initializing ? 0 : thing.stateByName("maxChargingCurrent").value) + " A"
                             labelText: qsTr("Target charging current")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn() && settings.showHiddenOptions
                             interactive: false
                         }
 
@@ -808,7 +826,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: (initializing ? 0 : calcChargingCurrent()) + " A"
                             labelText: qsTr("Actual charging current")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn() && settings.showHiddenOptions
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn() && settings.showHiddenOptions
                             interactive: false
                         }
 
@@ -817,7 +835,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: (+chargingSessionConfiguration.energyCharged.toFixed(2)).toLocaleString() + " kWh"
                             labelText: qsTr("Energy charged")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn()
                             interactive: false
                         }
 
@@ -831,7 +849,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: (hours === 0) ? minutes +  " min " : hours + " h " + minutes + " min"
                             labelText: qsTr("Time elapsed")
-                            visible: chargingConfiguration.optimizationEnabled && isCarPluggedIn()
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn()
                             interactive: false
                         }
 
@@ -840,7 +858,7 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: thing ? thing.stateByName("phaseCount").value : "—"
                             labelText: qsTr("Phase count")
-                            visible: chargingConfiguration.optimizationEnabled &&
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl &&
                                      isCarPluggedIn() &&
                                      chargingIsAnyOf([pv_optimized, simple_pv_excess])
                             interactive: false
@@ -858,14 +876,14 @@ GenericConfigPage {
                             Layout.topMargin: Style.smallMargins
                             Layout.leftMargin: Style.margins
                             Layout.rightMargin: Style.margins
-                            visible: chargingConfiguration.optimizationEnabled
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl
                             text: qsTr("Cancel charging")
 
                             onClicked: {
                                 hemsManager.setChargingConfiguration(thing.id,
                                                                      {
-                                                                         optimizationEnabled: false,
-                                                                         optimizationMode: 9
+                                                                         operatingMode: ControlConfig.NoControl,
+                                                                         optimizationStrategies: ControlConfig.NoStrategy
                                                                      });
                                 busyOverlay.shown = true;
                             }
@@ -944,19 +962,18 @@ GenericConfigPage {
                 footer.visible = false;
                 batteryLevelSlider.feedbackText = "";
 
-                if (chargingConfiguration.optimizationEnabled ||
-                        chargingConfiguration.optimizationMode !== 9) {
+                if (chargingConfiguration.operatingMode !== ControlConfig.NoControl) {
                     // Cancel running charging session.
                     console.info("Cancelling running charging session.");
                     hemsManager.setChargingConfiguration(thing.id,
                                                          {
-                                                             optimizationEnabled: false,
-                                                             optimizationMode: 9
+                                                             operatingMode: ControlConfig.NoControl,
+                                                             optimizationStrategies: ControlConfig.NoStrategy
                                                          });
                 }
 
                 // Set the endTime to maximum value for all modes except pv_optimized
-                if(isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
+                if(isAnyOfModesSelected([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])) {
                     endTimeSlider.value = 24 * 60;
                 }
 
@@ -995,7 +1012,7 @@ GenericConfigPage {
                                                                }]);
                     }
                     pageSelectedCar = selectVehicleCard.selectedVehicle.name;
-                    var optimizationMode = compute_OptimizationMode();
+                    var chargingModeFields = computeChargingModeFields();
                     var desiredPhaseCount = 3;
                     if (isAnyOfModesSelected([pv_optimized, simple_pv_excess]) &&
                             thing.thingClass.interfaces.includes("phaseswitching")) {
@@ -1005,10 +1022,11 @@ GenericConfigPage {
                     hemsManager.setUserConfiguration({defaultChargingMode: comboBoxChargingMode.currentIndex});
 
                     var configData = {
-                        optimizationEnabled: true,
+                        operatingMode: chargingModeFields.operatingMode,
+                        optimizationStrategies: chargingModeFields.optimizationStrategies,
+                        insufficientPowerBehavior: chargingModeFields.insufficientPowerBehavior,
                         carThingId: selectVehicleCard.selectedVehicle.id,
                         endTime: endTimeSlider.endTime.getHours() + ":" +  endTimeSlider.endTime.getMinutes() + ":00",
-                        optimizationMode: optimizationMode,
                         priceThreshold: currentValue,
                         desiredPhaseCount: desiredPhaseCount
                     };
@@ -1053,19 +1071,45 @@ GenericConfigPage {
                 }
             }
 
-            function compute_OptimizationMode(){
+            // Translates the UI selection (comboBoxChargingMode + gridConsumptionChargingMode)
+            // into operatingMode/optimizationStrategies/insufficientPowerBehavior.
+            function computeChargingModeFields(){
                 var mode = comboBoxChargingMode.currentValue;
-                if(isAnyOfModesSelected([pv_excess, dyn_pricing, simple_pv_excess])) {
-                    var gridConsumptionOption = gridConsumptionChargingMode.currentValue;
-                    mode = mode + gridConsumptionOption;
+                var fields = {
+                    operatingMode: ControlConfig.Manual,
+                    optimizationStrategies: ControlConfig.NoStrategy,
+                    insufficientPowerBehavior: ChargingConfiguration.ChargeWithMinimumCurrent
+                };
+
+                if (mode === 0) {
+                    fields.operatingMode = ControlConfig.Manual;
+                    fields.optimizationStrategies = ControlConfig.NoStrategy;
+                } else if (mode === 1000) {
+                    fields.operatingMode = ControlConfig.Systemic;
+                    fields.optimizationStrategies = ControlConfig.NoStrategy;
+                } else if (mode === 3000) {
+                    fields.operatingMode = ControlConfig.StrategyControlled;
+                    fields.optimizationStrategies = ControlConfig.PvOptimized;
+                } else if (mode === 4000) {
+                    fields.operatingMode = ControlConfig.StrategyControlled;
+                    fields.optimizationStrategies = ControlConfig.PvOptimized | ControlConfig.DynamicTariff;
+                } else if (mode === 5000) {
+                    fields.operatingMode = ControlConfig.StrategyControlled;
+                    fields.optimizationStrategies = ControlConfig.PvOptimized | ControlConfig.TimeControlled;
                 }
-                if(isAnyOfModesSelected([time_controlled])) {
+
+                if (isAnyOfModesSelected([simple_pv_excess, dyn_pricing])) {
+                    fields.insufficientPowerBehavior = gridConsumptionChargingMode.currentValue === 200 ?
+                                ChargingConfiguration.PauseCharging :
+                                ChargingConfiguration.ChargeWithMinimumCurrent;
+                } else if (isAnyOfModesSelected([time_controlled])) {
                     // When using time controlled charging, charging should be paused outside
-                    // of the charging time slots. We need to add 200 (which is "Pause charging";
-                    // 0 would be "Charge with minimum current"). Cf. gridConsumptionloadingmod
-                    mode = mode + 200;
+                    // of the charging time slots (gridConsumptionChargingMode is not shown/used
+                    // for this mode, cf. its visibility condition below).
+                    fields.insufficientPowerBehavior = ChargingConfiguration.PauseCharging;
                 }
-                return mode;
+
+                return fields;
             }
 
             function getSelectedMode() {
@@ -1318,24 +1362,12 @@ GenericConfigPage {
                                         }
                                     }
                                     // Check which charging mode is currently set and update currentIndex accordingly.
-                                    // Use only thousands digit for comparison with model items (others are sub configs).
-                                    console.debug("Config mode:", chargingConfiguration.optimizationMode);
-                                    let currentChargingConfigOptimizationMode = chargingConfiguration.optimizationMode - (chargingConfiguration.optimizationMode % 1000);
+                                    const currentChargingConfigModeKey = configModeKey(chargingConfiguration);
+                                    console.debug("Config operatingMode/optimizationStrategies map to mode key:", currentChargingConfigModeKey);
                                     for (let j = 0; j < dynamicModel.count; ++j) {
-                                        console.debug("Current dynamic model mode: " +
-                                                     dynamicModel.get(j).mode +
-                                                     " vs config mode: " +
-                                                     currentChargingConfigOptimizationMode);
-                                        if (dynamicModel.get(j).mode === currentChargingConfigOptimizationMode) {
+                                        if (dynamicModel.get(j).mode === currentChargingConfigModeKey) {
                                             comboBoxChargingMode.currentIndex = j;
                                             return;
-                                        }
-                                        if (chargingConfiguration.optimizationMode === 9) {
-                                            // If optimizationMode is 9 (no optimization), set to "Charge always"
-                                            if (dynamicModel.get(j).mode === 0) {
-                                                comboBoxChargingMode.currentIndex = j;
-                                                return;
-                                            }
                                         }
                                     }
                                 }
@@ -1348,7 +1380,7 @@ GenericConfigPage {
                         Layout.fillWidth: true
                         contentTopMargin: Style.smallMargins
                         headerText: comboBoxChargingMode.currentText
-                        visible: isAnyOfModesSelected([pv_optimized, pv_excess, simple_pv_excess, dyn_pricing, time_controlled])
+                        visible: isAnyOfModesSelected([pv_optimized, simple_pv_excess, dyn_pricing, time_controlled])
 
                         ColumnLayout {
                             anchors.left: parent.left
@@ -1368,7 +1400,7 @@ GenericConfigPage {
                                 labelText: qsTr("Priority")
                                 text: (hemsManager.emsConfiguration.pvSurplusPriolistIndexOf(root.thing.id) + 1).toString()
                                 showChildrenIndicator: true
-                                visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
+                                visible: isAnyOfModesSelected([simple_pv_excess, dyn_pricing])
 
                                 onClicked: {
                                     pageStack.push(Qt.resolvedUrl("../optimization/PVPriorities.qml"),
@@ -1412,7 +1444,7 @@ GenericConfigPage {
                             CoSlider {
                                 id: batteryLevelSlider
                                 Layout.fillWidth: true
-                                visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                                visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Battery level")
                                 infoUrl: "BatteryLevel.qml"
                                 valueText: value + " %"
@@ -1438,7 +1470,7 @@ GenericConfigPage {
                             CoSlider {
                                 id: targetPercentageSlider
                                 Layout.fillWidth: true
-                                visible: isAnyOfModesSelected([pv_optimized, pv_excess])
+                                visible: isAnyOfModesSelected([pv_optimized])
                                 labelText: qsTr("Target charge")
                                 infoUrl: "TargetChargeInfo.qml"
                                 valueText: value + " %"
@@ -1579,11 +1611,11 @@ GenericConfigPage {
                             CoComboBox {
                                 id: gridConsumptionChargingMode
                                 Layout.fillWidth: true
-                                visible: isAnyOfModesSelected([pv_excess, simple_pv_excess, dyn_pricing])
-                                labelText: isAnyOfModesSelected([pv_excess, simple_pv_excess]) ?
+                                visible: isAnyOfModesSelected([simple_pv_excess, dyn_pricing])
+                                labelText: isAnyOfModesSelected([simple_pv_excess]) ?
                                                qsTr("Low solar avalaibility") :
                                                qsTr("Pausing")
-                                infoUrl: isAnyOfModesSelected([pv_excess, simple_pv_excess]) ?
+                                infoUrl: isAnyOfModesSelected([simple_pv_excess]) ?
                                              "GridConsumptionInfo.qml" :
                                              "PausingInfo.qml"
                                 model: ListModel {

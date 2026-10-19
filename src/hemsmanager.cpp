@@ -45,6 +45,26 @@ ControlConfig::OperatingMode operatingModeFromString(const QString &operatingMod
     return static_cast<ControlConfig::OperatingMode>(value);
 }
 
+// insufficientPowerBehavior is a Q_ENUM on the backend as well, transmitted
+// over JSON-RPC as its enum key name (e.g. "PauseCharging").
+QString insufficientPowerBehaviorToString(ChargingConfiguration::InsufficientPowerBehavior insufficientPowerBehavior)
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<ChargingConfiguration::InsufficientPowerBehavior>();
+    return QString::fromLatin1(metaEnum.valueToKey(insufficientPowerBehavior));
+}
+
+ChargingConfiguration::InsufficientPowerBehavior insufficientPowerBehaviorFromString(const QString &insufficientPowerBehavior, ChargingConfiguration::InsufficientPowerBehavior fallback = ChargingConfiguration::ChargeWithMinimumCurrent)
+{
+    const QMetaEnum metaEnum = QMetaEnum::fromType<ChargingConfiguration::InsufficientPowerBehavior>();
+    bool ok = false;
+    const int value = metaEnum.keyToValue(insufficientPowerBehavior.toUtf8().constData(), &ok);
+    if (!ok) {
+        qCWarning(dcHems()) << "Unknown insufficientPowerBehavior received:" << insufficientPowerBehavior << "- falling back to" << insufficientPowerBehaviorToString(fallback);
+        return fallback;
+    }
+    return static_cast<ChargingConfiguration::InsufficientPowerBehavior>(value);
+}
+
 void logSetConfigurationResponse(const QString &configurationName, const QVariantMap &data)
 {
     const QString error = data.value("hemsError").toString();
@@ -457,42 +477,21 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
 
     // add the values from data which match with the MetaObject
     QVariantMap config;
-    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name()))
-            {
-                qCDebug(dcHems()) << "Data value: " << data.value(metaObj->property(i).name());
-                config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-            }else{
-                qCDebug(dcHems())<< "type: " << metaObj->property(i).type() << "value: " << metaObj->property(i).read(configuration);
-                config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
-            }
-    }
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i) {
+        const QMetaProperty prop = metaObj->property(i);
+        const char *name = prop.name();
+        QVariant value = data.contains(name) ? data.value(name) : prop.read(configuration);
 
-    const int optimizationMode = config.take("optimizationMode").toInt();
-    config.remove("optimizationEnabled");
-    config.remove("insufficientPowerBehavior");
+        // operatingMode / insufficientPowerBehavior are transmitted over
+        // JSON-RPC as their enum key name (e.g. "StrategyControlled"), not
+        // as an integer, so convert explicitly.
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
+        } else if (qstrcmp(name, "insufficientPowerBehavior") == 0) {
+            value = insufficientPowerBehaviorToString(static_cast<ChargingConfiguration::InsufficientPowerBehavior>(value.toInt()));
+        }
 
-    if (optimizationMode == 9) {
-        config.insert("operatingMode", OperatingModeNoControl);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-    } else if (optimizationMode >= 5000 && optimizationMode < 6000) {
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized | OptimizationStrategyTimeControlled);
-        config.insert("insufficientPowerBehavior", "PauseCharging");
-    } else if (optimizationMode >= 4000 && optimizationMode < 5000) {
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized | OptimizationStrategyDynamicTariff);
-        config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
-    } else if (optimizationMode >= 2000 && optimizationMode < 4000) {
-        config.insert("operatingMode", OperatingModeStrategyControlled);
-        config.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
-        config.insert("insufficientPowerBehavior", optimizationMode % 1000 >= 200 ? "PauseCharging" : "ChargeWithMinimumCurrent");
-    } else if (optimizationMode >= 1000 && optimizationMode < 2000) {
-        config.insert("operatingMode", OperatingModeSystemic);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
-    } else {
-        config.insert("operatingMode", OperatingModeManual);
-        config.insert("optimizationStrategies", OptimizationStrategyNoStrategy);
+        config.insert(name, value);
     }
 
     QVariantMap params;
@@ -1490,23 +1489,9 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
         configuration->setEvChargerThingId(evChargerUuid);
     }
 
-    const QString operatingMode = configurationMap.value("operatingMode").toString();
-    const QVariant optimizationStrategies = configurationMap.value("optimizationStrategies");
-    const bool pauseCharging = configurationMap.value("insufficientPowerBehavior").toString() == "PauseCharging";
-    int optimizationMode = 0;
-    if (operatingMode == OperatingModeNoControl) {
-        optimizationMode = 9;
-    } else if (operatingMode == OperatingModeSystemic) {
-        optimizationMode = 1000;
-    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyTimeControlled)) {
-        optimizationMode = 5000 + (pauseCharging ? 200 : 0);
-    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyDynamicTariff)) {
-        optimizationMode = 4000 + (pauseCharging ? 200 : 0);
-    } else if (operatingMode == OperatingModeStrategyControlled && hasOptimizationStrategy(optimizationStrategies, OptimizationStrategyPvOptimized)) {
-        optimizationMode = 3000 + (pauseCharging ? 200 : 0);
-    }
-    configuration->setOptimizationEnabled(operatingMode != OperatingModeNoControl);
-    configuration->setOptimizationMode(optimizationMode);
+    configuration->setOperatingMode(operatingModeFromString(configurationMap.value("operatingMode").toString()));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
+    configuration->setInsufficientPowerBehavior(insufficientPowerBehaviorFromString(configurationMap.value("insufficientPowerBehavior").toString()));
     configuration->setCarThingId(configurationMap.value("carThingId").toUuid());
     configuration->setEndTime(configurationMap.value("endTime").toString());
     configuration->setTargetPercentage(configurationMap.value("targetPercentage").toUInt());
