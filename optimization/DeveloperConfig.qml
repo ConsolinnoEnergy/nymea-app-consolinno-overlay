@@ -41,6 +41,10 @@ Page {
                                     "text": "Dev Config",
                                     "link": "../optimization/DevConfig.qml"
                                 })
+        menuEntriesModel.append({
+                                    "text": qsTr("Schedules"),
+                                    "link": "../optimization/SchedulesPage.qml"
+                                })
     }
 
     ListModel {
