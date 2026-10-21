@@ -21,15 +21,18 @@ GenericConfigPage {
 
     readonly property bool applyEnabled: {
         if (!root.heatingRodConfig) return false;
-        let optimizationEnabledInConfig = heatingRodConfig.optimizationEnabled;
+        let optimizationEnabledInConfig = heatingRodConfig.operatingMode === ControlConfig.StrategyControlled &&
+                (heatingRodConfig.optimizationStrategies & ControlConfig.PvOptimized) !== 0;
         let optimizationEnabledInComboBox = optimizationModeCombobox.currentValue === 1; // PV surplus
         return optimizationEnabledInConfig != optimizationEnabledInComboBox;
     }
 
     function applyChanges() {
+        let pvSurplusSelected = optimizationModeCombobox.currentValue === 1; // PV surplus
         d.pendingCallId = hemsManager.setHeatingElementConfiguration(root.heatingRodConfig.heatingRodThingId,
                                                                      {
-                                                                         optimizationEnabled: optimizationModeCombobox.currentValue === 1 // PV surplus
+                                                                         operatingMode: pvSurplusSelected ? ControlConfig.StrategyControlled : ControlConfig.NoControl,
+                                                                         optimizationStrategies: pvSurplusSelected ? ControlConfig.PvOptimized : ControlConfig.NoStrategy
                                                                      });
     }
 
@@ -221,7 +224,9 @@ GenericConfigPage {
                                 if (!heatingRodConfig) {
                                     comboBox.currentIndex = 0;
                                 } else {
-                                    comboBox.currentIndex = heatingRodConfig.optimizationEnabled ? 0 : 1;
+                                    let pvSurplusEnabled = heatingRodConfig.operatingMode === ControlConfig.StrategyControlled &&
+                                            (heatingRodConfig.optimizationStrategies & ControlConfig.PvOptimized) !== 0;
+                                    comboBox.currentIndex = pvSurplusEnabled ? 0 : 1;
                                 }
                             }
                         }

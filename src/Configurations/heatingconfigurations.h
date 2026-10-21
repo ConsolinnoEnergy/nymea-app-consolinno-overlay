@@ -14,7 +14,8 @@ class HeatingConfigurations : public QAbstractListModel
 public:
     enum Role {
         RoleHeatPumpThingId,
-        RoleOptimizationEnabled,
+        RoleOperatingMode,
+        RoleOptimizationStrategies,
         RoleHeatMeterThingId,
         RolePvSurplusThreshold,
         RoleDurationMinAfterTurnOn,

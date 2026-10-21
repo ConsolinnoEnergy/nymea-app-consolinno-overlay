@@ -30,11 +30,6 @@ void HeatingElementConfiguration::setMaxElectricalPower(const double &maxElectri
      emit maxElectricalPowerChanged(m_maxElectricalPower);
 }
 
-bool HeatingElementConfiguration::optimizationEnabled() const
-{
-    return m_optimizationEnabled;
-}
-
 bool HeatingElementConfiguration::controllableLocalSystem() const
 {
     return m_controllableLocalSystem;
@@ -45,11 +40,30 @@ void HeatingElementConfiguration::setControllableLocalSystem(const bool &control
     m_controllableLocalSystem = controllableLocalSystem;
 }
 
-void HeatingElementConfiguration::setOptimizationEnabled(const bool &optimizationEnabled)
+ControlConfig::OperatingMode HeatingElementConfiguration::operatingMode() const
 {
-     if (m_optimizationEnabled == optimizationEnabled)
-         return;
+    return m_operatingMode;
+}
 
-     m_optimizationEnabled = optimizationEnabled;
-     emit optimizationEnabledChanged(m_optimizationEnabled);
+void HeatingElementConfiguration::setOperatingMode(ControlConfig::OperatingMode operatingMode)
+{
+    if (m_operatingMode == operatingMode)
+        return;
+
+    m_operatingMode = operatingMode;
+    emit operatingModeChanged(m_operatingMode);
+}
+
+int HeatingElementConfiguration::optimizationStrategies() const
+{
+    return m_optimizationStrategies;
+}
+
+void HeatingElementConfiguration::setOptimizationStrategies(int optimizationStrategies)
+{
+    if (m_optimizationStrategies == optimizationStrategies)
+        return;
+
+    m_optimizationStrategies = optimizationStrategies;
+    emit optimizationStrategiesChanged(m_optimizationStrategies);
 }

@@ -5,15 +5,18 @@
 #include <QTime>
 #include <QObject>
 
+#include "controlconfigurationenums.h"
+
 class ChargingConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid evChargerThingId READ evChargerThingId CONSTANT)
-    Q_PROPERTY(bool optimizationEnabled READ optimizationEnabled WRITE setOptimizationEnabled NOTIFY optimizationEnabledChanged)
+    Q_PROPERTY(ControlConfig::OperatingMode operatingMode READ operatingMode WRITE setOperatingMode NOTIFY operatingModeChanged)
+    Q_PROPERTY(int optimizationStrategies READ optimizationStrategies WRITE setOptimizationStrategies NOTIFY optimizationStrategiesChanged)
+    Q_PROPERTY(InsufficientPowerBehavior insufficientPowerBehavior READ insufficientPowerBehavior WRITE setInsufficientPowerBehavior NOTIFY insufficientPowerBehaviorChanged)
     Q_PROPERTY(QUuid carThingId READ carThingId WRITE setCarThingId NOTIFY carThingIdChanged)
     Q_PROPERTY(QString endTime READ endTime WRITE setEndTime NOTIFY endTimeChanged)
     Q_PROPERTY(uint targetPercentage READ targetPercentage WRITE setTargetPercentage NOTIFY targetPercentageChanged)
-    Q_PROPERTY(int optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
     Q_PROPERTY(QUuid uniqueIdentifier READ uniqueIdentifier WRITE setUniqueIdentifier NOTIFY uniqueIdentifierChanged)
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
     Q_PROPERTY(double priceThreshold READ priceThreshold WRITE setPriceThreshold NOTIFY priceThresholdChanged)
@@ -46,7 +49,7 @@ class ChargingConfiguration : public QObject
      * \endcode
      *
      * Ein leerer String ("") bedeutet, dass noch kein Zeitplan konfiguriert wurde.
-     * Wird nur im Modus \c OptimizationMode == TIME_CONTROLLED (optimizationMode >= 5000) ausgewertet.
+     * Wird nur ausgewertet, wenn \c optimizationStrategies das Bit \c TimeControlled gesetzt hat.
      */
     Q_PROPERTY(QString chargingSchedule READ chargingSchedule WRITE setChargingSchedule NOTIFY chargingScheduleChanged)
     Q_PROPERTY(uint desiredPhaseCount READ desiredPhaseCount WRITE setDesiredPhaseCount NOTIFY desiredPhaseCountChanged)
@@ -55,12 +58,11 @@ class ChargingConfiguration : public QObject
 
 public:
 
-    enum OptimizationMode {
-        Unoptimized = 0,
-        PVOptimized = 1
-
+    enum InsufficientPowerBehavior {
+        ChargeWithMinimumCurrent = 0,
+        PauseCharging = 1
     };
-    Q_ENUM(OptimizationMode)
+    Q_ENUM(InsufficientPowerBehavior)
 
     enum PhaseMode {
         Automatic = 0,
@@ -75,8 +77,14 @@ public:
     QUuid evChargerThingId() const;
     void setEvChargerThingId(const QUuid &evChargerThingId);
 
-    bool optimizationEnabled() const;
-    void setOptimizationEnabled(bool optimizationEnabled);
+    ControlConfig::OperatingMode operatingMode() const;
+    void setOperatingMode(ControlConfig::OperatingMode operatingMode);
+
+    int optimizationStrategies() const;
+    void setOptimizationStrategies(int optimizationStrategies);
+
+    InsufficientPowerBehavior insufficientPowerBehavior() const;
+    void setInsufficientPowerBehavior(InsufficientPowerBehavior insufficientPowerBehavior);
 
     QUuid carThingId() const;
     void setCarThingId(const QUuid &carThingId);
@@ -86,10 +94,6 @@ public:
 
     uint targetPercentage() const;
     void setTargetPercentage(uint targetPercentage);
-
-
-    int optimizationMode() const;
-    void setOptimizationMode(int optimizationMode);
 
     QUuid uniqueIdentifier() const;
     void setUniqueIdentifier(QUuid uniqueIdentifier);
@@ -116,11 +120,12 @@ public:
     void setSwitchDelayPhase(uint switchDelayPhase);
 
 signals:
-    void optimizationEnabledChanged(bool optimizationEnabled);
+    void operatingModeChanged(ControlConfig::OperatingMode operatingMode);
+    void optimizationStrategiesChanged(int optimizationStrategies);
+    void insufficientPowerBehaviorChanged(ChargingConfiguration::InsufficientPowerBehavior insufficientPowerBehavior);
     void carThingIdChanged(const QUuid &carThingId);
     void endTimeChanged(const QString &endTime);
     void targetPercentageChanged(uint targetPercentage);
-    void optimizationModeChanged(int optimizationMode);
     void uniqueIdentifierChanged(QUuid uniqueIdentifier);
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void priceThresholdChanged(double priceThreshold);
@@ -132,11 +137,12 @@ signals:
 
 private:
     QUuid m_evChargerThingId;
-    bool m_optimizationEnabled = false;
+    ControlConfig::OperatingMode m_operatingMode = ControlConfig::NoControl;
+    int m_optimizationStrategies = ControlConfig::NoStrategy;
+    InsufficientPowerBehavior m_insufficientPowerBehavior = ChargeWithMinimumCurrent;
     QUuid m_carThingId = QUuid("00000000-0000-0000-0000-000000000000");
     QString m_endTime = "0:00:00";
     uint m_targetPercentage = 100;
-    int m_optimizationMode = 0;
     QUuid m_uniqueIdentifier = QUuid("2e2d25c5-57c7-419a-b294-881f11ed01c4");
     bool m_controllableLocalSystem = false;
     double m_priceThreshold = 0.0;

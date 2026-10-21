@@ -14,16 +14,40 @@ void SwitchConfiguration::setSwitchThingId(const QUuid &switchThingId)
     m_switchThingId = switchThingId;
 }
 
-SwitchConfiguration::OptimizationMode SwitchConfiguration::optimizationMode() const
+ControlConfig::OperatingMode SwitchConfiguration::operatingMode() const
 {
-    return m_optimizationMode;
+    return m_operatingMode;
 }
 
-void SwitchConfiguration::setOptimizationMode(OptimizationMode optimizationMode)
+void SwitchConfiguration::setOperatingMode(ControlConfig::OperatingMode operatingMode)
 {
-    if (m_optimizationMode == optimizationMode) { return; }
-    m_optimizationMode = optimizationMode;
-    emit optimizationModeChanged(m_optimizationMode);
+    if (m_operatingMode == operatingMode) { return; }
+    m_operatingMode = operatingMode;
+    emit operatingModeChanged(m_operatingMode);
+}
+
+int SwitchConfiguration::optimizationStrategies() const
+{
+    return m_optimizationStrategies;
+}
+
+void SwitchConfiguration::setOptimizationStrategies(int optimizationStrategies)
+{
+    if (m_optimizationStrategies == optimizationStrategies) { return; }
+    m_optimizationStrategies = optimizationStrategies;
+    emit optimizationStrategiesChanged(m_optimizationStrategies);
+}
+
+bool SwitchConfiguration::manualEnabled() const
+{
+    return m_manualEnabled;
+}
+
+void SwitchConfiguration::setManualEnabled(bool manualEnabled)
+{
+    if (m_manualEnabled == manualEnabled) { return; }
+    m_manualEnabled = manualEnabled;
+    emit manualEnabledChanged(m_manualEnabled);
 }
 
 double SwitchConfiguration::maxElectricalPower() const

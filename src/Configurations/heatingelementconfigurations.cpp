@@ -24,8 +24,12 @@ QVariant HeatingElementConfigurations::data(const QModelIndex &index, int role) 
         return m_list.at(index.row())->heatingRodThingId();
     case RoleMaxElectricalPower:
         return m_list.at(index.row())->maxElectricalPower();
-    case RoleOptimizationEnabled:
-        return m_list.at(index.row())->optimizationEnabled();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
+    case RoleControllableLocalSystemEnabled:
+        return m_list.at(index.row())->controllableLocalSystem();
     }
 
     return QVariant();
@@ -37,7 +41,8 @@ QHash<int, QByteArray> HeatingElementConfigurations::roleNames() const
     QHash<int, QByteArray> roles;
     roles.insert(RoleHeatingRodThingId, "heatingRodThingId");
     roles.insert(RoleMaxElectricalPower, "maxElectricalPower");
-    roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
     roles.insert(RoleControllableLocalSystemEnabled, "controllableLocalSystemEnabled");
     return roles;
 }
@@ -73,12 +78,17 @@ void HeatingElementConfigurations::addConfiguration(HeatingElementConfiguration 
         emit dataChanged(idx, idx, {RoleMaxElectricalPower});
     });
 
-    connect(heatingElementConfiguration, &HeatingElementConfiguration::optimizationEnabledChanged, this, [=](){
+    connect(heatingElementConfiguration, &HeatingElementConfiguration::operatingModeChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+        emit dataChanged(idx, idx, {RoleOperatingMode});
     });
 
-    connect(heatingElementConfiguration, &HeatingElementConfiguration::optimizationEnabledChanged, this, [=](){
+    connect(heatingElementConfiguration, &HeatingElementConfiguration::optimizationStrategiesChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
+    });
+
+    connect(heatingElementConfiguration, &HeatingElementConfiguration::controllableLocalSystemChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingElementConfiguration));
         emit dataChanged(idx, idx, {RoleControllableLocalSystemEnabled});
     });

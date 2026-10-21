@@ -56,28 +56,31 @@ Page {
         let ifaces = thing.thingClass.interfaces;
         if (ifaces.indexOf("heatingrod") >= 0) {
             let config = hemsManager.heatingElementConfigurations.getHeatingElementConfiguration(thing.id);
-            return config ? config.optimizationEnabled : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
         if (ifaces.indexOf("pvsurplusheatpump") >= 0) {
             return true;
         }
         if (ifaces.indexOf("smartgridheatpump") >= 0) {
             let config = hemsManager.heatingConfigurations.getHeatingConfiguration(thing.id);
-            return config ? config.optimizationMode === HeatingConfiguration.OptimizationModePVSurplus : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
         if (ifaces.indexOf("battery") >= 0) {
             return true;
         }
         if (ifaces.indexOf("evcharger") >= 0) {
             let config = hemsManager.chargingConfigurations.getChargingConfiguration(thing.id);
-            if (!config) return false;
-            // pvPrioCard in ChargingConfigView is visible for pv_excess (2000–2999),
-            // simple_pv_excess (3000–3999) and dyn_pricing (4000–4999) modes.
-            return config.optimizationMode >= 2000 && config.optimizationMode < 5000;
+            // The entry should always be present whenever the PvOptimized strategy
+            // bit is set, same pattern as heatingrod/smartgridheatpump/powersocket.
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
         if (ifaces.indexOf("powersocket") >= 0) {
             let config = hemsManager.switchConfigurations.getSwitchConfiguration(thing.id);
-            return config ? config.optimizationMode === SwitchConfiguration.OptimizationModePvSurplus : false;
+            return config ? config.operatingMode === ControlConfig.StrategyControlled &&
+                    (config.optimizationStrategies & ControlConfig.PvOptimized) !== 0 : false;
         }
 
         return false;

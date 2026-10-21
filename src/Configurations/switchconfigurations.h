@@ -14,7 +14,9 @@ class SwitchConfigurations : public QAbstractListModel
 public:
     enum Role {
         RoleSwitchThingId,
-        RoleOptimizationMode,
+        RoleOperatingMode,
+        RoleOptimizationStrategies,
+        RoleManualEnabled,
         RoleMaxElectricalPower,
         RolePvSurplusThreshold,
         RoleDurationMinAfterTurnOn,

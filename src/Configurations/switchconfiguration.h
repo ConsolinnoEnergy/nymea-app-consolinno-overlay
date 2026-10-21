@@ -5,11 +5,15 @@
 #include <QObject>
 #include <QUuid>
 
+#include "controlconfigurationenums.h"
+
 class SwitchConfiguration : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(QUuid switchThingId READ switchThingId CONSTANT)
-    Q_PROPERTY(SwitchConfiguration::OptimizationMode optimizationMode READ optimizationMode WRITE setOptimizationMode NOTIFY optimizationModeChanged)
+    Q_PROPERTY(ControlConfig::OperatingMode operatingMode READ operatingMode WRITE setOperatingMode NOTIFY operatingModeChanged)
+    Q_PROPERTY(int optimizationStrategies READ optimizationStrategies WRITE setOptimizationStrategies NOTIFY optimizationStrategiesChanged)
+    Q_PROPERTY(bool manualEnabled READ manualEnabled WRITE setManualEnabled NOTIFY manualEnabledChanged)
     Q_PROPERTY(double maxElectricalPower READ maxElectricalPower WRITE setMaxElectricalPower NOTIFY maxElectricalPowerChanged)
     Q_PROPERTY(double pvSurplusThreshold READ pvSurplusThreshold WRITE setPvSurplusThreshold NOTIFY pvSurplusThresholdChanged)
     Q_PROPERTY(double durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
@@ -17,21 +21,19 @@ class SwitchConfiguration : public QObject
     Q_PROPERTY(bool controllableLocalSystem READ controllableLocalSystem WRITE setControllableLocalSystem NOTIFY controllableLocalSystemChanged)
 
 public:
-    enum OptimizationMode {
-        OptimizationModePvSurplus,
-        OptimizationModeManualOn,
-        OptimizationModeManualOff,
-        OptimizationModeNoControl
-    };
-    Q_ENUM(OptimizationMode)
-
     explicit SwitchConfiguration(QObject *parent = nullptr);
 
     QUuid switchThingId() const;
     void setSwitchThingId(const QUuid &switchThingId);
 
-    OptimizationMode optimizationMode() const;
-    void setOptimizationMode(OptimizationMode optimizationMode);
+    ControlConfig::OperatingMode operatingMode() const;
+    void setOperatingMode(ControlConfig::OperatingMode operatingMode);
+
+    int optimizationStrategies() const;
+    void setOptimizationStrategies(int optimizationStrategies);
+
+    bool manualEnabled() const;
+    void setManualEnabled(bool manualEnabled);
 
     double maxElectricalPower() const;
     void setMaxElectricalPower(double maxElectricalPower);
@@ -49,7 +51,9 @@ public:
     void setControllableLocalSystem(bool controllableLocalSystem);
 
 signals:
-    void optimizationModeChanged(OptimizationMode optimizationMode);
+    void operatingModeChanged(ControlConfig::OperatingMode operatingMode);
+    void optimizationStrategiesChanged(int optimizationStrategies);
+    void manualEnabledChanged(bool manualEnabled);
     void maxElectricalPowerChanged(double maxElectricalPower);
     void pvSurplusThresholdChanged(double pvSurplusThreshold);
     void durationMinAfterTurnOnChanged(double durationMinAfterTurnOn);
@@ -58,7 +62,9 @@ signals:
 
 private:
     QUuid m_switchThingId;
-    OptimizationMode m_optimizationMode = OptimizationModeNoControl;
+    ControlConfig::OperatingMode m_operatingMode = ControlConfig::NoControl;
+    int m_optimizationStrategies = ControlConfig::NoStrategy;
+    bool m_manualEnabled = false;
     double m_maxElectricalPower = 0.0;
     double m_pvSurplusThreshold = 500.0;
     double m_durationMinAfterTurnOn = 15.0;

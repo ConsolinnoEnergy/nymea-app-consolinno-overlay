@@ -20,8 +20,10 @@ QVariant HeatingConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleHeatPumpThingId:
         return m_list.at(index.row())->heatPumpThingId();
-    case RoleOptimizationEnabled:
-        return m_list.at(index.row())->optimizationEnabled();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
     case RoleHeatMeterThingId:
         return m_list.at(index.row())->heatMeterThingId();
     case RolePvSurplusThreshold:
@@ -38,7 +40,8 @@ QHash<int, QByteArray> HeatingConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleHeatPumpThingId, "heatPumpThingId");
-    roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
     roles.insert(RoleHeatMeterThingId, "heatMeterThingId");
     roles.insert(RolePvSurplusThreshold, "pvSurplusThreshold");
     roles.insert(RoleDurationMinAfterTurnOn, "durationMinAfterTurnOn");
@@ -73,9 +76,14 @@ void HeatingConfigurations::addConfiguration(HeatingConfiguration *heatingConfig
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(heatingConfiguration);
 
-    connect(heatingConfiguration, &HeatingConfiguration::optimizationEnabledChanged, this, [=](){
+    connect(heatingConfiguration, &HeatingConfiguration::operatingModeChanged, this, [=](){
         QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationEnabled});
+        emit dataChanged(idx, idx, {RoleOperatingMode});
+    });
+
+    connect(heatingConfiguration, &HeatingConfiguration::optimizationStrategiesChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(heatingConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
     });
 
     connect(heatingConfiguration, &HeatingConfiguration::heatMeterThingIdChanged, this, [=](){

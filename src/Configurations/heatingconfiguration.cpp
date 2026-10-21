@@ -15,18 +15,32 @@ void HeatingConfiguration::setHeatPumpThingId(const QUuid &heatPumpThingId)
     m_heatPumpThingId = heatPumpThingId;
 }
 
-bool HeatingConfiguration::optimizationEnabled() const
+ControlConfig::OperatingMode HeatingConfiguration::operatingMode() const
 {
-    return m_optimizationEnabled;
+    return m_operatingMode;
 }
 
-void HeatingConfiguration::setOptimizationEnabled(bool optimizationEnabled)
+void HeatingConfiguration::setOperatingMode(ControlConfig::OperatingMode operatingMode)
 {
-    if (m_optimizationEnabled == optimizationEnabled)
+    if (m_operatingMode == operatingMode)
         return;
 
-    m_optimizationEnabled = optimizationEnabled;
-    emit optimizationEnabledChanged(m_optimizationEnabled);
+    m_operatingMode = operatingMode;
+    emit operatingModeChanged(m_operatingMode);
+}
+
+int HeatingConfiguration::optimizationStrategies() const
+{
+    return m_optimizationStrategies;
+}
+
+void HeatingConfiguration::setOptimizationStrategies(int optimizationStrategies)
+{
+    if (m_optimizationStrategies == optimizationStrategies)
+        return;
+
+    m_optimizationStrategies = optimizationStrategies;
+    emit optimizationStrategiesChanged(m_optimizationStrategies);
 }
 
 QUuid HeatingConfiguration::heatMeterThingId() const
@@ -91,20 +105,6 @@ void HeatingConfiguration::setRelativePriceEnabled(bool relativePriceEnabled)
 {
     m_relativePriceEnabled = relativePriceEnabled;
     emit relativePriceEnabledChanged(m_relativePriceEnabled);
-}
-
-HeatingConfiguration::HPOptimizationMode HeatingConfiguration::optimizationMode() const
-{
-    return m_optimizationMode;
-}
-
-void HeatingConfiguration::setOptimizationMode(HPOptimizationMode optimizationMode)
-{
-    if (m_optimizationMode == optimizationMode)
-        return;
-
-    m_optimizationMode = optimizationMode;
-    emit optimizationModeChanged(m_optimizationMode);
 }
 
 void HeatingConfiguration::setMaxThermalEnergy(const double &maxThermalEnergy)
