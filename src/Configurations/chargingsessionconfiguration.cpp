@@ -140,16 +140,6 @@ void ChargingSessionConfiguration::setTimestamp(int timstamp)
     emit timestampChanged(m_timestamp);
 }
 
-bool ChargingSessionConfiguration::controllableLocalSystem() const
-{
-    return m_controllableLocalSystem;
-}
-
-void ChargingSessionConfiguration::setControllableLocalSystem(bool controllableLocalSystem)
-{
-    m_controllableLocalSystem = controllableLocalSystem;
-}
-
 bool ChargingSessionConfiguration::operator==(const ChargingSessionConfiguration &other) const
 {
     return m_sessionId == other.m_sessionId
