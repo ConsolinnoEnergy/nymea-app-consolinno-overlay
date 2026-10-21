@@ -1190,6 +1190,30 @@ void HemsManager::setDevConfigPvSurplusResponse(int commandId, const QVariantMap
     emit setDevConfigPvSurplusReply(commandId, data.value("hemsError").toString());
 }
 
+int HemsManager::getConEMSDeviceSchedules()
+{
+    if (!m_engine || !m_engine->jsonRpcClient()->connected()) {
+        return -1;
+    }
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.GetConEMSDeviceSchedules",
+                                                   QVariantMap(),
+                                                   this,
+                                                   "getConEMSDeviceSchedulesResponse");
+}
+
+void HemsManager::getConEMSDeviceSchedulesResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+
+    if (!data.contains("deviceSchedules")) {
+        emit conEMSDeviceSchedulesReceived(QVariantList(), false);
+        return;
+    }
+
+    emit conEMSDeviceSchedulesReceived(data.value("deviceSchedules").toList(), true);
+}
+
 void HemsManager::initJsonRpcCommunication()
 {
     qCDebug(dcHems()) << "initJsonRpcCommunication:"

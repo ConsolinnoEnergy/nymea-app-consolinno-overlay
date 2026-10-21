@@ -130,6 +130,7 @@ public:
     Q_INVOKABLE int factoryReset();
 
     Q_INVOKABLE int setPVSurplusPriolist(const QVariantList &pvSurplusPriolist);
+    Q_INVOKABLE int getConEMSDeviceSchedules();
 signals:
 
     void engineChanged();
@@ -173,6 +174,7 @@ signals:
     void cloudConfigurationSupportedChanged(bool supported);
 
     void setPVSurplusPriolistReply(int commandId, const QString &error);
+    void conEMSDeviceSchedulesReceived(const QVariantList &deviceSchedules, bool success);
 
 private slots:
     Q_INVOKABLE void notificationReceived(const QVariantMap &data);
@@ -194,6 +196,7 @@ private slots:
     Q_INVOKABLE void getSwitchConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getCloudConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getDevConfigPvSurplusResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getConEMSDeviceSchedulesResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data);
