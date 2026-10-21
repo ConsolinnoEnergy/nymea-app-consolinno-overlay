@@ -19,6 +19,7 @@
 #include "Configurations/switchconfigurations.h"
 #include "Configurations/cloudconfiguration.h"
 #include "Configurations/devconfigpvsurplus.h"
+#include "Configurations/whitegoodconfigurations.h"
 
 
 
@@ -47,6 +48,7 @@ class HemsManager : public QObject
     Q_PROPERTY(CloudConfiguration *cloudConfiguration READ cloudConfiguration CONSTANT)
     Q_PROPERTY(bool cloudConfigurationSupported READ cloudConfigurationSupported NOTIFY cloudConfigurationSupportedChanged)
     Q_PROPERTY(DevConfigPvSurplus *devConfigPvSurplus READ devConfigPvSurplus CONSTANT)
+    Q_PROPERTY(WhiteGoodConfigurations *whiteGoodConfigurations READ whiteGoodConfigurations CONSTANT)
 
 public:
     enum HemsUseCase {
@@ -108,6 +110,7 @@ public:
     CloudConfiguration *cloudConfiguration() const;
     bool cloudConfigurationSupported() const;
     DevConfigPvSurplus *devConfigPvSurplus() const;
+    WhiteGoodConfigurations *whiteGoodConfigurations() const;
 
     // write and read
     Q_INVOKABLE int setPvConfiguration(const QUuid &pvThingId, const QVariantMap &data);
@@ -121,6 +124,7 @@ public:
     Q_INVOKABLE int setSwitchConfiguration(const QUuid &switchThingId, const QVariantMap &data);
     Q_INVOKABLE int setCloudConfiguration(const QVariantMap &data);
     Q_INVOKABLE int setDevConfigPvSurplus(const QVariantMap &data);
+    Q_INVOKABLE int setWhiteGoodConfiguration(const QUuid &whiteGoodThingId, const QVariantMap &data);
 
     // read only
     Q_INVOKABLE int setChargingSessionConfiguration(const QUuid carThingId, const QUuid evChargerThingid, const QString started_at, const QString finished_at, const float initial_battery_energy, const int duration, const float energy_charged, const float energy_battery, const int battery_level, const QUuid sessionId, const int state, const int timestamp);
@@ -151,6 +155,7 @@ signals:
     void dynamicElectricPricingConfigurationChanged(DynamicElectricPricingConfiguration *configuration);
     void batteryConfigurationChanged(BatteryConfiguration *configuration);
     void switchConfigurationChanged(SwitchConfiguration *configuration);
+    void whiteGoodConfigurationChanged(WhiteGoodConfiguration *configuration);
 
     void setHousholdPhaseLimitReply(int commandId, const QString &error);
     void setRemoteConnectionEnabledReply(int commandId, const QString &error);
@@ -167,6 +172,7 @@ signals:
     void setSwitchConfigurationReply(int commandId, const QString &error);
     void setCloudConfigurationReply(int commandId, const QString &error);
     void setDevConfigPvSurplusReply(int commandId, const QString &error);
+    void setWhiteGoodConfigurationReply(int commandId, const QString &error);
 
     void factoryResetReply(int commandId, const QString &error);
 
@@ -194,6 +200,7 @@ private slots:
     Q_INVOKABLE void getSwitchConfigurationsResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getCloudConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void getDevConfigPvSurplusResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void getWhiteGoodConfigurationsResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void setHousholdPhaseLimitResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setRemoteConnectionEnabledResponse(int commandId, const QVariantMap &data);
@@ -210,6 +217,7 @@ private slots:
     Q_INVOKABLE void setSwitchConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setCloudConfigurationResponse(int commandId, const QVariantMap &data);
     Q_INVOKABLE void setDevConfigPvSurplusResponse(int commandId, const QVariantMap &data);
+    Q_INVOKABLE void setWhiteGoodConfigurationResponse(int commandId, const QVariantMap &data);
 
     Q_INVOKABLE void factoryResetResponse(int commandId, const QVariantMap &data);
 
@@ -238,6 +246,7 @@ private:
     CloudConfiguration *m_cloudConfiguration = nullptr;
     bool m_cloudConfigurationSupported = false;
     DevConfigPvSurplus *m_devConfigPvSurplus = nullptr;
+    WhiteGoodConfigurations *m_whiteGoodConfigurations = nullptr;
 
     void initJsonRpcCommunication();
     void onThingManagerFetchingDataChanged();
@@ -253,6 +262,7 @@ private:
     void addOrUpdateBatteryConfiguration(const QVariantMap &configurationMap);
     void updateEmsConfiguration(const QVariantMap &configurationMap);
     void addOrUpdateSwitchConfiguration(const QVariantMap &configurationMap);
+    void addOrUpdateWhiteGoodConfiguration(const QVariantMap &configurationMap);
 
     void updateAvailableUsecases(const QStringList &useCasesList);
     HemsManager::HemsUseCases unpackUseCases(const QStringList &useCasesList);

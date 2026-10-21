@@ -91,6 +91,7 @@ HemsManager::HemsManager(QObject *parent) : QObject(parent)
     m_switchConfigurations = new SwitchConfigurations(this);
     m_cloudConfiguration = new CloudConfiguration(this);
     m_devConfigPvSurplus = new DevConfigPvSurplus(this);
+    m_whiteGoodConfigurations = new WhiteGoodConfigurations(this);
 }
 
 HemsManager::~HemsManager()
@@ -766,6 +767,14 @@ void HemsManager::notificationReceived(const QVariantMap &data)
     } else if (notification == "Hems.ElectricConfigurationChanged") {
         addOrUpdateDynamicElectricPricingConfiguration(params.value("dynamicElectricPricingConfiguration").toMap());
 
+    } else if (notification == "Hems.WhiteGoodConfigurationAdded") {
+        addOrUpdateWhiteGoodConfiguration(params.value("whiteGoodConfiguration").toMap());
+    } else if (notification == "Hems.WhiteGoodConfigurationRemoved") {
+        qCDebug(dcHems()) << "White good configuration removed" << params.value("whiteGoodThingId").toUuid();
+        m_whiteGoodConfigurations->removeConfiguration(params.value("whiteGoodThingId").toUuid());
+    } else if (notification == "Hems.WhiteGoodConfigurationChanged") {
+        addOrUpdateWhiteGoodConfiguration(params.value("whiteGoodConfiguration").toMap());
+
     } else if (notification == "Hems.BatteryConfigurationAdded") {
         addOrUpdateBatteryConfiguration(params.value("batteryConfiguration").toMap());
     } else if (notification == "Hems.BatteryConfigurationRemoved") {
@@ -1148,6 +1157,11 @@ DevConfigPvSurplus *HemsManager::devConfigPvSurplus() const
     return m_devConfigPvSurplus;
 }
 
+WhiteGoodConfigurations *HemsManager::whiteGoodConfigurations() const
+{
+    return m_whiteGoodConfigurations;
+}
+
 int HemsManager::setDevConfigPvSurplus(const QVariantMap &data)
 {
     QVariantMap config;
@@ -1163,6 +1177,43 @@ int HemsManager::setDevConfigPvSurplus(const QVariantMap &data)
 
     qCDebug(dcHems()) << "Set devConfigPvSurplus" << params;
     return m_engine->jsonRpcClient()->sendCommand("Hems.SetDevConfigPvSurplus", params, this, "setDevConfigPvSurplusResponse");
+}
+
+int HemsManager::setWhiteGoodConfiguration(const QUuid &whiteGoodThingId, const QVariantMap &data)
+{
+    WhiteGoodConfiguration *configuration = m_whiteGoodConfigurations->getWhiteGoodConfiguration(whiteGoodThingId);
+    // if the configuration does not exist yet. Set up a dummy configuration
+    // This ensures that if the Thing does not exist that the program wont crash
+    if (!configuration){
+        qCDebug(dcHems()) << "Adding a dummy Config" << whiteGoodThingId;
+        QVariantMap dummyConfig;
+        dummyConfig.insert("whiteGoodThingId", whiteGoodThingId);
+
+        addOrUpdateWhiteGoodConfiguration(dummyConfig);
+
+        // and get the dummy Config
+        configuration =  m_whiteGoodConfigurations->getWhiteGoodConfiguration(whiteGoodThingId);
+    }
+
+    const QMetaObject *metaObj = configuration->metaObject();
+    QVariantMap config;
+    for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
+        if(data.contains(metaObj->property(i).name())) {
+            config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
+        } else {
+            config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+        }
+    }
+
+    QVariantMap params;
+    params.insert("whiteGoodConfiguration", config);
+    qCDebug(dcHems()) << "Set white good configuration" << params;
+
+    return m_engine->jsonRpcClient()->sendCommand("Hems.SetWhiteGoodConfiguration",
+                                                  params,
+                                                  this,
+                                                  "setWhiteGoodConfigurationResponse");
+
 }
 
 void HemsManager::getDevConfigPvSurplusResponse(int commandId, const QVariantMap &data)
@@ -1184,10 +1235,25 @@ void HemsManager::getDevConfigPvSurplusResponse(int commandId, const QVariantMap
     m_devConfigPvSurplus->setPidSetpoint(configMap.value("pidSetpoint", 0.0).toDouble());
 }
 
+void HemsManager::getWhiteGoodConfigurationsResponse(int commandId, const QVariantMap &data)
+{
+    Q_UNUSED(commandId);
+    qCDebug(dcHems()) << "White good configurations" << data;
+    foreach (const QVariant &configurationVariant, data.value("whiteGoodConfiguration").toList()) {
+        addOrUpdateWhiteGoodConfiguration(configurationVariant.toMap());
+    }
+}
+
 void HemsManager::setDevConfigPvSurplusResponse(int commandId, const QVariantMap &data)
 {
     qCDebug(dcHems()) << "Set devConfigPvSurplus response" << data.value("hemsError").toString();
     emit setDevConfigPvSurplusReply(commandId, data.value("hemsError").toString());
+}
+
+void HemsManager::setWhiteGoodConfigurationResponse(int commandId, const QVariantMap &data)
+{
+    logSetConfigurationResponse(QStringLiteral("white good"), data);
+    emit setWhiteGoodConfigurationReply(commandId, data.value("hemsError").toString());
 }
 
 void HemsManager::initJsonRpcCommunication()
@@ -1290,6 +1356,10 @@ void HemsManager::initJsonRpcCommunication()
                                            QVariantMap(),
                                            this,
                                            "getDevConfigPvSurplusResponse");
+    m_engine->jsonRpcClient()->sendCommand("Hems.GetWhiteGoodConfigurations",
+                                           QVariantMap(),
+                                           this,
+                                           "getWhiteGoodConfigurationsResponse");
     // ATTENTION: This call should be the last one here since it sets m_fetchingData to false
     //            in it's response handler.
     m_engine->jsonRpcClient()->sendCommand("Hems.GetHeatingRodConfigurations",
@@ -1635,6 +1705,27 @@ void HemsManager::addOrUpdateSwitchConfiguration(const QVariantMap &configuratio
     } else {
         qCDebug(dcHems()) << "Switch configuration changed" << switchUuid;
         emit switchConfigurationChanged(configuration);
+    }
+}
+
+void HemsManager::addOrUpdateWhiteGoodConfiguration(const QVariantMap &configurationMap)
+{
+    qCDebug(dcHems()) << "add or Update white good Config configurationMap: " << configurationMap;
+    QUuid whiteGoodThingId = configurationMap.value("whiteGoodThingId").toUuid();
+
+    WhiteGoodConfiguration *configuration = m_whiteGoodConfigurations->getWhiteGoodConfiguration(whiteGoodThingId);
+    bool newConfiguration = false;
+    if (!configuration) {
+        newConfiguration = true;
+        configuration = new WhiteGoodConfiguration(this);
+        configuration->setWhiteGoodThingId(whiteGoodThingId);
+    }
+
+    if (newConfiguration) {
+        qCDebug(dcHems()) << "White good configuration added" << configuration->whiteGoodThingId();
+        m_whiteGoodConfigurations->addConfiguration(configuration);
+    } else {
+        qCDebug(dcHems()) << "White good configuration changed" << configuration->whiteGoodThingId();
     }
 }
 
