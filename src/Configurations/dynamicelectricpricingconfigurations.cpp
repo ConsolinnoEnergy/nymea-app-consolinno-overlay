@@ -21,8 +21,6 @@ QVariant DynamicElectricPricingConfigurations::data(const QModelIndex &index, in
     switch (role) {
     case RoleElectricThingId:
         return m_list.at(index.row())->dynamicElectricPricingThingID();
-    case RoleOptimizationEnabled:
-        return m_list.at(index.row())->optimizationEnabled();
     }
     return QVariant();
 }
@@ -31,7 +29,6 @@ QHash<int, QByteArray> DynamicElectricPricingConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleElectricThingId, "electricThingId");
-    roles.insert(RoleOptimizationEnabled, "optimizationEnabled");
     return roles;
 }
 
@@ -61,12 +58,6 @@ void DynamicElectricPricingConfigurations::addConfiguration(DynamicElectricPrici
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(electricgConfiguration);
-
-    connect(electricgConfiguration, &DynamicElectricPricingConfiguration::optimizationEnabledChanged, this, [=](){
-        QModelIndex idx = index(m_list.indexOf(electricgConfiguration));
-        emit dataChanged(idx, idx, {RoleOptimizationEnabled});
-    });
-
     endInsertRows();
 
     emit countChanged();

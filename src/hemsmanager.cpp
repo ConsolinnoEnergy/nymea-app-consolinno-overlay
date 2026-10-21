@@ -414,8 +414,6 @@ int HemsManager::setDynamicElectricPricingConfiguration(const QUuid &electricThi
         qCDebug(dcHems()) << "Adding a dummy Config" << electricThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("electricThingId", electricThingId);
-        dummyConfig.insert("optimizationEnabled", false);
-        dummyConfig.insert("maxElectricalPower", 0);
 
         addOrUpdateDynamicElectricPricingConfiguration(dummyConfig);
 
@@ -1462,9 +1460,6 @@ void HemsManager::addOrUpdateDynamicElectricPricingConfiguration(const QVariantM
         configuration = new DynamicElectricPricingConfiguration(this);
         configuration->setDynamicElectricPricingThingID(electricUuid);
     }
-
-    configuration->setOptimizationEnabled(configurationMap.value("optimizationEnabled").toBool());
-    configuration->setMaxElectricalPower(configurationMap.value("maxElectricalPower").toDouble());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "Electric configuration added" << configuration->dynamicElectricPricingThingID();

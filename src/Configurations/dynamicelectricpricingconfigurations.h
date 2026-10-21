@@ -13,8 +13,7 @@ class DynamicElectricPricingConfigurations : public QAbstractListModel
 
 public:
     enum Role {
-        RoleElectricThingId,
-        RoleOptimizationEnabled
+        RoleElectricThingId
     };
     Q_ENUM(Role);
 
