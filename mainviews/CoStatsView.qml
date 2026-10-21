@@ -1221,7 +1221,7 @@ MainViewBase {
             // every valueFunction below divides by 1000.
             if (d.hasProducer) {
                 series.push({
-                    name: qsTr("Production"),
+                    name: qsTr("Solar"),
                     key: "energybalance:production",
                     color: Style.colors.components_Statistics_Things_and_states_Inverter,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
@@ -1233,7 +1233,7 @@ MainViewBase {
             }
             if (d.hasBattery) {
                 series.push({
-                    name: qsTr("From battery"),
+                    name: qsTr("Battery out"),
                     key: "energybalance:fromBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
@@ -1244,7 +1244,7 @@ MainViewBase {
                 })
             }
             series.push({
-                name: qsTr("From grid"),
+                name: qsTr("Grid import"),
                 key: "energybalance:fromGrid",
                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
@@ -1265,7 +1265,7 @@ MainViewBase {
             })
             if (d.hasBattery) {
                 series.push({
-                    name: qsTr("To battery"),
+                    name: qsTr("Battery in"),
                     key: "energybalance:toBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_charge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_charge_border,
@@ -1277,7 +1277,7 @@ MainViewBase {
             }
             if (d.hasProducer) {
                 series.push({
-                    name: qsTr("To grid"),
+                    name: qsTr("Feed-in"),
                     key: "energybalance:toGrid",
                     color: Style.colors.components_Statistics_Things_and_states_Root_meter_return,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_return_border,
@@ -1313,7 +1313,7 @@ MainViewBase {
             // producer is present.
             if (d.hasProducer) {
                 series.push({
-                    name: qsTr("Self-consumption"),
+                    name: qsTr("Solar self-consumption"),
                     key: "consumption:selfConsumption",
                     color: Style.colors.components_Statistics_Things_and_states_Inverter,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Inverter_border,
@@ -1329,7 +1329,7 @@ MainViewBase {
             }
             if (d.hasBattery) {
                 series.push({
-                    name: qsTr("From battery"),
+                    name: qsTr("Battery out"),
                     key: "consumption:fromBattery",
                     color: Style.colors.components_Statistics_Things_and_states_Battery_discharge,
                     borderColor: Style.colors.components_Statistics_Things_and_states_Battery_discharge_border,
@@ -1340,7 +1340,7 @@ MainViewBase {
                 })
             }
             series.push({
-                name: qsTr("From grid"),
+                name: qsTr("Grid Import"),
                 key: "consumption:fromGrid",
                 color: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition,
                 borderColor: Style.colors.components_Statistics_Things_and_states_Root_meter_acquisition_border,
