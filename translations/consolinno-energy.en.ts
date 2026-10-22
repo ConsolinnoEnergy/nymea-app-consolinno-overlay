@@ -2498,6 +2498,34 @@ Your %3 Team</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoDeveloperOptionsPage</name>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="10"/>
+        <source>Developer options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="21"/>
+        <source>Logging</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="32"/>
+        <source>Application logs enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="40"/>
+        <source>View live log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="50"/>
+        <source>Configure logging categories</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDeviceLogPage</name>
     <message>
         <location filename="../devicepages/ConsolinnoDeviceLogPage.qml" line="57"/>

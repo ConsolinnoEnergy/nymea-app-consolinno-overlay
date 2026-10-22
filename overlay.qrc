@@ -358,5 +358,6 @@
         <file>system/ConsolinnoGeneralSettingsPage.qml</file>
         <file>system/ConsolinnoPluginsPage.qml</file>
         <file>system/ConsolinnoPluginParamsPage.qml</file>
+        <file>appsettings/ConsolinnoDeveloperOptionsPage.qml</file>
     </qresource>
 </RCC>

@@ -123,7 +123,7 @@ MainViewBase {
                         helpText: qsTr("Access tools for debugging and error reporting.")
                         iconLeft: "/icons/logo_dev.svg"
                         showChildrenIndicator: true
-                        onClicked: pageStack.push(Qt.resolvedUrl("appsettings/DeveloperOptionsPage.qml"))
+                        onClicked: pageStack.push(Qt.resolvedUrl("appsettings/ConsolinnoDeveloperOptionsPage.qml"))
                     }
                 }
             }

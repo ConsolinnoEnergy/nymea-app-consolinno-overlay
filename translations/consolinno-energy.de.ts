@@ -2509,6 +2509,34 @@ Ihr %3 Team</translation>
     </message>
 </context>
 <context>
+    <name>ConsolinnoDeveloperOptionsPage</name>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="10"/>
+        <source>Developer options</source>
+        <translation>Entwicklereinstellungen</translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="21"/>
+        <source>Logging</source>
+        <translation>Protokoll</translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="32"/>
+        <source>Application logs enabled</source>
+        <translation>Anwendungsprotokoll aktiviert</translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="40"/>
+        <source>View live log</source>
+        <translation>Anwendungsprotokoll zeigen</translation>
+    </message>
+    <message>
+        <location filename="../appsettings/ConsolinnoDeveloperOptionsPage.qml" line="50"/>
+        <source>Configure logging categories</source>
+        <translation>Protokollkategorien einrichten</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoDeviceLogPage</name>
     <message>
         <location filename="../devicepages/ConsolinnoDeviceLogPage.qml" line="57"/>
