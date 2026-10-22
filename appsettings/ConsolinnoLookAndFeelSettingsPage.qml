@@ -118,34 +118,28 @@ SettingsPageBase {
             id: behaviorGroup
             Layout.fillWidth: true
             headerText: qsTr("Behavior")
-            contentTopMargin: Style.margins
+            contentTopMargin: Style.smallMargins
 
             ColumnLayout {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 spacing: 0
 
-                CoCheckBox {
+                CoSwitch {
                     id: returnToHomeCheckBox
                     Layout.fillWidth: true
-                    Layout.leftMargin: Style.smallMargins
-                    Layout.rightMargin: Style.smallMargins
-                    Layout.bottomMargin: Style.smallMargins
                     text: qsTr("Return to home on idle")
                     checked: settings.returnToHome
-                    checkBox.onClicked: settings.returnToHome = checked
+                    onClicked: settings.returnToHome = checked
                 }
 
-                CoCheckBox {
+                CoSwitch {
                     id: screenOffCheckBox
                     Layout.fillWidth: true
-                    Layout.leftMargin: Style.smallMargins
-                    Layout.rightMargin: Style.smallMargins
-                    Layout.bottomMargin: Style.smallMargins
                     text: qsTr("Turn screen off when idle")
                     visible: PlatformHelper.canControlScreen
                     checked: PlatformHelper.screenTimeout > 0
-                    checkBox.onClicked: PlatformHelper.screenTimeout = (checked ? 15000 : 0)
+                    onClicked: PlatformHelper.screenTimeout = (checked ? 15000 : 0)
                 }
 
                 CoInputStepper {
