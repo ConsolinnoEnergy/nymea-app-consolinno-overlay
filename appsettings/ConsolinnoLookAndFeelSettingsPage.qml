@@ -6,196 +6,176 @@ import "../components"
 
 SettingsPageBase {
     id: root
-    title: qsTr("Look and feel")
+    headerText: qsTr("Look and feel")
 
-    SettingsPageSectionHeader {
-        text: qsTr("Appearance")
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        visible: !styleController.locked
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Style")
-        }
-
-        ListModel { id: stylesModel }
-
-        ComboBox {
-          id: cb
-          model: stylesModel
-          textRole: "text"
-          valueRole: "value"
-          Component.onCompleted: currentIndex = indexOfValue(styleController.rawCurrentStyle)
-          onActivated: styleController.currentStyle = currentValue
-        }
-
-        Component.onCompleted: {
-            stylesModel.append({ value: "light", text: qsTr("Light") });
-            if (Configuration.branding === "consolinno") {
-                stylesModel.append({ value: "dark", text: qsTr("Dark") });
-                stylesModel.append({ value: "auto", text: qsTr("Automatic") });
-            }
-        }
-
-        Connections {
-            target: styleController
-            function onCurrentStyleChanged() {
-                var popup = styleChangedDialog.createObject(root)
-                popup.open()
-            }
+    Connections {
+        target: styleController
+        function onCurrentStyleChanged() {
+            var popup = styleChangedDialog.createObject(root)
+            popup.open()
         }
     }
 
-    RowLayout {
+    ColumnLayout {
+        id: layout
         Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        visible: !kioskMode && Qt.platform.os !== "ios"
-        Label {
+        Layout.margins: Style.margins
+        spacing: Style.margins
+
+        CoFrostyCard {
+            id: appearanceGroup
             Layout.fillWidth: true
-            text: qsTr("View mode")
-        }
-        ComboBox {
-            model: [qsTr("Windowed"), qsTr("Maximized"), qsTr("Fullscreen"), qsTr("Automatic")]
-            currentIndex: {
-                switch (settings.viewMode) {
-                case ApplicationWindow.Windowed:
-                    return 0;
-                case ApplicationWindow.Maximized:
-                    return 1;
-                case ApplicationWindow.FullScreen:
-                    return 2;
-                case ApplicationWindow.AutomaticVisibility:
-                    return 3;
+            headerText: qsTr("Appearance")
+            contentTopMargin: Style.smallMargins
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoComboBox {
+                    id: styleComboBox
+                    Layout.fillWidth: true
+                    model: ListModel { id: stylesModel }
+                    labelText: qsTr("Style")
+                    textRole: "text"
+                    valueRole: "value"
+                    Component.onCompleted: {
+                        stylesModel.append({ value: "light", text: qsTr("Light") });
+                        if (Configuration.branding === "consolinno") {
+                            stylesModel.append({ value: "dark", text: qsTr("Dark") });
+                            stylesModel.append({ value: "auto", text: qsTr("Automatic") });
+                        }
+                        currentIndex = comboBox.indexOfValue(styleController.rawCurrentStyle)
+                    }
+                    comboBox.onActivated: styleController.currentStyle = currentValue
+                }
+
+                CoComboBox {
+                    id: viewModeComboBox
+                    Layout.fillWidth: true
+                    labelText: qsTr("View mode")
+                    visible: !kioskMode && Qt.platform.os !== "ios"
+                    model: [qsTr("Windowed"), qsTr("Maximized"), qsTr("Fullscreen"), qsTr("Automatic")]
+                    currentIndex: {
+                        switch (settings.viewMode) {
+                        case ApplicationWindow.Windowed:
+                            return 0;
+                        case ApplicationWindow.Maximized:
+                            return 1;
+                        case ApplicationWindow.FullScreen:
+                            return 2;
+                        case ApplicationWindow.AutomaticVisibility:
+                            return 3;
+                        }
+                    }
+
+                    comboBox.onActivated: {
+                        switch (currentIndex) {
+                        case 0:
+                            settings.viewMode = ApplicationWindow.Windowed;
+                            break;
+                        case 1:
+                            settings.viewMode = ApplicationWindow.Maximized;
+                            break;
+                        case 2:
+                            settings.viewMode = ApplicationWindow.FullScreen;
+                            break;
+                        case 3:
+                            settings.viewMode = ApplicationWindow.AutomaticVisibility;
+                            break;
+                        }
+                    }
                 }
             }
+        }
 
-            onActivated: {
-                switch (currentIndex) {
-                case 0:
-                    settings.viewMode = ApplicationWindow.Windowed;
-                    break;
-                case 1:
-                    settings.viewMode = ApplicationWindow.Maximized;
-                    break;
-                case 2:
-                    settings.viewMode = ApplicationWindow.FullScreen;
-                    break;
-                case 3:
-                    settings.viewMode = ApplicationWindow.AutomaticVisibility;
-                    break;
+        CoFrostyCard {
+            id: regionalGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Regional")
+            contentTopMargin: Style.smallMargins
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoComboBox {
+                    id: unitSystemComboBox
+                    Layout.fillWidth: true
+                    labelText: qsTr("Unit system")
+                    model: [ qsTr("Metric"), qsTr("Imperial") ]
+                    currentIndex: settings.units === "metric" ? 0 : 1
+                    comboBox.onActivated: function(index) {
+                        settings.units = index === 0 ? "metric" : "imperial";
+                    }
+                }
+            }
+        }
+
+        CoFrostyCard {
+            id: behaviorGroup
+            Layout.fillWidth: true
+            headerText: qsTr("Behavior")
+            contentTopMargin: Style.margins
+
+            ColumnLayout {
+                anchors.left: parent.left
+                anchors.right: parent.right
+                spacing: 0
+
+                CoCheckBox {
+                    id: returnToHomeCheckBox
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Style.smallMargins
+                    Layout.rightMargin: Style.smallMargins
+                    Layout.bottomMargin: Style.smallMargins
+                    text: qsTr("Return to home on idle")
+                    checked: settings.returnToHome
+                    checkBox.onClicked: settings.returnToHome = checked
+                }
+
+                CoCheckBox {
+                    id: screenOffCheckBox
+                    Layout.fillWidth: true
+                    Layout.leftMargin: Style.smallMargins
+                    Layout.rightMargin: Style.smallMargins
+                    Layout.bottomMargin: Style.smallMargins
+                    text: qsTr("Turn screen off when idle")
+                    visible: PlatformHelper.canControlScreen
+                    checked: PlatformHelper.screenTimeout > 0
+                    checkBox.onClicked: PlatformHelper.screenTimeout = (checked ? 15000 : 0)
+                }
+
+                CoInputStepper {
+                    id: screenOffTimeoutStepper
+                    Layout.fillWidth: true
+                    visible: PlatformHelper.screenTimeout > 0
+                    labelText: qsTr("Screen off timeout")
+                    unit: qsTr("seconds")
+                    compact: true
+                    value: PlatformHelper.screenTimeout / 1000
+                    onValueModified: function(value) {
+                        PlatformHelper.screenTimeout = value * 1000
+                    }
+                }
+
+                CoSlider {
+                    id: screenBrightnessSlider
+                    Layout.fillWidth: true
+                    visible: PlatformHelper.canControlScreen
+                    labelText: qsTr("Screen brightness")
+                    valueText: value + " %"
+                    value: PlatformHelper.screenBrightness
+                    onMoved: PlatformHelper.screenBrightness = value
+                    from: 0
+                    to: 100
+                    stepSize: 1
                 }
             }
         }
     }
-
-    SettingsPageSectionHeader {
-        text: qsTr("Regional")
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Unit system")
-        }
-        ComboBox {
-            id: unitsComboBox
-            currentIndex: settings.units === "metric" ? 0 : 1
-            model: [ qsTr("Metric"), qsTr("Imperial") ]
-            onActivated: function(index) {
-                settings.units = index === 0 ? "metric" : "imperial";
-            }
-        }
-    }
-
-    RowLayout{
-        Layout.fillWidth: true
-        Layout.leftMargin: app.margins
-        Layout.rightMargin: app.margins
-        visible: false
-        Label {
-            Layout.fillWidth: true
-            text: qsTr("Language")
-        }
-        ComboBox {
-            id: languageComboBox
-            currentIndex: settings.units === "metric" ? 0 : 1
-            //model: [ qsTr("Metric"), qsTr("Imperial") ]
-            onActivated: {
-                //settings.units = index == 0 ? "metric" : "imperial";
-            }
-        }
-    }
-
-    SettingsPageSectionHeader {
-        text: qsTr("Behavior")
-    }
-
-    CheckDelegate {
-        Layout.fillWidth: true
-        text: qsTr("Return to home on idle")
-        checked: settings.returnToHome
-        onClicked: settings.returnToHome = checked
-    }
-
-    CheckDelegate {
-        id: screenOffCheck
-        Layout.fillWidth: true
-        text: qsTr("Turn screen off when idle")
-        visible: PlatformHelper.canControlScreen
-        checked: PlatformHelper.screenTimeout > 0
-        onClicked: PlatformHelper.screenTimeout = (checked ? 15000 : 0)
-    }
-
-    ItemDelegate {
-        Layout.fillWidth: true
-        Layout.preferredHeight: screenOffCheck.height
-        visible: PlatformHelper.screenTimeout > 0
-        topPadding: 0
-        contentItem: RowLayout {
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Screen off timeout")
-            }
-            SpinBox {
-                value: PlatformHelper.screenTimeout / 1000
-                onValueModified: {
-                    PlatformHelper.screenTimeout = value * 1000
-                }
-            }
-            Label {
-                text: qsTr("seconds")
-            }
-        }
-    }
-
-    ItemDelegate {
-        Layout.fillWidth: true
-        visible: PlatformHelper.canControlScreen
-        topPadding: 0
-        contentItem: RowLayout {
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Screen brightness")
-            }
-            Slider {
-                Layout.fillWidth: true
-                value: PlatformHelper.screenBrightness
-                onMoved: PlatformHelper.screenBrightness = value
-                from: 0
-                to: 100
-                stepSize: 1
-            }
-        }
-    }
-
 
     Component {
         id: styleChangedDialog
