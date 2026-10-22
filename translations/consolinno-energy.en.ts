@@ -3594,6 +3594,32 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPluginParamsPage</name>
+    <message>
+        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="17"/>
+        <source>Apply changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="51"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoPluginsPage</name>
+    <message>
+        <location filename="../system/ConsolinnoPluginsPage.qml" line="10"/>
+        <source>Plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoPluginsPage.qml" line="21"/>
+        <source>Installed integration plugins</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPowerBalanceHistory</name>
     <message>
         <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="140"/>

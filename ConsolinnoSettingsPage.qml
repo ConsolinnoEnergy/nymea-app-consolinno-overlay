@@ -211,7 +211,7 @@ MainViewBase {
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin) &&
                                  Configuration.pluginSettingsEnabled
-                        onClicked:pageStack.push(Qt.resolvedUrl("system/PluginsPage.qml"))
+                        onClicked:pageStack.push(Qt.resolvedUrl("system/ConsolinnoPluginsPage.qml"))
                     }
 
                     CoCard {

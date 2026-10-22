@@ -356,5 +356,7 @@
         <file>components/CoTimePickerOverlay.qml</file>
         <file>components/CoTimeStepper.qml</file>
         <file>system/ConsolinnoGeneralSettingsPage.qml</file>
+        <file>system/ConsolinnoPluginsPage.qml</file>
+        <file>system/ConsolinnoPluginParamsPage.qml</file>
     </qresource>
 </RCC>

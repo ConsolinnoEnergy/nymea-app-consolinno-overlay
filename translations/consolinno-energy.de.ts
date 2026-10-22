@@ -3611,6 +3611,32 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
 </context>
 <context>
+    <name>ConsolinnoPluginParamsPage</name>
+    <message>
+        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="17"/>
+        <source>Apply changes</source>
+        <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="51"/>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+</context>
+<context>
+    <name>ConsolinnoPluginsPage</name>
+    <message>
+        <location filename="../system/ConsolinnoPluginsPage.qml" line="10"/>
+        <source>Plugins</source>
+        <translation>Plugins</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoPluginsPage.qml" line="21"/>
+        <source>Installed integration plugins</source>
+        <translation>Installierte Integrationen</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoPowerBalanceHistory</name>
     <message>
         <location filename="../mainviews/energy/ConsolinnoPowerBalanceHistory.qml" line="140"/>
