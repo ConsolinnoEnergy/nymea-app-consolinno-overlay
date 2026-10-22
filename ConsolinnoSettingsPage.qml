@@ -145,7 +145,7 @@ MainViewBase {
                         helpText: qsTr("Change system name and time zone.")
                         showChildrenIndicator: true
                         visible: NymeaUtils.hasPermissionScope(engine.jsonRpcClient.permissions, UserInfo.PermissionScopeAdmin)
-                        onClicked: pageStack.push(Qt.resolvedUrl("system/GeneralSettingsPage.qml"))
+                        onClicked: pageStack.push(Qt.resolvedUrl("system/ConsolinnoGeneralSettingsPage.qml"))
                     }
 
                     CoCard {

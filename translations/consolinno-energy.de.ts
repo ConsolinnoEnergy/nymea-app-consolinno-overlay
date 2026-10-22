@@ -2024,12 +2024,12 @@ Ihr %3 Team</translation>
 <context>
     <name>CoTimePickerOverlay</name>
     <message>
-        <location filename="../components/CoTimePickerOverlay.qml" line="45"/>
+        <location filename="../components/CoTimePickerOverlay.qml" line="47"/>
         <source>h</source>
         <translation>Std.</translation>
     </message>
     <message>
-        <location filename="../components/CoTimePickerOverlay.qml" line="81"/>
+        <location filename="../components/CoTimePickerOverlay.qml" line="86"/>
         <source>min</source>
         <translation>Min.</translation>
     </message>
@@ -2594,6 +2594,121 @@ Abgaben: %4 %2</translation>
     </message>
 </context>
 <context>
+    <name>ConsolinnoGeneralSettingsPage</name>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="11"/>
+        <source>General settings</source>
+        <translation>Allgemeine Einstellungen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="94"/>
+        <source>General</source>
+        <translation>Allgemein</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="105"/>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="115"/>
+        <source>Apply changes</source>
+        <translation>Änderungen übernehmen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="127"/>
+        <source>Date and time</source>
+        <translation>Datum und Uhrzeit</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="139"/>
+        <source>Set date and time automatically</source>
+        <translation>Zeit und Datum automatisch einstellen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="151"/>
+        <source>Date</source>
+        <translation>Datum</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="177"/>
+        <source>Time</source>
+        <translation>Zeit</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="182"/>
+        <source>Choose time</source>
+        <translation>Zeit auswählen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="205"/>
+        <source>Time zone</source>
+        <translation>Zeitzone</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="218"/>
+        <source>System</source>
+        <translation>System</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="233"/>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="241"/>
+        <source>Restart %1</source>
+        <translation>%1 neu starten</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="237"/>
+        <source>Are you sure you want to restart %1 now?</source>
+        <translation>Bist Du sicher, dass Du %1 jetzt neu starten möchtest?</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="258"/>
+        <source>Reboot %1</source>
+        <translation>%1 neu starten</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="262"/>
+        <source>Are you sure you want to reboot %1 now?</source>
+        <translation>Bist Du sicher, dass Du %1 jetzt neu starten möchtest?</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="287"/>
+        <source>Are you sure you want to shut down %1 now?</source>
+        <translation>Bist Du sicher, dass Du %1 jetzt herunterfahren möchtest?</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="266"/>
+        <source>Reboot %1 system</source>
+        <translation>%1 neu starten</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="283"/>
+        <source>Shut down %1</source>
+        <translation>%1 herunterfahren</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="291"/>
+        <source>Shut down %1 system</source>
+        <translation>%1 herunterfahren</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="308"/>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="326"/>
+        <source>Reset to factory settings</source>
+        <translation>Auf Werkseinstellungen zurücksetzen</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="339"/>
+        <source>The factory reset restores all software settings to their factory defaults, thereby deleting all device settings, commissioning settings and data.</source>
+        <translation>Das Zurücksetzen auf Werkseinstellungen setzt alle Software-Einstellungen auf den Werkszustand zurück. Dabei werden alle Geräte-Einstellungen, Inbetriebnahme-Einstellungen und Daten gelöscht.</translation>
+    </message>
+    <message>
+        <location filename="../system/ConsolinnoGeneralSettingsPage.qml" line="347"/>
+        <source>I have read the message.</source>
+        <translation>Ich habe den Hinweis gelesen.</translation>
+    </message>
+</context>
+<context>
     <name>ConsolinnoItemDelegate</name>
     <message>
         <location filename="../components/ConsolinnoItemDelegate.qml" line="57"/>
@@ -2609,113 +2724,108 @@ Abgaben: %4 %2</translation>
         <translation>Aussehen und Verhalten</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="12"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="28"/>
         <source>Appearance</source>
         <translation>Aussehen</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="60"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="57"/>
         <source>View mode</source>
         <translation>Ansicht</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="59"/>
         <source>Windowed</source>
         <translation>Fenster</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="59"/>
         <source>Maximized</source>
         <translation>Maximiert</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="59"/>
         <source>Fullscreen</source>
         <translation>Vollbild</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="40"/>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="63"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="47"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="59"/>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="97"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="96"/>
         <source>Regional</source>
         <translation>Regional</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="106"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="107"/>
         <source>Unit system</source>
         <translation>Einheitensystem</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="111"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="108"/>
         <source>Metric</source>
         <translation>Metrisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="111"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="108"/>
         <source>Imperial</source>
         <translation>Angloamerikanisch</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="138"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="120"/>
         <source>Behavior</source>
         <translation>Verhalten</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="143"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="131"/>
         <source>Return to home on idle</source>
         <translation>Bei Leerlauf zurück zum Startbildschirm</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="151"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="139"/>
         <source>Turn screen off when idle</source>
         <translation>Bildschirm im Leerlauf ausschalten</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="165"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="149"/>
         <source>Screen off timeout</source>
         <translation>Leerlaufzeit bis der Bildschirm ausgeschaltet wird</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="174"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="150"/>
         <source>seconds</source>
         <translation>Sekunden</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="186"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="162"/>
         <source>Screen brightness</source>
         <translation>Bildschirmhelligkeit</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="208"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="182"/>
         <source>Style changed</source>
         <translation>Stil geändert</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="220"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="194"/>
         <source>The application needs to be restarted for style changes to take effect.</source>
         <translation>Die Anwendung muss neu gestartet werden damit Stil-Änderungen wirksam werden.</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="125"/>
-        <source>Language</source>
-        <translation>Sprache</translation>
-    </message>
-    <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="22"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="40"/>
         <source>Style</source>
         <translation>Stil</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="37"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="44"/>
         <source>Light</source>
         <translation>Hell</translation>
     </message>
     <message>
-        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="39"/>
+        <location filename="../appsettings/ConsolinnoLookAndFeelSettingsPage.qml" line="46"/>
         <source>Dark</source>
         <translation>Dunkel</translation>
     </message>

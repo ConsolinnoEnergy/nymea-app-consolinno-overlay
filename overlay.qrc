@@ -355,5 +355,6 @@
         <file>components/CoChartTooltip.qml</file>
         <file>components/CoTimePickerOverlay.qml</file>
         <file>components/CoTimeStepper.qml</file>
+        <file>system/ConsolinnoGeneralSettingsPage.qml</file>
     </qresource>
 </RCC>

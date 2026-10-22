@@ -9,6 +9,8 @@ CoOverlay {
     property alias description: descriptionLabel.text
     property int initialHours: 0
     property int initialMinutes: 0
+    property bool quarterHours: true
+    property bool includeMidnightHour: true;
 
     signal timeChosen(int hours, int minutes)
 
@@ -49,9 +51,12 @@ CoOverlay {
                     id: hoursPicker
                     visibleItemCount: 5
                     values: {
-                        var result = []
-                        for (let i = 0; i <= 24; ++i) {
+                        let result = []
+                        for (let i = 0; i < 24; ++i) {
                             result.push(i)
+                        }
+                        if (root.includeMidnightHour) {
+                            result.push(24)
                         }
                         return result
                     }
@@ -85,10 +90,20 @@ CoOverlay {
                     id: minutesPicker
                     Layout.alignment: Qt.AlignLeft | Qt.AlignTop
                     visibleItemCount: 5
-                    values: [0, 15, 30, 45]
+                    values: {
+                        if (root.quarterHours) {
+                            return [0, 15, 30, 45]
+                        } else {
+                            let result = []
+                            for (let i = 0; i < 60; ++i) {
+                                result.push(i)
+                            }
+                            return result
+                        }
+                    }
                     textForValue: function(value) {
-                        if (value === 0) {
-                            return "00"
+                        if (value < 10) {
+                            return "0" + value.toString()
                         } else {
                             return value.toString()
                         }
