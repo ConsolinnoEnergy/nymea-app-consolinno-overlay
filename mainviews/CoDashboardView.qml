@@ -625,6 +625,8 @@ Your %3 Team")
 
                             CoInfoCard {
                                 Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.minimumHeight: implicitHeight
                                 text: qsTr("Self-sufficiency")
                                 value: dataProvider.kpiValid ? dataProvider.selfSufficiencyRate.toFixed(0) : "—"
                                 unit: "%"
@@ -634,6 +636,8 @@ Your %3 Team")
 
                             CoInfoCard {
                                 Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.minimumHeight: implicitHeight
                                 text: qsTr("Self-consumption")
                                 value: dataProvider.kpiValid ? dataProvider.selfConsumptionRate.toFixed(0) : "—"
                                 unit: "%"
@@ -643,6 +647,8 @@ Your %3 Team")
 
                             CoInfoCard {
                                 Layout.fillWidth: true
+                                Layout.fillHeight: true
+                                Layout.minimumHeight: implicitHeight
                                 property Thing thing: dynamicPricingThing
                                 readonly property State currentMarketPriceState: thing ? thing.stateByName("currentTotalCost") : null
                                 readonly property double currentMarketPrice: currentMarketPriceState ? currentMarketPriceState.value.toFixed(2) : 0
@@ -680,12 +686,15 @@ Your %3 Team")
                         CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            rowSpacing: producerThings.count > 1 ? Style.margins : 0
 
                             Repeater {
                                 model: producerThings
 
                                 delegate: CoPowerThingInfoCard {
                                     Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    Layout.minimumHeight: implicitHeight
                                     thing: producerThings.get(index)
                                     icon: UiUtils.thingToIcon(thing)
                                     showWarningIndicator: lppActive &&
@@ -705,6 +714,10 @@ Your %3 Team")
                                     }
                                 }
                             }
+
+                            Item {
+                                visible: producerThings.count === 1
+                            }
                         }
                     }
 
@@ -718,12 +731,15 @@ Your %3 Team")
                         CoInfoCardContainer {
                             anchors.left: parent.left
                             anchors.right: parent.right
+                            rowSpacing: batteryThings.count > 1 ? Style.margins : 0
 
                             Repeater {
                                 model: batteryThings
 
                                 delegate: CoBatteryInfoCard {
                                     Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    Layout.minimumHeight: implicitHeight
 
                                     property Thing battery: batteryThings.get(index)
                                     readonly property State currentPowerState: battery ? battery.stateByName("currentPower") : null
@@ -746,6 +762,10 @@ Your %3 Team")
                                     }
                                 }
                             }
+
+                            Item {
+                                visible: batteryThings.count === 1
+                            }
                         }
                     }
 
@@ -764,12 +784,15 @@ Your %3 Team")
                             CoInfoCardContainer {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
+                                rowSpacing: heatingThings.count > 1 ? Style.margins : 0
 
                                 Repeater {
                                     model: heatingThings
 
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.minimumHeight: implicitHeight
                                         thing: heatingThings.get(index)
                                         icon: UiUtils.thingToIcon(thing)
                                         showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
@@ -795,6 +818,10 @@ Your %3 Team")
                                         }
                                     }
                                 }
+
+                                Item {
+                                    visible: heatingThings.count === 1
+                                }
                             }
                         }
 
@@ -808,12 +835,15 @@ Your %3 Team")
                             CoInfoCardContainer {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
+                                rowSpacing: evChargerThings.count > 1 ? Style.margins : 0
 
                                 Repeater {
                                     model: evChargerThings
 
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.minimumHeight: implicitHeight
                                         thing: evChargerThings.get(index)
                                         icon: UiUtils.thingToIcon(thing)
                                         showErrorIndicator: !ThingUtils.isConnected(thing)
@@ -846,6 +876,10 @@ Your %3 Team")
                                         }
                                     }
                                 }
+
+                                Item {
+                                    visible: evChargerThings.count === 1
+                                }
                             }
                         }
 
@@ -859,12 +893,15 @@ Your %3 Team")
                             CoInfoCardContainer {
                                 anchors.left: parent.left
                                 anchors.right: parent.right
+                                rowSpacing: whitegoodThings.count > 1 ? Style.margins : 0
 
                                 Repeater {
                                     model: whitegoodThings
 
                                     delegate: CoWhiteGoodInfoCard {
                                         Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.minimumHeight: implicitHeight
                                         property Thing thing: whitegoodThings.get(index)
                                         text: thing.name
                                         readonly property State operationStateState: thing ? thing.stateByName("operationState") : null
@@ -879,6 +916,10 @@ Your %3 Team")
                                             pageStack.push("/ui/devicepages/WhiteGoodDevicePage.qml", { "thing": thing });
                                         }
                                     }
+                                }
+
+                                Item {
+                                    visible: whitegoodThings.count === 1
                                 }
                             }
                         }
@@ -898,6 +939,8 @@ Your %3 Team")
 
                                     delegate: CoPowerThingInfoCard {
                                         Layout.fillWidth: true
+                                        Layout.fillHeight: true
+                                        Layout.minimumHeight: implicitHeight
                                         thing: otherConsumerThings.get(index)
                                         icon: UiUtils.thingToIcon(thing)
                                         showInfoIndicator: hemsManager.conEMSState.runtimeExceededThings.includes(thing.id) &&
@@ -930,11 +973,17 @@ Your %3 Team")
 
                                 CoInfoCard {
                                     Layout.fillWidth: true
+                                    Layout.fillHeight: true
+                                    Layout.minimumHeight: implicitHeight
                                     text: qsTr("Unallocated consumption")
                                     value: UiUtils.powerDisplayValue(Math.abs(dataProvider.currentPowerUnallocatedConsumption))
                                     unit: UiUtils.powerDisplayUnit(dataProvider.currentPowerUnallocatedConsumption)
                                     icon: Qt.resolvedUrl("qrc:/icons/interests.svg")
                                     clickable: false
+                                }
+
+                                Item {
+                                    visible: otherConsumerThings.count === 0
                                 }
                             }
                         }
