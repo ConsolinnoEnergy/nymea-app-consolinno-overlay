@@ -16,15 +16,19 @@ SettingsPageBase {
         CoNavbarButton {
             text: qsTr("Apply changes")
             enabled: paramRepeater.dirty
-            onClicked: pluginConfigManager.savePluginConfig()
+            onClicked: {
+                root.busy = true;
+                pluginConfigManager.savePluginConfig();
+            }
         }
     }
 
     Connections {
-        target: engine.thingManager
+        target: pluginConfigManager
         function onSavePluginConfigReply(commandId, thingError) {
+            root.busy = false;
             if (thingError === Thing.ThingErrorNoError) {
-                pageStack.pop();
+                paramRepeater.resetDirty();
             } else {
                 console.warn("Error saving plugin params:", thingError)
                 var dialog = errorDialog.createObject(root, {error: thingError});
@@ -69,6 +73,14 @@ SettingsPageBase {
                             }
                         }
                         dirty = false;
+                    }
+
+                    function resetDirty() {
+                        for (var i = 0; i < paramRepeater.count; i++) {
+                            let paramDelegate = paramRepeater.itemAt(i);
+                            paramDelegate.initialValue = paramDelegate.value;
+                        }
+                        checkDirty();
                     }
 
                     delegate: CoParamDelegate {

@@ -62,7 +62,7 @@ SettingsPageBase {
                     params.push(setting)
                 }
 
-                engine.thingManager.setThingSettings(root.thing.id, params);
+                d.pendingCommand = engine.thingManager.setThingSettings(root.thing.id, params);
             }
         }
     }
@@ -132,16 +132,32 @@ SettingsPageBase {
 
     Connections {
         target: engine.thingManager
-        onRemoveThingReply: function(commandId) {
-            if (d.pendingCommand != commandId) {
+
+        onRemoveThingReply: function(commandId, thingError) {
+            if (d.pendingCommand !== commandId) {
                 return;
             }
-
             d.pendingCommand = -1
 
             switch (thingError) {
             case Thing.ThingErrorNoError:
                 pageStack.pop();
+                return;
+            default:
+                var popup = errorDialog.createObject(root, {error: thingError})
+                popup.open();
+            }
+        }
+
+        onSetThingSettingsReply: function(commandId, thingError) {
+            if (d.pendingCommand !== commandId) {
+                return;
+            }
+            d.pendingCommand = -1
+
+            switch (thingError) {
+            case Thing.ThingErrorNoError:
+                settingsRepeater.resetDirty();
                 return;
             default:
                 var popup = errorDialog.createObject(root, {error: thingError})
@@ -343,6 +359,9 @@ SettingsPageBase {
                         writable: true
                         onDirtyChanged: settingsRepeater.checkDirty()
                     }
+
+                    property bool dirty: false
+
                     function checkDirty() {
                         for (var i = 0; i < settingsRepeater.count; i++) {
                             if (settingsRepeater.itemAt(i).dirty) {
@@ -352,7 +371,15 @@ SettingsPageBase {
                         }
                         dirty = false;
                     }
-                    property bool dirty: false
+
+                    function resetDirty() {
+                        for (var i = 0; i < settingsRepeater.count; i++) {
+                            let paramDelegate = settingsRepeater.itemAt(i);
+                            paramDelegate.initialValue = paramDelegate.value;
+                        }
+                        checkDirty();
+                    }
+
                 }
             }
         }
