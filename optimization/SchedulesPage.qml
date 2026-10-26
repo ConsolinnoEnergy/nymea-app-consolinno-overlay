@@ -15,6 +15,16 @@ Page {
     property bool loading: true
     property string errorMessage: ""
 
+    function loadSchedules() {
+        root.loading = true
+        root.errorMessage = ""
+        root.deviceTypes = []
+        if (hemsManager.getConEMSDeviceSchedules() < 0) {
+            root.loading = false
+            root.errorMessage = qsTr("Not connected to the system.")
+        }
+    }
+
     function groupSchedules(schedules) {
         const groups = []
         for (const schedule of schedules) {
@@ -29,12 +39,7 @@ Page {
         root.deviceTypes = groups
     }
 
-    Component.onCompleted: {
-        if (hemsManager.getConEMSDeviceSchedules() < 0) {
-            loading = false
-            errorMessage = qsTr("Not connected to the system.")
-        }
-    }
+    StackView.onActivated: loadSchedules()
 
     Connections {
         target: hemsManager
@@ -52,7 +57,6 @@ Page {
         id: header
         anchors { left: parent.left; right: parent.right; top: parent.top }
         z: 1
-        blurSource: bodyFlickable
         text: qsTr("Schedules")
         backButtonVisible: true
         onBackPressed: pageStack.pop()

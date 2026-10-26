@@ -11,6 +11,8 @@ Page {
     property string deviceType: ""
     property var schedules: []
     property var slotRows: []
+    property int deviceColumnWidth: 220
+    property int startColumnWidth: 190
 
     bottomPadding: 0
     header: null
@@ -23,7 +25,7 @@ Page {
             for (const slot of slots) {
                 const sources = slot.source || []
                 rows.push({
-                    deviceId: thingId.slice(0, 8),
+                    deviceId: thingId,
                     start: String(slot.start || ""),
                     controlValue: slot.controlValue === null || slot.controlValue === undefined
                                   ? "-" : String(slot.controlValue),
@@ -62,42 +64,6 @@ Page {
         }
         spacing: 0
 
-        RowLayout {
-            Layout.fillWidth: true
-            Layout.bottomMargin: Style.smallMargins
-            spacing: Style.smallMargins
-
-            Label {
-                Layout.preferredWidth: root.schedules.length > 1 ? 64 : 0
-                visible: root.schedules.length > 1
-                text: qsTr("Device")
-                font.bold: true
-                elide: Text.ElideRight
-            }
-            Label {
-                Layout.preferredWidth: 126
-                text: qsTr("Start")
-                font.bold: true
-            }
-            Label {
-                Layout.preferredWidth: 78
-                text: qsTr("Control value")
-                font.bold: true
-                wrapMode: Text.Wrap
-            }
-            Label {
-                Layout.fillWidth: true
-                text: qsTr("Source")
-                font.bold: true
-            }
-        }
-
-        Rectangle {
-            Layout.fillWidth: true
-            height: 1
-            color: Style.colors.typography_Basic_Secondary
-        }
-
         Repeater {
             model: root.schedules
             delegate: ColumnLayout {
@@ -128,31 +94,72 @@ Page {
             }
         }
 
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.bottomMargin: Style.smallMargins
+            spacing: Style.smallMargins
+
+            Label {
+                Layout.preferredWidth: root.schedules.length > 1 ? root.deviceColumnWidth : 0
+                visible: root.schedules.length > 1
+                text: qsTr("Device")
+                font.bold: true
+                elide: Text.ElideRight
+            }
+            Label {
+                Layout.preferredWidth: root.startColumnWidth
+                text: qsTr("Start")
+                font.bold: true
+            }
+            Label {
+                Layout.preferredWidth: 78
+                text: qsTr("Control value")
+                font.bold: true
+                wrapMode: Text.Wrap
+            }
+            Label {
+                Layout.fillWidth: true
+                text: qsTr("Source")
+                font.bold: true
+            }
+        }
+
+        Rectangle {
+            Layout.fillWidth: true
+            height: 1
+            color: Style.colors.typography_Basic_Secondary
+        }
+
         ListView {
             id: slotsListView
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
             model: root.slotRows
+            ScrollBar.vertical: ScrollBar {
+                policy: ScrollBar.AsNeeded
+            }
             delegate: Item {
                 required property var modelData
                 width: slotsListView.width
-                height: 48
+                height: 56
 
                 RowLayout {
                     anchors.fill: parent
                     spacing: Style.smallMargins
 
                     Label {
-                        Layout.preferredWidth: root.schedules.length > 1 ? 64 : 0
+                        Layout.preferredWidth: root.schedules.length > 1 ? root.deviceColumnWidth : 0
                         visible: root.schedules.length > 1
                         text: modelData.deviceId
-                        elide: Text.ElideRight
+                        wrapMode: Text.WrapAnywhere
+                        verticalAlignment: Text.AlignVCenter
                     }
                     Label {
-                        Layout.preferredWidth: 126
+                        Layout.preferredWidth: root.startColumnWidth
                         text: modelData.start
-                        elide: Text.ElideRight
+                        wrapMode: Text.Wrap
+                        verticalAlignment: Text.AlignVCenter
                     }
                     Label {
                         Layout.preferredWidth: 78
