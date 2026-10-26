@@ -812,7 +812,7 @@ MainViewBase {
             width: stickyHeaderBar.width
             height: stickyHeaderBar.height - bottomBorder.height
             sourceItem: flickable.contentItem
-            sourceRect: Qt.rect(0, flickable.contentY, width, height)
+            sourceRect: Qt.rect(-flickable.anchors.leftMargin, flickable.contentY, width, height)
             recursive: true
             live: true
             visible: false
