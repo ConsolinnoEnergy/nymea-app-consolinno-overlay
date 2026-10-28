@@ -202,7 +202,6 @@
         <file>info/InfoTextInterface.qml</file>
         <file>optimization/HeatingConfigView.qml</file>
         <file>optimization/HeatingDetailView.qml</file>
-        <file>components/VerticalDivider.qml</file>
         <file>info/EnergyManagerInfo.qml</file>
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
@@ -216,9 +215,6 @@
         <file>mainviews/OptimizationConfiguration.qml</file>
         <file>wizards/InstallerDataView.qml</file>
         <file>info/Help/HelpPage.qml</file>
-        <file>info/Help/ManualPage.qml</file>
-        <file>info/Help/ContactPage.qml</file>
-        <file>info/Help/ServicePage.qml</file>
         <file>components/ConsolinnoPasswordTextField.qml</file>
         <file>mainviews/energy/ConsolinnoConsumersHistory.qml</file>
         <file>mainviews/energy/ConsolinnoConsumerStats.qml</file>
@@ -275,7 +271,6 @@
         <file>images/eebus.svg</file>
         <file>images/eebus_logo.svg</file>
         <file>images/relais.svg</file>
-        <file>components/ConsolinnoCheckbox.qml</file>
         <file>system/ConsolinnoConnectionInterfacesPage.qml</file>
         <file>thingconfiguration/ConsolinnoConfigureThingPage.qml</file>
         <file>thingconfiguration/ConsolinnoSetupWizard.qml</file>

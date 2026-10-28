@@ -1,12 +1,10 @@
 import QtQuick
 import QtQuick.Controls
-import QtQuick.Controls.Material
 import QtQml
 import Nymea
 import QtQuick.Layouts
 
 import "../../components"
-import "../../delegates"
 
 
 Page {
@@ -26,6 +24,8 @@ Page {
         onBackPressed: pageStack.pop()
     }
 
+    property UserConfiguration userconfig: hemsManager.userConfigurations.getUserConfiguration("528b3820-1b6d-4f37-aea7-a99d21d42e72")
+
     Flickable {
         id: bodyFlickable
         anchors.fill: parent
@@ -40,127 +40,139 @@ Page {
         ColumnLayout{
             id: contentColumn
             anchors { left: parent.left; right: parent.right; top: parent.top }
-            anchors.margins: app.margins
+            anchors.margins: Style.margins
+            spacing: Style.margins
 
-            RowLayout{
-                VerticalDivider
-                {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-            }
+            CoFrostyCard {
+                id: manualGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Manual")
 
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-            RowLayout{
-                ConsolinnoItemDelegate{
-                    id: manual
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("Manual")
-                    Layout.fillWidth: true
-                    onClicked:{
-
-                        pageStack.push("ManualPage.qml")
-
-
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("Download current manuals for %1 from our website.").arg(Configuration.deviceName)
+                        iconLeft: Qt.resolvedUrl("/icons/language.svg")
+                        showChildrenIndicator: true
+                        onClicked: Qt.openUrlExternally(Configuration.downloadMedia)
                     }
                 }
             }
 
-            RowLayout{
-                VerticalDivider
-                {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-            }
+            CoFrostyCard {
+                id: installerGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("Installer contact")
 
-            RowLayout{
-                ConsolinnoItemDelegate{
-                    id: contact
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    text: qsTr("Installer contact")
-                    Layout.fillWidth: true
-                    onClicked:{
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                        pageStack.push("ContactPage.qml")
+                    CoCard {
+                        Layout.fillWidth: true
+                        visible: !noInstallerCard.visible
+                        text: qsTr("If you have any problems with your system, please contact your installer:")
+                        showChildrenIndicator: false
+                        interactive: false
+                    }
 
+                    CoCard {
+                        id: noInstallerCard
+                        Layout.fillWidth: true
+                        visible: userconfig.installerName === "" &&
+                                 userconfig.installerWorkplace === "" &&
+                                 userconfig.installerEmail === "" &&
+                                 userconfig.installerPhoneNr === ""
+                        text: qsTr("No installer specified")
+                        showChildrenIndicator: false
+                        interactive: false
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        visible: text !== ""
+                        text: root.userconfig.installerName
+                        showChildrenIndicator: false
+                        interactive: false
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        visible: text !== ""
+                        text: userconfig.installerWorkplace
+                        showChildrenIndicator: false
+                        interactive: false
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        visible: text !== ""
+                        text: userconfig.installerEmail
+                        iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                        iconRightColor: Style.colors.brand_Basic_Accent
+                        showChildrenIndicator: false
+                        interactive: true
+                        onClicked: {
+                            PlatformHelper.toClipBoard(userconfig.installerEmail);
+                            ToolTip.show(qsTr("E-Mail address copied to clipboard"), 1000);
+                        }
+                    }
+
+                    CoCard {
+                        Layout.fillWidth: true
+                        visible: text !== ""
+                        text: userconfig.installerPhoneNr
+                        iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                        iconRightColor: Style.colors.brand_Basic_Accent
+                        showChildrenIndicator: false
+                        interactive: true
+                        onClicked: {
+                            PlatformHelper.toClipBoard(userconfig.installerPhoneNr);
+                            ToolTip.show(qsTr("Phone number copied to clipboard"), 1000);
+                        }
                     }
                 }
             }
 
-            RowLayout{
-                VerticalDivider
-                {
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillWidth: true
-                    dividerColor: Material.accent
-                }
-            }
+            CoFrostyCard {
+                id: serviceGroup
+                Layout.fillWidth: true
+                contentTopMargin: 8
+                headerText: qsTr("%1 service").arg(Configuration.appBranding)
 
-            RowLayout{
-                ConsolinnoItemDelegate{
-                    id: service
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.fillWidth: true
-                    text: qsTr("%1 Service").arg(Configuration.appBranding)
-                    onClicked:{
+                ColumnLayout {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    spacing: 0
 
-                        pageStack.push("ServicePage.qml")
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: qsTr("If there is a problem with %1 itself, please refer to our service address:").arg(Configuration.deviceName)
+                        showChildrenIndicator: false
+                        interactive: false
+                    }
 
+                    CoCard {
+                        Layout.fillWidth: true
+                        text: Configuration.serviceEmail
+                        iconRight: Qt.resolvedUrl("/icons/file_copy.svg")
+                        iconRightColor: Style.colors.brand_Basic_Accent
+                        showChildrenIndicator: false
+                        interactive: true
+                        onClicked: {
+                            PlatformHelper.toClipBoard(Configuration.serviceEmail);
+                            ToolTip.show(qsTr("Service address copied to clipboard"), 1000);
+                        }
                     }
                 }
-
-            }
-
-            RowLayout{
-                Label{
-                    id: infoManual
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.topMargin: 20
-                    Layout.fillWidth: true
-                    text: qsTr("Under 'Manual' you will find current instructions for the app.")
-                    wrapMode: Text.WordWrap
-                }
-
-            }
-
-            RowLayout{
-                Label{
-                    id: infoDevice
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.topMargin: 10
-                    Layout.fillWidth: true
-                    wrapMode: Text.WordWrap
-                    text: qsTr("If you have any problems with your system, please contact the installer. Under 'Installation contact' the installer's details are stored (if he has entered them in the app).")
-
-                }
-
-            }
-
-            RowLayout{
-                Label{
-                    id: infoLeaflet
-                    Layout.leftMargin: app.margins
-                    Layout.rightMargin: app.margins
-                    Layout.topMargin: 10
-                    Layout.fillWidth: true
-                    wrapMode: Text.WordWrap
-                    text: qsTr("If there is a problem with the %1 itself, then contact %2 Service.").arg(Configuration.deviceName).arg(Configuration.appBranding)
-                }
-
             }
         }
     }
-
-
 }
