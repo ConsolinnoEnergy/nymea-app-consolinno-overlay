@@ -158,7 +158,7 @@ Item {
                     Layout.minimumWidth: paintedWidth
                     font: Style.newSmallFont
                     color: Style.colors.components_Dashboard_Info_card_value
-                    text: qsTr("Est. End")
+                    text: qsTr("Est. end")
                 }
 
                 Text {

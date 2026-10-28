@@ -1619,47 +1619,47 @@ Ihr %3 Team</translation>
         <translation>Energie-Status</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="628"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="630"/>
         <source>Self-sufficiency</source>
         <translation>Autarkie</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="637"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="641"/>
         <source>Self-consumption</source>
         <translation>Eigenverbrauch</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="677"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="683"/>
         <source>Inverters</source>
         <translation>Wechselrichter</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="715"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="728"/>
         <source>Batteries</source>
         <translation>Batterien</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="761"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="781"/>
         <source>Heating</source>
         <translation>Heizen</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="805"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="832"/>
         <source>Mobility</source>
         <translation>Mobilität</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="856"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="890"/>
         <source>Home appliances</source>
         <translation>Haushaltsgeräte</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="890"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="931"/>
         <source>Other consumers</source>
         <translation>Weitere Verbraucher</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="933"/>
+        <location filename="../mainviews/CoDashboardView.qml" line="978"/>
         <source>Unallocated consumption</source>
         <translation>Verbrauch ohne Zuordnung</translation>
     </message>
@@ -2075,8 +2075,8 @@ Ihr %3 Team</translation>
     </message>
     <message>
         <location filename="../components/CoWhiteGoodInfoCard.qml" line="161"/>
-        <source>Est. End</source>
-        <translation>vor. Ende</translation>
+        <source>Est. end</source>
+        <translation>Vor. Ende</translation>
     </message>
 </context>
 <context>
@@ -2294,57 +2294,57 @@ Ihr %3 Team</translation>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="172"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="188"/>
         <source>Information</source>
         <translation>Informationen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="183"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="199"/>
         <source>Vendor</source>
         <translation>Hersteller</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="190"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="206"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="198"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="214"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="201"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="217"/>
         <source>ID copied to clipboard</source>
         <translation>ID in die Zwischenablage kopiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="207"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="223"/>
         <source>Thing class</source>
         <translation>&quot;Thing&quot; Klasse</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="208"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="224"/>
         <source>View the type definition for this thing</source>
         <translation>Genaue Typendefinition dieses &quot;Things&quot; anzeigen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="220"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="236"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="256"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="272"/>
         <source>Input/Output Connections</source>
         <translation>Verbindungen der Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="292"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="308"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="327"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="343"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -2354,42 +2354,42 @@ Ihr %3 Team</translation>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="371"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="398"/>
         <source>Remove thing?</source>
         <translation>&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="372"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="399"/>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="412"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="439"/>
         <source>Connect Inputs/Outputs</source>
         <translation>Verbundene Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="422"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="449"/>
         <source>Connect &quot;%1&quot; to:</source>
         <translation>Verbinde &quot;%1&quot; zu:</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="503"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="530"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="526"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="553"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="532"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="559"/>
         <source>Disconnect</source>
         <translation>Trennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="549"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="576"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
@@ -3646,7 +3646,7 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="51"/>
+        <location filename="../system/ConsolinnoPluginParamsPage.qml" line="55"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -7392,53 +7392,53 @@ Das bedeutet: Die Preisgrenze entspricht dem aktuellen Durchschnittspreis minus 
 <context>
     <name>UiUtils</name>
     <message>
-        <location filename="../utils/UiUtils.qml" line="46"/>
+        <location filename="../utils/UiUtils.qml" line="43"/>
         <source></source>
         <comment>Placeholder for German &quot;Uhr&quot;</comment>
         <translation> Uhr</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="52"/>
+        <location filename="../utils/UiUtils.qml" line="49"/>
         <source>Inactive</source>
         <translation>Inaktiv</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="54"/>
+        <location filename="../utils/UiUtils.qml" line="51"/>
         <source>Scheduled</source>
         <translation>Geplant</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="56"/>
+        <location filename="../utils/UiUtils.qml" line="53"/>
         <source>Running</source>
         <translation>Läuft</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="58"/>
+        <location filename="../utils/UiUtils.qml" line="55"/>
         <source>Paused</source>
         <translation>Pausiert</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="60"/>
+        <location filename="../utils/UiUtils.qml" line="57"/>
         <source>Completed</source>
         <translation>Fertig</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="62"/>
+        <location filename="../utils/UiUtils.qml" line="59"/>
         <source>Invalid</source>
         <translation>Ungültig</translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="75"/>
+        <location filename="../utils/UiUtils.qml" line="72"/>
         <source>%1 min</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="78"/>
+        <location filename="../utils/UiUtils.qml" line="75"/>
         <source>%1 h</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../utils/UiUtils.qml" line="80"/>
+        <location filename="../utils/UiUtils.qml" line="77"/>
         <source>%1 h %2 min</source>
         <translation></translation>
     </message>
