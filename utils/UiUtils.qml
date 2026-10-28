@@ -40,9 +40,6 @@ Item {
             return "—";
         }
         const date = new Date(seconds * 1000);
-        if (Qt.locale().name.startsWith("en_")) {
-            return date.toLocaleTimeString(Qt.locale("en_US"), "h:mm AP");
-        }
         return date.toLocaleTimeString(Qt.locale(), "HH:mm") + qsTr("", "Placeholder for German \"Uhr\"");
     }
 
