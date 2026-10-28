@@ -1473,22 +1473,22 @@
 <context>
     <name>CoBatteryInfoCard</name>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="106"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="22"/>
         <source>SoC</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="134"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="50"/>
         <source>Charging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="136"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="52"/>
         <source>Discharging</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="137"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="53"/>
         <source>Idle</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2053,17 +2053,17 @@ Your %3 Team</source>
 <context>
     <name>CoWhiteGoodInfoCard</name>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="107"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="23"/>
         <source>Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="134"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="50"/>
         <source>Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="161"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="77"/>
         <source>Est. end</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4616,34 +4616,6 @@ Use a timeout value greater or equal to 10 ms.</source>
     </message>
 </context>
 <context>
-    <name>ContactPage</name>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="25"/>
-        <source>Contact</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="52"/>
-        <source>Name: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="81"/>
-        <source>Workplace: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="98"/>
-        <source>E-mail: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="115"/>
-        <source>Phone number: </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>CustomBarSeries</name>
     <message>
         <location filename="../components/CustomBarSeries.qml" line="139"/>
@@ -6005,38 +5977,58 @@ Would you like to continue anyway?</source>
 <context>
     <name>HelpPage</name>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="24"/>
+        <location filename="../info/Help/HelpPage.qml" line="22"/>
         <source>Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="61"/>
+        <location filename="../info/Help/HelpPage.qml" line="50"/>
         <source>Manual</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="87"/>
+        <location filename="../info/Help/HelpPage.qml" line="59"/>
+        <source>Download current manuals for %1 from our website.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="71"/>
         <source>Installer contact</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="130"/>
-        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
+        <location filename="../info/Help/HelpPage.qml" line="81"/>
+        <source>If you have any problems with your system, please contact your installer:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="144"/>
-        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
+        <location filename="../info/Help/HelpPage.qml" line="93"/>
+        <source>No installer specified</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="113"/>
-        <source>%1 Service</source>
+        <location filename="../info/Help/HelpPage.qml" line="124"/>
+        <source>E-Mail address copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="158"/>
-        <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
+        <location filename="../info/Help/HelpPage.qml" line="138"/>
+        <source>Phone number copied to clipboard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="148"/>
+        <source>%1 service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="157"/>
+        <source>If there is a problem with %1 itself, please refer to our service address:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="171"/>
+        <source>Service address copied to clipboard</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6154,19 +6146,6 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../devicepages/InverterDevicePage.qml" line="70"/>
         <source>Total production</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ManualPage</name>
-    <message>
-        <location filename="../info/Help/ManualPage.qml" line="22"/>
-        <source>Manual</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ManualPage.qml" line="42"/>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6538,24 +6517,6 @@ Would you like to continue anyway?</source>
     <message>
         <location filename="../devicepages/RootMeterDevicePage.qml" line="81"/>
         <source>Total grid import</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>ServicePage</name>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="23"/>
-        <source>Service %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="61"/>
-        <source>%1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="49"/>
-        <source>If there are problems with the %1, please refer to our service adress: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>

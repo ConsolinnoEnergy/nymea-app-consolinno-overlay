@@ -1475,22 +1475,22 @@
 <context>
     <name>CoBatteryInfoCard</name>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="106"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="22"/>
         <source>SoC</source>
         <translation>SoC</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="134"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="50"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="136"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="52"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../components/CoBatteryInfoCard.qml" line="137"/>
+        <location filename="../components/CoBatteryInfoCard.qml" line="53"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
@@ -2064,17 +2064,17 @@ Ihr %3 Team</translation>
 <context>
     <name>CoWhiteGoodInfoCard</name>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="107"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="23"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="134"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="50"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../components/CoWhiteGoodInfoCard.qml" line="161"/>
+        <location filename="../components/CoWhiteGoodInfoCard.qml" line="77"/>
         <source>Est. end</source>
         <translation>Vor. Ende</translation>
     </message>
@@ -4633,34 +4633,6 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
     </message>
 </context>
 <context>
-    <name>ContactPage</name>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="25"/>
-        <source>Contact</source>
-        <translation>Kontakt</translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="52"/>
-        <source>Name: </source>
-        <translation>Name: </translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="81"/>
-        <source>Workplace: </source>
-        <translation>Gewerbe: </translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="98"/>
-        <source>E-mail: </source>
-        <translation>E-mail: </translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ContactPage.qml" line="115"/>
-        <source>Phone number: </source>
-        <translation>Telefonnummer: </translation>
-    </message>
-</context>
-<context>
     <name>CustomBarSeries</name>
     <message>
         <location filename="../components/CustomBarSeries.qml" line="139"/>
@@ -6025,39 +5997,59 @@ Möchten Sie trotzdem fortfahren?</translation>
 <context>
     <name>HelpPage</name>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="24"/>
+        <location filename="../info/Help/HelpPage.qml" line="22"/>
         <source>Help</source>
         <translation>Hilfe</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="61"/>
+        <location filename="../info/Help/HelpPage.qml" line="50"/>
         <source>Manual</source>
         <translation>Bedienungsanleitung</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="87"/>
+        <location filename="../info/Help/HelpPage.qml" line="59"/>
+        <source>Download current manuals for %1 from our website.</source>
+        <translation>Lade aktuelle Anleitungen für %1 von unserer Webseite herunter.</translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="71"/>
         <source>Installer contact</source>
         <translation>Kontaktdaten Installation</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="130"/>
-        <source>Under &apos;Manual&apos; you will find current instructions for the app.</source>
-        <translation>Unter &quot;Bedienungsanleitung&quot; finden Sie aktuelle Anleitungen zur App.</translation>
+        <location filename="../info/Help/HelpPage.qml" line="81"/>
+        <source>If you have any problems with your system, please contact your installer:</source>
+        <translation>Bei Problemen mit deinem System wende dich an deinen Installateur:</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="144"/>
-        <source>If you have any problems with your system, please contact the installer. Under &apos;Installation contact&apos; the installer&apos;s details are stored (if he has entered them in the app).</source>
-        <translation>Bei Problem mit Ihrer Anlage, wenden Sie sich an den Installateur. Unter &quot;Kontaktdaten Installation&quot; sind die Daten des Installateurs gespeichert (falls er diese in der App hinterlegt hat).</translation>
+        <location filename="../info/Help/HelpPage.qml" line="93"/>
+        <source>No installer specified</source>
+        <translation>Kein Installateur hinterlegt</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="113"/>
-        <source>%1 Service</source>
+        <location filename="../info/Help/HelpPage.qml" line="124"/>
+        <source>E-Mail address copied to clipboard</source>
+        <translation>E-Mail Adresse kopiert</translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="138"/>
+        <source>Phone number copied to clipboard</source>
+        <translation>Telefonnummer kopiert</translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="148"/>
+        <source>%1 service</source>
         <translation>%1 Service</translation>
     </message>
     <message>
-        <location filename="../info/Help/HelpPage.qml" line="158"/>
-        <source>If there is a problem with the %1 itself, then contact %2 Service.</source>
-        <translation>Falls ein Problem mit der %1 auftritt, kontaktieren Sie den %2 Service.</translation>
+        <location filename="../info/Help/HelpPage.qml" line="157"/>
+        <source>If there is a problem with %1 itself, please refer to our service address:</source>
+        <translation>Bei Problemen mit %1 wende dich an unsere Serviceadresse:</translation>
+    </message>
+    <message>
+        <location filename="../info/Help/HelpPage.qml" line="171"/>
+        <source>Service address copied to clipboard</source>
+        <translation>Serviceadresse kopiert</translation>
     </message>
 </context>
 <context>
@@ -6175,19 +6167,6 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../devicepages/InverterDevicePage.qml" line="70"/>
         <source>Total production</source>
         <translation>Gesamtproduktion</translation>
-    </message>
-</context>
-<context>
-    <name>ManualPage</name>
-    <message>
-        <location filename="../info/Help/ManualPage.qml" line="22"/>
-        <source>Manual</source>
-        <translation>Bedienungsanleitung</translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ManualPage.qml" line="42"/>
-        <source>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;You can find current manuals for %1 in the download area of our &lt;a href=&quot;%2&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;&lt;p&gt;Aktuelle Handbücher für %1 finden Sie in unserem Downloadbereich auf unserer &lt;a href=&quot;%2&quot;&gt;Webseite&lt;/a&gt;.&lt;/p&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -6560,24 +6539,6 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <location filename="../devicepages/RootMeterDevicePage.qml" line="81"/>
         <source>Total grid import</source>
         <translation>Gesamter Netzbezug</translation>
-    </message>
-</context>
-<context>
-    <name>ServicePage</name>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="23"/>
-        <source>Service %1</source>
-        <translation>Service %1</translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="61"/>
-        <source>%1</source>
-        <translation>%1</translation>
-    </message>
-    <message>
-        <location filename="../info/Help/ServicePage.qml" line="49"/>
-        <source>If there are problems with the %1, please refer to our service adress: </source>
-        <translation>Bei Problemen mit dem %1, wenden sie sich an unsere Serviceadresse: </translation>
     </message>
 </context>
 <context>
