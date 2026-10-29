@@ -19,7 +19,6 @@ Item {
     id: root
 
     property alias text: button.text
-    property alias enabled: button.enabled
     property alias flat: button.flat
     property alias iconLeft: button.iconLeft
     property alias iconRight: button.iconRight
@@ -45,6 +44,7 @@ Item {
     Button {
         id: button
         anchors.fill: parent
+        enabled: root.enabled
         onClicked: root.clicked()
     }
 }
