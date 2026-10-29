@@ -17,7 +17,6 @@ GenericConfigPage {
     id: root
     property Thing thing
     property BatteryConfiguration batteryConfiguration: hemsManager.batteryConfigurations.getBatteryConfiguration(thing.id)
-    readonly property State batteryChargingState: thing.stateByName("chargingState")
     readonly property State batteryLevelState: thing.stateByName("batteryLevel")
     readonly property State currentPowerState: thing.stateByName("currentPower")
     property bool isZeroCompensation : batteryConfiguration.avoidZeroFeedInActive && batteryConfiguration.avoidZeroFeedInEnabled
