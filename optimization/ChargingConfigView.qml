@@ -289,12 +289,6 @@ GenericConfigPage {
                 // Running
                 if (chargingConfiguration.operatingMode !== ControlConfig.NoControl && (configuration.state == 2)){
                     console.info("Going into running mode...")
-                    if (settings.showHiddenOptions)
-                    {
-                        maxChargingCurrentCard.visible = true
-                        measuredChargingCurrentCard.visible = true
-                    }
-                    energyChargedCard.visible = true
                     initializing = false
                     if (!checkPhaseCountTimer.running) {
                         checkPhaseCountTimer.start();
@@ -303,12 +297,6 @@ GenericConfigPage {
                 // Pending
                 if (chargingConfiguration.operatingMode !== ControlConfig.NoControl && (configuration.state == 6)){
                     console.info("Going into pending mode...")
-                    if (settings.showHiddenOptions)
-                    {
-                        maxChargingCurrentCard.visible = true
-                        measuredChargingCurrentCard.visible = true
-                    }
-                    energyChargedCard.visible = true
                     initializing = false
                 }
             }
@@ -330,12 +318,7 @@ GenericConfigPage {
         {
             console.info("Charging session configuration changed...")
             if (configuration.evChargerThingId === thing.id){
-                if (configuration.operatingMode === ControlConfig.NoControl){
-                    batteryLevelCard.visible = false
-                    batteryEnergyCard.visible = false
-                    maxChargingCurrentCard.visible = false
-                    measuredChargingCurrentCard.visible = false
-                    energyChargedCard.visible = false
+                if (configuration.operatingMode === ControlConfig.NoControl) {
                     initializing = false
                 }
                 else if(configuration.operatingMode !== ControlConfig.NoControl){
@@ -345,35 +328,16 @@ GenericConfigPage {
                         if (chargingIsAnyOf([time_controlled])) {
                             busyOverlay.shown = false
                         }
-                        batteryLevelCard.visible = false
-                        batteryEnergyCard.visible = false
-                        if (settings.showHiddenOptions)
-                        {
-                            maxChargingCurrentCard.visible = true
-                            measuredChargingCurrentCard.visible = true
-                        }
-                        energyChargedCard.visible = true
                         batteryLevelCard.text  = 0 + " %"
                         energyChargedCard.text = 0 + " kWh"
                         batteryEnergyCard.text = 0 + " kWh"
                         durationCard.text = "—"
-                    }
-                    else{
+                    } else {
                         initializing = true
-                        batteryLevelCard.visible = true
-                        batteryEnergyCard.visible = true
-                        if (settings.showHiddenOptions)
-                        {
-                            maxChargingCurrentCard.visible = true
-                            measuredChargingCurrentCard.visible = true
-                        }
-                        measuredChargingCurrentCard.visible = true
-                        energyChargedCard.visible = true
                         batteryLevelCard.text  = 0 + " %"
                         energyChargedCard.text = 0 + " kWh"
                         batteryEnergyCard.text = 0 + " kWh"
                         durationCard.text = "—"
-
                     }
                     if (chargingIsAnyOf([dyn_pricing])){
                         priceLimitCard.text = priceLimitCard.getText()
@@ -547,16 +511,14 @@ GenericConfigPage {
                             Layout.fillWidth: true
                             text: chargingConfiguration.operatingMode !== ControlConfig.NoControl ? selectMode() : "—"
                             labelText: qsTr("Charging mode")
-                            showChildrenIndicator: isCarPluggedIn() && chargingConfiguration.operatingMode === ControlConfig.NoControl
-                            interactive: isCarPluggedIn() && chargingConfiguration.operatingMode === ControlConfig.NoControl
+                            showChildrenIndicator: chargingConfiguration.operatingMode === ControlConfig.NoControl
+                            interactive: chargingConfiguration.operatingMode === ControlConfig.NoControl
 
                             onClicked: {
-                                if (isCarPluggedIn()) {
-                                    var page = pageStack.push(optimizationComponent , { thing: thing });
-                                    page.done.connect(function() {
-                                        busyOverlay.shown = true;
-                                    });
-                                }
+                                var page = pageStack.push(optimizationComponent , { thing: thing });
+                                page.done.connect(function() {
+                                    busyOverlay.shown = true;
+                                });
                             }
 
                             function selectMode(){
@@ -587,7 +549,7 @@ GenericConfigPage {
                         CoCard {
                             id: selectedCarCard
                             Layout.fillWidth: true
-                            text: qsTr(isCarPluggedIn() ? (chargingConfiguration.operatingMode !== ControlConfig.NoControl ? pageSelectedCar: "—" )  : "—")
+                            text: chargingConfiguration.operatingMode !== ControlConfig.NoControl ? pageSelectedCar: "—"
                             labelText: qsTr("Car")
                             visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl
                             interactive: false
@@ -612,7 +574,7 @@ GenericConfigPage {
                             labelText: chargingIsAnyOf([dyn_pricing]) ?
                                            qsTr("Pausing") :
                                            qsTr("Low solar availability")
-                            visible:  chargingIsAnyOf([simple_pv_excess, dyn_pricing])
+                            visible: chargingIsAnyOf([simple_pv_excess, dyn_pricing])
                             interactive: false
 
                             function getText(){
@@ -679,7 +641,11 @@ GenericConfigPage {
                             property var date: (parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) < today.getHours()) | ((parseInt(chargingConfiguration.endTime[0] + chargingConfiguration.endTime[1]) === today.getHours()) & parseInt(chargingConfiguration.endTime[3] + chargingConfiguration.endTime[4]) >= today.getMinutes()) ? tomorrow : today
 
                             Layout.fillWidth: true
-                            text: isCarPluggedIn() ? (chargingConfiguration.operatingMode !== ControlConfig.NoControl ? date.toLocaleString(Qt.locale("de-DE"), "dd.MM") + "  " + Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") : "—"  )   : "—"
+                            text: chargingConfiguration.operatingMode !== ControlConfig.NoControl ?
+                                      date.toLocaleString(Qt.locale("de-DE"), "dd.MM.") +
+                                      "  " +
+                                      Date.fromLocaleString(Qt.locale("de-DE"), chargingConfiguration.endTime, "H:m:ss").toLocaleString(Qt.locale("de-DE"), "HH:mm") :
+                                      "—"
                             labelText: qsTr("Ending time")
                             visible: !([simple_pv_excess, no_optimization, dyn_pricing, time_controlled].includes(getChargingMode(configModeKey(chargingConfiguration))))
                             interactive: false
@@ -688,7 +654,7 @@ GenericConfigPage {
                         CoCard {
                             id: targetChargeCard
                             Layout.fillWidth: true
-                            text: isCarPluggedIn() ?(chargingConfiguration.operatingMode !== ControlConfig.NoControl ? chargingConfiguration.targetPercentage + " %" : "—" ) : "—"
+                            text: chargingConfiguration.operatingMode !== ControlConfig.NoControl ? chargingConfiguration.targetPercentage + " %" : "—"
                             labelText: qsTr("Target charge")
                             visible: !chargingIsAnyOf([simple_pv_excess, dyn_pricing, no_optimization, time_controlled])
                             interactive: false
@@ -697,7 +663,7 @@ GenericConfigPage {
                         CoCard {
                             id: desiredPhaseCountCard
                             Layout.fillWidth: true
-                            text: isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : "—"
+                            text: chargingConfiguration.desiredPhaseCount
                             labelText: qsTr("Phase count")
                             visible: chargingIsAnyOf([pv_optimized, simple_pv_excess]) && thing.thingClass.interfaces.includes("phaseswitching")
                             interactive: false
@@ -716,7 +682,7 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("Status")
-                    visible: isCarPluggedIn()
+                    visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl
 
                     ColumnLayout {
                         anchors.left: parent.left
@@ -727,7 +693,7 @@ GenericConfigPage {
                             id: noLoadingCard
                             Layout.fillWidth: true
                             text: qsTr("Charging deactivated. Please choose a charging mode.")
-                            visible: !(chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn())
+                            visible: chargingConfiguration.operatingMode === ControlConfig.NoControl
                             interactive: false
                         }
 
@@ -735,36 +701,49 @@ GenericConfigPage {
                             id: chargingStatusCard
                             Layout.fillWidth: true
                             text: {
-                                if (initializing) {
+                                if (!isCarPluggedIn()) {
+                                    return qsTr("Car not plugged in");
+                                } else if (initializing) {
                                     return qsTr("Initialising");
+                                } else if (chargingSessionConfiguration.state === 1) {
+                                    return qsTr("Initialized");
                                 } else if (chargingSessionConfiguration.state === 2) {
                                     return qsTr("Running");
                                 } else if (chargingSessionConfiguration.state === 3) {
                                     return qsTr("Finished");
                                 } else if (chargingSessionConfiguration.state === 4) {
                                     return qsTr("Interrupted");
+                                } else if (chargingSessionConfiguration.state === 5) {
+                                    return qsTr("Failed");
                                 } else if (chargingSessionConfiguration.state === 6) {
                                     return qsTr("Pending");
+                                } else if (chargingSessionConfiguration.state === 7) {
+                                    return qsTr("Inactive");
                                 } else {
-                                    return qsTr("Failed");
+                                    console.warn("Unknown charging session configuration state:", chargingSessionConfiguration.state)
+                                    return qsTr("Unknown");
                                 }
                             }
                             labelText: qsTr("Status")
-                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl && isCarPluggedIn()
+                            visible: chargingConfiguration.operatingMode !== ControlConfig.NoControl
                             interactive: false
                             status: {
-                                if (initializing) {
-                                    return CoCard.StatusType.Warning;
-                                } else if (chargingSessionConfiguration.state === 2) {
-                                    return CoCard.StatusType.Success;
-                                } else if (chargingSessionConfiguration.state === 3) {
-                                    return CoCard.StatusType.Success;
-                                } else if (chargingSessionConfiguration.state === 4) {
+                                if (!isCarPluggedIn()) {
                                     return CoCard.StatusType.Neutral;
-                                } else if (chargingSessionConfiguration.state === 6) {
+                                } else if (initializing) {
+                                    return CoCard.StatusType.Warning;
+                                } else if (chargingSessionConfiguration.state === 2 ||
+                                           chargingSessionConfiguration.state === 3) {
+                                    return CoCard.StatusType.Success;
+                                } else if (chargingSessionConfiguration.state === 5) {
+                                    return CoCard.StatusType.Danger;
+                                } else if (chargingSessionConfiguration.state === 1 ||
+                                           chargingSessionConfiguration.state === 4 ||
+                                           chargingSessionConfiguration.state === 6 ||
+                                           chargingSessionConfiguration.state === 7) {
                                     return CoCard.StatusType.Neutral;
                                 } else {
-                                    return CoCard.StatusType.Danger;
+                                    return CoCard.StatusType.Neutral;
                                 }
                             }
                         }

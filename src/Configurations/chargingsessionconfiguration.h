@@ -21,6 +21,14 @@ class ChargingSessionConfiguration : public QObject
     Q_PROPERTY(float energyBattery READ energyBattery WRITE setEnergyBattery NOTIFY energyBatteryChanged)
     Q_PROPERTY(int batteryLevel READ batteryLevel WRITE setBatteryLevel NOTIFY batteryLevelChanged )
 
+    // Possible states:
+    // INITIALIZED = 1
+    // RUNNING = 2
+    // SUCCESS = 3
+    // INTERRUPTED = 4
+    // FAILED = 5
+    // PENDING = 6
+    // INACTIVE = 7
     Q_PROPERTY(int state READ state WRITE setState NOTIFY stateChanged)
     Q_PROPERTY(QUuid sessionId READ sessionId WRITE setSessionId NOTIFY sessionIdChanged)
     Q_PROPERTY(int timestamp READ timestamp WRITE setTimestamp NOTIFY timestampChanged )
