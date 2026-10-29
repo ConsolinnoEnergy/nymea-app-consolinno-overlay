@@ -55,7 +55,7 @@ SettingsPageBase {
                     id: viewModeComboBox
                     Layout.fillWidth: true
                     labelText: qsTr("View mode")
-                    visible: !kioskMode && Qt.platform.os !== "ios"
+                    visible: false // !kioskMode && Qt.platform.os !== "ios"
                     model: [qsTr("Windowed"), qsTr("Maximized"), qsTr("Fullscreen"), qsTr("Automatic")]
                     currentIndex: {
                         switch (settings.viewMode) {
