@@ -60,11 +60,11 @@ T.Dialog {
     dim: true
 
     Overlay.modeless: Rectangle {
-        color: "#44000000"
+        color: Style.colors.typography_Background_Overlay
     }
 
     Overlay.modal: Rectangle {
-        color: "#44000000"
+        color: Style.colors.typography_Background_Overlay
     }
 
     enter: Transition {

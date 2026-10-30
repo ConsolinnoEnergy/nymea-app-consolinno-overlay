@@ -6,6 +6,8 @@
         <file>styles/light/logo.svg</file>
         <file>styles/light/logo-wide.svg</file>
         <file>styles/light/Dialog.qml</file>
+        <file>styles/light/Popup.qml</file>
+        <file>styles/light/Drawer.qml</file>
         <file>styles/light/Slider.qml</file>
         <file>styles/light/Switch.qml</file>
         <file>styles/light/ComboBox.qml</file>
@@ -24,6 +26,8 @@
         <file>styles/dark/Background.qml</file>
         <file>styles/dark/Button.qml</file>
         <file>styles/dark/Dialog.qml</file>
+        <file>styles/dark/Popup.qml</file>
+        <file>styles/dark/Drawer.qml</file>
         <file>styles/dark/logo-wide.svg</file>
         <file>styles/dark/logo.svg</file>
         <file>styles/dark/Page.qml</file>
