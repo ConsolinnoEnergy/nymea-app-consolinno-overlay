@@ -21,11 +21,7 @@ Item {
         id: background
         anchors.fill: parent
         color: Style.colors.typography_Background_Accent
-
-        layer.enabled: width > 0 && height > 0
-        layer.effect: OpacityMask {
-            maskSource: roundedRectMask
-        }
+        radius: Style.cornerRadius
     }
 
     Rectangle {
@@ -33,29 +29,8 @@ Item {
         anchors.fill: parent
         anchors.topMargin: valueLayout.height
         color: Style.colors.typography_Background_Accent_secondary
-
-        layer.enabled: width > 0 && height > 0
-        layer.effect: OpacityMask {
-            maskSource: backgroundLabelMaskSource
-        }
-    }
-
-    Item {
-        id: roundedRectMask
-        width: background.width
-        height: background.height
-        layer.enabled: true
-        visible: false
-        Rectangle {
-            anchors.fill: parent
-            radius: Style.cornerRadius
-        }
-    }
-
-    ShaderEffectSource {
-        id: backgroundLabelMaskSource
-        sourceItem: roundedRectMask
-        sourceRect: Qt.rect(0, roundedRectMask.height / 2, roundedRectMask.width, roundedRectMask.height / 2)
+        bottomLeftRadius: Style.cornerRadius
+        bottomRightRadius: Style.cornerRadius
     }
 
     RowLayout {

@@ -57,10 +57,8 @@ Dialog {
         // Android edge-to-edge window.
         implicitHeight: PlatformHelper.topPadding + headerLayout.implicitHeight
 
-        layer.enabled: width > 0 && height > 0
-        layer.effect: OpacityMask {
-            maskSource: headerMaskSource
-        }
+        topLeftRadius: Style.largeCornerRadius
+        topRightRadius: Style.largeCornerRadius
 
         RowLayout {
             id: headerLayout
@@ -105,25 +103,7 @@ Dialog {
 
     background: Rectangle {
         id: bg
-        radius: 24
+        radius: Style.largeCornerRadius
         color: Style.colors.typography_Background_Default
-    }
-
-    Item {
-        id: headerRoundedMask
-        width: headerRect.width
-        height: headerRect.height * 2
-        layer.enabled: true
-        visible: false
-        Rectangle {
-            anchors.fill: parent
-            radius: bg.radius
-        }
-    }
-
-    ShaderEffectSource {
-        id: headerMaskSource
-        sourceItem: headerRoundedMask
-        sourceRect: Qt.rect(0, 0, headerRoundedMask.width, headerRoundedMask.height / 2)
     }
 }
