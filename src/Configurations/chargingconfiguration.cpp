@@ -160,21 +160,21 @@ void ChargingConfiguration::setRelativePriceEnabled(bool relativePriceEnabled)
     emit relativePriceEnabledChanged(m_relativePriceEnabled);
 }
 
-QString ChargingConfiguration::chargingSchedule() const {
-    return m_chargingSchedule;
+QString ChargingConfiguration::timeSchedule() const {
+    return m_timeSchedule;
 }
 
-void ChargingConfiguration::setChargingSchedule(const QString &chargingSchedule) {
+void ChargingConfiguration::setTimeSchedule(const QString &timeSchedule) {
     // Semantischer JSON-Vergleich: zwei Strings können textuell unterschiedlich
     // sein (Whitespace, Schlüsselreihenfolge), aber denselben Zeitplan beschreiben.
     // QJsonDocument::operator== vergleicht die Struktur, nicht den Rohstring.
-    QJsonDocument oldDoc = QJsonDocument::fromJson(m_chargingSchedule.toUtf8());
-    QJsonDocument newDoc = QJsonDocument::fromJson(chargingSchedule.toUtf8());
+    QJsonDocument oldDoc = QJsonDocument::fromJson(m_timeSchedule.toUtf8());
+    QJsonDocument newDoc = QJsonDocument::fromJson(timeSchedule.toUtf8());
     if (oldDoc == newDoc)
         return;
 
-    m_chargingSchedule = chargingSchedule;
-    emit chargingScheduleChanged(m_chargingSchedule);
+    m_timeSchedule = timeSchedule;
+    emit timeScheduleChanged(m_timeSchedule);
 }
 
 uint ChargingConfiguration::desiredPhaseCount() const
