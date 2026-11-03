@@ -51,7 +51,7 @@ class ChargingConfiguration : public QObject
      * Ein leerer String ("") bedeutet, dass noch kein Zeitplan konfiguriert wurde.
      * Wird nur ausgewertet, wenn \c optimizationStrategies das Bit \c TimeControlled gesetzt hat.
      */
-    Q_PROPERTY(QString chargingSchedule READ chargingSchedule WRITE setChargingSchedule NOTIFY chargingScheduleChanged)
+    Q_PROPERTY(QString timeSchedule READ timeSchedule WRITE setTimeSchedule NOTIFY timeScheduleChanged)
     Q_PROPERTY(uint desiredPhaseCount READ desiredPhaseCount WRITE setDesiredPhaseCount NOTIFY desiredPhaseCountChanged)
     Q_PROPERTY(uint durationMinAfterTurnOn READ durationMinAfterTurnOn WRITE setDurationMinAfterTurnOn NOTIFY durationMinAfterTurnOnChanged)
     Q_PROPERTY(uint switchDelayPhase READ switchDelayPhase WRITE setSwitchDelayPhase NOTIFY switchDelayPhaseChanged)
@@ -107,8 +107,8 @@ public:
     bool relativePriceEnabled() const;
     void setRelativePriceEnabled(bool relativePriceEnabled);
 
-    QString chargingSchedule() const;
-    void setChargingSchedule(const QString &chargingSchedule);
+    QString timeSchedule() const;
+    void setTimeSchedule(const QString &timeSchedule);
 
     uint desiredPhaseCount() const;
     void setDesiredPhaseCount(uint desiredPhaseCount);
@@ -130,7 +130,7 @@ signals:
     void controllableLocalSystemChanged(bool controllableLocalSystem);
     void priceThresholdChanged(double priceThreshold);
     void relativePriceEnabledChanged(bool relativePriceEnabled);
-    void chargingScheduleChanged(const QString &chargingSchedule);
+    void timeScheduleChanged(const QString &timeSchedule);
     void desiredPhaseCountChanged(uint desiredPhaseCount);
     void durationMinAfterTurnOnChanged(uint durationMinAfterTurnOn);
     void switchDelayPhaseChanged(uint switchDelayPhase);
@@ -147,7 +147,7 @@ private:
     bool m_controllableLocalSystem = false;
     double m_priceThreshold = 0.0;
     bool m_relativePriceEnabled = false;
-    QString m_chargingSchedule = "";
+    QString m_timeSchedule = "";
     uint m_desiredPhaseCount = ThreePhase;
     uint m_durationMinAfterTurnOn = 0;
     uint m_switchDelayPhase = 0;
