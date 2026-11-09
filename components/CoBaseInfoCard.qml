@@ -16,6 +16,7 @@ Item {
     property bool showErrorIndicator: false
     property bool clickable: true
     default property alias additionalContent: additionalItemsContainer.data
+    property ColumnLayout additionalContentContainer: additionalItemsContainer
 
     signal clicked()
 

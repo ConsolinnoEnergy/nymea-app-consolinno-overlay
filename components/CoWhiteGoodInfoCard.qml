@@ -11,11 +11,24 @@ CoBaseInfoCard {
     property string startTime: ""
     property string endTime: ""
 
-    RowLayout {
+    property bool needsLayoutBreak: {
+        const statusPartsWidth = statusTitle.paintedWidth + statusLayout.columnSpacing + statusText.paintedWidth
+        const startTimePartsWidth = startTimeTitle.paintedWidth + startTimeLayout.columnSpacing + startTimeText.paintedWidth
+        const endTimePartsWidth = endTimeTitle.paintedWidth + endTimeLayout.columnSpacing + endTimeText.paintedWidth
+        const maxPartsWidth = Math.max(statusPartsWidth, startTimePartsWidth, endTimePartsWidth)
+        return maxPartsWidth > additionalContentContainer.width
+    }
+
+    GridLayout {
+        id: statusLayout
         Layout.fillWidth: true
-        spacing: Style.extraSmallMargins
+        columns: needsLayoutBreak ? 1 : 2
+        rows: needsLayoutBreak ? 2 : 1
+        columnSpacing: Style.extraSmallMargins
+        rowSpacing: 0
 
         Text {
+            id: statusTitle
             Layout.fillWidth: true
             Layout.minimumWidth: paintedWidth
             font: Style.newSmallFont
@@ -24,8 +37,10 @@ CoBaseInfoCard {
         }
 
         Text {
+            id: statusText
             Layout.minimumWidth: paintedWidth
             horizontalAlignment: Text.AlignRight
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             font: Style.newSmallFontBold
             color: Style.colors.components_Dashboard_Info_card_value
             text: root.operationState
@@ -38,11 +53,16 @@ CoBaseInfoCard {
         color: Style.colors.typography_Basic_Divider
     }
 
-    RowLayout {
+    GridLayout {
+        id: startTimeLayout
         Layout.fillWidth: true
-        spacing: Style.extraSmallMargins
+        columns: needsLayoutBreak ? 1 : 2
+        rows: needsLayoutBreak ? 2 : 1
+        columnSpacing: Style.extraSmallMargins
+        rowSpacing: 0
 
         Text {
+            id: startTimeTitle
             Layout.fillWidth: true
             Layout.minimumWidth: paintedWidth
             font: Style.newSmallFont
@@ -51,8 +71,10 @@ CoBaseInfoCard {
         }
 
         Text {
+            id: startTimeText
             Layout.minimumWidth: paintedWidth
             horizontalAlignment: Text.AlignRight
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             font: Style.newSmallFontBold
             color: Style.colors.components_Dashboard_Info_card_value
             text: root.startTime
@@ -65,11 +87,16 @@ CoBaseInfoCard {
         color: Style.colors.typography_Basic_Divider
     }
 
-    RowLayout {
+    GridLayout {
+        id: endTimeLayout
         Layout.fillWidth: true
-        spacing: Style.extraSmallMargins
+        columns: needsLayoutBreak ? 1 : 2
+        rows: needsLayoutBreak ? 2 : 1
+        columnSpacing: Style.extraSmallMargins
+        rowSpacing: 0
 
         Text {
+            id: endTimeTitle
             Layout.fillWidth: true
             Layout.minimumWidth: paintedWidth
             font: Style.newSmallFont
@@ -78,8 +105,10 @@ CoBaseInfoCard {
         }
 
         Text {
+            id: endTimeText
             Layout.minimumWidth: paintedWidth
             horizontalAlignment: Text.AlignRight
+            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             font: Style.newSmallFontBold
             color: Style.colors.components_Dashboard_Info_card_value
             text: root.endTime
