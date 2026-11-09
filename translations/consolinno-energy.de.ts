@@ -192,149 +192,149 @@
 <context>
     <name>BatteryConfigView</name>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="64"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="63"/>
         <source>Could not save configuration. One of the parameters is invalid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Mindestens ein Parameter ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="67"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="66"/>
         <source>Could not save configuration. The thing is not valid.</source>
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="233"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="232"/>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="220"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="472"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="219"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="471"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="222"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="221"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="223"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="222"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="312"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="311"/>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="343"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="342"/>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="194"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="193"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="193"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="192"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="383"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="416"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="415"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="325"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="324"/>
         <source>Tariff-controlled charging</source>
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="488"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="487"/>
         <source>Discharging blocked</source>
         <translation>Entladen blockiert</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="504"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="503"/>
         <source>Discharging allowed</source>
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="415"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="414"/>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="380"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="414"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="413"/>
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="234"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="233"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="206"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="205"/>
         <source>PV device prioritization⁨⁨</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="207"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="206"/>
         <source>⁨The battery has reached the SoC limit of %1% and is now prioritized last.</source>
         <translation>Die Batterie hat den SoC&#x202f;%1 % erreicht und wird jetzt als letztes priorisiert.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="241"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="240"/>
         <source>External Schedule</source>
         <translation>Externer Fahrplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="252"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="251"/>
         <source>Enable external schedule</source>
         <translation>Externen Fahrplan aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="268"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="267"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="280"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="279"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="299"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="298"/>
         <source>Priority applies up to state of charge</source>
         <translation>Priorität gilt bis Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="364"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="363"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="519"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="518"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="300"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="299"/>
         <source>Above this state of charge, the battery is always considered last.</source>
         <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
@@ -1596,12 +1596,15 @@ Ihr %3 Team</translation>
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Schritt 2 des Redesigns der App: Angleichen der Screens an das neue Corporate Design&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierung beliebiger schaltbarer Verbraucher über Funkrelais und Steckdosen&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Einstellbare Priorisierung der Geräte im PV-Überschussbetrieb&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Batterie-Steuerung von Batterien ohne eigene Netzanschlusspunktregelung&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Inbetriebnahme EEBUS-Steuerboxen über Comfort-Ship-Pairing&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Auslesen des Zählers am Netzverknüpfungspunkt über das Smart Meter Gateway&lt;/li&gt;
+&lt;li&gt;Neue Statistik mit Energiebilanz, KPIs und Verbrauchshistorie&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Batterie-Fahrpläne (HEMS Pro)&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung für bis zu 3 Wallboxen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimierter Betrieb von BSH-Geschirrspülern&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;Verbesserungen&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;Lademodus auch ohne angeschlossenes Fahrzeug ändern&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierte Bedienung und Stabilität&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
@@ -2295,72 +2298,72 @@ Ihr %3 Team</translation>
 <context>
     <name>ConsolinnoConfigureThingPage</name>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="92"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="97"/>
         <source>Rename</source>
         <translation>Umbenennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="96"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="101"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="101"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="106"/>
         <source>Reconfigure</source>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="188"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="193"/>
         <source>Information</source>
         <translation>Informationen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="199"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="204"/>
         <source>Vendor</source>
         <translation>Hersteller</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="206"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="211"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="214"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="219"/>
         <source>ID</source>
         <translation>ID</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="217"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="222"/>
         <source>ID copied to clipboard</source>
         <translation>ID in die Zwischenablage kopiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="223"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="228"/>
         <source>Thing class</source>
         <translation>&quot;Thing&quot; Klasse</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="224"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="229"/>
         <source>View the type definition for this thing</source>
         <translation>Genaue Typendefinition dieses &quot;Things&quot; anzeigen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="236"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="241"/>
         <source>Parameters</source>
         <translation>Parameter</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="272"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="277"/>
         <source>Input/Output Connections</source>
         <translation>Verbindungen der Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="308"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="313"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="343"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="348"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -2370,42 +2373,42 @@ Ihr %3 Team</translation>
         <translation>Anwenden</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="398"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="403"/>
         <source>Remove thing?</source>
         <translation>&quot;Thing&quot; entfernen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="399"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="404"/>
         <source>Are you sure you want to remove %1 and all associated settings?</source>
         <translation>Bist Du sicher, dass %1 und alle zugehörigen Einstellungen entfernt werden sollen?</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="439"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="444"/>
         <source>Connect Inputs/Outputs</source>
         <translation>Verbundene Ein-/Ausgänge</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="449"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="454"/>
         <source>Connect &quot;%1&quot; to:</source>
         <translation>Verbinde &quot;%1&quot; zu:</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="530"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="535"/>
         <source>Inverted</source>
         <translation>Invertiert</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="553"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="558"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="559"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="564"/>
         <source>Disconnect</source>
         <translation>Trennen</translation>
     </message>
     <message>
-        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="576"/>
+        <location filename="../thingconfiguration/ConsolinnoConfigureThingPage.qml" line="581"/>
         <source>Connect</source>
         <translation>Verbinden</translation>
     </message>
@@ -4842,6 +4845,11 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <translation>Development
 </translation>
     </message>
+    <message>
+        <location filename="../optimization/DeveloperConfig.qml" line="45"/>
+        <source>Schedules</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DeviceOverview</name>
@@ -4869,6 +4877,49 @@ Die Versuchsdauer muss mindestens 10 ms betragen.</translation>
         <location filename="../thingconfiguration/DeviceOverview.qml" line="34"/>
         <source>Set up new device</source>
         <translation>Gerät hinzufügen</translation>
+    </message>
+</context>
+<context>
+    <name>DeviceSchedulesPage</name>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="78"/>
+        <source>Device %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="84"/>
+        <source>Fahrplan generiert am: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="89"/>
+        <source>Revision: %1 | Anzahl erzeugter Fahrpläne heute: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="105"/>
+        <source>Device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="111"/>
+        <source>Start</source>
+        <translation type="unfinished">Start</translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="116"/>
+        <source>Control value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="122"/>
+        <source>Source</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/DeviceSchedulesPage.qml" line="191"/>
+        <source>No schedule slots available.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5189,12 +5240,12 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../optimization/GridSupportiveControl.qml" line="136"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="268"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="367"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="580"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="747"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1137"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1252"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1669"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1761"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="584"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="751"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1145"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1260"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1681"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1773"/>
         <source>Grid-supportive control setup</source>
         <translation>Netzdienlichkeit einrichten</translation>
     </message>
@@ -5202,8 +5253,8 @@ Möchten Sie trotzdem fortfahren?</translation>
         <location filename="../optimization/GridSupportiveControl.qml" line="142"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="166"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="418"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="906"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1394"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="910"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1402"/>
         <source>Grid-supportive control</source>
         <translation>Netzdienlichkeit</translation>
     </message>
@@ -5228,7 +5279,7 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="196"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1395"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1403"/>
         <source>EEBUS</source>
         <translation></translation>
     </message>
@@ -5239,10 +5290,10 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="300"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1138"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1253"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1670"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1762"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1146"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1261"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1682"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1774"/>
         <source>EEBUS SKI Pairing</source>
         <translation></translation>
     </message>
@@ -5253,239 +5304,239 @@ Möchten Sie trotzdem fortfahren?</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="314"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="581"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="748"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="907"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="585"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="752"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="911"/>
         <source>EEBUS Comfort Pairing</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="347"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="546"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1273"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="550"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1281"/>
         <source>Complete setup</source>
         <translation>Einrichtung abschließen</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="356"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="563"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1156"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1302"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="567"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1164"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1310"/>
         <source>Cancel</source>
         <translation>Abbrechen</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="382"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="605"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1333"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="609"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1341"/>
         <source>Attention</source>
         <translation>Achtung</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="383"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="606"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1334"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="610"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1342"/>
         <source>Existing setup will be overwritten.</source>
         <translation>Bestehende Einrichtungen werden überschrieben.</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="389"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="507"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="511"/>
         <source>Connect device</source>
         <translation>Gerät anschließen</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="398"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="516"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="520"/>
         <source>Please connect the control box or the ripple control receiver as described in our manual.</source>
         <translation>Bitte schließe die Steuerbox bzw. den Rundsteuerempfänger gemäß unserer Anleitung an.</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="431"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="919"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1407"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="923"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1415"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="436"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1412"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1420"/>
         <source>Reconfigure</source>
         <translation>Neu einrichten</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="612"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="771"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="998"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="616"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="775"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1006"/>
         <source>QR Code &amp; Pairing Data</source>
         <translation>QR‑Code &amp; Pairing‑Daten</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="623"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="782"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1009"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="627"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="786"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1017"/>
         <source>EEBUS Comfort Pairing data not available.</source>
         <translation>EEBUS Comfort Pairing-Daten nicht verfügbar.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="637"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="796"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1023"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="641"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="800"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1031"/>
         <source>The QR code or the pairing data below must be used for SHIP pairing by the metering point operator.</source>
         <translation>Der QR‑Code oder die untenstehenden Pairing‑Daten sind für das SHIP Pairing durch den Messstellenbetreiber zu verwenden.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="669"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="825"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1052"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="673"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="829"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1060"/>
         <source>QR code content copied to clipboard</source>
         <translation>QR Code Inhalt kopiert</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="679"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="834"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1061"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="683"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="838"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1069"/>
         <source>Secret Key (SPSEC)</source>
         <translation></translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="236"/>
         <location filename="../optimization/GridSupportiveControl.qml" line="248"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="684"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="696"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="708"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="839"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="851"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="863"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1066"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1078"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1090"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="688"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="700"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="712"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="843"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="855"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="867"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1074"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1086"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1098"/>
         <source>%1 copied to clipboard</source>
         <translation>%1 kopiert</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="243"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="691"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="846"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1073"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="695"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="850"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1081"/>
         <source>SHIP ID (ID)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="703"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="858"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1085"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="707"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="862"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1093"/>
         <source>Certificate Fingerprint (SHA-256)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="731"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1771"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="735"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1783"/>
         <source>Back to overview</source>
         <translation>Zurück zur Übersicht</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="872"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1099"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1535"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1815"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="876"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1107"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1547"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1827"/>
         <source>Status</source>
         <translation>Status</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="881"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1108"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="885"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1116"/>
         <source>Completion by the metering point operator pending</source>
         <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1151"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1159"/>
         <source>Search again</source>
         <translation>Erneut suchen</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1184"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1192"/>
         <source>The following EEBUS devices were found</source>
         <translation>Folgende EEBUS-Geräte wurden gefunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1193"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1201"/>
         <source>No EEBUS device was found in the network. Please make sure the device is powered on and connected to the same network.</source>
         <translation>Es wurde kein EEBUS-Gerät im Netzwerk gefunden. Bitte stellen Sie sicher, dass das Gerät eingeschaltet und mit demselben Netzwerk verbunden ist.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1228"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1236"/>
         <source>Searching for devices...</source>
         <translation>Suche Geräte...</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1266"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1274"/>
         <source>Establish a connection with this device.</source>
         <translation>Mit diesem Gerät eine Verbindung aufbauen.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1340"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1497"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1348"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1509"/>
         <source>Parameter</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1350"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1507"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1799"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1358"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1519"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1811"/>
         <source>This SKI is required by the metering point operator.</source>
         <translation>Diese SKI wird vom Netzbetreiber benötigt.</translation>
     </message>
     <message>
         <location filename="../optimization/GridSupportiveControl.qml" line="231"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1351"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1508"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1800"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1359"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1520"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1812"/>
         <source>Local Subject Key Identifier (SKI)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1357"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1514"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1806"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1365"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1526"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1818"/>
         <source>SKI copied to clipboard</source>
         <translation>SKI kopiert</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1546"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1826"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1558"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1838"/>
         <source>Confirmation by metering point operator pending</source>
         <translation>Abschluss durch Messstellenbetreiber ausstehend</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1548"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1828"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1560"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1840"/>
         <source>Connected</source>
         <translation>Verbunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1549"/>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1829"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1561"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1841"/>
         <source>Not connected</source>
         <translation>Nicht verbunden</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1703"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1715"/>
         <source>Setting up EEBUS device...</source>
         <translation>EEBUS Gerät wird eingerichtet...</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1728"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1740"/>
         <source>The EEBUS device could not be set up. Please check the device and try again.</source>
         <translation>Das EEBUS-Gerät konnte nicht eingerichtet werden. Bitte überprüfen Sie das Gerät und versuchen Sie es erneut.</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1738"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1750"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="../optimization/GridSupportiveControl.qml" line="1789"/>
+        <location filename="../optimization/GridSupportiveControl.qml" line="1801"/>
         <source>Control box</source>
         <translation>Steuerbox</translation>
     </message>
@@ -6555,6 +6606,39 @@ Die Preisgrenze ist solange gültig, auch nach ab und wieder anstecken, bis eine
         <location filename="../devicepages/RootMeterDevicePage.qml" line="81"/>
         <source>Total grid import</source>
         <translation>Gesamter Netzbezug</translation>
+    </message>
+</context>
+<context>
+    <name>SchedulesPage</name>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="24"/>
+        <source>Not connected to the system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="31"/>
+        <source>Unknown device</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="49"/>
+        <source>Could not load device schedules.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="60"/>
+        <source>Schedules</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="95"/>
+        <source>No device schedules available.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../optimization/SchedulesPage.qml" line="108"/>
+        <source>%1 device(s)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
