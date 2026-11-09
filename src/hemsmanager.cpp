@@ -493,6 +493,11 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         config.insert(name, value);
     }
 
+    // nymea's JSON-RPC validator rejects null UUIDs, so an unassigned car must be omitted
+    if (config.value("carThingId").toUuid().isNull()) {
+        config.remove("carThingId");
+    }
+
     QVariantMap params;
     params.insert("chargingConfiguration", config);
 
