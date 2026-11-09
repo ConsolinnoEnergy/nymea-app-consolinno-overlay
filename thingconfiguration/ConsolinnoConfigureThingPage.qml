@@ -87,6 +87,11 @@ SettingsPageBase {
         width: implicitWidth
         x: parent.width - width - Style.margins
         y: -Style.margins
+        modal: true
+
+        Overlay.modal: Rectangle {
+            color: Style.colors.typography_Background_Overlay
+        }
 
         Component.onCompleted: {
             deviceMenu.addItem(menuEntryComponent.createObject(deviceMenu, {text: qsTr("Rename"), iconSource: "/icons/edit.svg", functionName: "renameThing"}))

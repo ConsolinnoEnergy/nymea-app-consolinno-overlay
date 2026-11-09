@@ -442,6 +442,10 @@ StackView {
                 x: root.width - width - Style.margins
                 modal: true
 
+                Overlay.modal: Rectangle {
+                    color: Style.colors.typography_Background_Overlay
+                }
+
                 Repeater {
                     id: menuListRepeater
                     model: menuListModel
@@ -924,6 +928,10 @@ StackView {
                 id: eebusViewMenu
                 x: root.width - width - Style.margins
                 modal: true
+
+                Overlay.modal: Rectangle {
+                    color: Style.colors.typography_Background_Overlay
+                }
 
                 Repeater {
                     id: eebusViewMenuListRepeater
@@ -1417,6 +1425,10 @@ StackView {
                 id: eebusViewMenu
                 x: root.width - width - Style.margins
                 modal: true
+
+                Overlay.modal: Rectangle {
+                    color: Style.colors.typography_Background_Overlay
+                }
 
                 Repeater {
                     id: eebusViewMenuListRepeater

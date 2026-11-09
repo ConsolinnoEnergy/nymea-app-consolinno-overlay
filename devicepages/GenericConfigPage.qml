@@ -109,6 +109,10 @@ Item {
         y: 56
         modal: true
 
+        Overlay.modal: Rectangle {
+            color: Style.colors.typography_Background_Overlay
+        }
+
         Repeater {
             id: menuListRepeater
 
