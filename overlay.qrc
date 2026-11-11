@@ -179,6 +179,7 @@
         <file>ConsolinnoSettingsPage.qml</file>
         <file>images/leaf.svg</file>
         <file>Configuration.qml</file>
+        <file>overlay/DirectConnectHook.qml</file>
         <file>wizards/ConnectionWizard.qml</file>
         <file>wizards/ConsolinnoWizardPageBase.qml</file>
         <file>wizards/SetupWizardBase.qml</file>
