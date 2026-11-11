@@ -463,7 +463,7 @@ int HemsManager::setChargingConfiguration(const QUuid &evChargerThingId, const Q
         dummyConfig.insert("targetPercentage", 100);
         dummyConfig.insert("controllableLocalSystem", false);
         dummyConfig.insert("priceThreshold", 0);
-        dummyConfig.insert("chargingSchedule", "");
+        dummyConfig.insert("timeSchedule", "");
         dummyConfig.insert("desiredPhaseCount", 3);
 
         addOrUpdateChargingConfiguration(dummyConfig);
@@ -1592,7 +1592,7 @@ void HemsManager::addOrUpdateChargingConfiguration(const QVariantMap &configurat
     configuration->setUniqueIdentifier(configurationMap.value("uniqueIdentifier").toUuid());
     configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
     configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
-    configuration->setChargingSchedule(configurationMap.value("chargingSchedule").toString());
+    configuration->setTimeSchedule(configurationMap.value("timeSchedule").toString());
     configuration->setDesiredPhaseCount(configurationMap.value("desiredPhaseCount").toUInt());
     configuration->setDurationMinAfterTurnOn(configurationMap.value("durationMinAfterTurnOn").toUInt());
     configuration->setSwitchDelayPhase(configurationMap.value("switchDelayPhase").toUInt());

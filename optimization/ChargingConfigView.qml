@@ -63,7 +63,7 @@ GenericConfigPage {
         scheduleOverviewModel.clear()
         if (!chargingIsAnyOf([time_controlled])) return
 
-        var scheduleJson = chargingConfiguration.chargingSchedule
+        var scheduleJson = chargingConfiguration.timeSchedule
         if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return
 
         var dayLabels = {
@@ -492,7 +492,7 @@ GenericConfigPage {
 
                     Connections {
                         target: chargingConfiguration
-                        function onChargingScheduleChanged() { parseScheduleForOverview() }
+                        function onTimeScheduleChanged() { parseScheduleForOverview() }
                         function onOperatingModeChanged() { parseScheduleForOverview() }
                         function onOptimizationStrategiesChanged() { parseScheduleForOverview() }
                     }
@@ -556,7 +556,7 @@ GenericConfigPage {
                         }
 
                         Repeater {
-                            id: timeControlledChargingScheduleRepeater
+                            id: timeScheduleRepeater
                             model: scheduleOverviewModel
                             delegate: CoCard {
                                 Layout.fillWidth: true
@@ -957,12 +957,12 @@ GenericConfigPage {
                 }
 
                 // Collect time controlled schedule data from scheduleModel
-                var chargingSchedule = [];
+                var timeSchedule = [];
                 if(isAnyOfModesSelected([time_controlled])) {
                     for (var i = 0; i < scheduleModel.count; i++) {
                         var entry = scheduleModel.get(i);
                         var range = entry.hasEntry ? DateUtils.normalizeQuarterRange(entry.startTime, entry.endTime) : null;
-                        chargingSchedule.push({
+                        timeSchedule.push({
                                                   day: entry.dayKey,
                                                   startTime: range ? range.startTime : "00:00",
                                                   endTime: range ? range.endTime : "00:00"
@@ -1016,7 +1016,7 @@ GenericConfigPage {
 
                     // Add charging schedule if time controlled mode
                     if(isAnyOfModesSelected([time_controlled])) {
-                        configData.chargingSchedule = JSON.stringify(chargingSchedule);
+                        configData.timeSchedule = JSON.stringify(timeSchedule);
                     }
 
                     internal.pendingCallId = hemsManager.setChargingConfiguration(thing.id, configData);
@@ -1129,7 +1129,7 @@ GenericConfigPage {
             }
 
             function restoreSchedule() {
-                var scheduleJson = chargingConfiguration.chargingSchedule;
+                var scheduleJson = chargingConfiguration.timeSchedule;
                 console.log("Restoring schedule:", scheduleJson);
                 if (scheduleJson === "" || scheduleJson === undefined || scheduleJson === "null") return;
 
@@ -1165,7 +1165,7 @@ GenericConfigPage {
 
             Connections {
                 target: chargingConfiguration
-                function onChargingScheduleChanged() {
+                function onTimeScheduleChanged() {
                     restoreSchedule();
                 }
             }
