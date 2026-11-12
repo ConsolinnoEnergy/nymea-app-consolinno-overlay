@@ -329,7 +329,7 @@ MainViewBase {
                         collapsed: false
                         message: qsTr("
 Your %3 app has been updated to version <strong>%1</strong> and is more up-to-date than the firmware (<strong>%2</strong>) on your %5 device.<br/><br/>
-Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.<br/><br/>
+Your %5 device will be updated during the course of the day. Until the update is complete, the availability of features and system commissioning may be temporarily limited.<br/><br/>
 If this message is still displayed, please contact our service team.<br/>
 <ul>
     %6

@@ -1521,29 +1521,6 @@
         <translation>Ausstehendes Software-Update</translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="330"/>
-        <source>
-Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
-Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;br/&gt;&lt;br/&gt;
-If this message is still displayed, please contact our service team.&lt;br/&gt;
-&lt;ul&gt;
-    %6
-    &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br/&gt;Best regards&lt;br/&gt;&lt;br/&gt;
-Your %3 Team</source>
-        <translation>
-Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %5-Gerät.&lt;br/&gt;&lt;br/&gt;
-Ihr %5-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der neuen Funktionen vorübergehend eingeschränkt sein.&lt;br/&gt;&lt;br/&gt;
-Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;br/&gt;
-&lt;ul&gt;
-     %6
-    &lt;li&gt;E-Mail: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br/&gt;Beste Grüße&lt;br/&gt;&lt;br/&gt;
-Ihr %3 Team</translation>
-    </message>
-    <message>
         <location filename="../mainviews/CoDashboardView.qml" line="345"/>
         <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
         <translation>&lt;li&gt;Telefon: &lt;a href=&quot;tel:%1&quot;&gt;%1&lt;/a&gt;&lt;/li&gt;</translation>
@@ -1586,7 +1563,7 @@ Ihr %3 Team</translation>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="387"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
+        <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
@@ -1681,6 +1658,29 @@ Ihr %3 Team</translation>
         <location filename="../mainviews/CoDashboardView.qml" line="542"/>
         <source>Feed-in</source>
         <translation>Einspeisung</translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoDashboardView.qml" line="330"/>
+        <source>
+Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
+Your %5 device will be updated during the course of the day. Until the update is complete, the availability of features and system commissioning may be temporarily limited.&lt;br/&gt;&lt;br/&gt;
+If this message is still displayed, please contact our service team.&lt;br/&gt;
+&lt;ul&gt;
+    %6
+    &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;Best regards&lt;br/&gt;&lt;br/&gt;
+Your %3 Team</source>
+        <translation>
+Ihre %3 App wurde auf die Version &lt;strong&gt;%1&lt;/strong&gt; aktualisiert und ist somit aktueller als die Firmware (&lt;strong&gt;%2&lt;/strong&gt;) auf Ihrem %5-Gerät.&lt;br/&gt;&lt;br/&gt;
+Ihr %5-Gerät wird im Laufe des Tages aktualisiert. Bis das Update abgeschlossen ist, kann die Verfügbarkeit der Funktionen und der Inbetriebnahme vorübergehend eingeschränkt sein.&lt;br/&gt;&lt;br/&gt;
+Sollte diese Meldung weiterhin angezeigt werden, kontaktieren Sie bitte unseren Service.&lt;br/&gt;
+&lt;ul&gt;
+     %6
+    &lt;li&gt;E-Mail: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;Beste Grüße&lt;br/&gt;&lt;br/&gt;
+Ihr %3 Team</translation>
     </message>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="544"/>

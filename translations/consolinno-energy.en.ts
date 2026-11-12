@@ -1519,20 +1519,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainviews/CoDashboardView.qml" line="330"/>
-        <source>
-Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
-Your %5 device will be updated during the course of the day. Until the update is complete, the new functions may be temporarily unavailable.&lt;br/&gt;&lt;br/&gt;
-If this message is still displayed, please contact our service team.&lt;br/&gt;
-&lt;ul&gt;
-    %6
-    &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;br/&gt;Best regards&lt;br/&gt;&lt;br/&gt;
-Your %3 Team</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../mainviews/CoDashboardView.qml" line="345"/>
         <source>&lt;li&gt;Phone: &lt;a href=&apos;tel:%1&apos;&gt;%1&lt;/a&gt;&lt;/li&gt;</source>
         <translation type="unfinished"></translation>
@@ -1575,7 +1561,7 @@ Your %3 Team</source>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="387"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation type="unfinished">&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
+        <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
@@ -1669,6 +1655,20 @@ Your %3 Team</source>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="542"/>
         <source>Feed-in</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainviews/CoDashboardView.qml" line="330"/>
+        <source>
+Your %3 app has been updated to version &lt;strong&gt;%1&lt;/strong&gt; and is more up-to-date than the firmware (&lt;strong&gt;%2&lt;/strong&gt;) on your %5 device.&lt;br/&gt;&lt;br/&gt;
+Your %5 device will be updated during the course of the day. Until the update is complete, the availability of features and system commissioning may be temporarily limited.&lt;br/&gt;&lt;br/&gt;
+If this message is still displayed, please contact our service team.&lt;br/&gt;
+&lt;ul&gt;
+    %6
+    &lt;li&gt;Email: &lt;a href=&apos;mailto:%4&apos;&gt;%4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;br/&gt;Best regards&lt;br/&gt;&lt;br/&gt;
+Your %3 Team</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
