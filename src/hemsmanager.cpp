@@ -1191,6 +1191,12 @@ int HemsManager::setWhiteGoodConfiguration(const QUuid &whiteGoodThingId, const 
         qCDebug(dcHems()) << "Adding a dummy Config" << whiteGoodThingId;
         QVariantMap dummyConfig;
         dummyConfig.insert("whiteGoodThingId", whiteGoodThingId);
+        dummyConfig.insert("operatingMode", OperatingModeStrategyControlled);
+        dummyConfig.insert("optimizationStrategies", OptimizationStrategyPvOptimized);
+        dummyConfig.insert("controllableLocalSystem", false);
+        dummyConfig.insert("priceThreshold", 0.0);
+        dummyConfig.insert("dischargePriceThreshold", QVariant());
+        dummyConfig.insert("timeSchedule", QString());
 
         addOrUpdateWhiteGoodConfiguration(dummyConfig);
 
@@ -1201,11 +1207,14 @@ int HemsManager::setWhiteGoodConfiguration(const QUuid &whiteGoodThingId, const 
     const QMetaObject *metaObj = configuration->metaObject();
     QVariantMap config;
     for (int i = metaObj->propertyOffset(); i < metaObj->propertyCount(); ++i){
-        if(data.contains(metaObj->property(i).name())) {
-            config.insert(metaObj->property(i).name(), data.value(metaObj->property(i).name()) );
-        } else {
-            config.insert(metaObj->property(i).name(), metaObj->property(i).read(configuration) );
+        const char *name = metaObj->property(i).name();
+        QVariant value = data.contains(name) ? data.value(name) : metaObj->property(i).read(configuration);
+
+        // operatingMode is transmitted over JSON-RPC as its enum key name
+        if (qstrcmp(name, "operatingMode") == 0) {
+            value = operatingModeToString(static_cast<ControlConfig::OperatingMode>(value.toInt()));
         }
+        config.insert(name, value);
     }
 
     QVariantMap params;
@@ -1744,6 +1753,14 @@ void HemsManager::addOrUpdateWhiteGoodConfiguration(const QVariantMap &configura
         configuration = new WhiteGoodConfiguration(this);
         configuration->setWhiteGoodThingId(whiteGoodThingId);
     }
+
+    configuration->setOperatingMode(operatingModeFromString(configurationMap.value("operatingMode").toString()));
+    configuration->setOptimizationStrategies(configurationMap.value("optimizationStrategies").toInt());
+    configuration->setControllableLocalSystem(configurationMap.value("controllableLocalSystem").toBool());
+    configuration->setPriceThreshold(configurationMap.value("priceThreshold").toDouble());
+    const QVariant discharge = configurationMap.value("dischargePriceThreshold");
+    configuration->setDischargePriceThreshold(discharge.isNull() ? QVariant() : QVariant(discharge.toDouble()));
+    configuration->setTimeSchedule(configurationMap.value("timeSchedule").toString());
 
     if (newConfiguration) {
         qCDebug(dcHems()) << "White good configuration added" << configuration->whiteGoodThingId();

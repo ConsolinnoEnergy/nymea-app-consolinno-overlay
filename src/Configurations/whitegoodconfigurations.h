@@ -13,7 +13,13 @@ class WhiteGoodConfigurations : public QAbstractListModel
 
 public:
     enum Role {
-        RoleWhiteGoodThingId
+        RoleWhiteGoodThingId,
+        RoleOperatingMode,
+        RoleOptimizationStrategies,
+        RoleControllableLocalSystem,
+        RolePriceThreshold,
+        RoleDischargePriceThreshold,
+        RoleTimeSchedule
     };
     Q_ENUM(Role);
 

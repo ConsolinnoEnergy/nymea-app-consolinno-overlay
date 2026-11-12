@@ -21,6 +21,18 @@ QVariant WhiteGoodConfigurations::data(const QModelIndex &index, int role) const
     switch (role) {
     case RoleWhiteGoodThingId:
         return m_list.at(index.row())->whiteGoodThingId();
+    case RoleOperatingMode:
+        return m_list.at(index.row())->operatingMode();
+    case RoleOptimizationStrategies:
+        return m_list.at(index.row())->optimizationStrategies();
+    case RoleControllableLocalSystem:
+        return m_list.at(index.row())->controllableLocalSystem();
+    case RolePriceThreshold:
+        return m_list.at(index.row())->priceThreshold();
+    case RoleDischargePriceThreshold:
+        return m_list.at(index.row())->dischargePriceThreshold();
+    case RoleTimeSchedule:
+        return m_list.at(index.row())->timeSchedule();
     }
     return QVariant();
 }
@@ -29,6 +41,12 @@ QHash<int, QByteArray> WhiteGoodConfigurations::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles.insert(RoleWhiteGoodThingId, "whiteGoodThingId");
+    roles.insert(RoleOperatingMode, "operatingMode");
+    roles.insert(RoleOptimizationStrategies, "optimizationStrategies");
+    roles.insert(RoleControllableLocalSystem, "controllableLocalSystem");
+    roles.insert(RolePriceThreshold, "priceThreshold");
+    roles.insert(RoleDischargePriceThreshold, "dischargePriceThreshold");
+    roles.insert(RoleTimeSchedule, "timeSchedule");
     return roles;
 }
 
@@ -58,6 +76,36 @@ void WhiteGoodConfigurations::addConfiguration(WhiteGoodConfiguration *whiteGood
 
     beginInsertRows(QModelIndex(), m_list.count(), m_list.count());
     m_list.append(whiteGoodConfiguration);
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::operatingModeChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RoleOperatingMode});
+    });
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::optimizationStrategiesChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RoleOptimizationStrategies});
+    });
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::controllableLocalSystemChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RoleControllableLocalSystem});
+    });
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::priceThresholdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RolePriceThreshold});
+    });
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::dischargePriceThresholdChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RoleDischargePriceThreshold});
+    });
+
+    connect(whiteGoodConfiguration, &WhiteGoodConfiguration::timeScheduleChanged, this, [=](){
+        QModelIndex idx = index(m_list.indexOf(whiteGoodConfiguration));
+        emit dataChanged(idx, idx, {RoleTimeSchedule});
+    });
     endInsertRows();
 
     emit countChanged();
