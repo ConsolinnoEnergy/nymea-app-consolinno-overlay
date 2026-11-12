@@ -1586,19 +1586,20 @@ Ihr %3 Team</translation>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="387"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
+        <translation type="unfinished">&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Neue Statistik mit Energiebilanz, KPIs und Verbrauchshistorie&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Batterie-Fahrpläne (HEMS Pro)&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung für bis zu 3 Wallboxen&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimierter Betrieb von BSH-Geschirrspülern&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Batteriefahrpläne für ein optimiertes Energiemanagement (nur verfügbar für HEMS Pro)&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von bis zu drei Wallboxen&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Kein manuelles Aktivieren mehr: Die Remoteverbindung wird automatisch eingerichtet&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimierter Betrieb für BSH-Geschirrspüler&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Lademodus auch ohne angeschlossenes Fahrzeug ändern&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Optimierte Bedienung und Stabilität&lt;/li&gt;
+&lt;li&gt;Lademodus kann jetzt auch ohne angeschlossenes Fahrzeug eingestellt und geändert werden&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Allgemeine Verbesserungen bei Leistung und Benutzerfreundlichkeit&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>

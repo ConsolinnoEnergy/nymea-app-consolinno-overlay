@@ -1575,19 +1575,20 @@ Your %3 Team</source>
     <message>
         <location filename="../mainviews/CoDashboardView.qml" line="387"/>
         <source>CHANGENOTIFICATION_PLACEHOLDER</source>
-        <translation>&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
+        <translation type="unfinished">&lt;style&gt;ul { -qt-list-indent: 1; margin-left: -30px; }&lt;/style&gt;
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;New statistics dashboard with energy balance, KPIs, and consumption history&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Battery schedules (HEMS Pro only)&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Support for up to 3 wallboxes&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimized operation for BSH dishwashers&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Battery schedules for optimized energy management (available only for HEMS Pro)&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Support for up to three wallboxes&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;No manual activation required: The remote connection is automatically configured&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimized operation for BSH dishwasher&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Change charging mode without plugging in the vehicle first&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Improved usability and stability&lt;/li&gt;
+&lt;li&gt;Charging modes can now be configured and changed without a connected vehicle&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;General performance and usability improvements&lt;/li&gt;
 &lt;/ul&gt;</translation>
     </message>
     <message>
