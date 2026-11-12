@@ -17,25 +17,11 @@ Page{
     // default; callers that track a car per-context (e.g. per wallbox)
     // should pass their own value in explicitly.
     property var preSelectedCarId: null
-    property bool directToVehicle: false
 
     signal done(var selectedCar)
     signal back()
 
     header: null
-
-    Component.onCompleted: {
-        if (root.directToVehicle) {
-            // Deferred via Qt.callLater, since this page is itself still being
-            // pushed onto the pageStack at this point. Pushing immediately here
-            // would re-enter the StackView while it is still completing the
-            // current push, producing "cannot push while already in the
-            // process of completing a push".
-            Qt.callLater(() => pageStack.push(carData,
-                                              { thing: evProxy.getThing(preSelectedCarId) },
-                                              StackView.Immediate));
-        }
-    }
 
     CoHeader {
         id: header
@@ -293,7 +279,6 @@ Page{
                     CoNavbarButton {
                         Layout.alignment: Qt.AlignCenter
                         text: qsTr("Delete")
-                        visible: !root.directToVehicle
                         flat: true
                         onClicked: {
                             engine.thingManager.removeThing(thingDetailPage.thing.id);

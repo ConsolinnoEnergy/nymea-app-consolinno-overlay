@@ -208,6 +208,7 @@
         <file>info/EnergyManagerInfo.qml</file>
         <file>components/ConsolinnoItemDelegate.qml</file>
         <file>thingconfiguration/CarInventory.qml</file>
+        <file>thingconfiguration/SimulatedCarSelection.qml</file>
         <file>components/ConsolinnoHeader.qml</file>
         <file>optimization/DeveloperConfig.qml</file>
         <file>optimization/SchedulesPage.qml</file>

@@ -137,18 +137,6 @@ GenericConfigPage {
         return NymeaUtils.floatToLocaleString(userVisiblePower) + " " + unit;
     }
 
-    // check if there exists a Simulated Car which is plugged in
-    function checkForPluggedInCars(){
-        var exist = false
-        for( var i = 0; i < simulationEvProxy.count; i++){
-            if (simulationEvProxy.get(i).stateByName("pluggedIn").value === true )
-            {
-                exist = true
-            }
-        }
-        return exist
-    }
-
     // Maps an internal UI "mode key" (0, 1000, 3000, 4000 or 5000 - as used by
     // comboBoxChargingMode.fullModel/dynamicModel and configModeKey() below)
     // to the local ChargingMode enum.
@@ -204,57 +192,18 @@ GenericConfigPage {
         id: internal
         property int pendingCallId: -1
 
-        // Mirrors the backend's simulated car <-> wallbox assignment
-        // (IntegrationPluginEnergySimulation::handlePluggedInAction(),
-        // nymea-plugins-simulation): both lists are sorted by thing id
-        // (plain, non-locale-aware string compare, matching Qt's
-        // QString::operator<), then matched up by index. The Nth simulated
-        // wallbox (by id) is always paired with the Nth simulated car (by
-        // id).
-        function sortedById(things) {
-            var result = things.slice();
-            result.sort(function(left, right) {
-                var leftId = left.id.toString();
-                var rightId = right.id.toString();
-                if (leftId < rightId) return -1;
-                if (leftId > rightId) return 1;
-                return 0;
-            });
-            return result;
-        }
-
-        function simulatedWallboxes() {
-            var result = [];
-            for (var i = 0; i < simulatedEvChargersProxy.count; ++i) {
-                result.push(simulatedEvChargersProxy.get(i));
-            }
-            return internal.sortedById(result);
-        }
-
-        function simulatedCars() {
-            var result = [];
-            for (var i = 0; i < simulationEvProxy.count; ++i) {
-                result.push(simulationEvProxy.get(i));
-            }
-            return internal.sortedById(result);
-        }
-
-        // Returns the simulated car paired with the given simulated wallbox
-        // thing, or null if there is none (e.g. not enough simulated cars).
+        // Returns the simulated car plugged in to the given simulated wallbox
+        // (state pluggedInToChargePoint), or null if there is none.
         function simulatedCarForWallbox(wallboxThing) {
-            var wallboxes = internal.simulatedWallboxes();
-            var wallboxIndex = -1;
-            for (var i = 0; i < wallboxes.length; ++i) {
-                if (wallboxes[i].id.toString() === wallboxThing.id.toString()) {
-                    wallboxIndex = i;
-                    break;
-                }
+            const wallboxId = wallboxThing.id.toString().replace(/[{}]/g, "");
+            for (var i = 0; i < simulationEvProxy.count; ++i) {
+                const car = simulationEvProxy.get(i);
+                const state = car.stateByName("pluggedInToChargePoint");
+                if (!state) { continue; }
+                const chargePointId = String(state.value).replace(/[{}]/g, "");
+                if (chargePointId === wallboxId) { return car; }
             }
-            if (wallboxIndex < 0) {
-                return null;
-            }
-            var cars = internal.simulatedCars();
-            return wallboxIndex < cars.length ? cars[wallboxIndex] : null;
+            return null;
         }
     }
 
@@ -351,7 +300,7 @@ GenericConfigPage {
         id: simulationEvProxy
         engine: _engine
         shownInterfaces: ["electricvehicle"]
-        requiredStateName: "pluggedIn"
+        requiredStateName: "pluggedInToChargePoint"
     }
 
     ThingsProxy {
@@ -389,12 +338,6 @@ GenericConfigPage {
         const desiredPhaseCount = isCarPluggedIn() ? chargingConfiguration.desiredPhaseCount : 0;
         const actualPhaseCount = thing ? thing.stateByName("phaseCount").value : 0;
         phaseCountNotification.visible = (desiredPhaseCount !== actualPhaseCount);
-    }
-
-    ThingsProxy {
-        id: simulatedEvChargersProxy
-        engine: _engine
-        shownThingClassIds: ["{21a48e6d-6152-407a-a303-3b46e29bbb94}"]
     }
 
     Component.onCompleted: {
@@ -463,22 +406,63 @@ GenericConfigPage {
                             interactive: false
                         }
 
-                        CoSwitch {
-                            id: simulationSwitch
+                        CoCard {
+                            id: simulatedCarCard
                             Layout.fillWidth: true
-                            text: qsTr("Activate simulated car")
+
                             readonly property bool isSimulatedWallbox: thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}"
                             readonly property var simulatedCar: isSimulatedWallbox ? internal.simulatedCarForWallbox(thing) : null
-                            visible: !(isCarPluggedIn()) &&
-                                     isSimulatedWallbox &&
-                                     simulatedCar !== null
 
-                            onCheckedChanged: {
-                                if (!simulatedCar) {
-                                    console.warn("No simulated car assigned to this simulated wallbox!");
-                                    return;
-                                }
-                                simulatedCar.executeAction("pluggedIn", [{paramName: "pluggedIn", value: simulationSwitch.checked}]);
+                            text: simulatedCar !== null ? simulatedCar.name : "—"
+                            labelText: qsTr("Plugged in simulated car")
+                            visible: isSimulatedWallbox
+                            showChildrenIndicator: true
+                            interactive: true
+                            // Sets the charge point of a simulated car and calls onSuccess once the
+                            // backend confirmed. Errors are shown in a dialog.
+                            function setChargePoint(car, chargePointId, onSuccess) {
+                                var commandId = car.executeAction("pluggedInToChargePoint",
+                                    [{ paramName: "pluggedInToChargePoint", value: chargePointId }]);
+                                var onReply = function(replyId, error) {
+                                    if (replyId !== commandId) { return; }
+                                    car.executeActionReply.disconnect(onReply);
+                                    if (error !== Thing.ThingErrorNoError) {
+                                        var comp = Qt.createComponent(Qt.resolvedUrl("../components/ErrorDialog.qml"));
+                                        comp.createObject(app, { error: error }).open();
+                                        return;
+                                    }
+                                    if (onSuccess) { onSuccess(); }
+                                };
+                                car.executeActionReply.connect(onReply);
+                            }
+
+                            onClicked: {
+                                var lastSelectedCar = simulatedCar;
+                                var wallboxId = thing.id.toString().replace(/[{}]/g, "");
+                                var page = pageStack.push("../thingconfiguration/SimulatedCarSelection.qml", {
+                                    wallboxUuid: wallboxId
+                                });
+                                page.done.connect(function(selectedCar) {
+                                    pageStack.pop();
+                                    var lastId = lastSelectedCar ? lastSelectedCar.id.toString() : "";
+                                    var selectedId = selectedCar ? selectedCar.id.toString() : "";
+                                    if (lastId === selectedId) { return; }
+
+                                    var plugSelectedCar = function() {
+                                        if (selectedCar) { setChargePoint(selectedCar, wallboxId); }
+                                    };
+                                    if (!lastSelectedCar) {
+                                        plugSelectedCar();
+                                        return;
+                                    }
+                                    // The backend rejects a wallbox that is still occupied, so the
+                                    // previous car has to be unplugged first.
+                                    setChargePoint(lastSelectedCar, "", plugSelectedCar);
+                                });
+
+                                page.back.connect(function() {
+                                    pageStack.pop();
+                                });
                             }
                         }
                     }
@@ -1221,10 +1205,8 @@ GenericConfigPage {
                             CoCard {
                                 id: selectVehicleCard
 
-                                // Simulated wallboxes are hard-wired to the simulated car
-                                // matched up by thing id (see internal.simulatedCarForWallbox
-                                // above), so the car selection must not be changeable in that
-                                // case.
+                                // For simulated wallboxes the plugged-in simulated car is
+                                // preselected; it can still be changed freely.
                                 readonly property bool isSimulatedWallbox: thing.thingClassId.toString() === "{21a48e6d-6152-407a-a303-3b46e29bbb94}"
                                 readonly property var simulatedVehicle: isSimulatedWallbox ? internal.simulatedCarForWallbox(thing) : null
                                 // Car that was last applied for this specific wallbox. Kept
@@ -1233,34 +1215,29 @@ GenericConfigPage {
                                 // so it stays correct when multiple wallboxes are configured.
                                 readonly property var configuredVehicle: evProxy.getThing(chargingConfiguration.carThingId)
 
-                                property var selectedVehicle: isSimulatedWallbox ? simulatedVehicle : configuredVehicle
+                                property var pickedVehicle: null
+                                readonly property var selectedVehicle: pickedVehicle
+                                                                       ? pickedVehicle
+                                                                       : (isSimulatedWallbox ? simulatedVehicle : configuredVehicle)
                                 Layout.fillWidth: true
                                 labelText: qsTr("Selected car")
-                                text: {
-                                    if (isSimulatedWallbox) {
-                                        return simulatedVehicle ? simulatedVehicle.name : qsTr("No simulated car assigned");
-                                    }
-                                    return configuredVehicle ? configuredVehicle.name : qsTr("Select/Add Car");
-                                }
+                                text: selectedVehicle ? selectedVehicle.name : qsTr("Select/Add Car")
                                 showChildrenIndicator: true
                                 interactive: true
 
                                 onClicked: {
                                     var page = pageStack.push("../thingconfiguration/CarInventory.qml", {
-                                                                  preSelectedCarId: selectedVehicle ? selectedVehicle.id : null,
-                                                                  directToVehicle: isSimulatedWallbox
+                                                                  preSelectedCarId: selectedVehicle ? selectedVehicle.id : null
                                                               });
                                     page.done.connect(function(selectedCar) {
                                         footer.visible = false;
-                                        selectVehicleCard.text = selectedCar.name;
-                                        selectedVehicle = selectedCar;
+                                        pickedVehicle = selectedCar;
                                         batteryLevelSlider.value = 0;
                                     });
 
                                     page.back.connect(function() {
                                         pageStack.pop();
-                                        selectVehicleCard.text = configuredVehicle ? configuredVehicle.name : qsTr("Select/Add Car");
-                                        selectedVehicle = configuredVehicle;
+                                        pickedVehicle = null;
                                     });
                                 }
 
