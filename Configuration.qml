@@ -119,6 +119,7 @@ ConfigurationBase {
     // Default value when manually adding a tunnel proxy
     property string defaultTunnelProxyUrl: "hems-remoteproxy.services.consolinno.de"
 
+
     // Hides shutdown button in general settings menu
     property bool hideShutdownButton: true
 

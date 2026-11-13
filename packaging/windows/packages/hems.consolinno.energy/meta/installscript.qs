@@ -26,7 +26,7 @@ Component.prototype.createOperations = function()
             "description=@ProductName@");
 
         // HKCU\Software\Classes is per-user and does not require admin rights
-        component.addOperation("Execute", "reg", "add", "HKEY_CURRENT_USER\\Software\\Classes\\consolinno-energy", "/ve", "/d", "URL:hems-con-desktop Protocol", "/f");
+        component.addOperation("Execute", "reg", "add", "HKEY_CURRENT_USER\\Software\\Classes\\consolinno-energy", "/ve", "/d", "URL:consolinno-energy Protocol", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CURRENT_USER\\Software\\Classes\\consolinno-energy", "/v", "URL Protocol", "/f");
         component.addOperation("Execute", "reg", "add", "HKEY_CURRENT_USER\\Software\\Classes\\consolinno-energy\\shell\\open\\command", "/ve", "/d", "\"@TargetDir@\\consolinno-energy.exe\" \"%1\"", "/f");
     }
