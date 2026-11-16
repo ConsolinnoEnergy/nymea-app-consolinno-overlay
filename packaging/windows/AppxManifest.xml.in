@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  MSIX manifest template. The @PLACEHOLDERS@ are filled in by
+  MSIX manifest template. The placeholders (name wrapped in at-signs) are filled in by
   build_windows_msix.ps1 per whitelabel target; do not edit the generated
   AppxManifest.xml in the build output.
 -->
