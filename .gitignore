@@ -63,9 +63,6 @@ packaging/osx/AppIcon.iconset/icon_32x32@2x.png
 packaging/osx/AppIcon.iconset/icon_512x512.png
 packaging/osx/AppIcon.iconset/icon_512x512@2x.png
 packaging/osx/AppIcon.svg
-packaging/windows/config/config.xml
-packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs
-packaging/windows/packages/hems.consolinno.energy/meta/package.xml
 privacy_agreement_de_DE.html
 styles/dark/Style.qml
 styles/light/Style.qml
@@ -74,4 +71,6 @@ packaging/android/res/drawable/ic_launcher_background.xml
 packaging/android/res/drawable/ic_launcher_foreground.xml 
 packaging/android/res/values/ic_launcher_background.xml
 images/*
+packaging/windows/Assets/
+packaging/windows/logo.ico
 # End of build system generated files
