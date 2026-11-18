@@ -71,4 +71,5 @@ packaging/android/res/drawable/ic_launcher_background.xml
 packaging/android/res/drawable/ic_launcher_foreground.xml 
 packaging/android/res/values/ic_launcher_background.xml
 images/*
+packaging/windows/Assets/
 # End of build system generated files
