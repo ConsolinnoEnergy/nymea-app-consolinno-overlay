@@ -208,13 +208,7 @@ SettingsPageBase {
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: "© %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
-                }
-
-                CoCard {
-                    Layout.fillWidth: true
-                    interactive: false
-                    text: qsTr("Licensed under the terms of the GNU General Public License, version 3.")
+                    text: qsTr("The %1 hardware device uses software components under various licenses, including the GNU General Public License (GPL), the GNU Lesser General Public License (LGPL), and others. The applicable licenses and copyright information for each component can be found under the following links, when connected to the device via the local network.").arg(Configuration.systemName)
                 }
 
                 CoCard {
@@ -251,12 +245,6 @@ SettingsPageBase {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 spacing: 0
-
-                CoCard {
-                    Layout.fillWidth: true
-                    interactive: false
-                    text: "© %1 %2".arg(new Date().getFullYear()).arg("Consolinno Energy GmbH")
-                }
 
                 CoCard {
                     Layout.fillWidth: true
@@ -360,7 +348,7 @@ SettingsPageBase {
                 CoCard {
                     Layout.fillWidth: true
                     interactive: false
-                    text: qsTr("Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
+                    text: qsTr("Some of the components used in this product are licensed under terms, such as the GPL and LGPL, that require us to make the corresponding source code available. We offer obtaining the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:")
                 }
 
                 CoCard {

@@ -202,139 +202,139 @@
         <translation>Die Konfiguration konnte nicht gespeichert werden. Das ausgewählte Gerät ist ungültig.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="232"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="238"/>
         <source>State of Charge</source>
         <translation>Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="219"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="471"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="225"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="478"/>
         <source>Charging</source>
         <translation>Lädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="221"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="227"/>
         <source>Discharging</source>
         <translation>Entlädt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="222"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="228"/>
         <source>Idle</source>
         <translation>Leerlauf</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="311"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="318"/>
         <source>Charging from grid</source>
         <translation>Beladen aus dem Netz</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="342"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="349"/>
         <source>Activate instant charging</source>
         <translation>Sofortladen aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="193"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="199"/>
         <source>Battery charging is limited while the controller is active. &lt;u&gt;More Information&lt;/u&gt;</source>
         <translation>Das Laden der Batterie ist während der Regelung eingeschränkt. &lt;u&gt;Mehr Information&lt;/u&gt;</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="192"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="198"/>
         <source>Avoid zero compensation active</source>
         <translation>Nullvergütung vermeiden aktiv</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="382"/>
-        <location filename="../optimization/BatteryConfigView.qml" line="415"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="389"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="422"/>
         <source>%1 %</source>
         <translation>%1 %</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="324"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="331"/>
         <source>Tariff-controlled charging</source>
         <translation>Tarifgesteuertes Laden</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="487"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="494"/>
         <source>Discharging blocked</source>
         <translation>Entladen blockiert</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="503"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="510"/>
         <source>Discharging allowed</source>
         <translation>Entladen erlaubt</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="381"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="388"/>
         <source>Deviation from the 48-h average (in %) at which charging takes place. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) bei der geladen wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="414"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="421"/>
         <source>Deviation from the 48-h average (in %) below which discharging is blocked. Currently corresponds to %1 ct/kWh.</source>
         <translation>Abweichung vom 48-h-Durchschnitt (in %) unterhalb der das Entladen gesperrt wird. Entspricht aktuell %1 ct/kWh.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="380"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="387"/>
         <source>&quot;Charging&quot; price limit</source>
         <translation>Preisgrenze „Laden“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="413"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="420"/>
         <source>&quot;Block discharging&quot; price limit</source>
         <translation>Preisgrenze „Entladen sperren“</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="233"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="239"/>
         <source> %</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="205"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="211"/>
         <source>PV device prioritization⁨⁨</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="206"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="212"/>
         <source>⁨The battery has reached the SoC limit of %1% and is now prioritized last.</source>
         <translation>Die Batterie hat den SoC&#x202f;%1 % erreicht und wird jetzt als letztes priorisiert.</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="240"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="246"/>
         <source>External Schedule</source>
         <translation>Externer Fahrplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="251"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="258"/>
         <source>Enable external schedule</source>
         <translation>Externen Fahrplan aktivieren</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="267"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="274"/>
         <source>PV device prioritization</source>
         <translation>PV-Gerätepriorisierung</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="279"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="286"/>
         <source>Priority</source>
         <translation>Priorität</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="298"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="305"/>
         <source>Priority applies up to state of charge</source>
         <translation>Priorität gilt bis Ladezustand</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="363"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="370"/>
         <source>Charging plan</source>
         <translation>Ladeplan</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="518"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="525"/>
         <source>Apply changes</source>
         <translation>Änderungen übernehmen</translation>
     </message>
     <message>
-        <location filename="../optimization/BatteryConfigView.qml" line="299"/>
+        <location filename="../optimization/BatteryConfigView.qml" line="306"/>
         <source>Above this state of charge, the battery is always considered last.</source>
         <translation>Oberhalb dieses Ladezustands wird die Batterie immer zuletzt berücksichtigt.</translation>
     </message>
@@ -1372,103 +1372,111 @@
         <translation>Lizenzen (Gerät)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="217"/>
-        <source>Licensed under the terms of the GNU General Public License, version 3.</source>
-        <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3.</translation>
+        <location filename="../components/CoAboutPage.qml" line="351"/>
+        <source>Some of the components used in this product are licensed under terms, such as the GPL and LGPL, that require us to make the corresponding source code available. We offer obtaining the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
+        <translation>Einige der in diesem Produkt verwendeten Komponenten unterliegen Lizenzen wie der GPL und der LGPL, die uns verpflichten, den entsprechenden Quellcode zur Verfügung zu stellen. Wir bieten an, den Quellcode dieser Softwarebestandteile auf einem Datenträger (CD-ROM, DVD oder USB-Stick) zu erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="264"/>
+        <source>Licensed under the terms of the GNU General Public License, version 3.</source>
+        <translation type="vanished">Lizensiert unter den Bedingungen der GNU General Public License, Version 3.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="252"/>
         <source>Licensed under the terms of the GNU General Public License, version 3. Please visit the GitHub page for source code and build instructions.</source>
         <translation>Lizensiert unter den Bedingungen der GNU General Public License, Version 3. Bitte besuche die GitHub-Seiten für mehr Informationen zum Quellcode und Kompilier-Anleitungen.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="222"/>
+        <location filename="../components/CoAboutPage.qml" line="216"/>
         <source>Common Licences</source>
         <translation>Allgemeine Lizenzen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="223"/>
-        <location filename="../components/CoAboutPage.qml" line="234"/>
+        <location filename="../components/CoAboutPage.qml" line="211"/>
+        <source>The %1 hardware device uses software components under various licenses, including the GNU General Public License (GPL), the GNU Lesser General Public License (LGPL), and others. The applicable licenses and copyright information for each component can be found under the following links, when connected to the device via the local network.</source>
+        <translation>Das %1 Hardwaregerät nutzt Softwarekomponenten, die unter verschiedenen Lizenzen stehen, darunter die GNU General Public License (GPL), die GNU Lesser General Public License (LGPL) und andere. Die für die einzelnen Komponenten geltenden Lizenzen und Urheberrechtshinweise finden Sie unter den folgenden Links, wenn Sie über das lokale Netzwerk mit dem Gerät verbunden sind.</translation>
+    </message>
+    <message>
+        <location filename="../components/CoAboutPage.qml" line="217"/>
+        <location filename="../components/CoAboutPage.qml" line="228"/>
         <source>Only available on the local network</source>
         <translation>Nur im lokalen Netzwerk verfügbar</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="233"/>
+        <location filename="../components/CoAboutPage.qml" line="227"/>
         <source>Software and Libraries</source>
         <translation>Software und Bibliotheken</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="247"/>
+        <location filename="../components/CoAboutPage.qml" line="241"/>
         <source>Licences (App)</source>
         <translation>Lizenzen (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="269"/>
+        <location filename="../components/CoAboutPage.qml" line="257"/>
         <source>Visit GitHub page</source>
         <translation>Besuche die GitHub Seite</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="280"/>
+        <location filename="../components/CoAboutPage.qml" line="268"/>
         <source>Visit Consolinno-Overlay on GitHub</source>
         <translation>Besuche Consolinno-Overlay auf GitHub</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="291"/>
+        <location filename="../components/CoAboutPage.qml" line="279"/>
         <source>Software and libraries (App)</source>
         <translation>Software und Bibliotheken (App)</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="292"/>
+        <location filename="../components/CoAboutPage.qml" line="280"/>
         <source>View the software and libraries used in this product.</source>
         <translation>Für dieses Produkt genutzte Software und Bibliotheken anzeigen.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="305"/>
+        <location filename="../components/CoAboutPage.qml" line="293"/>
         <source>Further information</source>
         <translation>Weitere Informationen</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="316"/>
+        <location filename="../components/CoAboutPage.qml" line="304"/>
         <source>This application uses Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., licensed under the GNU Lesser General Public License v3.</source>
         <translation>Diese Anwendung verwendet Qt (https://www.qt.io), Copyright (C) The Qt Company Ltd., lizenziert unter der GNU Lesser General Public License v3.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="322"/>
+        <location filename="../components/CoAboutPage.qml" line="310"/>
         <source>Qt is a registered trademark of The Qt Company Ltd. and its subsidiaries.</source>
         <translation>Qt ist ein eingetragenes Markenzeichen von The Qt Company Ltd.</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="327"/>
+        <location filename="../components/CoAboutPage.qml" line="315"/>
         <source>Visit the Qt homepage</source>
         <translation>Besuche die Qt-Website</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="338"/>
+        <location filename="../components/CoAboutPage.qml" line="326"/>
         <source>Visit the nymea homepage</source>
         <translation>Besuche die nymea-Website</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="352"/>
+        <location filename="../components/CoAboutPage.qml" line="340"/>
         <source>Source code availability</source>
         <translation>Verfügbarkeit des Quelltexts</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="363"/>
         <source>Anyone can obtain the source code of these software components from us on a data carrier (CD-ROM, DVD or USB stick) if a request is made to our customer service department at the following address within three years after delivery of the product to the customer or as long as we offer spare parts or support for the product:</source>
-        <translation>Jeder kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
+        <translation type="vanished">Jeder kann den Quellcode dieser Softwarebestandteile von uns auf einem Datenträger (CD-ROM, DVD oder USB-Stick) erhalten, wenn innerhalb von drei Jahren nach der Auslieferung des Produkts an den Kunden oder solange, wie wir Ersatzteile oder Support für das Produkt anbieten, eine Anfrage an unsere Kundenbetreuung an folgende Adresse gestellt wird:</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="369"/>
+        <location filename="../components/CoAboutPage.qml" line="357"/>
         <source>&lt;b&gt;%1&lt;/b&gt;&lt;br&gt;%2&lt;br&gt;%3 %4&lt;br&gt;Tel: %5&lt;br&gt;Mail: %6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="381"/>
+        <location filename="../components/CoAboutPage.qml" line="369"/>
         <source>Please provide the following product data:</source>
         <translation>Geben Sie bitte folgende Produktdaten an:</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="387"/>
+        <location filename="../components/CoAboutPage.qml" line="375"/>
         <source>- Product name<byte value="xd"/>
 - Software version<byte value="xd"/>
 - Serial number - if known</source>
@@ -1477,7 +1485,7 @@
 - Seriennummer - falls bekannt</translation>
     </message>
     <message>
-        <location filename="../components/CoAboutPage.qml" line="393"/>
+        <location filename="../components/CoAboutPage.qml" line="381"/>
         <source>and transfer an amount of money in advance, based on the information provided by the support, to cover the costs of creating and sending the disk. Alternatively, the source code can be downloaded free of charge.</source>
         <translation>und überweisen Sie anhand der vom Support bereitgestellten Informationen vorab einen Geldbetrag, um die Kosten für Erstellung und Versenden des Datenträgers zu decken. Alternativ kann der Quellcode auch kostenfrei heruntergeladen werden.</translation>
     </message>
