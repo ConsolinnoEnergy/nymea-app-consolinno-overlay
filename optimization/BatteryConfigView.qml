@@ -144,6 +144,12 @@ GenericConfigPage {
         shownInterfaces: ["dynamicelectricitypricing"]
     }
 
+    ThingsProxy {
+        id: scheduleThings
+        engine: _engine
+        shownInterfaces: ["schedule"]
+    }
+
     Component.onCompleted: {
         const dpThing = dynamicPrice.get(0);
         if (!dpThing) { return; }
@@ -238,7 +244,8 @@ GenericConfigPage {
                     Layout.fillWidth: true
                     contentTopMargin: Style.smallMargins
                     headerText: qsTr("External Schedule")
-                    visible: thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
+                    visible: scheduleThings.count > 0 &&
+                             thing.thingClass.interfaces.indexOf("controllablebattery") >= 0
 
                     ColumnLayout {
                         anchors.left: parent.left
