@@ -83,5 +83,6 @@ rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
 rm -f LICENSE.DMSans LICENSE.Poppins LICENSE.NotoSans LICENSE.Roboto
 rm -rf packaging/windows/Assets
+rm -f packaging/windows/logo.ico
 rm -f packaging/appimage/Q.HOME-CONTROL.desktop
 rm -f packaging/appimage/Zewo-Dynamics.desktop
