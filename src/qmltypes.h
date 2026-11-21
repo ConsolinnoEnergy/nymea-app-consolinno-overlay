@@ -1,6 +1,7 @@
 #include <QQmlEngine>
 #include <QUrl>
 
+#include "directconnect.h"
 #include "hemsmanager.h"
 #include "cokpistatsprovider.h"
 #include "costatsmetricsprovider.h"
@@ -14,6 +15,7 @@
 void registerOverlayTypes(const char *uri, int versionMajor, int versionMinor) {
     qmlRegisterSingletonType(QUrl("qrc:///ui/utils/UiUtils.qml"), uri, versionMajor, versionMinor, "UiUtils");
     qmlRegisterSingletonType(QUrl("qrc:///ui/utils/ThingUtils.qml"), uri, versionMajor, versionMinor, "ThingUtils");
+    qmlRegisterSingletonType<DirectConnect>(uri, versionMajor, versionMinor, "DirectConnect", DirectConnect::qmlSingleton);
     qmlRegisterType<HemsManager>(uri, versionMajor, versionMinor, "HemsManager");
     qmlRegisterType<CoKpiStatsProvider>(uri, versionMajor, versionMinor, "CoKpiStatsProvider");
     qmlRegisterType<CoStatsMetricsProvider>(uri, versionMajor, versionMinor, "CoStatsMetricsProvider");
