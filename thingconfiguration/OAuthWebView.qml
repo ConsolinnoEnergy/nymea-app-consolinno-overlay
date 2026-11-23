@@ -44,14 +44,31 @@ Item {
 
     WebView {
         id: oAuthWebView
+        property bool pairingCompleted: false
         anchors.fill: parent
         url: parent.oAuthUrl
+
+        function finishPairing(redirectUrl) {
+            if (pairingCompleted)
+                return
+            pairingCompleted = true
+            visible = false
+            pairingFinished(redirectUrl)
+        }
 
         onUrlChanged: {
             var urlStr = url.toString()
             if (urlStr.indexOf("https://127.0.0.1") === 0 || urlStr.indexOf("device-complete") >= 0) {
-                oAuthWebView.visible = false
-                pairingFinished(url)
+                finishPairing(url)
+            }
+        }
+
+        // The redirect target (https://127.0.0.1) has no listener, so the load fails
+        // and urlChanged is not emitted; take the callback URL from the failed request.
+        onLoadingChanged: (request) => {
+            if (request.status === WebView.LoadFailedStatus &&
+                    request.url.toString().indexOf("https://127.0.0.1") === 0) {
+                finishPairing(request.url)
             }
         }
     }
