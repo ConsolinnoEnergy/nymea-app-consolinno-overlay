@@ -31,7 +31,7 @@ Page {
     property ConEMSState conState: hemsManager.conEMSState
 
     Timer {
-        interval: 6000
+        interval: 1000
         running: true
         repeat: true
         onTriggered: {
@@ -40,11 +40,10 @@ Page {
     }
 
     function setHeartbeatValue() {
-        var last_seen = Math.ceil(new Date().getTime(
-                                      ) / 1000 - conState.timestamp / 1000)
-        heartbeatValue.text = Math.ceil(
-                    new Date().getTime(
-                        ) / 1000 - conState.timestamp / 1000) + " s ago"
+        var last_seen = Math.floor((Date.now() - conState.timestamp) / 1000)
+        var timestamp = Qt.formatDateTime(new Date(conState.timestamp),
+                                          "dd.MM.yyyy hh:mm:ss")
+        heartbeatValue.text = timestamp + " (" + last_seen + " s ago)"
         heartbeatValue.color = last_seen < 10 ? "green" : "red"
     }
 
