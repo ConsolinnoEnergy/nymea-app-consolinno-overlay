@@ -1566,10 +1566,10 @@
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;New statistics dashboard with energy balance, KPIs, and consumption history&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Battery schedules for optimized energy management (available only for HEMS Pro)&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Preparation for schedule processing&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Support for up to three wallboxes&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;No manual activation required: The remote connection is automatically configured&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimized operation for BSH dishwasher&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimized operation of dishwashers for devices compatible with the EN 50631 standard from Bosch, Siemens, Gaggenau, NEFF, and Constructa.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Improvements&lt;/h4&gt;
 &lt;ul&gt;

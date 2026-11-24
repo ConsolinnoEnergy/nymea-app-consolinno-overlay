@@ -1576,10 +1576,10 @@
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;Neue Statistik mit Energiebilanz, KPIs und Verbrauchshistorie&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;Batteriefahrpläne für ein optimiertes Energiemanagement (nur verfügbar für HEMS Pro)&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;Vorbereitung der Fahrplan-Verarbeitung&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von bis zu drei Wallboxen&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Kein manuelles Aktivieren mehr: Die Remoteverbindung wird automatisch eingerichtet&lt;/li&gt;
-&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimierter Betrieb für BSH-Geschirrspüler&lt;/li&gt;
+&lt;li style=&quot;margin-top: 8px&quot;&gt;PV-optimierter Betrieb von Geschirrspülern für Geräte kompatibel mit dem Standard EN 50631 von Bosch, Siemens, Gaggenau, NEFF und Constructa&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h4&gt;Verbesserungen&lt;/h4&gt;
 &lt;ul&gt;
