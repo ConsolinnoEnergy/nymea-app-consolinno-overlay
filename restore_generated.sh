@@ -70,11 +70,6 @@ packaging/osx/AppIcon.iconset/icon_512x512.png \
 packaging/osx/AppIcon.iconset/icon_512x512@2x.png \
 packaging/osx/AppIcon.svg \
 packaging/osx/Info.plist.in \
-packaging/windows/config/config.xml \
-packaging/windows/packages/hems.consolinno.energy/meta/installscript.qs \
-packaging/windows/packages/hems.consolinno.energy/meta/license-gpl.txt \
-packaging/windows/packages/hems.consolinno.energy/meta/logo.ico \
-packaging/windows/packages/hems.consolinno.energy/meta/package.xml \
 privacy_agreement_de_DE.html \
 styles/dark/logo-wide.svg \
 styles/dark/logo.svg \
@@ -87,7 +82,7 @@ terms_of_use_de_DE.html \
 rm -rf styles/light/fonts
 rm -rf styles/dark/fonts
 rm -f LICENSE.DMSans LICENSE.Poppins LICENSE.NotoSans LICENSE.Roboto
+rm -rf packaging/windows/Assets
+rm -f packaging/windows/logo.ico
 rm -f packaging/appimage/Q.HOME-CONTROL.desktop
 rm -f packaging/appimage/Zewo-Dynamics.desktop
-rm -rf packaging/windows/packages/de.qcells.qhomecontrol/
-rm -rf packaging/windows/packages/ems.zewo.dynamics/
