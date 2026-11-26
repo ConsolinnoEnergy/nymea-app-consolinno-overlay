@@ -1575,7 +1575,7 @@
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;Neu&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;Neue Statistik mit Energiebilanz, KPIs und Verbrauchshistorie&lt;/li&gt;
+&lt;li&gt;Neue Statistik mit Energiebilanz, KPIs und Verbrauchshistorie: &lt;a href=&apos;https://youtu.be/_OMO10xFEkI&apos;&gt;Kurzes Erklärvideo&lt;/a&gt;&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Vorbereitung der Fahrplan-Verarbeitung&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Unterstützung von bis zu drei Wallboxen&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Kein manuelles Aktivieren mehr: Die Remoteverbindung wird automatisch eingerichtet&lt;/li&gt;

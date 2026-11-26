@@ -1565,7 +1565,7 @@
 &lt;p&gt;Version %1&lt;/p&gt;
 &lt;h4&gt;New&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;New statistics dashboard with energy balance, KPIs, and consumption history&lt;/li&gt;
+&lt;li&gt;New statistics dashboard with energy balance, KPIs, and consumption history: &lt;a href=&apos;https://youtu.be/_OMO10xFEkI&apos;&gt;Short tutorial video&lt;/a&gt;&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Preparation for schedule processing&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;Support for up to three wallboxes&lt;/li&gt;
 &lt;li style=&quot;margin-top: 8px&quot;&gt;No manual activation required: The remote connection is automatically configured&lt;/li&gt;
